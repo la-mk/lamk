@@ -1,0 +1,44 @@
+{
+  "name": "data-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "author": "Stevche Radevski <sradevski@live.com>",
+  "license": "ISC",
+  "engines": {
+    "node": ">= 12.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{js,mjs,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.8",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.17.0",
+    "ts-node": "^8.3.0"
+  },
+  "dependencies": {
+    "typescript": "^3.5.2"
+  }
+}
