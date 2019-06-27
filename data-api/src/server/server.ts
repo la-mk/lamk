@@ -5,30 +5,38 @@ import * as compress from 'compression';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 
-import { logger, registerLogger } from '../common/logger';
+import { logger, registerLogger, getSyncLogger } from '../common/logger';
+import { registerUnhandledErrorHandlers } from '../common/unhandledErrorHandlers';
 import { registerServices } from './routes/services';
-import { registerHooks } from './hooks/hooks';
+import { registerAppHooks } from './hooks/app';
 import { registerChannels } from './channels/channels';
 import env from './env';
 
-const app = express(feathers());
+export default () => {
+  registerLogger({ env: env.NODE_ENV });
+  registerUnhandledErrorHandlers(getSyncLogger);
 
-app.use(helmet());
-app.use(cors());
-app.use(compress());
+  const app = express(feathers());
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.configure(express.rest());
-app.configure(socketio());
+  // Handle all of these by a reverse proxy.
+  app.use(helmet());
+  app.use(cors());
+  app.use(compress());
 
-registerLogger({ env: env.NODE_ENV });
-registerServices(app);
-registerHooks(app);
-registerChannels(app);
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.configure(express.rest());
+  app.configure(socketio());
 
-// Configure a middleware for 404s and the error handler
-app.use(express.notFound());
-app.use(express.errorHandler({ logger }));
+  registerAppHooks(app);
+  registerServices(app).then(() => {
+    registerChannels(app);
 
-export default () => app.listen(env.SERVER_PORT);
+    // Configure a middleware for error handler
+    app.use(express.errorHandler({ logger }));
+
+    app.listen(env.SERVER_PORT, () => {
+      logger.info(`Server started on port: ${env.SERVER_PORT}`);
+    });
+  });
+};

@@ -1,5 +1,5 @@
 // These are executed in the same order they are written down.
-const messagesHooks = {
+export const hooks = {
   before: {
     all: [],
     find: [],
@@ -18,6 +18,3 @@ const messagesHooks = {
     remove: [],
   },
 };
-
-export const registerOrdersHooks = (app: any) =>
-  app.service('orders').hooks(messagesHooks);

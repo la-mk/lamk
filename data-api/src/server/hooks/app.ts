@@ -1,7 +1,7 @@
 // Application hooks that run for every service
 import { log } from './common/log';
 
-const messagesHooks = {
+const hooks = {
   before: {
     all: [log],
     find: [],
@@ -33,4 +33,4 @@ const messagesHooks = {
   },
 };
 
-export const registerAppHooks = (app: any) => app.hooks(messagesHooks);
+export const registerAppHooks = (app: any) => app.hooks(hooks);

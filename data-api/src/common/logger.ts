@@ -6,6 +6,7 @@ export interface LoggerConfig {
 }
 
 export let logger: pino.Logger;
+
 export const registerLogger = (
   config: LoggerConfig,
   options?: pino.LoggerOptions,
@@ -18,4 +19,11 @@ export const registerLogger = (
 
   const opts = merge(defaultOptions, options);
   logger = pino(opts);
+  return logger;
+};
+
+export const getSyncLogger = (
+  handler: (err: Error, finalLogger: pino.Logger) => void,
+) => {
+  return pino.final(logger, handler);
 };

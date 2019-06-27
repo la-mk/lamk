@@ -5,7 +5,7 @@ import { Application } from '@feathersjs/feathers';
 import { hooks } from './hooks';
 import env from '../env';
 
-export const products = async (app: Application<any>) => {
+export const stores = async (app: Application<any>) => {
   const paginate = {
     default: 10,
     max: 50,
@@ -16,9 +16,9 @@ export const products = async (app: Application<any>) => {
   });
   const options = {
     paginate,
-    Model: mongoClient.db('dev').collection('products'),
+    Model: mongoClient.db('dev').collection('stores'),
   };
-  app.use('/products', createService(options));
-  const service = app.service('products');
+  app.use('/stores', createService(options));
+  const service = app.service('stores');
   service.hooks(hooks);
 };
