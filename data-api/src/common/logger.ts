@@ -18,7 +18,7 @@ export const registerLogger = (
   }
 
   const opts = merge(defaultOptions, options);
-  logger = pino(opts);
+  logger = pino(opts, pino.destination());
   return logger;
 };
 

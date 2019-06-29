@@ -13,7 +13,10 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --ci",
+    "test:watch": "jest --watch --coverage -u",
+    "test:integration": "jest --config '{\"testMatch\": [\"**/?(*.)(integration).?(m)js?(x)\"]}'",
+    "test:coverage": "jest --coverage --collectCoverageFrom=src/**/*{.js,.jsx} "
   },
   "husky": {
     "hooks": {
@@ -32,7 +35,9 @@
     "@types/feathersjs__express": "^1.1.6",
     "@types/feathersjs__feathers": "^3.1.5",
     "@types/feathersjs__socketio": "^3.0.5",
+    "@types/got": "^9.6.0",
     "@types/helmet": "0.0.43",
+    "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.134",
     "@types/mongodb": "^3.1.28",
     "@types/node": "^12.0.8",
@@ -43,10 +48,12 @@
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
     "husky": "^2.2.0",
+    "jest": "^24.8.0",
     "lint-staged": "^8.1.6",
     "nodemon": "^1.19.1",
     "pino-pretty": "^3.2.0",
     "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   },
@@ -58,6 +65,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "feathers-mongodb": "^4.0.4",
+    "got": "^9.6.0",
     "helmet": "^3.18.0",
     "lodash": "^4.17.11",
     "mongodb": "^3.2.7",

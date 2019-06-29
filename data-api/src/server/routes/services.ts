@@ -3,5 +3,6 @@ import { products } from '../../services/products/products';
 import { Application } from '@feathersjs/feathers';
 
 export const registerServices = (app: Application<any>) => {
-  return Promise.all([stores(app), products(app)]);
+  stores(app);
+  products(app);
 };

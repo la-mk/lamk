@@ -6,13 +6,14 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 
 import { logger, registerLogger, getSyncLogger } from '../common/logger';
+import { initMongoClient } from '../common/mongoClient';
 import { registerUnhandledErrorHandlers } from '../common/unhandledErrorHandlers';
 import { registerServices } from './routes/services';
 import { registerAppHooks } from './hooks/app';
 import { registerChannels } from './channels/channels';
 import env from './env';
 
-export default () => {
+export default async () => {
   registerLogger({ env: env.NODE_ENV });
   registerUnhandledErrorHandlers(getSyncLogger);
 
@@ -28,15 +29,11 @@ export default () => {
   app.configure(express.rest());
   app.configure(socketio());
 
+  await initMongoClient(app);
   registerAppHooks(app);
-  registerServices(app).then(() => {
-    registerChannels(app);
-
-    // Configure a middleware for error handler
-    app.use(express.errorHandler({ logger }));
-
-    app.listen(env.SERVER_PORT, () => {
-      logger.info(`Server started on port: ${env.SERVER_PORT}`);
-    });
-  });
+  registerServices(app);
+  registerChannels(app);
+  // Configure a middleware for error handler
+  app.use(express.errorHandler({ logger }));
+  return app;
 };
