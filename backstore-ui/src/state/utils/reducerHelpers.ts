@@ -1,31 +1,5 @@
-import { fetching, success, error, abort } from './actionHelpers';
+import { processing, success, error, abort } from './actionHelpers';
 import camelCase from 'lodash/camelCase';
-
-export function getNewCursor(initialActionState: any, newState: any) {
-  let changedCursor = {};
-  //Only the after cursor should change as after data is required for.
-  if (initialActionState.after && newState.after) {
-    changedCursor = {
-      afterReward: newState.after,
-      hasAfterReward: newState.hasAfter,
-    };
-  } else if (initialActionState.before && newState.before) {
-    changedCursor = {
-      beforeReward: newState.before,
-      hasBeforeReward: newState.hasBefore,
-    };
-  } else if (newState.before && newState.after) {
-    //It is an initial fetch, so set the initial cursors.
-    changedCursor = {
-      afterReward: newState.after,
-      hasAfterReward: newState.hasAfter,
-      beforeReward: newState.before,
-      hasBeforeReward: newState.hasBefore,
-    };
-  }
-
-  return changedCursor;
-}
 
 export function standardUpdateReducer(
   actionName: string,
@@ -76,37 +50,37 @@ function reducerHandler(
   action: any,
   actionName: string,
   capitalizedMethodName: string,
-  dataHanlder: any,
+  dataHanlder?: any,
   errorHandler?: any,
 ) {
   switch (action.type) {
-    case fetching(actionName): {
+    case processing(actionName): {
       return {
         ...state,
-        [`isFetching${capitalizedMethodName}`]: true,
+        [`processing${capitalizedMethodName}`]: true,
         [`error${capitalizedMethodName}`]: undefined,
-        [`isAborted${capitalizedMethodName}`]: false,
+        [`aborted${capitalizedMethodName}`]: false,
       };
     }
 
     case success(actionName): {
       return {
         ...state,
-        [`isFetching${capitalizedMethodName}`]: false,
+        [`processing${capitalizedMethodName}`]: false,
         [`error${capitalizedMethodName}`]: undefined,
-        [`isAborted${capitalizedMethodName}`]: false,
+        [`aborted${capitalizedMethodName}`]: false,
         ...(dataHanlder
           ? dataHanlder(action.data, state, action.initialAction)
-          : {}),
+          : { data: action.data }),
       };
     }
 
     case error(actionName): {
       return {
         ...state,
-        [`isFetching${capitalizedMethodName}`]: false,
+        [`processing${capitalizedMethodName}`]: false,
         [`error${capitalizedMethodName}`]: action.errorMessage,
-        [`isAborted${capitalizedMethodName}`]: false,
+        [`aborted${capitalizedMethodName}`]: false,
         ...(errorHandler
           ? errorHandler(action.error, state, action.initialAction)
           : {}),
@@ -116,9 +90,9 @@ function reducerHandler(
     case abort(actionName): {
       return {
         ...state,
-        [`isFetching${capitalizedMethodName}`]: false,
+        [`processing${capitalizedMethodName}`]: false,
         [`error${capitalizedMethodName}`]: undefined,
-        [`isAborted${capitalizedMethodName}`]: true,
+        [`aborted${capitalizedMethodName}`]: true,
       };
     }
 

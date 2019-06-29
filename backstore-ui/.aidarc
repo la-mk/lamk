@@ -1,0 +1,25 @@
+{
+  "modelsDir": "../aida-models/models",
+  "outputDir": "./",
+  "injectors": [
+    {
+      "name": "routes",
+      "outputType": "none"
+    },
+    {
+      "name": "routes-map",
+      "outputType": "file",
+      "outputFilepath": "./endpoints.json"
+    },
+    {
+      "name": "faked-routes",
+      "outputType": "file",
+      "outputFilepath": "./routes.json"
+    },
+    {
+      "name": "open-api",
+      "outputType": "file",
+      "outputFilepath": ""
+    }
+  ]
+}

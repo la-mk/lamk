@@ -1,11 +1,11 @@
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
-import user from './user.module';
+import store from './store.module';
 
 const config = {
-  key: 'user',
+  key: 'store',
   storage: storage,
 };
 
-export default persistReducer(config, user);
+export default persistReducer(config, store);
