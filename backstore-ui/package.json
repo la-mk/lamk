@@ -46,7 +46,6 @@
     "@types/styled-components": "^4.1.16",
     "@types/styled-system": "^4.2.1",
     "antd": "^3.19.7",
-    "babel-plugin-import": "^1.12.0",
     "customize-cra": "^0.2.13",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",

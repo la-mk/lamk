@@ -1,7 +1,8 @@
 import { Steps as AntSteps } from 'antd';
 import { StepsProps as AntStepsProps, StepProps } from 'antd/lib/steps';
+import 'antd/lib/steps/style/index.less';
+
 import * as React from 'react';
-import styled from 'styled-components';
 import { system } from '../system';
 
 export interface StepsProps extends AntStepsProps {
