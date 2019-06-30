@@ -60,7 +60,6 @@
     "redux-saga": "^1.0.3",
     "reselect": "^4.0.0",
     "styled-components": "^4.2.0",
-    "styled-system": "^5.0.6",
     "typescript": "3.4.5"
   },
   "devDependencies": {

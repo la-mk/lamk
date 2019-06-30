@@ -7,8 +7,5 @@ export interface StepsProps extends AntStepsProps {
   children?: React.ReactElement<StepProps>[];
 }
 
-export const Steps = styled((props: StepsProps) => <AntSteps {...props} />)``;
-
-export const Step = styled((props: StepProps) => (
-  <AntSteps.Step {...props} />
-))``;
+export const Steps = styled(AntSteps)``;
+export const Step = styled(AntSteps.Step)``;

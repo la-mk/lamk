@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '../component-lib/basic/Button';
-import { Steps, Step } from '../component-lib/compound/Steps';
+import { Steps, Step } from '../component-lib/basic/Steps';
 
 export const Root = () => (
   <div>
