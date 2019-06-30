@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/es/integration/react';
 
 import configureStore from './state/configureStore';
 import { Root } from './components/Root';
+import { Provider as ThemeProvider } from './component-lib/basic/Provider';
 import { Spinner } from './component-lib/basic/Spinner';
 
 const env = process.env.REACT_APP_ENV;
@@ -25,7 +26,9 @@ export class App extends Component {
           onBeforeLift={this.onBeforeLift}
           persistor={this.state.persistor}
         >
-          <Root />
+          <ThemeProvider>
+            <Root />
+          </ThemeProvider>
         </PersistGate>
       </Provider>
     );
