@@ -1,6 +1,6 @@
 import * as got from 'got';
 import * as url from 'url';
-import env from '../env';
+import env from '../../common/env';
 import setup from '../server';
 import { Server } from 'http';
 import { Application } from '@feathersjs/express';
@@ -17,7 +17,7 @@ const getUrl = (pathname?: string) =>
 
 describe('Server', () => {
   let server: Server;
-  let feathersApp: Application<any>;
+  let feathersApp: Application;
 
   beforeAll(done => {
     setup().then(app => {

@@ -3,7 +3,7 @@ import * as createService from 'feathers-mongodb';
 import { Application } from '@feathersjs/feathers';
 import { hooks } from './hooks';
 
-export const stores = (app: Application<any>) => {
+export const stores = (app: Application) => {
   const paginate = {
     default: 10,
     max: 50,

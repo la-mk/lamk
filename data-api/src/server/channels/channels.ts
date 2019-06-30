@@ -1,10 +1,13 @@
-export const registerChannels = (app: any) => {
+import { Application } from '@feathersjs/express';
+import { Connection } from '@feathersjs/socket-commons';
+
+export const registerChannels = (app: Application) => {
   if (typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
     return;
   }
 
-  app.on('connection', (connection: any) => {
+  app.on('connection', (connection: Connection) => {
     // On a new real-time connection, add it to the anonymous channel
     app.channel('anonymous').join(connection);
   });

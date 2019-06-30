@@ -1,5 +1,6 @@
 // Application hooks that run for every service
-import { log } from './common/log';
+import { log } from '../common/hooks/log';
+import { Application } from '@feathersjs/feathers';
 
 const hooks = {
   before: {
@@ -33,4 +34,4 @@ const hooks = {
   },
 };
 
-export const registerAppHooks = (app: any) => app.hooks(hooks);
+export const registerAppHooks = (app: Application) => app.hooks(hooks);

@@ -1,6 +1,7 @@
-import { logger } from '../../../common/logger';
+import { logger } from '../logger';
+import { HookContext } from '@feathersjs/feathers';
 
-export const log = (context: any) => {
+export const log = (context: HookContext) => {
   logger.info(
     `${context.type} app.service('${context.path}').${context.method}()`,
   );

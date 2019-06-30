@@ -2,18 +2,20 @@ import * as pino from 'pino';
 import merge = require('lodash/merge');
 
 export interface LoggerConfig {
-  env: 'development' | 'staging' | 'production';
+  env: string;
 }
 
-export let logger: pino.Logger;
+export type Logger = pino.Logger;
 
-export const registerLogger = (
+export let logger: Logger;
+
+export const initLogger = (
   config: LoggerConfig,
   options?: pino.LoggerOptions,
 ) => {
   const defaultOptions: pino.LoggerOptions = {};
 
-  if (config.env === 'development') {
+  if (config.env === 'development' || config.env === 'test') {
     defaultOptions.prettyPrint = { colorize: true };
   }
 

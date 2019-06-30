@@ -1,6 +1,6 @@
 import setup from './server/server';
+import env from './common/env';
 import { logger } from './common/logger';
-import env from './server/env';
 
 setup().then(app => {
   app.listen(env.SERVER_PORT, () => {
