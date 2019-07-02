@@ -4,6 +4,7 @@ import { Col } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
 import { Form, FormItem } from '../../component-lib/basic/Form';
 import { UploadDragger } from '../../component-lib/basic/Upload';
+import { UploadContent } from '../../component-lib/compound/UploadContent';
 
 export const SetupStore = ({ onDone }: any) => {
   return (
@@ -29,7 +30,10 @@ export const SetupStore = ({ onDone }: any) => {
             listType='picture'
             name='company-logo'
           >
-            Add your logo
+            <UploadContent
+              text='Add your logo'
+              hint='Support for a single or bulk upload.'
+            />
           </UploadDragger>
         </FormItem>
 

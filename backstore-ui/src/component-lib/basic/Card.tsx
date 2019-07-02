@@ -2,6 +2,11 @@ import { default as AntCard, CardProps, CardMetaProps } from 'antd/es/card';
 import 'antd/lib/card/style/index.less';
 
 import { system } from '../system';
+import styled from 'styled-components';
 
-export const Card = system<CardProps>(AntCard);
+export const Card = styled(system<CardProps>(AntCard))`
+  & li {
+    box-sizing: border-box;
+  }
+`;
 export const CardMeta = system<CardMetaProps>(AntCard.Meta as any);

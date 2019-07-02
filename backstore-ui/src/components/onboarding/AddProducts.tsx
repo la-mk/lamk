@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { Col, Row } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
-import { AddProductCard } from './AddProductCard';
+import { CreateProductCard } from './CreateProductCard';
 
 export const AddProducts = ({ onDone }: any) => {
   return (
-    <Row type='flex' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+    <Row type='flex' align='middle' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
       <Col>
-        <AddProductCard />
+        <CreateProductCard />
       </Col>
-      <Col>
-        <Button icon={'plus'}>Add Product</Button>
+      <Col width='390px'>
+        <Button my={4} icon={'plus'}>
+          Add Product
+        </Button>
       </Col>
     </Row>
   );
