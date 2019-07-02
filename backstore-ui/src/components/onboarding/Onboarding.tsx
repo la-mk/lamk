@@ -16,7 +16,7 @@ const StickySteps = styled(Steps)`
 `;
 
 export const Onboarding = () => {
-  const [currentStep, setCurrentStep] = React.useState(1);
+  const [currentStep, setCurrentStep] = React.useState(2);
 
   return (
     <Container px={[3, 3, 4]} pb={4}>
