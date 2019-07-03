@@ -3,8 +3,6 @@ import { Input } from '../../component-lib/basic/Input';
 import { Col } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
 import { Form, FormItem } from '../../component-lib/basic/Form';
-import { UploadDragger } from '../../component-lib/basic/Upload';
-import { UploadContent } from '../../component-lib/compound/UploadContent';
 import { Select, Option, OptionGroup } from '../../component-lib/basic/Select';
 
 export const SetupDelivery = ({ onDone }: any) => {

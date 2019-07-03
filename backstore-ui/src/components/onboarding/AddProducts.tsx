@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Col, Row } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
 import { CreateProductCard } from './CreateProductCard';
+import { Flex } from '../../component-lib/basic/Flex';
 
 export const AddProducts = ({ onDone }: any) => {
   return (
@@ -9,10 +10,21 @@ export const AddProducts = ({ onDone }: any) => {
       <Col>
         <CreateProductCard />
       </Col>
-      <Col width='390px'>
-        <Button my={4} icon={'plus'}>
-          Add Product
-        </Button>
+      <Col>
+        <Flex
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+          width={390}
+          my={4}
+        >
+          <Button size='large' width='60%' icon={'plus'} type='primary'>
+            Add Another Product
+          </Button>
+          <Button type='default' size='large' width='60%' mt={3}>
+            Next
+          </Button>
+        </Flex>
       </Col>
     </Row>
   );
