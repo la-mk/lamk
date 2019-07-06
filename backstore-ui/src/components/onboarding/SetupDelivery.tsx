@@ -15,31 +15,57 @@ export const SetupDelivery = ({ onDone }: any) => {
         colon={false}
         onSubmit={onDone}
       >
-        <FormItem label='Delivery methods'>
-          <Select showSearch mode='multiple'>
-            <OptionGroup label='Self-service'>
-              <Option value='Pick up'>Pickup</Option>
-            </OptionGroup>
-            <OptionGroup label='Cargo service'>
-              <Option value='Kargo Express'>Kargo Express</Option>
-              <Option value='Globko'>Globko</Option>
-            </OptionGroup>
-          </Select>
+        <FormItem selector='deliveryMethods' label='Delivery methods'>
+          {(val, onChange, onComplete) => (
+            <Select
+              showSearch
+              mode='multiple'
+              value={val}
+              onChange={onChange}
+              onBlur={onComplete}
+            >
+              <OptionGroup label='Self-service'>
+                <Option value='Pick up'>Pickup</Option>
+              </OptionGroup>
+              <OptionGroup label='Cargo service'>
+                <Option value='Kargo Express'>Kargo Express</Option>
+                <Option value='Globko'>Globko</Option>
+              </OptionGroup>
+            </Select>
+          )}
         </FormItem>
-        <FormItem label='Delivery cost'>
-          <Input placeholder='Price' addonAfter='Ден' />
-          <span> This can be the average delivery cost</span>
+        <FormItem selector='deliveryCost' label='Delivery cost'>
+          {(val, onChange, onComplete) => (
+            <>
+              <Input
+                placeholder='Price'
+                addonAfter='Ден'
+                value={val}
+                onChange={onChange}
+                onBlur={onComplete}
+              />
+              <span> This can be the average delivery cost</span>
+            </>
+          )}
         </FormItem>
-        <FormItem label='Free delivery'>
-          <Input placeholder='Over price' addonAfter='Ден' />
-          <span>Over what price do you want to offer free shipping</span>
+        <FormItem selector='freeDeliveryOver' label='Free delivery'>
+          {(val, onChange, onComplete) => (
+            <>
+              <Input
+                placeholder='Over price'
+                addonAfter='Ден'
+                value={val}
+                onChange={onChange}
+                onBlur={onComplete}
+              />
+              <span>Over what price do you want to offer free shipping</span>
+            </>
+          )}
         </FormItem>
 
-        <FormItem wrapperCol={{ span: 12, offset: 6 }}>
-          <Button type='primary' size='large' htmlType='submit'>
-            Finish
-          </Button>
-        </FormItem>
+        <Button type='primary' size='large' htmlType='submit'>
+          Finish
+        </Button>
       </Form>
     </Col>
   );

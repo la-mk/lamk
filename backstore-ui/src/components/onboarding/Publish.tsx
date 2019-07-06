@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const ShopIframe = styled.iframe`
   border: 2px solid lightgray;
   padding: 10px;
+  margin-top: 4px;
 `;
 
 export const Publish = () => {
@@ -20,10 +21,12 @@ export const Publish = () => {
         onLoad={() => null}
       />
 
-      <Button size='large' type='primary' mt={3}>
+      <Button size='large' width='40%' type='primary' mt={3}>
         Publish now
       </Button>
-      <Button mt={3}>Go to Dashboard</Button>
+      <Button width='40%' mt={3}>
+        Go to Dashboard
+      </Button>
     </Flex>
   );
 };

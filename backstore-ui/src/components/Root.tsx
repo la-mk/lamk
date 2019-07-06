@@ -1,8 +1,11 @@
 import React from 'react';
-import { Onboarding } from './onboarding/Onboarding';
+import { BrowserRouter } from 'react-router-dom';
+import { RootRouter } from './Root.router';
 
 export const Root = () => (
   <div>
-    <Onboarding />
+    <BrowserRouter>
+      <RootRouter />
+    </BrowserRouter>
   </div>
 );

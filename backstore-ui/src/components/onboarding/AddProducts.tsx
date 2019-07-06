@@ -3,8 +3,14 @@ import { Col, Row } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
 import { CreateProductCard } from './CreateProductCard';
 import { Flex } from '../../component-lib/basic/Flex';
+import { Product } from '../../sdk/models/product';
 
-export const AddProducts = ({ onDone }: any) => {
+interface AddProductsProps {
+  onDone: () => void;
+  onAddProduct: (product: Product) => void;
+}
+
+export const AddProducts = ({ onDone, onAddProduct }: AddProductsProps) => {
   return (
     <Row type='flex' align='middle' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
       <Col>

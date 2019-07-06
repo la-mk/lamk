@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { SetupStore } from './SetupStore';
 import { AddProducts } from './AddProducts';
@@ -7,6 +7,10 @@ import { SetupDelivery } from './SetupDelivery';
 import { Steps, Step } from '../../component-lib/basic/Steps';
 import { Flex } from '../../component-lib/basic/Flex';
 import { Publish } from './Publish';
+import { Product } from '../../sdk/models/product';
+import { Store } from '../../sdk/models/store';
+import { Delivery } from '../../sdk/models/delivery';
+import { sdk } from '../../sdk';
 
 const StickySteps = styled(Steps)`
   position: sticky;
@@ -16,36 +20,47 @@ const StickySteps = styled(Steps)`
   margin-bottom: ${props => props.theme.space[4]}px !important;
 `;
 
-export const Onboarding = () => {
-  const [currentStep, setCurrentStep] = React.useState(3);
-  const [finishedSetup, setFinishedSetup] = React.useState(true);
+interface OnboardingProps {
+  step: number;
+  setStep: (step: number) => void;
+}
+
+export const Onboarding = ({ step, setStep }: OnboardingProps) => {
+  const handleSetupStoreDone = (store: Store) => {
+    sdk.store.create(store).then(() => setStep(1));
+  };
+
+  const handleAddProduct = (product: Product) => {
+    sdk.product.create(product);
+  };
+
+  const handleAddProductsDone = () => {
+    setStep(2);
+  };
+
+  const handleSetupDeliveryDone = (delivery: Delivery) => {
+    setStep(3);
+  };
 
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} pb={4}>
-      {!finishedSetup && (
-        <StickySteps
-          py={[2, 2, 3]}
-          mb={5}
-          current={currentStep}
-          onChange={setCurrentStep}
-        >
+      {step !== 3 && (
+        <StickySteps py={[2, 2, 3]} mb={5} current={step} onChange={setStep}>
           <Step title='Store' />
           <Step title='Products' />
           <Step title='Delivery' />
         </StickySteps>
       )}
 
-      {currentStep === 0 && <SetupStore onDone={() => setCurrentStep(1)} />}
-      {currentStep === 1 && <AddProducts onDone={() => setCurrentStep(2)} />}
-      {currentStep === 2 && (
-        <SetupDelivery
-          onDone={() => {
-            setCurrentStep(3);
-            setFinishedSetup(true);
-          }}
+      {step === 0 && <SetupStore onDone={handleSetupStoreDone} />}
+      {step === 1 && (
+        <AddProducts
+          onAddProduct={handleAddProduct}
+          onDone={handleAddProductsDone}
         />
       )}
-      {finishedSetup && <Publish />}
+      {step === 2 && <SetupDelivery onDone={handleSetupDeliveryDone} />}
+      {step === 3 && <Publish />}
     </Flex>
   );
 };
