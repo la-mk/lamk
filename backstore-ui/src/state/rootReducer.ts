@@ -3,17 +3,17 @@ import { persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 
 import store from './modules/store/store.persist';
-// import notifications from './modules/notifications/notifications.module';
+// import alert from './modules/alert/alert.module';
 
 const storageConfig = {
   key: 'rootStorage',
   storage,
-  // blacklist: ['notifications'],
+  // blacklist: ['alert'],
 };
 
 const reducersSet = {
   store,
-  // notifications,
+  // alert,
 };
 
 export default persistCombineReducers(storageConfig, reducersSet);

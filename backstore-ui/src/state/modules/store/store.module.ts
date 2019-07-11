@@ -1,40 +1,22 @@
-import {
-  standardFetchReducer,
-  // standardUpdateReducer,
-} from '../../utils/reducerHelpers';
-import { sdk } from '../../../sdk';
+import { Store } from '../../../sdk/models/store';
 
 const initialState = { store: {} };
 
-// TODO: Automatically generate the standard CRUD actions, with 'getting', 'creating' flags
-// and 'getError', 'createError' flags.
+const SET_STORE = 'store/CREATE_STORE';
 
-const GET_STORE = 'store/GET_STORE';
-// const CREATE_STORE = 'store/CREATE_STORE';
-// const UPDATE_STORE = 'store/UPDATE_STORE';
-// const PATCH_STORE = 'store/PATCH_STORE';
-// const DELETE_STORE = 'store/DELETE_STORE';
-
-const findStoreReducer = standardFetchReducer(GET_STORE, (data: any) => ({
-  store: data,
-}));
-
-export default function user(state = initialState, action: any) {
-  if (action.type.includes(GET_STORE)) {
-    return findStoreReducer(state, action);
-  }
-
+export default function store(state = initialState, action: any) {
   switch (action.type) {
+    case SET_STORE: {
+      return { store: action.store };
+    }
     default:
       return state;
   }
 }
 
-export function findStore() {
+export function setStore(store: Store) {
   return {
-    type: GET_STORE,
-    request: {
-      promise: sdk.store.get('123'),
-    },
+    type: SET_STORE,
+    store,
   };
 }

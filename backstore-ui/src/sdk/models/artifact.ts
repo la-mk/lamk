@@ -13,6 +13,10 @@ export const getArtifactSdk = (client: Application) => {
     //These are the only supported methods for handling an artifact.
     ...pick(getCrudMethods(client, 'artifacts'), ['get', 'create', 'remove']),
 
+    getUrlForArtifact: (id: string) => {
+      return `http://localhost:3030/images/${id.slice(0, 2)}/${id}`;
+    },
+
     toBase64: (file: any) => {
       return 'uri';
     },

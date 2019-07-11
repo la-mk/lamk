@@ -14,6 +14,7 @@ interface FormHandlers {
   onInputCompleted?: (state: any, val: any, selector: string) => void;
   onFormCompleted?: (state: any) => void;
   validator?: (val: any, selector: string) => string | undefined;
+  initialState?: any;
 }
 
 interface FormContext {
@@ -36,6 +37,7 @@ const StyledForm = system<FormProps>(AntForm);
 const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
 
 export const Form = ({
+  initialState,
   validator,
   onInputChanged,
   onInputCompleted,
@@ -44,7 +46,7 @@ export const Form = ({
 }: FormProps & FormHandlers) => {
   const [errors, setErrors] = React.useState({});
   const [successes, setSuccesses] = React.useState({});
-  const [state, setState] = React.useState({});
+  const [state, setState] = React.useState(initialState || {});
 
   const inputChangeHandler = (e: any, selector: string) => {
     const val = e && e.target ? e.target.value : null;

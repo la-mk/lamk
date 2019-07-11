@@ -11,6 +11,9 @@ import { Product } from '../../sdk/models/product';
 import { Store } from '../../sdk/models/store';
 import { Delivery } from '../../sdk/models/delivery';
 import { sdk } from '../../sdk';
+import { useSelector, useDispatch } from 'react-redux';
+import { getStore } from '../../state/modules/store/store.selector';
+import { setStore } from '../../state/modules/store/store.module';
 
 const StickySteps = styled(Steps)`
   position: sticky;
@@ -26,8 +29,16 @@ interface OnboardingProps {
 }
 
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
-  const handleSetupStoreDone = (store: Store) => {
-    sdk.store.create(store).then(() => setStep(1));
+  const store = useSelector(getStore);
+  const dispatch = useDispatch();
+
+  const handleSetupStoreDone = (newStore: Store) => {
+    sdk.store
+      .create(newStore)
+      .then(store => {
+        dispatch(setStore(store));
+      })
+      .then(() => setStep(1));
   };
 
   const handleAddProduct = (product: Product) => {
@@ -52,7 +63,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
         </StickySteps>
       )}
 
-      {step === 0 && <SetupStore onDone={handleSetupStoreDone} />}
+      {step === 0 && <SetupStore onDone={handleSetupStoreDone} store={store} />}
       {step === 1 && (
         <AddProducts
           onAddProduct={handleAddProduct}

@@ -1,14 +1,24 @@
 import * as React from 'react';
+import { UploadChangeParam } from 'antd/es/upload';
+
 import { Input } from '../../component-lib/basic/Input';
 import { Col } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
 import { Form, FormItem } from '../../component-lib/basic/Form';
 import { UploadDragger } from '../../component-lib/basic/Upload';
 import { UploadContent } from '../../component-lib/compound/UploadContent';
-import { UploadChangeParam } from 'antd/es/upload';
-import { sdk } from '../../sdk';
 
-export const SetupStore = ({ onDone }: any) => {
+import { sdk } from '../../sdk';
+import { Store } from '../../sdk/models/store';
+import { UploadFile } from 'antd/lib/upload/interface';
+import { message } from '../../component-lib/static/message';
+
+interface SetupStoreProps {
+  onDone: any;
+  store: Store;
+}
+
+export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
   const uploadLogo = async ({ file, onSuccess, onError }: any) => {
     const base64 = await new Promise(resolve => {
       const fileReader = new FileReader();
@@ -24,27 +34,37 @@ export const SetupStore = ({ onDone }: any) => {
       .catch(onError);
   };
 
-  const handleLogoUpload = (
+  const handleLogoUploadStatus = (
     info: UploadChangeParam,
     onComplete: (val: any) => void,
+    val?: string,
   ) => {
     if (info.file.status === 'removed') {
+      if (val) {
+        sdk.artifact.remove(val);
+      }
       onComplete({ target: { value: null } });
-    }
-
-    if (info.file.status === 'uploading') {
-      console.log(`Uploading ${info.file.name}`);
     }
 
     if (info.file.status === 'done') {
       onComplete({ target: { value: info.file.response.id } });
-      console.log(`${info.file.name} file uploaded successfully`);
     }
 
     if (info.file.status === 'error') {
-      console.error(`${info.file.name} file upload failed.`);
+      message.error(`${info.file.name} file upload failed.`);
     }
   };
+
+  const defaultFileList = store.logo
+    ? ([
+        {
+          uid: store.logo,
+          name: store.logo,
+          status: 'done',
+          url: sdk.artifact.getUrlForArtifact(store.logo),
+        },
+      ] as UploadFile[])
+    : undefined;
 
   return (
     <Col>
@@ -54,27 +74,30 @@ export const SetupStore = ({ onDone }: any) => {
         layout='horizontal'
         colon={false}
         validator={sdk.store.validateSingle}
+        initialState={store}
         onFormCompleted={onDone}
       >
-        <FormItem selector='shopName' label='Shop Name'>
-          {(val, onChange, onComplete) => (
-            <Input value={val} onChange={onChange} onBlur={onComplete} />
-          )}
-        </FormItem>
-        <FormItem selector='shopLink' label='Shop Link'>
+        <FormItem selector='name' label='Shop Name'>
           {(val, onChange, onComplete) => (
             <Input value={val} onChange={onChange} onBlur={onComplete} />
           )}
         </FormItem>
 
-        <FormItem selector='shopLogo' label='Shop Logo'>
-          {(_val, _onChange, onComplete) => (
+        <FormItem selector='slug' label='Shop Link'>
+          {(val, onChange, onComplete) => (
+            <Input value={val} onChange={onChange} onBlur={onComplete} />
+          )}
+        </FormItem>
+
+        <FormItem selector='logo' label='Shop Logo'>
+          {(val, _onChange, onComplete) => (
             <UploadDragger
               customRequest={uploadLogo}
               accept='.png, .jpg, .jpeg'
               onChange={(info: UploadChangeParam) =>
-                handleLogoUpload(info, onComplete)
+                handleLogoUploadStatus(info, onComplete, val)
               }
+              defaultFileList={defaultFileList}
               listType='picture'
               name='company-logo'
             >
@@ -87,7 +110,7 @@ export const SetupStore = ({ onDone }: any) => {
         </FormItem>
 
         <Button type='primary' htmlType='submit' size='large'>
-          Next
+          {store && store.name ? 'Update and continue' : 'Continue'}
         </Button>
       </Form>
     </Col>
