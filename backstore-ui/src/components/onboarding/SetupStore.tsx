@@ -9,27 +9,40 @@ import { UploadChangeParam } from 'antd/es/upload';
 import { sdk } from '../../sdk';
 
 export const SetupStore = ({ onDone }: any) => {
-  const uploadLogo = ({ file, onSuccess, onError }: any) => {
-    sdk.store
-      .uploadLogo(file)
+  const uploadLogo = async ({ file, onSuccess, onError }: any) => {
+    const base64 = await new Promise(resolve => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result as any);
+      };
+    });
+
+    sdk.artifact
+      .create({ uri: base64 })
       .then(onSuccess)
       .catch(onError);
   };
 
-  const handleLogoUpload = (info: UploadChangeParam) => {
+  const handleLogoUpload = (
+    info: UploadChangeParam,
+    onComplete: (val: any) => void,
+  ) => {
+    if (info.file.status === 'removed') {
+      onComplete({ target: { value: null } });
+    }
+
     if (info.file.status === 'uploading') {
       console.log(`Uploading ${info.file.name}`);
-      return;
     }
 
     if (info.file.status === 'done') {
+      onComplete({ target: { value: info.file.response.id } });
       console.log(`${info.file.name} file uploaded successfully`);
-      return;
     }
 
     if (info.file.status === 'error') {
       console.error(`${info.file.name} file upload failed.`);
-      return;
     }
   };
 
@@ -55,11 +68,13 @@ export const SetupStore = ({ onDone }: any) => {
         </FormItem>
 
         <FormItem selector='shopLogo' label='Shop Logo'>
-          {(_val, _onChange, _onComplete) => (
+          {(_val, _onChange, onComplete) => (
             <UploadDragger
               customRequest={uploadLogo}
               accept='.png, .jpg, .jpeg'
-              onChange={handleLogoUpload}
+              onChange={(info: UploadChangeParam) =>
+                handleLogoUpload(info, onComplete)
+              }
               listType='picture'
               name='company-logo'
             >

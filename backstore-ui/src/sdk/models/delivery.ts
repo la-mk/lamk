@@ -1,4 +1,5 @@
 import { Application } from '@feathersjs/feathers';
+import { getCrudMethods } from '../setup';
 
 export interface Delivery {
   id: string;
@@ -10,6 +11,6 @@ export interface Delivery {
 
 export const getDeliverySdk = (client: Application) => {
   return {
-    ...client.service('deliveries'),
+    ...getCrudMethods(client, 'deliveries'),
   };
 };

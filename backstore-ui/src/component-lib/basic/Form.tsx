@@ -47,7 +47,7 @@ export const Form = ({
   const [state, setState] = React.useState({});
 
   const inputChangeHandler = (e: any, selector: string) => {
-    const val = e.target.value;
+    const val = e && e.target ? e.target.value : null;
     const nextState = setIn(state, val, selector);
     setState(nextState);
 
@@ -62,7 +62,7 @@ export const Form = ({
   };
 
   const inputCompleteHandler = (e: any, selector: string) => {
-    const val = e.target.value;
+    const val = e && e.target ? e.target.value : null;
     const error = validator && validator(val, selector);
     const nextState = setIn(state, val, selector);
     setState(nextState);

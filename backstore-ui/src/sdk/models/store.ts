@@ -19,7 +19,5 @@ export const getStoreSdk = (client: Application) => {
         return 'xx is required';
       }
     },
-
-    uploadLogo: (logo: any) => Promise.resolve('url'),
   };
 };
