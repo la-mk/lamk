@@ -10,6 +10,7 @@ import { initPostRouteMiddlewares } from './middlewares/postRouteMiddlewares';
 import { initErrorHandlingMiddlewares } from './middlewares/errorHandlingMiddleware';
 
 import { registerServices } from './routes/services';
+import { registerStaticRoutes } from './routes/static';
 import { registerAppHooks } from './hooks';
 import { registerChannels } from './channels/channels';
 import { initMongoClient } from './mongo';
@@ -32,6 +33,7 @@ export default async () => {
   await initMongoClient(app);
 
   // Register routes (services) and hooks
+  registerStaticRoutes(app);
   registerAppHooks(app);
   registerServices(app);
   registerChannels(app);
