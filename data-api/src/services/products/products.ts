@@ -1,5 +1,4 @@
-// @ts-ignore
-import * as createService from 'feathers-mongodb';
+import { Service } from 'feathers-mongodb';
 import { Application } from '@feathersjs/feathers';
 import { hooks } from './hooks';
 
@@ -13,9 +12,10 @@ export const products = (app: Application) => {
   const options = {
     paginate,
     Model: mongoDb.collection('products'),
+    multi: false,
   };
 
-  app.use('/products', createService(options));
+  app.use('/products', new Service(options));
   const service = app.service('products');
   service.hooks(hooks);
 };
