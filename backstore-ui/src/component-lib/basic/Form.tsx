@@ -13,8 +13,9 @@ interface FormHandlers {
   onInputChanged?: (state: any, val: any, selector: string) => void;
   onInputCompleted?: (state: any, val: any, selector: string) => void;
   onFormCompleted?: (state: any) => void;
-  validator?: (val: any, selector: string) => string | undefined;
-  initialState?: any;
+  validate?: (form: any) => { [item: string]: string } | undefined;
+  validateSingle?: (val: any, selector: string) => string | undefined;
+  externalState?: any;
 }
 
 interface FormContext {
@@ -37,8 +38,9 @@ const StyledForm = system<FormProps>(AntForm);
 const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
 
 export const Form = ({
-  initialState,
-  validator,
+  externalState,
+  validate,
+  validateSingle,
   onInputChanged,
   onInputCompleted,
   onFormCompleted,
@@ -46,7 +48,8 @@ export const Form = ({
 }: FormProps & FormHandlers) => {
   const [errors, setErrors] = React.useState({});
   const [successes, setSuccesses] = React.useState({});
-  const [state, setState] = React.useState(initialState || {});
+  const [state, setState] = React.useState(externalState || {});
+  React.useCallback(() => setState(externalState), [externalState]);
 
   const inputChangeHandler = (e: any, selector: string) => {
     const val = e && e.target ? e.target.value : null;
@@ -65,7 +68,7 @@ export const Form = ({
 
   const inputCompleteHandler = (e: any, selector: string) => {
     const val = e && e.target ? e.target.value : null;
-    const error = validator && validator(val, selector);
+    const error = validateSingle && validateSingle(val, selector);
     const nextState = setIn(state, val, selector);
     setState(nextState);
 
@@ -85,7 +88,12 @@ export const Form = ({
 
   const customSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onFormCompleted && onFormCompleted(state);
+    const submitErrors = validate ? validate(state) : undefined;
+    if (!submitErrors) {
+      onFormCompleted && onFormCompleted(state);
+    } else {
+      setErrors(submitErrors);
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import { SetupStore } from './SetupStore';
 import { AddProducts } from './AddProducts';
 import { SetupDelivery } from './SetupDelivery';
@@ -11,9 +12,9 @@ import { Product } from '../../sdk/models/product';
 import { Store } from '../../sdk/models/store';
 import { Delivery } from '../../sdk/models/delivery';
 import { sdk } from '../../sdk';
-import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { setStore } from '../../state/modules/store/store.module';
+import { message } from '../../component-lib/static/message';
 
 const StickySteps = styled(Steps)`
   position: sticky;
@@ -31,18 +32,37 @@ interface OnboardingProps {
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const store = useSelector(getStore);
   const dispatch = useDispatch();
+  const userId = 1;
+
+  useEffect(() => {
+    sdk.store
+      .find({
+        query: {
+          ownedBy: userId,
+        },
+      })
+      .then(stores => {
+        if (stores.total > 0) {
+          dispatch(setStore(stores.data[0]));
+        }
+      })
+      .catch(err => message.error(err.message));
+  }, [dispatch]);
 
   const handleSetupStoreDone = (newStore: Store) => {
-    sdk.store
-      .create(newStore)
+    (newStore._id
+      ? sdk.store.patch(newStore._id, newStore)
+      : sdk.store.create({ ...newStore, ownedBy: userId })
+    )
       .then(store => {
         dispatch(setStore(store));
       })
-      .then(() => setStep(1));
+      .then(() => setStep(1))
+      .catch(err => message.error(err.message));
   };
 
   const handleAddProduct = (product: Product) => {
-    sdk.product.create(product);
+    sdk.product.create(product).catch(err => message.error(err.message));
   };
 
   const handleAddProductsDone = () => {

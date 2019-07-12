@@ -8,7 +8,7 @@ import store from './modules/store/store.persist';
 const storageConfig = {
   key: 'rootStorage',
   storage,
-  // blacklist: ['alert'],
+  blacklist: ['store'],
 };
 
 const reducersSet = {

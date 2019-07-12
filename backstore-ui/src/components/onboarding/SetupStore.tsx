@@ -12,6 +12,7 @@ import { sdk } from '../../sdk';
 import { Store } from '../../sdk/models/store';
 import { UploadFile } from 'antd/lib/upload/interface';
 import { message } from '../../component-lib/static/message';
+import { Flex } from '../../component-lib/basic/Flex';
 
 interface SetupStoreProps {
   onDone: any;
@@ -73,8 +74,9 @@ export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
         wrapperCol={{ span: 12 }}
         layout='horizontal'
         colon={false}
-        validator={sdk.store.validateSingle}
-        initialState={store}
+        validate={sdk.store.validate}
+        validateSingle={sdk.store.validateSingle}
+        externalState={store}
         onFormCompleted={onDone}
       >
         <FormItem selector='name' label='Shop Name'>
@@ -109,9 +111,11 @@ export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
           )}
         </FormItem>
 
-        <Button type='primary' htmlType='submit' size='large'>
-          {store && store.name ? 'Update and continue' : 'Continue'}
-        </Button>
+        <Flex justifyContent='center' alignItems='center'>
+          <Button type='primary' htmlType='submit' size='large'>
+            {store && store._id ? 'Update and continue' : 'Continue'}
+          </Button>
+        </Flex>
       </Form>
     </Col>
   );
