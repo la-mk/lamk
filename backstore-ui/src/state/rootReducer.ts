@@ -3,16 +3,18 @@ import { persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 
 import store from './modules/store/store.persist';
+import products from './modules/products/products.persist';
 // import alert from './modules/alert/alert.module';
 
 const storageConfig = {
   key: 'rootStorage',
   storage,
-  blacklist: ['store'],
+  blacklist: ['store', 'products'],
 };
 
 const reducersSet = {
   store,
+  products,
   // alert,
 };
 

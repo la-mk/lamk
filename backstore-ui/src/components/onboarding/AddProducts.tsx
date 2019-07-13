@@ -1,20 +1,46 @@
 import * as React from 'react';
 import { Col, Row } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
-import { CreateProductCard } from './CreateProductCard';
+import { AddProductCard } from './AddProductCard';
 import { Flex } from '../../component-lib/basic/Flex';
 import { Product } from '../../sdk/models/product';
 
 interface AddProductsProps {
+  products: Product[];
   onDone: () => void;
   onAddProduct: (product: Product) => void;
+  onPatchProduct: (product: Product) => void;
+  onRemoveProduct: (id: string) => void;
 }
 
-export const AddProducts = ({ onDone, onAddProduct }: AddProductsProps) => {
+export const AddProducts = ({
+  products,
+  onDone,
+  onAddProduct,
+  onPatchProduct,
+  onRemoveProduct,
+}: AddProductsProps) => {
   return (
     <Row type='flex' align='middle' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+      {products.map(product => {
+        return (
+          <Col>
+            <AddProductCard
+              product={product}
+              onAddProduct={onAddProduct}
+              onPatchProduct={onPatchProduct}
+              onRemoveProduct={onRemoveProduct}
+            />
+          </Col>
+        );
+      })}
+
       <Col>
-        <CreateProductCard />
+        <AddProductCard
+          onAddProduct={onAddProduct}
+          onPatchProduct={onPatchProduct}
+          onRemoveProduct={onRemoveProduct}
+        />
       </Col>
       <Col>
         <Flex
@@ -27,7 +53,13 @@ export const AddProducts = ({ onDone, onAddProduct }: AddProductsProps) => {
           <Button size='large' width='60%' icon={'plus'} type='primary'>
             Add Another Product
           </Button>
-          <Button type='default' size='large' width='60%' mt={3}>
+          <Button
+            onClick={onDone}
+            type='default'
+            size='large'
+            width='60%'
+            mt={3}
+          >
             Next
           </Button>
         </Flex>

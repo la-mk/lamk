@@ -21,14 +21,7 @@ interface SetupStoreProps {
 
 export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
   const uploadLogo = async ({ file, onSuccess, onError }: any) => {
-    const base64 = await new Promise(resolve => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result as any);
-      };
-    });
-
+    const base64 = await sdk.artifact.toBase64(file);
     sdk.artifact
       .create({ uri: base64 })
       .then(onSuccess)
@@ -44,11 +37,11 @@ export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
       if (val) {
         sdk.artifact.remove(val);
       }
-      onComplete({ target: { value: null } });
+      onComplete(null);
     }
 
     if (info.file.status === 'done') {
-      onComplete({ target: { value: info.file.response.id } });
+      onComplete(info.file.response.id);
     }
 
     if (info.file.status === 'error') {
@@ -112,9 +105,14 @@ export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
         </FormItem>
 
         <Flex justifyContent='center' alignItems='center'>
-          <Button type='primary' htmlType='submit' size='large'>
+          <Button mr={2} type='primary' htmlType='submit' size='large'>
             {store && store._id ? 'Update and continue' : 'Continue'}
           </Button>
+          {store._id && (
+            <Button ml={2} type='ghost' size='large' onClick={() => onDone()}>
+              Continue
+            </Button>
+          )}
         </Flex>
       </Form>
     </Col>

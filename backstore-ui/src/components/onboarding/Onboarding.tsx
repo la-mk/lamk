@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,6 +16,13 @@ import { sdk } from '../../sdk';
 import { getStore } from '../../state/modules/store/store.selector';
 import { setStore } from '../../state/modules/store/store.module';
 import { message } from '../../component-lib/static/message';
+import {
+  setProducts,
+  addProduct,
+  removeProduct,
+  patchProduct,
+} from '../../state/modules/products/products.module';
+import { getProducts } from '../../state/modules/products/products.selector';
 
 const StickySteps = styled(Steps)`
   position: sticky;
@@ -30,7 +38,8 @@ interface OnboardingProps {
 }
 
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
-  const store = useSelector(getStore);
+  const store: Store = useSelector(getStore);
+  const products: Product[] = useSelector(getProducts);
   const dispatch = useDispatch();
   const userId = 1;
 
@@ -49,7 +58,24 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       .catch(err => message.error(err.message));
   }, [dispatch]);
 
-  const handleSetupStoreDone = (newStore: Store) => {
+  useEffect(() => {
+    if (store._id) {
+      sdk.product
+        .find({ query: { soldBy: store._id } })
+        .then(products => {
+          if (products.total > 0) {
+            dispatch(setProducts(products.data));
+          }
+        })
+        .catch(err => message.error(err.message));
+    }
+  }, [store, dispatch]);
+
+  const handleSetupStoreDone = (newStore?: Store) => {
+    if (!newStore || isEqual(store, newStore)) {
+      return setStep(1);
+    }
+
     (newStore._id
       ? sdk.store.patch(newStore._id, newStore)
       : sdk.store.create({ ...newStore, ownedBy: userId })
@@ -61,8 +87,33 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       .catch(err => message.error(err.message));
   };
 
-  const handleAddProduct = (product: Product) => {
-    sdk.product.create(product).catch(err => message.error(err.message));
+  const handleAddProduct = (newProduct: Product) => {
+    sdk.product
+      .create(newProduct)
+      .then(product => dispatch(addProduct(product)))
+      .catch(err => message.error(err.message));
+  };
+
+  const handlePatchProduct = (newProduct: Product) => {
+    const storeProduct = products.find(
+      product => product._id === newProduct._id,
+    );
+
+    if (!storeProduct || isEqual(storeProduct, newProduct)) {
+      return;
+    }
+
+    sdk.product
+      .patch(newProduct._id, newProduct)
+      .then(product => dispatch(patchProduct(product)))
+      .catch(err => message.error(err.message));
+  };
+
+  const handleRemoveProduct = (id: string) => {
+    sdk.product
+      .remove(id)
+      .then(() => dispatch(removeProduct(id)))
+      .catch(err => message.error(err.message));
   };
 
   const handleAddProductsDone = () => {
@@ -86,7 +137,10 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       {step === 0 && <SetupStore onDone={handleSetupStoreDone} store={store} />}
       {step === 1 && (
         <AddProducts
+          products={products}
           onAddProduct={handleAddProduct}
+          onPatchProduct={handlePatchProduct}
+          onRemoveProduct={handleRemoveProduct}
           onDone={handleAddProductsDone}
         />
       )}

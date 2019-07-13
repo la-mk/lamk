@@ -8,5 +8,9 @@ export const Card = styled(system<CardProps>(AntCard))`
   & li {
     box-sizing: border-box;
   }
+
+  .ant-card-head-wrapper {
+    align-items: flex-start;
+  }
 `;
 export const CardMeta = system<CardMetaProps>(AntCard.Meta as any);

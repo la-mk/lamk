@@ -3,11 +3,19 @@ import { default as AntForm, FormProps, FormItemProps } from 'antd/es/form';
 import 'antd/lib/form/style/index.less';
 import get from 'lodash/get';
 import { clone, setWith, curry } from 'lodash/fp';
-import { system } from '../system';
+import { system, SystemProps } from '../system';
 
 const setIn = curry((obj: any, value: any, path: string) =>
   setWith(clone, path, value, clone(obj)),
 );
+
+const getVal = (eventOrVal: any) => {
+  // If it is an event, get the target value, otherwise assume the passed argument is the value itself.
+  return eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
+};
+
+const StyledForm = system<FormProps>(AntForm);
+const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
 
 interface FormHandlers {
   onInputChanged?: (state: any, val: any, selector: string) => void;
@@ -34,9 +42,6 @@ const { Provider, Consumer } = React.createContext<FormContext>({
   inputCompleteHandler: () => null,
 });
 
-const StyledForm = system<FormProps>(AntForm);
-const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
-
 export const Form = ({
   externalState,
   validate,
@@ -45,14 +50,14 @@ export const Form = ({
   onInputCompleted,
   onFormCompleted,
   ...props
-}: FormProps & FormHandlers) => {
+}: FormProps & SystemProps & FormHandlers) => {
   const [errors, setErrors] = React.useState({});
   const [successes, setSuccesses] = React.useState({});
   const [state, setState] = React.useState(externalState || {});
   React.useCallback(() => setState(externalState), [externalState]);
 
   const inputChangeHandler = (e: any, selector: string) => {
-    const val = e && e.target ? e.target.value : null;
+    const val = getVal(e);
     const nextState = setIn(state, val, selector);
     setState(nextState);
 
@@ -67,7 +72,7 @@ export const Form = ({
   };
 
   const inputCompleteHandler = (e: any, selector: string) => {
-    const val = e && e.target ? e.target.value : null;
+    const val = getVal(e);
     const error = validateSingle && validateSingle(val, selector);
     const nextState = setIn(state, val, selector);
     setState(nextState);
@@ -91,6 +96,8 @@ export const Form = ({
     const submitErrors = validate ? validate(state) : undefined;
     if (!submitErrors) {
       onFormCompleted && onFormCompleted(state);
+      setState({});
+      setSuccesses({});
     } else {
       setErrors(submitErrors);
     }
@@ -111,18 +118,20 @@ export const Form = ({
   );
 };
 
-export const FormItem = ({
-  selector,
-  children,
-  ...props
-}: FormItemProps & {
+interface FormItemContextProps {
   children: (
     currentVal: any,
     onChange: (val: any) => void,
     onComplete: (val: any) => void,
   ) => React.ReactNode;
   selector: string;
-}) => {
+}
+
+export const FormItem = ({
+  selector,
+  children,
+  ...props
+}: FormItemProps & SystemProps & FormItemContextProps) => {
   return (
     <Consumer>
       {context => {

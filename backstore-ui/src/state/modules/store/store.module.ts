@@ -2,7 +2,7 @@ import { Store } from '../../../sdk/models/store';
 
 const initialState = { store: {} };
 
-const SET_STORE = 'store/CREATE_STORE';
+const SET_STORE = 'store/SET_STORE';
 
 export default function store(state = initialState, action: any) {
   switch (action.type) {
