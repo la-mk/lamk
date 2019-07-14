@@ -1,12 +1,13 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { OnboardingRouter } from './onboarding/Onboarding.router';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { DashboardRouter } from './dashboard/Dashboard.router';
 
 export const RootRouter = () => {
   return (
     <Switch>
       <Route path='/onboarding' component={OnboardingRouter} />
-      <Redirect to='/onboarding' />
+      <Route path='/dashboard' component={DashboardRouter} />
     </Switch>
   );
 };

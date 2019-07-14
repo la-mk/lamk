@@ -18,7 +18,8 @@ import {
 import { system } from '../system';
 
 export interface FlexProps
-  extends React.RefAttributes<HTMLDivElement>,
+  extends React.HTMLAttributes<HTMLDivElement>,
+    React.RefAttributes<HTMLDivElement>,
     StyledFlexProps,
     OrderProps,
     AlignSelfProps,

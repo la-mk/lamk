@@ -7,6 +7,7 @@ export interface Store {
   name: string;
   slug: string;
   logo: string;
+  isPublished: boolean;
 }
 
 export const getStoreSdk = (client: Application) => {

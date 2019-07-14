@@ -4,10 +4,10 @@ import { RootRouter } from './Root.router';
 
 export const Root = () => {
   return (
-    <div>
+    <>
       <BrowserRouter>
         <RootRouter />
       </BrowserRouter>
-    </div>
+    </>
   );
 };

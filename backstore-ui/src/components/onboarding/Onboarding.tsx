@@ -82,7 +82,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
     (newStore._id
       ? sdk.store.patch(newStore._id, newStore)
-      : sdk.store.create({ ...newStore, ownedBy: userId })
+      : sdk.store.create({ ...newStore, ownedBy: userId, isPublished: false })
     )
       .then(store => {
         dispatch(setStore(store));
@@ -141,7 +141,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   };
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 4]} pb={4}>
+    <Flex flexDirection='column' px={[3, 3, 3, 4]} pb={4}>
       {step !== 3 && (
         <StickySteps py={[2, 2, 3]} mb={5} current={step} onChange={setStep}>
           <Step title='Store' />
