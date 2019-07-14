@@ -23,6 +23,8 @@ import {
   patchProduct,
 } from '../../state/modules/products/products.module';
 import { getProducts } from '../../state/modules/products/products.selector';
+import { getDelivery } from '../../state/modules/delivery/delivery.selector';
+import { setDelivery } from '../../state/modules/delivery/delivery.module';
 
 const StickySteps = styled(Steps)`
   position: sticky;
@@ -40,6 +42,8 @@ interface OnboardingProps {
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const store: Store = useSelector(getStore);
   const products: Product[] = useSelector(getProducts);
+  const delivery: Delivery = useSelector(getDelivery);
+
   const dispatch = useDispatch();
   const userId = 1;
 
@@ -120,8 +124,20 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     setStep(2);
   };
 
-  const handleSetupDeliveryDone = (delivery: Delivery) => {
-    setStep(3);
+  const handleSetupDeliveryDone = (newDelivery: Delivery) => {
+    if (!newDelivery || isEqual(delivery, newDelivery)) {
+      return setStep(3);
+    }
+
+    (newDelivery._id
+      ? sdk.delivery.patch(newDelivery._id, newDelivery)
+      : sdk.delivery.create({ ...newDelivery, forStore: store._id })
+    )
+      .then(delivery => {
+        dispatch(setDelivery(delivery));
+      })
+      .then(() => setStep(3))
+      .catch(err => message.error(err.message));
   };
 
   return (
@@ -144,7 +160,9 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
           onDone={handleAddProductsDone}
         />
       )}
-      {step === 2 && <SetupDelivery onDone={handleSetupDeliveryDone} />}
+      {step === 2 && (
+        <SetupDelivery delivery={delivery} onDone={handleSetupDeliveryDone} />
+      )}
       {step === 3 && <Publish />}
     </Flex>
   );
