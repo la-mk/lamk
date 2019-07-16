@@ -6,7 +6,7 @@ export const Root = () => {
   return (
     <>
       <BrowserRouter>
-        <RootRouter />
+        <RootRouter hasFinishedOnboarding={true} />
       </BrowserRouter>
     </>
   );

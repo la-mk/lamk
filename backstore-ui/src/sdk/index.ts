@@ -2,6 +2,7 @@ import { setupClient } from './setup';
 
 import { getStoreSdk } from './models/store';
 import { getProductSdk } from './models/product';
+import { getOrderSdk } from './models/order';
 import { getArtifactSdk } from './models/artifact';
 import { getDeliverySdk } from './models/delivery';
 
@@ -12,6 +13,7 @@ export const setupSdk = () => {
     product: getProductSdk(client),
     delivery: getDeliverySdk(client),
     artifact: getArtifactSdk(client),
+    order: getOrderSdk(client),
   };
 };
 

@@ -4,9 +4,12 @@ import { Flex } from '../../component-lib/basic/Flex';
 import { Menu, MenuItem } from '../../component-lib/basic/Menu';
 import { Icon } from '../../component-lib/basic/Icon';
 import styled from 'styled-components';
+import { Link, withRouter } from 'react-router-dom';
+import { Location } from 'history';
 
 interface DashboardLayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  location: Location;
 }
 
 const FixedSider = styled(Sider)`
@@ -25,10 +28,12 @@ const TopMenuContainer = styled(Flex)`
   color: white;
 `;
 
-export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
-  //Set based on the route in the navbar.
-  const [selectedKeys, setSelectedKeys] = React.useState(['orders']);
+
+  // Not a very clean solution, but it will do for now
+  const matches = location.pathname.match(/\/dashboard\/(\w*)(\/?)/);
+  const selectedKeys = matches && matches.length > 1 ? [matches[1]] : [];
 
   return (
     <>
@@ -42,31 +47,28 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             Welcome xxx
           </TopMenuContainer>
 
-          <Menu
-            theme='dark'
-            mode='inline'
-            selectedKeys={selectedKeys}
-            onClick={({ key }) => setSelectedKeys([key])}
-          >
+          <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
             <MenuItem key='orders'>
               <Icon type='shopping-cart' />
               <span>Orders</span>
+              <Link to='/dashboard/orders' />
             </MenuItem>
             <MenuItem key='products'>
               <Icon type='appstore' />
               <span>Products</span>
+              <Link to='/dashboard/products' />
             </MenuItem>
             <MenuItem key='preferences'>
               <Icon type='setting' />
               <span>Preferences</span>
+              <Link to='/dashboard/preferences' />
             </MenuItem>
           </Menu>
         </FixedSider>
-      </Layout>
-
-      <Layout ml={200} height='100%'>
         <StyledContent m={3}>{children}</StyledContent>
       </Layout>
     </>
   );
 };
+
+export const DashboardLayout = withRouter(DashboardLayoutBase);

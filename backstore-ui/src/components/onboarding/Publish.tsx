@@ -9,7 +9,11 @@ const ShopIframe = styled.iframe`
   margin-top: 4px;
 `;
 
-export const Publish = () => {
+interface PublishProps {
+  onDone: (shouldPublish: boolean) => void;
+}
+
+export const Publish = ({ onDone }: PublishProps) => {
   return (
     <Flex flexDirection='column' alignItems='center'>
       <ShopIframe
@@ -21,10 +25,16 @@ export const Publish = () => {
         onLoad={() => null}
       />
 
-      <Button size='large' width='40%' type='primary' mt={3}>
+      <Button
+        onClick={() => onDone(true)}
+        size='large'
+        width='40%'
+        type='primary'
+        mt={3}
+      >
         Publish now
       </Button>
-      <Button width='40%' mt={3}>
+      <Button onClick={() => onDone(false)} width='40%' mt={3}>
         Go to Dashboard
       </Button>
     </Flex>

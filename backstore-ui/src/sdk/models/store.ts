@@ -1,4 +1,5 @@
-import { Application } from '@feathersjs/feathers';
+import merge from 'lodash/fp/merge';
+import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 
 export interface Store {
@@ -11,8 +12,13 @@ export interface Store {
 }
 
 export const getStoreSdk = (client: Application) => {
+  const crudMethods = getCrudMethods(client, 'stores');
   return {
-    ...getCrudMethods(client, 'stores'),
+    ...crudMethods,
+
+    findForUser: (userId: string, params?: Params) => {
+      return crudMethods.find(merge({ query: { ownedBy: userId } }, params));
+    },
 
     validate: (data: Store, considerRequired = true) => {
       if (!data.logo) {

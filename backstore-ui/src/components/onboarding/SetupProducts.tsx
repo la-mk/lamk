@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Col, Row } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
-import { AddProductCard } from './AddProductCard';
+import { AddProductCard } from '../shared/AddProductCard';
 import { Flex } from '../../component-lib/basic/Flex';
 import { Product } from '../../sdk/models/product';
 
-interface AddProductsProps {
+interface SetupProductsProps {
   products: Product[];
   onDone: () => void;
   onAddProduct: (product: Product) => void;
@@ -13,13 +13,13 @@ interface AddProductsProps {
   onRemoveProduct: (id: string) => void;
 }
 
-export const AddProducts = ({
+export const SetupProducts = ({
   products,
   onDone,
   onAddProduct,
   onPatchProduct,
   onRemoveProduct,
-}: AddProductsProps) => {
+}: SetupProductsProps) => {
   return (
     <Row type='flex' align='middle' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
       {products.map(product => {

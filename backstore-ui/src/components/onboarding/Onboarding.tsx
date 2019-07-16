@@ -1,9 +1,9 @@
 import isEqual from 'lodash/isEqual';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { SetupStore } from './SetupStore';
-import { AddProducts } from './AddProducts';
+import { SetupProducts } from './SetupProducts';
 import { SetupDelivery } from './SetupDelivery';
 
 import { Steps, Step } from '../../component-lib/basic/Steps';
@@ -25,6 +25,7 @@ import {
 import { getProducts } from '../../state/modules/products/products.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
+import { Redirect } from 'react-router';
 
 const StickySteps = styled(Steps)`
   position: sticky;
@@ -40,20 +41,17 @@ interface OnboardingProps {
 }
 
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
+  const [isFinished, setIsFinished] = useState(false);
   const store: Store = useSelector(getStore);
   const products: Product[] = useSelector(getProducts);
   const delivery: Delivery = useSelector(getDelivery);
 
   const dispatch = useDispatch();
-  const userId = 1;
+  const userId = '123';
 
   useEffect(() => {
     sdk.store
-      .find({
-        query: {
-          ownedBy: userId,
-        },
-      })
+      .findForUser(userId)
       .then(stores => {
         if (stores.total > 0) {
           dispatch(setStore(stores.data[0]));
@@ -65,11 +63,9 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   useEffect(() => {
     if (store._id) {
       sdk.product
-        .find({ query: { soldBy: store._id } })
+        .findForStore(store._id)
         .then(products => {
-          if (products.total > 0) {
-            dispatch(setProducts(products.data));
-          }
+          dispatch(setProducts(products.data));
         })
         .catch(err => message.error(err.message));
     }
@@ -93,7 +89,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
   const handleAddProduct = (newProduct: Product) => {
     sdk.product
-      .create(newProduct)
+      .create({ ...newProduct, soldBy: store._id })
       .then(product => dispatch(addProduct(product)))
       .catch(err => message.error(err.message));
   };
@@ -140,6 +136,18 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       .catch(err => message.error(err.message));
   };
 
+  const handlePublishDone = (shouldPublish: boolean) => {
+    if (!shouldPublish) {
+      setIsFinished(true);
+      return;
+    }
+
+    sdk.store
+      .patch(store._id, { isPublished: true })
+      .then(() => setIsFinished(true))
+      .catch(err => message.error(err.message));
+  };
+
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} pb={4}>
       {step !== 3 && (
@@ -152,7 +160,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
       {step === 0 && <SetupStore onDone={handleSetupStoreDone} store={store} />}
       {step === 1 && (
-        <AddProducts
+        <SetupProducts
           products={products}
           onAddProduct={handleAddProduct}
           onPatchProduct={handlePatchProduct}
@@ -163,7 +171,8 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       {step === 2 && (
         <SetupDelivery delivery={delivery} onDone={handleSetupDeliveryDone} />
       )}
-      {step === 3 && <Publish />}
+      {step === 3 && <Publish onDone={handlePublishDone} />}
+      {isFinished && <Redirect push to='/dashboard' />}
     </Flex>
   );
 };
