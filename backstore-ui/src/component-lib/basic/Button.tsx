@@ -6,12 +6,6 @@ import {
 import 'antd/lib/button/style/index.less';
 
 import { system } from '../system';
-import styled from 'styled-components';
 
-export const Button = styled(system<ButtonProps>(AntButton as any))`
-  & > i {
-    vertical-align: middle;
-  }
-`;
-
+export const Button = system<ButtonProps>(AntButton as any);
 export const ButtonGroup = system<ButtonGroupProps>(AntButton.Group as any);

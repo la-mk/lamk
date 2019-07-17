@@ -80,7 +80,12 @@ export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
 
         <FormItem selector='slug' label='Shop Link'>
           {(val, onChange, onComplete) => (
-            <Input value={val} onChange={onChange} onBlur={onComplete} />
+            <Input
+              value={val}
+              addonBefore={'la.mk/'}
+              onChange={onChange}
+              onBlur={onComplete}
+            />
           )}
         </FormItem>
 
