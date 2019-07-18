@@ -1,14 +1,17 @@
-import { default as AntTypography, TypographyProps } from 'antd/es/typography';
+import { default as AntTypography } from 'antd/es/typography';
+import { BlockProps } from 'antd/es/typography/Base';
+import { TextProps } from 'antd/es/typography/Text';
 import 'antd/lib/typography/style/index.less';
 
 import { system } from '../system';
 
-export const Text = system<typeof AntTypography.Text>(
-  AntTypography.Text as any,
-);
-export const Paragraph = system<typeof AntTypography.Paragraph>(
-  AntTypography.Paragraph as any,
-);
-export const Title = system<typeof AntTypography.Title>(
-  AntTypography.Title as any,
-);
+declare type TitleProps = Omit<
+  BlockProps & {
+    level?: 1 | 2 | 3 | 4;
+  },
+  'strong'
+>;
+
+export const Text = system<TextProps>(AntTypography.Text as any);
+export const Paragraph = system<BlockProps>(AntTypography.Paragraph as any);
+export const Title = system<TitleProps>(AntTypography.Title as any);

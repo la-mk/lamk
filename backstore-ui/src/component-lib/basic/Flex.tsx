@@ -1,16 +1,11 @@
 import styled from 'styled-components';
 import {
-  alignItems,
   AlignItemsProps,
-  alignSelf,
   AlignSelfProps,
   flex,
-  flexDirection,
   FlexDirectionProps,
   FlexProps as StyledFlexProps,
-  flexWrap,
   FlexWrapProps,
-  justifyContent,
   JustifyContentProps,
   order,
   OrderProps,
@@ -32,10 +27,5 @@ export const Flex = system<FlexProps>(styled.div`
   box-sizing: border-box;
   ${flex};
   ${order};
-  ${alignSelf};
 
-  display: flex;
-  ${flexWrap};
-  ${flexDirection};
-  ${alignItems};
-  ${justifyContent};` as any);
+  display: flex !important;` as any);
