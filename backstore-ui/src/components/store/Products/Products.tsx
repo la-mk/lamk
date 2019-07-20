@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { List } from '../../../component-lib/basic/List';
-import { ProductCard } from './ProductCard';
+import { ProductCard } from '../shared/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../../../state/modules/products/products.selector';
 import { Product } from '../../../sdk/models/product';

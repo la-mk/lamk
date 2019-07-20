@@ -10,17 +10,19 @@ import { Flex } from '../../../component-lib/basic/Flex';
 import { Button } from '../../../component-lib/basic/Button';
 import { sdk } from '../../../sdk';
 
+export const CARD_WIDTH = 280;
+
 export const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card
-      width={280}
+      width={CARD_WIDTH}
       cover={
         <Flex justifyContent='center' alignItems='center'>
           <img
             style={{
-              maxWidth: '280px',
+              maxWidth: `${CARD_WIDTH}px`,
               width: 'auto',
-              height: 180,
+              height: 140,
             }}
             alt={`${product.name}`}
             src={sdk.artifact.getUrlForArtifact(product.images[0])}
@@ -31,7 +33,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
       <Flex flexDirection='column'>
         <Title level={3}>{product.name}</Title>
         <Text strong>{product.price} ден</Text>
-        <Paragraph mt={4} ellipsis>
+        <Paragraph mt={3} ellipsis>
           {product.description}
         </Paragraph>
         <Button mt={3} icon='shopping-cart'>

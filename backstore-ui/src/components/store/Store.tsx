@@ -1,3 +1,8 @@
 import React from 'react';
+import { Sets } from './Sets/Sets';
 
-export const Store = () => <div>Store content</div>;
+export const Store = () => (
+  <div>
+    <Sets />
+  </div>
+);
