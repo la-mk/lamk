@@ -14,10 +14,10 @@ export interface SystemProps extends SpaceProps, WidthProps, HeightProps {}
 export const system = function<T>(Component: React.ComponentClass<T>) {
   // Use multiple & to increase specificity over the Ant components.
   return styled(Component)<SystemProps>`
-   && {
-		${space}
-		${width}
-    ${height}
-   }
-`;
+    && {
+      ${space}
+      ${width}
+      ${height}
+    }
+  `;
 };

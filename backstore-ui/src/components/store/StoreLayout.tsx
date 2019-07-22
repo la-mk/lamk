@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
 import { Icon } from '../../component-lib/basic/Icon';
+import { Search } from '../../component-lib/basic/Input';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -23,7 +24,9 @@ const StyledContent = styled(Content)`
 `;
 
 const TopMenuContainer = styled(Flex)`
-  color: white;
+  color: black;
+  line-height: 32px;
+  max-width: 40%;
 `;
 
 const StoreLayoutBase = ({ children, location }: StoreLayoutProps) => {
@@ -34,12 +37,14 @@ const StoreLayoutBase = ({ children, location }: StoreLayoutProps) => {
   return (
     <>
       <Layout>
-        <Header>
+        <Header style={{ background: 'white' }}>
           <Flex justifyContent='space-between'>
-            <TopMenuContainer>Welcome xxx</TopMenuContainer>
+            <TopMenuContainer py={3}>Store logo</TopMenuContainer>
+            <TopMenuContainer flex={'1 0 0'} mx={4} py={3}>
+              <Search />
+            </TopMenuContainer>
             <Menu
               style={{ lineHeight: '64px' }}
-              theme='dark'
               mode='horizontal'
               selectedKeys={selectedKeys}
             >
@@ -52,15 +57,14 @@ const StoreLayoutBase = ({ children, location }: StoreLayoutProps) => {
                 <Link to='/store/about-us' />
               </MenuItem>
               <MenuItem height={'64px'} key='cart'>
-                <Icon style={{ margin: 0 }} mx={3} type='shopping-cart' />
+                <Icon m={0} type='shopping-cart' />
+                <span>Cart</span>
                 <Link to='/store/cart' />
               </MenuItem>
             </Menu>
           </Flex>
         </Header>
-        <StyledContent px={50} py={20}>
-          {children}
-        </StyledContent>
+        <StyledContent py={20}>{children}</StyledContent>
         <Footer style={{ textAlign: 'center' }}>
           La.mk ©2019 Created by La.mk
         </Footer>

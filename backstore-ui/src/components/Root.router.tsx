@@ -14,8 +14,8 @@ export const RootRouter = ({ hasFinishedOnboarding }: RootRouterProps) => {
       <Route path='/onboarding' component={OnboardingRouter} />
       <Route path='/dashboard' component={DashboardRouter} />
       <Route path='/store' component={StoreRouter} />
-      <Redirect to='/store' />
-      {/* <Redirect to={hasFinishedOnboarding ? '/dashboard' : 'onboarding'} /> */}
+      {/* <Redirect to='/store' /> */}
+      <Redirect to={hasFinishedOnboarding ? '/dashboard' : 'onboarding'} />
     </Switch>
   );
 };

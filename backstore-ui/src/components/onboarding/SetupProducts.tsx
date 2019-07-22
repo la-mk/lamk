@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Col, Row } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
-import { AddProductCard } from '../shared/AddProductCard';
+import { AddProductCard } from './AddProductCard';
 import { Flex } from '../../component-lib/basic/Flex';
 import { Product } from '../../sdk/models/product';
 

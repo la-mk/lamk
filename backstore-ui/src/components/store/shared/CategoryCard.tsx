@@ -2,28 +2,44 @@ import React from 'react';
 import { Card } from '../../../component-lib/basic/Card';
 import { Title } from '../../../component-lib/basic/Typography';
 import { Flex } from '../../../component-lib/basic/Flex';
-import { Icon } from '../../../component-lib/basic/Icon';
 import styled from 'styled-components';
 
-export const CARD_WIDTH = 200;
+export const CARD_SIZE = 240;
 
-const CategoryIcon = styled(Icon)`
-  font-size: 40px;
+const PositionedCard = styled(Card)`
+  position: relative;
+  & > .ant-card-body {
+    padding: 0;
+    height: ${CARD_SIZE - 2}px;
+    width: ${CARD_SIZE - 2}px;
+  }
+`;
+
+const CenteredContent = styled(Flex)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const CategoryImg = styled.img`
+  width: ${CARD_SIZE}px;
+  height: ${CARD_SIZE}px;
+  filter: blur(2px);
 `;
 
 export const CategoryCard = ({ category }: { category: any }) => {
   return (
-    <Card
-      width={CARD_WIDTH}
-      cover={
-        <Flex p={3} justifyContent='center' alignItems='center'>
-          <CategoryIcon type={category.icon} />
-        </Flex>
-      }
-    >
-      <Flex flexDirection='column' justifyContent='center' alignItems='center'>
+    <PositionedCard width={CARD_SIZE} height={CARD_SIZE}>
+      <CategoryImg src='https://images.cdn4.stockunlimited.net/preview1300/various-home-appliances-and-household-items_1350574.jpg' />
+      <CenteredContent
+        width='100%'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+      >
         <Title level={3}>{category.name}</Title>
-      </Flex>
-    </Card>
+      </CenteredContent>
+    </PositionedCard>
   );
 };

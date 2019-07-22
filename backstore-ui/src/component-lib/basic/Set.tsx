@@ -8,6 +8,7 @@ import { Flex } from './Flex';
 export type ArrowDirection = 'left' | 'right';
 
 const SetContainer = styled.div`
+  box-sizing: border-box;
   position: relative;
   padding: ${props => props.theme.space[3]}px ${props => props.theme.space[5]}px;
 `;
