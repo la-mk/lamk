@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Card } from '../../component-lib/basic/Card';
-import { Input, TextArea } from '../../component-lib/basic/Input';
 import { UploadDragger } from '../../component-lib/basic/Upload';
 import { Select, Option } from '../../component-lib/basic/Select';
 import { UploadContent } from '../../component-lib/compound/UploadContent';
@@ -10,7 +9,15 @@ import { sdk } from '../../sdk';
 import { Button } from '../../component-lib/basic/Button';
 import { UploadChangeParam } from 'antd/es/upload';
 import { message } from '../../component-lib/static/message';
-import { UploadFile } from 'antd/es/upload/interface';
+import {
+  uploadImage,
+  handleArtifactUploadStatus,
+  getDefaultFileList,
+} from '../shared/utils/artifacts';
+import {
+  formInput,
+  formTextArea,
+} from '../../component-lib/compound/FormHelpers';
 
 interface AddProductCardProps {
   product?: Product;
@@ -25,49 +32,6 @@ export const AddProductCard = ({
   onPatchProduct,
   onRemoveProduct,
 }: AddProductCardProps) => {
-  const uploadImages = async ({ file, onSuccess, onError }: any) => {
-    const base64 = await sdk.artifact.toBase64(file);
-
-    sdk.artifact
-      .create({ uri: base64 })
-      .then(onSuccess)
-      .catch(onError);
-  };
-
-  const handleImageUploadStatus = (
-    info: UploadChangeParam,
-    onComplete: (val: any) => void,
-    images: string[] = [],
-  ) => {
-    if (info.file.status === 'removed') {
-      // There will be a response only if the image upload succeeded
-      if (images.length > 0 && info.file.response) {
-        sdk.artifact.remove(info.file.response.id);
-        onComplete(images.filter(imageId => imageId !== info.file.response.id));
-      }
-    }
-
-    if (info.file.status === 'done') {
-      onComplete([...images, info.file.response.id]);
-    }
-
-    if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  };
-
-  const defaultFileList = product
-    ? product.images.map(
-        imageId =>
-          ({
-            uid: imageId,
-            name: imageId,
-            status: 'done',
-            url: sdk.artifact.getUrlForArtifact(imageId),
-          } as UploadFile),
-      )
-    : undefined;
-
   return (
     <Form
       colon={false}
@@ -79,27 +43,12 @@ export const AddProductCard = ({
       <Card
         title={
           <FormItem mb={0} selector='name'>
-            {(val, onChange, onComplete) => (
-              <Input
-                placeholder='Name'
-                value={val}
-                onChange={onChange}
-                onBlur={onComplete}
-              />
-            )}
+            {formInput({ placeholder: 'Name' })}
           </FormItem>
         }
         extra={
           <FormItem ml={3} mb={0} width='130px' selector='price'>
-            {(val, onChange, onComplete) => (
-              <Input
-                placeholder='Price'
-                addonBefore='Ден'
-                value={val}
-                onChange={onChange}
-                onBlur={onComplete}
-              />
-            )}
+            {formInput({ placeholder: 'Price', addonBefore: 'Ден' })}
           </FormItem>
         }
         width={390}
@@ -130,7 +79,6 @@ export const AddProductCard = ({
               width='100%'
               placeholder='Categories'
               showSearch
-              maxTagCount={5}
               showArrow
               onChange={onComplete}
               value={val}
@@ -146,12 +94,14 @@ export const AddProductCard = ({
             <UploadDragger
               multiple
               listType='picture-card'
-              customRequest={uploadImages}
+              customRequest={uploadImage}
               accept='.png, .jpg, .jpeg'
               onChange={(info: UploadChangeParam) =>
-                handleImageUploadStatus(info, onComplete, val)
+                handleArtifactUploadStatus(info, val, onComplete, message.error)
               }
-              defaultFileList={defaultFileList}
+              defaultFileList={getDefaultFileList(
+                product ? product.images : undefined,
+              )}
               name='product-images'
             >
               <UploadContent
@@ -162,18 +112,11 @@ export const AddProductCard = ({
           )}
         </FormItem>
 
-        <FormItem mb={0} selector='description'>
-          {(val, onChange, onComplete) => (
-            <TextArea
-              style={{ resize: 'none' }}
-              rows={3}
-              value={val}
-              onBlur={onComplete}
-              onChange={onChange}
-              mt={3}
-              placeholder='Product description (optional)'
-            />
-          )}
+        <FormItem mb={0} mt={3} selector='description'>
+          {formTextArea({
+            placeholder: 'Product description (optional)',
+            rows: 3,
+          })}
         </FormItem>
       </Card>
     </Form>

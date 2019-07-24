@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Input } from '../../component-lib/basic/Input';
 import { Col } from '../../component-lib/basic/Grid';
 import { Button } from '../../component-lib/basic/Button';
 import { Form, FormItem } from '../../component-lib/basic/Form';
@@ -7,6 +6,7 @@ import { Select, Option } from '../../component-lib/basic/Select';
 import { Delivery } from '../../sdk/models/delivery';
 import { sdk } from '../../sdk';
 import { Flex } from '../../component-lib/basic/Flex';
+import { formInput } from '../../component-lib/compound/FormHelpers';
 
 interface SetupDeliveryProps {
   onDone: any;
@@ -35,33 +35,20 @@ export const SetupDelivery = ({ onDone, delivery }: SetupDeliveryProps) => {
             </Select>
           )}
         </FormItem>
-        <FormItem selector='price' label='Delivery cost'>
-          {(val, onChange, onComplete) => (
-            <>
-              <Input
-                placeholder='Price'
-                addonBefore='Ден'
-                value={val}
-                onChange={onChange}
-                onBlur={onComplete}
-              />
-              <span> This can be the average delivery cost.</span>
-            </>
-          )}
+        <FormItem
+          extra='This can be the average delivery cost.'
+          selector='price'
+          label='Delivery cost'
+        >
+          {formInput({ placeholder: 'Price', addonBefore: 'Ден' })}
         </FormItem>
-        <FormItem selector='freeDeliveryOver' label='Free delivery'>
-          {(val, onChange, onComplete) => (
-            <>
-              <Input
-                placeholder='Over price'
-                addonBefore='Ден'
-                value={val}
-                onChange={onChange}
-                onBlur={onComplete}
-              />
-              <span>Over what price do you want to offer free shipping?</span>
-            </>
-          )}
+
+        <FormItem
+          extra='Over what price do you want to offer free shipping?'
+          selector='freeDeliveryOver'
+          label='Free delivery'
+        >
+          {formInput({ placeholder: 'Over price', addonBefore: 'Ден' })}
         </FormItem>
 
         <Flex justifyContent='center' alignItems='center'>

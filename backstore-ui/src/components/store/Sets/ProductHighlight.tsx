@@ -4,14 +4,7 @@ import { sdk } from '../../../sdk';
 import { Title, Text } from '../../../component-lib/basic/Typography';
 import { Button } from '../../../component-lib/basic/Button';
 import styled from 'styled-components';
-
-const ResponsiveImage = styled.img`
-  object-fit: contain;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-`;
+import { SizedImage } from '../../../component-lib/compound/SizedImage';
 
 const Container = styled(Flex)`
   background: linear-gradient(to left, #66ccff 19%, #ccffff 91%);
@@ -27,7 +20,7 @@ export const ProductHighlight = ({ product }: any) => {
         alignItems='center'
         justifyContent='center'
       >
-        <ResponsiveImage
+        <SizedImage
           alt={`${product.name}`}
           src={sdk.artifact.getUrlForArtifact(product.images[0])}
         />

@@ -21,8 +21,8 @@ interface FormHandlers {
   onInputChanged?: (state: any, val: any, selector: string) => void;
   onInputCompleted?: (state: any, val: any, selector: string) => void;
   onFormCompleted?: (state: any) => void;
-  validate?: (form: any) => { [item: string]: string } | undefined;
-  validateSingle?: (val: any, selector: string) => string | undefined;
+  validate?: (form: any) => { [item: string]: string } | void;
+  validateSingle?: (val: any, selector: string) => string | void;
   externalState?: any;
 }
 
@@ -54,7 +54,7 @@ export const Form = ({
   const [errors, setErrors] = React.useState({});
   const [successes, setSuccesses] = React.useState({});
   const [state, setState] = React.useState(externalState || {});
-  React.useCallback(() => setState(externalState), [externalState]);
+  React.useEffect(() => setState(externalState), [externalState]);
 
   const inputChangeHandler = (e: any, selector: string) => {
     const val = getVal(e);

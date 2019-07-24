@@ -23,9 +23,10 @@ export const getProductSdk = (client: Application) => {
     },
 
     validate: (data: Product, considerRequired = true) => {
-      if (!data.images) {
-        return { logo: 'Logo is missing' };
-      }
+      return;
+      // if (!data.images) {
+      //   return { images: 'No images uploaded' };
+      // }
     },
     validateSingle: (val: any, selector: string) => {
       if (!val) {

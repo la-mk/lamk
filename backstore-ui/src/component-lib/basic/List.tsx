@@ -5,7 +5,8 @@ import { system } from '../system';
 import { Pagination } from './Pagination';
 
 const Box = styled.div`
-  margin: 0 32px 16px;
+  margin: 0 ${props => props.theme.space[4]}px
+    ${props => props.theme.space[3]}px;
 `;
 
 const ListBase = ({

@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 const ShopIframe = styled.iframe`
   border: 2px solid lightgray;
-  padding: 10px;
-  margin-top: 4px;
+  padding: ${props => props.theme.space[2]}px;
+  margin-top: ${props => props.theme.space[1]}px;
 `;
 
 interface PublishProps {

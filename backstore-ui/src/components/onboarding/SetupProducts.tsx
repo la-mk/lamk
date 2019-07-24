@@ -24,7 +24,7 @@ export const SetupProducts = ({
     <Row type='flex' align='middle' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
       {products.map(product => {
         return (
-          <Col>
+          <Col mb={4}>
             <AddProductCard
               product={product}
               onAddProduct={onAddProduct}
@@ -35,7 +35,7 @@ export const SetupProducts = ({
         );
       })}
 
-      <Col>
+      <Col mb={4}>
         <AddProductCard
           onAddProduct={onAddProduct}
           onPatchProduct={onPatchProduct}

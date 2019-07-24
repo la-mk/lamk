@@ -1,52 +1,124 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tooltip } from '../../../component-lib/basic/Tooltip';
 import { Flex } from '../../../component-lib/basic/Flex';
 import { Table, ColumnProps } from '../../../component-lib/basic/Table';
+import { Title } from '../../../component-lib/basic/Typography';
+import { Button } from '../../../component-lib/basic/Button';
+import { ProductFormModal } from './ProductFormModal';
+import { useSelector, useDispatch } from 'react-redux';
+import { getStore } from '../../../state/modules/store/store.selector';
+import { getProducts } from '../../../state/modules/products/products.selector';
+import { Product } from '../../../sdk/models/product';
+import { sdk } from '../../../sdk';
+import { SizedImage } from '../../../component-lib/compound/SizedImage';
+import { setProducts } from '../../../state/modules/products/products.module';
+import { message } from '../../../component-lib/static/message';
 
-interface User {
+export interface Product {
+  _id: string;
+  soldBy: string;
   name: string;
-  age: number;
-  address: string;
+  price: number;
+  images: string[];
+  category: string;
+  description?: string;
 }
 
-const data: User[] = [
+const columns: ColumnProps<Product>[] = [
   {
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
+    title: 'Images',
+    dataIndex: 'images',
+    width: '180px',
+    render: (_text, product) => {
+      return (
+        <SizedImage
+          height='60px'
+          width='120px'
+          alt={product.name}
+          src={sdk.artifact.getUrlForArtifact(product.images[0])}
+        />
+      );
+    },
   },
-  {
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
-
-const columns: ColumnProps<User>[] = [
   {
     title: 'Name',
     dataIndex: 'name',
-    key: 'name',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Category',
+    dataIndex: 'category',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Price',
+    dataIndex: 'price',
+  },
+  {
+    title: 'Description',
+    dataIndex: 'description',
   },
 ];
 
 export const Products = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
+  const [editingProduct, setEditingProduct] = useState();
+
+  const products: Product[] = useSelector(getProducts);
+  const store = useSelector(getStore);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (store._id) {
+      setShowSpinner(true);
+      sdk.product
+        .findForStore(store._id)
+        .then(products => {
+          dispatch(setProducts(products.data));
+        })
+        .catch(err => message.error(err.message))
+        .finally(() => setShowSpinner(false));
+    }
+  }, [store, dispatch]);
+
   return (
-    <Flex flexDirection='column' px={[3, 3, 3, 4]} py={4}>
-      <Tooltip mb={2} title='You can see all products here.'>
+    <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
+      <Title mb={3} level={2}>
         Products
-      </Tooltip>
-      <Table<User> dataSource={data} columns={columns} />
+      </Title>
+
+      <Flex my={3} justifyContent='space-between'>
+        <Button type='primary' onClick={() => setShowModal(true)}>
+          Add Product
+        </Button>
+        <Tooltip title='You can do bulk actions using this button.'>
+          <Button mx={3} type='ghost'>
+            Actions
+          </Button>
+        </Tooltip>
+      </Flex>
+
+      <Table<Product>
+        loading={showSpinner}
+        dataSource={products}
+        columns={columns}
+        rowKey='_id'
+        onRow={product => ({
+          onClick: () => {
+            setEditingProduct(product);
+            setShowModal(true);
+          },
+        })}
+      />
+
+      <ProductFormModal
+        product={editingProduct}
+        storeId={store._id}
+        visible={showModal}
+        onClose={() => {
+          setShowModal(false);
+          setEditingProduct(undefined);
+        }}
+      />
     </Flex>
   );
 };
