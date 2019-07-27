@@ -1,5 +1,5 @@
 import * as pino from 'pino';
-import merge = require('lodash/merge');
+import { merge } from 'lodash';
 
 export interface LoggerConfig {
   env: string;

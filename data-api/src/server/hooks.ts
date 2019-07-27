@@ -1,15 +1,20 @@
 // Application hooks that run for every service
 import { log } from '../common/hooks/log';
 import { Application, HooksObject } from '@feathersjs/feathers';
+import {
+  appendCreateTimestamp,
+  appendModifyTimestamp,
+} from '../common/hooks/timestamps';
+import { convertQueryObjectId } from '../common/hooks/mongo';
 
 const hooks: HooksObject = {
   before: {
-    all: [log],
+    all: [log, convertQueryObjectId],
     find: [],
     get: [],
-    create: [],
+    create: [appendCreateTimestamp],
     update: [],
-    patch: [],
+    patch: [appendModifyTimestamp],
     remove: [],
   },
 
