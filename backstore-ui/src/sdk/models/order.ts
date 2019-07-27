@@ -12,7 +12,9 @@ export interface Order {
   orderedFrom: string;
   orderedBy: string;
   ordered: OrderItem[];
-  status: 'pending' | 'complete';
+  status: 'cancelled' | 'pending' | 'complete';
+  createdAt: string;
+  modifiedAt: string;
 }
 
 export const getOrderSdk = (client: Application) => {

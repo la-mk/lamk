@@ -10,6 +10,8 @@ export interface Product {
   images: string[];
   category: string;
   description?: string;
+  createdAt: string;
+  modifiedAt: string;
 }
 
 export const getProductSdk = (client: Application) => {

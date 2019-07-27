@@ -14,16 +14,6 @@ import { SizedImage } from '../../../component-lib/compound/SizedImage';
 import { setProducts } from '../../../state/modules/products/products.module';
 import { message } from '../../../component-lib/static/message';
 
-export interface Product {
-  _id: string;
-  soldBy: string;
-  name: string;
-  price: number;
-  images: string[];
-  category: string;
-  description?: string;
-}
-
 const columns: ColumnProps<Product>[] = [
   {
     title: 'Images',

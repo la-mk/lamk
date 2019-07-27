@@ -9,6 +9,8 @@ export interface Store {
   slug: string;
   logo: string;
   isPublished: boolean;
+  createdAt: string;
+  modifiedAt: string;
 }
 
 export const getStoreSdk = (client: Application) => {

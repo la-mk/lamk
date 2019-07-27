@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { List } from '../../../component-lib/basic/List';
+import { FlexGrid } from '../../../component-lib/basic/FlexGrid';
 import { ProductCard } from '../shared/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../../../state/modules/products/products.selector';
@@ -29,7 +29,7 @@ export const Products = () => {
       <Title mb={5} level={1}>
         All Products
       </Title>
-      <List
+      <FlexGrid
         rowKey='_id'
         totalItems={products.length}
         dataSource={products}

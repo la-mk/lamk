@@ -7,6 +7,8 @@ export interface Delivery {
   method: string;
   price: number;
   freeDeliveryOver: number;
+  createdAt: string;
+  modifiedAt: string;
 }
 
 export const getDeliverySdk = (client: Application) => {
