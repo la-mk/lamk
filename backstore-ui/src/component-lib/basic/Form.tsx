@@ -96,7 +96,6 @@ export const Form = ({
     const submitErrors = validate ? validate(state) : undefined;
     if (!submitErrors) {
       onFormCompleted && onFormCompleted(state);
-      setState({});
       setSuccesses({});
     } else {
       setErrors(submitErrors);

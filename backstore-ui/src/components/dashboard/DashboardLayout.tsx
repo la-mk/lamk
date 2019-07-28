@@ -48,6 +48,11 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
           </TopMenuContainer>
 
           <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
+            <MenuItem key='summary'>
+              <Icon type='dashboard' />
+              <span>Summary</span>
+              <Link to='/dashboard/summary' />
+            </MenuItem>
             <MenuItem key='orders'>
               <Icon type='shopping-cart' />
               <span>Orders</span>
