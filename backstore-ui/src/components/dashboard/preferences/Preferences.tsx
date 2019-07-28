@@ -6,7 +6,12 @@ import { AccountPreferences } from './AccountPreferences';
 import { StorePreferences } from './StorePreferences';
 import { DeliveryPreferences } from './DeliveryPreferences';
 
-export const Preferences = ({ tab, setTab }: any) => {
+interface PreferencesProps {
+  tab?: string;
+  setTab: (tab: string) => void;
+}
+
+export const Preferences = ({ tab, setTab }: PreferencesProps) => {
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
       <Title mb={3} level={2}>

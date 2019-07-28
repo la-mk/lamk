@@ -21,7 +21,7 @@ import { Text } from '../../../component-lib/basic/Typography';
 
 interface OrderDetailsModalProps {
   order?: Order;
-  onClose: any;
+  onClose: () => void;
 }
 
 const getQuantityForProduct = (order: Order, product: Product) => {

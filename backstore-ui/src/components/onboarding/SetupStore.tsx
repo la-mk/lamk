@@ -19,7 +19,7 @@ import {
 import { formInput } from '../../component-lib/compound/FormHelpers';
 
 interface SetupStoreProps {
-  onDone: any;
+  onDone: (newStore?: Store) => void;
   store: Store;
 }
 

@@ -9,7 +9,7 @@ import { Flex } from '../../component-lib/basic/Flex';
 import { formInput } from '../../component-lib/compound/FormHelpers';
 
 interface SetupDeliveryProps {
-  onDone: any;
+  onDone: (newDelivery?: Delivery) => void;
   delivery: Delivery;
 }
 

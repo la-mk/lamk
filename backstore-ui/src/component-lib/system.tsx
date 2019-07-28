@@ -7,7 +7,6 @@ import {
   HeightProps,
 } from 'styled-system';
 import styled from 'styled-components';
-import {} from 'styled-system';
 
 export interface SystemProps extends SpaceProps, WidthProps, HeightProps {}
 

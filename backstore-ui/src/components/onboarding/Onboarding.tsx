@@ -120,7 +120,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     setStep(2);
   };
 
-  const handleSetupDeliveryDone = (newDelivery: Delivery) => {
+  const handleSetupDeliveryDone = (newDelivery?: Delivery) => {
     if (!newDelivery || isEqual(delivery, newDelivery)) {
       return setStep(3);
     }

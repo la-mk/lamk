@@ -23,12 +23,19 @@ import { Spin } from '../../../component-lib/basic/Spin';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../state/modules/products/products.module';
 
+interface ProductFormModalProps {
+  product: Product;
+  storeId: string;
+  onClose: () => void;
+  visible: boolean;
+}
+
 export const ProductFormModal = ({
   product,
   storeId,
   onClose,
   visible,
-}: any) => {
+}: ProductFormModalProps) => {
   const [showSpinner, setShowSpinner] = useState(false);
   const dispatch = useDispatch();
 
