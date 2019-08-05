@@ -13,14 +13,24 @@ import {
   DescriptionItem,
 } from '../../../component-lib/basic/DescriptionList';
 import { Tag } from '../../../component-lib/basic/Tag';
-import { getOrderStatusColor } from '../../shared/utils/statuses';
+import {
+  getOrderStatusColor,
+  possibleOrderStatuses,
+} from '../../shared/utils/statuses';
 import { getShortId } from '../../shared/utils/ids';
 import { List } from '../../../component-lib/basic/List';
 import { SizedImage } from '../../../component-lib/compound/SizedImage';
 import { Text } from '../../../component-lib/basic/Typography';
+import { Option, Select } from '../../../component-lib/basic/Select';
+import {
+  setOrder,
+  removeOrder,
+} from '../../../state/modules/orders/orders.module';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrder } from '../../../state/modules/orders/orders.selector';
 
 interface OrderDetailsModalProps {
-  order?: Order;
+  orderId?: string;
   onClose: () => void;
 }
 
@@ -31,11 +41,13 @@ const getQuantityForProduct = (order: Order, product: Product) => {
 };
 
 export const OrderDetailsModal = ({
-  order,
+  orderId,
   onClose,
 }: OrderDetailsModalProps) => {
   const [showSpinner, setShowSpinner] = useState(true);
   const [products, setProducts] = useState<Product[]>();
+  const order = useSelector<any, Order>(getOrder(orderId));
+  const dispatch = useDispatch();
   // const [buyer, setBuyer] = useState();
 
   useEffect(() => {
@@ -63,6 +75,30 @@ export const OrderDetailsModal = ({
     }
   }, [order, setProducts]);
 
+  const handleStatusChanged = (status: Order['status']) => {
+    if (order) {
+      setShowSpinner(true);
+      sdk.order
+        .setStatus(order._id, status)
+        .then(updatedOrder => dispatch(setOrder(updatedOrder)))
+        .catch(err => message.error(err.message))
+        .finally(() => setShowSpinner(false));
+    }
+  };
+
+  const handleDeleteOrder = () => {
+    if (orderId) {
+      sdk.order
+        .remove(orderId)
+        .then(() => {
+          dispatch(removeOrder(orderId));
+          message.success(`Order ${getShortId(orderId)} successfully deleted`);
+        })
+        .catch(err => message.error(err.message))
+        .finally(() => onClose());
+    }
+  };
+
   return (
     <Modal
       width={'80%'}
@@ -75,9 +111,10 @@ export const OrderDetailsModal = ({
     >
       {order && (
         <Spin spinning={showSpinner}>
-          <Flex mb={3} justifyContent='space-between'>
-            <Button type='primary'>Change status</Button>
-            <Button type='danger'>Delete order</Button>
+          <Flex mb={3} justifyContent='flex-end'>
+            <Button onClick={handleDeleteOrder} type='danger'>
+              Delete order
+            </Button>
           </Flex>
 
           <Flex mb={3}>
@@ -86,9 +123,19 @@ export const OrderDetailsModal = ({
                 {getShortId(order)}
               </DescriptionItem>
               <DescriptionItem label='Status'>
-                <Tag color={getOrderStatusColor(order.status)}>
-                  {order.status}
-                </Tag>
+                <Select
+                  showArrow
+                  onChange={handleStatusChanged as any}
+                  value={order.status}
+                >
+                  {possibleOrderStatuses.map(status => {
+                    return (
+                      <Option key={status} value={status}>
+                        <Tag color={getOrderStatusColor(status)}>{status}</Tag>
+                      </Option>
+                    );
+                  })}
+                </Select>
               </DescriptionItem>
               <DescriptionItem label='Order date'>
                 {order.createdAt}
@@ -101,7 +148,7 @@ export const OrderDetailsModal = ({
               {Boolean(products) && (
                 <List>
                   {products!.map(product => (
-                    <List.Item>
+                    <List.Item key={product._id}>
                       <Flex
                         width={1}
                         justifyContent='space-between'

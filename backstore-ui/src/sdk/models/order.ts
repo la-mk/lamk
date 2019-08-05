@@ -27,6 +27,10 @@ export const getOrderSdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
+    setStatus: (orderId: string, status: Order['status'], params?: Params) => {
+      return crudMethods.patch(orderId, { status }, params);
+    },
+
     validate: (data: Order, considerRequired = true) => {
       if (!data._id) {
         return { _id: 'Id is missing' };

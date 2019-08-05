@@ -45,7 +45,7 @@ const columns: ColumnProps<Order>[] = [
 
 export const Orders = () => {
   const [showSpinner, setShowSpinner] = useState(false);
-  const [orderToView, setOrderToView] = useState<Order>();
+  const [orderIdToView, setOrderIdToView] = useState<string>();
   const store = useSelector(getStore);
   const orders = useSelector(getOrders);
   const dispatch = useDispatch();
@@ -83,14 +83,14 @@ export const Orders = () => {
         rowKey='_id'
         onRow={order => ({
           onClick: () => {
-            setOrderToView(order);
+            setOrderIdToView(order._id);
           },
         })}
       />
 
       <OrderDetailsModal
-        order={orderToView}
-        onClose={() => setOrderToView(undefined)}
+        orderId={orderIdToView}
+        onClose={() => setOrderIdToView(undefined)}
       />
     </Flex>
   );
