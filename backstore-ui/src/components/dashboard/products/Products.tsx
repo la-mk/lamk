@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Tooltip } from '../../../component-lib/basic/Tooltip';
-import { Flex } from '../../../component-lib/basic/Flex';
-import { Table, ColumnProps } from '../../../component-lib/basic/Table';
-import { Title } from '../../../component-lib/basic/Typography';
-import { Button } from '../../../component-lib/basic/Button';
+import { Tooltip } from '../../../blocks-ui/basic/Tooltip';
+import { Flex } from '../../../blocks-ui/basic/Flex';
+import { Table, ColumnProps } from '../../../blocks-ui/basic/Table';
+import { Title } from '../../../blocks-ui/basic/Typography';
+import { Button } from '../../../blocks-ui/basic/Button';
 import { ProductFormModal } from './ProductFormModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { getProducts } from '../../../state/modules/products/products.selector';
-import { Product } from '../../../sdk/models/product';
-import { sdk } from '../../../sdk';
-import { SizedImage } from '../../../component-lib/compound/SizedImage';
+import { Product } from 'la-sdk/dist/models/product';
+import { sdk } from 'la-sdk';
+import { SizedImage } from '../../../blocks-ui/compound/SizedImage';
 import { setProducts } from '../../../state/modules/products/products.module';
-import { message } from '../../../component-lib/static/message';
+import { message } from '../../../blocks-ui/static/message';
 
 const columns: ColumnProps<Product>[] = [
   {

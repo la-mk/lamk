@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Flex } from '../../component-lib/basic/Flex';
-import { Button } from '../../component-lib/basic/Button';
+import { Flex } from '../../blocks-ui/basic/Flex';
+import { Button } from '../../blocks-ui/basic/Button';
 import styled from 'styled-components';
 
 const ShopIframe = styled.iframe`

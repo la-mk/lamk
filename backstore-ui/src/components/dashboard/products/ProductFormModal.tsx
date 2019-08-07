@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
-import { Modal } from '../../../component-lib/basic/Modal';
-import { Product } from '../../../sdk/models/product';
-import { Form, FormItem } from '../../../component-lib/basic/Form';
-import { sdk } from '../../../sdk';
+import { Modal } from '../../../blocks-ui/basic/Modal';
+import { Product } from 'la-sdk/dist/models/product';
+import { Form, FormItem } from '../../../blocks-ui/basic/Form';
+import { sdk } from 'la-sdk';
 import {
   formTextArea,
   formInput,
-} from '../../../component-lib/compound/FormHelpers';
-import { Button } from '../../../component-lib/basic/Button';
-import { Flex } from '../../../component-lib/basic/Flex';
-import { Col, Row } from '../../../component-lib/basic/Grid';
-import { Select, Option } from '../../../component-lib/basic/Select';
-import { UploadDragger } from '../../../component-lib/basic/Upload';
+} from '../../../blocks-ui/compound/FormHelpers';
+import { Button } from '../../../blocks-ui/basic/Button';
+import { Flex } from '../../../blocks-ui/basic/Flex';
+import { Col, Row } from '../../../blocks-ui/basic/Grid';
+import { Select, Option } from '../../../blocks-ui/basic/Select';
+import { UploadDragger } from '../../../blocks-ui/basic/Upload';
 import {
   uploadImage,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../../shared/utils/artifacts';
-import { message } from '../../../component-lib/static/message';
-import { UploadContent } from '../../../component-lib/compound/UploadContent';
-import { Spin } from '../../../component-lib/basic/Spin';
+import { message } from '../../../blocks-ui/static/message';
+import { UploadContent } from '../../../blocks-ui/compound/UploadContent';
+import { Spin } from '../../../blocks-ui/basic/Spin';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../state/modules/products/products.module';
 

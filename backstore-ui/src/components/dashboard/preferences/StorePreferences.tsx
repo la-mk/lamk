@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
 import { UploadChangeParam } from 'antd/es/upload';
-import { Col } from '../../../component-lib/basic/Grid';
-import { Button } from '../../../component-lib/basic/Button';
-import { Form, FormItem } from '../../../component-lib/basic/Form';
-import { UploadDragger } from '../../../component-lib/basic/Upload';
-import { UploadContent } from '../../../component-lib/compound/UploadContent';
+import { Col } from '../../../blocks-ui/basic/Grid';
+import { Button } from '../../../blocks-ui/basic/Button';
+import { Form, FormItem } from '../../../blocks-ui/basic/Form';
+import { UploadDragger } from '../../../blocks-ui/basic/Upload';
+import { UploadContent } from '../../../blocks-ui/compound/UploadContent';
 
-import { sdk } from '../../../sdk';
-import { Store } from '../../../sdk/models/store';
-import { message } from '../../../component-lib/static/message';
-import { Flex } from '../../../component-lib/basic/Flex';
+import { sdk } from 'la-sdk';
+import { Store } from 'la-sdk/dist/models/store';
+import { message } from '../../../blocks-ui/static/message';
+import { Flex } from '../../../blocks-ui/basic/Flex';
 import {
   uploadImage,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../../shared/utils/artifacts';
-import { formInput } from '../../../component-lib/compound/FormHelpers';
+import { formInput } from '../../../blocks-ui/compound/FormHelpers';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import isEqual from 'lodash/isEqual';
 import { setStore } from '../../../state/modules/store/store.module';
-import { Spin } from '../../../component-lib/basic/Spin';
+import { Spin } from '../../../blocks-ui/basic/Spin';
 
 export const StorePreferences = () => {
   const [showSpinner, setShowSpinner] = React.useState(false);

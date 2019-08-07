@@ -1,5 +1,5 @@
 import merge from 'lodash/fp/merge';
-import { Product } from '../../../sdk/models/product';
+import { Product } from 'la-sdk/dist/models/product';
 
 const initialState: { products: Product[] } = { products: [] };
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Flex } from '../../../component-lib/basic/Flex';
-import { sdk } from '../../../sdk';
-import { Title, Text } from '../../../component-lib/basic/Typography';
-import { Button } from '../../../component-lib/basic/Button';
+import { Flex } from '../../../blocks-ui/basic/Flex';
+import { sdk } from 'la-sdk';
+import { Title, Text } from '../../../blocks-ui/basic/Typography';
+import { Button } from '../../../blocks-ui/basic/Button';
 import styled from 'styled-components';
-import { SizedImage } from '../../../component-lib/compound/SizedImage';
+import { SizedImage } from '../../../blocks-ui/compound/SizedImage';
 
 const Container = styled(Flex)`
   background: linear-gradient(to left, #66ccff 19%, #ccffff 91%);

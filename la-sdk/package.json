@@ -1,0 +1,45 @@
+{
+  "name": "la-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Stevche Radevski <sradevski@live.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint --fix ./src/**/*.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{js,mjs,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@feathersjs/client": "^3.7.8",
+    "lodash": "^4.17.15",
+    "socket.io-client": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/feathersjs__feathers": "^3.1.5",
+    "@types/lodash": "^4.14.136",
+    "@types/socket.io-client": "^1.4.32",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6",
+    "prettier": "^1.17.0",
+    "typescript": "^3.5.3"
+  }
+}

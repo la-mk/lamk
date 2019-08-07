@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card } from '../../../component-lib/basic/Card';
-import { Title } from '../../../component-lib/basic/Typography';
-import { Flex } from '../../../component-lib/basic/Flex';
+import { Card } from '../../../blocks-ui/basic/Card';
+import { Title } from '../../../blocks-ui/basic/Typography';
+import { Flex } from '../../../blocks-ui/basic/Flex';
 import styled from 'styled-components';
 
 export const CARD_SIZE = 240;

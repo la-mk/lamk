@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { FlexGrid } from '../../../component-lib/basic/FlexGrid';
+import { FlexGrid } from '../../../blocks-ui/basic/FlexGrid';
 import { ProductCard } from '../shared/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../../../state/modules/products/products.selector';
-import { Product } from '../../../sdk/models/product';
-import { sdk } from '../../../sdk';
+import { Product } from 'la-sdk/dist/models/product';
+import { sdk } from 'la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { Store } from '../../../sdk/models/store';
+import { Store } from 'la-sdk/dist/models/store';
 import { setProducts } from '../../../state/modules/products/products.module';
-import { message } from '../../../component-lib/static/message';
-import { Title } from '../../../component-lib/basic/Typography';
-import { Flex } from '../../../component-lib/basic/Flex';
+import { message } from '../../../blocks-ui/static/message';
+import { Title } from '../../../blocks-ui/basic/Typography';
+import { Flex } from '../../../blocks-ui/basic/Flex';
 
 export const Products = () => {
   const store: Store = useSelector(getStore);

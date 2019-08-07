@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip } from '../../../component-lib/basic/Tooltip';
-import { Flex } from '../../../component-lib/basic/Flex';
-import { Table, ColumnProps } from '../../../component-lib/basic/Table';
+import { Tooltip } from '../../../blocks-ui/basic/Tooltip';
+import { Flex } from '../../../blocks-ui/basic/Flex';
+import { Table, ColumnProps } from '../../../blocks-ui/basic/Table';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
-import { sdk } from '../../../sdk';
+import { sdk } from 'la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { message } from '../../../component-lib/static/message';
-import { Order } from '../../../sdk/models/order';
-import { Title } from '../../../component-lib/basic/Typography';
-import { Button } from '../../../component-lib/basic/Button';
+import { message } from '../../../blocks-ui/static/message';
+import { Order } from 'la-sdk/dist/models/order';
+import { Title } from '../../../blocks-ui/basic/Typography';
+import { Button } from '../../../blocks-ui/basic/Button';
 import { getShortId } from '../../shared/utils/ids';
-import { Tag } from '../../../component-lib/basic/Tag';
+import { Tag } from '../../../blocks-ui/basic/Tag';
 import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
 

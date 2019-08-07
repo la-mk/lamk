@@ -1,11 +1,25 @@
 import isString from 'lodash/isString';
 import isEmpty from 'lodash/isEmpty';
-import { sdk } from '../../../sdk';
+import { sdk } from 'la-sdk';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 
+export const toBase64 = (file: Blob) => {
+  return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+
+    fileReader.onerror = err => {
+      reject(err);
+    };
+  });
+};
+
 export const uploadImage = async ({ file, onSuccess, onError }: any) => {
-  const base64 = await sdk.artifact.toBase64(file);
+  const base64 = await toBase64(file);
 
   sdk.artifact
     .create({ uri: base64 })

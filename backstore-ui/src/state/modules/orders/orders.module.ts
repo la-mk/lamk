@@ -1,4 +1,4 @@
-import { Order } from '../../../sdk/models/order';
+import { Order } from 'la-sdk/dist/models/order';
 
 const initialState: { orders: Order[] } = { orders: [] };
 

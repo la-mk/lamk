@@ -1,14 +1,10 @@
 import React from 'react';
-import { Card } from '../../../component-lib/basic/Card';
-import {
-  Text,
-  Title,
-  Paragraph,
-} from '../../../component-lib/basic/Typography';
-import { Product } from '../../../sdk/models/product';
-import { Flex } from '../../../component-lib/basic/Flex';
-import { Button } from '../../../component-lib/basic/Button';
-import { sdk } from '../../../sdk';
+import { Card } from '../../../blocks-ui/basic/Card';
+import { Text, Title, Paragraph } from '../../../blocks-ui/basic/Typography';
+import { Product } from 'la-sdk/dist/models/product';
+import { Flex } from '../../../blocks-ui/basic/Flex';
+import { Button } from '../../../blocks-ui/basic/Button';
+import { sdk } from 'la-sdk';
 
 export const CARD_WIDTH = 280;
 

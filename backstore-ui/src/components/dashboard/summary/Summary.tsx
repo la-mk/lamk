@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Statistic } from '../../../component-lib/basic/Statistic';
-import { Card } from '../../../component-lib/basic/Card';
-import { Row, Col } from '../../../component-lib/basic/Grid';
+import { Statistic } from '../../../blocks-ui/basic/Statistic';
+import { Card } from '../../../blocks-ui/basic/Card';
+import { Row, Col } from '../../../blocks-ui/basic/Grid';
 
 export const Summary = () => {
   return (

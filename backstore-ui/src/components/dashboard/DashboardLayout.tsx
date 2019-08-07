@@ -1,8 +1,8 @@
 import React from 'react';
-import { Layout, Sider, Content } from '../../component-lib/basic/Layout';
-import { Flex } from '../../component-lib/basic/Flex';
-import { Menu, MenuItem } from '../../component-lib/basic/Menu';
-import { Icon } from '../../component-lib/basic/Icon';
+import { Layout, Sider, Content } from '../../blocks-ui/basic/Layout';
+import { Flex } from '../../blocks-ui/basic/Flex';
+import { Menu, MenuItem } from '../../blocks-ui/basic/Menu';
+import { Icon } from '../../blocks-ui/basic/Icon';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';

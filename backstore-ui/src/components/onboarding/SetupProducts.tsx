@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Col, Row } from '../../component-lib/basic/Grid';
-import { Button } from '../../component-lib/basic/Button';
+import { Col, Row } from '../../blocks-ui/basic/Grid';
+import { Button } from '../../blocks-ui/basic/Button';
 import { AddProductCard } from './AddProductCard';
-import { Flex } from '../../component-lib/basic/Flex';
-import { Product } from '../../sdk/models/product';
+import { Flex } from '../../blocks-ui/basic/Flex';
+import { Product } from 'la-sdk/dist/models/product';
 
 interface SetupProductsProps {
   products: Product[];

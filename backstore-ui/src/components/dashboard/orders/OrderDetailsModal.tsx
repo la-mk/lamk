@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from '../../../component-lib/basic/Modal';
-import { sdk } from '../../../sdk';
-import { message } from '../../../component-lib/static/message';
-import { Product } from '../../../sdk/models/product';
-import { Spin } from '../../../component-lib/basic/Spin';
-import { Order } from '../../../sdk/models/order';
-import { Flex } from '../../../component-lib/basic/Flex';
-import { Button } from '../../../component-lib/basic/Button';
-import { Card } from '../../../component-lib/basic/Card';
+import { Modal } from '../../../blocks-ui/basic/Modal';
+import { sdk } from 'la-sdk';
+import { message } from '../../../blocks-ui/static/message';
+import { Product } from 'la-sdk/dist/models/product';
+import { Spin } from '../../../blocks-ui/basic/Spin';
+import { Order } from 'la-sdk/dist/models/order';
+import { Flex } from '../../../blocks-ui/basic/Flex';
+import { Button } from '../../../blocks-ui/basic/Button';
+import { Card } from '../../../blocks-ui/basic/Card';
 import {
   Descriptions,
   DescriptionItem,
-} from '../../../component-lib/basic/DescriptionList';
-import { Tag } from '../../../component-lib/basic/Tag';
+} from '../../../blocks-ui/basic/DescriptionList';
+import { Tag } from '../../../blocks-ui/basic/Tag';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,
 } from '../../shared/utils/statuses';
 import { getShortId } from '../../shared/utils/ids';
-import { List } from '../../../component-lib/basic/List';
-import { SizedImage } from '../../../component-lib/compound/SizedImage';
-import { Text } from '../../../component-lib/basic/Typography';
-import { Option, Select } from '../../../component-lib/basic/Select';
+import { List } from '../../../blocks-ui/basic/List';
+import { SizedImage } from '../../../blocks-ui/compound/SizedImage';
+import { Text } from '../../../blocks-ui/basic/Typography';
+import { Option, Select } from '../../../blocks-ui/basic/Select';
 import {
   setOrder,
   removeOrder,

@@ -1,23 +1,20 @@
 import * as React from 'react';
-import { Card } from '../../component-lib/basic/Card';
-import { UploadDragger } from '../../component-lib/basic/Upload';
-import { Select, Option } from '../../component-lib/basic/Select';
-import { UploadContent } from '../../component-lib/compound/UploadContent';
-import { Product } from '../../sdk/models/product';
-import { Form, FormItem } from '../../component-lib/basic/Form';
-import { sdk } from '../../sdk';
-import { Button } from '../../component-lib/basic/Button';
+import { Card } from '../../blocks-ui/basic/Card';
+import { UploadDragger } from '../../blocks-ui/basic/Upload';
+import { Select, Option } from '../../blocks-ui/basic/Select';
+import { UploadContent } from '../../blocks-ui/compound/UploadContent';
+import { Product } from 'la-sdk/dist/models/product';
+import { Form, FormItem } from '../../blocks-ui/basic/Form';
+import { sdk } from 'la-sdk';
+import { Button } from '../../blocks-ui/basic/Button';
 import { UploadChangeParam } from 'antd/es/upload';
-import { message } from '../../component-lib/static/message';
+import { message } from '../../blocks-ui/static/message';
 import {
   uploadImage,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../shared/utils/artifacts';
-import {
-  formInput,
-  formTextArea,
-} from '../../component-lib/compound/FormHelpers';
+import { formInput, formTextArea } from '../../blocks-ui/compound/FormHelpers';
 
 interface AddProductCardProps {
   product?: Product;

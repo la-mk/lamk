@@ -4,14 +4,14 @@ import {
   Content,
   Header,
   Footer,
-} from '../../component-lib/basic/Layout';
-import { Flex } from '../../component-lib/basic/Flex';
-import { Menu, MenuItem } from '../../component-lib/basic/Menu';
+} from '../../blocks-ui/basic/Layout';
+import { Flex } from '../../blocks-ui/basic/Flex';
+import { Menu, MenuItem } from '../../blocks-ui/basic/Menu';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
-import { Icon } from '../../component-lib/basic/Icon';
-import { Search } from '../../component-lib/basic/Input';
+import { Icon } from '../../blocks-ui/basic/Icon';
+import { Search } from '../../blocks-ui/basic/Input';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;

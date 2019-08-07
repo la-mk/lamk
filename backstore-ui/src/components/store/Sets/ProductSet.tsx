@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductCard } from '../shared/ProductCard';
-import { Product } from '../../../sdk/models/product';
-import { Set } from '../../../component-lib/basic/Set';
+import { Product } from 'la-sdk/dist/models/product';
+import { Set } from '../../../blocks-ui/basic/Set';
 
 export const ProductSet = ({
   products,
