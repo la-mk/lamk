@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import { Modal } from '../../../blocks-ui/basic/Modal';
+import { Modal } from 'blocks-ui/dist/basic/Modal';
 import { Product } from 'la-sdk/dist/models/product';
-import { Form, FormItem } from '../../../blocks-ui/basic/Form';
+import { Form, FormItem } from 'blocks-ui/dist/basic/Form';
 import { sdk } from 'la-sdk';
-import {
-  formTextArea,
-  formInput,
-} from '../../../blocks-ui/compound/FormHelpers';
-import { Button } from '../../../blocks-ui/basic/Button';
-import { Flex } from '../../../blocks-ui/basic/Flex';
-import { Col, Row } from '../../../blocks-ui/basic/Grid';
-import { Select, Option } from '../../../blocks-ui/basic/Select';
-import { UploadDragger } from '../../../blocks-ui/basic/Upload';
+import { formTextArea, formInput } from 'blocks-ui/dist/compound/FormHelpers';
+import { Button } from 'blocks-ui/dist/basic/Button';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
+import { Col, Row } from 'blocks-ui/dist/basic/Grid';
+import { Select, Option } from 'blocks-ui/dist/basic/Select';
+import { UploadDragger } from 'blocks-ui/dist/basic/Upload';
 import {
   uploadImage,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../../shared/utils/artifacts';
-import { message } from '../../../blocks-ui/static/message';
-import { UploadContent } from '../../../blocks-ui/compound/UploadContent';
-import { Spin } from '../../../blocks-ui/basic/Spin';
+import { message } from 'blocks-ui/dist/static/message';
+import { UploadContent } from 'blocks-ui/dist/compound/UploadContent';
+import { Spin } from 'blocks-ui/dist/basic/Spin';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../state/modules/products/products.module';
 

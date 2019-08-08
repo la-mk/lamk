@@ -1,10 +1,10 @@
 import React from 'react';
-import { Flex } from '../../../blocks-ui/basic/Flex';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
 import { sdk } from 'la-sdk';
-import { Title, Text } from '../../../blocks-ui/basic/Typography';
-import { Button } from '../../../blocks-ui/basic/Button';
+import { Title, Text } from 'blocks-ui/dist/basic/Typography';
+import { Button } from 'blocks-ui/dist/basic/Button';
 import styled from 'styled-components';
-import { SizedImage } from '../../../blocks-ui/compound/SizedImage';
+import { SizedImage } from 'blocks-ui/dist/compound/SizedImage';
 
 const Container = styled(Flex)`
   background: linear-gradient(to left, #66ccff 19%, #ccffff 91%);

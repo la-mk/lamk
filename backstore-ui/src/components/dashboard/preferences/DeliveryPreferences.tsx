@@ -1,18 +1,18 @@
 import React from 'react';
-import { Col } from '../../../blocks-ui/basic/Grid';
-import { Button } from '../../../blocks-ui/basic/Button';
-import { Form, FormItem } from '../../../blocks-ui/basic/Form';
-import { Select, Option } from '../../../blocks-ui/basic/Select';
+import { Col } from 'blocks-ui/dist/basic/Grid';
+import { Button } from 'blocks-ui/dist/basic/Button';
+import { Form, FormItem } from 'blocks-ui/dist/basic/Form';
+import { Select, Option } from 'blocks-ui/dist/basic/Select';
 import { Delivery } from 'la-sdk/dist/models/delivery';
 import { sdk } from 'la-sdk';
-import { Flex } from '../../../blocks-ui/basic/Flex';
-import { formInput } from '../../../blocks-ui/compound/FormHelpers';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
+import { formInput } from 'blocks-ui/dist/compound/FormHelpers';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
 import { useSelector, useDispatch } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import { setDelivery } from '../../../state/modules/delivery/delivery.module';
-import { message } from '../../../blocks-ui/static/message';
-import { Spin } from '../../../blocks-ui/basic/Spin';
+import { message } from 'blocks-ui/dist/static/message';
+import { Spin } from 'blocks-ui/dist/basic/Spin';
 
 export const DeliveryPreferences = () => {
   const [showSpinner, setShowSpinner] = React.useState(false);

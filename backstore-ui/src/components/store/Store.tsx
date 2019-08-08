@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sets } from './Sets/Sets';
 import { Banner } from './Banner';
-import { Flex } from '../../blocks-ui/basic/Flex';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
 
 export const Store = () => (
   <Flex flexDirection='column'>

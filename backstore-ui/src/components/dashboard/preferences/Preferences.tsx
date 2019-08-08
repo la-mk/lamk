@@ -1,7 +1,7 @@
 import React from 'react';
-import { Flex } from '../../../blocks-ui/basic/Flex';
-import { Title } from '../../../blocks-ui/basic/Typography';
-import { Tabs, TabPane } from '../../../blocks-ui/basic/Tabs';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
+import { Title } from 'blocks-ui/dist/basic/Typography';
+import { Tabs, TabPane } from 'blocks-ui/dist/basic/Tabs';
 import { AccountPreferences } from './AccountPreferences';
 import { StorePreferences } from './StorePreferences';
 import { DeliveryPreferences } from './DeliveryPreferences';

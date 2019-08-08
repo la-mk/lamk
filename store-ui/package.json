@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "next -p 4000",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "analyze": "BUNDLE_ANALYZE=both next build",
+    "analyze:server": "BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "BUNDLE_ANALYZE=browser next build"
   },
   "author": "Stevche Radevski <sradevski@live.com>",
   "license": "ISC",
   "dependencies": {
+    "la-sdk": "file:../la-sdk/la-sdk-1.0.0.tgz",
     "next": "^9.0.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -20,6 +24,7 @@
     "@types/node": "^12.6.9",
     "@types/react": "^16.8.24",
     "@types/styled-components": "^4.1.18",
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-plugin-styled-components": "^1.10.6",
     "typescript": "^3.5.3"
   }

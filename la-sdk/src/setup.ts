@@ -1,5 +1,5 @@
 // @ts-ignore
-import * as feathers from '@feathersjs/client';
+import feathers from '@feathersjs/client';
 import io from 'socket.io-client';
 import { Application, Params, Id, NullableId } from '@feathersjs/feathers';
 

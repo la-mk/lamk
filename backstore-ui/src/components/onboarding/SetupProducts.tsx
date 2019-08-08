@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Col, Row } from '../../blocks-ui/basic/Grid';
-import { Button } from '../../blocks-ui/basic/Button';
+import { Col, Row } from 'blocks-ui/dist/basic/Grid';
+import { Button } from 'blocks-ui/dist/basic/Button';
 import { AddProductCard } from './AddProductCard';
-import { Flex } from '../../blocks-ui/basic/Flex';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
 import { Product } from 'la-sdk/dist/models/product';
 
 interface SetupProductsProps {

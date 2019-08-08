@@ -6,13 +6,15 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     
     "declaration": true,
     "removeComments": true,
     "outDir": "./dist",
+
+    "jsx": "react"
   },
   "include": [
     "src"

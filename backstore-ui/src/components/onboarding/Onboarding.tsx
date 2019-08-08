@@ -6,8 +6,8 @@ import { SetupStore } from './SetupStore';
 import { SetupProducts } from './SetupProducts';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Steps, Step } from '../../blocks-ui/basic/Steps';
-import { Flex } from '../../blocks-ui/basic/Flex';
+import { Steps, Step } from 'blocks-ui/dist/basic/Steps';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
 import { Publish } from './Publish';
 import { Product } from 'la-sdk/dist/models/product';
 import { Store } from 'la-sdk/dist/models/store';
@@ -15,7 +15,7 @@ import { Delivery } from 'la-sdk/dist/models/delivery';
 import { sdk } from 'la-sdk';
 import { getStore } from '../../state/modules/store/store.selector';
 import { setStore } from '../../state/modules/store/store.module';
-import { message } from '../../blocks-ui/static/message';
+import { message } from 'blocks-ui/dist/static/message';
 import {
   setProducts,
   addProduct,

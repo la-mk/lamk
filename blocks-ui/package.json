@@ -1,0 +1,62 @@
+{
+  "name": "blocks-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "/dist"
+  ],
+  "types": "dist/index.d.ts",
+  "author": "Stevche Radevski <sradevski@live.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -cw"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{js,mjs,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.136",
+    "@types/react": "^16.8.25",
+    "@types/styled-components": "^4.1.18",
+    "@types/styled-system": "^5.0.1",
+    "antd": "^3.21.2",
+    "lodash": "^4.17.15",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "rollup": "^1.19.4",
+    "rollup-plugin-multi-entry": "^2.1.0",
+    "rollup-plugin-multi-input": "^1.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-typescript2": "^0.22.1",
+    "styled-components": "^4.3.2",
+    "styled-system": "^5.0.21",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6",
+    "prettier": "^1.17.0",
+    "typescript": "^3.5.3"
+  },
+  "peerDependencies": {
+    "antd": "^3.21.2",
+    "lodash": "^4.17.15",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.3.2",
+    "styled-system": "^5.0.21"
+  }
+}

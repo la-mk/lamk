@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  Layout,
-  Content,
-  Header,
-  Footer,
-} from '../../blocks-ui/basic/Layout';
-import { Flex } from '../../blocks-ui/basic/Flex';
-import { Menu, MenuItem } from '../../blocks-ui/basic/Menu';
+import { Layout, Content, Header, Footer } from 'blocks-ui/dist/basic/Layout';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
+import { Menu, MenuItem } from 'blocks-ui/dist/basic/Menu';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
-import { Icon } from '../../blocks-ui/basic/Icon';
-import { Search } from '../../blocks-ui/basic/Input';
+import { Icon } from 'blocks-ui/dist/basic/Icon';
+import { Search } from 'blocks-ui/dist/basic/Input';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;

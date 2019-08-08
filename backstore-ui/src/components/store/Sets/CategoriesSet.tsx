@@ -1,5 +1,5 @@
 import React from 'react';
-import { Set } from '../../../blocks-ui/basic/Set';
+import { Set } from 'blocks-ui/dist/basic/Set';
 import { CategoryCard } from '../shared/CategoryCard';
 
 export const CategoriesSet = ({ categories }: { categories: any[] }) => {

@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from '../../../blocks-ui/basic/Modal';
+import { Modal } from 'blocks-ui/dist/basic/Modal';
 import { sdk } from 'la-sdk';
-import { message } from '../../../blocks-ui/static/message';
+import { message } from 'blocks-ui/dist/static/message';
 import { Product } from 'la-sdk/dist/models/product';
-import { Spin } from '../../../blocks-ui/basic/Spin';
+import { Spin } from 'blocks-ui/dist/basic/Spin';
 import { Order } from 'la-sdk/dist/models/order';
-import { Flex } from '../../../blocks-ui/basic/Flex';
-import { Button } from '../../../blocks-ui/basic/Button';
-import { Card } from '../../../blocks-ui/basic/Card';
+import { Flex } from 'blocks-ui/dist/basic/Flex';
+import { Button } from 'blocks-ui/dist/basic/Button';
+import { Card } from 'blocks-ui/dist/basic/Card';
 import {
   Descriptions,
   DescriptionItem,
-} from '../../../blocks-ui/basic/DescriptionList';
-import { Tag } from '../../../blocks-ui/basic/Tag';
+} from 'blocks-ui/dist/basic/DescriptionList';
+import { Tag } from 'blocks-ui/dist/basic/Tag';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,
 } from '../../shared/utils/statuses';
 import { getShortId } from '../../shared/utils/ids';
-import { List } from '../../../blocks-ui/basic/List';
-import { SizedImage } from '../../../blocks-ui/compound/SizedImage';
-import { Text } from '../../../blocks-ui/basic/Typography';
-import { Option, Select } from '../../../blocks-ui/basic/Select';
+import { List } from 'blocks-ui/dist/basic/List';
+import { SizedImage } from 'blocks-ui/dist/compound/SizedImage';
+import { Text } from 'blocks-ui/dist/basic/Typography';
+import { Option, Select } from 'blocks-ui/dist/basic/Select';
 import {
   setOrder,
   removeOrder,
