@@ -1,22 +1,25 @@
 import * as React from 'react';
 import { UploadChangeParam } from 'antd/es/upload';
 
-import { Col } from 'blocks-ui/dist/basic/Grid';
-import { Button } from 'blocks-ui/dist/basic/Button';
-import { Form, FormItem } from 'blocks-ui/dist/basic/Form';
-import { UploadDragger } from 'blocks-ui/dist/basic/Upload';
-import { UploadContent } from 'blocks-ui/dist/compound/UploadContent';
+import {
+  Col,
+  Button,
+  Form,
+  FormItem,
+  UploadDragger,
+  UploadContent,
+  message,
+  Flex,
+  formInput,
+} from 'blocks-ui';
 
 import { sdk } from 'la-sdk';
 import { Store } from 'la-sdk/dist/models/store';
-import { message } from 'blocks-ui/dist/static/message';
-import { Flex } from 'blocks-ui/dist/basic/Flex';
 import {
   uploadImage,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../shared/utils/artifacts';
-import { formInput } from 'blocks-ui/dist/compound/FormHelpers';
 
 interface SetupStoreProps {
   onDone: (newStore?: Store) => void;

@@ -1,8 +1,5 @@
 import React from 'react';
-import { Layout, Sider, Content } from 'blocks-ui/dist/basic/Layout';
-import { Flex } from 'blocks-ui/dist/basic/Flex';
-import { Menu, MenuItem } from 'blocks-ui/dist/basic/Menu';
-import { Icon } from 'blocks-ui/dist/basic/Icon';
+import { Layout, Sider, Content, Flex, Menu, MenuItem, Icon } from 'blocks-ui';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
@@ -15,8 +12,6 @@ interface DashboardLayoutProps {
 const FixedSider = styled(Sider)`
   overflow: auto;
   height: 100vh;
-  position: fixed;
-  left: 0;
 `;
 
 const StyledContent = styled(Content)`

@@ -3,10 +3,9 @@ import { Provider } from 'react-redux';
 //Note: This makes sure the app is loaded after the state has been rehydrated.
 // @ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-
 import configureStore from './state/configureStore';
 import { Root } from './components/Root';
-import { Provider as ThemeProvider } from 'blocks-ui/dist/basic/Provider';
+import { Provider as ThemeProvider } from 'blocks-ui';
 
 const env = process.env.REACT_APP_ENV;
 

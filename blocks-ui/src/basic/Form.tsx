@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form as AntForm } from 'antd';
-import { FormProps, FormItemProps } from 'antd/lib/form';
-import 'antd/lib/form/style/index.less';
+import { FormProps, FormItemProps } from 'antd/es/form';
+import 'antd/es/form/style/index.less';
 import get from 'lodash/get';
 import { clone, setWith, curry } from 'lodash/fp';
 import { system, SystemProps } from '../system';

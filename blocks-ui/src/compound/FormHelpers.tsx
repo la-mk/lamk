@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, TextArea } from '../basic/Input';
-import { InputProps, TextAreaProps } from 'antd/lib/input';
+import { InputProps, TextAreaProps } from 'antd/es/input';
 
 export const formInput = (props: InputProps = {}) => (
   val: any,

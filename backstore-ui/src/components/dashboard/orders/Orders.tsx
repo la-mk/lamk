@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip } from 'blocks-ui/dist/basic/Tooltip';
-import { Flex } from 'blocks-ui/dist/basic/Flex';
-import { Table, ColumnProps } from 'blocks-ui/dist/basic/Table';
+import { Tooltip } from 'blocks-ui';
+import { Flex, Table, Title, Tag, Button, message } from 'blocks-ui';
+import { ColumnProps } from 'blocks-ui/dist/types/basic/Table';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from 'la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { message } from 'blocks-ui/dist/static/message';
 import { Order } from 'la-sdk/dist/models/order';
-import { Title } from 'blocks-ui/dist/basic/Typography';
-import { Button } from 'blocks-ui/dist/basic/Button';
 import { getShortId } from '../../shared/utils/ids';
-import { Tag } from 'blocks-ui/dist/basic/Tag';
 import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
 
@@ -52,6 +48,7 @@ export const Orders = () => {
 
   useEffect(() => {
     if (store._id) {
+      setShowSpinner(true);
       sdk.order
         .findForStore(store._id)
         .then(orders => {

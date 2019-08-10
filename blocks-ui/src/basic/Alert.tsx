@@ -1,6 +1,6 @@
 import { Alert as AntAlert } from 'antd';
-import { AlertProps } from 'antd/lib/alert';
-import 'antd/lib/alert/style/index.less';
+import { AlertProps } from 'antd/es/alert';
+import 'antd/es/alert/style/index.less';
 
 import { system } from '../system';
 

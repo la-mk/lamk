@@ -1,7 +1,7 @@
 import { Typography as AntTypography } from 'antd';
-import { BlockProps } from 'antd/lib/typography/Base';
-import { TextProps } from 'antd/lib/typography/Text';
-import 'antd/lib/typography/style/index.less';
+import { BlockProps } from 'antd/es/typography/Base';
+import { TextProps } from 'antd/es/typography/Text';
+import 'antd/es/typography/style/index.less';
 
 import { system } from '../system';
 

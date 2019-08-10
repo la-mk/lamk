@@ -1,4 +1,4 @@
 import { message } from 'antd';
-import 'antd/lib/message/style/index.less';
+import 'antd/es/message/style/index.less';
 
 export { message };

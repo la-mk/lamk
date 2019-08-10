@@ -8,7 +8,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
     "aida": "aida run"
   },
   "eslintConfig": {
@@ -49,8 +49,8 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "^4.1.16",
     "@types/styled-system": "^4.2.1",
-    "antd": "^3.20.7",
-    "blocks-ui": "file:../blocks-ui/blocks-ui-1.0.0.tgz",
+    "antd": "^3.21.4",
+    "blocks-ui": "file:../blocks-ui/blocks-ui-1.0.18.tgz",
     "customize-cra": "^0.2.13",
     "la-sdk": "file:../la-sdk/la-sdk-1.0.0.tgz",
     "less": "^3.9.0",
@@ -78,6 +78,7 @@
     "@aida/injector-routes": "0.0.6",
     "@aida/injector-routes-map": "0.0.6",
     "@types/socket.io-client": "^1.4.32",
+    "babel-plugin-import": "^1.12.0",
     "dependency-cruiser": "^5.0.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-import": "^2.18.0",

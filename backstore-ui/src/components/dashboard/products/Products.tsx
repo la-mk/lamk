@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Tooltip } from 'blocks-ui/dist/basic/Tooltip';
-import { Flex } from 'blocks-ui/dist/basic/Flex';
-import { Table, ColumnProps } from 'blocks-ui/dist/basic/Table';
-import { Title } from 'blocks-ui/dist/basic/Typography';
-import { Button } from 'blocks-ui/dist/basic/Button';
+import {
+  Tooltip,
+  Flex,
+  Table,
+  Title,
+  Button,
+  SizedImage,
+  message,
+} from 'blocks-ui';
+import { ColumnProps } from 'blocks-ui/dist/types/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { getProducts } from '../../../state/modules/products/products.selector';
 import { Product } from 'la-sdk/dist/models/product';
 import { sdk } from 'la-sdk';
-import { SizedImage } from 'blocks-ui/dist/compound/SizedImage';
 import { setProducts } from '../../../state/modules/products/products.module';
-import { message } from 'blocks-ui/dist/static/message';
 
 const columns: ColumnProps<Product>[] = [
   {

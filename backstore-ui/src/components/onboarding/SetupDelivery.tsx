@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { Col } from 'blocks-ui/dist/basic/Grid';
-import { Button } from 'blocks-ui/dist/basic/Button';
-import { Form, FormItem } from 'blocks-ui/dist/basic/Form';
-import { Select, Option } from 'blocks-ui/dist/basic/Select';
+import {
+  Col,
+  Button,
+  Form,
+  FormItem,
+  Select,
+  Option,
+  Flex,
+  formInput,
+} from 'blocks-ui';
 import { Delivery } from 'la-sdk/dist/models/delivery';
 import { sdk } from 'la-sdk';
-import { Flex } from 'blocks-ui/dist/basic/Flex';
-import { formInput } from 'blocks-ui/dist/compound/FormHelpers';
 
 interface SetupDeliveryProps {
   onDone: (newDelivery?: Delivery) => void;

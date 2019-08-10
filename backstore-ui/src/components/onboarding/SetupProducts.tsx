@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { Col, Row } from 'blocks-ui/dist/basic/Grid';
-import { Button } from 'blocks-ui/dist/basic/Button';
+import { Col, Row, Button, Flex } from 'blocks-ui';
 import { AddProductCard } from './AddProductCard';
-import { Flex } from 'blocks-ui/dist/basic/Flex';
 import { Product } from 'la-sdk/dist/models/product';
 
 interface SetupProductsProps {
@@ -24,7 +22,7 @@ export const SetupProducts = ({
     <Row type='flex' align='middle' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
       {products.map(product => {
         return (
-          <Col mb={4}>
+          <Col key={product._id} mb={4}>
             <AddProductCard
               product={product}
               onAddProduct={onAddProduct}

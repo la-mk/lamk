@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'blocks-ui/dist/basic/Modal';
-import { sdk } from 'la-sdk';
-import { message } from 'blocks-ui/dist/static/message';
-import { Product } from 'la-sdk/dist/models/product';
-import { Spin } from 'blocks-ui/dist/basic/Spin';
-import { Order } from 'la-sdk/dist/models/order';
-import { Flex } from 'blocks-ui/dist/basic/Flex';
-import { Button } from 'blocks-ui/dist/basic/Button';
-import { Card } from 'blocks-ui/dist/basic/Card';
 import {
+  Modal,
+  Spin,
+  message,
+  Flex,
+  Button,
   Descriptions,
   DescriptionItem,
-} from 'blocks-ui/dist/basic/DescriptionList';
-import { Tag } from 'blocks-ui/dist/basic/Tag';
+  Select,
+  Option,
+  Tag,
+  Card,
+  List,
+  SizedImage,
+  Text,
+} from 'blocks-ui';
+import { sdk } from 'la-sdk';
+import { Product } from 'la-sdk/dist/models/product';
+import { Order } from 'la-sdk/dist/models/order';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,
 } from '../../shared/utils/statuses';
 import { getShortId } from '../../shared/utils/ids';
-import { List } from 'blocks-ui/dist/basic/List';
-import { SizedImage } from 'blocks-ui/dist/compound/SizedImage';
-import { Text } from 'blocks-ui/dist/basic/Typography';
-import { Option, Select } from 'blocks-ui/dist/basic/Select';
 import {
   setOrder,
   removeOrder,
@@ -52,6 +53,7 @@ export const OrderDetailsModal = ({
 
   useEffect(() => {
     if (order) {
+      setShowSpinner(true);
       const getProductsForOrder = () => {
         sdk.product
           .findForStore(order.orderedFrom, {

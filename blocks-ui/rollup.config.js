@@ -1,18 +1,24 @@
 import typescript from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
 import external from 'rollup-plugin-peer-deps-external';
-import multiInput from 'rollup-plugin-multi-input';
 
 import pkg from './package.json';
 
 export default {
-  input: ['src/**/*.ts', 'src/**/*.tsx'],
+  input: 'src/index.ts',
   output: [
-    {
-      dir: 'dist/',
-      format: 'es',
-    },
+    // {
+    //   file: pkg.main,
+    //   name: 'blocksUi',
+    //   format: 'umd',
+    //   sourcemap: false,
+    // },
+    { file: pkg.module, format: 'es', sourcemap: false },
   ],
   external: [...Object.keys(pkg.peerDependencies)],
-  plugins: [external(), multiInput(), resolve(), typescript()],
+  plugins: [
+    external(),
+    typescript({ useTsconfigDeclarationDir: true }),
+    resolve(),
+  ],
 };

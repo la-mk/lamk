@@ -12,15 +12,12 @@
     
     "declaration": true,
     "removeComments": true,
-    "outDir": "./dist",
+    "declarationDir": "dist/types",
+    "outDir": "./dist/lib",
 
     "jsx": "react"
   },
   "include": [
     "src"
   ],
-  "exclude": [
-		"node_modules",
-		"dist"
-	]
 }

@@ -1,6 +1,6 @@
 import { Layout as AntLayout } from 'antd';
-import { LayoutProps, SiderProps } from 'antd/lib/layout';
-import 'antd/lib/layout/style/index.less';
+import { LayoutProps, SiderProps } from 'antd/es/layout';
+import 'antd/es/layout/style/index.less';
 
 import { system } from '../system';
 

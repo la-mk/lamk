@@ -1,20 +1,25 @@
 import * as React from 'react';
-import { Card } from 'blocks-ui/dist/basic/Card';
-import { UploadDragger } from 'blocks-ui/dist/basic/Upload';
-import { Select, Option } from 'blocks-ui/dist/basic/Select';
-import { UploadContent } from 'blocks-ui/dist/compound/UploadContent';
+import {
+  Card,
+  UploadDragger,
+  Select,
+  Option,
+  UploadContent,
+  Form,
+  FormItem,
+  Button,
+  message,
+  formInput,
+  formTextArea,
+} from 'blocks-ui';
 import { Product } from 'la-sdk/dist/models/product';
-import { Form, FormItem } from 'blocks-ui/dist/basic/Form';
 import { sdk } from 'la-sdk';
-import { Button } from 'blocks-ui/dist/basic/Button';
 import { UploadChangeParam } from 'antd/es/upload';
-import { message } from 'blocks-ui/dist/static/message';
 import {
   uploadImage,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../shared/utils/artifacts';
-import { formInput, formTextArea } from 'blocks-ui/dist/compound/FormHelpers';
 
 interface AddProductCardProps {
   product?: Product;
