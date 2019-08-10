@@ -8,6 +8,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "aida": "aida run"
   },
   "eslintConfig": {
@@ -83,6 +84,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "husky": "^2.2.0",
     "lint-staged": "^8.1.6",
-    "prettier": "^1.17.0"
+    "prettier": "^1.17.0",
+    "source-map-explorer": "^2.0.1"
   }
 }
