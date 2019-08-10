@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from 'next/link';
-import { Layout } from "../src/Layout";
+// import { StoreRouter } from "../src/Store.router";
 
 function Home({stars}: any) {
   return (
@@ -9,10 +9,9 @@ function Home({stars}: any) {
         <title key="title">My page title</title>
         <meta key="viewport" name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Layout>
-        <div>Welcome to Next.js! {stars}</div>
+      <div>Welcome to Next.js! {stars}</div>
         <Link href="/products?category=home-items"><a>Products</a></Link>
-      </Layout>
+      {/* <StoreRouter/> */}
     </div>
   );
 }

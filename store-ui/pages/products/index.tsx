@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { sdk } from 'la-sdk';
 import { Product } from 'la-sdk/dist/models/product';
-import { Layout } from '../../src/Layout';
 import { useRouter } from 'next/router';
 
 function Products({products}: {products: Product[]}) {
@@ -13,14 +12,12 @@ function Products({products}: {products: Product[]}) {
       <title key="title">Products</title>
       <meta name="viewport" key="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>    
-    <Layout>
       <h1>
         {query.category}
       </h1>
       {products.map(product => {
         return <Link href="/products/[pid]" as={`/products/${product._id}`}><a>{product.name}</a></Link>
       })}
-    </Layout>
   </div>;
 }
 
