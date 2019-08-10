@@ -1,5 +1,6 @@
-import { default as AntTooltip, TooltipProps } from 'antd/es/tooltip';
-import 'antd/es/tooltip/style/index.less';
+import { Tooltip as AntTooltip } from 'antd';
+import { TooltipProps } from 'antd/lib/tooltip';
+import 'antd/lib/tooltip/style/index.less';
 
 import { system } from '../system';
 

@@ -1,5 +1,7 @@
-import { default as AntTag, TagProps, CheckableTagProps } from 'antd/es/tag';
-import 'antd/es/tag/style/index.less';
+import { Tag as AntTag } from 'antd';
+import { TagProps, CheckableTagProps } from 'antd/lib/tag';
+
+import 'antd/lib/tag/style/index.less';
 
 import { system } from '../system';
 

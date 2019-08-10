@@ -1,12 +1,12 @@
+import { Input as AntInput } from 'antd';
 import {
-  default as AntInput,
   InputProps,
   TextAreaProps,
   GroupProps,
   SearchProps,
   PasswordProps,
-} from 'antd/es/input';
-import 'antd/es/input/style/index.less';
+} from 'antd/lib/input';
+import 'antd/lib/input/style/index.less';
 
 import { system } from '../system';
 

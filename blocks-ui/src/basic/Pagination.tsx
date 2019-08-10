@@ -1,5 +1,6 @@
-import { default as AntPagination, PaginationProps } from 'antd/es/pagination';
-import 'antd/es/pagination/style/index.less';
+import { Pagination as AntPagination } from 'antd';
+import { PaginationProps } from 'antd/lib/pagination';
+import 'antd/lib/pagination/style/index.less';
 
 import { system } from '../system';
 

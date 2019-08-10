@@ -1,6 +1,6 @@
 import { Steps as AntSteps } from 'antd';
-import { StepsProps as AntStepsProps, StepProps } from 'antd/es/steps';
-import 'antd/es/steps/style/index.less';
+import { StepsProps as AntStepsProps, StepProps } from 'antd/lib/steps';
+import 'antd/lib/steps/style/index.less';
 
 import * as React from 'react';
 import { system } from '../system';

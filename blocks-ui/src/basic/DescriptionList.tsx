@@ -1,9 +1,9 @@
+import { Descriptions as AntDescriptions } from 'antd';
 import {
-  default as AntDescriptions,
   DescriptionsProps,
   DescriptionsItemProps,
-} from 'antd/es/descriptions';
-import 'antd/es/descriptions/style/index.less';
+} from 'antd/lib/descriptions';
+import 'antd/lib/descriptions/style/index.less';
 
 import { system } from '../system';
 

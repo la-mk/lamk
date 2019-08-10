@@ -1,5 +1,6 @@
-import AntStatistic, { StatisticProps } from 'antd/es/statistic/Statistic';
-import 'antd/es/statistic/style/index.less';
+import { Statistic as AntStatistic } from 'antd';
+import { StatisticProps } from 'antd/lib/statistic/Statistic';
+import 'antd/lib/statistic/style/index.less';
 
 import { system } from '../system';
 

@@ -1,7 +1,8 @@
-import { default as AntMenu, MenuProps } from 'antd/es/menu';
-import { MenuItemProps } from 'antd/es/menu/MenuItem';
-import { SubMenuProps } from 'antd/es/menu/SubMenu';
-import 'antd/es/menu/style/index.less';
+import { Menu as AntMenu } from 'antd';
+import { MenuProps } from 'antd/lib/menu';
+import { MenuItemProps } from 'antd/lib/menu/MenuItem';
+import { SubMenuProps } from 'antd/lib/menu/SubMenu';
+import 'antd/lib/menu/style/index.less';
 
 import { system } from '../system';
 

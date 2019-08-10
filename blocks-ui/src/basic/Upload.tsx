@@ -1,5 +1,6 @@
-import { default as AntUpload, UploadProps } from 'antd/es/upload';
-import 'antd/es/upload/style/index.less';
+import { Upload as AntUpload } from 'antd';
+import { UploadProps } from 'antd/lib/upload';
+import 'antd/lib/upload/style/index.less';
 
 import { system } from '../system';
 

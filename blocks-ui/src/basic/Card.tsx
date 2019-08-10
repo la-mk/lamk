@@ -1,5 +1,6 @@
-import { default as AntCard, CardProps, CardMetaProps } from 'antd/es/card';
-import 'antd/es/card/style/index.less';
+import { Card as AntCard } from 'antd';
+import { CardProps, CardMetaProps } from 'antd/lib/card';
+import 'antd/lib/card/style/index.less';
 
 import { system } from '../system';
 import styled from 'styled-components';

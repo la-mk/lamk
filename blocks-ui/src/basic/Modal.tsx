@@ -1,5 +1,6 @@
-import { default as AntModal, ModalProps } from 'antd/es/modal';
-import 'antd/es/modal/style/index.less';
+import { Modal as AntModal } from 'antd';
+import { ModalProps } from 'antd/lib/modal';
+import 'antd/lib/modal/style/index.less';
 
 import { system } from '../system';
 
