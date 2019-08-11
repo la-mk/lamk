@@ -1,31 +1,25 @@
-import Head from "next/head";
-import Link from 'next/link';
-import { StoreRouter } from "../src/Store.router";
-import {Provider} from 'blocks-ui';
+import { Home } from '../src/Home';
+import { Provider } from 'blocks-ui';
+import { Head } from '../src/common/Head';
 
-function Home({stars}: any) {
+function HomePage({ stars }: any) {
   return (
     <Provider>
       <>
-      <Head>
-        <title key="title">My page title</title>
-        <meta key="viewport" name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <div>Welcome to Next.js! {stars}</div>
-        <Link href="/products?category=home-items"><a>Products</a></Link>
-      <StoreRouter/>
+        <Head title='Home' />
+        <Home />
       </>
     </Provider>
   );
 }
 
 // See https://nextjs.org/docs#fetching-data-and-component-lifecycle
-Home.getInitialProps = async () => {
+HomePage.getInitialProps = async () => {
   // This won't work, as fetch needs to be available in both node and browsers
   // const res = await fetch('https://api.github.com/repos/zeit/next.js');
   // const json = await res.json();
   // return { stars: json.stargazers_count };
-  return {stars: 1};
+  return { stars: 1 };
 };
 
-export default Home;
+export default HomePage;

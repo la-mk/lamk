@@ -9,6 +9,10 @@ import {
   JustifyContentProps,
   order,
   OrderProps,
+  flexWrap,
+  flexDirection,
+  alignItems,
+  justifyContent,
 } from 'styled-system';
 import { system } from '../system';
 
@@ -27,5 +31,9 @@ export const Flex = system<FlexProps>(styled.div`
   box-sizing: border-box;
   ${flex};
   ${order};
+  ${flexWrap};
+  ${flexDirection};
+  ${alignItems};
+  ${justifyContent};
 
   display: flex !important;` as any);

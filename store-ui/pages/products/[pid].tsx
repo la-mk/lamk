@@ -9,5 +9,5 @@ export default () => {
   const router = useRouter();
   const { pid } = router.query;
 
-  return <Title>Hi {pid}</Title>
+  return <Title>Hi {pid}</Title>;
 };

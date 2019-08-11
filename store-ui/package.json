@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Store UI",
   "main": "pages/index.ts",
+  "author": "Stevche Radevski <sradevski@live.com>",
+  "license": "ISC",
   "scripts": {
     "dev": "next -p 4000",
     "build": "next build",
@@ -11,11 +13,20 @@
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build"
   },
-  "author": "Stevche Radevski <sradevski@live.com>",
-  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{js,mjs,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "dependencies": {
     "antd": "^3.21.2",
-    "blocks-ui": "file:../blocks-ui/blocks-ui-1.0.20.tgz",
+    "blocks-ui": "file:../blocks-ui/blocks-ui-1.0.21.tgz",
     "la-sdk": "file:../la-sdk/la-sdk-1.0.0.tgz",
     "next": "^9.0.3",
     "react": "^16.8.6",
@@ -35,6 +46,13 @@
     "less": "^3.9.0",
     "next-compose-plugins": "^2.2.0",
     "null-loader": "^3.0.0",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6",
+    "prettier": "^1.17.0",
     "typescript": "^3.5.3"
   }
 }

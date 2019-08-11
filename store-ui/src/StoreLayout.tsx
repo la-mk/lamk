@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Menu,
   MenuItem,
@@ -8,9 +8,9 @@ import {
   Layout,
   Content,
   Header,
-  Footer
-} from "blocks-ui";
-import styled from "styled-components";
+  Footer,
+} from 'blocks-ui';
+import styled from 'styled-components';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -34,29 +34,29 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
 
   return (
     <>
-      <Layout theme="dark">
-        <Header style={{ background: "white" }}>
-          <Flex justifyContent="space-between">
+      <Layout theme='dark'>
+        <Header style={{ background: 'white' }}>
+          <Flex justifyContent='space-between'>
             <TopMenuContainer py={3}>Store logo</TopMenuContainer>
-            <TopMenuContainer flex={"1 0 0"} mx={4} py={3}>
+            <TopMenuContainer flex={'1 0 0'} mx={4} py={3}>
               <Search />
             </TopMenuContainer>
             <Menu
-              style={{ lineHeight: "64px" }}
-              mode="horizontal"
+              style={{ lineHeight: '64px' }}
+              mode='horizontal'
               // selectedKeys={selectedKeys}
             >
-              <MenuItem key="products">
+              <MenuItem key='products'>
                 <span>Products</span>
                 {/* <Link to='/store/products' /> */}
               </MenuItem>
-              <MenuItem key="about-us">
+              <MenuItem key='about-us'>
                 <span>About us</span>
                 {/* <Link to='/store/about-us' /> */}
               </MenuItem>
-              <MenuItem height={"64px"} key="cart">
+              <MenuItem height={'64px'} key='cart'>
                 <span>
-                  <Icon m={0} type="shopping-cart" />
+                  <Icon m={0} type='shopping-cart' />
                   Cart
                 </span>
                 {/* <Link to='/store/cart' /> */}
@@ -65,7 +65,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
           </Flex>
         </Header>
         <StyledContent py={20}>{children}</StyledContent>
-        <Footer style={{ textAlign: "center" }}>
+        <Footer style={{ textAlign: 'center' }}>
           La.mk ©2019 Created by La.mk
         </Footer>
       </Layout>
