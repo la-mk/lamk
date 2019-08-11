@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^3.21.2",
-    "blocks-ui": "file:../blocks-ui/blocks-ui-1.0.10.tgz",
+    "blocks-ui": "file:../blocks-ui/blocks-ui-1.0.20.tgz",
     "la-sdk": "file:../la-sdk/la-sdk-1.0.0.tgz",
     "next": "^9.0.3",
     "react": "^16.8.6",
@@ -29,8 +29,12 @@
     "@types/styled-components": "^4.1.18",
     "@types/styled-system": "^5.0.1",
     "@zeit/next-bundle-analyzer": "^0.1.2",
+    "@zeit/next-less": "^1.0.1",
+    "babel-plugin-import": "^1.12.0",
     "babel-plugin-styled-components": "^1.10.6",
+    "less": "^3.9.0",
     "next-compose-plugins": "^2.2.0",
+    "null-loader": "^3.0.0",
     "typescript": "^3.5.3"
   }
 }
