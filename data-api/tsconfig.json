@@ -15,7 +15,7 @@
     "removeComments": true,
     "noImplicitAny": true,
     "noUnusedParameters": true,
-		"noUnusedLocals": true,
+    "noUnusedLocals": true,
     "outDir": "dist"
   },
   "include": [

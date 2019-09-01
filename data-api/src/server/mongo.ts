@@ -5,6 +5,7 @@ import { Application } from '@feathersjs/express';
 export const initMongoClient = async (app: Application) => {
   const client = await MongoClient.connect(env.MONGODB_CONNECTION_STRING, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 
   app.set('mongoClient', client);

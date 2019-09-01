@@ -1,6 +1,18 @@
-// These are executed in the same order they are written down.
+import * as feathersAuthentication from '@feathersjs/authentication';
+const { authenticate } = feathersAuthentication.hooks;
+
 export const hooks = {
   before: {
+    all: [],
+    find: [],
+    get: [],
+    create: [authenticate('jwt')],
+    update: [authenticate('jwt')],
+    patch: [authenticate('jwt')],
+    remove: [authenticate('jwt')],
+  },
+
+  after: {
     all: [],
     find: [],
     get: [],
@@ -9,9 +21,11 @@ export const hooks = {
     patch: [],
     remove: [],
   },
-  after: {
+
+  error: {
     all: [],
     find: [],
+    get: [],
     create: [],
     update: [],
     patch: [],
