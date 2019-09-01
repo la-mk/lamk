@@ -1,6 +1,7 @@
 import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
+import { OmitServerProperties } from '../utils';
 
 export interface OrderItem {
   product: string;
@@ -18,7 +19,10 @@ export interface Order {
 }
 
 export const getOrderSdk = (client: Application) => {
-  const crudMethods = getCrudMethods(client, 'orders');
+  const crudMethods = getCrudMethods<OmitServerProperties<Order>, Order>(
+    client,
+    'orders',
+  );
   return {
     ...crudMethods,
 

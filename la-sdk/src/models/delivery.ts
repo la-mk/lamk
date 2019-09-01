@@ -1,5 +1,6 @@
 import { Application } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
+import { OmitServerProperties } from '../utils';
 
 export interface Delivery {
   _id: string;
@@ -13,7 +14,10 @@ export interface Delivery {
 
 export const getDeliverySdk = (client: Application) => {
   return {
-    ...getCrudMethods(client, 'deliveries'),
+    ...getCrudMethods<OmitServerProperties<Delivery>, Delivery>(
+      client,
+      'deliveries',
+    ),
 
     validate: (data: Delivery, considerRequired = true) => {
       if (!data.price) {

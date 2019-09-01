@@ -1,8 +1,12 @@
 {
   "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
   "plugins": [
+    "@typescript-eslint",
     "prettier"
   ],
   "rules": {
@@ -19,7 +23,10 @@
         "arrowParens": "avoid",
         "endOfLine": "lf"
       }
-    ]
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "env": {
     "node": true,
