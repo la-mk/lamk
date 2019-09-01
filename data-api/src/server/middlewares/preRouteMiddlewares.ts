@@ -1,4 +1,4 @@
-import express, { Application } from '@feathersjs/express';
+import { Application, original as express } from '@feathersjs/express';
 import * as compress from 'compression';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
