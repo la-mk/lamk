@@ -1,5 +1,6 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 import * as local from '@feathersjs/authentication-local';
+import { unique } from '../../common/hooks/unique';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
@@ -9,9 +10,9 @@ export const hooks = {
     all: [],
     find: [authenticate('jwt')],
     get: [authenticate('jwt')],
-    create: [hashPassword('password')],
-    update: [hashPassword('password'), authenticate('jwt')],
-    patch: [hashPassword('password'), authenticate('jwt')],
+    create: [unique(['email']), hashPassword('password')],
+    update: [unique(['email']), hashPassword('password'), authenticate('jwt')],
+    patch: [unique(['email']), hashPassword('password'), authenticate('jwt')],
     remove: [authenticate('jwt')],
   },
 
