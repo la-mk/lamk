@@ -2,6 +2,7 @@ export { Alert } from './basic/Alert';
 export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
+export { Dropdown } from './basic/Dropdown';
 export { Flex } from './basic/Flex';
 export { FlexGrid } from './basic/FlexGrid';
 export { Form, FormItem } from './basic/Form';
