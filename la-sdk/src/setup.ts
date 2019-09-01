@@ -1,5 +1,6 @@
 import feathers from '@feathersjs/feathers';
 import socketio from '@feathersjs/socketio-client';
+import authentication from '@feathersjs/authentication-client';
 import io from 'socket.io-client';
 import { Application, Params, Id, NullableId } from '@feathersjs/feathers';
 
@@ -15,6 +16,7 @@ export const setupClient = () => {
 
   const socket = io('http://localhost:3030');
   client.configure(socketio(socket));
+  client.configure(authentication());
   return client;
 };
 
