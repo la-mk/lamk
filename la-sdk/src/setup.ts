@@ -16,7 +16,11 @@ export const setupClient = () => {
 
   const socket = io('http://localhost:3030');
   client.configure(socketio(socket));
-  client.configure(authentication());
+  client.configure(
+    authentication({
+      storageKey: 'lamk-token',
+    }),
+  );
   return client;
 };
 
