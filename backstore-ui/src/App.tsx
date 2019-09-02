@@ -3,7 +3,8 @@ import { Provider } from 'react-redux';
 //Note: This makes sure the app is loaded after the state has been rehydrated.
 // @ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-import configureStore from './state/configureStore';
+import configureStore, { history } from './state/configureStore';
+import { ConnectedRouter } from 'connected-react-router';
 import { Root } from './components/Root';
 import { Provider as ThemeProvider } from 'blocks-ui';
 
@@ -25,7 +26,9 @@ export class App extends Component {
           persistor={this.state.persistor}
         >
           <ThemeProvider>
-            <Root />
+            <ConnectedRouter history={history}>
+              <Root />
+            </ConnectedRouter>
           </ThemeProvider>
         </PersistGate>
       </Provider>

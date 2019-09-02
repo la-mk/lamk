@@ -5,11 +5,11 @@ import { UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 
 export const toBase64 = (file: Blob) => {
-  return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = () => {
-      resolve(fileReader.result);
+      resolve(fileReader.result as string);
     };
 
     fileReader.onerror = err => {
