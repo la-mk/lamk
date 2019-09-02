@@ -3,6 +3,7 @@ import { Layout, Sider, Content, Flex, Menu, MenuItem, Icon } from 'blocks-ui';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
+import { Account } from './Account';
 
 interface DashboardLayoutProps {
   children?: React.ReactNode;
@@ -39,7 +40,7 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
           onCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
           <TopMenuContainer py={4} px={3}>
-            Welcome xxx
+            <Account />
           </TopMenuContainer>
 
           <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>

@@ -18,7 +18,6 @@ export const Signup = () => {
   const handleSignup = (data: any) => {
     sdk.user
       .create(data)
-      .then(user => console.log(user))
       .then(() =>
         sdk.authentication.authenticate({
           strategy: 'local',
@@ -26,7 +25,7 @@ export const Signup = () => {
           password: data.password,
         }),
       )
-      .then(() => dispatch(replaceTo('/dashboard')))
+      .then(() => dispatch(replaceTo('/')))
       .catch(err => message.error(err.message));
   };
 

@@ -24,7 +24,7 @@ export const Login = () => {
         password: data.password,
       })
       .then(() => {
-        dispatch(replaceTo('/dashboard'));
+        dispatch(replaceTo('/'));
       })
       .catch(err => message.error(err.message));
   };
