@@ -1,6 +1,10 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 import * as local from '@feathersjs/authentication-local';
 import { unique } from '../../common/hooks/unique';
+import {
+  queryWithCurrentUser,
+  restrictToOwner,
+} from 'feathers-authentication-hooks';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
@@ -8,12 +12,22 @@ const { hashPassword, protect } = local.hooks;
 export const hooks = {
   before: {
     all: [],
-    find: [authenticate('jwt')],
-    get: [authenticate('jwt')],
+    find: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
+    get: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
     create: [unique(['email']), hashPassword('password')],
-    update: [unique(['email']), hashPassword('password'), authenticate('jwt')],
-    patch: [unique(['email']), hashPassword('password'), authenticate('jwt')],
-    remove: [authenticate('jwt')],
+    update: [
+      unique(['email']),
+      hashPassword('password'),
+      authenticate('jwt'),
+      restrictToOwner({ ownerField: '_id' }),
+    ],
+    patch: [
+      unique(['email']),
+      hashPassword('password'),
+      authenticate('jwt'),
+      restrictToOwner({ ownerField: '_id' }),
+    ],
+    remove: [authenticate('jwt'), restrictToOwner({ ownerField: '_id' })],
   },
 
   after: {
