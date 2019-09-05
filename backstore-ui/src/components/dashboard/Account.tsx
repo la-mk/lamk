@@ -5,7 +5,6 @@ import {
   Menu,
   MenuItem,
   message,
-  Text,
   Icon,
   MenuDivider,
 } from 'blocks-ui';

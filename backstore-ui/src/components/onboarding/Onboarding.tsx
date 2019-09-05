@@ -45,11 +45,10 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const delivery: Delivery = useSelector(getDelivery);
 
   const dispatch = useDispatch();
-  const userId = '123';
 
   useEffect(() => {
     sdk.store
-      .findForUser(userId)
+      .find()
       .then(stores => {
         if (stores.total > 0) {
           dispatch(setStore(stores.data[0]));
@@ -76,7 +75,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
     (newStore._id
       ? sdk.store.patch(newStore._id, newStore)
-      : sdk.store.create({ ...newStore, ownedBy: userId, isPublished: false })
+      : sdk.store.create({ ...newStore, isPublished: false })
     )
       .then(store => {
         dispatch(setStore(store));

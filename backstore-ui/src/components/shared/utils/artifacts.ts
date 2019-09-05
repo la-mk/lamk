@@ -57,6 +57,7 @@ export const getDefaultFileList = (value?: string | string[]) => {
 export const handleArtifactUploadStatus = (
   info: UploadChangeParam,
   value: string | string[],
+  single: boolean,
   onComplete: (val: any) => void,
   onError: (message: string) => void,
 ) => {
@@ -79,10 +80,10 @@ export const handleArtifactUploadStatus = (
     }
 
     case 'done': {
-      if (isString(value)) {
+      if (single) {
         onComplete(info.file.response.id);
       } else {
-        onComplete([...value, info.file.response.id]);
+        onComplete([...(value || []), info.file.response.id]);
       }
       break;
     }

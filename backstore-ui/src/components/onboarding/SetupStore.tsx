@@ -53,7 +53,13 @@ export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
               customRequest={uploadImage}
               accept='.png, .jpg, .jpeg'
               onChange={(info: UploadChangeParam) =>
-                handleArtifactUploadStatus(info, val, onComplete, message.error)
+                handleArtifactUploadStatus(
+                  info,
+                  val,
+                  true,
+                  onComplete,
+                  message.error,
+                )
               }
               defaultFileList={getDefaultFileList(store.logo)}
               listType='picture'

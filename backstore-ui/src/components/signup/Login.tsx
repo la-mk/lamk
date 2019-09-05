@@ -12,6 +12,7 @@ import {
 import { sdk } from 'la-sdk';
 import { useDispatch } from 'react-redux';
 import { replaceTo } from '../../state/modules/navigation/navigation.actions';
+import { setStore } from '../../state/modules/store/store.module';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,16 @@ export const Login = () => {
         strategy: 'local',
         email: data.email,
         password: data.password,
+      })
+      .then(() => {
+        return sdk.store
+          .find()
+          .then(stores => {
+            if (stores.total > 0) {
+              dispatch(setStore(stores.data[0]));
+            }
+          })
+          .catch(err => message.error(err.message));
       })
       .then(() => {
         dispatch(replaceTo('/'));

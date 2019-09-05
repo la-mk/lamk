@@ -99,7 +99,13 @@ export const AddProductCard = ({
               customRequest={uploadImage}
               accept='.png, .jpg, .jpeg'
               onChange={(info: UploadChangeParam) =>
-                handleArtifactUploadStatus(info, val, onComplete, message.error)
+                handleArtifactUploadStatus(
+                  info,
+                  val,
+                  false,
+                  onComplete,
+                  message.error,
+                )
               }
               defaultFileList={getDefaultFileList(
                 product ? product.images : undefined,

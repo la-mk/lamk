@@ -11,7 +11,11 @@ export const hooks = {
     all: [],
     find: [authenticate('jwt'), queryWithCurrentUser({ as: 'orderedFrom' })],
     get: [authenticate('jwt'), queryWithCurrentUser({ as: 'orderedFrom' })],
-    create: [authenticate('jwt'), associateCurrentUser({ as: 'orderedFrom' })],
+    create: [
+      authenticate('jwt'),
+      associateCurrentUser({ as: 'orderedFrom' }),
+      associateCurrentUser({ as: 'orderedBy' }),
+    ],
     update: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'orderedFrom' }),

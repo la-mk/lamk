@@ -1,4 +1,4 @@
-import { call, takeEvery, put, cancelled } from 'redux-saga/effects';
+import { call, takeEvery, put } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-react-router';
 import { sdk } from 'la-sdk';
 import { replaceTo } from '../modules/navigation/navigation.actions';

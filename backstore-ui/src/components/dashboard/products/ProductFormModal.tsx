@@ -134,6 +134,7 @@ export const ProductFormModal = ({
                   handleArtifactUploadStatus(
                     info,
                     val,
+                    false,
                     onComplete,
                     message.error,
                   )

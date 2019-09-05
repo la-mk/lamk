@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UploadChangeParam } from 'antd/es/upload';
 import {
   Col,
@@ -29,6 +29,19 @@ export const StorePreferences = () => {
   const [showSpinner, setShowSpinner] = React.useState(false);
   const store = useSelector(getStore);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setShowSpinner(true);
+    sdk.store
+      .find()
+      .then(stores => {
+        if (stores.total > 0) {
+          dispatch(setStore(stores.data[0]));
+        }
+      })
+      .catch(err => message.error(err.message))
+      .finally(() => setShowSpinner(false));
+  }, [dispatch]);
 
   const handleSetupStoreDone = (newStore?: Store) => {
     if (!newStore || isEqual(store, newStore)) {
@@ -76,6 +89,7 @@ export const StorePreferences = () => {
                   handleArtifactUploadStatus(
                     info,
                     val,
+                    true,
                     onComplete,
                     message.error,
                   )
