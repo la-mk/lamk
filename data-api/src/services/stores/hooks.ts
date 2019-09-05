@@ -5,8 +5,8 @@ import {
   restrictToOwner,
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
-import { setObjectIdFromUser } from '../../common/hooks/mongo';
 import { unique } from '../../common/hooks/unique';
+import { setIdFromUser } from '../../common/hooks/db';
 
 export const hooks = {
   before: {
@@ -17,7 +17,8 @@ export const hooks = {
       authenticate('jwt'),
       associateCurrentUser({ as: 'ownedBy' }),
       // For a start, we want to have 1:1 mapping between user and store and use the same ID to simplify usage.
-      setObjectIdFromUser,
+      setIdFromUser,
+      // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
     ],
     update: [authenticate('jwt'), restrictToOwner({ ownerField: 'ownedBy' })],

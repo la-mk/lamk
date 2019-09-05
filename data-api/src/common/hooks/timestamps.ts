@@ -1,9 +1,13 @@
 import { HookContext } from '@feathersjs/feathers';
 
 export const appendCreateTimestamp = (context: HookContext) => {
-  context.data.createdAt = new Date(Date.now()).toISOString();
+  if (context.method === 'create') {
+    context.data.createdAt = new Date(Date.now()).toISOString();
+  }
 };
 
 export const appendModifyTimestamp = (context: HookContext) => {
-  context.data.modifiedAt = new Date(Date.now()).toISOString();
+  if (context.method === 'patch' || context.method === 'update') {
+    context.data.modifiedAt = new Date(Date.now()).toISOString();
+  }
 };

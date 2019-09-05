@@ -5,14 +5,15 @@ import {
   appendCreateTimestamp,
   appendModifyTimestamp,
 } from '../common/hooks/timestamps';
-import { convertQueryObjectId } from '../common/hooks/mongo';
+import { appendId } from '../common/hooks/db';
 
 const hooks: HooksObject = {
   before: {
-    all: [log, convertQueryObjectId],
+    all: [log],
     find: [],
     get: [],
-    create: [appendCreateTimestamp],
+    // We append a custom UUID in order to avoid depending on ObjectIDs from MongoDB, for example.
+    create: [appendCreateTimestamp, appendId],
     update: [],
     patch: [appendModifyTimestamp],
     remove: [],
