@@ -1,4 +1,5 @@
-import { Application } from '@feathersjs/feathers';
+import merge from 'lodash/fp/merge';
+import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 
@@ -13,11 +14,18 @@ export interface Delivery {
 }
 
 export const getDeliverySdk = (client: Application) => {
+  const crudMethods = getCrudMethods<OmitServerProperties<Delivery>, Delivery>(
+    client,
+    'deliveries',
+  );
+
   return {
-    ...getCrudMethods<OmitServerProperties<Delivery>, Delivery>(
-      client,
-      'deliveries',
-    ),
+    ...crudMethods,
+
+    findForStore: (storeId: string, params?: Params) => {
+      const options = merge({ query: { forStore: storeId } }, params);
+      return crudMethods.find(options);
+    },
 
     validate: (data: Delivery, considerRequired = true) => {
       if (!data.price) {

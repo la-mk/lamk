@@ -22,10 +22,6 @@ export const getStoreSdk = (client: Application) => {
   return {
     ...crudMethods,
 
-    findForUser: (userId: string, params?: Params) => {
-      return crudMethods.find(merge({ query: { ownedBy: userId } }, params));
-    },
-
     validate: (data: Store, considerRequired = true) => {
       if (!data.logo) {
         return { logo: 'Logo is missing' };
