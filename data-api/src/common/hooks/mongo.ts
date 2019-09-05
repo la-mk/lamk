@@ -13,3 +13,15 @@ export const convertQueryObjectId = (context: HookContext) => {
     }
   }
 };
+
+export const setObjectIdFromUser = (context: HookContext) => {
+  if (context.method === 'create') {
+    const data = context.data;
+    const userEntity = context.params['user'];
+    if (!userEntity) {
+      throw new Error('You need to authenticate before using this hook.');
+    }
+
+    data._id = new ObjectID(userEntity._id);
+  }
+};

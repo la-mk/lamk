@@ -9,30 +9,12 @@ import {
 export const hooks = {
   before: {
     all: [],
-    find: [
-      authenticate('jwt'),
-      queryWithCurrentUser({ idField: 'owns', as: 'forStore' }),
-    ],
-    get: [
-      authenticate('jwt'),
-      queryWithCurrentUser({ idField: 'owns', as: 'forStore' }),
-    ],
-    create: [
-      authenticate('jwt'),
-      associateCurrentUser({ idField: 'owns', as: 'forStore' }),
-    ],
-    update: [
-      authenticate('jwt'),
-      restrictToOwner({ idField: 'owns', ownerField: 'forStore' }),
-    ],
-    patch: [
-      authenticate('jwt'),
-      restrictToOwner({ idField: 'owns', ownerField: 'forStore' }),
-    ],
-    remove: [
-      authenticate('jwt'),
-      restrictToOwner({ idField: 'owns', ownerField: 'forStore' }),
-    ],
+    find: [authenticate('jwt'), queryWithCurrentUser({ as: 'forStore' })],
+    get: [authenticate('jwt'), queryWithCurrentUser({ as: 'forStore' })],
+    create: [authenticate('jwt'), associateCurrentUser({ as: 'forStore' })],
+    update: [authenticate('jwt'), restrictToOwner({ ownerField: 'forStore' })],
+    patch: [authenticate('jwt'), restrictToOwner({ ownerField: 'forStore' })],
+    remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'forStore' })],
   },
 
   after: {

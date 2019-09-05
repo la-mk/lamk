@@ -11,15 +11,17 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "removeComments": true,
     "noImplicitAny": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    // This is required for ts-node to find the custom typings.
+    "typeRoots": ["./node_modules/@types", "./typings"]
   },
   "include": [
 		"src/**/*.ts",
-    "typings/**/*.d.ts",
-	],
+    "typings/**/*.d.ts"
+	]
 }
