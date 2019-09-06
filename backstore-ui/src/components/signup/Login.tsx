@@ -1,43 +1,14 @@
 import React from 'react';
-import {
-  Flex,
-  Col,
-  Form,
-  FormItem,
-  formInput,
-  Button,
-  Title,
-  message,
-} from 'blocks-ui';
+import { Flex, Col, Form, FormItem, formInput, Button, Title } from 'blocks-ui';
 import { sdk } from 'la-sdk';
 import { useDispatch } from 'react-redux';
-import { replaceTo } from '../../state/modules/navigation/navigation.actions';
-import { setStore } from '../../state/modules/store/store.module';
+import { login } from '../../state/modules/auth/auth.module';
 
 export const Login = () => {
   const dispatch = useDispatch();
 
   const handleLogin = (data: any) => {
-    sdk.authentication
-      .authenticate({
-        strategy: 'local',
-        email: data.email,
-        password: data.password,
-      })
-      .then(() => {
-        return sdk.store
-          .find()
-          .then(stores => {
-            if (stores.total > 0) {
-              dispatch(setStore(stores.data[0]));
-            }
-          })
-          .catch(err => message.error(err.message));
-      })
-      .then(() => {
-        dispatch(replaceTo('/'));
-      })
-      .catch(err => message.error(err.message));
+    dispatch(login(data, 'local'));
   };
 
   return (

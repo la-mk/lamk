@@ -1,32 +1,13 @@
 import React from 'react';
-import {
-  Flex,
-  Col,
-  Form,
-  FormItem,
-  formInput,
-  Button,
-  Title,
-  message,
-} from 'blocks-ui';
+import { Flex, Col, Form, FormItem, formInput, Button, Title } from 'blocks-ui';
 import { sdk } from 'la-sdk';
 import { useDispatch } from 'react-redux';
-import { replaceTo } from '../../state/modules/navigation/navigation.actions';
+import { signup } from '../../state/modules/auth/auth.module';
 
 export const Signup = () => {
   const dispatch = useDispatch();
   const handleSignup = (data: any) => {
-    sdk.user
-      .create(data)
-      .then(() =>
-        sdk.authentication.authenticate({
-          strategy: 'local',
-          email: data.email,
-          password: data.password,
-        }),
-      )
-      .then(() => dispatch(replaceTo('/')))
-      .catch(err => message.error(err.message));
+    dispatch(signup(data, 'local'));
   };
 
   return (

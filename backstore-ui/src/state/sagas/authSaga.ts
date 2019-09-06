@@ -1,13 +1,17 @@
 import { call, takeEvery, put } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-react-router';
 import { sdk } from 'la-sdk';
-import { replaceTo } from '../modules/navigation/navigation.actions';
-import { LOGOUT } from '../modules/auth/auth.module';
+import {
+  replaceTo,
+  LOCATION_CHANGE,
+} from '../modules/navigation/navigation.actions';
+import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { clearSession } from '../modules/ui/ui.module';
+import { setStore } from '../modules/store/store.module';
 
 const authRoutes = ['/login', '/signup'];
 
-function* navigationChangeSaga(action: LocationChangeAction) {
+function* authenticationCheckSaga(action: LocationChangeAction) {
   let authInfo;
 
   // If it is an initial render, try to reauthenticate to the user is populated in the SDK.
@@ -50,12 +54,56 @@ export function* logoutSaga() {
   }
 }
 
-export function* watchLocationChangeSaga() {
-  yield takeEvery('@@router/LOCATION_CHANGE', navigationChangeSaga);
+export function* loginSaga(action: any) {
+  try {
+    yield call(sdk.authentication.authenticate, {
+      ...action.payload.credentials,
+      strategy: action.payload.strategy,
+    });
+    const stores = yield call(sdk.store.find);
+
+    if (stores.total > 0) {
+      yield put(setStore(stores.data[0]));
+    }
+
+    yield put(replaceTo('/'));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* signupSaga(action: any) {
+  try {
+    yield call(sdk.user.create, action.payload.credentials);
+    yield call(sdk.authentication.authenticate, {
+      ...action.payload.credentials,
+      strategy: action.payload.strategy,
+    });
+    yield put(replaceTo('/'));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* watchAuthenticationCheckSaga() {
+  yield takeEvery(LOCATION_CHANGE, authenticationCheckSaga);
 }
 
 export function* watchLogoutSaga() {
   yield takeEvery(LOGOUT, logoutSaga);
 }
 
-export default { watchLocationChangeSaga, watchLogoutSaga };
+export function* watchLoginSaga() {
+  yield takeEvery(LOGIN, loginSaga);
+}
+
+export function* watchSignupSaga() {
+  yield takeEvery(SIGNUP, signupSaga);
+}
+
+export default {
+  watchAuthenticationCheckSaga,
+  watchLogoutSaga,
+  watchLoginSaga,
+  watchSignupSaga,
+};
