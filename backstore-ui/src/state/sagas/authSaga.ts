@@ -2,10 +2,12 @@ import { call, takeEvery, put } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-react-router';
 import { sdk } from 'la-sdk';
 import { replaceTo } from '../modules/navigation/navigation.actions';
+import { LOGOUT } from '../modules/auth/auth.module';
+import { clearSession } from '../modules/ui/ui.module';
 
 const authRoutes = ['/login', '/signup'];
 
-function* navigationSaga(action: LocationChangeAction) {
+function* navigationChangeSaga(action: LocationChangeAction) {
   let authInfo;
 
   // If it is an initial render, try to reauthenticate to the user is populated in the SDK.
@@ -33,12 +35,27 @@ function* navigationSaga(action: LocationChangeAction) {
 
   // If the user is not logged in, redirect to login page.
   if (!authInfo && !isAuthRoute) {
+    yield put(clearSession());
     yield put(replaceTo('/login'));
   }
 }
 
-export function* watchNavigationSaga() {
-  yield takeEvery('@@router/LOCATION_CHANGE', navigationSaga);
+export function* logoutSaga() {
+  try {
+    yield call(sdk.authentication.logout);
+    yield put(clearSession());
+    yield put(replaceTo('/login'));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-export default { watchNavigationSaga };
+export function* watchLocationChangeSaga() {
+  yield takeEvery('@@router/LOCATION_CHANGE', navigationChangeSaga);
+}
+
+export function* watchLogoutSaga() {
+  yield takeEvery(LOGOUT, logoutSaga);
+}
+
+export default { watchLocationChangeSaga, watchLogoutSaga };

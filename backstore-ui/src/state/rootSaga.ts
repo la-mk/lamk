@@ -1,10 +1,12 @@
 import promiseSaga from './sagas/promiseSaga';
-import navigationSaga from './sagas/navigationSaga';
+import authSaga from './sagas/authSaga';
+import uiSaga from './sagas/uiSaga';
 import { SagaMiddleware } from 'redux-saga';
 
 const sagas = {
   ...promiseSaga,
-  ...navigationSaga,
+  ...authSaga,
+  ...uiSaga,
 };
 
 export default function registerSagas(middleware: SagaMiddleware) {

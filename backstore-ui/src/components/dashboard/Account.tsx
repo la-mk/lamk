@@ -1,25 +1,13 @@
 import React from 'react';
-import {
-  Flex,
-  Dropdown,
-  Menu,
-  MenuItem,
-  message,
-  Icon,
-  MenuDivider,
-} from 'blocks-ui';
-import { sdk } from 'la-sdk';
+import { Flex, Dropdown, Menu, MenuItem, Icon, MenuDivider } from 'blocks-ui';
 import { useDispatch } from 'react-redux';
-import { replaceTo } from '../../state/modules/navigation/navigation.actions';
+import { logout } from '../../state/modules/auth/auth.module';
 
 export const Account = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    sdk.authentication
-      .logout()
-      .then(() => dispatch(replaceTo('/login')))
-      .catch(err => message.error(err.message));
+    dispatch(logout());
   };
 
   const menu = (
