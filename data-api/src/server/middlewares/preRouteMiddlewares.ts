@@ -4,7 +4,7 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 
 export const initPreRouteMiddlewares = (app: Application) => {
-  // Handle all of these by a reverse proxy.
+  //TODO: Handle all of these by a reverse proxy.
   app.use(helmet());
   app.use(cors());
   app.use(compress());

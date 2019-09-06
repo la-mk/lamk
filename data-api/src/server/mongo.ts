@@ -9,5 +9,5 @@ export const initMongoClient = async (app: Application) => {
   });
 
   app.set('mongoClient', client);
-  app.set('mongoDb', client.db('dev'));
+  app.set('mongoDb', client.db(env.MONGODB_DB_NAME));
 };

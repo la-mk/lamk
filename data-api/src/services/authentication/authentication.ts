@@ -2,10 +2,11 @@ import { AuthenticationService, JWTStrategy } from '@feathersjs/authentication';
 import { LocalStrategy } from '@feathersjs/authentication-local';
 import { expressOauth } from '@feathersjs/authentication-oauth';
 import { Application } from '@feathersjs/feathers';
+import env from '../../common/env';
 
 export const authentication = (app: Application) => {
   app.set('authentication', {
-    secret: 'CHANGE_ME',
+    secret: env.JWT_SECRET,
     entity: 'user',
     service: 'users',
     authStrategies: ['jwt', 'local'],
@@ -14,7 +15,7 @@ export const authentication = (app: Application) => {
       audience: 'https://la.mk',
       issuer: 'lamk',
       algorithm: 'HS256',
-      expiresIn: '1d',
+      expiresIn: '10d',
     },
     local: {
       usernameField: 'email',

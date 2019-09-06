@@ -12,9 +12,9 @@ const hooks: HooksObject = {
     all: [log],
     find: [],
     get: [],
-    // We append a custom UUID in order to avoid depending on ObjectIDs from MongoDB, for example.
+    // We append a custom UUID in order to avoid depending on ObjectIDs from MongoDB and to make future migrations easier.
     create: [appendCreateTimestamp, appendId],
-    update: [],
+    update: [appendModifyTimestamp],
     patch: [appendModifyTimestamp],
     remove: [],
   },

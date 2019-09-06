@@ -16,6 +16,16 @@ export default {
     .required()
     .asString(),
 
+  JWT_SECRET: envvar
+    .get('JWT_SECRET')
+    .required()
+    .asString(),
+
+  MONGODB_DB_NAME: envvar
+    .get('MONGODB_DB_NAME')
+    .required()
+    .asString(),
+
   MONGODB_CONNECTION_STRING: envvar
     .get('MONGODB_CONNECTION_STRING')
     .required()
