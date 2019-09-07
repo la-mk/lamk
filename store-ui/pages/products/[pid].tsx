@@ -1,13 +1,31 @@
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 
 const Title = styled.h1`
   color: red;
 `;
 
-export default () => {
-  const router = useRouter();
-  const { pid } = router.query;
+import React from 'react';
+import { NextPageContext } from 'next';
+import { sdk } from 'la-sdk';
 
-  return <Title>Hi {pid}</Title>;
+const ProductPage = ({ product }: any) => {
+  if (!product) {
+    return <div>Not found</div>;
+  }
+
+  return <Title>Hi {product._id}</Title>;
 };
+
+ProductPage.getInitialProps = async function(ctx: NextPageContext) {
+  if (ctx.query.pid) {
+    const product = await sdk.product
+      .get(ctx.query.pid)
+      .catch(err => console.log(err));
+
+    return { product };
+  }
+
+  return { product: null };
+};
+
+export default ProductPage;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StoreLayout } from '../StoreLayout';
-import Link from 'next/link';
-import { ProductSet } from '../Sets/ProductSet';
+import { ProductSet } from '../sets/ProductSet';
 import styled from 'styled-components';
 import { Flex } from 'blocks-ui';
 

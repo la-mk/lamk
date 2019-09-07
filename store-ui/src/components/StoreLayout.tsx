@@ -57,8 +57,9 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                 </Link>
               </MenuItem>
               <MenuItem key='about-us'>
-                <span>About us</span>
-                {/* <Link to='/store/about-us' /> */}
+                <Link href='/about'>
+                  <a>About us</a>
+                </Link>
               </MenuItem>
               <MenuItem key='cart'>
                 <Icon type='shopping-cart' />
