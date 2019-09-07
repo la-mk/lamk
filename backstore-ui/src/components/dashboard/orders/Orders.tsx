@@ -47,7 +47,7 @@ export const Orders = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (store._id) {
+    if (store) {
       setShowSpinner(true);
       sdk.order
         .findForStore(store._id)

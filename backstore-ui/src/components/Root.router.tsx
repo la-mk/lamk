@@ -9,14 +9,14 @@ export interface RootRouterProps {
   hasFinishedOnboarding: boolean;
 }
 
-export const RootRouter = ({ hasFinishedOnboarding }: RootRouterProps) => {
+export const RootRouter = () => {
   return (
     <Switch>
       <Route path='/signup' component={Signup} />
       <Route path='/login' component={Login} />
       <Route path='/onboarding' component={OnboardingRouter} />
       <Route path='/dashboard' component={DashboardRouter} />
-      <Redirect to={hasFinishedOnboarding ? '/dashboard' : 'onboarding'} />
+      <Redirect to={'/dashboard'} />
     </Switch>
   );
 };

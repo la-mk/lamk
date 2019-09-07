@@ -7,9 +7,15 @@ import {
 } from '../modules/navigation/navigation.actions';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { clearSession } from '../modules/ui/ui.module';
-import { setStore } from '../modules/store/store.module';
+import { setUser } from '../modules/user/user.module';
 
 const authRoutes = ['/login', '/signup'];
+
+function* afterAuthSaga() {
+  const authInfo = yield call(sdk.authentication.getAuthentication);
+  yield put(setUser(authInfo));
+  yield put(replaceTo('/'));
+}
 
 function* authenticationCheckSaga(action: LocationChangeAction) {
   let authInfo;
@@ -34,7 +40,7 @@ function* authenticationCheckSaga(action: LocationChangeAction) {
 
   // If the user is already logged in, just redirect home.
   if (authInfo && isAuthRoute) {
-    yield put(replaceTo('/'));
+    yield afterAuthSaga();
   }
 
   // If the user is not logged in, redirect to login page.
@@ -55,18 +61,14 @@ export function* logoutSaga() {
 }
 
 export function* loginSaga(action: any) {
+  console.log(action);
   try {
     yield call(sdk.authentication.authenticate, {
       ...action.payload.credentials,
       strategy: action.payload.strategy,
     });
-    const stores = yield call(sdk.store.find);
 
-    if (stores.total > 0) {
-      yield put(setStore(stores.data[0]));
-    }
-
-    yield put(replaceTo('/'));
+    yield afterAuthSaga();
   } catch (err) {
     console.log(err);
   }
@@ -79,7 +81,8 @@ export function* signupSaga(action: any) {
       ...action.payload.credentials,
       strategy: action.payload.strategy,
     });
-    yield put(replaceTo('/'));
+
+    yield afterAuthSaga();
   } catch (err) {
     console.log(err);
   }

@@ -39,7 +39,7 @@ export const AddProductCard = ({
       colon={false}
       validate={sdk.product.validate}
       validateSingle={sdk.product.validateSingle}
-      externalState={product}
+      externalState={product || {}}
       onFormCompleted={product ? onPatchProduct : onAddProduct}
     >
       <Card
@@ -108,7 +108,7 @@ export const AddProductCard = ({
                 )
               }
               defaultFileList={getDefaultFileList(
-                product ? product.images : undefined,
+                product ? product.images : [],
               )}
               name='product-images'
             >

@@ -24,7 +24,10 @@ import {
   getDefaultFileList,
 } from '../../shared/utils/artifacts';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../state/modules/products/products.module';
+import {
+  addProduct,
+  patchProduct,
+} from '../../../state/modules/products/products.module';
 
 interface ProductFormModalProps {
   product: Product;
@@ -48,7 +51,7 @@ export const ProductFormModal = ({
     sdk.product
       .patch(product._id, product)
       .then(product => {
-        dispatch(addProduct(product));
+        dispatch(patchProduct(product));
         message.success(`Successfully modified ${product.name}`);
         onClose();
       })

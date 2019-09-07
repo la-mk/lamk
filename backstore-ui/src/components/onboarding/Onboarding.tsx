@@ -1,12 +1,11 @@
 import isEqual from 'lodash/isEqual';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { SetupStore } from './SetupStore';
 import { SetupProducts } from './SetupProducts';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Steps, Step, Flex, message } from 'blocks-ui';
+import { Step, Flex, message } from 'blocks-ui';
 import { Publish } from './Publish';
 import { Product } from 'la-sdk/dist/models/product';
 import { Store } from 'la-sdk/dist/models/store';
@@ -24,14 +23,7 @@ import { getProducts } from '../../state/modules/products/products.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Redirect } from 'react-router';
-
-const StickySteps = styled(Steps)`
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: white;
-  margin-bottom: ${props => props.theme.space[4]}px !important;
-`;
+import { StickySteps } from '../shared/components/StickySteps';
 
 interface OnboardingProps {
   step: number;
@@ -47,22 +39,20 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    sdk.store
-      .find()
-      .then(stores => {
-        if (stores.total > 0) {
-          dispatch(setStore(stores.data[0]));
-        }
-      })
-      .catch(err => message.error(err.message));
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (store._id) {
+    if (store) {
       sdk.product
         .findForStore(store._id)
         .then(products => {
           dispatch(setProducts(products.data));
+        })
+        .catch(err => message.error(err.message));
+
+      sdk.delivery
+        .findForStore(store._id)
+        .then(deliveries => {
+          if (deliveries.total > 0) {
+            dispatch(setDelivery(deliveries.data[0]));
+          }
         })
         .catch(err => message.error(err.message));
     }

@@ -1,16 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  formInput,
-  message,
-  Spin,
-  Flex,
-  Col,
-  Button,
-  Form,
-  FormItem,
-  Select,
-  Option,
-} from 'blocks-ui';
+import { message, Spin, Col } from 'blocks-ui';
 import { Delivery } from 'la-sdk/dist/models/delivery';
 import { sdk } from 'la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
@@ -18,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import { setDelivery } from '../../../state/modules/delivery/delivery.module';
 import { getStore } from '../../../state/modules/store/store.selector';
+import { DeliveryForm } from '../../shared/forms/DeliveryForm';
 
 export const DeliveryPreferences = () => {
   const [showSpinner, setShowSpinner] = React.useState(false);
@@ -27,15 +17,17 @@ export const DeliveryPreferences = () => {
 
   useEffect(() => {
     setShowSpinner(true);
-    sdk.delivery
-      .findForStore(store._id)
-      .then(deliveries => {
-        if (deliveries.total > 0) {
-          dispatch(setDelivery(deliveries.data[0]));
-        }
-      })
-      .catch(err => message.error(err.message))
-      .finally(() => setShowSpinner(false));
+    if (store) {
+      sdk.delivery
+        .findForStore(store._id)
+        .then(deliveries => {
+          if (deliveries.total > 0) {
+            dispatch(setDelivery(deliveries.data[0]));
+          }
+        })
+        .catch(err => message.error(err.message))
+        .finally(() => setShowSpinner(false));
+    }
   }, [store, dispatch]);
 
   const handleSetupDeliveryDone = (newDelivery?: Delivery) => {
@@ -57,47 +49,7 @@ export const DeliveryPreferences = () => {
   return (
     <Col>
       <Spin spinning={showSpinner} tip='Updating delivery...'>
-        <Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 12 }}
-          layout='horizontal'
-          colon={false}
-          onFormCompleted={handleSetupDeliveryDone}
-          externalState={delivery}
-          validate={sdk.delivery.validate}
-          validateSingle={sdk.delivery.validateSingle}
-        >
-          <FormItem selector='method' label='Delivery method'>
-            {(val, _onChange, onComplete) => (
-              <Select value={val} onChange={onComplete}>
-                <Option value='none'>No delivery</Option>
-                <Option value='cargo-pickup'>Pickup from Cargo</Option>
-                <Option value='door-to-door'>Door to Door</Option>
-              </Select>
-            )}
-          </FormItem>
-          <FormItem
-            extra='This can be the average delivery cost.'
-            selector='price'
-            label='Delivery cost'
-          >
-            {formInput({ placeholder: 'Price', addonBefore: 'Ден' })}
-          </FormItem>
-
-          <FormItem
-            extra='Over what price do you want to offer free shipping?'
-            selector='freeDeliveryOver'
-            label='Free delivery'
-          >
-            {formInput({ placeholder: 'Over price', addonBefore: 'Ден' })}
-          </FormItem>
-
-          <Flex justifyContent='center' alignItems='center'>
-            <Button mr={2} type='primary' htmlType='submit' size='large'>
-              Update delivery
-            </Button>
-          </Flex>
-        </Form>
+        <DeliveryForm delivery={delivery} onDone={handleSetupDeliveryDone} />
       </Spin>
     </Col>
   );

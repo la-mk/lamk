@@ -1,6 +1,6 @@
 import { Delivery } from 'la-sdk/dist/models/delivery';
 
-const initialState = { delivery: {} };
+const initialState = { delivery: null };
 
 const SET_DELIVERY = 'delivery/SET_DELIVERY';
 

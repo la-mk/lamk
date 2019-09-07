@@ -4,7 +4,7 @@ import { RootRouter } from './Root.router';
 export const Root = () => {
   return (
     <>
-      <RootRouter hasFinishedOnboarding={true} />
+      <RootRouter />
     </>
   );
 };

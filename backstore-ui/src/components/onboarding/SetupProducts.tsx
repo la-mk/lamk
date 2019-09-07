@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Row, Button, Flex } from 'blocks-ui';
+import { Col, Row, Button, Flex, Title, Text } from 'blocks-ui';
 import { AddProductCard } from './AddProductCard';
 import { Product } from 'la-sdk/dist/models/product';
 
@@ -19,49 +19,46 @@ export const SetupProducts = ({
   onRemoveProduct,
 }: SetupProductsProps) => {
   return (
-    <Row type='flex' align='middle' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-      {products.map(product => {
-        return (
-          <Col key={product._id} mb={4}>
-            <AddProductCard
-              product={product}
-              onAddProduct={onAddProduct}
-              onPatchProduct={onPatchProduct}
-              onRemoveProduct={onRemoveProduct}
-            />
-          </Col>
-        );
-      })}
+    <>
+      <Flex mb={5} alignItems='center' flexDirection='column'>
+        <Title level={3}>
+          Let's add some products
+          <Button mx={3} size='large' onClick={onDone} type='primary'>
+            Continue
+          </Button>
+        </Title>
+        <Text type='secondary'>
+          Don't worry, you can modify things later as well.
+        </Text>
+      </Flex>
+      <Row
+        type='flex'
+        align='middle'
+        justify='center'
+        gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+      >
+        {products.map(product => {
+          return (
+            <Col key={product._id} mb={4}>
+              <AddProductCard
+                product={product}
+                onAddProduct={onAddProduct}
+                onPatchProduct={onPatchProduct}
+                onRemoveProduct={onRemoveProduct}
+              />
+            </Col>
+          );
+        })}
 
-      <Col mb={4}>
-        <AddProductCard
-          onAddProduct={onAddProduct}
-          onPatchProduct={onPatchProduct}
-          onRemoveProduct={onRemoveProduct}
-        />
-      </Col>
-      <Col>
-        <Flex
-          flexDirection='column'
-          alignItems='center'
-          justifyContent='center'
-          width={390}
-          my={4}
-        >
-          <Button size='large' width='60%' icon={'plus'} type='primary'>
-            Add Another Product
-          </Button>
-          <Button
-            onClick={onDone}
-            type='default'
-            size='large'
-            width='60%'
-            mt={3}
-          >
-            Next
-          </Button>
-        </Flex>
-      </Col>
-    </Row>
+        <Col mb={4}>
+          <AddProductCard
+            product={undefined}
+            onAddProduct={onAddProduct}
+            onPatchProduct={onPatchProduct}
+            onRemoveProduct={onRemoveProduct}
+          />
+        </Col>
+      </Row>
+    </>
   );
 };

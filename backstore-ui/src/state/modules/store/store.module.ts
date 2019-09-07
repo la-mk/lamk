@@ -1,6 +1,6 @@
 import { Store } from 'la-sdk/dist/models/store';
 
-const initialState = { store: {} };
+const initialState = { store: null };
 
 const SET_STORE = 'store/SET_STORE';
 
