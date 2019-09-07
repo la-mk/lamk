@@ -11,10 +11,13 @@ import {
   Footer,
 } from 'blocks-ui';
 import styled from 'styled-components';
-import { CategoriesList } from './CategoriesList';
+import { CategoriesList } from '../../src/components/CategoriesList';
 import Link from 'next/link';
+import { Store } from 'la-sdk/dist/models/store';
+import { sdk } from 'la-sdk';
 
 interface StoreLayoutProps {
+  store: Store;
   children?: React.ReactNode;
 }
 
@@ -29,7 +32,7 @@ const TopMenuContainer = styled(Flex)`
   max-width: 40%;
 `;
 
-export const StoreLayout = ({ children }: StoreLayoutProps) => {
+export const StoreLayout = ({ store, children }: StoreLayoutProps) => {
   // Not a very clean solution, but it will do for now
   // const matches = location.pathname.match(/\/store\/([^/]*)(\/?)/);
   // const selectedKeys = matches && matches.length > 1 ? [matches[1]] : [];
@@ -40,7 +43,15 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
         <Header style={{ background: 'white' }}>
           <Flex justifyContent='space-between'>
             <TopMenuContainer width='280px' px={20} py={3}>
-              Store logo
+              <Link>
+                <a href='/'>
+                  <img
+                    height='32px'
+                    src={sdk.artifact.getUrlForArtifact(store.logo)}
+                    alt='logo'
+                  />
+                </a>
+              </Link>
             </TopMenuContainer>
             <TopMenuContainer mx={'auto'} flex={'1 0 0'} py={3}>
               <Search />

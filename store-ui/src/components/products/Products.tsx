@@ -2,11 +2,10 @@ import React from 'react';
 import { Flex, FlexGrid, Title } from 'blocks-ui';
 import { ProductCard } from '../ProductCard';
 import Link from 'next/link';
-import { StoreLayout } from '../StoreLayout';
 
 export const Products = ({ products }) => {
   return (
-    <StoreLayout>
+    <>
       <Flex flexDirection='column' alignItems='center'>
         <Title mb={5} level={1}>
           All Products
@@ -24,6 +23,6 @@ export const Products = ({ products }) => {
           )}
         />
       </Flex>
-    </StoreLayout>
+    </>
   );
 };

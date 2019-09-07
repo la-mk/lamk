@@ -16,13 +16,11 @@ function HomePage({ products }: any) {
 HomePage.getInitialProps = async (ctx: NextPageContext) => {
   // @ts-ignore
   const store = ctx.store.getState().store;
-  if (store) {
-    try {
-      const products = await sdk.product.findForStore(store._id);
-      return { products: products.data };
-    } catch (err) {
-      console.log(err);
-    }
+  try {
+    const products = await sdk.product.findForStore(store._id);
+    return { products: products.data };
+  } catch (err) {
+    console.log(err);
   }
 
   return { products: [] };

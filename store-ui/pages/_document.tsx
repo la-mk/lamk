@@ -2,6 +2,7 @@ import Document from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import { NextPageContext } from 'next';
 
+// The custom document is required to setup styled components for SSR.
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: NextPageContext & { renderPage: any }) {
     const sheet = new ServerStyleSheet();

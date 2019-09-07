@@ -17,13 +17,11 @@ ProductsPage.getInitialProps = async (
   ctx: NextPageContext & { store: any },
 ) => {
   const store = ctx.store.getState().store;
-  if (store) {
-    try {
-      const products = await sdk.product.findForStore(store._id);
-      return { products: products.data };
-    } catch (err) {
-      console.log(err);
-    }
+  try {
+    const products = await sdk.product.findForStore(store._id);
+    return { products: products.data };
+  } catch (err) {
+    console.log(err);
   }
 
   return { products: [] };
