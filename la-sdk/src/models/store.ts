@@ -22,6 +22,11 @@ export const getStoreSdk = (client: Application) => {
   return {
     ...crudMethods,
 
+    findOwned: (userId: string, params?: Params) => {
+      const options = merge({ query: { ownedBy: userId } }, params);
+      return crudMethods.find(options);
+    },
+
     validate: (data: Store, considerRequired = true) => {
       if (!data.logo) {
         return { logo: 'Logo is missing' };

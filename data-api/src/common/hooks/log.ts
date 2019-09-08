@@ -10,7 +10,9 @@ export const log = (context: HookContext) => {
   if (env.NODE_ENV === 'development') {
     logger.info(
       `
-      Params: ${JSON.stringify(context.params, null, 2)}, ID: ${context.id}, 
+      Params: ${JSON.stringify(context.params.query, null, 2)}, ID: ${
+        context.id
+      }, 
       Data: ${JSON.stringify(context.data, null, 2)}, 
       Result: ${JSON.stringify(context.result, null, 2)}`,
     );

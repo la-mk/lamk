@@ -1,5 +1,5 @@
 import { HookContext } from '@feathersjs/feathers';
-import { UniqueConstraintError } from '../errors';
+import { UniqueConstraint } from '../errors';
 
 export const unique = (keys: string[]) => {
   return async (context: HookContext) => {
@@ -16,7 +16,7 @@ export const unique = (keys: string[]) => {
       });
 
       if (results.total > 0) {
-        throw new UniqueConstraintError(`${keys.join(', ')} need to be unique`);
+        throw new UniqueConstraint(`${keys.join(', ')} need to be unique`);
       }
     }
   };

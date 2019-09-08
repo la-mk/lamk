@@ -13,7 +13,7 @@ const authRoutes = ['/login', '/signup'];
 
 function* afterAuthSaga() {
   const authInfo = yield call(sdk.authentication.getAuthentication);
-  yield put(setUser(authInfo));
+  yield put(setUser(authInfo.user));
   yield put(replaceTo('/'));
 }
 

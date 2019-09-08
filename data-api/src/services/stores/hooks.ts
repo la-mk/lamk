@@ -1,18 +1,19 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
 import {
-  queryWithCurrentUser,
   restrictToOwner,
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
 import { unique } from '../../common/hooks/unique';
 import { setIdFromUser } from '../../common/hooks/db';
+import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
+import { unless, keep } from 'feathers-hooks-common';
 
 export const hooks = {
   before: {
     all: [],
-    find: [authenticate('jwt'), queryWithCurrentUser({ as: 'ownedBy' })],
-    get: [authenticate('jwt'), queryWithCurrentUser({ as: 'ownedBy' })],
+    find: [requireAnyQueryParam(['ownedBy'])],
+    get: [],
     create: [
       authenticate('jwt'),
       associateCurrentUser({ as: 'ownedBy' }),
@@ -28,8 +29,18 @@ export const hooks = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [
+      unless(
+        isOwner('ownedBy'),
+        keep('_id', 'name', 'slug', 'logo', 'isPublished', 'ownedBy'),
+      ),
+    ],
+    get: [
+      unless(
+        isOwner('ownedBy'),
+        keep('_id', 'name', 'slug', 'logo', 'isPublished', 'ownedBy'),
+      ),
+    ],
     create: [],
     update: [],
     patch: [],

@@ -1,16 +1,17 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
 import {
-  queryWithCurrentUser,
   restrictToOwner,
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
+import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
+import { unless, keep } from 'feathers-hooks-common';
 
 export const hooks = {
   before: {
     all: [],
-    find: [authenticate('jwt'), queryWithCurrentUser({ as: 'soldBy' })],
-    get: [authenticate('jwt'), queryWithCurrentUser({ as: 'soldBy' })],
+    find: [requireAnyQueryParam(['soldBy'])],
+    get: [],
     create: [authenticate('jwt'), associateCurrentUser({ as: 'soldBy' })],
     update: [authenticate('jwt'), restrictToOwner({ ownerField: 'soldBy' })],
     patch: [authenticate('jwt'), restrictToOwner({ ownerField: 'soldBy' })],
@@ -19,8 +20,34 @@ export const hooks = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [
+      unless(
+        isOwner('soldBy'),
+        keep(
+          '_id',
+          'name',
+          'price',
+          'category',
+          'images',
+          'description',
+          'soldBy',
+        ),
+      ),
+    ],
+    get: [
+      unless(
+        isOwner('soldBy'),
+        keep(
+          '_id',
+          'name',
+          'price',
+          'category',
+          'images',
+          'description',
+          'soldBy',
+        ),
+      ),
+    ],
     create: [],
     update: [],
     patch: [],

@@ -73,6 +73,10 @@ export const Products = () => {
     }
   }, [store, dispatch]);
 
+  if (!store) {
+    return null;
+  }
+
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
       <Title mb={3} level={2}>

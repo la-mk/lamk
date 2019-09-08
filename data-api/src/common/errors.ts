@@ -1,7 +1,8 @@
 import { Logger } from './logger';
 import * as errors from '@feathersjs/errors';
 
-export class UniqueConstraintError extends errors.BadRequest {}
+export class UniqueConstraint extends errors.BadRequest {}
+export const BadRequest = errors.BadRequest;
 
 export const registerUnhandledErrorHandlers = (
   getSyncLogger: (handler: (err: Error, logger: Logger) => void) => void,

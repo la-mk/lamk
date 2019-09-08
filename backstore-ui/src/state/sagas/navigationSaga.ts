@@ -15,7 +15,7 @@ function* storeStateSaga(action: LocationChangeAction) {
   const user = yield select(getUser);
 
   if (user && !store) {
-    const stores = yield call(sdk.store.find);
+    const stores = yield call(sdk.store.findOwned, user._id);
 
     if (stores.total > 0) {
       yield put(setStore(stores.data[0]));
