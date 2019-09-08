@@ -1,4 +1,4 @@
-import { call, takeEvery, put } from 'redux-saga/effects';
+import { call, takeLeading, put } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-react-router';
 import { sdk } from 'la-sdk';
 import {
@@ -20,12 +20,12 @@ function* afterAuthSaga() {
 function* authenticationCheckSaga(action: LocationChangeAction) {
   let authInfo;
 
-  // If it is an initial render, try to reauthenticate to the user is populated in the SDK.
+  // If it is an initial render, try to reauthenticate using the existing token.
   if (action.payload.isFirstRendering) {
     try {
       yield call(sdk.authentication.reAuthenticate, false);
-      // Try to get the user from the SDK if the user is authenticated
     } catch (err) {
+      console.log(err);
       //Ignore error, since it means the user couldn't be reauthenticated
     }
   }
@@ -61,7 +61,6 @@ export function* logoutSaga() {
 }
 
 export function* loginSaga(action: any) {
-  console.log(action);
   try {
     yield call(sdk.authentication.authenticate, {
       ...action.payload.credentials,
@@ -89,19 +88,19 @@ export function* signupSaga(action: any) {
 }
 
 export function* watchAuthenticationCheckSaga() {
-  yield takeEvery(LOCATION_CHANGE, authenticationCheckSaga);
+  yield takeLeading(LOCATION_CHANGE, authenticationCheckSaga);
 }
 
 export function* watchLogoutSaga() {
-  yield takeEvery(LOGOUT, logoutSaga);
+  yield takeLeading(LOGOUT, logoutSaga);
 }
 
 export function* watchLoginSaga() {
-  yield takeEvery(LOGIN, loginSaga);
+  yield takeLeading(LOGIN, loginSaga);
 }
 
 export function* watchSignupSaga() {
-  yield takeEvery(SIGNUP, signupSaga);
+  yield takeLeading(SIGNUP, signupSaga);
 }
 
 export default {

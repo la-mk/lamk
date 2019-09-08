@@ -1,4 +1,4 @@
-import { takeEvery, select, put, call } from 'redux-saga/effects';
+import { takeLeading, select, put, call } from 'redux-saga/effects';
 import {
   LOCATION_CHANGE,
   replaceTo,
@@ -27,7 +27,7 @@ function* storeStateSaga(action: LocationChangeAction) {
 }
 
 export function* watchStoreStateSaga() {
-  yield takeEvery(LOCATION_CHANGE, storeStateSaga);
+  yield takeLeading(LOCATION_CHANGE, storeStateSaga);
 }
 
 export default { watchStoreStateSaga };
