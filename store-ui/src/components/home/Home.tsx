@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProductSet } from '../sets/ProductSet';
+import { CategoriesList } from '../CategoriesList';
 import styled from 'styled-components';
 import { Flex } from 'blocks-ui';
 
@@ -16,6 +17,7 @@ const ImageBanner = styled.img`
 export const Home = ({ products }: any) => {
   return (
     <>
+      <CategoriesList />
       <Banner>
         <ImageBanner src='/static/banner.png' alt='Banner image' />
       </Banner>

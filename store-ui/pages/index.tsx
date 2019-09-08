@@ -12,7 +12,6 @@ function HomePage({ products }: any) {
   );
 }
 
-// See https://nextjs.org/docs#fetching-data-and-component-lifecycle
 HomePage.getInitialProps = async (ctx: NextPageContext) => {
   // @ts-ignore
   const store = ctx.store.getState().store;

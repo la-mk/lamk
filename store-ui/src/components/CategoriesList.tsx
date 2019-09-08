@@ -24,7 +24,7 @@ export const CategoriesList = () => {
   }, {});
 
   return (
-    <Flex flexDirection='row' justifyContent='center'>
+    <Flex flexDirection='row' justifyContent='center' mb={4}>
       {topLevelItems.map(level1Item => {
         const menu = (
           <Menu>
