@@ -33,8 +33,8 @@ export const SetupProducts = ({
       </Flex>
       <Row
         type='flex'
-        align='middle'
-        justify='center'
+        align='top'
+        justify='start'
         gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
       >
         {products.map(product => {

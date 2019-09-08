@@ -136,27 +136,41 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   };
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 3, 4]} pb={4}>
+    <Flex flexDirection='column'>
       {step !== 3 && (
-        <StickySteps py={[2, 2, 3]} mb={5} current={step} onChange={setStep}>
-          <Step title='Store' />
-          <Step title='Products' />
-          <Step title='Delivery' />
-        </StickySteps>
-      )}
+        <Flex px={[3, 3, 3, 4]} pb={4} flexDirection='column'>
+          {step !== 3 && (
+            <StickySteps
+              py={[2, 2, 3]}
+              mb={5}
+              current={step}
+              onChange={setStep}
+            >
+              <Step title='Store' />
+              <Step title='Products' />
+              <Step title='Delivery' />
+            </StickySteps>
+          )}
 
-      {step === 0 && <SetupStore onDone={handleSetupStoreDone} store={store} />}
-      {step === 1 && (
-        <SetupProducts
-          products={products}
-          onAddProduct={handleAddProduct}
-          onPatchProduct={handlePatchProduct}
-          onRemoveProduct={handleRemoveProduct}
-          onDone={handleAddProductsDone}
-        />
-      )}
-      {step === 2 && (
-        <SetupDelivery delivery={delivery} onDone={handleSetupDeliveryDone} />
+          {step === 0 && (
+            <SetupStore onDone={handleSetupStoreDone} store={store} />
+          )}
+          {step === 1 && (
+            <SetupProducts
+              products={products}
+              onAddProduct={handleAddProduct}
+              onPatchProduct={handlePatchProduct}
+              onRemoveProduct={handleRemoveProduct}
+              onDone={handleAddProductsDone}
+            />
+          )}
+          {step === 2 && (
+            <SetupDelivery
+              delivery={delivery}
+              onDone={handleSetupDeliveryDone}
+            />
+          )}
+        </Flex>
       )}
       {step === 3 && <Publish onDone={handlePublishDone} />}
       {isFinished && <Redirect push to='/dashboard' />}

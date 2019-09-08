@@ -15,7 +15,7 @@ import { History } from 'history';
 const storageConfig = {
   key: 'rootStorage',
   storage,
-  blacklist: ['store', 'products', 'orders', 'delivery', 'router'],
+  blacklist: ['store', 'products', 'orders', 'delivery', 'user', 'router'],
 };
 
 const getReducersSet = (history: History) => ({

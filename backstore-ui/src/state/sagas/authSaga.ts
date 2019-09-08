@@ -1,4 +1,4 @@
-import { call, takeLeading, put } from 'redux-saga/effects';
+import { call, takeLeading, takeEvery, put } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-react-router';
 import { sdk } from 'la-sdk';
 import {
@@ -92,15 +92,15 @@ export function* watchAuthenticationCheckSaga() {
 }
 
 export function* watchLogoutSaga() {
-  yield takeLeading(LOGOUT, logoutSaga);
+  yield takeEvery(LOGOUT, logoutSaga);
 }
 
 export function* watchLoginSaga() {
-  yield takeLeading(LOGIN, loginSaga);
+  yield takeEvery(LOGIN, loginSaga);
 }
 
 export function* watchSignupSaga() {
-  yield takeLeading(SIGNUP, signupSaga);
+  yield takeEvery(SIGNUP, signupSaga);
 }
 
 export default {

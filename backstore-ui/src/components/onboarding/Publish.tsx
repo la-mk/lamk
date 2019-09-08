@@ -3,9 +3,11 @@ import { Flex, Button } from 'blocks-ui';
 import styled from 'styled-components';
 
 const ShopIframe = styled.iframe`
-  border: 2px solid lightgray;
-  padding: ${props => props.theme.space[2]}px;
-  margin-top: ${props => props.theme.space[1]}px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
 `;
 
 interface PublishProps {
@@ -15,27 +17,26 @@ interface PublishProps {
 export const Publish = ({ onDone }: PublishProps) => {
   return (
     <Flex flexDirection='column' alignItems='center'>
-      <ShopIframe
-        src='https://pelister.tech'
-        name='shop-preview'
+      <Flex
+        flexDirection='row'
         width='100%'
-        height='500'
+        style={{ backgroundColor: 'lightgray' }}
+        justifyContent='center'
+        alignItems='center'
+      >
+        <Button onClick={() => onDone(true)} size='large' type='primary' m={3}>
+          Publish now
+        </Button>
+        <Button onClick={() => onDone(false)} size='large' m={3}>
+          Go to Dashboard
+        </Button>
+      </Flex>
+      <ShopIframe
+        src='http://localhost:4000'
+        name='shop-preview'
         // Can hide a spinner after the iframe is loaded
         onLoad={() => null}
       />
-
-      <Button
-        onClick={() => onDone(true)}
-        size='large'
-        width='40%'
-        type='primary'
-        mt={3}
-      >
-        Publish now
-      </Button>
-      <Button onClick={() => onDone(false)} width='40%' mt={3}>
-        Go to Dashboard
-      </Button>
     </Flex>
   );
 };

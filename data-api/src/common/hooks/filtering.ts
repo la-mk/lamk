@@ -1,8 +1,14 @@
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../errors';
+import { isProvider } from 'feathers-hooks-common';
 
 export const requireAllQueryParams = (params: string[]) => {
   return (ctx: HookContext) => {
+    // If it is a server request, ignore the requirement.
+    if (isProvider('server')) {
+      return;
+    }
+
     const { query = {} } = ctx.params;
 
     params.forEach(param => {
@@ -16,6 +22,11 @@ export const requireAllQueryParams = (params: string[]) => {
 // This can prevent fetching the entire database data in `find`.
 export const requireAnyQueryParam = (params: string[]) => {
   return (ctx: HookContext) => {
+    // If it is a server request, ignore the requirement.
+    if (isProvider('server')) {
+      return;
+    }
+
     const { query = {} } = ctx.params;
     const hasSome = params.some(param => Boolean(query[param]));
     if (!hasSome) {
