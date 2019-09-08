@@ -1,38 +1,46 @@
 import React from 'react';
 import { Product } from 'la-sdk/dist/models/product';
 import { sdk } from 'la-sdk';
-import { Card, Text, Title, Paragraph, Button, Flex } from 'blocks-ui';
+import { Card, Title, Paragraph, Flex } from 'blocks-ui';
+import Link from 'next/link';
+import styled from 'styled-components';
+import { Price } from './shared/Price';
 
 export const CARD_WIDTH = 320;
 
+const ProductImage = styled.img`
+  max-width: calc(${CARD_WIDTH}px - 2px);
+  width: 'auto';
+  height: 240px;
+  margin-top: 16px;
+`;
+
 export const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <Card
-      width={CARD_WIDTH}
-      cover={
-        <Flex justifyContent='center' alignItems='center'>
-          <img
-            style={{
-              maxWidth: `calc(${CARD_WIDTH}px - 2px)`,
-              width: 'auto',
-              height: 240,
-            }}
-            alt={`${product.name}`}
-            src={sdk.artifact.getUrlForArtifact(product.images[0])}
-          />
-        </Flex>
-      }
-    >
-      <Flex flexDirection='column'>
-        <Title level={3}>{product.name}</Title>
-        <Text strong>{product.price} ден</Text>
-        <Paragraph mt={3} ellipsis>
-          {product.description}
-        </Paragraph>
-        <Button mt={3} icon='shopping-cart'>
-          Add to Cart
-        </Button>
-      </Flex>
-    </Card>
+    <Link href='/products/[pid]' as={`/products/${product._id}`}>
+      <a style={{ textDecoration: 'none' }}>
+        <Card
+          width={CARD_WIDTH}
+          cover={
+            <Flex justifyContent='center' alignItems='center'>
+              <ProductImage
+                alt={`${product.name}`}
+                src={sdk.artifact.getUrlForArtifact(product.images[0])}
+              />
+            </Flex>
+          }
+        >
+          <Flex flexDirection='column'>
+            <Title mt={2} mb={0} level={4} ellipsis>
+              {product.name}
+            </Title>
+            <Price price={product.price} currency={'ден'} />
+            <Paragraph mt={3} mb={0} ellipsis>
+              {product.description}
+            </Paragraph>
+          </Flex>
+        </Card>
+      </a>
+    </Link>
   );
 };

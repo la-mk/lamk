@@ -7,13 +7,21 @@ const Title = styled.h1`
 import React from 'react';
 import { NextPageContext } from 'next';
 import { sdk } from 'la-sdk';
+import { Head } from '../common/Head';
+import { Product as ProductType } from 'la-sdk/dist/models/product';
+import { Product } from '../../src/components/products/Product';
 
-const ProductPage = ({ product }: any) => {
+const ProductPage = ({ product }: { product: ProductType }) => {
   if (!product) {
     return <div>Not found</div>;
   }
 
-  return <Title>Hi {product._id}</Title>;
+  return (
+    <>
+      <Head title={product.name} />
+      <Product product={product} />
+    </>
+  );
 };
 
 ProductPage.getInitialProps = async function(ctx: NextPageContext) {

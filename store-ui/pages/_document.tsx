@@ -1,6 +1,30 @@
 import Document from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
 import { NextPageContext } from 'next';
+
+const GlobalStyle = createGlobalStyle`
+html {
+  height: 100%;
+}
+
+  i {
+    vertical-align: middle;
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+`;
 
 // The custom document is required to setup styled components for SSR.
 export default class MyDocument extends Document {
@@ -12,7 +36,12 @@ export default class MyDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App: any) => (props: any) =>
-            sheet.collectStyles(<App {...props} />),
+            sheet.collectStyles(
+              <>
+                <App {...props} />
+                <GlobalStyle />
+              </>,
+            ),
         });
 
       const initialProps = await Document.getInitialProps(ctx);

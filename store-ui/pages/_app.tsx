@@ -11,7 +11,7 @@ const setInitialDataInState = async (appCtx: any) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
   if (appCtx.ctx.req) {
     const laStore = await sdk.store
-      .get('239add16-6c9d-4e2c-adb2-650664c0e1f1')
+      .get('bc8ae691-459d-41fe-bf3e-d86abbf3677c')
       .catch(err => {
         console.log(err);
       });
