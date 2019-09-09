@@ -11,6 +11,14 @@ html {
     vertical-align: middle;
   }
 
+  input {
+    line-height: inherit;
+    font: inherit;
+    font-variant: inherit;
+    color: inherit;
+    font-size: inherit;
+  }
+
   body {
     height: 100%;
     margin: 0;

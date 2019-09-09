@@ -1,4 +1,5 @@
 export { Alert } from './basic/Alert';
+export { Box } from './basic/Box';
 export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
@@ -9,6 +10,7 @@ export { Form, FormItem } from './basic/Form';
 export { Row, Col } from './basic/Grid';
 export { Icon } from './basic/Icon';
 export { Input, InputGroup, TextArea, Password, Search } from './basic/Input';
+export { InputNumber } from './basic/InputNumber';
 export { Layout, Header, Footer, Sider, Content } from './basic/Layout';
 export { List } from './basic/List';
 export {

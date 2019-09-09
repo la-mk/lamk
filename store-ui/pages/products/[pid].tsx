@@ -1,9 +1,3 @@
-import styled from 'styled-components';
-
-const Title = styled.h1`
-  color: red;
-`;
-
 import React from 'react';
 import { NextPageContext } from 'next';
 import { sdk } from 'la-sdk';
@@ -27,7 +21,7 @@ const ProductPage = ({ product }: { product: ProductType }) => {
 ProductPage.getInitialProps = async function(ctx: NextPageContext) {
   if (ctx.query.pid) {
     const product = await sdk.product
-      .get(ctx.query.pid)
+      .get(ctx.query.pid as string)
       .catch(err => console.log(err));
 
     return { product };
