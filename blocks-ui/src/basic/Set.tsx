@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Button } from './Button';
 import { system } from '../system';
@@ -6,6 +6,14 @@ import { Title } from './Typography';
 import { Flex } from './Flex';
 
 export type ArrowDirection = 'left' | 'right';
+interface SetProps<T> {
+  items: T[];
+  renderItem: (item: T) => React.ReactNode;
+  itemKey: string;
+  itemWidth: number;
+  title?: string;
+  gutter?: number | string | (number | string)[];
+}
 
 const SetContainer = styled.div`
   width: 100%;
@@ -23,10 +31,12 @@ const ArrowButton = styled(Button)<{ direction: ArrowDirection }>`
   margin-bottom: auto;
 `;
 
+// scroll-behavior has no support on Safari and iOS browser as of September 2019.
 const SetList = styled.ul`
   display: flex;
   list-style: none;
   overflow-x: auto;
+  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   min-width: 100%;
   padding: 0;
@@ -40,9 +50,21 @@ const SetItem = styled.li`
   scroll-snap-stop: always;
 `;
 
-const SetBase = ({ items, renderItem, itemKey, title, gutter }: any) => {
+function SetBase<T>({
+  items,
+  renderItem,
+  itemKey,
+  itemWidth,
+  title,
+  gutter,
+}: SetProps<T>) {
+  const setListRef = useRef<HTMLUListElement>(null);
   const handleArrowClick = (direction: ArrowDirection) => {
-    return null;
+    if (setListRef && setListRef.current) {
+      setListRef.current.scrollBy({
+        left: direction === 'left' ? itemWidth * -1 : itemWidth,
+      });
+    }
   };
 
   return (
@@ -52,10 +74,10 @@ const SetBase = ({ items, renderItem, itemKey, title, gutter }: any) => {
           {title}
         </Title>
       )}
-      <SetList>
-        {items.map((item: any) => {
+      <SetList ref={setListRef}>
+        {items.map(item => {
           return (
-            <SetItem key={item[itemKey]}>
+            <SetItem key={(item as any)[itemKey]}>
               <Flex mx={gutter || [2, 3, 3]}>{renderItem(item)}</Flex>
             </SetItem>
           );
@@ -75,6 +97,6 @@ const SetBase = ({ items, renderItem, itemKey, title, gutter }: any) => {
       <Button type='link'>See all</Button>
     </SetContainer>
   );
-};
+}
 
-export const Set = system<any>(SetBase as any);
+export const Set = system<SetProps<any>>(SetBase as any);
