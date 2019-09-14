@@ -19,7 +19,7 @@ export const Home = ({ products }: any) => {
     <>
       <CategoriesList />
       <Banner>
-        <ImageBanner src='/static/banner.png' alt='Banner image' />
+        <ImageBanner src='/static/banner.jpg' alt='Banner image' />
       </Banner>
       <Flex mt={3} flexDirection='column'>
         <ProductSet products={products} title='New arrivals' />

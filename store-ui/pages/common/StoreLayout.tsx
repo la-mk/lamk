@@ -77,15 +77,13 @@ export const StoreLayout = ({ store, children }: StoreLayoutProps) => {
               </MenuItem>
               <MenuItem p={0} key='cart'>
                 <Link href='/cart' passHref>
-                  <Button icon='shopping-cart' type='link'>
-                    Cart
-                  </Button>
+                  <Button icon='shopping-cart' type='link'></Button>
                 </Link>
               </MenuItem>
             </Menu>
           </Flex>
         </BorderedHeader>
-        <StyledContent>
+        <StyledContent minHeight='calc(100vh - 64px - 65px)'>
           <Flex flexDirection='column' py={2}>
             {children}
           </Flex>

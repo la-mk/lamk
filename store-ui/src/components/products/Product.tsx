@@ -1,4 +1,3 @@
-import toInteger from 'lodash/toInteger';
 import React, { useState, useEffect } from 'react';
 import {
   Flex,
@@ -25,6 +24,10 @@ export const Product = ({ product }: ProductProps) => {
     sdk.artifact.getUrlForArtifact(product.images[0]),
   );
   const [quantity, setQuantity] = React.useState(1);
+
+  useEffect(() => {
+    setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));
+  }, [product]);
 
   useEffect(() => {
     sdk.product
