@@ -6,6 +6,7 @@ import {
   appendModifyTimestamp,
 } from '../common/hooks/timestamps';
 import { appendId } from '../common/hooks/db';
+import { disallow } from 'feathers-hooks-common';
 
 const hooks: HooksObject = {
   before: {
@@ -14,7 +15,8 @@ const hooks: HooksObject = {
     get: [],
     // We append a custom UUID in order to avoid depending on ObjectIDs from MongoDB and to make future migrations easier.
     create: [appendCreateTimestamp, appendId],
-    update: [appendModifyTimestamp],
+    // We only want to support `patch` requests, as PUT is not as useful.
+    update: [disallow()],
     patch: [appendModifyTimestamp],
     remove: [],
   },

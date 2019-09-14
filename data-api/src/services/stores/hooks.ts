@@ -5,7 +5,6 @@ import {
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
 import { unique } from '../../common/hooks/unique';
-import { setIdFromUser } from '../../common/hooks/db';
 import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
 import { unless, keep } from 'feathers-hooks-common';
 
@@ -18,7 +17,7 @@ export const hooks = {
       authenticate('jwt'),
       associateCurrentUser({ as: 'ownedBy' }),
       // For a start, we want to have 1:1 mapping between user and store and use the same ID to simplify usage.
-      setIdFromUser,
+      associateCurrentUser({ as: '_id' }),
       // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
     ],
