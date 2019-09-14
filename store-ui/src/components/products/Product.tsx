@@ -7,6 +7,7 @@ import {
   Button,
   InputNumber,
   Box,
+  message,
 } from 'blocks-ui';
 import { Product as ProductType } from 'la-sdk/dist/models/product';
 import { sdk } from 'la-sdk';
@@ -35,6 +36,17 @@ export const Product = ({ product }: ProductProps) => {
       .then(products => setRelatedProducts(products.data))
       .catch(err => console.log(err));
   }, []);
+
+  const handleAddToCart = () => {
+    sdk.cart
+      .addItemToCart('bc8ae691-459d-41fe-bf3e-d86abbf3677c', {
+        product: product._id,
+        fromStore: 'bc8ae691-459d-41fe-bf3e-d86abbf3677c',
+        quantity,
+      })
+      .then(() => message.info('Added to cart'))
+      .catch(err => message.error(err));
+  };
 
   return (
     <>
@@ -79,7 +91,12 @@ export const Product = ({ product }: ProductProps) => {
                 onChange={setQuantity}
                 mx={2}
               />
-              <Button ml={2} size='large' type='primary'>
+              <Button
+                onClick={handleAddToCart}
+                ml={2}
+                size='large'
+                type='primary'
+              >
                 Add to Cart
               </Button>
             </Flex>

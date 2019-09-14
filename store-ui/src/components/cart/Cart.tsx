@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Flex,
   List,
@@ -7,11 +7,52 @@ import {
   Button,
   InputNumber,
   Title,
+  message,
 } from 'blocks-ui';
 import { sdk } from 'la-sdk';
 import { Summary } from './Summary';
+import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
 
-export const Cart = ({ cartItems, delivery }: any) => {
+export const Cart = ({ cart, delivery }: any) => {
+  const [localCart, setLocalCart] = useState(cart);
+  if (!localCart || !localCart.items || localCart.items.length <= 0) {
+    return <div>Your cart is empty</div>;
+  }
+
+  const handleRemove = (cartItem: CartItemWithProduct) => {
+    sdk.cart
+      .removeItemFromCart(localCart._id, cartItem)
+      .then(() =>
+        setLocalCart({
+          ...localCart,
+          items: localCart.items.filter(
+            item => item.product._id !== cartItem.product._id,
+          ),
+        }),
+      )
+      .catch(err => message.error(err));
+  };
+
+  const handleChangeItemQuantity = (
+    cartItem: CartItemWithProduct,
+    quantity: number,
+  ) => {
+    sdk.cart
+      .changeQuantityForCartItem(localCart._id, cartItem, quantity)
+      .then(() =>
+        setLocalCart({
+          ...localCart,
+          items: localCart.items.map(item => {
+            if (item.product._id === cartItem.product._id) {
+              return { ...item, quantity };
+            }
+            return item;
+          }),
+        }),
+      )
+      .catch(err => message.error(err));
+  };
+
   return (
     <Flex flexDirection='column' alignItems='center' mb={5}>
       <Title mb={5} level={1}>
@@ -24,7 +65,7 @@ export const Cart = ({ cartItems, delivery }: any) => {
       >
         <Flex flex={2} mr={[0, 0, 3, 3]}>
           <List style={{ width: '100%' }}>
-            {cartItems.map(cartItem => (
+            {localCart.items.map(cartItem => (
               <List.Item key={cartItem.product._id}>
                 <Flex width={1}>
                   <Flex
@@ -49,7 +90,11 @@ export const Cart = ({ cartItems, delivery }: any) => {
                       alignItems='flex-start'
                     >
                       <Text strong>{cartItem.product.name}</Text>
-                      <Button pl={0} type='link'>
+                      <Button
+                        onClick={() => handleRemove(cartItem)}
+                        pl={0}
+                        type='link'
+                      >
                         Remove
                       </Button>
                     </Flex>
@@ -66,7 +111,9 @@ export const Cart = ({ cartItems, delivery }: any) => {
                         min={1}
                         max={999}
                         value={cartItem.quantity}
-                        onChange={() => null}
+                        onChange={value =>
+                          handleChangeItemQuantity(cartItem, value)
+                        }
                         mx={2}
                       />
                       <Text strong>
@@ -80,7 +127,7 @@ export const Cart = ({ cartItems, delivery }: any) => {
           </List>
         </Flex>
         <Flex flex={1} ml={[0, 0, 3, 3]}>
-          <Summary cartItems={cartItems} delivery={delivery} />
+          <Summary cart={localCart} delivery={delivery} />
         </Flex>
       </Flex>
     </Flex>

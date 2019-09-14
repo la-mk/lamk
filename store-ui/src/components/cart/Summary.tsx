@@ -3,10 +3,9 @@ import React from 'react';
 import { Flex, Text, Card, Divider, Button } from 'blocks-ui';
 import Link from 'next/link';
 
-export const Summary = ({ cartItems, delivery }: any) => {
-  console.log(delivery);
+export const Summary = ({ cart, delivery }: any) => {
   const subtotal = sum(
-    cartItems.map(cartItem => cartItem.quantity * cartItem.product.price),
+    cart.items.map(cartItem => cartItem.quantity * cartItem.product.price),
   );
   const shippingCost =
     delivery.freeDeliveryOver && delivery.freeDeliveryOver < subtotal

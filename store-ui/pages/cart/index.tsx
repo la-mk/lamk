@@ -3,40 +3,28 @@ import { NextPageContext } from 'next';
 import { Head } from '../common/Head';
 import { Cart } from '../../src/components/cart/Cart';
 
-function CartPage({ cartItems, delivery }) {
+function CartPage({ cart, delivery }) {
   return (
     <>
       <Head title='Cart' />
-      <Cart cartItems={cartItems} delivery={delivery} />
+      <Cart cart={cart} delivery={delivery} />
     </>
   );
 }
 
 CartPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
   const store = ctx.store.getState().store;
-  let res;
   try {
-    res = await Promise.all([
-      sdk.product.findForStore(store._id),
+    const [cart, deliveryResult] = await Promise.all([
+      sdk.cart.getCartWithProductsForUser(store._id),
       sdk.delivery.findForStore(store._id),
     ]);
+
+    return { cart, delivery: deliveryResult.data[0] };
   } catch (err) {
     console.log(err);
+    return {};
   }
-
-  return {
-    cartItems: [
-      {
-        quantity: 3,
-        product: res[0].data[0],
-      },
-      {
-        quantity: 2,
-        product: res[0].data[1],
-      },
-    ],
-    delivery: res[1].data[0],
-  };
 };
 
 export default CartPage;
