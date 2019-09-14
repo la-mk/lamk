@@ -24,6 +24,8 @@ export const setupClient = () => {
   return client;
 };
 
+type PatchData<T> = Partial<T> | any;
+
 export function getCrudMethods<T, U>(client: Application, serviceName: string) {
   return {
     find: (params?: Params) =>
@@ -32,9 +34,7 @@ export function getCrudMethods<T, U>(client: Application, serviceName: string) {
       client.service(serviceName).get(id, params) as Promise<U | null>,
     create: (data: T, params?: Params) =>
       client.service(serviceName).create(data, params) as Promise<U>,
-    update: (id: NullableId, data: T, params?: Params) =>
-      client.service(serviceName).update(id, data, params) as Promise<U>,
-    patch: (id: NullableId, data: Partial<T>, params?: Params) =>
+    patch: (id: NullableId, data: PatchData<T>, params?: Params) =>
       client.service(serviceName).patch(id, data, params) as Promise<U>,
     remove: (id: NullableId, params?: Params) =>
       client.service(serviceName).remove(id, params) as Promise<U>,

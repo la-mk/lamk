@@ -7,6 +7,7 @@ import { getArtifactSdk } from './models/artifact';
 import { getDeliverySdk } from './models/delivery';
 import { getUserSdk } from './models/user';
 import { getAuthenticationSdk } from './models/authentication';
+import { getCartSdk } from './models/cart';
 
 export const setupSdk = () => {
   const client = setupClient();
@@ -17,6 +18,7 @@ export const setupSdk = () => {
     artifact: getArtifactSdk(client),
     order: getOrderSdk(client),
     user: getUserSdk(client),
+    cart: getCartSdk(client),
     authentication: getAuthenticationSdk(client),
   };
 };
