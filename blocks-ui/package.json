@@ -12,7 +12,8 @@
   "scripts": {
     "start": "start-storybook -p 9001 -c .storybook",
     "build": "rollup -c",
-    "build:watch": "rollup -cw"
+    "build:watch": "rollup -cw",
+    "prepack": "npm run build"
   },
   "husky": {
     "hooks": {
