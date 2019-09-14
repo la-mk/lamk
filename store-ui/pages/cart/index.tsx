@@ -7,7 +7,7 @@ function CartPage({ cart, delivery }) {
   return (
     <>
       <Head title='Cart' />
-      <Cart cart={cart} delivery={delivery} />
+      <Cart delivery={delivery} />
     </>
   );
 }
@@ -20,7 +20,9 @@ CartPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
       sdk.delivery.findForStore(store._id),
     ]);
 
-    return { cart, delivery: deliveryResult.data[0] };
+    ctx.store.dispatch({ type: 'SET_CART_WITH_PRODUCTS', payload: cart });
+
+    return { delivery: deliveryResult.data[0] };
   } catch (err) {
     console.log(err);
     return {};

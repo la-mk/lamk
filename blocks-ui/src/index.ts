@@ -1,4 +1,5 @@
 export { Alert } from './basic/Alert';
+export { Badge } from './basic/Badge';
 export { Box } from './basic/Box';
 export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';

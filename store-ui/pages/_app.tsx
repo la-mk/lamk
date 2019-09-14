@@ -17,6 +17,15 @@ const setInitialDataInState = async (appCtx: any) => {
       });
 
     appCtx.ctx.store.dispatch({ type: 'SET_STORE', payload: laStore });
+
+    if (laStore) {
+      const cart = await sdk.cart.getCartWithProductsForUser(laStore._id);
+
+      appCtx.ctx.store.dispatch({
+        type: 'SET_CART_WITH_PRODUCTS',
+        payload: cart,
+      });
+    }
   }
 };
 
@@ -30,13 +39,17 @@ class MyApp extends App<{ store: any }> {
 
   render() {
     const { Component, pageProps, store } = this.props;
-    const laStore = store.getState().store;
+    const state = store.getState();
     return (
       <Container>
         <ThemeProvider>
           <ReduxProvider store={store}>
-            <StoreLayout store={laStore}>
-              {laStore ? <Component {...pageProps} /> : <div>Not found</div>}
+            <StoreLayout>
+              {state.store ? (
+                <Component {...pageProps} />
+              ) : (
+                <div>Not found</div>
+              )}
             </StoreLayout>
           </ReduxProvider>
         </ThemeProvider>

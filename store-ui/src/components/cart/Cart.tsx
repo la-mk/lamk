@@ -12,20 +12,20 @@ import {
 import { sdk } from 'la-sdk';
 import { Summary } from './Summary';
 import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
+import { connect } from 'react-redux';
 
-export const Cart = ({ cart, delivery }: any) => {
-  const [localCart, setLocalCart] = useState(cart);
-  if (!localCart || !localCart.items || localCart.items.length <= 0) {
+const CartBase = ({ cart, delivery, setCartWithProducts }: any) => {
+  if (!cart || !cart.items || cart.items.length <= 0) {
     return <div>Your cart is empty</div>;
   }
 
   const handleRemove = (cartItem: CartItemWithProduct) => {
     sdk.cart
-      .removeItemFromCart(localCart._id, cartItem)
+      .removeItemFromCart(cart._id, cartItem)
       .then(() =>
-        setLocalCart({
-          ...localCart,
-          items: localCart.items.filter(
+        setCartWithProducts({
+          ...cart,
+          items: cart.items.filter(
             item => item.product._id !== cartItem.product._id,
           ),
         }),
@@ -38,11 +38,11 @@ export const Cart = ({ cart, delivery }: any) => {
     quantity: number,
   ) => {
     sdk.cart
-      .changeQuantityForCartItem(localCart._id, cartItem, quantity)
+      .changeQuantityForCartItem(cart._id, cartItem, quantity)
       .then(() =>
-        setLocalCart({
-          ...localCart,
-          items: localCart.items.map(item => {
+        setCartWithProducts({
+          ...cart,
+          items: cart.items.map(item => {
             if (item.product._id === cartItem.product._id) {
               return { ...item, quantity };
             }
@@ -65,7 +65,7 @@ export const Cart = ({ cart, delivery }: any) => {
       >
         <Flex flex={2} mr={[0, 0, 3, 3]}>
           <List style={{ width: '100%' }}>
-            {localCart.items.map(cartItem => (
+            {cart.items.map(cartItem => (
               <List.Item key={cartItem.product._id}>
                 <Flex width={1}>
                   <Flex
@@ -127,9 +127,20 @@ export const Cart = ({ cart, delivery }: any) => {
           </List>
         </Flex>
         <Flex flex={1} ml={[0, 0, 3, 3]}>
-          <Summary cart={localCart} delivery={delivery} />
+          <Summary cart={cart} delivery={delivery} />
         </Flex>
       </Flex>
     </Flex>
   );
 };
+
+export const Cart = connect(
+  (state: any) => ({
+    cart: state.cartWithProducts,
+  }),
+  dispatch => ({
+    setCartWithProducts: cart => {
+      dispatch({ type: 'SET_CART_WITH_PRODUCTS', payload: cart });
+    },
+  }),
+)(CartBase);

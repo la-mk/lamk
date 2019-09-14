@@ -8,6 +8,7 @@ import {
   Content,
   Header,
   Footer,
+  Badge,
   Button,
 } from 'blocks-ui';
 import styled from 'styled-components';
@@ -15,9 +16,12 @@ import Link from 'next/link';
 import { Store } from 'la-sdk/dist/models/store';
 import { sdk } from 'la-sdk';
 import { useRouter } from 'next/router';
+import { Cart } from 'la-sdk/dist/models/cart';
+import { connect } from 'react-redux';
 
 interface StoreLayoutProps {
   store: Store;
+  cart: Cart;
   children?: React.ReactNode;
 }
 
@@ -43,7 +47,7 @@ const BorderedHeader = styled(Header)`
   border-bottom: 1px solid #e8e8e8;
 `;
 
-export const StoreLayout = ({ store, children }: StoreLayoutProps) => {
+const StoreLayoutBase = ({ store, cart, children }: StoreLayoutProps) => {
   const router = useRouter();
   // Not a very clean solution, but it will do for now
   const matches = router.pathname.match(/\/([^/]*)(\/?)/);
@@ -76,9 +80,15 @@ export const StoreLayout = ({ store, children }: StoreLayoutProps) => {
                 </Link>
               </MenuItem>
               <MenuItem p={0} key='cart'>
-                <Link href='/cart' passHref>
-                  <Button icon='shopping-cart' type='link'></Button>
-                </Link>
+                <Badge
+                  showZero
+                  offset={[-8, 8]}
+                  count={cart && cart.items ? cart.items.length : 0}
+                >
+                  <Link href='/cart' passHref>
+                    <Button icon='shopping-cart' type='link'></Button>
+                  </Link>
+                </Badge>
               </MenuItem>
             </Menu>
           </Flex>
@@ -95,3 +105,8 @@ export const StoreLayout = ({ store, children }: StoreLayoutProps) => {
     </>
   );
 };
+
+export const StoreLayout = connect((state: any) => ({
+  store: state.store,
+  cart: state.cartWithProducts,
+}))(StoreLayoutBase);

@@ -14,17 +14,33 @@ import { sdk } from 'la-sdk';
 import { Price } from '../shared/Price';
 import { ProductSet } from '../sets/ProductSet';
 import { Thumbnails } from '../shared/Thumbnails';
+import { connect } from 'react-redux';
+import { CartWithProducts, CartItemWithProduct } from 'la-sdk/dist/models/cart';
+import Link from 'next/link';
+import { Store } from 'la-sdk/dist/models/store';
 
 interface ProductProps {
+  store: Store;
   product: ProductType;
+  cart: CartWithProducts;
+  addProductToCart: (product: CartItemWithProduct) => void;
 }
 
-export const Product = ({ product }: ProductProps) => {
+export const ProductBase = ({
+  store,
+  cart,
+  product,
+  addProductToCart,
+}: ProductProps) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [selectedImage, setSelectedImage] = useState(
     sdk.artifact.getUrlForArtifact(product.images[0]),
   );
   const [quantity, setQuantity] = React.useState(1);
+  const isProductInCart =
+    cart &&
+    cart.items &&
+    cart.items.some(item => item.product._id === product._id);
 
   useEffect(() => {
     setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));
@@ -32,7 +48,7 @@ export const Product = ({ product }: ProductProps) => {
 
   useEffect(() => {
     sdk.product
-      .findForStore('bc8ae691-459d-41fe-bf3e-d86abbf3677c')
+      .findForStore(store._id)
       .then(products => setRelatedProducts(products.data))
       .catch(err => console.log(err));
   }, []);
@@ -41,9 +57,10 @@ export const Product = ({ product }: ProductProps) => {
     sdk.cart
       .addItemToCart('bc8ae691-459d-41fe-bf3e-d86abbf3677c', {
         product: product._id,
-        fromStore: 'bc8ae691-459d-41fe-bf3e-d86abbf3677c',
+        fromStore: store._id,
         quantity,
       })
+      .then(() => addProductToCart({ product, quantity, fromStore: store._id }))
       .then(() => message.info('Added to cart'))
       .catch(err => message.error(err));
   };
@@ -81,24 +98,39 @@ export const Product = ({ product }: ProductProps) => {
             <Price price={product.price} currency={'ден'} />
             <Text mt={4}>{product.description}</Text>
             <Flex mt={[4, 4, 5, 5]} flexDirection='row' alignItems='center'>
-              <Text>Quantity:</Text>
-              <InputNumber
-                width='80px'
-                size='large'
-                min={1}
-                max={999}
-                value={quantity}
-                onChange={setQuantity}
-                mx={2}
-              />
-              <Button
-                onClick={handleAddToCart}
-                ml={2}
-                size='large'
-                type='primary'
-              >
-                Add to Cart
-              </Button>
+              {!isProductInCart && (
+                <>
+                  <Text>Quantity:</Text>
+                  <InputNumber
+                    width='80px'
+                    size='large'
+                    min={1}
+                    max={999}
+                    value={quantity}
+                    onChange={setQuantity}
+                    mx={2}
+                  />
+                </>
+              )}
+              {isProductInCart ? (
+                <>
+                  <Text type='secondary'>Product already in cart</Text>
+                  <Link passHref href='/cart'>
+                    <Button type='primary' size='large' ml={2}>
+                      Go to Cart
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Button
+                  onClick={handleAddToCart}
+                  ml={2}
+                  size='large'
+                  type='primary'
+                >
+                  Add to Cart
+                </Button>
+              )}
             </Flex>
           </Flex>
         </Flex>
@@ -109,3 +141,17 @@ export const Product = ({ product }: ProductProps) => {
     </>
   );
 };
+
+export const Product = connect(
+  (state: any) => ({
+    cart: state.cartWithProducts,
+    store: state.store,
+  }),
+  dispatch => ({
+    addProductToCart: (product: CartItemWithProduct) =>
+      dispatch({
+        type: 'ADD_PRODUCT_TO_CART',
+        payload: product,
+      }),
+  }),
+)(ProductBase);
