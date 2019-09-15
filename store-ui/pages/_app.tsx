@@ -4,7 +4,7 @@ import { Provider as ThemeProvider } from 'blocks-ui';
 import { sdk } from 'la-sdk';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
-import { makeStore } from '../src/state/configureStore';
+import configureStore from '../src/state/configureStore';
 import { StoreLayout } from './common/StoreLayout';
 
 const setInitialDataInState = async (appCtx: any) => {
@@ -59,4 +59,6 @@ class MyApp extends App<{ store: any }> {
 }
 
 // We initialize the redux store, which will add the `store` prop to the context object.
-export default withRedux(makeStore)(MyApp);
+export default withRedux((initialState, options) =>
+  configureStore(process.env.NODE_ENV, initialState, options),
+)(MyApp);

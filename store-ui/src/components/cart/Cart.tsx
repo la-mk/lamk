@@ -136,7 +136,7 @@ const CartBase = ({ cart, delivery, setCartWithProducts }: any) => {
 
 export const Cart = connect(
   (state: any) => ({
-    cart: state.cartWithProducts,
+    cart: state.cart.cartWithProducts,
   }),
   dispatch => ({
     setCartWithProducts: cart => {

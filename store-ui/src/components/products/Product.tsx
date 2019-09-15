@@ -144,7 +144,7 @@ export const ProductBase = ({
 
 export const Product = connect(
   (state: any) => ({
-    cart: state.cartWithProducts,
+    cart: state.cart.cartWithProducts,
     store: state.store,
   }),
   dispatch => ({

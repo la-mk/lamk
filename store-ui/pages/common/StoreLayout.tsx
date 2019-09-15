@@ -108,5 +108,5 @@ const StoreLayoutBase = ({ store, cart, children }: StoreLayoutProps) => {
 
 export const StoreLayout = connect((state: any) => ({
   store: state.store,
-  cart: state.cartWithProducts,
+  cart: state.cart.cartWithProducts,
 }))(StoreLayoutBase);
