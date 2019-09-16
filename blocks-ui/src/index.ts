@@ -38,6 +38,8 @@ export { Text, Title, Paragraph } from './basic/Typography';
 export { Upload, UploadDragger } from './basic/Upload';
 
 export { formInput, formTextArea } from './compound/FormHelpers';
+export { LoginForm } from './compound/LoginForm';
+export { SignupForm } from './compound/SignupForm';
 export { SizedImage } from './compound/SizedImage';
 export { UploadContent } from './compound/UploadContent';
 
