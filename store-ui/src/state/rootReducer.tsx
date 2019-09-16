@@ -1,4 +1,5 @@
-import { store, cart } from './reducer';
+import store from './modules/store/store.persist';
+import cart from './modules/cart/cart.persist';
 import { combineReducers } from 'redux';
 
 const getReducersSet = () => ({

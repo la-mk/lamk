@@ -18,6 +18,9 @@ import { connect } from 'react-redux';
 import { CartWithProducts, CartItemWithProduct } from 'la-sdk/dist/models/cart';
 import Link from 'next/link';
 import { Store } from 'la-sdk/dist/models/store';
+import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
+import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
+import { getStore } from '../../state/modules/store/store.selector';
 
 interface ProductProps {
   store: Store;
@@ -144,14 +147,11 @@ export const ProductBase = ({
 
 export const Product = connect(
   (state: any) => ({
-    cart: state.cart.cartWithProducts,
-    store: state.store,
+    cart: getCartWithProducts(state),
+    store: getStore(state),
   }),
   dispatch => ({
-    addProductToCart: (product: CartItemWithProduct) =>
-      dispatch({
-        type: 'ADD_PRODUCT_TO_CART',
-        payload: product,
-      }),
+    addProductToCart: (cartItemWithProduct: CartItemWithProduct) =>
+      dispatch(addCartItemWithProduct(cartItemWithProduct)),
   }),
 )(ProductBase);

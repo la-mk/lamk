@@ -6,6 +6,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import configureStore from '../src/state/configureStore';
 import { StoreLayout } from './common/StoreLayout';
+import { setStore } from '../src/state/modules/store/store.module';
 
 const setInitialDataInState = async (appCtx: any) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
@@ -14,18 +15,10 @@ const setInitialDataInState = async (appCtx: any) => {
       .get('bc8ae691-459d-41fe-bf3e-d86abbf3677c')
       .catch(err => {
         console.log(err);
+        return null;
       });
 
-    appCtx.ctx.store.dispatch({ type: 'SET_STORE', payload: laStore });
-
-    if (laStore) {
-      const cart = await sdk.cart.getCartWithProductsForUser(laStore._id);
-
-      appCtx.ctx.store.dispatch({
-        type: 'SET_CART_WITH_PRODUCTS',
-        payload: cart,
-      });
-    }
+    appCtx.ctx.store.dispatch(setStore(laStore));
   }
 };
 

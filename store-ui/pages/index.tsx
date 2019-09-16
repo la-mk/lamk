@@ -2,6 +2,7 @@ import { Home } from '../src/components/home/Home';
 import { Head } from './common/Head';
 import { sdk } from 'la-sdk';
 import { NextPageContext } from 'next';
+import { getStore } from '../src/state/modules/store/store.selector';
 
 function HomePage({ products }: any) {
   return (
@@ -14,7 +15,7 @@ function HomePage({ products }: any) {
 
 HomePage.getInitialProps = async (ctx: NextPageContext) => {
   // @ts-ignore
-  const store = ctx.store.getState().store;
+  const store = getStore(ctx.store.getState());
   try {
     const products = await sdk.product.findForStore(store._id);
     return { products: products.data };

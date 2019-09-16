@@ -13,6 +13,8 @@ import { sdk } from 'la-sdk';
 import { Summary } from './Summary';
 import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
 import { connect } from 'react-redux';
+import { setCartWithProducts } from '../../state/modules/cart/cart.module';
+import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 
 const CartBase = ({ cart, delivery, setCartWithProducts }: any) => {
   if (!cart || !cart.items || cart.items.length <= 0) {
@@ -136,11 +138,11 @@ const CartBase = ({ cart, delivery, setCartWithProducts }: any) => {
 
 export const Cart = connect(
   (state: any) => ({
-    cart: state.cart.cartWithProducts,
+    cart: getCartWithProducts(state),
   }),
   dispatch => ({
-    setCartWithProducts: cart => {
-      dispatch({ type: 'SET_CART_WITH_PRODUCTS', payload: cart });
+    setCartWithProducts: cartWithProducts => {
+      dispatch(setCartWithProducts(cartWithProducts));
     },
   }),
 )(CartBase);

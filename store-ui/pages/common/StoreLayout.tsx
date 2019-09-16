@@ -18,10 +18,12 @@ import { sdk } from 'la-sdk';
 import { useRouter } from 'next/router';
 import { Cart } from 'la-sdk/dist/models/cart';
 import { connect } from 'react-redux';
+import { getStore } from '../../src/state/modules/store/store.selector';
+import { getCartWithProducts } from '../../src/state/modules/cart/cart.selector';
 
 interface StoreLayoutProps {
   store: Store;
-  cart: Cart;
+  cart?: Cart;
   children?: React.ReactNode;
 }
 
@@ -107,6 +109,6 @@ const StoreLayoutBase = ({ store, cart, children }: StoreLayoutProps) => {
 };
 
 export const StoreLayout = connect((state: any) => ({
-  store: state.store,
-  cart: state.cart.cartWithProducts,
+  store: getStore(state),
+  cart: getCartWithProducts(state),
 }))(StoreLayoutBase);
