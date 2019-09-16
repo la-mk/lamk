@@ -2,10 +2,12 @@ import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../errors';
 import { isProvider } from 'feathers-hooks-common';
 
+const isServerCall = isProvider('server');
+
 export const requireAllQueryParams = (params: string[]) => {
   return (ctx: HookContext) => {
     // If it is a server request, ignore the requirement.
-    if (isProvider('server')) {
+    if (isServerCall(ctx)) {
       return;
     }
 
@@ -23,12 +25,13 @@ export const requireAllQueryParams = (params: string[]) => {
 export const requireAnyQueryParam = (params: string[]) => {
   return (ctx: HookContext) => {
     // If it is a server request, ignore the requirement.
-    if (isProvider('server')) {
+    if (isServerCall(ctx)) {
       return;
     }
 
     const { query = {} } = ctx.params;
     const hasSome = params.some(param => Boolean(query[param]));
+
     if (!hasSome) {
       throw new BadRequest(
         `At least one parameters from "${params.join(

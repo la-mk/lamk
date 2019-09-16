@@ -10,7 +10,7 @@ import { unless, keep } from 'feathers-hooks-common';
 export const hooks = {
   before: {
     all: [],
-    find: [requireAnyQueryParam(['soldBy'])],
+    find: [requireAnyQueryParam(['_id', 'soldBy'])],
     get: [],
     create: [authenticate('jwt'), associateCurrentUser({ as: 'soldBy' })],
     update: [authenticate('jwt'), restrictToOwner({ ownerField: 'soldBy' })],
