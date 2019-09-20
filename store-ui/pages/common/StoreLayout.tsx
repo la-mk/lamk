@@ -10,20 +10,18 @@ import {
   Footer,
   Badge,
   Button,
+  Dropdown,
+  Avatar,
 } from 'blocks-ui';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { Store } from 'la-sdk/dist/models/store';
 import { sdk } from 'la-sdk';
 import { useRouter } from 'next/router';
-import { Cart } from 'la-sdk/dist/models/cart';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { getCartWithProducts } from '../../src/state/modules/cart/cart.selector';
 
 interface StoreLayoutProps {
-  store: Store;
-  cart?: Cart;
   children?: React.ReactNode;
 }
 
@@ -49,8 +47,10 @@ const BorderedHeader = styled(Header)`
   border-bottom: 1px solid #e8e8e8;
 `;
 
-const StoreLayoutBase = ({ store, cart, children }: StoreLayoutProps) => {
+export const StoreLayout = ({ children }: StoreLayoutProps) => {
   const router = useRouter();
+  const store = useSelector(getStore);
+  const cart = useSelector(getCartWithProducts);
   // Not a very clean solution, but it will do for now
   const matches = router.pathname.match(/\/([^/]*)(\/?)/);
   const selectedKeys = matches && matches.length > 1 ? [matches[1]] : [];
@@ -92,6 +92,21 @@ const StoreLayoutBase = ({ store, cart, children }: StoreLayoutProps) => {
                   </Link>
                 </Badge>
               </MenuItem>
+              <MenuItem p={0}>
+                <Dropdown
+                  overlay={
+                    <Menu>
+                      <MenuItem>
+                        <Link href='/orders' passHref>
+                          <Button type='link'>My Orders</Button>
+                        </Link>
+                      </MenuItem>
+                    </Menu>
+                  }
+                >
+                  <Avatar mx={2} icon='user' />
+                </Dropdown>
+              </MenuItem>
             </Menu>
           </Flex>
         </BorderedHeader>
@@ -107,8 +122,3 @@ const StoreLayoutBase = ({ store, cart, children }: StoreLayoutProps) => {
     </>
   );
 };
-
-export const StoreLayout = connect((state: any) => ({
-  store: getStore(state),
-  cart: getCartWithProducts(state),
-}))(StoreLayoutBase);

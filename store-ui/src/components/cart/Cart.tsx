@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Flex,
   List,
@@ -12,11 +12,17 @@ import {
 import { sdk } from 'la-sdk';
 import { Summary } from './Summary';
 import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setCartWithProducts } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
+import { getDelivery } from '../../state/modules/delivery/delivery.selector';
+import { goTo } from '../../state/modules/navigation/navigation.actions';
 
-const CartBase = ({ cart, delivery, setCartWithProducts }: any) => {
+export const Cart = () => {
+  const cart = useSelector(getCartWithProducts);
+  const delivery = useSelector(getDelivery);
+  const dispatch = useDispatch();
+
   if (!cart || !cart.items || cart.items.length <= 0) {
     return <div>Your cart is empty</div>;
   }
@@ -42,17 +48,23 @@ const CartBase = ({ cart, delivery, setCartWithProducts }: any) => {
     sdk.cart
       .changeQuantityForCartItem(cart._id, cartItem, quantity)
       .then(() =>
-        setCartWithProducts({
-          ...cart,
-          items: cart.items.map(item => {
-            if (item.product._id === cartItem.product._id) {
-              return { ...item, quantity };
-            }
-            return item;
+        dispatch(
+          setCartWithProducts({
+            ...cart,
+            items: cart.items.map(item => {
+              if (item.product._id === cartItem.product._id) {
+                return { ...item, quantity };
+              }
+              return item;
+            }),
           }),
-        }),
+        ),
       )
       .catch(err => message.error(err));
+  };
+
+  const handleCheckout = () => {
+    dispatch(goTo('/checkout'));
   };
 
   return (
@@ -129,20 +141,14 @@ const CartBase = ({ cart, delivery, setCartWithProducts }: any) => {
           </List>
         </Flex>
         <Flex flex={1} ml={[0, 0, 3, 3]}>
-          <Summary cart={cart} delivery={delivery} />
+          <Summary
+            cart={cart}
+            delivery={delivery}
+            buttonTitle='To Checkout'
+            onCheckout={handleCheckout}
+          />
         </Flex>
       </Flex>
     </Flex>
   );
 };
-
-export const Cart = connect(
-  (state: any) => ({
-    cart: getCartWithProducts(state),
-  }),
-  dispatch => ({
-    setCartWithProducts: cartWithProducts => {
-      dispatch(setCartWithProducts(cartWithProducts));
-    },
-  }),
-)(CartBase);

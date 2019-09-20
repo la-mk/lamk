@@ -14,32 +14,23 @@ import { sdk } from 'la-sdk';
 import { Price } from '../shared/Price';
 import { ProductSet } from '../sets/ProductSet';
 import { Thumbnails } from '../shared/Thumbnails';
-import { connect, useSelector } from 'react-redux';
-import {
-  CartWithProducts,
-  CartItemWithProduct,
-  Cart,
-} from 'la-sdk/dist/models/cart';
+import { useSelector, useDispatch } from 'react-redux';
+import { Cart } from 'la-sdk/dist/models/cart';
 import Link from 'next/link';
-import { Store } from 'la-sdk/dist/models/store';
 import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getUser } from '../../state/modules/user/user.selector';
 
 interface ProductProps {
-  store: Store;
   product: ProductType;
-  cart: CartWithProducts;
-  addProductToCart: (product: CartItemWithProduct) => void;
 }
 
-export const ProductBase = ({
-  store,
-  cart,
-  product,
-  addProductToCart,
-}: ProductProps) => {
+export const Product = ({ product }: ProductProps) => {
+  const cart = useSelector(getCartWithProducts);
+  const store = useSelector(getStore);
+  const dispatch = useDispatch();
+
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [selectedImage, setSelectedImage] = useState(
     sdk.artifact.getUrlForArtifact(product.images[0]),
@@ -74,7 +65,11 @@ export const ProductBase = ({
     }
 
     action
-      .then(() => addProductToCart({ product, quantity, fromStore: store._id }))
+      .then(() =>
+        dispatch(
+          addCartItemWithProduct({ product, quantity, fromStore: store._id }),
+        ),
+      )
       .then(() => message.info('Added to cart'))
       .catch(err => message.error(err));
   };
@@ -155,14 +150,3 @@ export const ProductBase = ({
     </>
   );
 };
-
-export const Product = connect(
-  (state: any) => ({
-    cart: getCartWithProducts(state),
-    store: getStore(state),
-  }),
-  dispatch => ({
-    addProductToCart: (cartItemWithProduct: CartItemWithProduct) =>
-      dispatch(addCartItemWithProduct(cartItemWithProduct)),
-  }),
-)(ProductBase);

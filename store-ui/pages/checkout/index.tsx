@@ -1,19 +1,21 @@
 import { NextPageContext } from 'next';
 import { Head } from '../common/Head';
-import { Cart } from '../../src/components/cart/Cart';
+import { Checkout } from '../../src/components/cart/Checkout';
 import { setCartIfNone } from '../common/initialProps/setCartIfNone';
 import { setDeliveryIfNone } from '../common/initialProps/setDeliveryIfNone';
 
-function CartPage({}) {
+function CheckoutPage() {
   return (
     <>
-      <Head title='Cart' />
-      <Cart />
+      <Head title='Checkout' />
+      <Checkout />
     </>
   );
 }
 
-CartPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
+CheckoutPage.getInitialProps = async (
+  ctx: NextPageContext & { store: any },
+) => {
   try {
     await Promise.all([setCartIfNone(ctx), setDeliveryIfNone(ctx)]);
   } catch (err) {
@@ -22,5 +24,4 @@ CartPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
 
   return {};
 };
-
-export default CartPage;
+export default CheckoutPage;

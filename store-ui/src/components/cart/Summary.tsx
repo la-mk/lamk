@@ -1,6 +1,6 @@
 import sum from 'lodash/sum';
 import React from 'react';
-import { Flex, Text, Card, Divider, Button } from 'blocks-ui';
+import { Flex, Text, Card, Divider, Button, message } from 'blocks-ui';
 import { CartWithProducts } from 'la-sdk/dist/models/cart';
 import { Delivery } from 'la-sdk/dist/models/delivery';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,11 +10,19 @@ import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 interface SummaryProps {
   cart: CartWithProducts;
   delivery: Delivery;
+  buttonTitle: string;
+  onCheckout: () => void;
 }
 
-export const Summary = ({ cart, delivery }: SummaryProps) => {
+export const Summary = ({
+  cart,
+  delivery,
+  buttonTitle,
+  onCheckout,
+}: SummaryProps) => {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
+
   const subtotal = sum(
     cart.items.map(cartItem => cartItem.quantity * cartItem.product.price),
   );
@@ -28,7 +36,7 @@ export const Summary = ({ cart, delivery }: SummaryProps) => {
     if (!user) {
       dispatch(toggleAuthModal(true));
     } else {
-      console.log('Checking out');
+      onCheckout();
     }
   };
 
@@ -56,7 +64,7 @@ export const Summary = ({ cart, delivery }: SummaryProps) => {
           mt={4}
           type={'primary'}
         >
-          Checkout
+          {buttonTitle}
         </Button>
       </Flex>
     </Card>
