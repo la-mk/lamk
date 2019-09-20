@@ -1,8 +1,10 @@
 export { Alert } from './basic/Alert';
+export { Avatar } from './basic/Avatar';
 export { Badge } from './basic/Badge';
 export { Box } from './basic/Box';
 export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
+export { Collapse, CollapsePanel } from './basic/Collapse';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider } from './basic/Divider';
 export { Dropdown } from './basic/Dropdown';
@@ -25,6 +27,7 @@ export {
 export { Modal } from './basic/Modal';
 export { Pagination } from './basic/Pagination';
 export { Provider } from './basic/Provider';
+export { Result } from './basic/Result';
 export { Select, Option, OptionGroup } from './basic/Select';
 export { Set } from './basic/Set';
 export { Spin } from './basic/Spin';
