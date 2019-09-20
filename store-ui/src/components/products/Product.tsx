@@ -14,13 +14,18 @@ import { sdk } from 'la-sdk';
 import { Price } from '../shared/Price';
 import { ProductSet } from '../sets/ProductSet';
 import { Thumbnails } from '../shared/Thumbnails';
-import { connect } from 'react-redux';
-import { CartWithProducts, CartItemWithProduct } from 'la-sdk/dist/models/cart';
+import { connect, useSelector } from 'react-redux';
+import {
+  CartWithProducts,
+  CartItemWithProduct,
+  Cart,
+} from 'la-sdk/dist/models/cart';
 import Link from 'next/link';
 import { Store } from 'la-sdk/dist/models/store';
 import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getStore } from '../../state/modules/store/store.selector';
+import { getUser } from '../../state/modules/user/user.selector';
 
 interface ProductProps {
   store: Store;
@@ -44,6 +49,7 @@ export const ProductBase = ({
     cart &&
     cart.items &&
     cart.items.some(item => item.product._id === product._id);
+  const user = useSelector(getUser);
 
   useEffect(() => {
     setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));
@@ -57,12 +63,17 @@ export const ProductBase = ({
   }, []);
 
   const handleAddToCart = () => {
-    sdk.cart
-      .addItemToCart('bc8ae691-459d-41fe-bf3e-d86abbf3677c', {
+    let action: Promise<Cart | void> = Promise.resolve();
+
+    if (user) {
+      action = sdk.cart.addItemToCart(user._id, {
         product: product._id,
         fromStore: store._id,
         quantity,
-      })
+      });
+    }
+
+    action
       .then(() => addProductToCart({ product, quantity, fromStore: store._id }))
       .then(() => message.info('Added to cart'))
       .catch(err => message.error(err));

@@ -14,8 +14,11 @@ export default function cart(state = initialState, action) {
       return {
         ...state,
         cartWithProducts: {
-          ...state.cartWithProducts,
-          items: [...state.cartWithProducts.items, action.cartItemWithProduct],
+          ...(state.cartWithProducts || {}),
+          items:
+            state.cartWithProducts && state.cartWithProducts.items
+              ? [...state.cartWithProducts.items, action.cartItemWithProduct]
+              : [action.cartItemWithProduct],
         },
       };
 

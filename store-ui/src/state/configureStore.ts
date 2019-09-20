@@ -1,6 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { persistStore } from 'redux-persist';
+import {
+  createRouterMiddleware,
+  initialRouterState,
+} from 'connected-next-router';
 
 import registerSagas from './rootSaga';
 import registerReducers from './rootReducer';
@@ -26,13 +30,17 @@ function configureDevStore(initialState: any, options: MakeStoreOptions) {
   }
 
   const sagaMiddleware = createSagaMiddleware();
+  const routerMiddleware = createRouterMiddleware();
   const composeEnhancers =
     // @ts-ignore
     window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       : compose;
 
-  const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
+  const enhancer = composeEnhancers(
+    applyMiddleware(sagaMiddleware, routerMiddleware),
+  );
+
   const store = createStore(registerReducers(false), initialState, enhancer);
   persistStore(store);
   registerSagas(sagaMiddleware);

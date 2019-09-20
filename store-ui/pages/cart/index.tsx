@@ -4,6 +4,8 @@ import { Head } from '../common/Head';
 import { Cart } from '../../src/components/cart/Cart';
 import { setCartWithProducts } from '../../src/state/modules/cart/cart.module';
 import { getStore } from '../../src/state/modules/store/store.selector';
+import { getUser } from '../../src/state/modules/user/user.selector';
+import { CartWithProducts } from 'la-sdk/dist/models/cart';
 
 function CartPage({ cart, delivery }) {
   return (
@@ -15,14 +17,22 @@ function CartPage({ cart, delivery }) {
 }
 
 CartPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
-  const store = getStore(ctx.store.getState());
+  const state = ctx.store.getState();
+  const store = getStore(state);
+  const user = getUser(state);
+  const cartAction: Promise<CartWithProducts | void> = user
+    ? sdk.cart.getCartWithProductsForUser(user._id)
+    : Promise.resolve();
+
   try {
     const [cartWithProducts, deliveryResult] = await Promise.all([
-      sdk.cart.getCartWithProductsForUser(store._id),
+      cartAction,
       sdk.delivery.findForStore(store._id),
     ]);
 
-    ctx.store.dispatch(setCartWithProducts(cartWithProducts));
+    if (cartWithProducts) {
+      ctx.store.dispatch(setCartWithProducts(cartWithProducts));
+    }
 
     return { delivery: deliveryResult.data[0] };
   } catch (err) {

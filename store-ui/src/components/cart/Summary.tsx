@@ -1,9 +1,20 @@
 import sum from 'lodash/sum';
 import React from 'react';
 import { Flex, Text, Card, Divider, Button } from 'blocks-ui';
-import Link from 'next/link';
+import { CartWithProducts } from 'la-sdk/dist/models/cart';
+import { Delivery } from 'la-sdk/dist/models/delivery';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../../state/modules/user/user.selector';
+import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 
-export const Summary = ({ cart, delivery }: any) => {
+interface SummaryProps {
+  cart: CartWithProducts;
+  delivery: Delivery;
+}
+
+export const Summary = ({ cart, delivery }: SummaryProps) => {
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
   const subtotal = sum(
     cart.items.map(cartItem => cartItem.quantity * cartItem.product.price),
   );
@@ -12,6 +23,14 @@ export const Summary = ({ cart, delivery }: any) => {
       ? 0
       : delivery.price;
   const total = subtotal + shippingCost;
+
+  const handleCheckout = () => {
+    if (!user) {
+      dispatch(toggleAuthModal(true));
+    } else {
+      console.log('Checking out');
+    }
+  };
 
   return (
     <Card title='Summary' px={3} width='100%'>
@@ -30,11 +49,15 @@ export const Summary = ({ cart, delivery }: any) => {
       </Flex>
 
       <Flex justifyContent='center' alignItems='center'>
-        <Link href='/products' passHref>
-          <Button width='100%' size='large' mt={4} type={'primary'}>
-            Checkout
-          </Button>
-        </Link>
+        <Button
+          onClick={handleCheckout}
+          width='100%'
+          size='large'
+          mt={4}
+          type={'primary'}
+        >
+          Checkout
+        </Button>
       </Flex>
     </Card>
   );

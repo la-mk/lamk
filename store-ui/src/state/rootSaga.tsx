@@ -1,8 +1,10 @@
-import storageSaga from './sagas/storageSaga';
+import authSaga from './sagas/authSaga';
+import uiSaga from './sagas/uiSaga';
 import { SagaMiddleware } from 'redux-saga';
 
 const sagas = {
-  ...storageSaga,
+  ...authSaga,
+  ...uiSaga,
 };
 
 export default function registerSagas(middleware: SagaMiddleware) {

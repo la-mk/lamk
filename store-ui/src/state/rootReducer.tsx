@@ -1,10 +1,16 @@
 import store from './modules/store/store.persist';
 import cart from './modules/cart/cart.persist';
+import user from './modules/user/user.persist';
+import ui from './modules/ui/ui.persist';
+import { routerReducer } from 'connected-next-router';
 import { combineReducers } from 'redux';
 
 const getReducersSet = () => ({
   store,
   cart,
+  user,
+  ui,
+  router: routerReducer,
 });
 
 export default (isServer: boolean) => {
@@ -19,7 +25,7 @@ export default (isServer: boolean) => {
   const storageConfig = {
     key: 'rootStorage',
     storage,
-    blacklist: ['store', 'cart'],
+    blacklist: ['store', 'cart', 'user', 'ui', 'router'],
   };
 
   return persistCombineReducers(storageConfig, reducers);

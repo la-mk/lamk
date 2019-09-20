@@ -4,9 +4,11 @@ import { Provider as ThemeProvider } from 'blocks-ui';
 import { sdk } from 'la-sdk';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
+import { ConnectedRouter } from 'connected-next-router';
 import configureStore from '../src/state/configureStore';
 import { StoreLayout } from './common/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
+import { AuthModal } from '../src/components/signup/AuthModal';
 
 const setInitialDataInState = async (appCtx: any) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
@@ -37,13 +39,18 @@ class MyApp extends App<{ store: any }> {
       <Container>
         <ThemeProvider>
           <ReduxProvider store={store}>
-            <StoreLayout>
-              {state.store ? (
-                <Component {...pageProps} />
-              ) : (
-                <div>Not found</div>
-              )}
-            </StoreLayout>
+            <ConnectedRouter>
+              <StoreLayout>
+                <>
+                  {state.store ? (
+                    <Component {...pageProps} />
+                  ) : (
+                    <div>Not found</div>
+                  )}
+                  <AuthModal />
+                </>
+              </StoreLayout>
+            </ConnectedRouter>
           </ReduxProvider>
         </ThemeProvider>
       </Container>
