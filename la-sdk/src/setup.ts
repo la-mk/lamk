@@ -1,5 +1,6 @@
 import feathers from '@feathersjs/feathers';
 import socketio from '@feathersjs/socketio-client';
+import rest from '@feathersjs/rest-client';
 import authentication from '@feathersjs/authentication-client';
 import io from 'socket.io-client';
 import { Application, Params, Id, NullableId } from '@feathersjs/feathers';
@@ -11,16 +12,32 @@ export interface FindResult<T> {
   data: T[];
 }
 
-export const setupClient = () => {
+export interface SetupSdkOptions {
+  transport?: 'rest' | 'socket';
+}
+
+export const setupClient = (options: SetupSdkOptions) => {
   const client: Application = feathers();
 
-  const socket = io('http://localhost:3030');
-  client.configure(socketio(socket));
+  if (options.transport && options.transport === 'rest') {
+    if (typeof window === 'undefined') {
+      // eslint-disable-next-line
+      const fetch = require('node-fetch');
+      client.configure(rest('http://localhost:3030').fetch(fetch));
+    } else {
+      client.configure(rest('http://localhost:3030').fetch(window.fetch));
+    }
+  } else {
+    const socket = io('http://localhost:3030');
+    client.configure(socketio(socket));
+  }
+
   client.configure(
     authentication({
       storageKey: 'lamk-token',
     }),
   );
+
   return client;
 };
 

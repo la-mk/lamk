@@ -1,4 +1,4 @@
-import { setupClient } from './setup';
+import { setupClient, SetupSdkOptions } from './setup';
 
 import { getStoreSdk } from './models/store';
 import { getProductSdk } from './models/product';
@@ -9,9 +9,12 @@ import { getUserSdk } from './models/user';
 import { getAuthenticationSdk } from './models/authentication';
 import { getCartSdk } from './models/cart';
 
-export const setupSdk = () => {
-  const client = setupClient();
-  return {
+// eslint-disable-next-line
+export let sdk: ReturnType<typeof setupSdk>;
+
+export const setupSdk = (options: SetupSdkOptions = {}) => {
+  const client = setupClient(options);
+  const tempSdk = {
     store: getStoreSdk(client),
     product: getProductSdk(client),
     delivery: getDeliverySdk(client),
@@ -21,6 +24,7 @@ export const setupSdk = () => {
     cart: getCartSdk(client),
     authentication: getAuthenticationSdk(client),
   };
-};
 
-export const sdk = setupSdk();
+  sdk = tempSdk;
+  return tempSdk;
+};
