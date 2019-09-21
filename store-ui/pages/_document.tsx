@@ -1,5 +1,6 @@
 import Document from 'next/document';
 import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
+import { setupSdk } from 'la-sdk';
 import { NextPageContext } from 'next';
 
 const GlobalStyle = createGlobalStyle`
@@ -37,6 +38,7 @@ html {
 // The custom document is required to setup styled components for SSR.
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: NextPageContext & { renderPage: any }) {
+    setupSdk({ transport: 'rest' });
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 

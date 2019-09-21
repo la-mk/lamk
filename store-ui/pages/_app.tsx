@@ -1,7 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import { Provider as ThemeProvider } from 'blocks-ui';
-import { sdk } from 'la-sdk';
+import sdk from './common/sdk';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';

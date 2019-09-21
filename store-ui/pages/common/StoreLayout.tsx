@@ -12,14 +12,18 @@ import {
   Button,
   Dropdown,
   Avatar,
+  Divider,
 } from 'blocks-ui';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { sdk } from 'la-sdk';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { getCartWithProducts } from '../../src/state/modules/cart/cart.selector';
+import { logout } from '../../src/state/modules/auth/auth.module';
+import { getUser } from '../../src/state/modules/user/user.selector';
+import { toggleAuthModal } from '../../src/state/modules/ui/ui.module';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -50,10 +54,21 @@ const BorderedHeader = styled(Header)`
 export const StoreLayout = ({ children }: StoreLayoutProps) => {
   const router = useRouter();
   const store = useSelector(getStore);
+  const user = useSelector(getUser);
   const cart = useSelector(getCartWithProducts);
+  const dispatch = useDispatch();
+
   // Not a very clean solution, but it will do for now
   const matches = router.pathname.match(/\/([^/]*)(\/?)/);
   const selectedKeys = matches && matches.length > 1 ? [matches[1]] : [];
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
+  const handleLogin = () => {
+    dispatch(toggleAuthModal(true));
+  };
 
   return (
     <>
@@ -96,11 +111,28 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                 <Dropdown
                   overlay={
                     <Menu>
-                      <MenuItem>
-                        <Link href='/orders' passHref>
-                          <Button type='link'>My Orders</Button>
-                        </Link>
-                      </MenuItem>
+                      {user && (
+                        <>
+                          <MenuItem>
+                            <Link href='/orders' passHref>
+                              <Button type='link'>My Orders</Button>
+                            </Link>
+                          </MenuItem>
+                          <Divider my={0} />
+                          <MenuItem>
+                            <Button type='link' onClick={handleLogout}>
+                              Logout
+                            </Button>
+                          </MenuItem>
+                        </>
+                      )}
+                      {!user && (
+                        <MenuItem>
+                          <Button type='link' onClick={handleLogin}>
+                            Log in
+                          </Button>
+                        </MenuItem>
+                      )}
                     </Menu>
                   }
                 >

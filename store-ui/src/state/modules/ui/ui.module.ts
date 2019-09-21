@@ -8,12 +8,12 @@ export function toggleAuthModal(state: boolean) {
   return { type: TOGGLE_AUTH_MODAL, state };
 }
 
-const initialState = { showAuthModal: false };
+const initialState = { shouldShowAuthModal: false };
 
 export default function ui(state = initialState, action: any) {
   switch (action.type) {
     case TOGGLE_AUTH_MODAL: {
-      return { showAuthModal: action.state };
+      return { shouldShowAuthModal: action.state };
     }
     default:
       return state;

@@ -1,9 +1,11 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
 
 import { CLEAR_SESSION } from '../modules/ui/ui.module';
+import { setCartWithProducts } from '../modules/cart/cart.module';
 
-export function clearSessionSaga() {
+export function* clearSessionSaga() {
   sessionStorage.clear();
+  yield put(setCartWithProducts(null));
 }
 
 export function* watchClearSessionSaga() {

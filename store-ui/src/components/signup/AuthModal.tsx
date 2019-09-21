@@ -10,14 +10,14 @@ import {
   Divider,
 } from 'blocks-ui';
 import { useSelector, useDispatch } from 'react-redux';
-import { showAuthModal } from '../../state/modules/ui/ui.selector';
+import { shouldShowAuthModal } from '../../state/modules/ui/ui.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { login, signup } from '../../state/modules/auth/auth.module';
 import { sdk } from 'la-sdk';
 
 export const AuthModal = () => {
   const [method, setMethod] = React.useState<'login' | 'signup'>('login');
-  const visible = useSelector(showAuthModal);
+  const visible = useSelector(shouldShowAuthModal);
   const dispatch = useDispatch();
 
   const handleLogin = (data: any) => {

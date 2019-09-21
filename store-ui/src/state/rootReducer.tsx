@@ -1,6 +1,6 @@
 import store from './modules/store/store.persist';
 import cart from './modules/cart/cart.persist';
-import user from './modules/user/user.persist';
+import user from './modules/user/user.module';
 import ui from './modules/ui/ui.persist';
 import delivery from './modules/delivery/delivery.persist';
 import { routerReducer } from 'connected-next-router';

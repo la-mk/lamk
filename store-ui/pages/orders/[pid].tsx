@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NextPageContext } from 'next';
 import { sdk } from 'la-sdk';
 import { Head } from '../common/Head';
-import { Order as OrderType } from 'la-sdk/dist/models/order';
 import { Order } from '../../src/components/orders/Order';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../src/state/modules/user/user.selector';
 
-const OrderPage = ({ order }: { order: OrderType }) => {
-  if (!order) {
-    return <div>Not found</div>;
-  }
+const OrderPage = ({ orderId }: { orderId: string }) => {
+  const [order, setOrder] = useState(null);
+  const user = useSelector(getUser);
+
+  useEffect(() => {
+    if (orderId && user) {
+      sdk.order
+        .get(orderId)
+        .then(order => {
+          setOrder(order);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [user, orderId]);
 
   return (
     <>
@@ -18,16 +29,9 @@ const OrderPage = ({ order }: { order: OrderType }) => {
   );
 };
 
+// This is a route that requires a registered user, so there is no data we can pre-fetch on the server.
 OrderPage.getInitialProps = async function(ctx: NextPageContext) {
-  if (ctx.query.pid) {
-    const order = await sdk.order
-      .get(ctx.query.pid as string)
-      .catch(err => console.log(err));
-
-    return { order };
-  }
-
-  return { order: null };
+  return { orderId: ctx.query.pid };
 };
 
 export default OrderPage;

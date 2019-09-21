@@ -1,11 +1,24 @@
 import { sdk } from 'la-sdk';
-import { Order } from 'la-sdk/dist/models/order';
 import { Head } from '../common/Head';
 import { Orders } from '../../src/components/orders/Orders';
-import { NextPageContext } from 'next';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
 
-function OrdersPage({ orders }: { orders: Order[] }) {
+function OrdersPage() {
+  const [orders, setOrders] = useState(null);
+  const user = useSelector(getUser);
+  useEffect(() => {
+    if (user) {
+      sdk.order
+        .findForUser(user._id)
+        .then(orders => {
+          setOrders(orders.data);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [user]);
+
   return (
     <>
       <Head title='Orders' />
@@ -13,21 +26,5 @@ function OrdersPage({ orders }: { orders: Order[] }) {
     </>
   );
 }
-
-OrdersPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
-  const state = ctx.store.getState();
-  const user = getUser(state);
-
-  if (user) {
-    try {
-      const orders = await sdk.order.findForUser(user._id);
-      return { orders: orders.data };
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  return { orders: [] };
-};
 
 export default OrdersPage;

@@ -2,14 +2,12 @@ import merge from 'lodash/merge';
 import { call, takeLeading, takeEvery, put, select } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-next-router';
 import { sdk } from 'la-sdk';
-import { LOCATION_CHANGE } from '../modules/navigation/navigation.actions';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { clearSession } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
 import { setCartWithProducts } from '../modules/cart/cart.module';
 import { getCartWithProducts } from '../modules/cart/cart.selector';
 import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
-import Item from 'antd/lib/list/Item';
 
 function* afterAuthSaga(authInfo: any) {
   // If expired, clear out all session and local storage state related to user, and let them browse around.
@@ -68,7 +66,6 @@ export function* handleCartForUserSaga(authInfo: any) {
 }
 
 // Do the auth check and flow.
-// TODO: If they log in/sign up, merge their current cart from redux/localStorage with what they had before in the DB.
 function* authenticationCheckSaga(action: LocationChangeAction) {
   yield reauthenticateUserSaga();
   const authInfo = yield getAuthenticationSaga();
@@ -114,7 +111,8 @@ export function* signupSaga(action: any) {
 }
 
 export function* watchAuthenticationCheckSaga() {
-  yield takeLeading(LOCATION_CHANGE, authenticationCheckSaga);
+  //TODO: Find a better event to listen to, will do for now
+  yield takeLeading('persist/REHYDRATE', authenticationCheckSaga);
 }
 
 export function* watchLogoutSaga() {
