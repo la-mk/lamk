@@ -10,6 +10,7 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { Order } from 'la-sdk/dist/models/order';
 import { removeItemsFromCart } from '../../state/modules/cart/cart.module';
 import { Success } from './Success';
+import { replaceTo } from '../../state/modules/navigation/navigation.actions';
 
 export const Checkout = () => {
   const cart = useSelector(getCartWithProducts);
@@ -36,7 +37,7 @@ export const Checkout = () => {
         ordered: cart.items
           .filter(item => item.fromStore === store._id)
           .map(item => ({
-            product: item.product._id,
+            product: item.product,
             quantity: item.quantity,
           })),
       })
@@ -44,7 +45,7 @@ export const Checkout = () => {
         setOrder(order);
         dispatch(removeItemsFromCart());
         return sdk.cart.patch(user._id, { items: [] });
-        // dispatch(replaceTo(`/orders/${order._id}`));
+        dispatch(replaceTo(`/orders/${order._id}`));
       })
       .catch(err => message.error(err));
   };

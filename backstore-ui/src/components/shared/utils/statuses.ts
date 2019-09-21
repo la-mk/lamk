@@ -3,7 +3,8 @@ import { Order } from 'la-sdk/dist/models/order';
 export const possibleOrderStatuses = [
   'cancelled',
   'pending',
-  'complete',
+  'shipped',
+  'completed',
 ] as Order['status'][];
 
 export const getOrderStatusColor = (orderStatus: Order['status']) => {
@@ -12,9 +13,12 @@ export const getOrderStatusColor = (orderStatus: Order['status']) => {
       return 'red';
     }
     case 'pending': {
+      return 'yellow';
+    }
+    case 'shipped': {
       return 'orange';
     }
-    case 'complete': {
+    case 'completed': {
       return 'green';
     }
     default: {

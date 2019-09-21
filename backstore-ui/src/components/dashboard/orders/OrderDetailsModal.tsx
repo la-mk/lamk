@@ -36,7 +36,9 @@ interface OrderDetailsModalProps {
 }
 
 const getQuantityForProduct = (order: Order, product: Product) => {
-  const orderItem = order.ordered.find(item => item.product === product._id);
+  const orderItem = order.ordered.find(
+    item => item.product._id === product._id,
+  );
 
   return orderItem ? orderItem.quantity : 'Unknown';
 };
@@ -46,36 +48,21 @@ export const OrderDetailsModal = ({
   onClose,
 }: OrderDetailsModalProps) => {
   const [showSpinner, setShowSpinner] = useState(true);
-  const [products, setProducts] = useState<Product[]>();
   const order = useSelector<any, Order>(getOrder(orderId));
+  const [products, setProducts] = useState<Product[]>([]);
   const dispatch = useDispatch();
   // const [buyer, setBuyer] = useState();
 
   useEffect(() => {
     if (order) {
       setShowSpinner(true);
-      const getProductsForOrder = () => {
-        sdk.product
-          .findForStore(order.orderedFrom, {
-            query: {
-              _id: { $in: order.ordered.map(x => x.product) },
-            },
-          })
-          .then(products => {
-            if (products.total > 0) {
-              setProducts(products.data);
-            }
-          })
-          .catch(err => message.error(err.message));
-      };
+      setProducts(order.ordered.map(orderItem => orderItem.product));
 
       const getBuyer = () => Promise.resolve();
 
-      Promise.all([getProductsForOrder(), getBuyer()]).finally(() =>
-        setShowSpinner(false),
-      );
+      getBuyer().finally(() => setShowSpinner(false));
     }
-  }, [order, setProducts]);
+  }, [order]);
 
   const handleStatusChanged = (status: Order['status']) => {
     if (order) {

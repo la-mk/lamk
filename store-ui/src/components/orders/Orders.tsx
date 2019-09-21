@@ -19,14 +19,14 @@ export const Orders = ({ orders }: { orders: Order[] }) => {
             <Flex width={1}>
               <Flex justifyContent='center' alignItems='center'>
                 {order.ordered.map(orderItem => {
-                  return <Text>{orderItem.product}</Text>;
+                  return <Text>{orderItem.product.name}</Text>;
                 })}
               </Flex>
               <Flex ml={4} width='100%' flexDirection='row'>
                 <Text>Status: {order.status}</Text>
               </Flex>
               <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
-                <Button>{order._id}</Button>
+                <Button type='link'>Order details</Button>
               </Link>
             </Flex>
           </List.Item>

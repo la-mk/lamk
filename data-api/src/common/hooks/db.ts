@@ -6,3 +6,13 @@ export const appendId = (context: HookContext) => {
     context.data._id = uuid();
   }
 };
+
+export const setFields = (pairs: { [key: string]: any }) => (
+  context: HookContext,
+) => {
+  Object.keys(pairs).forEach(key => {
+    if (context.data[key]) {
+      context.data[key] = pairs[key];
+    }
+  });
+};

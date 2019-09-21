@@ -2,9 +2,11 @@ import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
+import { Product } from './product';
 
 export interface OrderItem {
-  product: string;
+  // We want to store the actual product, so if the product is modified they can still see the exact thing that was ordered
+  product: Product;
   quantity: number;
 }
 
@@ -13,7 +15,7 @@ export interface Order {
   orderedFrom: string;
   orderedBy: string;
   ordered: OrderItem[];
-  status: 'cancelled' | 'pending' | 'complete';
+  status: 'cancelled' | 'pending' | 'shipped' | 'completed';
   createdAt: string;
   modifiedAt: string;
 }
