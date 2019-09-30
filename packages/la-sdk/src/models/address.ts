@@ -3,32 +3,36 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 
-export interface Delivery {
+export interface Address {
   _id: string;
-  forStore: string;
-  method: 'pickup' | 'cargo-pickup' | 'door-to-door';
-  price: number;
-  freeDeliveryOver: number;
+  addressFor: string;
+  name: string;
+  country: string;
+  region?: string;
+  city: string;
+  zip: string;
+  street: string;
+  person?: string;
   createdAt: string;
   modifiedAt: string;
 }
 
-export const getDeliverySdk = (client: Application) => {
-  const crudMethods = getCrudMethods<OmitServerProperties<Delivery>, Delivery>(
+export const getAddressSdk = (client: Application) => {
+  const crudMethods = getCrudMethods<OmitServerProperties<Address>, Address>(
     client,
-    'deliveries',
+    'addresses',
   );
 
   return {
     ...crudMethods,
 
-    findForStore: (storeId: string, params?: Params) => {
-      const options = merge({ query: { forStore: storeId } }, params);
+    findForUser: (userId: string, params?: Params) => {
+      const options = merge({ query: { addressFor: userId } }, params);
       return crudMethods.find(options);
     },
 
-    validate: (data: Delivery, considerRequired = true) => {
-      if (!data.price) {
+    validate: (data: Address, considerRequired = true) => {
+      if (!data) {
         return { price: 'Price is missing' };
       }
     },

@@ -8,6 +8,7 @@ import { getDeliverySdk } from './models/delivery';
 import { getUserSdk } from './models/user';
 import { getAuthenticationSdk } from './models/authentication';
 import { getCartSdk } from './models/cart';
+import { getAddressSdk } from './models/address';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
@@ -22,6 +23,7 @@ export const setupSdk = (options: SetupSdkOptions = {}) => {
     order: getOrderSdk(client),
     user: getUserSdk(client),
     cart: getCartSdk(client),
+    address: getAddressSdk(client),
     authentication: getAuthenticationSdk(client),
   };
 

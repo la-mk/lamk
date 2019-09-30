@@ -14,13 +14,13 @@ export interface FindResult<T> {
 
 export interface SetupSdkOptions {
   transport?: 'rest' | 'socket';
-  apiHost?: string;
-  apiPort?: number;
+  host?: string;
+  port?: number;
 }
 
 export const setupClient = (options: SetupSdkOptions) => {
   const client: Application = feathers();
-  const host = `http://${options.apiHost}:${options.apiPort}`
+  const host = `http://api.${options.host}:${options.port}`
 
   if (options.transport && options.transport === 'rest') {
     if (typeof window === 'undefined') {

@@ -10,7 +10,7 @@ export interface Artifact {
 }
 
 export const getArtifactSdk = (client: Application, options: SetupSdkOptions) => {
-  const host = `http://${options.apiHost}:${options.apiPort}`;
+  const host = `http://api.${options.host}:${options.port}`;
   
   return {
     //These are the only supported methods for handling an artifact.

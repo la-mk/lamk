@@ -3,6 +3,8 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { Product } from './product';
+import { Address } from './address';
+import { Delivery } from './delivery';
 
 export interface OrderItem {
   // We want to store the actual product, so if the product is modified they can still see the exact thing that was ordered
@@ -16,6 +18,8 @@ export interface Order {
   orderedBy: string;
   ordered: OrderItem[];
   status: 'cancelled' | 'pending' | 'shipped' | 'completed';
+  deliveryMethod: Delivery['method'];
+  deliverTo?: Address;
   createdAt: string;
   modifiedAt: string;
 }
