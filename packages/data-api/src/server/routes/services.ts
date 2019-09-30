@@ -7,6 +7,7 @@ import { artifacts } from '../../services/artifacts/artifacts';
 import { deliveries } from '../../services/deliveries/deliveries';
 import { users } from '../../services/users/users';
 import { carts } from '../../services/carts/carts';
+import { addresses } from '../../services/addresses/addresses';
 
 export const registerServices = (app: Application) => {
   authentication(app);
@@ -17,4 +18,5 @@ export const registerServices = (app: Application) => {
   artifacts(app);
   users(app);
   carts(app);
+  addresses(app);
 };

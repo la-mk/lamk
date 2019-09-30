@@ -58,10 +58,6 @@ export const hooks = {
       setFields({ status: 'pending' }),
       validateOrderedItems,
     ],
-    update: [
-      authenticate('jwt'),
-      restrictToOwner({ ownerField: 'orderedFrom' }),
-    ],
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'orderedFrom' }),
@@ -77,7 +73,6 @@ export const hooks = {
     find: [],
     get: [],
     create: [],
-    update: [],
     patch: [],
     remove: [],
   },
@@ -87,7 +82,6 @@ export const hooks = {
     find: [],
     get: [],
     create: [],
-    update: [],
     patch: [],
     remove: [],
   },

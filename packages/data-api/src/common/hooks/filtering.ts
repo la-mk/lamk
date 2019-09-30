@@ -66,3 +66,20 @@ export const isOwner = (ownerField: string) => {
     return false;
   };
 };
+
+// Looks for `isPublished` field in the results, and returns a boolean stating whether the result is published or not.
+export const isPublished = () => {
+  return (ctx: HookContext) => {
+    if (ctx.result) {
+      if (ctx.method === 'get') {
+        return ctx.result.isPublished === true;
+      } else {
+        if(ctx.result.total > 0){
+          return !Boolean(ctx.result.data.filter((entry: any) => entry.isPublished !== true).length)
+        }
+      }
+    }
+
+    return true;
+  };
+}

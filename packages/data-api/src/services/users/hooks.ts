@@ -15,12 +15,6 @@ export const hooks = {
     find: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
     get: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
     create: [hashPassword('password'), unique(['email'])],
-    update: [
-      hashPassword('password'),
-      authenticate('jwt'),
-      restrictToOwner({ ownerField: '_id' }),
-      unique(['email']),
-    ],
     patch: [
       hashPassword('password'),
       authenticate('jwt'),
@@ -39,7 +33,6 @@ export const hooks = {
     find: [],
     get: [],
     create: [],
-    update: [],
     patch: [],
     remove: [],
   },
@@ -49,7 +42,6 @@ export const hooks = {
     find: [],
     get: [],
     create: [],
-    update: [],
     patch: [],
     remove: [],
   },

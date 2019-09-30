@@ -21,7 +21,6 @@ export const hooks = {
       // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
     ],
-    update: [authenticate('jwt'), restrictToOwner({ ownerField: 'forUser' })],
     patch: [authenticate('jwt'), restrictToOwner({ ownerField: 'forUser' })],
     // Only allow server to be able to remove a cart (TODO: when a user deletes their account)
     remove: [disallow('socketio', 'primus', 'rest', 'external')],
@@ -32,7 +31,6 @@ export const hooks = {
     find: [],
     get: [],
     create: [],
-    update: [],
     patch: [],
     remove: [],
   },
@@ -42,7 +40,6 @@ export const hooks = {
     find: [],
     get: [],
     create: [],
-    update: [],
     patch: [],
     remove: [],
   },
