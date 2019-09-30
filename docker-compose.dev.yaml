@@ -29,7 +29,7 @@ services:
     build: ./packages/data-api
     command: npm run dev
     volumes:
-      - ./packages/data-api:/usr/src/app:cached
+      - ./packages/data-api:/usr/src/app:delegated
       - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
     networks:
       - main-network
@@ -53,7 +53,7 @@ services:
     depends_on: 
       - data-api
     volumes:
-      - ./packages/store-ui:/usr/src/app:cached
+      - ./packages/store-ui:/usr/src/app:delegated
       - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
     networks:
       - main-network
@@ -73,7 +73,7 @@ services:
     depends_on: 
       - data-api
     volumes:
-      - ./packages/backstore-ui:/usr/src/app:cached
+      - ./packages/backstore-ui:/usr/src/app:delegated
       - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
     networks:
       - main-network

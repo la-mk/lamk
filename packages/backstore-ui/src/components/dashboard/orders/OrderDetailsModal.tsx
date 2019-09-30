@@ -22,7 +22,6 @@ import {
   getOrderStatusColor,
   possibleOrderStatuses,
 } from '../../shared/utils/statuses';
-import { getShortId } from '../../shared/utils/ids';
 import {
   setOrder,
   removeOrder,
@@ -75,7 +74,9 @@ export const OrderDetailsModal = ({
         .remove(orderId)
         .then(() => {
           dispatch(removeOrder(orderId));
-          message.success(`Order ${getShortId(orderId)} successfully deleted`);
+          message.success(
+            `Order ${sdk.utils.getShortId(orderId)} successfully deleted`,
+          );
         })
         .catch(err => message.error(err.message))
         .finally(() => onClose());
@@ -103,7 +104,7 @@ export const OrderDetailsModal = ({
           <Flex mb={3}>
             <Descriptions size='middle' width={1} bordered>
               <DescriptionItem label='Order ID'>
-                {getShortId(order)}
+                {sdk.utils.getShortId(order)}
               </DescriptionItem>
               <DescriptionItem label='Status'>
                 <Select

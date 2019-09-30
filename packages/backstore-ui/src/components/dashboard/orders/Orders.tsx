@@ -8,7 +8,6 @@ import { sdk } from 'la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
 import { Order } from 'la-sdk/dist/models/order';
-import { getShortId } from '../../shared/utils/ids';
 import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
 
@@ -16,7 +15,7 @@ const columns: ColumnProps<Order>[] = [
   {
     title: 'Id',
     dataIndex: '_id',
-    render: id => getShortId(id),
+    render: id => sdk.utils.getShortId(id),
   },
   {
     title: 'Product Count',

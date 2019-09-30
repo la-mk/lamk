@@ -1,22 +1,23 @@
 import sum from 'lodash/sum';
 import React from 'react';
 import { Flex, Text, Card, Divider, Button, message } from 'blocks-ui';
-import { CartWithProducts } from 'la-sdk/dist/models/cart';
+import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
 import { Delivery } from 'la-sdk/dist/models/delivery';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../state/modules/user/user.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
+import { OrderItem } from 'la-sdk/dist/models/order';
 
 interface SummaryProps {
-  cart: CartWithProducts;
+  items: (CartItemWithProduct | OrderItem)[];
   delivery: Delivery;
-  buttonTitle: string;
-  disabled: boolean;
-  onCheckout: () => void;
+  buttonTitle?: string;
+  disabled?: boolean;
+  onCheckout?: () => void;
 }
 
 export const Summary = ({
-  cart,
+  items,
   delivery,
   buttonTitle,
   disabled,
@@ -25,9 +26,7 @@ export const Summary = ({
   const user = useSelector(getUser);
   const dispatch = useDispatch();
 
-  const subtotal = sum(
-    cart.items.map(cartItem => cartItem.quantity * cartItem.product.price),
-  );
+  const subtotal = sum(items.map(item => item.quantity * item.product.price));
   const shippingCost =
     delivery.freeDeliveryOver && delivery.freeDeliveryOver < subtotal
       ? 0
@@ -43,7 +42,7 @@ export const Summary = ({
   };
 
   return (
-    <Card title='Summary' px={3} width='100%'>
+    <>
       <Flex flexDirection='row' justifyContent='space-between'>
         <Text strong>Subtotal</Text>
         <Text strong>{subtotal} ден</Text>
@@ -58,18 +57,20 @@ export const Summary = ({
         <Text strong>{total} ден</Text>
       </Flex>
 
-      <Flex justifyContent='center' alignItems='center'>
-        <Button
-          disabled={disabled}
-          onClick={handleCheckout}
-          width='100%'
-          size='large'
-          mt={4}
-          type={'primary'}
-        >
-          {buttonTitle}
-        </Button>
-      </Flex>
-    </Card>
+      {onCheckout && (
+        <Flex justifyContent='center' alignItems='center'>
+          <Button
+            disabled={disabled}
+            onClick={handleCheckout}
+            width='100%'
+            size='large'
+            mt={4}
+            type={'primary'}
+          >
+            {buttonTitle}
+          </Button>
+        </Flex>
+      )}
+    </>
   );
 };

@@ -1,7 +1,19 @@
 import React from 'react';
-import { Flex, Title, Button, List, Text } from 'blocks-ui';
+import {
+  Flex,
+  Title,
+  Button,
+  List,
+  Text,
+  Card,
+  SizedImage,
+  Row,
+  Col,
+} from 'blocks-ui';
 import Link from 'next/link';
 import { Order } from 'la-sdk/dist/models/order';
+import { sdk } from 'la-sdk';
+import { formatDistanceToNow } from 'date-fns';
 
 export const Orders = ({ orders }: { orders: Order[] }) => {
   if (!orders) {
@@ -9,31 +21,75 @@ export const Orders = ({ orders }: { orders: Order[] }) => {
   }
 
   return (
-    <Flex mx={3} flexDirection='column' alignItems='center' mb={5}>
+    <Flex mx={[3, 3, 5, 5]} flexDirection='column' alignItems='center' mb={5}>
       <Title mb={5} level={1}>
         Orders
       </Title>
       <List style={{ width: '100%' }}>
         {orders.map(order => (
-          <List.Item key={order._id}>
-            <Flex width={1}>
-              <Flex justifyContent='center' alignItems='center'>
-                {order.ordered.map(orderItem => {
-                  return (
-                    <Text key={orderItem.product.name}>
-                      {orderItem.product.name}
-                    </Text>
-                  );
-                })}
+          <Card
+            title={
+              <Flex
+                mr={3}
+                justifyContent='center'
+                flexDirection='column'
+                height={32}
+              >
+                <Text strong>{order.status}</Text>
+                <Text>
+                  Ordered{' '}
+                  {formatDistanceToNow(new Date(order.createdAt), {
+                    addSuffix: true,
+                  })}
+                </Text>
               </Flex>
-              <Flex ml={4} width='100%' flexDirection='row'>
-                <Text>Status: {order.status}</Text>
-              </Flex>
+            }
+            extra={
               <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
                 <Button type='link'>Order details</Button>
               </Link>
-            </Flex>
-          </List.Item>
+            }
+            mb={4}
+            key={order._id}
+          >
+            <Row
+              type='flex'
+              align='top'
+              justify='start'
+              gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
+            >
+              {order.ordered.map(orderItem => {
+                return (
+                  <Col key={orderItem.product._id} mb={4}>
+                    <Card
+                      width={340}
+                      type='inner'
+                      title={orderItem.product.name}
+                    >
+                      <Flex width={1}>
+                        <Flex justifyContent='center' alignItems='center'>
+                          <SizedImage
+                            height='90px'
+                            width='180px'
+                            alt={orderItem.product.name}
+                            src={sdk.artifact.getUrlForArtifact(
+                              orderItem.product.images[0],
+                            )}
+                          />
+                        </Flex>
+                        <Flex ml={4} width='100%' flexDirection='row'>
+                          <Flex flexDirection='column'>
+                            <Text>{orderItem.product.price} ден</Text>
+                            <Text mt={2}>{orderItem.quantity} items</Text>
+                          </Flex>
+                        </Flex>
+                      </Flex>
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
+          </Card>
         ))}
       </List>
     </Flex>

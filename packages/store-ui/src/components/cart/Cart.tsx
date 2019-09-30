@@ -8,9 +8,10 @@ import {
   InputNumber,
   Title,
   message,
+  Card,
 } from 'blocks-ui';
 import { sdk } from 'la-sdk';
-import { Summary } from './Summary';
+import { Summary } from '../shared/Summary';
 import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCartWithProducts } from '../../state/modules/cart/cart.module';
@@ -141,13 +142,15 @@ export const Cart = () => {
           </List>
         </Flex>
         <Flex flex={1} ml={[0, 0, 3, 3]}>
-          <Summary
-            cart={cart}
-            delivery={delivery}
-            buttonTitle='To Checkout'
-            disabled={false}
-            onCheckout={handleCheckout}
-          />
+          <Card title='Summary' px={3} width='100%'>
+            <Summary
+              items={cart.items}
+              delivery={delivery}
+              buttonTitle='To Checkout'
+              disabled={false}
+              onCheckout={handleCheckout}
+            />
+          </Card>
         </Flex>
       </Flex>
     </Flex>

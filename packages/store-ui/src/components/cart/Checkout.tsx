@@ -6,11 +6,10 @@ import {
   Descriptions,
   Card,
   DescriptionItem,
-  Button,
   Row,
   Col,
 } from 'blocks-ui';
-import { Summary } from './Summary';
+import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,6 +21,7 @@ import { removeItemsFromCart } from '../../state/modules/cart/cart.module';
 import { Success } from './Success';
 import { replaceTo } from '../../state/modules/navigation/navigation.actions';
 import { Address } from 'la-sdk/dist/models/address';
+import { ShippingDescription } from '../shared/ShippingDescription';
 
 export const Checkout = () => {
   const cart = useSelector(getCartWithProducts);
@@ -106,24 +106,7 @@ export const Checkout = () => {
                       width='330px'
                       title={address.name}
                     >
-                      <Descriptions size='small' column={1}>
-                        <DescriptionItem label='Name'>
-                          {address.person ||
-                            user.firstName + ' ' + user.lastName}
-                        </DescriptionItem>
-                        <DescriptionItem label='Address'>
-                          {address.street}
-                        </DescriptionItem>
-                        <DescriptionItem label='City'>
-                          {address.city}
-                        </DescriptionItem>
-                        <DescriptionItem label='Country'>
-                          {address.country}
-                        </DescriptionItem>
-                        <DescriptionItem label='Phone Number'>
-                          +389 75 212 495
-                        </DescriptionItem>
-                      </Descriptions>
+                      <ShippingDescription address={address} />
                     </Card>
                   </Col>
                 );
@@ -131,13 +114,15 @@ export const Checkout = () => {
           </Row>
         </Flex>
         <Flex flex={1} ml={[0, 0, 3, 3]}>
-          <Summary
-            cart={cart}
-            delivery={delivery}
-            disabled={!deliverTo}
-            buttonTitle={'Order Now'}
-            onCheckout={handleOrder}
-          />
+          <Card title='Summary' px={3} width='100%'>
+            <Summary
+              items={cart.items}
+              delivery={delivery}
+              disabled={!deliverTo}
+              buttonTitle={'Order Now'}
+              onCheckout={handleOrder}
+            />
+          </Card>
         </Flex>
       </Flex>
     </Flex>
