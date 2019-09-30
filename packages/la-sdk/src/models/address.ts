@@ -12,7 +12,8 @@ export interface Address {
   city: string;
   zip: string;
   street: string;
-  person?: string;
+  person: string;
+  phoneNumber: string;
   createdAt: string;
   modifiedAt: string;
 }

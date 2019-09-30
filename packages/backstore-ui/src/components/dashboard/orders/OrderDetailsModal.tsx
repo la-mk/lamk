@@ -47,19 +47,14 @@ export const OrderDetailsModal = ({
   orderId,
   onClose,
 }: OrderDetailsModalProps) => {
-  const [showSpinner, setShowSpinner] = useState(true);
+  const [showSpinner, setShowSpinner] = useState(false);
   const order = useSelector<any, Order>(getOrder(orderId));
   const [products, setProducts] = useState<Product[]>([]);
   const dispatch = useDispatch();
-  // const [buyer, setBuyer] = useState();
 
   useEffect(() => {
     if (order) {
-      setShowSpinner(true);
       setProducts(order.ordered.map(orderItem => orderItem.product));
-
-      const getBuyer = () => Promise.resolve();
-      getBuyer().finally(() => setShowSpinner(false));
     }
   }, [order]);
 
@@ -164,24 +159,31 @@ export const OrderDetailsModal = ({
                 </List>
               )}
             </Card>
-
             <Card
               title={'Buyer'}
               ml={[0, 0, 2]}
               mt={[2, 2, 0]}
               width={[1, 1, 1 / 3]}
             >
-              <Descriptions column={1} size='middle'>
-                <DescriptionItem label='Name'>Stevche Radevski</DescriptionItem>
-                <DescriptionItem label='Address'>
-                  Pozarevacka 88
-                </DescriptionItem>
-                <DescriptionItem label='City'>Bitola</DescriptionItem>
-                <DescriptionItem label='Country'>Macedonia</DescriptionItem>
-                <DescriptionItem label='Phone Number'>
-                  +389 75 212 495
-                </DescriptionItem>
-              </Descriptions>
+              {order.deliverTo && (
+                <Descriptions size='small' column={1}>
+                  <DescriptionItem label='Name'>
+                    {order.deliverTo.person}
+                  </DescriptionItem>
+                  <DescriptionItem label='Address'>
+                    {order.deliverTo.street}
+                  </DescriptionItem>
+                  <DescriptionItem label='City'>
+                    {order.deliverTo.city} {order.deliverTo.zip}
+                  </DescriptionItem>
+                  <DescriptionItem label='Country'>
+                    {order.deliverTo.country}
+                  </DescriptionItem>
+                  <DescriptionItem label='Phone Number'>
+                    {order.deliverTo.phoneNumber}
+                  </DescriptionItem>
+                </Descriptions>
+              )}
             </Card>
           </Flex>
           <Flex />

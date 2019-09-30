@@ -62,8 +62,8 @@ export const AddAddressCard = ({
           </Button>,
         ]}
       >
-        <FormItem selector='region' label='Region'>
-          {formInput()}
+        <FormItem selector='country' label='Country'>
+          {formInput({ disabled: true, placeholder: 'Macedonia' })}
         </FormItem>
 
         <FormItem selector='city' label='City'>
@@ -81,7 +81,11 @@ export const AddAddressCard = ({
           })}
         </FormItem>
 
-        <FormItem mb={0} selector='person' label='Addressee'>
+        <FormItem selector='person' label='Addressee'>
+          {formInput()}
+        </FormItem>
+
+        <FormItem mb={0} selector='phoneNumber' label='Phone'>
           {formInput()}
         </FormItem>
       </Card>
