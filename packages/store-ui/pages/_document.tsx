@@ -9,16 +9,17 @@ html {
   height: 100%;
 }
 
-  i {
-    vertical-align: middle;
-  }
-
   input {
     line-height: inherit;
     font: inherit;
     font-variant: inherit;
     color: inherit;
     font-size: inherit;
+  }
+
+  .ant-card-actions > li > span a,
+  .ant-card-actions > li > span i {
+    width: initial;
   }
 
   body {
@@ -42,8 +43,8 @@ export default class MyDocument extends Document {
     // Setup the SDK so it can be used on the server-side in getInitialProps calls.
     setupSdk({
       transport: 'rest',
-      apiHost: env.API_HOST,
-      apiPort: env.API_PORT,
+      host: env.HOST,
+      port: env.PORT,
     });
 
     const sheet = new ServerStyleSheet();

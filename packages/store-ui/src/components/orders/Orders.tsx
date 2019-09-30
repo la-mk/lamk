@@ -19,7 +19,11 @@ export const Orders = ({ orders }: { orders: Order[] }) => {
             <Flex width={1}>
               <Flex justifyContent='center' alignItems='center'>
                 {order.ordered.map(orderItem => {
-                  return <Text>{orderItem.product.name}</Text>;
+                  return (
+                    <Text key={orderItem.product.name}>
+                      {orderItem.product.name}
+                    </Text>
+                  );
                 })}
               </Flex>
               <Flex ml={4} width='100%' flexDirection='row'>

@@ -114,6 +114,11 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                       {user && (
                         <>
                           <MenuItem>
+                            <Link href='/account' passHref>
+                              <Button type='link'>My Account</Button>
+                            </Link>
+                          </MenuItem>
+                          <MenuItem>
                             <Link href='/orders' passHref>
                               <Button type='link'>My Orders</Button>
                             </Link>
@@ -127,11 +132,13 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                         </>
                       )}
                       {!user && (
-                        <MenuItem>
-                          <Button type='link' onClick={handleLogin}>
-                            Log in
-                          </Button>
-                        </MenuItem>
+                        <>
+                          <MenuItem>
+                            <Button type='link' onClick={handleLogin}>
+                              Log in
+                            </Button>
+                          </MenuItem>
+                        </>
                       )}
                     </Menu>
                   }

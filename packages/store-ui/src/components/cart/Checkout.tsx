@@ -34,6 +34,7 @@ export const Checkout = () => {
         orderedFrom: store._id,
         orderedBy: user._id,
         status: 'pending',
+        deliveryMethod: 'door-to-door',
         ordered: cart.items
           .filter(item => item.fromStore === store._id)
           .map(item => ({

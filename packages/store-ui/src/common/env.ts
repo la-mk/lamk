@@ -1,18 +1,22 @@
-import * as envvar from 'env-var';
+import { from } from 'env-var';
+
+// We have to assign all process.env to a separate variable first, because NextJS runs a babel transform that looks for `process.env` in the code and replaces it with the environment variables.
+
+const vars = {
+  HOST: process.env.HOST,
+  PORT: process.env.PORT,
+};
+
+const envvar = from(vars as any);
 
 export default {
-  NODE_ENV: envvar
-    .get('NODE_ENV')
-    .required()
-    .asEnum(['test', 'development', 'staging', 'production']),
-
-  API_HOST: envvar
-    .get('API_HOST')
+  HOST: envvar
+    .get('HOST')
     .required()
     .asString(),
 
-  API_PORT: envvar
-    .get('API_PORT')
+  PORT: envvar
+    .get('PORT')
     .required()
     .asPortNumber(),
 };

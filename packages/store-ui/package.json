@@ -29,7 +29,7 @@
     "blocks-ui": "file:blocks-ui-1.5.1.tgz",
     "connected-next-router": "^1.0.2",
     "env-var": "^5.1.0",
-    "la-sdk": "file:la-sdk-1.6.4.tgz",
+    "la-sdk": "file:la-sdk-1.6.7.tgz",
     "lodash": "^4.17.15",
     "next": "^9.0.3",
     "next-redux-wrapper": "^3.0.0",
