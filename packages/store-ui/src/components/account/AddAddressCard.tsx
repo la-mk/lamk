@@ -74,14 +74,14 @@ export const AddAddressCard = ({
           {formInput()}
         </FormItem>
 
-        <FormItem mb={0} mt={3} selector='street' label='Street'>
+        <FormItem selector='street' label='Street'>
           {formTextArea({
             placeholder: 'Full address',
             rows: 2,
           })}
         </FormItem>
 
-        <FormItem selector='person' label='Addressee'>
+        <FormItem mb={0} selector='person' label='Addressee'>
           {formInput()}
         </FormItem>
       </Card>

@@ -11,6 +11,7 @@ interface SummaryProps {
   cart: CartWithProducts;
   delivery: Delivery;
   buttonTitle: string;
+  disabled: boolean;
   onCheckout: () => void;
 }
 
@@ -18,6 +19,7 @@ export const Summary = ({
   cart,
   delivery,
   buttonTitle,
+  disabled,
   onCheckout,
 }: SummaryProps) => {
   const user = useSelector(getUser);
@@ -58,6 +60,7 @@ export const Summary = ({
 
       <Flex justifyContent='center' alignItems='center'>
         <Button
+          disabled={disabled}
           onClick={handleCheckout}
           width='100%'
           size='large'

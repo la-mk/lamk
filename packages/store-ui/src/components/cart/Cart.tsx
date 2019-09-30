@@ -145,6 +145,7 @@ export const Cart = () => {
             cart={cart}
             delivery={delivery}
             buttonTitle='To Checkout'
+            disabled={false}
             onCheckout={handleCheckout}
           />
         </Flex>

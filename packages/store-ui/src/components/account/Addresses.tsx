@@ -87,8 +87,8 @@ export const Addresses = ({ user }: AddressesProps) => {
       <Row
         type='flex'
         align='top'
-        justify='start'
-        gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+        justify='center'
+        gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
       >
         {addresses.map(address => {
           return (

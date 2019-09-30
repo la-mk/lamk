@@ -1,24 +1,44 @@
-import React, { useState } from 'react';
-import { Flex, Title, message } from 'blocks-ui';
+import React, { useState, useEffect } from 'react';
+import {
+  Flex,
+  Title,
+  message,
+  Descriptions,
+  Card,
+  DescriptionItem,
+  Button,
+  Row,
+  Col,
+} from 'blocks-ui';
 import { Summary } from './Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { sdk } from 'la-sdk';
-import { getUser } from '../../state/modules/user/user.selector';
+import { getUser, getAddresses } from '../../state/modules/user/user.selector';
 import { Order } from 'la-sdk/dist/models/order';
 import { removeItemsFromCart } from '../../state/modules/cart/cart.module';
 import { Success } from './Success';
 import { replaceTo } from '../../state/modules/navigation/navigation.actions';
+import { Address } from 'la-sdk/dist/models/address';
 
 export const Checkout = () => {
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
+  const addresses: Address[] = useSelector(getAddresses);
+
   const dispatch = useDispatch();
   const [order, setOrder] = useState(null);
+  const [deliverTo, setDeliverTo] = useState(null);
+
+  useEffect(() => {
+    if (!deliverTo && addresses && addresses.length > 0) {
+      setDeliverTo(addresses[0]);
+    }
+  }, [addresses, deliverTo]);
 
   if (order) {
     return <Success order={order} />;
@@ -35,6 +55,7 @@ export const Checkout = () => {
         orderedBy: user._id,
         status: 'pending',
         deliveryMethod: 'door-to-door',
+        deliverTo,
         ordered: cart.items
           .filter(item => item.fromStore === store._id)
           .map(item => ({
@@ -45,7 +66,7 @@ export const Checkout = () => {
       .then((order: Order) => {
         setOrder(order);
         dispatch(removeItemsFromCart());
-        return sdk.cart.patch(user._id, { items: [] });
+        sdk.cart.patch(user._id, { items: [] });
         dispatch(replaceTo(`/orders/${order._id}`));
       })
       .catch(err => message.error(err));
@@ -61,13 +82,59 @@ export const Checkout = () => {
         width='100%'
         flexDirection={['column', 'column', 'row', 'row']}
       >
-        <Flex flex={2} mr={[0, 0, 3, 3]}>
-          Hi
+        <Flex flex={2} flexDirection='column' mr={[0, 0, 3, 3]}>
+          <Title level={3}>Choose Shipping</Title>
+          <Row
+            type='flex'
+            align='top'
+            justify='start'
+            gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
+          >
+            {addresses &&
+              addresses.map(address => {
+                return (
+                  <Col key={address._id} mb={4}>
+                    <Card
+                      style={
+                        deliverTo &&
+                        deliverTo._id === address._id && {
+                          border: '2px solid #1890ff',
+                        }
+                      }
+                      hoverable={true}
+                      onClick={() => setDeliverTo(address)}
+                      width='330px'
+                      title={address.name}
+                    >
+                      <Descriptions size='small' column={1}>
+                        <DescriptionItem label='Name'>
+                          {address.person ||
+                            user.firstName + ' ' + user.lastName}
+                        </DescriptionItem>
+                        <DescriptionItem label='Address'>
+                          {address.street}
+                        </DescriptionItem>
+                        <DescriptionItem label='City'>
+                          {address.city}
+                        </DescriptionItem>
+                        <DescriptionItem label='Country'>
+                          {address.country}
+                        </DescriptionItem>
+                        <DescriptionItem label='Phone Number'>
+                          +389 75 212 495
+                        </DescriptionItem>
+                      </Descriptions>
+                    </Card>
+                  </Col>
+                );
+              })}
+          </Row>
         </Flex>
         <Flex flex={1} ml={[0, 0, 3, 3]}>
           <Summary
             cart={cart}
             delivery={delivery}
+            disabled={!deliverTo}
             buttonTitle={'Order Now'}
             onCheckout={handleOrder}
           />
