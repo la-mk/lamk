@@ -1,0 +1,87 @@
+version: '3.5'
+
+# To speed up dev builds, check https://blog.rocketinsights.com/speeding-up-docker-development-on-the-mac/
+# Good article on reverse proxy and dnsmasq: https://ianduffy.ie/blog/2019/02/22/local-development-with-virtual-hosts-and-https/
+networks:
+  main-network:
+    driver: bridge
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - data-api
+      - store-ui
+      - backstore-ui
+    networks:
+      - main-network
+
+  data-api:
+    build: ./packages/data-api
+    command: npm run dev
+    volumes:
+      - ./packages/data-api:/usr/src/app:cached
+      - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
+    networks:
+      - main-network
+    expose: 
+      - 3030
+    ports:
+      - 9229:9229 #debug port
+    environment: 
+      NODE_ENV: development
+      VIRTUAL_HOST: "api.dev.sradevski.com" #used by nginx proxy to route all api. requests here
+      VIRTUAL_PORT: 3030
+      SERVER_PORT: 3030
+      SERVER_HOST: "api.dev.sradevski.com"
+      JWT_SECRET: "1234dev"
+      MONGODB_DB_NAME: dev
+      MONGODB_CONNECTION_STRING: "mongodb+srv://sradevski:Stev4e555@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
+    
+  store-ui:
+    build: ./packages/store-ui
+    command: npm run dev
+    depends_on: 
+      - data-api
+    volumes:
+      - ./packages/store-ui:/usr/src/app:cached
+      - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
+    networks:
+      - main-network
+    expose: 
+      - 8080
+    environment: 
+      VIRTUAL_HOST: "*.dev.sradevski.com" #used by nginx proxy to route all api. requests here
+      VIRTUAL_PORT: 8080
+      API_HOST: "api.dev.sradevski.com"
+      API_PORT: 80
+
+  backstore-ui:
+    build: 
+      context: ./packages/backstore-ui
+      target: build-stage
+    command: npm run start
+    depends_on: 
+      - data-api
+    volumes:
+      - ./packages/backstore-ui:/usr/src/app:cached
+      - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
+    networks:
+      - main-network
+    expose: 
+      - 4040
+    # CRA demands that all envvars start with REACT_APP_*
+    environment: 
+      VIRTUAL_HOST: "back.dev.sradevski.com" #used by nginx proxy to route all api. requests here
+      VIRTUAL_PORT: 4040
+      REACT_APP_API_HOST: "api.dev.sradevski.com"
+      REACT_APP_API_PORT: 80

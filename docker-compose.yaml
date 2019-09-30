@@ -1,0 +1,35 @@
+version: '3'
+
+networks:
+  main-network:
+    driver: bridge
+
+services:
+  data-api:
+    build: ./packages/data-api
+    command: npm start
+    networks:
+      - main-network
+    ports:
+      - 3030:3030
+    environment: 
+      NODE_ENV: production
+      SERVER_PORT: 3030
+      SERVER_HOST: localhost
+      JWT_SECRET: "1234dev"
+      MONGODB_DB_NAME: dev
+      MONGODB_CONNECTION_STRING: "mongodb+srv://sradevski:Stev4e555@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
+
+  store-ui:
+    build: ./packages/store-ui
+    command: npm start
+    depends_on: 
+      - data-api
+    networks:
+      - main-network
+    ports:
+      - 8080:8080
+    environment: 
+      NODE_ENV: prodution
+      API_HOST: 'data-api'
+      API_PORT: 3030

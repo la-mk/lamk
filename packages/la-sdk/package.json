@@ -1,0 +1,50 @@
+{
+  "name": "la-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "author": "Stevche Radevski <sradevski@live.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint --fix ./src/**/*.ts",
+    "prepack": "npm run build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{js,mjs,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@feathersjs/authentication-client": "^4.3.0",
+    "@feathersjs/feathers": "^4.3.0",
+    "@feathersjs/rest-client": "^4.3.0",
+    "@feathersjs/socketio-client": "^4.3.0",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
+    "socket.io-client": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.138",
+    "@types/socket.io-client": "^1.4.32",
+    "@typescript-eslint/eslint-plugin": "^2.0.1-alpha.29",
+    "@typescript-eslint/parser": "^2.0.1-alpha.29",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.17.0",
+    "typescript": "^3.6.2"
+  }
+}
