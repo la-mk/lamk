@@ -63,14 +63,14 @@ export const AddProductCard = ({
                 <Button
                   onClick={() => onRemoveProduct(product._id)}
                   type='link'
-                  icon='check'
+                  icon='delete'
                 >
                   Delete
                 </Button>,
               ]
             : []),
 
-          <Button htmlType='submit' type='link' icon='delete'>
+          <Button htmlType='submit' type='link' icon='check'>
             {product ? 'Update' : 'Create'}
           </Button>,
         ]}

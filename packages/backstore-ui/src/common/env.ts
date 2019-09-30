@@ -8,13 +8,13 @@ export default {
     .asEnum(['test', 'development', 'production']),
 
   // Except for NODE_ENV, CRA demands that all envvars start with REACT_APP_*
-  API_HOST: envvar
-    .get('REACT_APP_API_HOST')
+  HOST: envvar
+    .get('REACT_APP_HOST')
     .required()
     .asString(),
 
-  API_PORT: envvar
-    .get('REACT_APP_API_PORT')
+  PORT: envvar
+    .get('REACT_APP_PORT')
     .required()
     .asPortNumber(),
 };

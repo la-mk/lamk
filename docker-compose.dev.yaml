@@ -62,8 +62,8 @@ services:
     environment: 
       VIRTUAL_HOST: "*.dev.sradevski.com" #used by nginx proxy to route all api. requests here
       VIRTUAL_PORT: 8080
-      API_HOST: "api.dev.sradevski.com"
-      API_PORT: 80
+      HOST: "dev.sradevski.com"
+      PORT: 80
 
   backstore-ui:
     build: 
@@ -83,5 +83,5 @@ services:
     environment: 
       VIRTUAL_HOST: "back.dev.sradevski.com" #used by nginx proxy to route all api. requests here
       VIRTUAL_PORT: 4040
-      REACT_APP_API_HOST: "api.dev.sradevski.com"
-      REACT_APP_API_PORT: 80
+      REACT_APP_HOST: "dev.sradevski.com"
+      REACT_APP_PORT: 80

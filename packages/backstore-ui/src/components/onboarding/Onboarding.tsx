@@ -139,18 +139,11 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     <Flex flexDirection='column'>
       {step !== 3 && (
         <Flex px={[3, 3, 3, 4]} pb={4} flexDirection='column'>
-          {step !== 3 && (
-            <StickySteps
-              py={[2, 2, 3]}
-              mb={5}
-              current={step}
-              onChange={setStep}
-            >
-              <Step title='Store' />
-              <Step title='Products' />
-              <Step title='Delivery' />
-            </StickySteps>
-          )}
+          <StickySteps py={[2, 2, 3]} mb={5} current={step} onChange={setStep}>
+            <Step title='Store' />
+            <Step title='Products' />
+            <Step title='Delivery' />
+          </StickySteps>
 
           {step === 0 && (
             <SetupStore onDone={handleSetupStoreDone} store={store} />
@@ -172,7 +165,9 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
           )}
         </Flex>
       )}
-      {step === 3 && <Publish onDone={handlePublishDone} />}
+      {step === 3 && (
+        <Publish storeSlug={store.slug} onDone={handlePublishDone} />
+      )}
       {isFinished && <Redirect push to='/dashboard' />}
     </Flex>
   );

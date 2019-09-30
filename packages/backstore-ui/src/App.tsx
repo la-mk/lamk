@@ -17,8 +17,8 @@ export class App extends Component {
   onBeforeLift = () => {
     setupSdk({
       transport: 'socket',
-      apiHost: env.API_HOST,
-      apiPort: env.API_PORT,
+      host: env.HOST,
+      port: env.PORT,
     });
   };
 

@@ -59,7 +59,6 @@ export const OrderDetailsModal = ({
       setProducts(order.ordered.map(orderItem => orderItem.product));
 
       const getBuyer = () => Promise.resolve();
-
       getBuyer().finally(() => setShowSpinner(false));
     }
   }, [order]);

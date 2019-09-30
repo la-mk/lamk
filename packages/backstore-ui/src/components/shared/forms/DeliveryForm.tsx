@@ -31,7 +31,7 @@ export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
       <FormItem selector='method' label='Delivery method'>
         {(val, _onChange, onComplete) => (
           <Select value={val} onChange={onComplete}>
-            <Option value='none'>No delivery</Option>
+            <Option value='pickup'>No delivery</Option>
             <Option value='cargo-pickup'>Pickup from Cargo</Option>
             <Option value='door-to-door'>Door to Door</Option>
           </Select>
