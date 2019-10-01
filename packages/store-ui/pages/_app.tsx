@@ -1,6 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
-import { Provider as ThemeProvider } from 'blocks-ui';
+import { default as NextHead } from 'next/head';
+import { Provider as ThemeProvider, Empty } from 'blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
@@ -45,7 +46,7 @@ class MyApp extends App<{ store: any }> {
 
   render() {
     const { Component, pageProps, store } = this.props;
-    const state = store.getState();
+    const laStore = store.getState().store.store;
 
     // This makes sure the sdk is available on the client-side as well.
     if (!sdk) {
@@ -58,15 +59,23 @@ class MyApp extends App<{ store: any }> {
 
     return (
       <Container>
+        {laStore && (
+          <NextHead>
+            <link
+              rel='shortcut icon'
+              href={sdk.artifact.getUrlForArtifact(laStore.logo)}
+            />
+          </NextHead>
+        )}
         <ThemeProvider>
           <ReduxProvider store={store}>
             <ConnectedRouter>
               <StoreLayout>
                 <>
-                  {state.store ? (
+                  {laStore ? (
                     <Component {...pageProps} />
                   ) : (
-                    <div>Not found</div>
+                    <Empty description='Store not found'></Empty>
                   )}
                   <AuthModal />
                 </>
