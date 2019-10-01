@@ -1,6 +1,5 @@
 import React from 'react';
 import { Flex, Title, Tabs, TabPane } from 'blocks-ui';
-import { AccountPreferences } from './AccountPreferences';
 import { StorePreferences } from './StorePreferences';
 import { DeliveryPreferences } from './DeliveryPreferences';
 
@@ -21,9 +20,6 @@ export const Preferences = ({ tab, setTab }: PreferencesProps) => {
         </TabPane>
         <TabPane tab={'Delivery'} key='delivery'>
           <DeliveryPreferences />
-        </TabPane>
-        <TabPane tab={'Account'} key='account'>
-          <AccountPreferences />
         </TabPane>
       </Tabs>
     </Flex>

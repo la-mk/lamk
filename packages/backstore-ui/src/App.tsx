@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 // @ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-import configureStore, { history } from './state/configureStore';
+import { Provider as ThemeProvider } from 'blocks-ui';
 import { setupSdk } from 'la-sdk';
 import { ConnectedRouter } from 'connected-react-router';
 import { Root } from './components/Root';
-import { Provider as ThemeProvider } from 'blocks-ui';
+import configureStore, { history } from './state/configureStore';
 import env from './common/env';
 
 export class App extends Component {

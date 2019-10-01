@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title, SignupForm } from 'blocks-ui';
+import { Flex, Title, SignupForm, Text } from 'blocks-ui';
 import { sdk } from 'la-sdk';
 import { useDispatch } from 'react-redux';
 import { signup } from '../../state/modules/auth/auth.module';
@@ -16,6 +16,9 @@ export const Signup = () => {
       <Title mt={5} level={1}>
         Sign up
       </Title>
+      <Text mb={5} type='secondary'>
+        We are in closed-beta, so signups are currently disabled
+      </Text>
 
       <SignupForm
         signup={handleSignup}

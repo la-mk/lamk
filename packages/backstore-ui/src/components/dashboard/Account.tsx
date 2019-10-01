@@ -25,7 +25,7 @@ export const Account = () => {
     <Flex>
       <Dropdown placement='bottomRight' overlay={menu}>
         <span>
-          Stevche <Icon type='down' />
+          Account <Icon type='down' />
         </span>
       </Dropdown>
     </Flex>

@@ -40,7 +40,7 @@ export const StoreForm = ({ store, onDone }: StoreFormProps) => {
       </FormItem>
 
       <FormItem selector='slug' label='Shop Link'>
-        {formInput({ addonBefore: 'la.mk/' })}
+        {formInput({ addonAfter: '.la.mk' })}
       </FormItem>
 
       <FormItem selector='logo' label='Shop Logo'>

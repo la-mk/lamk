@@ -6,5 +6,6 @@ export const StickySteps = styled(Steps)`
   top: 0;
   z-index: 10;
   background-color: white;
+  width: 100%;
   margin-bottom: ${props => props.theme.space[4]}px !important;
 `;
