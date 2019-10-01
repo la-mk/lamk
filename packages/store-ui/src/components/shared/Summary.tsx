@@ -1,6 +1,6 @@
 import sum from 'lodash/sum';
-import React from 'react';
-import { Flex, Text, Card, Divider, Button, message } from 'blocks-ui';
+import React, { useEffect } from 'react';
+import { Flex, Text, Divider, Button, message } from 'blocks-ui';
 import { CartItemWithProduct } from 'la-sdk/dist/models/cart';
 import { Delivery } from 'la-sdk/dist/models/delivery';
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,11 +26,17 @@ export const Summary = ({
   const user = useSelector(getUser);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!delivery) {
+      message.warning(
+        'Could not shipping cost, final price might not be accurate',
+      );
+    }
+  }, [delivery]);
+
   const subtotal = sum(items.map(item => item.quantity * item.product.price));
   const shippingCost =
-    delivery.freeDeliveryOver && delivery.freeDeliveryOver < subtotal
-      ? 0
-      : delivery.price;
+    !delivery || delivery.freeDeliveryOver < subtotal ? 0 : delivery.price;
   const total = subtotal + shippingCost;
 
   const handleCheckout = () => {

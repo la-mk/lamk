@@ -25,7 +25,7 @@ const FlexGridBase = ({
   );
 
   return (
-    <React.Fragment>
+    <Flex flexDirection='column' alignItems='center' width='100%'>
       <Flex
         className={className}
         justifyContent='center'
@@ -43,7 +43,7 @@ const FlexGridBase = ({
         current={currentPage}
         defaultPageSize={itemsPerPage}
       />
-    </React.Fragment>
+    </Flex>
   );
 };
 

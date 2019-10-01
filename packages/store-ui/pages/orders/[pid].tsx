@@ -5,8 +5,7 @@ import { Head } from '../common/Head';
 import { Order } from '../../src/components/orders/Order';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
-import { setDeliveryIfNone } from '../common/initialProps/setDeliveryIfNone';
-import { Store } from 'la-sdk/dist/models/store';
+import { Empty } from 'blocks-ui';
 
 const OrderPage = ({ orderId }: { orderId: string }) => {
   const [order, setOrder] = useState(null);
@@ -23,6 +22,10 @@ const OrderPage = ({ orderId }: { orderId: string }) => {
     }
   }, [user, orderId]);
 
+  if (!order) {
+    return <Empty mt={5} description='Order not found'></Empty>;
+  }
+
   return (
     <>
       <Head title={'Order'} />
@@ -35,12 +38,6 @@ const OrderPage = ({ orderId }: { orderId: string }) => {
 OrderPage.getInitialProps = async function(
   ctx: NextPageContext & { store: any },
 ) {
-  try {
-    await setDeliveryIfNone(ctx);
-  } catch (err) {
-    console.log(err);
-  }
-
   return { orderId: ctx.query.pid };
 };
 

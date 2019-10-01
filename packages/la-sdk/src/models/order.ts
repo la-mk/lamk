@@ -18,7 +18,7 @@ export interface Order {
   orderedBy: string;
   ordered: OrderItem[];
   status: 'cancelled' | 'pending' | 'shipped' | 'completed';
-  deliveryMethod: Delivery['method'];
+  delivery: Delivery;
   deliverTo?: Address;
   createdAt: string;
   modifiedAt: string;

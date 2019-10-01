@@ -1,12 +1,20 @@
-import { sdk } from 'la-sdk';
 import { Head } from '../common/Head';
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
 import { Account } from '../../src/components/account/Account';
+import { Empty } from 'blocks-ui';
 
 function AccountPage() {
   const user = useSelector(getUser);
+
+  if (!user) {
+    return (
+      <Empty
+        mt={5}
+        description='Could not load user information. Check if you are logged in.'
+      />
+    );
+  }
 
   return (
     <>

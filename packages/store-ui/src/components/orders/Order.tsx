@@ -9,7 +9,6 @@ import {
   Col,
   SizedImage,
   Text,
-  Empty,
 } from 'blocks-ui';
 import { Order as OrderType } from 'la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
@@ -17,6 +16,7 @@ import { sdk } from 'la-sdk';
 import { useSelector } from 'react-redux';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { Summary } from '../shared/Summary';
+import { Page } from '../shared/Page';
 
 const getStepIndex = (status: OrderType['status']) => {
   switch (status) {
@@ -30,20 +30,13 @@ const getStepIndex = (status: OrderType['status']) => {
   }
 };
 
-export const Order = ({ order }: { order: OrderType | null }) => {
-  if (!order) {
-    return <Empty mt={5} description='Order not found'></Empty>;
-  }
-
+export const Order = ({ order }: { order: OrderType }) => {
   const delivery = useSelector(getDelivery);
   const status = order.status;
   const stepIndex = getStepIndex(status);
 
   return (
-    <Flex mx={3} flexDirection='column' alignItems='center' mb={5}>
-      <Title mb={5} level={1}>
-        Order
-      </Title>
+    <Page title='Order'>
       <Steps progressDot current={stepIndex}>
         <Step title='Pending' description='Awaiting shipment' />
         <Step title='Shipped' description='Awaiting arrival' />
@@ -106,6 +99,6 @@ export const Order = ({ order }: { order: OrderType | null }) => {
           );
         })}
       </Row>
-    </Flex>
+    </Page>
   );
 };

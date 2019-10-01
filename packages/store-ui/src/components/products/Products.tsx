@@ -1,21 +1,22 @@
 import React from 'react';
-import { Flex, FlexGrid, Title } from 'blocks-ui';
+import { FlexGrid } from 'blocks-ui';
 import { ProductCard } from '../ProductCard';
+import { Page } from '../shared/Page';
+import { Product } from 'la-sdk/dist/models/product';
 
-export const Products = ({ products }) => {
+interface ProductsProps {
+  products: Product[];
+}
+
+export const Products = ({ products }: ProductsProps) => {
   return (
-    <>
-      <Flex flexDirection='column' alignItems='center'>
-        <Title mb={5} level={1}>
-          All Products
-        </Title>
-        <FlexGrid
-          rowKey='_id'
-          totalItems={products.length}
-          dataSource={products}
-          renderItem={(item: any) => <ProductCard product={item} />}
-        />
-      </Flex>
-    </>
+    <Page title='Products'>
+      <FlexGrid
+        rowKey='_id'
+        totalItems={products.length}
+        dataSource={products}
+        renderItem={(item: any) => <ProductCard product={item} />}
+      />
+    </Page>
   );
 };

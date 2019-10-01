@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Flex,
-  Title,
   Button,
   List,
   Text,
@@ -9,23 +8,16 @@ import {
   SizedImage,
   Row,
   Col,
-  Empty,
 } from 'blocks-ui';
 import Link from 'next/link';
 import { Order } from 'la-sdk/dist/models/order';
 import { sdk } from 'la-sdk';
 import { formatDistanceToNow } from 'date-fns';
+import { Page } from '../shared/Page';
 
 export const Orders = ({ orders }: { orders: Order[] }) => {
-  if (!orders) {
-    return <Empty mt={5} description='Orders not found'></Empty>;
-  }
-
   return (
-    <Flex mx={[3, 3, 5, 5]} flexDirection='column' alignItems='center' mb={5}>
-      <Title mb={5} level={1}>
-        Orders
-      </Title>
+    <Page title='Orders'>
       <List style={{ width: '100%' }}>
         {orders.map(order => (
           <Card
@@ -93,6 +85,6 @@ export const Orders = ({ orders }: { orders: Order[] }) => {
           </Card>
         ))}
       </List>
-    </Flex>
+    </Page>
   );
 };

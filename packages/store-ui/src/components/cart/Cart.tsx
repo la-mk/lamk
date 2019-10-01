@@ -6,7 +6,6 @@ import {
   Text,
   Button,
   InputNumber,
-  Title,
   message,
   Card,
   Empty,
@@ -19,6 +18,7 @@ import { setCartWithProducts } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
+import { Page } from '../shared/Page';
 
 export const Cart = () => {
   const cart = useSelector(getCartWithProducts);
@@ -33,12 +33,14 @@ export const Cart = () => {
     sdk.cart
       .removeItemFromCart(cart._id, cartItem)
       .then(() =>
-        setCartWithProducts({
-          ...cart,
-          items: cart.items.filter(
-            item => item.product._id !== cartItem.product._id,
-          ),
-        }),
+        dispatch(
+          setCartWithProducts({
+            ...cart,
+            items: cart.items.filter(
+              item => item.product._id !== cartItem.product._id,
+            ),
+          }),
+        ),
       )
       .catch(err => message.error(err));
   };
@@ -70,15 +72,8 @@ export const Cart = () => {
   };
 
   return (
-    <Flex flexDirection='column' alignItems='center' mb={5}>
-      <Title mb={5} level={1}>
-        Your cart
-      </Title>
-      <Flex
-        px={4}
-        width='100%'
-        flexDirection={['column', 'column', 'row', 'row']}
-      >
+    <Page title='My cart'>
+      <Flex width='100%' flexDirection={['column', 'column', 'row', 'row']}>
         <Flex flex={2} mr={[0, 0, 3, 3]}>
           <List style={{ width: '100%' }}>
             {cart.items.map(cartItem => (
@@ -154,6 +149,6 @@ export const Cart = () => {
           </Card>
         </Flex>
       </Flex>
-    </Flex>
+    </Page>
   );
 };

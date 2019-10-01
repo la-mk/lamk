@@ -8,7 +8,6 @@ import {
   Flex,
   message,
   Spin,
-  Title,
   Tabs,
   TabPane,
 } from 'blocks-ui';
@@ -17,6 +16,7 @@ import { sdk } from 'la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
 import { pickDiff } from '../../common/utils';
 import { Addresses } from './Addresses';
+import { Page } from '../shared/Page';
 
 interface AccountProps {
   user: User;
@@ -26,10 +26,6 @@ export const Account = ({ user }: AccountProps) => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [tab, setTab] = useState('addresses');
   const dispatch = useDispatch();
-
-  if (!user) {
-    return null;
-  }
 
   const handlePatchAccount = (updatedUser: User) => {
     setShowSpinner(true);
@@ -46,14 +42,8 @@ export const Account = ({ user }: AccountProps) => {
   };
 
   return (
-    <>
-      <Flex width='100%' flexDirection='column' alignItems='center'>
-        <Title mb={5} level={1}>
-          My Account
-        </Title>
-      </Flex>
-
-      <Tabs px={5} animated={false} activeKey={tab} onChange={setTab}>
+    <Page title='My account'>
+      <Tabs animated={false} activeKey={tab} onChange={setTab}>
         <TabPane pt={4} tab={'Personal Info'} key='personal'>
           <Spin spinning={showSpinner}>
             <Form
@@ -90,6 +80,6 @@ export const Account = ({ user }: AccountProps) => {
           <Addresses user={user} />
         </TabPane>
       </Tabs>
-    </>
+    </Page>
   );
 };

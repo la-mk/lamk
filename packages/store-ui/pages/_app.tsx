@@ -12,6 +12,7 @@ import { AuthModal } from '../src/components/signup/AuthModal';
 import { sdk, setupSdk } from 'la-sdk';
 import env from '../src/common/env';
 import 'antd/dist/antd.less';
+import { getStore } from '../src/state/modules/store/store.selector';
 
 const setInitialDataInState = async (appCtx: any) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
@@ -46,7 +47,7 @@ class MyApp extends App<{ store: any }> {
 
   render() {
     const { Component, pageProps, store } = this.props;
-    const laStore = store.getState().store.store;
+    const laStore = getStore(store.getState());
 
     // This makes sure the sdk is available on the client-side as well.
     if (!sdk) {

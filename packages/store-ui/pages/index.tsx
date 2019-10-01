@@ -13,8 +13,7 @@ function HomePage({ products }: any) {
   );
 }
 
-HomePage.getInitialProps = async (ctx: NextPageContext) => {
-  // @ts-ignore
+HomePage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
   const store = getStore(ctx.store.getState());
   try {
     const products = await sdk.product.findForStore(store._id);

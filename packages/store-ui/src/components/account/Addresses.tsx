@@ -33,10 +33,6 @@ export const Addresses = ({ user }: AddressesProps) => {
       .finally(() => setShowSpinner(false));
   }, [user]);
 
-  if (!user) {
-    return null;
-  }
-
   const handleAddAddress = (address: Address) => {
     setShowSpinner(true);
 

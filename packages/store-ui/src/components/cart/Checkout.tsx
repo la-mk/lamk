@@ -13,6 +13,7 @@ import { Success } from './Success';
 import { Address } from 'la-sdk/dist/models/address';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { AddressesModal } from '../account/AddressesModal';
+import { Page } from '../shared/Page';
 
 export const Checkout = () => {
   const cart = useSelector(getCartWithProducts);
@@ -46,7 +47,7 @@ export const Checkout = () => {
         orderedFrom: store._id,
         orderedBy: user._id,
         status: 'pending',
-        deliveryMethod: 'door-to-door',
+        delivery,
         deliverTo,
         ordered: cart.items
           .filter(item => item.fromStore === store._id)
@@ -64,15 +65,8 @@ export const Checkout = () => {
   };
 
   return (
-    <Flex flexDirection='column' alignItems='center' mb={5}>
-      <Title mb={5} level={1}>
-        Checkout
-      </Title>
-      <Flex
-        px={4}
-        width='100%'
-        flexDirection={['column', 'column', 'row', 'row']}
-      >
+    <Page title='Checkout'>
+      <Flex width='100%' flexDirection={['column', 'column', 'row', 'row']}>
         <Flex flex={2} flexDirection='column' mr={[0, 0, 3, 3]}>
           <Title level={3}>Choose Shipping Address</Title>
           <Row
@@ -127,6 +121,6 @@ export const Checkout = () => {
         visible={addressModalVisible}
         onClose={() => setAddressModalVisible(false)}
       />
-    </Flex>
+    </Page>
   );
 };

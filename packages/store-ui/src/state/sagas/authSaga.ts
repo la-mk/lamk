@@ -1,4 +1,4 @@
-import merge from 'lodash/merge';
+import unionWith from 'lodash/unionWith';
 import { call, takeLeading, takeEvery, put, select } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-next-router';
 import { sdk } from 'la-sdk';
@@ -49,16 +49,20 @@ export function* handleCartForUserSaga(authInfo: any) {
 
       const localCart = yield select(getCartWithProducts);
 
-      merge(serverCart, localCart);
+      const cartItems = unionWith(
+        localCart.items,
+        serverCart.items,
+        (a: any, b: any) => a.product._id === b.product._id,
+      );
 
       yield call(sdk.cart.patch, serverCart._id, {
-        items: serverCart.items.map((item: CartItemWithProduct) => ({
+        items: cartItems.map((item: CartItemWithProduct) => ({
           ...item,
           product: item.product._id,
         })),
       });
 
-      yield put(setCartWithProducts(serverCart));
+      yield put(setCartWithProducts({ ...serverCart, items: cartItems }));
     } catch (err) {
       console.log(err);
     }

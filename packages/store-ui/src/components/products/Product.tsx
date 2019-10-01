@@ -21,6 +21,7 @@ import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getUser } from '../../state/modules/user/user.selector';
+import { Page } from '../shared/Page';
 
 interface ProductProps {
   product: ProductType;
@@ -29,6 +30,7 @@ interface ProductProps {
 export const Product = ({ product }: ProductProps) => {
   const cart = useSelector(getCartWithProducts);
   const store = useSelector(getStore);
+  const user = useSelector(getUser);
   const dispatch = useDispatch();
 
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -40,11 +42,6 @@ export const Product = ({ product }: ProductProps) => {
     cart &&
     cart.items &&
     cart.items.some(item => item.product._id === product._id);
-  const user = useSelector(getUser);
-
-  useEffect(() => {
-    setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));
-  }, [product]);
 
   useEffect(() => {
     sdk.product
@@ -75,78 +72,76 @@ export const Product = ({ product }: ProductProps) => {
   };
 
   return (
-    <>
-      <Flex mx={[2, 2, 4, 4]} mt={4} flexDirection='column'>
-        <Flex flexDirection={['column', 'column', 'row', 'row']}>
-          <Flex
-            width={['100%', '100%', '50%', '50%']}
-            alignItems='center'
-            justifyContent='flex-start'
-            flexDirection='column'
-          >
-            <SizedImage height='350px' src={selectedImage} />
-            <Box mt={3} maxWidth={['100%', '80%', '100%', '80%']}>
-              <Thumbnails
-                images={product.images.map(imageId =>
-                  sdk.artifact.getUrlForArtifact(imageId),
-                )}
-                selectedImage={selectedImage}
-                onImageClick={setSelectedImage}
-              />
-            </Box>
-          </Flex>
-          <Flex
-            width={['100%', '100%', '50%', '50%']}
-            alignItems={['center', 'center', 'flex-start', 'flex-start']}
-            justifyContent='flex-start'
-            flexDirection='column'
-          >
-            <Title level={2} ellipsis>
-              {product.name}
-            </Title>
-            <Price price={product.price} currency={'ден'} />
-            <Text mt={4}>{product.description}</Text>
-            <Flex mt={[4, 4, 5, 5]} flexDirection='row' alignItems='center'>
-              {!isProductInCart && (
-                <>
-                  <Text>Quantity:</Text>
-                  <InputNumber
-                    width='80px'
-                    size='large'
-                    min={1}
-                    max={999}
-                    value={quantity}
-                    onChange={setQuantity}
-                    mx={2}
-                  />
-                </>
+    <Page>
+      <Flex flexDirection={['column', 'column', 'row', 'row']}>
+        <Flex
+          width={['100%', '100%', '50%', '50%']}
+          alignItems='center'
+          justifyContent='flex-start'
+          flexDirection='column'
+        >
+          <SizedImage height='350px' src={selectedImage} />
+          <Box mt={3} maxWidth={['100%', '80%', '100%', '80%']}>
+            <Thumbnails
+              images={product.images.map(imageId =>
+                sdk.artifact.getUrlForArtifact(imageId),
               )}
-              {isProductInCart ? (
-                <>
-                  <Text type='secondary'>Product already in cart</Text>
-                  <Link passHref href='/cart'>
-                    <Button type='primary' size='large' ml={2}>
-                      Go to Cart
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <Button
-                  onClick={handleAddToCart}
-                  ml={2}
-                  size='large'
-                  type='primary'
-                >
-                  Add to Cart
-                </Button>
-              )}
-            </Flex>
-          </Flex>
+              selectedImage={selectedImage}
+              onImageClick={setSelectedImage}
+            />
+          </Box>
         </Flex>
-        <Flex mt={5}>
-          <ProductSet title='Related Products' products={relatedProducts} />
+        <Flex
+          width={['100%', '100%', '50%', '50%']}
+          alignItems={['center', 'center', 'flex-start', 'flex-start']}
+          justifyContent='flex-start'
+          flexDirection='column'
+        >
+          <Title level={2} ellipsis>
+            {product.name}
+          </Title>
+          <Price price={product.price} currency={'ден'} />
+          <Text mt={4}>{product.description}</Text>
+          <Flex mt={[4, 4, 5, 5]} flexDirection='row' alignItems='center'>
+            {!isProductInCart && (
+              <>
+                <Text>Quantity:</Text>
+                <InputNumber
+                  width='80px'
+                  size='large'
+                  min={1}
+                  max={999}
+                  value={quantity}
+                  onChange={setQuantity}
+                  mx={2}
+                />
+              </>
+            )}
+            {isProductInCart ? (
+              <>
+                <Text type='secondary'>Product already in cart</Text>
+                <Link passHref href='/cart'>
+                  <Button type='primary' size='large' ml={2}>
+                    Go to Cart
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <Button
+                onClick={handleAddToCart}
+                ml={2}
+                size='large'
+                type='primary'
+              >
+                Add to Cart
+              </Button>
+            )}
+          </Flex>
         </Flex>
       </Flex>
-    </>
+      <Flex mt={5}>
+        <ProductSet title='Related Products' products={relatedProducts} />
+      </Flex>
+    </Page>
   );
 };

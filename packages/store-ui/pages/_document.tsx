@@ -9,7 +9,7 @@ html {
   height: 100%;
 }
 
-  i {
+  .ant-menu i {
     margin-right: 0 !important;
   }
 
