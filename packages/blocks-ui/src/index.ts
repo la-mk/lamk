@@ -8,6 +8,7 @@ export { Collapse, CollapsePanel } from './basic/Collapse';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider } from './basic/Divider';
 export { Dropdown } from './basic/Dropdown';
+export { Empty } from './basic/Empty';
 export { Flex } from './basic/Flex';
 export { FlexGrid } from './basic/FlexGrid';
 export { Form, FormItem } from './basic/Form';

@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Flex,
-  Title,
-  message,
-  Descriptions,
-  Card,
-  DescriptionItem,
-  Row,
-  Col,
-} from 'blocks-ui';
+import { Flex, Title, message, Card, Row, Col, Button, Empty } from 'blocks-ui';
 import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
@@ -19,9 +10,9 @@ import { getUser, getAddresses } from '../../state/modules/user/user.selector';
 import { Order } from 'la-sdk/dist/models/order';
 import { removeItemsFromCart } from '../../state/modules/cart/cart.module';
 import { Success } from './Success';
-import { replaceTo } from '../../state/modules/navigation/navigation.actions';
 import { Address } from 'la-sdk/dist/models/address';
 import { ShippingDescription } from '../shared/ShippingDescription';
+import { AddressesModal } from '../account/AddressesModal';
 
 export const Checkout = () => {
   const cart = useSelector(getCartWithProducts);
@@ -33,6 +24,7 @@ export const Checkout = () => {
   const dispatch = useDispatch();
   const [order, setOrder] = useState(null);
   const [deliverTo, setDeliverTo] = useState(null);
+  const [addressModalVisible, setAddressModalVisible] = useState(false);
 
   useEffect(() => {
     if (!deliverTo && addresses && addresses.length > 0) {
@@ -45,7 +37,7 @@ export const Checkout = () => {
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <div>Your cart is empty</div>;
+    return <Empty mt={5} description='You have no items in the cart'></Empty>;
   }
 
   const handleOrder = () => {
@@ -67,7 +59,6 @@ export const Checkout = () => {
         setOrder(order);
         dispatch(removeItemsFromCart());
         sdk.cart.patch(user._id, { items: [] });
-        dispatch(replaceTo(`/orders/${order._id}`));
       })
       .catch(err => message.error(err));
   };
@@ -83,7 +74,7 @@ export const Checkout = () => {
         flexDirection={['column', 'column', 'row', 'row']}
       >
         <Flex flex={2} flexDirection='column' mr={[0, 0, 3, 3]}>
-          <Title level={3}>Choose Shipping</Title>
+          <Title level={3}>Choose Shipping Address</Title>
           <Row
             type='flex'
             align='top'
@@ -96,10 +87,11 @@ export const Checkout = () => {
                   <Col key={address._id} mb={4}>
                     <Card
                       style={
-                        deliverTo &&
-                        deliverTo._id === address._id && {
-                          border: '2px solid #1890ff',
-                        }
+                        deliverTo && deliverTo._id === address._id
+                          ? {
+                              border: '2px solid #1890ff',
+                            }
+                          : {}
                       }
                       hoverable={true}
                       onClick={() => setDeliverTo(address)}
@@ -111,6 +103,11 @@ export const Checkout = () => {
                   </Col>
                 );
               })}
+            <Col key={'new'} mb={4}>
+              <Button size='large' onClick={() => setAddressModalVisible(true)}>
+                Add New Address
+              </Button>
+            </Col>
           </Row>
         </Flex>
         <Flex flex={1} ml={[0, 0, 3, 3]}>
@@ -125,6 +122,11 @@ export const Checkout = () => {
           </Card>
         </Flex>
       </Flex>
+      <AddressesModal
+        user={user}
+        visible={addressModalVisible}
+        onClose={() => setAddressModalVisible(false)}
+      />
     </Flex>
   );
 };

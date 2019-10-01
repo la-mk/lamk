@@ -9,6 +9,7 @@ import {
   Title,
   message,
   Card,
+  Empty,
 } from 'blocks-ui';
 import { sdk } from 'la-sdk';
 import { Summary } from '../shared/Summary';
@@ -25,7 +26,7 @@ export const Cart = () => {
   const dispatch = useDispatch();
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <div>Your cart is empty</div>;
+    return <Empty mt={5} description='You have no items in the cart'></Empty>;
   }
 
   const handleRemove = (cartItem: CartItemWithProduct) => {

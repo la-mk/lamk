@@ -9,6 +9,10 @@ html {
   height: 100%;
 }
 
+  i {
+    margin-right: 0 !important;
+  }
+
   input {
     line-height: inherit;
     font: inherit;

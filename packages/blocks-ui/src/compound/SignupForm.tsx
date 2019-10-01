@@ -1,7 +1,11 @@
 import React from 'react';
-import { Flex, Col, Form, FormItem, formInput, Button, Title } from '..';
-import { Divider } from '../basic/Divider';
+import { formInput } from './FormHelpers';
+import { Flex } from '../basic/Flex';
+import { Col } from '../basic/Grid';
+import { Form, FormItem } from '../basic/Form';
+import { Button } from '../basic/Button';
 import { Text } from '../basic/Typography';
+import { Divider } from '../basic/Divider';
 
 export interface SignupProps {
   signup: (credentials: SignupCredentials) => void;

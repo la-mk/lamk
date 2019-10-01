@@ -42,9 +42,6 @@ export const AddAddressCard = ({
         }
         width={390}
         actions={[
-          <Button type='link' icon='more'>
-            More
-          </Button>,
           ...(address
             ? [
                 <Button

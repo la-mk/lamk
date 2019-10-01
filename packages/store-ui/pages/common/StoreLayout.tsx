@@ -3,7 +3,7 @@ import {
   Menu,
   MenuItem,
   Flex,
-  Search,
+  // Search,
   Layout,
   Content,
   Header,
@@ -13,6 +13,8 @@ import {
   Dropdown,
   Avatar,
   Divider,
+  Icon,
+  SizedImage,
 } from 'blocks-ui';
 import styled from 'styled-components';
 import Link from 'next/link';
@@ -41,10 +43,10 @@ const LineHeightFreeAnchor = styled.a`
   margin: 4px 0;
 `;
 
-const SizedSearch = styled(Search)`
-  max-width: 400px;
-  min-width: 80px;
-`;
+// const SizedSearch = styled(Search)`
+//   max-width: 400px;
+//   min-width: 80px;
+// `;
 
 const BorderedHeader = styled(Header)`
   background: white;
@@ -73,18 +75,18 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
   return (
     <>
       <Layout theme='dark'>
-        <BorderedHeader>
+        <BorderedHeader px={[2, 3, 3, 4]}>
           <Flex justifyContent='space-between'>
             <Link href='/' passHref>
               <LineHeightFreeAnchor>
-                <img
+                <SizedImage
                   height='100%'
                   src={sdk.artifact.getUrlForArtifact(store.logo)}
                   alt='logo'
                 />
               </LineHeightFreeAnchor>
             </Link>
-            <SizedSearch mx={4} my={3} />
+            {/* <SizedSearch mx={4} my={3} /> */}
             <Menu mode='horizontal' selectedKeys={selectedKeys}>
               <MenuItem p={0} key='products'>
                 <Link href='/products' passHref>
@@ -97,53 +99,65 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                 </Link>
               </MenuItem>
               <MenuItem p={0} key='cart'>
-                <Badge
-                  showZero
-                  offset={[-8, 8]}
-                  count={cart && cart.items ? cart.items.length : 0}
-                >
-                  <Link href='/cart' passHref>
-                    <Button icon='shopping-cart' type='link'></Button>
-                  </Link>
-                </Badge>
+                <Link href='/cart' passHref>
+                  <Button mr={2} type='link'>
+                    <Badge
+                      showZero
+                      offset={[8, 0]}
+                      count={cart && cart.items ? cart.items.length : 0}
+                    >
+                      <Icon style={{ fontSize: 24 }} type='shopping-cart' />
+                    </Badge>
+                  </Button>
+                </Link>
               </MenuItem>
-              <MenuItem p={0}>
+              <MenuItem p={0} key='preferences'>
                 <Dropdown
+                  placement='bottomLeft'
                   overlay={
-                    <Menu>
-                      {user && (
-                        <>
-                          <MenuItem>
-                            <Link href='/account' passHref>
-                              <Button type='link'>My Account</Button>
-                            </Link>
-                          </MenuItem>
-                          <MenuItem>
-                            <Link href='/orders' passHref>
-                              <Button type='link'>My Orders</Button>
-                            </Link>
-                          </MenuItem>
-                          <Divider my={0} />
-                          <MenuItem>
-                            <Button type='link' onClick={handleLogout}>
-                              Logout
+                    user ? (
+                      <Menu>
+                        <MenuItem key='account'>
+                          <Link href='/account' passHref>
+                            <Button type='link' icon='user'>
+                              My Account
                             </Button>
-                          </MenuItem>
-                        </>
-                      )}
-                      {!user && (
-                        <>
-                          <MenuItem>
-                            <Button type='link' onClick={handleLogin}>
-                              Log in
+                          </Link>
+                        </MenuItem>
+                        <MenuItem key='orders'>
+                          <Link href='/orders' passHref>
+                            <Button type='link' icon='shopping'>
+                              My Orders
                             </Button>
-                          </MenuItem>
-                        </>
-                      )}
-                    </Menu>
+                          </Link>
+                        </MenuItem>
+                        <Divider mt={2} mb={0} />
+                        <MenuItem key='logout'>
+                          <Button
+                            type='link'
+                            icon='logout'
+                            href=''
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </Button>
+                        </MenuItem>
+                      </Menu>
+                    ) : (
+                      <Menu>
+                        <MenuItem key='login'>
+                          <Button type='link' onClick={handleLogin}>
+                            Log in
+                          </Button>
+                        </MenuItem>
+                      </Menu>
+                    )
                   }
                 >
-                  <Avatar mx={2} icon='user' />
+                  <span>
+                    <Avatar mx={2} icon='user' />
+                    <Icon type='down' />
+                  </span>
                 </Dropdown>
               </MenuItem>
             </Menu>

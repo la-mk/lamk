@@ -5,6 +5,9 @@ import { sdk } from 'la-sdk';
 import { AddAddressCard } from './AddAddressCard';
 import { Address } from 'la-sdk/dist/models/address';
 import { pickDiff } from '../../common/utils';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAddresses } from '../../state/modules/user/user.selector';
+import { setAddresses } from '../../state/modules/user/user.module';
 
 interface AddressesProps {
   user: User;
@@ -12,7 +15,9 @@ interface AddressesProps {
 
 export const Addresses = ({ user }: AddressesProps) => {
   const [showSpinner, setShowSpinner] = useState(false);
-  const [addresses, setAddresses] = useState<Address[]>([]);
+  const addresses = useSelector(getAddresses);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!user) {
       return;
@@ -22,7 +27,7 @@ export const Addresses = ({ user }: AddressesProps) => {
     sdk.address
       .findForUser(user._id)
       .then(addresses => {
-        setAddresses(addresses.data);
+        dispatch(setAddresses(addresses.data));
       })
       .catch(err => message.error(err))
       .finally(() => setShowSpinner(false));
@@ -90,18 +95,19 @@ export const Addresses = ({ user }: AddressesProps) => {
         justify='center'
         gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
       >
-        {addresses.map(address => {
-          return (
-            <Col key={address._id} mb={4}>
-              <AddAddressCard
-                address={address}
-                onAddAddress={handleAddAddress}
-                onPatchAddress={handlePatchAddress}
-                onRemoveAddress={handleRemoveAddress}
-              />
-            </Col>
-          );
-        })}
+        {addresses &&
+          addresses.map(address => {
+            return (
+              <Col key={address._id} mb={4}>
+                <AddAddressCard
+                  address={address}
+                  onAddAddress={handleAddAddress}
+                  onPatchAddress={handlePatchAddress}
+                  onRemoveAddress={handleRemoveAddress}
+                />
+              </Col>
+            );
+          })}
 
         <Col mb={4}>
           <AddAddressCard

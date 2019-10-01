@@ -9,6 +9,7 @@ import {
   SizedImage,
   Row,
   Col,
+  Empty,
 } from 'blocks-ui';
 import Link from 'next/link';
 import { Order } from 'la-sdk/dist/models/order';
@@ -17,7 +18,7 @@ import { formatDistanceToNow } from 'date-fns';
 
 export const Orders = ({ orders }: { orders: Order[] }) => {
   if (!orders) {
-    return <div>No orders found</div>;
+    return <Empty mt={5} description='Orders not found'></Empty>;
   }
 
   return (

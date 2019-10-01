@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "antd": "^3.21.2",
-    "blocks-ui": "file:blocks-ui-1.5.1.tgz",
+    "blocks-ui": "file:blocks-ui-1.6.10.tgz",
     "connected-next-router": "^1.0.2",
     "date-fns": "^2.4.1",
     "env-var": "^5.1.0",

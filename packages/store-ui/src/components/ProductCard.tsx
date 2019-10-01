@@ -20,6 +20,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
     <Link href='/products/[pid]' as={`/products/${product._id}`}>
       <a style={{ textDecoration: 'none' }}>
         <Card
+          hoverable
           width={CARD_WIDTH}
           cover={
             <Flex justifyContent='center' alignItems='center'>

@@ -4,10 +4,11 @@ import { sdk } from 'la-sdk';
 import { Head } from '../common/Head';
 import { Product as ProductType } from 'la-sdk/dist/models/product';
 import { Product } from '../../src/components/products/Product';
+import { Empty } from 'blocks-ui';
 
 const ProductPage = ({ product }: { product: ProductType }) => {
   if (!product) {
-    return <div>Not found</div>;
+    return <Empty mt={5} description='Product not found'></Empty>;
   }
 
   return (

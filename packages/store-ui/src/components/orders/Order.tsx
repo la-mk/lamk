@@ -9,6 +9,7 @@ import {
   Col,
   SizedImage,
   Text,
+  Empty,
 } from 'blocks-ui';
 import { Order as OrderType } from 'la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
@@ -31,7 +32,7 @@ const getStepIndex = (status: OrderType['status']) => {
 
 export const Order = ({ order }: { order: OrderType | null }) => {
   if (!order) {
-    return <div>No order found</div>;
+    return <Empty mt={5} description='Order not found'></Empty>;
   }
 
   const delivery = useSelector(getDelivery);
