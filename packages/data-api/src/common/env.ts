@@ -30,4 +30,19 @@ export default {
     .get('MONGODB_CONNECTION_STRING')
     .required()
     .asString(),
+
+  STORAGE_ENDPOINT: envvar
+    .get('STORAGE_ENDPOINT')
+    .required()
+    .asString(),
+
+  STORAGE_ACCESS_KEY_ID: envvar
+    .get('STORAGE_ACCESS_KEY_ID')
+    .required()
+    .asString(),
+
+  STORAGE_ACCESS_KEY_SECRET: envvar
+    .get('STORAGE_ACCESS_KEY_SECRET')
+    .required()
+    .asString(),
 };

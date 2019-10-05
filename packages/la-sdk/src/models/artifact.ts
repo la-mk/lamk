@@ -10,7 +10,7 @@ export interface Artifact {
 }
 
 export const getArtifactSdk = (client: Application, options: SetupSdkOptions) => {
-  const host = `http://api.${options.host}:${options.port}`;
+  const host = `http://images.${options.host}:${options.port}`;
   
   return {
     //These are the only supported methods for handling an artifact.
@@ -19,11 +19,11 @@ export const getArtifactSdk = (client: Application, options: SetupSdkOptions) =>
         client,
         'artifacts',
       ),
-      ['get', 'create', 'remove'],
+      ['create', 'remove'],
     ),
 
     getUrlForArtifact: (id: string) => {
-      return `${host}/images/${id.slice(0, 2)}/${id}`;
+      return `${host}/images/${id}`;
     },
   };
 };

@@ -72,6 +72,8 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
     dispatch(toggleAuthModal(true));
   };
 
+  console.log(sdk.artifact.getUrlForArtifact(store.logo));
+
   return (
     <>
       <Layout theme='dark'>

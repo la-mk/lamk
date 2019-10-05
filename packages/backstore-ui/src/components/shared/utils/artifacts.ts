@@ -1,5 +1,6 @@
 import isString from 'lodash/isString';
 import isEmpty from 'lodash/isEmpty';
+import uniq from 'lodash/uniq';
 import { sdk } from 'la-sdk';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
@@ -62,28 +63,33 @@ export const handleArtifactUploadStatus = (
   onError: (message: string) => void,
 ) => {
   switch (info.file.status) {
-    // There will be a response only if the image upload succeeded
     case 'removed': {
-      if (isString(value) && value) {
-        sdk.artifact.remove(value);
-        onComplete(null);
-      } else if (!isEmpty(value) && info.file.response) {
-        sdk.artifact.remove(info.file.response.id);
-        onComplete(
-          (value as string[]).filter(
-            artifactId => artifactId !== info.file.response.id,
-          ),
-        );
-      }
+      sdk.artifact
+        .remove(info.file.uid)
+        .then(() => {
+          if (single) {
+            onComplete(null);
+          } else {
+            onComplete(
+              (value as string[]).filter(
+                artifactId => artifactId !== info.file.uid,
+              ),
+            );
+          }
+        })
+        .catch(() => {
+          onError(`Failed to remove file`);
+        });
 
       break;
     }
 
+    // There will be a response only if the image upload succeeded
     case 'done': {
       if (single) {
-        onComplete(info.file.response.id);
+        onComplete(info.file.response._id);
       } else {
-        onComplete([...(value || []), info.file.response.id]);
+        onComplete(uniq([...(value || []), info.file.response._id]));
       }
       break;
     }

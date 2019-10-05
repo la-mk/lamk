@@ -30,6 +30,7 @@ export const requireAnyQueryParam = (params: string[]) => {
     }
 
     const { query = {} } = ctx.params;
+    console.log(query)
     const hasSome = params.some(param => Boolean(query[param]));
 
     if (!hasSome) {

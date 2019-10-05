@@ -50,6 +50,10 @@ export const Product = ({ product }: ProductProps) => {
       .catch(err => console.log(err));
   }, []);
 
+  useEffect(() => {
+    setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));
+  }, [product]);
+
   const handleAddToCart = () => {
     let action: Promise<Cart | void> = Promise.resolve();
 

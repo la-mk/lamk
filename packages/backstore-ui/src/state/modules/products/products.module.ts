@@ -1,4 +1,3 @@
-import merge from 'lodash/fp/merge';
 import { Product } from 'la-sdk/dist/models/product';
 
 const initialState: { products: Product[] } = { products: [] };
@@ -27,7 +26,7 @@ export default function products(state = initialState, action: any) {
         ...state,
         products: state.products.map(product => {
           if (product._id === action.product._id) {
-            return merge(product, action.product);
+            return action.product;
           }
 
           return product;
