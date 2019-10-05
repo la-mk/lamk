@@ -7,9 +7,9 @@ import {
   Button,
   Select,
   Option,
-} from 'blocks-ui';
-import { sdk } from 'la-sdk';
-import { Delivery } from 'la-sdk/dist/models/delivery';
+} from '@lamk/blocks-ui';
+import { sdk } from '@lamk/la-sdk';
+import { Delivery } from '@lamk/la-sdk/dist/models/delivery';
 
 interface DeliveryFormProps {
   delivery: Delivery | null;

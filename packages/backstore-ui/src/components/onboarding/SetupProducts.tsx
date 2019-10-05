@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Col, Row, Button, Flex, Title, Text } from 'blocks-ui';
+import { Col, Row, Button, Flex, Title, Text } from '@lamk/blocks-ui';
 import { AddProductCard } from './AddProductCard';
-import { Product } from 'la-sdk/dist/models/product';
+import { Product } from '@lamk/la-sdk/dist/models/product';
 
 interface SetupProductsProps {
   products: Product[];

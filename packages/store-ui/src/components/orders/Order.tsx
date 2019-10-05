@@ -11,10 +11,10 @@ import {
   Text,
   Empty,
   Spin,
-} from 'blocks-ui';
-import { Order as OrderType } from 'la-sdk/dist/models/order';
+} from '@lamk/blocks-ui';
+import { Order as OrderType } from '@lamk/la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 import { useSelector } from 'react-redux';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { Summary } from '../shared/Summary';

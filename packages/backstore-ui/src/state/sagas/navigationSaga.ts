@@ -4,7 +4,7 @@ import {
   replaceTo,
 } from '../modules/navigation/navigation.actions';
 import { getStore } from '../modules/store/store.selector';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 import { setStore } from '../modules/store/store.module';
 import { LocationChangeAction } from 'connected-react-router';
 import { getUser } from '../modules/user/user.selector';

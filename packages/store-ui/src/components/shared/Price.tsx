@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'blocks-ui';
+import { Text } from '@lamk/blocks-ui';
 
 interface PriceProps {
   price: number;

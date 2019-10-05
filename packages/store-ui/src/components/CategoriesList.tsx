@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Dropdown, Menu, MenuItem, Icon, Text } from 'blocks-ui';
+import { Flex, Dropdown, Menu, MenuItem, Icon, Text } from '@lamk/blocks-ui';
 
 const categories = [
   { level1: 'Men fashion', level2: 'Accessories', level3: 'Watches' },

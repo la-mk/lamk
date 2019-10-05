@@ -1,4 +1,4 @@
-import { Product } from 'la-sdk/dist/models/product';
+import { Product } from '@lamk/la-sdk/dist/models/product';
 
 const initialState: { products: Product[] } = { products: [] };
 

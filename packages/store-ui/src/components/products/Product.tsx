@@ -9,14 +9,14 @@ import {
   Box,
   message,
   Spin,
-} from 'blocks-ui';
-import { Product as ProductType } from 'la-sdk/dist/models/product';
-import { sdk } from 'la-sdk';
+} from '@lamk/blocks-ui';
+import { Product as ProductType } from '@lamk/la-sdk/dist/models/product';
+import { sdk } from '@lamk/la-sdk';
 import { Price } from '../shared/Price';
 import { ProductSet } from '../sets/ProductSet';
 import { Thumbnails } from '../shared/Thumbnails';
 import { useSelector } from 'react-redux';
-import { Cart } from 'la-sdk/dist/models/cart';
+import { Cart } from '@lamk/la-sdk/dist/models/cart';
 import Link from 'next/link';
 import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
@@ -24,7 +24,7 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
-import { FindResult } from 'la-sdk/dist/setup';
+import { FindResult } from '@lamk/la-sdk/dist/setup';
 
 interface ProductProps {
   product: ProductType;

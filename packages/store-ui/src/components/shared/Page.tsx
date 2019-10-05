@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title } from 'blocks-ui';
+import { Flex, Title } from '@lamk/blocks-ui';
 
 interface PageProps {
   title?: string;

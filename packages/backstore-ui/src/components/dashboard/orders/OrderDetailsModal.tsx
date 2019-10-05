@@ -14,10 +14,10 @@ import {
   List,
   SizedImage,
   Text,
-} from 'blocks-ui';
-import { sdk } from 'la-sdk';
-import { Product } from 'la-sdk/dist/models/product';
-import { Order } from 'la-sdk/dist/models/order';
+} from '@lamk/blocks-ui';
+import { sdk } from '@lamk/la-sdk';
+import { Product } from '@lamk/la-sdk/dist/models/product';
+import { Order } from '@lamk/la-sdk/dist/models/order';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,

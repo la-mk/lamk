@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Steps } from 'blocks-ui';
+import { Steps } from '@lamk/blocks-ui';
 
 export const StickySteps = styled(Steps)`
   position: sticky;

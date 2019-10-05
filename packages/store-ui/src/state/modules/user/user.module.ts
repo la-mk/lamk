@@ -1,5 +1,5 @@
-import { User } from 'la-sdk/dist/models/user';
-import { Address } from 'la-sdk/dist/models/address';
+import { User } from '@lamk/la-sdk/dist/models/user';
+import { Address } from '@lamk/la-sdk/dist/models/address';
 
 const initialState = { user: null, addresses: null };
 

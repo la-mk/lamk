@@ -1,8 +1,8 @@
 import React from 'react';
-import { FlexGrid } from 'blocks-ui';
+import { FlexGrid } from '@lamk/blocks-ui';
 import { ProductCard } from '../ProductCard';
 import { Page } from '../shared/Page';
-import { Product } from 'la-sdk/dist/models/product';
+import { Product } from '@lamk/la-sdk/dist/models/product';
 
 interface ProductsProps {
   products: Product[];

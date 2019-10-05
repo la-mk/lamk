@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title, Tabs, TabPane } from 'blocks-ui';
+import { Flex, Title, Tabs, TabPane } from '@lamk/blocks-ui';
 import { StorePreferences } from './StorePreferences';
 import { DeliveryPreferences } from './DeliveryPreferences';
 

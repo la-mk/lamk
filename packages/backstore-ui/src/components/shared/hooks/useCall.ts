@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { message } from 'blocks-ui';
+import { message } from '@lamk/blocks-ui';
 import { useDispatch } from 'react-redux';
 
 export const useCall = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import { default as NextHead } from 'next/head';
-import { Provider as ThemeProvider, Empty } from 'blocks-ui';
+import { Provider as ThemeProvider, Empty } from '@lamk/blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
@@ -9,7 +9,7 @@ import configureStore from '../src/state/configureStore';
 import { StoreLayout } from './common/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
 import { AuthModal } from '../src/components/signup/AuthModal';
-import { sdk, setupSdk } from 'la-sdk';
+import { sdk, setupSdk } from '@lamk/la-sdk';
 import env from '../src/common/env';
 import 'antd/dist/antd.less';
 import { getStore } from '../src/state/modules/store/store.selector';

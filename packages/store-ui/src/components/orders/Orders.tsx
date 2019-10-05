@@ -10,16 +10,16 @@ import {
   Col,
   Empty,
   Spin,
-} from 'blocks-ui';
+} from '@lamk/blocks-ui';
 import Link from 'next/link';
-import { Order } from 'la-sdk/dist/models/order';
-import { sdk } from 'la-sdk';
+import { Order } from '@lamk/la-sdk/dist/models/order';
+import { sdk } from '@lamk/la-sdk';
 import { formatDistanceToNow } from 'date-fns';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../state/modules/user/user.selector';
-import { FindResult } from 'la-sdk/dist/setup';
+import { FindResult } from '@lamk/la-sdk/dist/setup';
 
 export const Orders = () => {
   const [caller, showSpinner] = useCall();

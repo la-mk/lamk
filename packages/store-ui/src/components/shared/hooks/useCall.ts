@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { message } from "blocks-ui";
-import { useDispatch } from "react-redux";
+import { useState } from 'react';
+import { message } from '@lamk/blocks-ui';
+import { useDispatch } from 'react-redux';
 
 export const useCall = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [res, setRes] = useState();
   const dispatch = useDispatch();
 
-  // The callback can optionally return a redux action object which will be dispatched 
+  // The callback can optionally return a redux action object which will be dispatched
   const caller = (
     promise: Promise<any>,
-    callback?: (data?: any) => {type: string, [key: string]: any},
+    callback?: (data?: any) => { type: string; [key: string]: any },
   ) => {
     setIsProcessing(true);
     promise
@@ -18,7 +18,7 @@ export const useCall = () => {
         setRes(res);
         if (callback) {
           const action = callback(res);
-          if(action){
+          if (action) {
             dispatch(action);
           }
         }

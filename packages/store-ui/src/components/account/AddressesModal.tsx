@@ -1,6 +1,6 @@
 import React from 'react';
-import { User } from 'la-sdk/dist/models/user';
-import { Modal } from 'blocks-ui';
+import { User } from '@lamk/la-sdk/dist/models/user';
+import { Modal } from '@lamk/blocks-ui';
 import { Addresses } from './Addresses';
 
 interface AddressesModalProps {

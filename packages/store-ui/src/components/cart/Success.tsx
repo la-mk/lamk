@@ -1,5 +1,5 @@
 import React from 'react';
-import { Result, Button } from 'blocks-ui';
+import { Result, Button } from '@lamk/blocks-ui';
 import Link from 'next/link';
 
 export const Success = ({ order }: any) => {

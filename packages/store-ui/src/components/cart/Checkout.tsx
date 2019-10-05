@@ -1,26 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Title, Card, Row, Col, Button, Empty, Spin } from 'blocks-ui';
+import {
+  Flex,
+  Title,
+  Card,
+  Row,
+  Col,
+  Button,
+  Empty,
+  Spin,
+} from '@lamk/blocks-ui';
 import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 import { getUser, getAddresses } from '../../state/modules/user/user.selector';
-import { Order } from 'la-sdk/dist/models/order';
+import { Order } from '@lamk/la-sdk/dist/models/order';
 import {
   removeItemsFromCart,
   setCartWithProducts,
 } from '../../state/modules/cart/cart.module';
 import { Success } from './Success';
-import { Address } from 'la-sdk/dist/models/address';
+import { Address } from '@lamk/la-sdk/dist/models/address';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { AddressesModal } from '../account/AddressesModal';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
-import { CartWithProducts } from 'la-sdk/dist/models/cart';
+import { CartWithProducts } from '@lamk/la-sdk/dist/models/cart';
 import { setAddresses } from '../../state/modules/user/user.module';
-import { FindResult } from 'la-sdk/dist/setup';
+import { FindResult } from '@lamk/la-sdk/dist/setup';
 
 export const Checkout = () => {
   const [caller, showSpinner] = useCall();

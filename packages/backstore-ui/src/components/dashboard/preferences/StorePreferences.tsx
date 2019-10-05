@@ -1,8 +1,8 @@
 import React from 'react';
-import { Col, message, Spin } from 'blocks-ui';
+import { Col, message, Spin } from '@lamk/blocks-ui';
 
-import { sdk } from 'la-sdk';
-import { Store } from 'la-sdk/dist/models/store';
+import { sdk } from '@lamk/la-sdk';
+import { Store } from '@lamk/la-sdk/dist/models/store';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import isEqual from 'lodash/isEqual';

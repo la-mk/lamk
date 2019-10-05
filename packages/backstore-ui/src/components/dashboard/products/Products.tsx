@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Tooltip, Flex, Table, Title, Button, SizedImage } from 'blocks-ui';
-import { ColumnProps } from 'blocks-ui/dist/types/basic/Table';
+import { Tooltip, Flex, Table, Title, Button, SizedImage } from '@lamk/blocks-ui';
+import { ColumnProps } from '@lamk/blocks-ui/dist/types/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { getProducts } from '../../../state/modules/products/products.selector';
-import { Product } from 'la-sdk/dist/models/product';
-import { sdk } from 'la-sdk';
+import { Product } from '@lamk/la-sdk/dist/models/product';
+import { sdk } from '@lamk/la-sdk';
 import { setProducts } from '../../../state/modules/products/products.module';
 import { useCall } from '../../shared/hooks/useCall';
-import { FindResult } from 'la-sdk/dist/setup';
+import { FindResult } from '@lamk/la-sdk/dist/setup';
 
 const columns: ColumnProps<Product>[] = [
   {

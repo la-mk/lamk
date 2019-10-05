@@ -8,15 +8,15 @@ import {
   UploadContent,
   Flex,
   Button,
-} from 'blocks-ui';
-import { sdk } from 'la-sdk';
+} from '@lamk/blocks-ui';
+import { sdk } from '@lamk/la-sdk';
 import {
   uploadImage,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../utils/artifacts';
 import { UploadChangeParam } from 'antd/lib/upload';
-import { Store } from 'la-sdk/dist/models/store';
+import { Store } from '@lamk/la-sdk/dist/models/store';
 
 interface StoreFormProps {
   store: Store | null;

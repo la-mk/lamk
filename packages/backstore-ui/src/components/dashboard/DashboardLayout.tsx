@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Sider, Content, Flex, Menu, MenuItem, Icon } from 'blocks-ui';
+import { Layout, Sider, Content, Flex, Menu, MenuItem, Icon } from '@lamk/blocks-ui';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';

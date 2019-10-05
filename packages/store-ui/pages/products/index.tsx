@@ -1,5 +1,5 @@
-import { sdk } from 'la-sdk';
-import { Product } from 'la-sdk/dist/models/product';
+import { sdk } from '@lamk/la-sdk';
+import { Product } from '@lamk/la-sdk/dist/models/product';
 import { Head } from '../common/Head';
 import { Products } from '../../src/components/products/Products';
 import { NextPageContext } from 'next';

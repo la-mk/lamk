@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductCard, CARD_WIDTH } from '../ProductCard';
-import { Product } from 'la-sdk/dist/models/product';
-import { Set } from 'blocks-ui';
+import { Product } from '@lamk/la-sdk/dist/models/product';
+import { Set } from '@lamk/blocks-ui';
 
 export const ProductSet = ({
   products,

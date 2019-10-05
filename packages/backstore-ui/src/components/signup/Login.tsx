@@ -1,6 +1,6 @@
 import React from 'react';
-import { Flex, Title, LoginForm } from 'blocks-ui';
-import { sdk } from 'la-sdk';
+import { Flex, Title, LoginForm } from '@lamk/blocks-ui';
+import { sdk } from '@lamk/la-sdk';
 import { useDispatch } from 'react-redux';
 import { login } from '../../state/modules/auth/auth.module';
 import { goTo } from '../../state/modules/navigation/navigation.actions';

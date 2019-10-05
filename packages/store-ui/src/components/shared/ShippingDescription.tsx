@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, DescriptionItem } from 'blocks-ui';
+import { Descriptions, DescriptionItem } from '@lamk/blocks-ui';
 
 export const ShippingDescription = ({ address }: any) => {
   return (

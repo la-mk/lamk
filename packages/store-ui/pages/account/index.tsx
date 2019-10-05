@@ -2,7 +2,7 @@ import { Head } from '../common/Head';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
 import { Account } from '../../src/components/account/Account';
-import { Empty } from 'blocks-ui';
+import { Empty } from '@lamk/blocks-ui';
 
 function AccountPage() {
   const user = useSelector(getUser);

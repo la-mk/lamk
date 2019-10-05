@@ -9,10 +9,13 @@ import {
   Card,
   Empty,
   Spin,
-} from 'blocks-ui';
-import { sdk } from 'la-sdk';
+} from '@lamk/blocks-ui';
+import { sdk } from '@lamk/la-sdk';
 import { Summary } from '../shared/Summary';
-import { CartItemWithProduct, CartWithProducts } from 'la-sdk/dist/models/cart';
+import {
+  CartItemWithProduct,
+  CartWithProducts,
+} from '@lamk/la-sdk/dist/models/cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCartWithProducts } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';

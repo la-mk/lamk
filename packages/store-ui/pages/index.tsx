@@ -1,6 +1,6 @@
 import { Home } from '../src/components/home/Home';
 import { Head } from './common/Head';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 import { NextPageContext } from 'next';
 import { getStore } from '../src/state/modules/store/store.selector';
 

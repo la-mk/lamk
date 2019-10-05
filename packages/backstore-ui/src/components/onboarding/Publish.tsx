@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Button } from 'blocks-ui';
+import { Flex, Button } from '@lamk/blocks-ui';
 import styled from 'styled-components';
 // import env from '../../common/env';
 

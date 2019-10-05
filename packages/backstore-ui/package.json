@@ -1,5 +1,5 @@
 {
-  "name": "backstore-ui",
+  "name": "@lamk/backstore-ui",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -38,6 +38,8 @@
     ]
   },
   "dependencies": {
+    "@lamk/blocks-ui": "^1.0.2",
+    "@lamk/la-sdk": "^1.0.1",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.134",
     "@types/node": "^12.7.3",
@@ -48,11 +50,9 @@
     "@types/styled-components": "^4.1.16",
     "@types/styled-system": "^5.1.1",
     "antd": "^3.21.4",
-    "blocks-ui": "file:blocks-ui-1.11.0.tgz",
     "connected-react-router": "^6.5.2",
     "customize-cra": "^0.5.0",
     "env-var": "^5.1.0",
-    "la-sdk": "file:la-sdk-1.7.0.tgz",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "lodash": "^4.17.11",

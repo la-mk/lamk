@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistic, Card, Row, Col } from 'blocks-ui';
+import { Statistic, Card, Row, Col } from '@lamk/blocks-ui';
 
 export const Summary = () => {
   return (

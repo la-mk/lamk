@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User } from 'la-sdk/dist/models/user';
+import { User } from '@lamk/la-sdk/dist/models/user';
 import {
   Form,
   FormItem,
@@ -10,8 +10,8 @@ import {
   Spin,
   Tabs,
   TabPane,
-} from 'blocks-ui';
-import { sdk } from 'la-sdk';
+} from '@lamk/blocks-ui';
+import { sdk } from '@lamk/la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
 import { pickDiff } from '../../common/utils';
 import { Addresses } from './Addresses';

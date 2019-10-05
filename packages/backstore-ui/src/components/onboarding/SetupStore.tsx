@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Col, Title, Flex, Text } from 'blocks-ui';
-import { Store } from 'la-sdk/dist/models/store';
+import { Col, Title, Flex, Text } from '@lamk/blocks-ui';
+import { Store } from '@lamk/la-sdk/dist/models/store';
 import { StoreForm } from '../shared/forms/StoreForm';
 
 interface SetupStoreProps {

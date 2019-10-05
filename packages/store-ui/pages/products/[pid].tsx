@@ -1,10 +1,10 @@
 import React from 'react';
 import { NextPageContext } from 'next';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 import { Head } from '../common/Head';
-import { Product as ProductType } from 'la-sdk/dist/models/product';
+import { Product as ProductType } from '@lamk/la-sdk/dist/models/product';
 import { Product } from '../../src/components/products/Product';
-import { Empty } from 'blocks-ui';
+import { Empty } from '@lamk/blocks-ui';
 
 const ProductPage = ({ product }: { product: ProductType }) => {
   if (!product) {

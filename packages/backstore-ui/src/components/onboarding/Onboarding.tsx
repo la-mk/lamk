@@ -5,12 +5,12 @@ import { SetupStore } from './SetupStore';
 import { SetupProducts } from './SetupProducts';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Step, Flex, Spin } from 'blocks-ui';
+import { Step, Flex, Spin } from '@lamk/blocks-ui';
 import { Publish } from './Publish';
-import { Product } from 'la-sdk/dist/models/product';
-import { Store } from 'la-sdk/dist/models/store';
-import { Delivery } from 'la-sdk/dist/models/delivery';
-import { sdk } from 'la-sdk';
+import { Product } from '@lamk/la-sdk/dist/models/product';
+import { Store } from '@lamk/la-sdk/dist/models/store';
+import { Delivery } from '@lamk/la-sdk/dist/models/delivery';
+import { sdk } from '@lamk/la-sdk';
 import { getStore } from '../../state/modules/store/store.selector';
 import { setStore } from '../../state/modules/store/store.module';
 import {
@@ -25,7 +25,7 @@ import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Redirect } from 'react-router';
 import { StickySteps } from '../shared/components/StickySteps';
 import { useCall } from '../shared/hooks/useCall';
-import { FindResult } from 'la-sdk/dist/setup';
+import { FindResult } from '@lamk/la-sdk/dist/setup';
 
 interface OnboardingProps {
   step: number;

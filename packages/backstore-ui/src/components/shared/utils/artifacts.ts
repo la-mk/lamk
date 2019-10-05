@@ -1,7 +1,7 @@
 import isString from 'lodash/isString';
 import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 

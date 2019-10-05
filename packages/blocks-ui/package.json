@@ -1,6 +1,6 @@
 {
-  "name": "blocks-ui",
-  "version": "1.0.0",
+  "name": "@lamk/blocks-ui",
+  "version": "1.0.2",
   "description": "",
   "module": "dist/index.es5.js",
   "typings": "dist/types/index.d.ts",
@@ -13,6 +13,8 @@
     "start": "start-storybook -p 9001 -c .storybook",
     "build": "rollup -c",
     "build:watch": "rollup -cw",
+    "publish:dev": "npm run bump:dev && npm publish --registry http://registry.dev.sradevski.com:8080",
+    "bump:dev": "npm version patch",
     "prepack": "npm run build"
   },
   "husky": {

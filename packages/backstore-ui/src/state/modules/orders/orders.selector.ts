@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { Order } from 'la-sdk/dist/models/order';
+import { Order } from '@lamk/la-sdk/dist/models/order';
 
 export const getOrders = createSelector<any, any, any>(
   state => state.orders,

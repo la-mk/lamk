@@ -1,4 +1,4 @@
-import { User } from 'la-sdk/dist/models/user';
+import { User } from '@lamk/la-sdk/dist/models/user';
 
 const initialState = { user: null };
 

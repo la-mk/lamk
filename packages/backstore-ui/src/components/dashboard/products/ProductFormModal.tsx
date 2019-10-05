@@ -15,9 +15,9 @@ import {
   FormItem,
   formTextArea,
   formInput,
-} from 'blocks-ui';
-import { Product } from 'la-sdk/dist/models/product';
-import { sdk } from 'la-sdk';
+} from '@lamk/blocks-ui';
+import { Product } from '@lamk/la-sdk/dist/models/product';
+import { sdk } from '@lamk/la-sdk';
 import {
   uploadImage,
   handleArtifactUploadStatus,

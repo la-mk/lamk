@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip } from 'blocks-ui';
-import { Flex, Table, Title, Tag, Button } from 'blocks-ui';
-import { ColumnProps } from 'blocks-ui/dist/types/basic/Table';
+import { Tooltip } from '@lamk/blocks-ui';
+import { Flex, Table, Title, Tag, Button } from '@lamk/blocks-ui';
+import { ColumnProps } from '@lamk/blocks-ui/dist/types/basic/Table';
 import { useSelector } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { Order } from 'la-sdk/dist/models/order';
+import { Order } from '@lamk/la-sdk/dist/models/order';
 import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useCall } from '../../shared/hooks/useCall';
-import { FindResult } from 'la-sdk/dist/setup';
+import { FindResult } from '@lamk/la-sdk/dist/setup';
 
 const columns: ColumnProps<Order>[] = [
   {

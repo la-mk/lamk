@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 // @ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-import { Provider as ThemeProvider } from 'blocks-ui';
-import { setupSdk } from 'la-sdk';
+import { Provider as ThemeProvider } from '@lamk/blocks-ui';
+import { setupSdk } from '@lamk/la-sdk';
 import { ConnectedRouter } from 'connected-react-router';
 import { Root } from './components/Root';
 import configureStore, { history } from './state/configureStore';

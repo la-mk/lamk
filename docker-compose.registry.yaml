@@ -1,0 +1,24 @@
+version: '3.5'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - 8080:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - registry
+   
+  registry:
+    image: verdaccio/verdaccio:4
+    expose: 
+      - 4873
+    volumes:
+      - ./registry/storage:/verdaccio/storage
+    environment:
+      VIRTUAL_HOST: "registry.dev.sradevski.com"
+      VIRTUAL_PORT: 4873

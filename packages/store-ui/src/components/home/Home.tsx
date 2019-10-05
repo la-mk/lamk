@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductSet } from '../sets/ProductSet';
 import { CategoriesList } from '../CategoriesList';
 import styled from 'styled-components';
-import { Flex } from 'blocks-ui';
+import { Flex } from '@lamk/blocks-ui';
 
 const Banner = styled.div`
   position: relative;

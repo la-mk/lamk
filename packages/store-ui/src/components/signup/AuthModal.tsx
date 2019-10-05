@@ -1,10 +1,10 @@
 import React from 'react';
-import { Modal, Flex, Title, LoginForm, SignupForm } from 'blocks-ui';
+import { Modal, Flex, Title, LoginForm, SignupForm } from '@lamk/blocks-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { shouldShowAuthModal } from '../../state/modules/ui/ui.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { login, signup } from '../../state/modules/auth/auth.module';
-import { sdk } from 'la-sdk';
+import { sdk } from '@lamk/la-sdk';
 
 export const AuthModal = () => {
   const [method, setMethod] = React.useState<'login' | 'signup'>('login');

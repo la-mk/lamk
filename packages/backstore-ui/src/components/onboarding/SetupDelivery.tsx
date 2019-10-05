@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Col, Flex, Title, Text } from 'blocks-ui';
-import { Delivery } from 'la-sdk/dist/models/delivery';
+import { Col, Flex, Title, Text } from '@lamk/blocks-ui';
+import { Delivery } from '@lamk/la-sdk/dist/models/delivery';
 import { DeliveryForm } from '../shared/forms/DeliveryForm';
 
 interface SetupDeliveryProps {
