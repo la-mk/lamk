@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Tooltip } from 'blocks-ui';
-import { Flex, Table, Title, Tag, Button, message } from 'blocks-ui';
+import { Flex, Table, Title, Tag, Button } from 'blocks-ui';
 import { ColumnProps } from 'blocks-ui/dist/types/basic/Table';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from 'la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
@@ -10,6 +10,8 @@ import { setOrders } from '../../../state/modules/orders/orders.module';
 import { Order } from 'la-sdk/dist/models/order';
 import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
+import { useCall } from '../../shared/hooks/useCall';
+import { FindResult } from 'la-sdk/dist/setup';
 
 const columns: ColumnProps<Order>[] = [
   {
@@ -39,24 +41,18 @@ const columns: ColumnProps<Order>[] = [
 ];
 
 export const Orders = () => {
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [caller, showSpinner] = useCall();
   const [orderIdToView, setOrderIdToView] = useState<string>();
   const store = useSelector(getStore);
   const orders = useSelector(getOrders);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (store) {
-      setShowSpinner(true);
-      sdk.order
-        .findForStore(store._id)
-        .then(orders => {
-          dispatch(setOrders(orders.data));
-        })
-        .catch(err => message.error(err.message))
-        .finally(() => setShowSpinner(false));
+      caller(sdk.order.findForStore(store._id), (res: FindResult<Order>) =>
+        setOrders(res.data),
+      );
     }
-  }, [dispatch, store]);
+  }, [store]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>

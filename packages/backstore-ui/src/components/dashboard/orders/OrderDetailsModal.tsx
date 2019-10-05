@@ -26,8 +26,9 @@ import {
   setOrder,
   removeOrder,
 } from '../../../state/modules/orders/orders.module';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
+import { useCall } from '../../shared/hooks/useCall';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -46,10 +47,9 @@ export const OrderDetailsModal = ({
   orderId,
   onClose,
 }: OrderDetailsModalProps) => {
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [caller, showSpinner] = useCall();
   const order = useSelector<any, Order>(getOrder(orderId));
   const [products, setProducts] = useState<Product[]>([]);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (order) {
@@ -59,27 +59,19 @@ export const OrderDetailsModal = ({
 
   const handleStatusChanged = (status: Order['status']) => {
     if (order) {
-      setShowSpinner(true);
-      sdk.order
-        .setStatus(order._id, status)
-        .then(updatedOrder => dispatch(setOrder(updatedOrder)))
-        .catch(err => message.error(err.message))
-        .finally(() => setShowSpinner(false));
+      caller(sdk.order.setStatus(order._id, status), setOrder);
     }
   };
 
   const handleDeleteOrder = () => {
     if (orderId) {
-      sdk.order
-        .remove(orderId)
-        .then(() => {
-          dispatch(removeOrder(orderId));
-          message.success(
-            `Order ${sdk.utils.getShortId(orderId)} successfully deleted`,
-          );
-        })
-        .catch(err => message.error(err.message))
-        .finally(() => onClose());
+      caller(sdk.order.remove(orderId), () => {
+        onClose();
+        message.success(
+          `Order ${sdk.utils.getShortId(orderId)} successfully deleted`,
+        );
+        return removeOrder(orderId);
+      });
     }
   };
 

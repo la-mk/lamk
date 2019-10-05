@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Tooltip,
-  Flex,
-  Table,
-  Title,
-  Button,
-  SizedImage,
-  message,
-} from 'blocks-ui';
+import { Tooltip, Flex, Table, Title, Button, SizedImage } from 'blocks-ui';
 import { ColumnProps } from 'blocks-ui/dist/types/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { getProducts } from '../../../state/modules/products/products.selector';
 import { Product } from 'la-sdk/dist/models/product';
 import { sdk } from 'la-sdk';
 import { setProducts } from '../../../state/modules/products/products.module';
+import { useCall } from '../../shared/hooks/useCall';
+import { FindResult } from 'la-sdk/dist/setup';
 
 const columns: ColumnProps<Product>[] = [
   {
@@ -53,25 +47,20 @@ const columns: ColumnProps<Product>[] = [
 
 export const Products = () => {
   const [showModal, setShowModal] = useState(false);
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [caller, showSpinner] = useCall();
   const [editingProduct, setEditingProduct] = useState();
 
   const products: Product[] = useSelector(getProducts);
   const store = useSelector(getStore);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (store) {
-      setShowSpinner(true);
-      sdk.product
-        .findForStore(store._id)
-        .then(products => {
-          dispatch(setProducts(products.data));
-        })
-        .catch(err => message.error(err.message))
-        .finally(() => setShowSpinner(false));
+      caller(
+        sdk.product.findForStore(store._id),
+        (products: FindResult<Product>) => setProducts(products.data),
+      );
     }
-  }, [store, dispatch]);
+  }, [store]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>

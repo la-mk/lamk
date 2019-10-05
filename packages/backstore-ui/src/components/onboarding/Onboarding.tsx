@@ -1,11 +1,11 @@
 import isEqual from 'lodash/isEqual';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { SetupStore } from './SetupStore';
 import { SetupProducts } from './SetupProducts';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Step, Flex, message } from 'blocks-ui';
+import { Step, Flex, Spin } from 'blocks-ui';
 import { Publish } from './Publish';
 import { Product } from 'la-sdk/dist/models/product';
 import { Store } from 'la-sdk/dist/models/store';
@@ -24,6 +24,8 @@ import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Redirect } from 'react-router';
 import { StickySteps } from '../shared/components/StickySteps';
+import { useCall } from '../shared/hooks/useCall';
+import { FindResult } from 'la-sdk/dist/setup';
 
 interface OnboardingProps {
   step: number;
@@ -32,53 +34,48 @@ interface OnboardingProps {
 
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const [isFinished, setIsFinished] = useState(false);
+  const [caller, showSpinner] = useCall();
   const store: Store = useSelector(getStore);
   const products: Product[] = useSelector(getProducts);
   const delivery: Delivery = useSelector(getDelivery);
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (store) {
-      sdk.product
-        .findForStore(store._id)
-        .then(products => {
-          dispatch(setProducts(products.data));
-        })
-        .catch(err => message.error(err.message));
+      caller(
+        sdk.product.findForStore(store._id),
+        (products: FindResult<Product>) => setProducts(products.data),
+      );
 
-      sdk.delivery
-        .findForStore(store._id)
-        .then(deliveries => {
+      caller(
+        sdk.delivery.findForStore(store._id),
+        (deliveries: FindResult<Delivery>) => {
           if (deliveries.total > 0) {
-            dispatch(setDelivery(deliveries.data[0]));
+            return setDelivery(deliveries.data[0]);
           }
-        })
-        .catch(err => message.error(err.message));
+        },
+      );
     }
-  }, [store, dispatch]);
+  }, [store]);
 
   const handleSetupStoreDone = (newStore?: Store) => {
     if (!newStore || isEqual(store, newStore)) {
       return setStep(1);
     }
-
-    (newStore._id
+    const handler = newStore._id
       ? sdk.store.patch(newStore._id, newStore)
-      : sdk.store.create({ ...newStore, isPublished: false })
-    )
-      .then(store => {
-        dispatch(setStore(store));
-      })
-      .then(() => setStep(1))
-      .catch(err => message.error(err.message));
+      : sdk.store.create({ ...newStore, isPublished: false });
+
+    caller(handler, (store: Store) => {
+      setStep(1);
+      return setStore(store);
+    });
   };
 
   const handleAddProduct = (newProduct: Product) => {
-    sdk.product
-      .create({ ...newProduct, soldBy: store._id })
-      .then(product => dispatch(addProduct(product)))
-      .catch(err => message.error(err.message));
+    caller(
+      sdk.product.create({ ...newProduct, soldBy: store._id }),
+      addProduct,
+    );
   };
 
   const handlePatchProduct = (newProduct: Product) => {
@@ -90,17 +87,11 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    sdk.product
-      .patch(newProduct._id, newProduct)
-      .then(product => dispatch(patchProduct(product)))
-      .catch(err => message.error(err.message));
+    caller(sdk.product.patch(newProduct._id, newProduct), patchProduct);
   };
 
   const handleRemoveProduct = (id: string) => {
-    sdk.product
-      .remove(id)
-      .then(() => dispatch(removeProduct(id)))
-      .catch(err => message.error(err.message));
+    caller(sdk.product.remove(id), () => removeProduct(id));
   };
 
   const handleAddProductsDone = () => {
@@ -112,15 +103,14 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return setStep(3);
     }
 
-    (newDelivery._id
+    const handler = newDelivery._id
       ? sdk.delivery.patch(newDelivery._id, newDelivery)
-      : sdk.delivery.create({ ...newDelivery, forStore: store._id })
-    )
-      .then(delivery => {
-        dispatch(setDelivery(delivery));
-      })
-      .then(() => setStep(3))
-      .catch(err => message.error(err.message));
+      : sdk.delivery.create({ ...newDelivery, forStore: store._id });
+
+    caller(handler, (delivery: Delivery) => {
+      setStep(3);
+      return setDelivery(delivery);
+    });
   };
 
   const handlePublishDone = (shouldPublish: boolean) => {
@@ -129,46 +119,52 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    sdk.store
-      .patch(store._id, { isPublished: true })
-      .then(() => setIsFinished(true))
-      .catch(err => message.error(err.message));
+    caller(sdk.store.patch(store._id, { isPublished: true }), () => {
+      setIsFinished(true);
+    });
   };
 
   return (
-    <Flex flexDirection='column'>
-      {step !== 3 && (
-        <Flex px={[3, 3, 3, 4]} pb={4} flexDirection='column'>
-          <StickySteps py={[2, 2, 3]} mb={5} current={step} onChange={setStep}>
-            <Step title='Store' />
-            <Step title='Products' />
-            <Step title='Delivery' />
-          </StickySteps>
+    <Spin spinning={showSpinner}>
+      <Flex flexDirection='column'>
+        {step !== 3 && (
+          <Flex px={[3, 3, 3, 4]} pb={4} flexDirection='column'>
+            <StickySteps
+              py={[2, 2, 3]}
+              mb={5}
+              current={step}
+              onChange={setStep}
+            >
+              <Step title='Store' />
+              <Step title='Products' />
+              <Step title='Delivery' />
+            </StickySteps>
 
-          {step === 0 && (
-            <SetupStore onDone={handleSetupStoreDone} store={store} />
-          )}
-          {step === 1 && (
-            <SetupProducts
-              products={products}
-              onAddProduct={handleAddProduct}
-              onPatchProduct={handlePatchProduct}
-              onRemoveProduct={handleRemoveProduct}
-              onDone={handleAddProductsDone}
-            />
-          )}
-          {step === 2 && (
-            <SetupDelivery
-              delivery={delivery}
-              onDone={handleSetupDeliveryDone}
-            />
-          )}
-        </Flex>
-      )}
-      {step === 3 && (
-        <Publish storeSlug={store.slug} onDone={handlePublishDone} />
-      )}
-      {isFinished && <Redirect push to='/dashboard' />}
-    </Flex>
+            {step === 0 && (
+              <SetupStore onDone={handleSetupStoreDone} store={store} />
+            )}
+            {step === 1 && (
+              <SetupProducts
+                products={products}
+                onAddProduct={handleAddProduct}
+                onPatchProduct={handlePatchProduct}
+                onRemoveProduct={handleRemoveProduct}
+                onDone={handleAddProductsDone}
+              />
+            )}
+            {step === 2 && (
+              <SetupDelivery
+                delivery={delivery}
+                onDone={handleSetupDeliveryDone}
+              />
+            )}
+          </Flex>
+        )}
+        {step === 3 && (
+          <Publish storeSlug={store.slug} onDone={handlePublishDone} />
+        )}
+        {isFinished && <Redirect push to='/dashboard' />}
+      </Flex>
+    </Spin>
   );
 };

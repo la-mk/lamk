@@ -23,12 +23,13 @@ import {
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../../shared/utils/artifacts';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   addProduct,
   patchProduct,
 } from '../../../state/modules/products/products.module';
 import { getStore } from '../../../state/modules/store/store.selector';
+import { useCall } from '../../shared/hooks/useCall';
 
 interface ProductFormModalProps {
   product: Product;
@@ -41,37 +42,26 @@ export const ProductFormModal = ({
   onClose,
   visible,
 }: ProductFormModalProps) => {
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
-  const dispatch = useDispatch();
 
   const handlePatchProduct = (product: Product) => {
-    setShowSpinner(true);
-
-    sdk.product
-      .patch(product._id, product)
-      .then(product => {
-        dispatch(patchProduct(product));
-        message.success(`Successfully modified ${product.name}`);
-        onClose();
-      })
-      .catch(err => message.error(err.message))
-      .finally(() => setShowSpinner(false));
+    caller(sdk.product.patch(product._id, product), (product: Product) => {
+      message.success(`Successfully modified ${product.name}`);
+      return patchProduct(product);
+    });
   };
 
   const handleCreateProduct = (newProduct: Product) => {
     if (store) {
-      setShowSpinner(true);
-
-      sdk.product
-        .create({ ...newProduct, soldBy: store._id })
-        .then(product => {
-          dispatch(addProduct(product));
+      caller(
+        sdk.product.create({ ...newProduct, soldBy: store._id }),
+        (product: Product) => {
           message.success('Successfully added a new product');
           onClose();
-        })
-        .catch(err => message.error(err.message))
-        .finally(() => setShowSpinner(false));
+          return addProduct(product);
+        },
+      );
     }
   };
 

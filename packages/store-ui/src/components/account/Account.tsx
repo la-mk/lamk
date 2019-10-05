@@ -11,34 +11,27 @@ import {
   Tabs,
   TabPane,
 } from 'blocks-ui';
-import { useDispatch } from 'react-redux';
 import { sdk } from 'la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
 import { pickDiff } from '../../common/utils';
 import { Addresses } from './Addresses';
 import { Page } from '../shared/Page';
+import { useCall } from '../shared/hooks/useCall';
 
 interface AccountProps {
   user: User;
 }
 
 export const Account = ({ user }: AccountProps) => {
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [caller, showSpinner] = useCall();
   const [tab, setTab] = useState('addresses');
-  const dispatch = useDispatch();
 
   const handlePatchAccount = (updatedUser: User) => {
-    setShowSpinner(true);
     const updatedFields = pickDiff(user, updatedUser);
-
-    sdk.user
-      .patch(user._id, updatedFields)
-      .then(product => {
-        dispatch(patchUser(product));
-        message.success(`Account successfully updated`);
-      })
-      .catch(err => message.error(err.message))
-      .finally(() => setShowSpinner(false));
+    caller(sdk.user.patch(user._id, updatedFields), (user: User) => {
+      message.success(`Account successfully updated`);
+      return patchUser(user);
+    });
   };
 
   return (

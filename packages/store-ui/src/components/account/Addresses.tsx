@@ -8,46 +8,38 @@ import { pickDiff } from '../../common/utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAddresses } from '../../state/modules/user/user.selector';
 import { setAddresses } from '../../state/modules/user/user.module';
+import { useCall } from '../shared/hooks/useCall';
+import { FindResult } from 'la-sdk/dist/setup';
 
 interface AddressesProps {
   user: User;
 }
 
 export const Addresses = ({ user }: AddressesProps) => {
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [caller, showSpinner] = useCall();
   const addresses = useSelector(getAddresses);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
       return;
     }
-
-    setShowSpinner(true);
-    sdk.address
-      .findForUser(user._id)
-      .then(addresses => {
-        dispatch(setAddresses(addresses.data));
-      })
-      .catch(err => message.error(err))
-      .finally(() => setShowSpinner(false));
+    caller(
+      sdk.address.findForUser(user._id),
+      (addresses: FindResult<Address>) => setAddresses(addresses.data),
+    );
   }, [user]);
 
   const handleAddAddress = (address: Address) => {
-    setShowSpinner(true);
-
-    sdk.address
-      .create({ addressFor: user._id, ...address })
-      .then(address => {
+    caller(
+      sdk.address.create({ addressFor: user._id, ...address }),
+      (address: Address) => {
         setAddresses([...addresses, address]);
         message.success(`Address successfully created`);
-      })
-      .catch(err => message.error(err.message))
-      .finally(() => setShowSpinner(false));
+      },
+    );
   };
 
   const handlePatchAddress = (patchedAddress: Address) => {
-    setShowSpinner(true);
     const originalAddress = addresses.find(
       address => address._id === patchedAddress._id,
     );
@@ -58,29 +50,23 @@ export const Addresses = ({ user }: AddressesProps) => {
 
     const updatedFields = pickDiff(originalAddress, patchedAddress);
 
-    sdk.address
-      .patch(patchedAddress._id, updatedFields)
-      .then(address => {
+    caller(
+      sdk.address.patch(patchedAddress._id, updatedFields),
+      (address: Address) => {
         setAddresses([
           ...addresses.filter(address => address._id !== patchedAddress._id),
           address,
         ]);
         message.success(`Address successfully updated`);
-      })
-      .catch(err => message.error(err.message))
-      .finally(() => setShowSpinner(false));
+      },
+    );
   };
-  const handleRemoveAddress = (addressId: string) => {
-    setShowSpinner(true);
 
-    sdk.address
-      .remove(addressId)
-      .then(address => {
-        setAddresses(addresses.filter(address => address._id !== addressId));
-        message.success(`Address successfully removed`);
-      })
-      .catch(err => message.error(err.message))
-      .finally(() => setShowSpinner(false));
+  const handleRemoveAddress = (addressId: string) => {
+    caller(sdk.address.remove(addressId), () => {
+      setAddresses(addresses.filter(address => address._id !== addressId));
+      message.success(`Address successfully removed`);
+    });
   };
 
   return (
