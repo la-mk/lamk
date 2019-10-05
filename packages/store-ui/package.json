@@ -25,7 +25,7 @@
     ]
   },
   "dependencies": {
-    "@lamk/blocks-ui": "^1.0.2",
+    "@lamk/blocks-ui": "^1.0.5",
     "@lamk/la-sdk": "^1.0.1",
     "antd": "^3.21.2",
     "connected-next-router": "^1.0.2",

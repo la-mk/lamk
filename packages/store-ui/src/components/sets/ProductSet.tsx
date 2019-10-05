@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductCard, CARD_WIDTH } from '../ProductCard';
+import { ProductCard } from '../ProductCard';
 import { Product } from '@lamk/la-sdk/dist/models/product';
 import { Set } from '@lamk/blocks-ui';
 
@@ -16,7 +16,6 @@ export const ProductSet = ({
         title={title}
         itemKey={'_id'}
         items={products}
-        itemWidth={CARD_WIDTH}
         renderItem={(product: Product) => (
           <ProductCard key={product._id} product={product} />
         )}

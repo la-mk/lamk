@@ -40,7 +40,6 @@ storiesOf('Set', module).add('with text', () => (
     <Set
       items={items}
       itemKey={'id'}
-      itemWidth={300}
       renderItem={item => (
         <Card width={300} height={300}>
           {item.name}

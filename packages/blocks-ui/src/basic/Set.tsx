@@ -10,7 +10,6 @@ interface SetProps<T> {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   itemKey: string;
-  itemWidth: number;
   title?: string;
   gutter?: number | string | (number | string)[];
 }
@@ -41,6 +40,13 @@ const SetList = styled.ul`
   min-width: 100%;
   padding: 0;
   margin: 0;
+
+  /* Supported by Chrome */
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+  /* Only supported by Firefox */
+  scrollbar-width: none;
 `;
 
 const SetItem = styled.li`
@@ -54,15 +60,26 @@ function SetBase<T>({
   items,
   renderItem,
   itemKey,
-  itemWidth,
   title,
   gutter,
 }: SetProps<T>) {
   const setListRef = useRef<HTMLUListElement>(null);
   const handleArrowClick = (direction: ArrowDirection) => {
+    if (items.length <= 0) {
+      return;
+    }
+
     if (setListRef && setListRef.current) {
-      setListRef.current.scrollBy({
-        left: direction === 'left' ? itemWidth * -1 : itemWidth,
+      const scrollWidth = setListRef.current.scrollWidth;
+      const scrollLeft = setListRef.current.scrollLeft;
+      const itemWidth = scrollWidth / items.length;
+
+      setListRef.current.scrollTo({
+        left:
+          direction === 'left'
+            ? Math.max(scrollLeft - itemWidth, 0)
+            : Math.min(scrollLeft + itemWidth, scrollWidth),
+        behavior: 'smooth',
       });
     }
   };

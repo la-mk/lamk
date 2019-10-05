@@ -6,7 +6,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { Price } from './shared/Price';
 
-export const CARD_WIDTH = 320;
+const CARD_WIDTH = 320;
 
 const ProductImage = styled.img`
   max-width: calc(${CARD_WIDTH}px - 2px);
