@@ -46,7 +46,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
     if (orderId && user) {
       caller(sdk.order.get(orderId), setOrder);
     }
-  }, [user, orderId]);
+  }, [caller, user, orderId]);
 
   if (!order) {
     return <Empty mt={5} description='Order not found'></Empty>;

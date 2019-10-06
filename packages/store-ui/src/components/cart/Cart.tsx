@@ -43,7 +43,7 @@ export const Cart = () => {
         },
       );
     }
-  }, [user, cart]);
+  }, [caller, user, cart]);
 
   if (!cart || !cart.items || cart.items.length <= 0) {
     return <Empty mt={5} description='You have no items in the cart'></Empty>;

@@ -60,7 +60,7 @@ export const Products = () => {
         (products: FindResult<Product>) => setProducts(products.data),
       );
     }
-  }, [store]);
+  }, [caller, store]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>

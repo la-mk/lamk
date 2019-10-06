@@ -51,7 +51,7 @@ export const Product = ({ product }: ProductProps) => {
       sdk.product.findForStore(store._id),
       (products: FindResult<ProductType>) => setRelatedProducts(products.data),
     );
-  }, []);
+  }, [caller]);
 
   useEffect(() => {
     setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));

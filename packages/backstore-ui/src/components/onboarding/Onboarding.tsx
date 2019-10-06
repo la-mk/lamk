@@ -55,7 +55,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
         },
       );
     }
-  }, [store]);
+  }, [caller, store]);
 
   const handleSetupStoreDone = (newStore?: Store) => {
     if (!newStore || isEqual(store, newStore)) {

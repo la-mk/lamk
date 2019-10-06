@@ -34,7 +34,7 @@ export const Orders = () => {
     caller(sdk.order.findForUser(user._id), (orders: FindResult<Order>) =>
       setOrders(orders.data),
     );
-  }, [user]);
+  }, [caller, user]);
 
   if (!orders) {
     return <Empty mt={5} description='Orders not found'></Empty>;

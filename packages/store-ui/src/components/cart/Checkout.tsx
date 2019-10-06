@@ -57,7 +57,7 @@ export const Checkout = () => {
         }
       },
     );
-  }, [user, cart]);
+  }, [caller, user, cart]);
 
   useEffect(() => {
     if (!user || addresses) {
@@ -68,7 +68,7 @@ export const Checkout = () => {
       sdk.address.findForUser(user._id),
       (addresses: FindResult<Address>) => setAddresses(addresses.data),
     );
-  }, [user, addresses]);
+  }, [caller, user, addresses]);
 
   useEffect(() => {
     if (!deliverTo && addresses && addresses.length > 0) {

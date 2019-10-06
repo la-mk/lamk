@@ -27,7 +27,7 @@ export const Addresses = ({ user }: AddressesProps) => {
       sdk.address.findForUser(user._id),
       (addresses: FindResult<Address>) => setAddresses(addresses.data),
     );
-  }, [user]);
+  }, [caller, user]);
 
   const handleAddAddress = (address: Address) => {
     caller(
