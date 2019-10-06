@@ -52,7 +52,7 @@ export const Orders = () => {
         setOrders(res.data),
       );
     }
-  }, [store]);
+  }, [caller, store]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>

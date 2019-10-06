@@ -27,7 +27,7 @@ export const DeliveryPreferences = () => {
         },
       );
     }
-  }, [store]);
+  }, [caller, store]);
 
   const handleSetupDeliveryDone = (newDelivery?: Delivery) => {
     if (!newDelivery || isEqual(delivery, newDelivery)) {

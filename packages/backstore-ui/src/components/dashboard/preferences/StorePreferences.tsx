@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, message, Spin } from '@lamk/blocks-ui';
+import { Col, Spin } from '@lamk/blocks-ui';
 
 import { sdk } from '@lamk/la-sdk';
 import { Store } from '@lamk/la-sdk/dist/models/store';
