@@ -18,7 +18,8 @@ services:
     expose: 
       - 4873
     volumes:
-      - ./registry/storage:/verdaccio/storage
+      - ./storage:/verdaccio/storage
+      - ./conf:/verdaccio/conf
     environment:
       VIRTUAL_HOST: "registry.dev.sradevski.com"
       VIRTUAL_PORT: 4873
