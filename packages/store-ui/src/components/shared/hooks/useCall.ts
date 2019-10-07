@@ -27,7 +27,7 @@ export const useCall = () => {
         .catch((err: Error) => message.error(err.message))
         .finally(() => setIsProcessing(false));
     },
-    [],
+    [dispatch],
   );
 
   return [caller, isProcessing, res];

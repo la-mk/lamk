@@ -1,31 +1,34 @@
-import isEqual from 'lodash/isEqual';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { SetupStore } from './SetupStore';
-import { SetupProducts } from './SetupProducts';
-import { SetupDelivery } from './SetupDelivery';
+import isEqual from "lodash/isEqual";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { SetupStore } from "./SetupStore";
+import { SetupProducts } from "./SetupProducts";
+import { SetupDelivery } from "./SetupDelivery";
 
-import { Step, Flex, Spin } from '@lamk/blocks-ui';
-import { Publish } from './Publish';
-import { Product } from '@lamk/la-sdk/dist/models/product';
-import { Store } from '@lamk/la-sdk/dist/models/store';
-import { Delivery } from '@lamk/la-sdk/dist/models/delivery';
-import { sdk } from '@lamk/la-sdk';
-import { getStore } from '../../state/modules/store/store.selector';
-import { setStore } from '../../state/modules/store/store.module';
+import { Step, Flex, Spin } from "@lamk/blocks-ui";
+import { Publish } from "./Publish";
+import { Product } from "@lamk/la-sdk/dist/models/product";
+import { Store } from "@lamk/la-sdk/dist/models/store";
+import { Delivery } from "@lamk/la-sdk/dist/models/delivery";
+import { sdk } from "@lamk/la-sdk";
+import { getStore } from "../../state/modules/store/store.selector";
+import { setStore } from "../../state/modules/store/store.module";
 import {
   setProducts,
   addProduct,
   removeProduct,
-  patchProduct,
-} from '../../state/modules/products/products.module';
-import { getProducts } from '../../state/modules/products/products.selector';
-import { getDelivery } from '../../state/modules/delivery/delivery.selector';
-import { setDelivery } from '../../state/modules/delivery/delivery.module';
-import { Redirect } from 'react-router';
-import { StickySteps } from '../shared/components/StickySteps';
-import { useCall } from '../shared/hooks/useCall';
-import { FindResult } from '@lamk/la-sdk/dist/setup';
+  patchProduct
+} from "../../state/modules/products/products.module";
+import { getProducts } from "../../state/modules/products/products.selector";
+import { getDelivery } from "../../state/modules/delivery/delivery.selector";
+import { setDelivery } from "../../state/modules/delivery/delivery.module";
+import { Redirect } from "react-router";
+import { StickySteps } from "../shared/components/StickySteps";
+import { useCall } from "../shared/hooks/useCall";
+import { FindResult } from "@lamk/la-sdk/dist/setup";
+import { getGroupedCategories, getCategories } from "../../state/modules/categories/categories.selector";
+import { Category } from "@lamk/la-sdk/dist/models/category";
+import { setCategories } from "../../state/modules/categories/categories.module";
 
 interface OnboardingProps {
   step: number;
@@ -38,12 +41,14 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const store: Store = useSelector(getStore);
   const products: Product[] = useSelector(getProducts);
   const delivery: Delivery = useSelector(getDelivery);
+  const categories = useSelector(getCategories);
+  const groupedCategories = useSelector(getGroupedCategories);
 
   useEffect(() => {
     if (store) {
       caller(
         sdk.product.findForStore(store._id),
-        (products: FindResult<Product>) => setProducts(products.data),
+        (products: FindResult<Product>) => setProducts(products.data)
       );
 
       caller(
@@ -52,10 +57,20 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
           if (deliveries.total > 0) {
             return setDelivery(deliveries.data[0]);
           }
-        },
+        }
       );
     }
   }, [caller, store]);
+
+  useEffect(() => {
+    if (categories) {
+      return;
+    }
+
+    caller(sdk.category.find(), (categories: FindResult<Category>) =>
+      setCategories(categories.data)
+    );
+  }, [caller, categories]);
 
   const handleSetupStoreDone = (newStore?: Store) => {
     if (!newStore || isEqual(store, newStore)) {
@@ -74,13 +89,13 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const handleAddProduct = (newProduct: Product) => {
     caller(
       sdk.product.create({ ...newProduct, soldBy: store._id }),
-      addProduct,
+      addProduct
     );
   };
 
   const handlePatchProduct = (newProduct: Product) => {
     const storeProduct = products.find(
-      product => product._id === newProduct._id,
+      product => product._id === newProduct._id
     );
 
     if (!storeProduct || isEqual(storeProduct, newProduct)) {
@@ -126,18 +141,18 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
   return (
     <Spin spinning={showSpinner}>
-      <Flex flexDirection='column'>
+      <Flex flexDirection="column">
         {step !== 3 && (
-          <Flex px={[3, 3, 3, 4]} pb={4} flexDirection='column'>
+          <Flex px={[3, 3, 3, 4]} pb={4} flexDirection="column">
             <StickySteps
               py={[2, 2, 3]}
               mb={5}
               current={step}
               onChange={setStep}
             >
-              <Step title='Store' />
-              <Step title='Products' />
-              <Step title='Delivery' />
+              <Step title="Store" />
+              <Step title="Products" />
+              <Step title="Delivery" />
             </StickySteps>
 
             {step === 0 && (
@@ -146,6 +161,8 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             {step === 1 && (
               <SetupProducts
                 products={products}
+                categories={categories}
+                groupedCategories={groupedCategories}
                 onAddProduct={handleAddProduct}
                 onPatchProduct={handlePatchProduct}
                 onRemoveProduct={handleRemoveProduct}
@@ -163,7 +180,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
         {step === 3 && (
           <Publish storeSlug={store.slug} onDone={handlePublishDone} />
         )}
-        {isFinished && <Redirect push to='/dashboard' />}
+        {isFinished && <Redirect push to="/dashboard" />}
       </Flex>
     </Spin>
   );

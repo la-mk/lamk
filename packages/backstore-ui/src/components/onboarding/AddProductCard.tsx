@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   UploadDragger,
-  Select,
-  Option,
+  Cascader,
   UploadContent,
   Form,
   FormItem,
@@ -20,20 +19,44 @@ import {
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../shared/utils/artifacts';
+import { Category } from '@lamk/la-sdk/dist/models/category';
+import { GroupedCategories } from '../../state/modules/categories/categories.selector';
 
 interface AddProductCardProps {
   product?: Product;
+  categories: Category[] | null;
+  groupedCategories: GroupedCategories | null;
   onAddProduct: (product: Product) => void;
   onPatchProduct: (product: Product) => void;
   onRemoveProduct: (id: string) => void;
 }
 
+function filter(inputValue: string, path: any[]) {
+  return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+}
+
 export const AddProductCard = ({
   product,
+  categories,
+  groupedCategories,
   onAddProduct,
   onPatchProduct,
   onRemoveProduct,
 }: AddProductCardProps) => {
+  const [fullCategoryValue, setFullCategoryValue] = useState<string[]>([]);
+
+  useEffect(() => {
+    if(!categories || !product){
+      return;
+    }
+    const categorySet = categories.find(category => category.level3 === product.category);
+    if(!categorySet){
+      return;
+    }
+
+    setFullCategoryValue([categorySet.level1, categorySet.level2, categorySet.level3]);
+  }, [product, categories])
+
   return (
     <Form
       colon={false}
@@ -76,18 +99,18 @@ export const AddProductCard = ({
         ]}
       >
         <FormItem selector='category'>
-          {(val, _onChange, onComplete) => (
-            <Select
-              width='100%'
-              placeholder='Categories'
-              showSearch
-              showArrow
-              onChange={onComplete}
-              value={val}
-            >
-              <Option value='Home items'>Home items</Option>
-              <Option value='Sports'>Sports</Option>
-            </Select>
+          {(_val, _onChange, onComplete) => (
+            <Cascader
+             options={groupedCategories!}
+             onChange={(value) => {
+               // The cascader expects a full array of all categories, but we want to store only the last value (as the slugs should all be unique.)
+               setFullCategoryValue(value);
+               onComplete(value[value.length - 1])}
+              }
+             placeholder="Please select"
+             showSearch={{ filter }}
+             value={fullCategoryValue}
+           />
           )}
         </FormItem>
 

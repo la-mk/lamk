@@ -2,9 +2,13 @@ import * as React from 'react';
 import { Col, Row, Button, Flex, Title, Text } from '@lamk/blocks-ui';
 import { AddProductCard } from './AddProductCard';
 import { Product } from '@lamk/la-sdk/dist/models/product';
+import { Category } from '@lamk/la-sdk/dist/models/category';
+import { GroupedCategories } from '../../state/modules/categories/categories.selector';
 
 interface SetupProductsProps {
   products: Product[];
+  categories: Category[] | null;
+  groupedCategories: GroupedCategories | null;
   onDone: () => void;
   onAddProduct: (product: Product) => void;
   onPatchProduct: (product: Product) => void;
@@ -13,6 +17,8 @@ interface SetupProductsProps {
 
 export const SetupProducts = ({
   products,
+  categories,
+  groupedCategories,
   onDone,
   onAddProduct,
   onPatchProduct,
@@ -42,6 +48,8 @@ export const SetupProducts = ({
             <Col key={product._id} mb={4}>
               <AddProductCard
                 product={product}
+                categories={categories}
+                groupedCategories={groupedCategories}
                 onAddProduct={onAddProduct}
                 onPatchProduct={onPatchProduct}
                 onRemoveProduct={onRemoveProduct}
@@ -53,6 +61,8 @@ export const SetupProducts = ({
         <Col mb={4}>
           <AddProductCard
             product={undefined}
+            categories={categories}
+            groupedCategories={groupedCategories}
             onAddProduct={onAddProduct}
             onPatchProduct={onPatchProduct}
             onRemoveProduct={onRemoveProduct}

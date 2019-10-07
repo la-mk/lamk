@@ -8,6 +8,8 @@ import { deliveries } from '../../services/deliveries/deliveries';
 import { users } from '../../services/users/users';
 import { carts } from '../../services/carts/carts';
 import { addresses } from '../../services/addresses/addresses';
+import { categories } from '../../services/categories/categories';
+import { categoriesPerStore } from '../../services/categoriesPerStore/categoriesPerStore';
 
 export const registerServices = (app: Application) => {
   authentication(app);
@@ -19,4 +21,6 @@ export const registerServices = (app: Application) => {
   users(app);
   carts(app);
   addresses(app);
+  categories(app);
+  categoriesPerStore(app);
 };

@@ -4,6 +4,7 @@ export { Badge } from './basic/Badge';
 export { Box } from './basic/Box';
 export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
+export { Cascader } from './basic/Cascader';
 export { Collapse, CollapsePanel } from './basic/Collapse';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider } from './basic/Divider';

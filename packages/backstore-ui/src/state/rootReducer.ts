@@ -9,6 +9,7 @@ import store from './modules/store/store.persist';
 import products from './modules/products/products.persist';
 import orders from './modules/orders/orders.persist';
 import delivery from './modules/delivery/delivery.persist';
+import categories from './modules/categories/categories.persist';
 import user from './modules/user/user.module';
 
 const storageConfig = {
@@ -22,6 +23,7 @@ const getReducersSet = (history: History) => ({
   products,
   orders,
   delivery,
+  categories,
   user,
   router: connectRouter(history),
 });

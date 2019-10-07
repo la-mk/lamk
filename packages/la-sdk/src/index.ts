@@ -5,6 +5,7 @@ import { getProductSdk } from './models/product';
 import { getOrderSdk } from './models/order';
 import { getArtifactSdk } from './models/artifact';
 import { getDeliverySdk } from './models/delivery';
+import { getCategorySdk } from './models/category';
 import { getUserSdk } from './models/user';
 import { getAuthenticationSdk } from './models/authentication';
 import { getCartSdk } from './models/cart';
@@ -20,6 +21,7 @@ export const setupSdk = (options: SetupSdkOptions = {}) => {
     store: getStoreSdk(client),
     product: getProductSdk(client),
     delivery: getDeliverySdk(client),
+    category: getCategorySdk(client),
     artifact: getArtifactSdk(client, options),
     order: getOrderSdk(client),
     user: getUserSdk(client),
