@@ -12,7 +12,8 @@ export const categoriesPerStore = (app: Application) => {
   const options = {
     paginate,
     Model: mongoDb.collection('categoriesPerStore'),
-    multi: false,
+    // This can only be called internally, so allow multi edits.
+    multi: true,
   };
 
   app.use('/categoriesPerStore', new Service(options));

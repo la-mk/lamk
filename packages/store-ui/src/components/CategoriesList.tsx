@@ -1,43 +1,82 @@
 import React from 'react';
-import { Flex, Dropdown, Menu, MenuItem, Icon, Text } from '@lamk/blocks-ui';
-
-const categories = [
-  { level1: 'Men fashion', level2: 'Accessories', level3: 'Watches' },
-  { level1: 'Men fashion', level2: 'T-shirts', level3: 'Plain' },
-  { level1: 'Men fashion', level2: 'Pants', level3: 'Long' },
-  { level1: 'Women fashion', level2: 'Accessories', level3: 'Necklases' },
-  { level1: 'Women fashion', level2: 'Dresses', level3: 'Short' },
-  { level1: 'Kids fashion', level2: 'Accessories', level3: 'Hats' },
-];
+import flatMap from 'lodash/flatMap';
+import {
+  Flex,
+  Dropdown,
+  Menu,
+  MenuItem,
+  Icon,
+  Text,
+  Button,
+} from '@lamk/blocks-ui';
+import {
+  getGroupedCategories,
+  getCategories,
+  GroupedCategories,
+} from '../state/modules/categories/categories.selector';
+import { useSelector } from 'react-redux';
 
 export const CategoriesList = () => {
-  const topLevelItems = Array.from(
-    new Set(categories.map(category => category.level1)),
+  const categories = useSelector(getCategories);
+  const groupedCategories: GroupedCategories = useSelector(
+    getGroupedCategories,
   );
-  const menuItems = categories.reduce((groupedByLevel1: any, category) => {
-    if (!groupedByLevel1[category.level1]) {
-      groupedByLevel1[category.level1] = [];
-    }
 
-    groupedByLevel1[category.level1].push(category.level2);
-    return groupedByLevel1;
-  }, {});
+  if (!categories) {
+    return null;
+  }
+
+  if (categories.length < 3) {
+    return (
+      <Flex flexDirection='row' justifyContent='center' mb={4}>
+        {categories.map(category => {
+          return (
+            <Button type='link' mt={3} mx={3} key={category.level3}>
+              <Text strong>{category.level3}</Text>
+            </Button>
+          );
+        })}
+      </Flex>
+    );
+  }
+
+  const level2Categories = flatMap(groupedCategories, level1Category => {
+    return level1Category.children;
+  });
+
+  if (level2Categories.length < 3) {
+    return (
+      <Flex flexDirection='row' justifyContent='center' mb={4}>
+        {level2Categories.map(level2Category => {
+          return (
+            <Button type='link' mt={3} mx={3} key={level2Category.value}>
+              <Text strong>{level2Category.label}</Text>
+            </Button>
+          );
+        })}
+      </Flex>
+    );
+  }
 
   return (
     <Flex flexDirection='row' justifyContent='center' mb={4}>
-      {topLevelItems.map(level1Item => {
+      {groupedCategories.map(level1Category => {
         const menu = (
           <Menu>
-            {menuItems[level1Item].map(menuItem => {
-              return <MenuItem key={menuItem}>{menuItem}</MenuItem>;
+            {level1Category.children.map(level2Category => {
+              return (
+                <MenuItem key={level2Category.value}>
+                  {level2Category.label}
+                </MenuItem>
+              );
             })}
           </Menu>
         );
 
         return (
-          <Dropdown mt={3} mx={3} key={level1Item} overlay={menu}>
+          <Dropdown mt={3} mx={3} key={level1Category.value} overlay={menu}>
             <div>
-              <Text strong>{level1Item}</Text>
+              <Text strong>{level1Category.label}</Text>
               <Icon ml={2} type='down' />
             </div>
           </Dropdown>

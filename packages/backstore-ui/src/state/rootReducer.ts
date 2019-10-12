@@ -15,7 +15,7 @@ import user from './modules/user/user.module';
 const storageConfig = {
   key: 'rootStorage',
   storage,
-  blacklist: ['store', 'products', 'orders', 'delivery', 'user', 'router'],
+  blacklist: ['store', 'products', 'orders', 'delivery', 'categories', 'user', 'router'],
 };
 
 const getReducersSet = (history: History) => ({

@@ -1,6 +1,6 @@
-import groupBy from "lodash/groupBy";
-import { createSelector } from "reselect";
-import { CascaderOptionType } from "antd/es/cascader";
+import groupBy from 'lodash/groupBy';
+import { createSelector } from 'reselect';
+import { CascaderOptionType } from 'antd/es/cascader';
 
 const NUM_LEVELS = 3;
 
@@ -8,7 +8,7 @@ export type GroupedCategories = CascaderOptionType[];
 
 export const getCategories = createSelector<any, any, any>(
   state => state.categories,
-  categories => categories.categories
+  categories => categories.categories,
 );
 
 const getFormattedLevel = (group: any, level: number) => {
@@ -38,7 +38,7 @@ export const getGroupedCategories = createSelector<any, any, any>(
       return null;
     }
 
-    const level1Grouped = groupBy(categories.categories, "level1");
+    const level1Grouped = groupBy(categories.categories, 'level1');
     return getFormattedLevel(level1Grouped, 1) as GroupedCategories;
-  }
+  },
 );
