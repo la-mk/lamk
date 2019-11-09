@@ -95,7 +95,6 @@ const patchCategoriesPerStore = async (ctx: HookContextWithCategory) => {
   const product = ctx.result;
   const previousCategory = ctx.previousCategory;
 
-  console.log('CATEGORY', previousCategory);
   if (!previousCategory) {
     return;
   }
