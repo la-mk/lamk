@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
 import { Account } from './Account';
+import { useTranslation } from 'react-i18next';
 
 interface DashboardLayoutProps {
   children?: React.ReactNode;
@@ -26,6 +27,7 @@ const TopMenuContainer = styled(Flex)`
 
 const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+  const {t} = useTranslation();
 
   // Not a very clean solution, but it will do for now
   const matches = location.pathname.match(/\/dashboard\/(\w*)(\/?)/);
@@ -46,22 +48,22 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
           <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
             <MenuItem key='summary'>
               <Icon type='dashboard' />
-              <span>Summary</span>
+    <span>{t('common.summary')}</span>
               <Link to='/dashboard/summary' />
             </MenuItem>
             <MenuItem key='orders'>
               <Icon type='shopping-cart' />
-              <span>Orders</span>
+              <span>{t('commerce.order_plural')}</span>
               <Link to='/dashboard/orders' />
             </MenuItem>
             <MenuItem key='products'>
               <Icon type='appstore' />
-              <span>Products</span>
+              <span>{t('commerce.product_plural')}</span>
               <Link to='/dashboard/products' />
             </MenuItem>
             <MenuItem key='preferences'>
               <Icon type='setting' />
-              <span>Preferences</span>
+              <span>{t('common.preferences')}</span>
               <Link to='/dashboard/preferences' />
             </MenuItem>
           </Menu>

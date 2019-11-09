@@ -24,6 +24,7 @@ export const useCall = () => {
             }
           }
         })
+        // TODO: Localize error based on code.
         .catch((err: Error) => message.error(err.message))
         .finally(() => setIsProcessing(false));
     },

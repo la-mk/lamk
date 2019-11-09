@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   Spin,
@@ -13,22 +13,23 @@ import {
   Card,
   List,
   SizedImage,
-  Text,
-} from '@lamk/blocks-ui';
-import { sdk } from '@lamk/la-sdk';
-import { Product } from '@lamk/la-sdk/dist/models/product';
-import { Order } from '@lamk/la-sdk/dist/models/order';
+  Text
+} from "@lamk/blocks-ui";
+import { sdk } from "@lamk/la-sdk";
+import { Product } from "@lamk/la-sdk/dist/models/product";
+import { Order } from "@lamk/la-sdk/dist/models/order";
 import {
   getOrderStatusColor,
-  possibleOrderStatuses,
-} from '../../shared/utils/statuses';
+  possibleOrderStatuses
+} from "../../shared/utils/statuses";
 import {
   setOrder,
-  removeOrder,
-} from '../../../state/modules/orders/orders.module';
-import { useSelector } from 'react-redux';
-import { getOrder } from '../../../state/modules/orders/orders.selector';
-import { useCall } from '../../shared/hooks/useCall';
+  removeOrder
+} from "../../../state/modules/orders/orders.module";
+import { useSelector } from "react-redux";
+import { getOrder } from "../../../state/modules/orders/orders.selector";
+import { useCall } from "../../shared/hooks/useCall";
+import { useTranslation } from "react-i18next";
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -37,19 +38,20 @@ interface OrderDetailsModalProps {
 
 const getQuantityForProduct = (order: Order, product: Product) => {
   const orderItem = order.ordered.find(
-    item => item.product._id === product._id,
+    item => item.product._id === product._id
   );
 
-  return orderItem ? orderItem.quantity : 'Unknown';
+  return orderItem ? orderItem.quantity : null;
 };
 
 export const OrderDetailsModal = ({
   orderId,
-  onClose,
+  onClose
 }: OrderDetailsModalProps) => {
   const [caller, showSpinner] = useCall();
   const order = useSelector<any, Order>(getOrder(orderId));
   const [products, setProducts] = useState<Product[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (order) {
@@ -57,7 +59,7 @@ export const OrderDetailsModal = ({
     }
   }, [order]);
 
-  const handleStatusChanged = (status: Order['status']) => {
+  const handleStatusChanged = (status: Order["status"]) => {
     if (order) {
       caller(sdk.order.setStatus(order._id, status), setOrder);
     }
@@ -68,7 +70,7 @@ export const OrderDetailsModal = ({
       caller(sdk.order.remove(orderId), () => {
         onClose();
         message.success(
-          `Order ${sdk.utils.getShortId(orderId)} successfully deleted`,
+          t("order.orderDeleted", { id: sdk.utils.getShortId(orderId) })
         );
         return removeOrder(orderId);
       });
@@ -77,28 +79,28 @@ export const OrderDetailsModal = ({
 
   return (
     <Modal
-      width={'80%'}
+      width={"80%"}
       centered
       destroyOnClose
       visible={Boolean(order)}
       footer={null}
       onCancel={onClose}
-      title={'Order details'}
+      title={t('order.orderDetails')}
     >
       {order && (
         <Spin spinning={showSpinner}>
-          <Flex mb={3} justifyContent='flex-end'>
-            <Button onClick={handleDeleteOrder} type='danger'>
-              Delete order
+          <Flex mb={3} justifyContent="flex-end">
+            <Button onClick={handleDeleteOrder} type="danger">
+              {t("actions.delete")}
             </Button>
           </Flex>
 
           <Flex mb={3}>
-            <Descriptions size='middle' width={1} bordered>
-              <DescriptionItem label='Order ID'>
+            <Descriptions size="middle" width={1} bordered>
+              <DescriptionItem label={t("order.orderId")}>
                 {sdk.utils.getShortId(order)}
               </DescriptionItem>
-              <DescriptionItem label='Status'>
+              <DescriptionItem label={t("common.status")}>
                 <Select
                   showArrow
                   onChange={handleStatusChanged as any}
@@ -107,44 +109,51 @@ export const OrderDetailsModal = ({
                   {possibleOrderStatuses.map(status => {
                     return (
                       <Option key={status} value={status}>
-                        <Tag color={getOrderStatusColor(status)}>{status}</Tag>
+                        <Tag color={getOrderStatusColor(status)}>
+                          {t(`order.${status}`)}
+                        </Tag>
                       </Option>
                     );
                   })}
                 </Select>
               </DescriptionItem>
-              <DescriptionItem label='Order date'>
+              <DescriptionItem label={t("order.orderDate")}>
                 {order.createdAt}
               </DescriptionItem>
             </Descriptions>
           </Flex>
 
-          <Flex flexDirection={['column', 'column', 'row']}>
-            <Card title={'Products'} width={[1, 1, 2 / 3]} mr={[0, 0, 2]}>
+          <Flex flexDirection={["column", "column", "row"]}>
+            <Card
+              title={t("commerce.product_plural")}
+              width={[1, 1, 2 / 3]}
+              mr={[0, 0, 2]}
+            >
               {Boolean(products) && (
                 <List>
                   {products!.map(product => (
                     <List.Item key={product._id}>
                       <Flex
                         width={1}
-                        justifyContent='space-between'
-                        alignItems='center'
+                        justifyContent="space-between"
+                        alignItems="center"
                       >
-                        <Flex alignItems='center'>
-                          <Flex width={'120px'} alignItems='center'>
+                        <Flex alignItems="center">
+                          <Flex width={"120px"} alignItems="center">
                             <SizedImage
-                              height='60px'
-                              width='120px'
+                              height="60px"
+                              width="120px"
                               alt={product.name}
                               src={sdk.artifact.getUrlForArtifact(
-                                product.images[0],
+                                product.images[0]
                               )}
                             />
                           </Flex>
                           <Text mx={2}>{product.name}</Text>
                         </Flex>
                         <Text mx={2}>
-                          Quantity: {getQuantityForProduct(order, product)}
+                          {t("commerce.quantity")}:{" "}
+                          {getQuantityForProduct(order, product) || t('common.unknown')}
                         </Text>
                       </Flex>
                     </List.Item>
@@ -153,26 +162,26 @@ export const OrderDetailsModal = ({
               )}
             </Card>
             <Card
-              title={'Buyer'}
+              title={t("commerce.buyer")}
               ml={[0, 0, 2]}
               mt={[2, 2, 0]}
               width={[1, 1, 1 / 3]}
             >
               {order.deliverTo && (
-                <Descriptions size='small' column={1}>
-                  <DescriptionItem label='Name'>
+                <Descriptions size="small" column={1}>
+                  <DescriptionItem label={t("common.name")}>
                     {order.deliverTo.person}
                   </DescriptionItem>
-                  <DescriptionItem label='Address'>
+                  <DescriptionItem label={t("common.address")}>
                     {order.deliverTo.street}
                   </DescriptionItem>
-                  <DescriptionItem label='City'>
+                  <DescriptionItem label={t("common.city")}>
                     {order.deliverTo.city} {order.deliverTo.zip}
                   </DescriptionItem>
-                  <DescriptionItem label='Country'>
+                  <DescriptionItem label={t("common.country")}>
                     {order.deliverTo.country}
                   </DescriptionItem>
-                  <DescriptionItem label='Phone Number'>
+                  <DescriptionItem label={t("common.phoneNumber")}>
                     {order.deliverTo.phoneNumber}
                   </DescriptionItem>
                 </Descriptions>

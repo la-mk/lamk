@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Flex, Button } from '@lamk/blocks-ui';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 // import env from '../../common/env';
 
 // const ShopIframe = styled.iframe`
@@ -25,6 +26,8 @@ interface PublishProps {
 }
 
 export const Publish = ({ storeSlug, onDone }: PublishProps) => {
+  const {t} = useTranslation();
+  
   return (
     <Flex flexDirection='column' alignItems='center'>
       <PublishSection
@@ -35,10 +38,10 @@ export const Publish = ({ storeSlug, onDone }: PublishProps) => {
         alignItems='center'
       >
         <Button onClick={() => onDone(true)} size='large' type='primary' m={3}>
-          Publish now
+          {t('actions.publish')}
         </Button>
         <Button onClick={() => onDone(false)} size='large' m={3}>
-          Go to Dashboard
+        {t('actions.goToDashboard')}
         </Button>
       </PublishSection>
       {/* For this to work, we need to authenticate with the backstore token in the store and not server-render it, but we can leave it for later on.

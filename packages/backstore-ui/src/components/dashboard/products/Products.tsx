@@ -10,10 +10,11 @@ import { sdk } from '@lamk/la-sdk';
 import { setProducts } from '../../../state/modules/products/products.module';
 import { useCall } from '../../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { useTranslation } from 'react-i18next';
 
-const columns: ColumnProps<Product>[] = [
+const getColumns = (t: (tId: string) => string) => ([
   {
-    title: 'Images',
+    title: t('common.image_plural'),
     dataIndex: 'images',
     width: '180px',
     render: (_text, product) => {
@@ -28,30 +29,32 @@ const columns: ColumnProps<Product>[] = [
     },
   },
   {
-    title: 'Name',
+    title: t('common.name'),
     dataIndex: 'name',
   },
   {
-    title: 'Category',
+    title: t('commerce.category'),
     dataIndex: 'category',
   },
   {
-    title: 'Price',
+    title: t('common.price'),
     dataIndex: 'price',
   },
   {
-    title: 'Description',
+    title: t('common.description'),
     dataIndex: 'description',
   },
-];
+] as ColumnProps<Product>[]);
 
 export const Products = () => {
   const [showModal, setShowModal] = useState(false);
   const [caller, showSpinner] = useCall();
   const [editingProduct, setEditingProduct] = useState();
+  const {t} = useTranslation();
 
   const products: Product[] = useSelector(getProducts);
   const store = useSelector(getStore);
+  const columns = getColumns(t)
 
   useEffect(() => {
     if (store) {
@@ -65,16 +68,16 @@ export const Products = () => {
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
-        Products
+        {t('commerce.product_plural')}
       </Title>
 
       <Flex my={3} justifyContent='space-between'>
         <Button type='primary' onClick={() => setShowModal(true)}>
-          Add Product
+          {t('actions.add')}
         </Button>
-        <Tooltip title='You can do bulk actions using this button.'>
+        <Tooltip title={t('common.actionsTip')}>
           <Button mx={3} type='ghost'>
-            Actions
+            {t('common.action_plural')}
           </Button>
         </Tooltip>
       </Flex>

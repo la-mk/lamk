@@ -94,6 +94,7 @@ export const handleArtifactUploadStatus = (
       break;
     }
 
+    // TODO: Localize error
     case 'error': {
       onError(`${info.file.name} file upload failed.`);
       break;

@@ -4,6 +4,7 @@ import { AddProductCard } from './AddProductCard';
 import { Product } from '@lamk/la-sdk/dist/models/product';
 import { Category } from '@lamk/la-sdk/dist/models/category';
 import { GroupedCategories } from '../../state/modules/categories/categories.selector';
+import { useTranslation } from 'react-i18next';
 
 interface SetupProductsProps {
   products: Product[];
@@ -24,17 +25,18 @@ export const SetupProducts = ({
   onPatchProduct,
   onRemoveProduct,
 }: SetupProductsProps) => {
+  const {t} = useTranslation();
   return (
     <>
       <Flex mb={5} alignItems='center' flexDirection='column'>
         <Title level={3}>
-          Let's add some products
+          {t('onboarding.setupProductTitle')}
           <Button mx={3} size='large' onClick={onDone} type='primary'>
-            Continue
+            {t('actions.continue')}
           </Button>
         </Title>
         <Text type='secondary'>
-          Don't worry, you can modify things later as well.
+          {t('onboarding.setupProductSubtitle')}
         </Text>
       </Flex>
       <Row

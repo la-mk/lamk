@@ -17,6 +17,7 @@ import {
 } from '../utils/artifacts';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { Store } from '@lamk/la-sdk/dist/models/store';
+import { useTranslation } from 'react-i18next';
 
 interface StoreFormProps {
   store: Store | null;
@@ -24,6 +25,8 @@ interface StoreFormProps {
 }
 
 export const StoreForm = ({ store, onDone }: StoreFormProps) => {
+  const {t} = useTranslation();
+
   return (
     <Form
       labelCol={{ span: 6 }}
@@ -35,15 +38,15 @@ export const StoreForm = ({ store, onDone }: StoreFormProps) => {
       externalState={store || {}}
       onFormCompleted={onDone}
     >
-      <FormItem selector='name' label='Shop Name'>
+      <FormItem selector='name' label={t('store.storeName')}>
         {formInput()}
       </FormItem>
 
-      <FormItem selector='slug' label='Shop Link'>
+      <FormItem selector='slug' label={t('store.storeUrl')}>
         {formInput({ addonAfter: '.la.mk' })}
       </FormItem>
 
-      <FormItem selector='logo' label='Shop Logo'>
+      <FormItem selector='logo' label={t('store.storeLogo')}>
         {(val, _onChange, onComplete) => (
           <UploadDragger
             customRequest={uploadImage}
@@ -62,8 +65,8 @@ export const StoreForm = ({ store, onDone }: StoreFormProps) => {
             name='company-logo'
           >
             <UploadContent
-              text='Add your logo'
-              hint='Support for a single or bulk upload.'
+              text={t('actions.addLogo')}
+              hint={t('uploads.hint')}
             />
           </UploadDragger>
         )}
@@ -71,7 +74,7 @@ export const StoreForm = ({ store, onDone }: StoreFormProps) => {
 
       <Flex justifyContent='center' alignItems='center'>
         <Button mr={2} type='primary' htmlType='submit' size='large'>
-          {store ? 'Update store' : 'Create store'}
+          {store ? t('actions.update') : t('actions.create')}
         </Button>
       </Flex>
     </Form>

@@ -10,11 +10,13 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import { DeliveryForm } from '../../shared/forms/DeliveryForm';
 import { useCall } from '../../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { useTranslation } from 'react-i18next';
 
 export const DeliveryPreferences = () => {
   const [caller, showSpinner] = useCall();
   const delivery = useSelector(getDelivery);
   const store = useSelector(getStore);
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (store) {
@@ -39,7 +41,7 @@ export const DeliveryPreferences = () => {
 
   return (
     <Col>
-      <Spin spinning={showSpinner} tip='Updating delivery...'>
+      <Spin spinning={showSpinner} tip={t('delivery.updatingDeliveryTip')}>
         <DeliveryForm delivery={delivery} onDone={handleSetupDeliveryDone} />
       </Spin>
     </Col>

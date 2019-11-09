@@ -9,10 +9,12 @@ import isEqual from 'lodash/isEqual';
 import { setStore } from '../../../state/modules/store/store.module';
 import { StoreForm } from '../../shared/forms/StoreForm';
 import { useCall } from '../../shared/hooks/useCall';
+import { useTranslation } from 'react-i18next';
 
 export const StorePreferences = () => {
   const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
+  const {t} = useTranslation();
 
   const handleSetupStoreDone = (newStore?: Store) => {
     if (!newStore || isEqual(store, newStore)) {
@@ -24,7 +26,7 @@ export const StorePreferences = () => {
 
   return (
     <Col>
-      <Spin spinning={showSpinner} tip='Updating store...'>
+      <Spin spinning={showSpinner} tip={t('store.updatingStoreTip')}>
         <StoreForm store={store} onDone={handleSetupStoreDone} />
       </Spin>
     </Col>

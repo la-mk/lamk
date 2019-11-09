@@ -1,0 +1,120 @@
+{
+  "actions": {
+    "add": "Add",
+    "save": "Save",
+    "delete": "Delete",
+    "update": "Update",
+    "create": "Create",
+    "cancel": "Cancel",
+    "select": "Select",
+    "continue": "Continue",
+    "addProductImages": "Add product images",
+    "publish": "Publish",
+    "goToDashboard": "Go to dashboard",
+    "addLogo": "Add logo"
+  },
+
+  "uploads": {
+    "hint": "Support for single or bulk upload"
+  },
+
+  "auth": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "account": "Account",
+    "accountSettings": "Account settings",
+    "signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
+  },
+
+  "common": {
+    "name": "Name",
+    "price": "Price",
+    "more": "More",
+    "polite": "Please",
+    "description": "Description",
+    "optional": "Optional",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "phoneNumber": "Phone Number",
+    "status": "Status",
+    "unknown": "Unknown",
+    "action": "Action",
+    "action_plural": "Actions",
+    "id": "ID",
+    "preferences": "Preferences",
+    "interface": "Interface",
+    "image": "Image",
+    "image_plural": "Images",
+    "category": "Category",
+    "summary": "Summary",
+    "actionsTip": "You can do bulk actions on multiple items"
+  },
+
+  "commerce": {
+    "store": "Store",
+    "product": "Product",
+    "product_plural": "Products",
+    "order": "Order",
+    "order_plural": "Orders",
+    "delivery": "Delivery",
+    "buyer": "Buyer",
+    "quantity": "Quantity",
+    "revenue": "Revenue"
+  },
+
+  "onboarding": {
+    "setupStoreTitle": "Let's kick things off by creating our store",
+    "setupStoreSubtitle": "Don't worry, you can modify things later as well.",
+    "setupProductTitle": "Let's add some products",
+    "setupProductSubtitle": "Don't worry, you can modify things later as well.",
+    "setupDeliveryTitle": "Finally, let's tell users about our delivery",
+    "setupDeliverySubtitle": "Don't worry, you can modify things later as well."
+  },
+
+  "product": {
+    "addProductSuccess": "Successfully added a new product",
+    "updateProductSuccess": "Successfully updated {{productName}}",
+    "addingProductTip": "Adding product...",
+    "updatingProductTip": "Updating product...",
+    "productCount": "Product count",
+    "descriptionExample": "eg. High quality sneakers",
+    "priceExample": "eg. 500",
+    "nameExample": "eg. Nike Air Max"
+  },
+
+  "delivery": {
+    "updatingDeliveryTip": "Updating delivery...",
+    "deliveryMethod": "Delivery method",
+    "priceExplanation": "This can be the average delivery cost.",
+    "freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
+    "overPrice": "Over price",
+    "freeDelivery": "Free delivery",
+    "pickup": "Pickup",
+    "cargo-pickup": "Pickup from Cargo",
+    "door-to-door": "Door to Door"
+  },
+
+  "store": {
+    "updatingStoreTip": "Updating store...",
+    "storeName": "Store name",
+    "storeUrl": "Store URL",
+    "storeLogo": "Store Logo"
+  },
+
+  "order": {
+    "cancelled": "Cancelled",
+    "pending": "Pending",
+    "shipped": "Shipped",
+    "completed": "Completed",
+    "orderDate": "Order date",
+    "orderId": "Order ID",
+    "orderDetails": "Order details",
+    "orderDeleted": "Order {{id}} successfully deleted"
+  },
+
+  "categories": {
+
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "actions": {
+    "add": "Додадете",
+    "save": "Зачувајте",
+    "delete": "Избришете",
+    "update": "Обновете",
+    "create": "Креирајте",
+    "cancel": "Откажете",
+    "select": "Одберете",
+    "continue": "Продолжи",
+    "addProductImages": "Додадете слики од продуктот",
+    "publish": "Објавете",
+    "goToDashboard": "Одете на главен панел",
+    "addLogo": "Додадете лого"
+  },
+
+  "uploads": {
+    "hint": "Поддршка за еден или повеќе фајлови"
+  },
+
+  "auth": {
+    "login": "Логирајте се",
+    "signup": "Регистрирајте се",
+    "logout": "Одјавете се",
+    "account": "Сметка",
+    "accountSettings": "Поставки за сметка",
+    "signupClosedBeta": "Моментално сме во бета и регистрирањето е забрането. Доколку сакате пристап во бета, контактирајте не"
+  },
+
+  "common": {
+    "name": "Име",
+    "price": "Цена",
+    "more": "Повеќе",
+    "polite": "Ве молиме",
+    "description": "Опис",
+    "optional": "Опционално",
+    "address": "Адреса",
+    "city": "Град",
+    "country": "Држава",
+    "phoneNumber": "Телефонски број",
+    "status": "Статус",
+    "unknown": "Непознато",
+    "action": "Операција",
+    "action_plural": "Операции",
+    "id": "Шифра",
+    "preferences": "Поставки",
+    "interface": "Интерфејс",
+    "image": "Слика",
+    "image_plural": "Слики",
+    "category": "Категорија",
+    "summary": "Преглед",
+    "actionsTip": "Можете да извршите акции на повеќе предмети истовремено"
+  },
+
+  "commerce": {
+    "store": "Продавница",
+    "product": "Продукт",
+    "product_plural": "Продукти",
+    "order": "Порачка",
+    "order_plural": "Порачки",
+    "delivery": "Достава",
+    "buyer": "Купувач",
+    "quantity": "Количина",
+    "revenue": "Приход"
+  },
+
+  "onboarding": {
+    "setupStoreTitle": "Да започнеме со подесување на продавницата",
+    "setupStoreSubtitle": "Истите подесувања можат да се направат и подоцна",
+    "setupProductTitle": "Ајде да додадеме и неколку продукти",
+    "setupProductSubtitle": "Истите подесувања можат да се направат и подоцна",
+    "setupDeliveryTitle": "За крај, ајде да ги информираме корисниците за достава",
+    "setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна"
+  },
+
+  "product": {
+    "addProductSuccess": "Нов продукт успешно додаден",
+    "updateProductSuccess": "Продуктот {{productName}} успешно обновен",
+    "addingProductTip": "Продуктот се додава...",
+    "updatingProductTip": "Продуктот се обновува...",
+    "productCount": "Број на продукти",
+    "descriptionExample": "пр. Високо квалитетни и лесни патики",
+    "priceExample": "пр. 500",
+    "nameExample": "пр. Nike Air Max"
+  },
+
+  "delivery": {
+    "updatingDeliveryTip": "Доставата се обновува...",
+    "deliveryMethod": "Метод на достава",
+    "priceExplanation": "Најчесто вредноста претставува просечна цена за достава",
+    "freeDeliveryExplanation": "Над која вредност доставата е бесплатна?",
+    "overPrice": "Над вредност од",
+    "freeDelivery": "Бесплатна достава",
+    "pickup": "Да се подигне",
+    "cargo-pickup": "Да се подигне од Карго",
+    "door-to-door": "Достава до дома"
+  },
+
+  "store": {
+    "updatingStoreTip": "Продавница се обновува...",
+    "storeName": "Име на продавницата",
+    "storeUrl": "Линк на продавницата",
+    "storeLogo": "Лого на продавницата"
+  },
+
+  "order": {
+    "cancelled": "Откажана",
+    "pending": "Се процесира",
+    "shipped": "Испратена",
+    "completed": "Завршена",
+    "orderDate": "Датум на порачка",
+    "orderId": "Шифра на порачка",
+    "orderDetails": "Детали за порачка",
+    "orderDeleted": "Порачка со шифра {{id}} беше успешно избришана"
+  },
+
+  "categories": {
+
+  }
+}

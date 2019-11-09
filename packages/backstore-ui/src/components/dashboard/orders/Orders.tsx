@@ -12,15 +12,16 @@ import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useCall } from '../../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { useTranslation } from 'react-i18next';
 
-const columns: ColumnProps<Order>[] = [
+const getColumns = (t: (tId: string) => string) => ([
   {
-    title: 'Id',
+    title: t('common.id'),
     dataIndex: '_id',
     render: id => sdk.utils.getShortId(id),
   },
   {
-    title: 'Product Count',
+    title: t('product.productCount'),
     dataIndex: 'ordered',
     render: orderList => {
       const orderedProducts = orderList.length;
@@ -28,23 +29,25 @@ const columns: ColumnProps<Order>[] = [
     },
   },
   {
-    title: 'Status',
+    title: t('common.status'),
     dataIndex: 'status',
     render: status => {
-      return <Tag color={getOrderStatusColor(status)}>{status}</Tag>;
+      return <Tag color={getOrderStatusColor(status)}>{t(`order.${status}`)}</Tag>;
     },
   },
   {
-    title: 'Order date',
+    title: t('order.orderDate'),
     dataIndex: 'createdAt',
   },
-];
+] as ColumnProps<Order>[]);
 
 export const Orders = () => {
   const [caller, showSpinner] = useCall();
   const [orderIdToView, setOrderIdToView] = useState<string>();
   const store = useSelector(getStore);
   const orders = useSelector(getOrders);
+  const {t} = useTranslation();
+  const columns = getColumns(t);
 
   useEffect(() => {
     if (store) {
@@ -57,13 +60,13 @@ export const Orders = () => {
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
-        Orders
+        {t('commerce.order_plural')}
       </Title>
 
       <Flex my={3} justifyContent='flex-end'>
         <Tooltip title='You can do bulk actions using this button.'>
           <Button mx={3} type='ghost'>
-            Actions
+            {t('common.action_plural')}
           </Button>
         </Tooltip>
       </Flex>

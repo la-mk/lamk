@@ -29,6 +29,7 @@ import { FindResult } from "@lamk/la-sdk/dist/setup";
 import { getGroupedCategories, getCategories } from "../../state/modules/categories/categories.selector";
 import { Category } from "@lamk/la-sdk/dist/models/category";
 import { setCategories } from "../../state/modules/categories/categories.module";
+import { useTranslation } from "react-i18next";
 
 interface OnboardingProps {
   step: number;
@@ -43,6 +44,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const delivery: Delivery = useSelector(getDelivery);
   const categories = useSelector(getCategories);
   const groupedCategories = useSelector(getGroupedCategories);
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (store) {
@@ -150,9 +152,9 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
               current={step}
               onChange={setStep}
             >
-              <Step title="Store" />
-              <Step title="Products" />
-              <Step title="Delivery" />
+              <Step title={t('commerce.store')} />
+              <Step title={t('commerce.product_plural')} />
+              <Step title={t('commerce.delivery')} />
             </StickySteps>
 
             {step === 0 && (

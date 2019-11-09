@@ -4,8 +4,10 @@ import { sdk } from '@lamk/la-sdk';
 import { useDispatch } from 'react-redux';
 import { login } from '../../state/modules/auth/auth.module';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
+import {useTranslation} from 'react-i18next';
 
 export const Login = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const handleLogin = (data: any) => {
@@ -15,7 +17,7 @@ export const Login = () => {
   return (
     <Flex width='100%' flexDirection='column' alignItems='center'>
       <Title mt={5} level={1}>
-        Log in
+        {t('auth.login')}
       </Title>
       <LoginForm
         login={handleLogin}

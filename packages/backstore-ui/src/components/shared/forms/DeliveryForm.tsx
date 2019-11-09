@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   FormItem,
   formInput,
@@ -6,56 +6,65 @@ import {
   Flex,
   Button,
   Select,
-  Option,
-} from '@lamk/blocks-ui';
-import { sdk } from '@lamk/la-sdk';
-import { Delivery } from '@lamk/la-sdk/dist/models/delivery';
+  Option
+} from "@lamk/blocks-ui";
+import { sdk } from "@lamk/la-sdk";
+import { Delivery } from "@lamk/la-sdk/dist/models/delivery";
+import { useTranslation } from "react-i18next";
 
 interface DeliveryFormProps {
   delivery: Delivery | null;
   onDone: (delivery: Delivery) => void;
 }
 
+const deliveryOptions = ["pickup", "cargo-pickup", "door-to-door"];
+
 export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
+  const { t } = useTranslation();
+
   return (
     <Form
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
-      layout='horizontal'
+      layout="horizontal"
       colon={false}
       onFormCompleted={onDone}
       externalState={delivery || {}}
       validate={sdk.delivery.validate}
       validateSingle={sdk.delivery.validateSingle}
     >
-      <FormItem selector='method' label='Delivery method'>
+      <FormItem selector="method" label={t("delivery.deliveryMethod")}>
         {(val, _onChange, onComplete) => (
           <Select value={val} onChange={onComplete}>
-            <Option value='pickup'>No delivery</Option>
-            <Option value='cargo-pickup'>Pickup from Cargo</Option>
-            <Option value='door-to-door'>Door to Door</Option>
+            {deliveryOptions.map(option => {
+              return (
+                <Option key={option} value={option}>
+                  {t(`delivery.${option}`)}
+                </Option>
+              );
+            })}
           </Select>
         )}
       </FormItem>
       <FormItem
-        extra='This can be the average delivery cost.'
-        selector='price'
-        label='Delivery cost'
+        extra={t('delivery.priceExplanation')}
+        selector="price"
+        label={t('common.price')}
       >
-        {formInput({ placeholder: 'Price', addonBefore: 'Ден' })}
+        {formInput({ placeholder: t('common.price'), addonBefore: "Ден" })}
       </FormItem>
 
       <FormItem
-        extra='Over what price do you want to offer free shipping?'
-        selector='freeDeliveryOver'
-        label='Free delivery'
+        extra={t('delivery.freeDeliveryExplanation')}
+        selector="freeDeliveryOver"
+        label={t('delivery.freeDelivery')}
       >
-        {formInput({ placeholder: 'Over price', addonBefore: 'Ден' })}
+        {formInput({ placeholder: t('delivery.overPrice'), addonBefore: "Ден" })}
       </FormItem>
 
-      <Flex justifyContent='center' alignItems='center'>
-        <Button mr={2} type='primary' htmlType='submit' size='large'>
-          {delivery ? 'Update delivery' : 'Save delivery'}
+      <Flex justifyContent="center" alignItems="center">
+        <Button mr={2} type="primary" htmlType="submit" size="large">
+          {delivery ? t('actions.update') : t('actions.save')}
         </Button>
       </Flex>
     </Form>
