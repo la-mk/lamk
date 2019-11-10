@@ -115,6 +115,15 @@
   },
 
   "categories": {
-
+    "men-jogging-pants": "Jogging pants",
+    "men-running-shoes": "Running shoes",
+    "men-shoes": "Men shoes",
+    "men-clothing": "Men clothing",
+    "men-pants": "Men pants",
+    "men-plain-tshirts": "Plain t-shirts",
+    "men-tshirts": "Men t-shirts",
+    "backpack-casual": "Casual backpacks",
+    "travel-backpack": "Travel backpacks",
+    "travel-gear": "Travel gear"
   }
 }

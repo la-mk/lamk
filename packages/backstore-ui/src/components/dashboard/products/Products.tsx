@@ -33,8 +33,9 @@ const getColumns = (t: (tId: string) => string) => ([
     dataIndex: 'name',
   },
   {
-    title: t('commerce.category'),
+    title: t('common.category'),
     dataIndex: 'category',
+    render: category => t(`categories.${category}`),
   },
   {
     title: t('common.price'),

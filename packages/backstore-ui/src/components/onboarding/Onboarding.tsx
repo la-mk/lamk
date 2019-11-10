@@ -1,5 +1,5 @@
 import isEqual from "lodash/isEqual";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { SetupStore } from "./SetupStore";
 import { SetupProducts } from "./SetupProducts";
@@ -26,7 +26,7 @@ import { Redirect } from "react-router";
 import { StickySteps } from "../shared/components/StickySteps";
 import { useCall } from "../shared/hooks/useCall";
 import { FindResult } from "@lamk/la-sdk/dist/setup";
-import { getGroupedCategories, getCategories } from "../../state/modules/categories/categories.selector";
+import { createGetGroupedCategories, getCategories } from "../../state/modules/categories/categories.selector";
 import { Category } from "@lamk/la-sdk/dist/models/category";
 import { setCategories } from "../../state/modules/categories/categories.module";
 import { useTranslation } from "react-i18next";
@@ -43,8 +43,15 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const products: Product[] = useSelector(getProducts);
   const delivery: Delivery = useSelector(getDelivery);
   const categories = useSelector(getCategories);
-  const groupedCategories = useSelector(getGroupedCategories);
   const {t} = useTranslation();
+  
+  const getGroupedCategories = useCallback(() => {
+    return createGetGroupedCategories((categoryKey: string) =>
+      t(`categories.${categoryKey}`)
+    );
+  }, [t])();
+
+  const groupedCategories = useSelector(getGroupedCategories);
 
   useEffect(() => {
     if (store) {

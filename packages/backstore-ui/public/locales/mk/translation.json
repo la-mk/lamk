@@ -115,6 +115,15 @@
   },
 
   "categories": {
-
+    "men-jogging-pants": "Тренерки",
+    "men-running-shoes": "Патики за трчање",
+    "men-shoes": "Машки патики",
+    "men-clothing": "Машка облека",
+    "men-pants": "Машки панталони",
+    "men-plain-tshirts": "Еднобојни маици",
+    "men-tshirts": "Машки маици",
+    "backpack-casual": "Секојдневни ранци",
+    "travel-backpack": "Ранци за патување",
+    "travel-gear": "Опрема за патување"
   }
 }

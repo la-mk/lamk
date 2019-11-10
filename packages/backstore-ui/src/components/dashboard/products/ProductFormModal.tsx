@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
   Flex,
@@ -32,7 +32,10 @@ import { useCall } from "../../shared/hooks/useCall";
 import { setCategories } from "../../../state/modules/categories/categories.module";
 import { FindResult } from "@lamk/la-sdk/dist/setup";
 import { Category } from "@lamk/la-sdk/dist/models/category";
-import { getCategories, getGroupedCategories } from "../../../state/modules/categories/categories.selector";
+import {
+  getCategories,
+  createGetGroupedCategories
+} from "../../../state/modules/categories/categories.selector";
 import { useTranslation } from "react-i18next";
 
 interface ProductFormModalProps {
@@ -56,20 +59,33 @@ export const ProductFormModal = ({
   const [fullCategoryValue, setFullCategoryValue] = useState<string[]>([]);
   const store = useSelector(getStore);
   const categories: Category[] = useSelector(getCategories);
+  const { t } = useTranslation();
+  
+  const getGroupedCategories = useCallback(() => {
+    return createGetGroupedCategories((categoryKey: string) =>
+      t(`categories.${categoryKey}`)
+    );
+  }, [t])();
+
   const groupedCategories = useSelector(getGroupedCategories);
-  const {t} = useTranslation();
 
   useEffect(() => {
-    if(!categories || !product){
+    if (!categories || !product) {
       return;
     }
-    const categorySet = categories.find((category) => category.level3 === product.category);
-    if(!categorySet){
+    const categorySet = categories.find(
+      category => category.level3 === product.category
+    );
+    if (!categorySet) {
       return;
     }
 
-    setFullCategoryValue([categorySet.level1, categorySet.level2, categorySet.level3]);
-  }, [product, categories])
+    setFullCategoryValue([
+      categorySet.level1,
+      categorySet.level2,
+      categorySet.level3
+    ]);
+  }, [product, categories]);
 
   useEffect(() => {
     if (categories) {
@@ -83,7 +99,9 @@ export const ProductFormModal = ({
 
   const handlePatchProduct = (product: Product) => {
     caller(sdk.product.patch(product._id, product), (product: Product) => {
-      message.success(t('product.updateProductSuccess', {productName: product.name}));
+      message.success(
+        t("product.updateProductSuccess", { productName: product.name })
+      );
       return patchProduct(product);
     });
   };
@@ -93,7 +111,7 @@ export const ProductFormModal = ({
       caller(
         sdk.product.create({ ...newProduct, soldBy: store._id }),
         (product: Product) => {
-          message.success(t('product.addProductSuccess'));
+          message.success(t("product.addProductSuccess"));
           onClose();
           return addProduct(product);
         }
@@ -109,11 +127,15 @@ export const ProductFormModal = ({
       visible={visible}
       footer={null}
       onCancel={onClose}
-      title={product ? t('actions.update') : t('actions.add')}
+      title={product ? t("actions.update") : t("actions.add")}
     >
       <Spin
         spinning={showSpinner}
-        tip={product ? t('product.updatingProductTip') : t('product.addingProductTip')}
+        tip={
+          product
+            ? t("product.updatingProductTip")
+            : t("product.addingProductTip")
+        }
       >
         <Form
           colon={false}
@@ -125,13 +147,13 @@ export const ProductFormModal = ({
         >
           <Row gutter={24}>
             <Col md={8} span={24}>
-              <FormItem label={t('common.name')} selector="name">
-                {formInput({ placeholder: t('product.nameExample') })}
+              <FormItem label={t("common.name")} selector="name">
+                {formInput({ placeholder: t("product.nameExample") })}
               </FormItem>
             </Col>
 
             <Col md={8} span={24}>
-              <FormItem label={t('common.category')} selector="category">
+              <FormItem label={t("common.category")} selector="category">
                 {(val, _onChange, onComplete) => (
                   <Cascader
                     options={groupedCategories}
@@ -140,7 +162,7 @@ export const ProductFormModal = ({
                       setFullCategoryValue(value);
                       onComplete(value[value.length - 1]);
                     }}
-                    placeholder={`${t('common.polite')} ${t('actions.select')}`}
+                    placeholder={`${t("common.polite")} ${t("actions.select")}`}
                     showSearch={{ filter }}
                     value={fullCategoryValue}
                   />
@@ -148,8 +170,11 @@ export const ProductFormModal = ({
               </FormItem>
             </Col>
             <Col md={8} span={24}>
-              <FormItem label={t('common.price')} selector="price">
-                {formInput({ placeholder: t('product.priceExample'), addonBefore: "Ден" })}
+              <FormItem label={t("common.price")} selector="price">
+                {formInput({
+                  placeholder: t("product.priceExample"),
+                  addonBefore: "Ден"
+                })}
               </FormItem>
             </Col>
           </Row>
@@ -176,25 +201,27 @@ export const ProductFormModal = ({
                 name="product-images"
               >
                 <UploadContent
-                  text={t('actions.addProductImages')}
-                  hint={t('uploads.hint')}
+                  text={t("actions.addProductImages")}
+                  hint={t("uploads.hint")}
                 />
               </UploadDragger>
             )}
           </FormItem>
 
-          <FormItem label={t('common.description')} selector="description">
+          <FormItem label={t("common.description")} selector="description">
             {formTextArea({
-              placeholder: `${t('product.descriptionExample')} (${t('common.optional')})`,
+              placeholder: `${t("product.descriptionExample")} (${t(
+                "common.optional"
+              )})`,
               rows: 3
             })}
           </FormItem>
           <Flex mt={3} justifyContent="center">
             <Button type="ghost" mr={2} onClick={onClose}>
-              {t('actions.cancel')}
+              {t("actions.cancel")}
             </Button>
             <Button ml={2} htmlType="submit" type="primary">
-              {product ? t('actions.update') : t('actions.add')}
+              {product ? t("actions.update") : t("actions.add")}
             </Button>
           </Flex>
         </Form>
