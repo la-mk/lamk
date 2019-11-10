@@ -24,7 +24,9 @@
     "logout": "Log out",
     "account": "Account",
     "accountSettings": "Account settings",
-    "signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
+    "signupClosedBeta": "We are in closed-beta, so signups are currently disabled",
+    "noAccount": "No account?",
+    "alreadyHaveAccount": "Already have account?"
   },
 
   "common": {
@@ -49,6 +51,8 @@
     "image_plural": "Images",
     "category": "Category",
     "summary": "Summary",
+    "email": "Email address",
+    "password": "Password",
     "actionsTip": "You can do bulk actions on multiple items"
   },
 

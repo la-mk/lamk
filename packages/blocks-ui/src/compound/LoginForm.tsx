@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { formInput } from './FormHelpers';
 import { Flex } from '../basic/Flex';
 import { Col } from '../basic/Grid';
@@ -6,6 +6,7 @@ import { Form, FormItem } from '../basic/Form';
 import { Button } from '../basic/Button';
 import { Text } from '../basic/Typography';
 import { Divider } from '../basic/Divider';
+import { LocalizationContext } from '../basic/Provider';
 
 export interface LoginProps {
   login: (credentials: LoginCredentials) => void;
@@ -25,6 +26,8 @@ export const LoginForm = ({
   validate,
   validateSingle,
 }: LoginProps) => {
+  const localization = useContext(LocalizationContext);
+
   return (
     <>
       <Col width={['100%', '80%', '60%']}>
@@ -37,25 +40,31 @@ export const LoginForm = ({
           validate={validate}
           validateSingle={validateSingle}
         >
-          <FormItem selector='email' label='Email Address'>
+          <FormItem
+            selector='email'
+            label={localization.email || 'Email address'}
+          >
             {formInput()}
           </FormItem>
 
-          <FormItem selector='password' label='Password'>
+          <FormItem
+            selector='password'
+            label={localization.password || 'Password'}
+          >
             {formInput({ type: 'password' })}
           </FormItem>
 
           <Flex justifyContent='center' alignItems='center'>
             <Button mr={2} type='primary' htmlType='submit' size='large'>
-              Login
+              {localization.login || 'Log in'}
             </Button>
           </Flex>
         </Form>
       </Col>
       <Divider />
-      <Text type='secondary'>No account?</Text>
+      <Text type='secondary'>{localization.noAccount || 'No account?'}</Text>
       <Button type='link' onClick={onSignupNowClick}>
-        Sign up now
+        {localization.signup || 'Sign up'}
       </Button>
     </>
   );

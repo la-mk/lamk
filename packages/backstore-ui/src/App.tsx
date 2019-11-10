@@ -1,21 +1,33 @@
-import React, { Component, Suspense } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 // @ts-ignore
 import { PersistGate } from "redux-persist/es/integration/react";
-import { Provider as ThemeProvider } from "@lamk/blocks-ui";
+import { Provider as BlocksUiProvider } from "@lamk/blocks-ui";
 import { setupSdk } from "@lamk/la-sdk";
 import { ConnectedRouter } from "connected-react-router";
 import { Root } from "./components/Root";
 import { FullScreenSpinner } from "./components/shared/components/FullScreenSpinner";
 import configureStore, { history } from "./state/configureStore";
 import env from "./common/env";
+import { useTranslation } from "react-i18next";
 
-export class App extends Component {
-  state = {
-    ...configureStore(env.NODE_ENV)
+const getCompoundLocale = (t: (key: string) => string) => {
+  return {
+    email: t("common.email"),
+    password: t("common.password"),
+    signup: t("auth.signup"),
+    login: t("auth.login"),
+    noAccount: t("auth.noAccount"),
+    alreadyHaveAccount: t("auth.alreadyHaveAccount")
   };
+};
 
-  onBeforeLift = () => {
+export const App = () => {
+  const store = configureStore(env.NODE_ENV);
+  const { t } = useTranslation();
+  const compoundLocale = getCompoundLocale(t);
+
+  const onBeforeLift = () => {
     setupSdk({
       transport: "socket",
       host: env.HOST,
@@ -23,25 +35,19 @@ export class App extends Component {
     });
   };
 
-  render() {
-    return (
-      <Provider store={this.state.store}>
-        <PersistGate
-          loading={<FullScreenSpinner/>}
-          onBeforeLift={this.onBeforeLift}
-          persistor={this.state.persistor}
-        >
-          <ThemeProvider>
-            <ConnectedRouter history={history}>
-              <Suspense
-                fallback={<FullScreenSpinner/>}
-              >
-                <Root />
-              </Suspense>
-            </ConnectedRouter>
-          </ThemeProvider>
-        </PersistGate>
-      </Provider>
-    );
-  }
-}
+  return (
+    <Provider store={store.store}>
+      <PersistGate
+        loading={<FullScreenSpinner />}
+        onBeforeLift={onBeforeLift}
+        persistor={store.persistor}
+      >
+        <BlocksUiProvider compoundLocale={compoundLocale}>
+          <ConnectedRouter history={history}>
+            <Root />
+          </ConnectedRouter>
+        </BlocksUiProvider>
+      </PersistGate>
+    </Provider>
+  );
+};
