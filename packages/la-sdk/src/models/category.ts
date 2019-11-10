@@ -1,7 +1,7 @@
 import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
-import { OmitServerProperties } from '../utils';
+import { OmitServerProperties } from '../utils/utils';
 
 export interface Category {
   _id: string;
@@ -35,7 +35,7 @@ export const getCategorySdk = (client: Application) => {
       return categoriesPerStoreCrudMethods.find(options);
     },
 
-    validate: (data: Category, considerRequired = true) => {
+    validate: (data: Category, ignoreRequired = false) => {
       if (!data.level1) {
         return { price: 'Price is missing' };
       }

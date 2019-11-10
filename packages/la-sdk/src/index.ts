@@ -9,8 +9,8 @@ import { getCategorySdk } from './models/category';
 import { getUserSdk } from './models/user';
 import { getAuthenticationSdk } from './models/authentication';
 import { getCartSdk } from './models/cart';
-import { getAddressSdk } from './models/address';
-import * as utils from './modelUtils';
+import { getAddressSdk } from './models/address/address';
+import * as utils from './utils/modelUtils';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;

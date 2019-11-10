@@ -1,9 +1,9 @@
 import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
-import { OmitServerProperties } from '../utils';
+import { OmitServerProperties } from '../utils/utils';
 import { Product } from './product';
-import { Address } from './address';
+import { Address } from './address/address';
 import { Delivery } from './delivery';
 
 export interface OrderItem {
@@ -46,7 +46,7 @@ export const getOrderSdk = (client: Application) => {
       return crudMethods.patch(orderId, { status }, params);
     },
 
-    validate: (data: Order, considerRequired = true) => {
+    validate: (data: Order, ignoreRequired = false) => {
       if (!data._id) {
         return { _id: 'Id is missing' };
       }

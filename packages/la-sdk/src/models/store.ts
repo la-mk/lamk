@@ -1,7 +1,7 @@
 import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
-import { OmitServerProperties } from '../utils';
+import { OmitServerProperties } from '../utils/utils';
 
 export interface Store {
   _id: string;
@@ -43,7 +43,7 @@ export const getStoreSdk = (client: Application) => {
       });
     },
 
-    validate: (data: Store, considerRequired = true) => {
+    validate: (data: Store, ignoreRequired = false) => {
       if (!data.logo) {
         return { logo: 'Logo is missing' };
       }

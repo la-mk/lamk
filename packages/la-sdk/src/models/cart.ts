@@ -1,8 +1,19 @@
 import merge from "lodash/fp/merge";
 import { Application, Params } from "@feathersjs/feathers";
 import { getCrudMethods } from "../setup";
-import { OmitServerProperties } from "../utils";
+import { OmitServerProperties } from "../utils/utils";
 import { Product } from "./product";
+import { validate, validateSingle } from '../utils/modelUtils';
+import v8n from 'v8n';
+
+const schema = {
+  forUser: v8n().string().maxLength(63),
+  items: v8n().every.schema({ 
+      product: v8n().string().maxLength(63),
+      fromStore: v8n().string().maxLength(63),
+      quantity: v8n().number().positive(),
+  }),
+}
 
 export interface CartItem {
   product: string;
@@ -109,15 +120,11 @@ export const getCartSdk = (client: Application) => {
       );
     },
 
-    validate: (data: Cart, considerRequired = true) => {
-      if (!data) {
-        return { price: "Price is missing" };
-      }
+    validate: (data: Cart, ignoreRequired = false) => {
+      return validate(schema, data, ignoreRequired)
     },
     validateSingle: (val: any, selector: string) => {
-      if (!val) {
-        return "xxx is required";
-      }
+      return validateSingle(schema, val, selector);
     }
   };
 };

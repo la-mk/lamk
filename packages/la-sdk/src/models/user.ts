@@ -1,6 +1,6 @@
 import { Application } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
-import { OmitServerProperties } from '../utils';
+import { OmitServerProperties } from '../utils/utils';
 
 export interface User {
   _id: string;
@@ -20,7 +20,7 @@ export const getUserSdk = (client: Application) => {
   );
   return {
     ...crudMethods,
-    validate: (data: User, considerRequired = true) => {
+    validate: (data: User, ignoreRequired = false) => {
       if (!data.email) {
         return { logo: 'Logo is missing' };
       }

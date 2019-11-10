@@ -1,7 +1,7 @@
 import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
-import { OmitServerProperties } from '../utils';
+import { OmitServerProperties } from '../utils/utils';
 
 export interface Delivery {
   _id: string;
@@ -27,7 +27,7 @@ export const getDeliverySdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
-    validate: (data: Delivery, considerRequired = true) => {
+    validate: (data: Delivery, ignoreRequired = false) => {
       if (!data.price) {
         return { price: 'Price is missing' };
       }

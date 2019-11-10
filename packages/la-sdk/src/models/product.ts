@@ -1,7 +1,7 @@
 import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
-import { OmitServerProperties } from '../utils';
+import { OmitServerProperties } from '../utils/utils';
 
 export interface Product {
   _id: string;
@@ -28,7 +28,7 @@ export const getProductSdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
-    validate: (data: Product, considerRequired = true) => {
+    validate: (data: Product, ignoreRequired = false) => {
       return;
       // if (!data.images) {
       //   return { images: 'No images uploaded' };
