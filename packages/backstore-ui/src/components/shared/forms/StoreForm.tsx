@@ -33,7 +33,7 @@ export const StoreForm = ({ store, onDone }: StoreFormProps) => {
       wrapperCol={{ span: 12 }}
       layout='horizontal'
       colon={false}
-      validate={sdk.store.validate}
+      validate={(data) => sdk.store.validate(data, Boolean(store))}
       validateSingle={sdk.store.validateSingle}
       externalState={store || {}}
       onFormCompleted={onDone}

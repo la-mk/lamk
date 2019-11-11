@@ -30,7 +30,7 @@ export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
       colon={false}
       onFormCompleted={onDone}
       externalState={delivery || {}}
-      validate={sdk.delivery.validate}
+      validate={(data) => sdk.store.validate(data, Boolean(delivery))}
       validateSingle={sdk.delivery.validateSingle}
     >
       <FormItem selector="method" label={t("delivery.deliveryMethod")}>

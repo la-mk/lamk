@@ -70,7 +70,7 @@ export const AddProductCard = ({
   return (
     <Form
       colon={false}
-      validate={sdk.product.validate}
+      validate={(data) => sdk.product.validate(data, Boolean(product))}
       validateSingle={sdk.product.validateSingle}
       externalState={product || {}}
       onFormCompleted={product ? onPatchProduct : onAddProduct}

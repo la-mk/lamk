@@ -9,13 +9,13 @@ import { validate, validateSingle } from '../utils/modelUtils';
 import v8n from 'v8n';
 
 export const schema = {
-  orderedFrom: v8n().string().maxLength(63),
-  orderedBy: v8n().string().maxLength(63),
+  orderedFrom: v8n().string().minLength(2).maxLength(63),
+  orderedBy: v8n().string().minLength(2).maxLength(63),
   ordered: v8n().every.schema({ 
     product: v8n().schema(productSchema),
     quantity: v8n().number().positive(),
   }),
-  // status: v8n().oneOf(['cancelled', 'pending', 'shipped', 'completed']),
+  status: v8n().oneOf(['cancelled', 'pending', 'shipped', 'completed']),
   delivery: v8n().schema(deliverySchema),
   deliverTo: v8n().schema(addressSchema),
 }

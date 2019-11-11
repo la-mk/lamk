@@ -39,7 +39,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 interface ProductFormModalProps {
-  product: Product;
+  product: Product | null;
   onClose: () => void;
   visible: boolean;
 }
@@ -140,7 +140,7 @@ export const ProductFormModal = ({
         <Form
           colon={false}
           externalState={product}
-          validate={sdk.product.validate}
+          validate={(data) => sdk.store.validate(data, Boolean(product))}
           validateSingle={sdk.product.validateSingle}
           onFormCompleted={product ? handlePatchProduct : handleCreateProduct}
           layout="horizontal"
@@ -173,7 +173,8 @@ export const ProductFormModal = ({
               <FormItem label={t("common.price")} selector="price">
                 {formInput({
                   placeholder: t("product.priceExample"),
-                  addonBefore: "Ден"
+                  addonBefore: "Ден",
+                  type: 'number'
                 })}
               </FormItem>
             </Col>

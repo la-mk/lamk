@@ -7,10 +7,10 @@ import { validate, validateSingle } from '../utils/modelUtils';
 import v8n from 'v8n';
 
 export const schema = {
-  forUser: v8n().string().maxLength(63),
+  forUser: v8n().string().minLength(2).maxLength(63),
   items: v8n().every.schema({ 
-      product: v8n().string().maxLength(63),
-      fromStore: v8n().string().maxLength(63),
+      product: v8n().string().minLength(2).maxLength(63),
+      fromStore: v8n().string().minLength(2).maxLength(63),
       quantity: v8n().number().positive(),
   }),
 }

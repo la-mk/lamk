@@ -5,11 +5,11 @@ import { validate, validateSingle } from '../utils/modelUtils';
 import v8n from 'v8n';
 
 export const schema = {
-  email: v8n().string().maxLength(511),
-  password: v8n().string().maxLength(255),
-  firstName: v8n().string().maxLength(255),
-  lastName: v8n().string().maxLength(255),
-  phoneNumber: v8n().string().maxLength(31),
+  email: v8n().string().minLength(2).maxLength(511),
+  password: v8n().string().minLength(8).maxLength(255),
+  firstName: v8n().string().minLength(2).maxLength(255),
+  lastName: v8n().string().minLength(2).maxLength(255),
+  phoneNumber: v8n().string().minLength(2).maxLength(31),
 }
 
 export interface User {

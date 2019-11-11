@@ -6,10 +6,10 @@ import { validate, validateSingle } from '../utils/modelUtils';
 import v8n from 'v8n';
 
 export const schema = {
-  ownedBy: v8n().string().maxLength(63),
-  name: v8n().string().maxLength(511),
-  slug: v8n().string().maxLength(511),
-  logo: v8n().string().maxLength(511),
+  ownedBy: v8n().string().minLength(2).maxLength(63),
+  name: v8n().string().minLength(2).maxLength(511),
+  slug: v8n().string().minLength(2).maxLength(511),
+  logo: v8n().string().minLength(2).maxLength(4095),
   isPublished: v8n().boolean(),
 }
 
