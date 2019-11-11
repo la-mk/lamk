@@ -43,6 +43,7 @@ services:
 
   data-api:
     build: ./packages/data-api
+    container_name: data-api
     command: npm run dev
     volumes:
       - ./packages/data-api:/usr/src/app:delegated
@@ -68,6 +69,7 @@ services:
     
   store-ui:
     build: ./packages/store-ui
+    container_name: store-ui
     command: npm run dev
     depends_on: 
       - data-api
@@ -89,6 +91,7 @@ services:
     build: 
       context: ./packages/backstore-ui
       target: build-stage
+    container_name: backstore-ui
     command: npm run start
     depends_on: 
       - data-api
