@@ -31,8 +31,12 @@ describe('Validation utility', () => {
     expect(modelUtils.validate(sampleSchema, sampleData)).toBeFalsy();
   });
 
-  test('Should pass when required should be ignored', () => {
+  test('Should pass when required should be ignored and object is empty', () => {
     expect(modelUtils.validate(sampleSchema, {}, true)).toBeFalsy();
+  });
+
+  test('Should return an error when required should be ignored and a required property has invalid value', () => {
+    expect(modelUtils.validate(sampleSchema, {name: 123}, true)).toHaveProperty('name');
   });
 
   test('Should return an error if at least one required property is not passed', () => {

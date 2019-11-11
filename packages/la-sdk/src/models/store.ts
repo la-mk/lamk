@@ -2,6 +2,16 @@ import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils/utils';
+import { validate, validateSingle } from '../utils/modelUtils';
+import v8n from 'v8n';
+
+export const schema = {
+  ownedBy: v8n().string().maxLength(63),
+  name: v8n().string().maxLength(511),
+  slug: v8n().string().maxLength(511),
+  logo: v8n().string().maxLength(511),
+  isPublished: v8n().boolean(),
+}
 
 export interface Store {
   _id: string;
@@ -44,14 +54,10 @@ export const getStoreSdk = (client: Application) => {
     },
 
     validate: (data: Store, ignoreRequired = false) => {
-      if (!data.logo) {
-        return { logo: 'Logo is missing' };
-      }
+      return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {
-      if (!val) {
-        return 'xx is required';
-      }
+      return validateSingle(schema, val, selector);
     },
   };
 };

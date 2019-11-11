@@ -6,7 +6,7 @@ import { Product } from "./product";
 import { validate, validateSingle } from '../utils/modelUtils';
 import v8n from 'v8n';
 
-const schema = {
+export const schema = {
   forUser: v8n().string().maxLength(63),
   items: v8n().every.schema({ 
       product: v8n().string().maxLength(63),

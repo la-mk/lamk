@@ -2,9 +2,23 @@ import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils/utils';
-import { Product } from './product';
-import { Address } from './address/address';
-import { Delivery } from './delivery';
+import { Product, schema as productSchema } from './product';
+import { Address, schema as addressSchema } from './address/address';
+import { Delivery, schema as deliverySchema } from './delivery';
+import { validate, validateSingle } from '../utils/modelUtils';
+import v8n from 'v8n';
+
+export const schema = {
+  orderedFrom: v8n().string().maxLength(63),
+  orderedBy: v8n().string().maxLength(63),
+  ordered: v8n().every.schema({ 
+    product: v8n().schema(productSchema),
+    quantity: v8n().number().positive(),
+  }),
+  // status: v8n().oneOf(['cancelled', 'pending', 'shipped', 'completed']),
+  delivery: v8n().schema(deliverySchema),
+  deliverTo: v8n().schema(addressSchema),
+}
 
 export interface OrderItem {
   // We want to store the actual product, so if the product is modified they can still see the exact thing that was ordered
@@ -47,14 +61,10 @@ export const getOrderSdk = (client: Application) => {
     },
 
     validate: (data: Order, ignoreRequired = false) => {
-      if (!data._id) {
-        return { _id: 'Id is missing' };
-      }
+      return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {
-      if (!val) {
-        return 'xxx is required';
-      }
+      return validateSingle(schema, val, selector);
     },
   };
 };

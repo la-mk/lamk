@@ -21,8 +21,8 @@ export const Login = () => {
       </Title>
       <LoginForm
         login={handleLogin}
-        validate={sdk.user.validate as any}
-        validateSingle={sdk.user.validateSingle as any}
+        validate={(data) => sdk.user.validate(data as any, true) as any}
+        validateSingle={sdk.user.validateSingle}
         onSignupNowClick={() => dispatch(goTo('/signup'))}
       />
     </Flex>

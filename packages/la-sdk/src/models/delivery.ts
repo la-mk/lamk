@@ -2,6 +2,15 @@ import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils/utils';
+import { validate, validateSingle } from '../utils/modelUtils';
+import v8n from 'v8n';
+
+export const schema = {
+  forStore: v8n().string().maxLength(63),
+  // method: v8n().oneOf(['pickup', 'cargo-pickup', 'door-to-door']),
+  price: v8n().number().positive(),
+  freeDeliveryOver: v8n().number().positive(),
+}
 
 export interface Delivery {
   _id: string;
@@ -28,14 +37,10 @@ export const getDeliverySdk = (client: Application) => {
     },
 
     validate: (data: Delivery, ignoreRequired = false) => {
-      if (!data.price) {
-        return { price: 'Price is missing' };
-      }
+      return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {
-      if (!val) {
-        return 'xxx is required';
-      }
+      return validateSingle(schema, val, selector);
     },
   };
 };

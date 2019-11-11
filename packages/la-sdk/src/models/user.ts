@@ -1,6 +1,16 @@
 import { Application } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils/utils';
+import { validate, validateSingle } from '../utils/modelUtils';
+import v8n from 'v8n';
+
+export const schema = {
+  email: v8n().string().maxLength(511),
+  password: v8n().string().maxLength(255),
+  firstName: v8n().string().maxLength(255),
+  lastName: v8n().string().maxLength(255),
+  phoneNumber: v8n().string().maxLength(31),
+}
 
 export interface User {
   _id: string;
@@ -21,14 +31,10 @@ export const getUserSdk = (client: Application) => {
   return {
     ...crudMethods,
     validate: (data: User, ignoreRequired = false) => {
-      if (!data.email) {
-        return { logo: 'Logo is missing' };
-      }
+      return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {
-      if (!val) {
-        return 'xx is required';
-      }
+      return validateSingle(schema, val, selector);
     },
   };
 };

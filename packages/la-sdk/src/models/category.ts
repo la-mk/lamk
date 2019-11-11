@@ -2,6 +2,14 @@ import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils/utils';
+import { validate, validateSingle } from '../utils/modelUtils';
+import v8n from 'v8n';
+
+export const schema = {
+  level1: v8n().string().maxLength(511),
+  level2: v8n().string().maxLength(511),
+  level3: v8n().string().maxLength(511),
+}
 
 export interface Category {
   _id: string;
@@ -36,14 +44,10 @@ export const getCategorySdk = (client: Application) => {
     },
 
     validate: (data: Category, ignoreRequired = false) => {
-      if (!data.level1) {
-        return { price: 'Price is missing' };
-      }
+      return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {
-      if (!val) {
-        return 'xxx is required';
-      }
+      return validateSingle(schema, val, selector);
     },
   };
 };

@@ -5,16 +5,16 @@ import { OmitServerProperties } from '../../utils/utils';
 import { validate, validateSingle } from '../../utils/modelUtils';
 import v8n from 'v8n';
 
-const schema = {
+export const schema = {
   addressFor: v8n().string().maxLength(65535),
   name: v8n().string().maxLength(511),
   country: v8n().string().maxLength(255),
   region: v8n().optional(v8n().string().maxLength(511)),
   city: v8n().string().maxLength(255),
-  zip: v8n().string().maxLength(63),
+  zip: v8n().string().maxLength(31),
   street: v8n().string().maxLength(255),
   person: v8n().optional(v8n().string().maxLength(511)),
-  phoneNumber: v8n().string().maxLength(255),
+  phoneNumber: v8n().string().maxLength(31),
 }
 
 export interface Address {

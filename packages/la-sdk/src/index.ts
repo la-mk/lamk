@@ -1,5 +1,7 @@
-import { setupClient, SetupSdkOptions } from './setup';
+import {extendValidation} from './utils/validation';
+extendValidation();
 
+import { setupClient, SetupSdkOptions } from './setup';
 import { getStoreSdk } from './models/store';
 import { getProductSdk } from './models/product';
 import { getOrderSdk } from './models/order';
