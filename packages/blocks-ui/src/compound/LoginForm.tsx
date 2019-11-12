@@ -2,7 +2,12 @@ import React, { useContext } from 'react';
 import { formInput } from './FormHelpers';
 import { Flex } from '../basic/Flex';
 import { Col } from '../basic/Grid';
-import { Form, FormItem } from '../basic/Form';
+import {
+  Form,
+  FormItem,
+  ValidationErrorResponse,
+  SingleValidationErrorResponse,
+} from '../basic/Form/Form';
 import { Button } from '../basic/Button';
 import { Text } from '../basic/Typography';
 import { Divider } from '../basic/Divider';
@@ -11,8 +16,13 @@ import { LocalizationContext } from '../basic/Provider';
 export interface LoginProps {
   login: (credentials: LoginCredentials) => void;
   onSignupNowClick: () => void;
-  validate: (data: LoginCredentials) => { [key: string]: string };
-  validateSingle: (val: any, selector: string) => string;
+  validate: (
+    data: LoginCredentials,
+  ) => ValidationErrorResponse | null | undefined;
+  validateSingle: (
+    val: any,
+    selector: string,
+  ) => SingleValidationErrorResponse | null | undefined;
 }
 
 export interface LoginCredentials {

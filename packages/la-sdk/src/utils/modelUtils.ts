@@ -1,4 +1,14 @@
 import isObject from 'lodash/isObject';
+import {errors} from './errors';
+
+export interface SingleValidationErrorResponse {
+  name: string;
+  message: string;
+}
+
+export interface ValidationErrorResponse {
+  [key: string] : SingleValidationErrorResponse;
+}
 
 export const getShortId = (
   idOrItem: string | { _id: string; [key: string]: any },
@@ -14,19 +24,19 @@ export const getShortId = (
 export const validateSingle = (schema: any, val: any, selector: string) => {
   const validator = schema[selector];
   if(!validator) {
-    return 'Invalid data passed.';
+    return errors['invalid-schema-selector'];
   }
 
   const validation = validator.testAll(val);
   if(validation.length > 0){
-    return validation[0].rule.name;
+    return errors[validation[0].rule.name] || errors['generic'];
   }
 
   return null;
 }
 
 export const validate = (schema: any, data: any = {}, ignoreRequired: boolean) => {
-  const errorObj = Object.keys(schema).reduce((errs: any, entry) => {
+  const errorObj = Object.keys(schema).reduce((errs: ValidationErrorResponse, entry) => {
     const val = data[entry];
     if(ignoreRequired && (val === null || val === undefined)){
       return errs;

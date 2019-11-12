@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import { Set } from '../Set';
+import { Set } from './Set';
 import { Provider } from '../Provider';
 import { Card } from '../Card';
 

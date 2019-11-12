@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { Button } from './Button';
-import { system } from '../system';
-import { Title } from './Typography';
-import { Flex } from './Flex';
+import { Button } from '../Button';
+import { system } from '../../system';
+import { Title } from '../Typography';
+import { Flex } from '../Flex';
 
 export type ArrowDirection = 'left' | 'right';
 interface SetProps<T> {

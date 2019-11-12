@@ -24,7 +24,7 @@ export const Signup = () => {
 
       <SignupForm
         signup={handleSignup}
-        validate={sdk.user.validate as any}
+        validate={(data) => sdk.user.validate(data as any, true)}
         validateSingle={sdk.user.validateSingle as any}
         onLoginNowClick={() => dispatch(goTo('/login'))}
       />

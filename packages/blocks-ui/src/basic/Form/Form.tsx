@@ -4,7 +4,7 @@ import { FormProps, FormItemProps } from 'antd/es/form';
 import 'antd/es/form/style/index.less';
 import get from 'lodash/get';
 import { clone, setWith, curry } from 'lodash/fp';
-import { system, SystemProps } from '../system';
+import { system, SystemProps } from '../../system';
 
 const setIn = curry((obj: any, value: any, path: string) =>
   setWith(clone, path, value, clone(obj)),
@@ -18,12 +18,25 @@ const getVal = (eventOrVal: any) => {
 const StyledForm = system<FormProps>(AntForm);
 const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
 
+export interface SingleValidationErrorResponse {
+  name: string;
+  message: string;
+}
+
+export interface ValidationErrorResponse {
+  [key: string]: SingleValidationErrorResponse;
+}
+
 interface FormHandlers {
   onInputChanged?: (state: any, val: any, selector: string) => void;
   onInputCompleted?: (state: any, val: any, selector: string) => void;
   onFormCompleted?: (state: any) => void;
-  validate?: (form: any) => { [item: string]: string } | void;
-  validateSingle?: (val: any, selector: string) => string | void;
+  validate?: (form: any) => ValidationErrorResponse | undefined | null;
+  validateSingle?: (
+    val: any,
+    selector: string,
+  ) => SingleValidationErrorResponse | undefined | null;
+  getErrorMessage?: (errorName: string) => string | undefined | null;
   externalState?: any;
 }
 
@@ -33,6 +46,7 @@ interface FormContext {
   errors: any;
   inputChangeHandler: (val: any, selector: string) => void;
   inputCompleteHandler: (val: any, selector: string) => void;
+  getErrorMessage?: FormHandlers['getErrorMessage'];
 }
 
 const { Provider, Consumer } = React.createContext<FormContext>({
@@ -50,6 +64,7 @@ export const Form = ({
   onInputChanged,
   onInputCompleted,
   onFormCompleted,
+  getErrorMessage,
   ...props
 }: FormProps & SystemProps & FormHandlers) => {
   const [errors, setErrors] = React.useState({});
@@ -111,6 +126,7 @@ export const Form = ({
         successes,
         inputChangeHandler,
         inputCompleteHandler,
+        getErrorMessage,
       }}
     >
       <StyledForm onSubmit={customSubmit} {...props} />
@@ -137,11 +153,19 @@ export const FormItem = ({
       {context => {
         const error = get(context.errors, selector);
         const success = get(context.successes, selector);
+        let help;
+        if (error) {
+          if (context.getErrorMessage) {
+            help = context.getErrorMessage(error.name) || error.message;
+          } else {
+            help = error.message;
+          }
+        }
 
         return (
           <StyledFormItem
             validateStatus={error ? 'error' : 'success'}
-            help={error}
+            help={help}
             hasFeedback={Boolean(error || success)}
             {...props}
           >

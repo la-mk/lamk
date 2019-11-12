@@ -129,5 +129,9 @@
     "backpack-casual": "Casual backpacks",
     "travel-backpack": "Travel backpacks",
     "travel-gear": "Travel gear"
+  },
+
+  "errors": {
+    "string": "The value is required"
   }
 }
