@@ -72,6 +72,7 @@ export const AddProductCard = ({
       colon={false}
       validate={(data) => sdk.product.validate(data, Boolean(product))}
       validateSingle={sdk.product.validateSingle}
+      getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}
       externalState={product || {}}
       onFormCompleted={product ? onPatchProduct : onAddProduct}
     >

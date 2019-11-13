@@ -35,6 +35,7 @@ export const StoreForm = ({ store, onDone }: StoreFormProps) => {
       colon={false}
       validate={(data) => sdk.store.validate(data, Boolean(store))}
       validateSingle={sdk.store.validateSingle}
+      getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}
       externalState={store || {}}
       onFormCompleted={onDone}
     >

@@ -32,6 +32,7 @@ export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
       externalState={delivery || {}}
       validate={(data) => sdk.delivery.validate(data, Boolean(delivery))}
       validateSingle={sdk.delivery.validateSingle}
+      getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}
     >
       <FormItem selector="method" label={t("delivery.deliveryMethod")}>
         {(val, _onChange, onComplete) => (

@@ -26,6 +26,7 @@ export const Signup = () => {
         signup={handleSignup}
         validate={(data) => sdk.user.validate(data as any, true)}
         validateSingle={sdk.user.validateSingle as any}
+        getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}
         onLoginNowClick={() => dispatch(goTo('/login'))}
       />
     </Flex>
