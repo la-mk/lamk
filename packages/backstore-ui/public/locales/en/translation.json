@@ -132,6 +132,25 @@
   },
 
   "errors": {
-    "string": "The value is required"
+    "pattern": "Field does not match the expected pattern",
+    "string": "Field should be a string",
+    "number": "Field should be a number",
+    "numeric": "Field should be a numeric",
+    "boolean": "Field should be either true or false",
+    "lowercase": "Field should all be lowercase",
+    "uppercase": "Field should all be uppercase",
+    "length": "Field should have less than {{0}} entries",
+    "minLength": "Field should be at least {{0}} characters long",
+    "maxLength": "Field should be at most {{0}} characters long",
+    "negative": "Field should be a negative value",
+    "positive": "Field should be a positive value",
+    "between": "Field should be between {{0}} and {{1}}",
+    "lessThan": "Field should be less than {{0}}",
+    "greaterThan": "Field should be more than {{0}}",
+    "integer": "Field should be an integer",
+    "schema": "Field does not match the expected schema",
+    "oneOf": "Field should be one of {{0}}",
+    "generic": "Invalid entry",
+    "invalid-schema-selector": "Invalid schema selector passed"
   }
 }

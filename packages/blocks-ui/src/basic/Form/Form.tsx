@@ -21,13 +21,14 @@ const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
 export interface SingleValidationErrorResponse {
   name: string;
   message: string;
+  args?: any[];
 }
 
 export interface ValidationErrorResponse {
   [key: string]: SingleValidationErrorResponse;
 }
 
-interface FormHandlers {
+export interface FormHandlers {
   onInputChanged?: (state: any, val: any, selector: string) => void;
   onInputCompleted?: (state: any, val: any, selector: string) => void;
   onFormCompleted?: (state: any) => void;
@@ -36,7 +37,10 @@ interface FormHandlers {
     val: any,
     selector: string,
   ) => SingleValidationErrorResponse | undefined | null;
-  getErrorMessage?: (errorName: string) => string | undefined | null;
+  getErrorMessage?: (
+    errorName: string,
+    context: { [key: string]: any },
+  ) => string | undefined | null;
   externalState?: any;
 }
 
@@ -156,7 +160,9 @@ export const FormItem = ({
         let help;
         if (error) {
           if (context.getErrorMessage) {
-            help = context.getErrorMessage(error.name) || error.message;
+            help =
+              context.getErrorMessage(error.name, { ...error.args }) ||
+              error.message;
           } else {
             help = error.message;
           }

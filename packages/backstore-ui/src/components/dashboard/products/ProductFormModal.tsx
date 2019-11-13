@@ -142,7 +142,7 @@ export const ProductFormModal = ({
           externalState={product}
           validate={(data) => sdk.product.validate(data, Boolean(product))}
           validateSingle={sdk.product.validateSingle}
-          getErrorMessage={(errorName) => t(`errors.${errorName}`)}
+          getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}
           onFormCompleted={product ? handlePatchProduct : handleCreateProduct}
           layout="horizontal"
         >

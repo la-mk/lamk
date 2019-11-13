@@ -9,5 +9,5 @@ export interface StepsProps extends AntStepsProps {
   children?: React.ReactElement<StepProps>[];
 }
 
-export const Steps = system<StepsProps>(AntSteps);
+export const Steps = system<StepsProps>(AntSteps as any);
 export const Step = system<StepProps>(AntSteps.Step);

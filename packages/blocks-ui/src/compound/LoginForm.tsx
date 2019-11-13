@@ -2,27 +2,15 @@ import React, { useContext } from 'react';
 import { formInput } from './FormHelpers';
 import { Flex } from '../basic/Flex';
 import { Col } from '../basic/Grid';
-import {
-  Form,
-  FormItem,
-  ValidationErrorResponse,
-  SingleValidationErrorResponse,
-} from '../basic/Form/Form';
+import { Form, FormItem, FormHandlers } from '../basic/Form/Form';
 import { Button } from '../basic/Button';
 import { Text } from '../basic/Typography';
 import { Divider } from '../basic/Divider';
 import { LocalizationContext } from '../basic/Provider';
 
-export interface LoginProps {
+export interface LoginProps extends FormHandlers {
   login: (credentials: LoginCredentials) => void;
   onSignupNowClick: () => void;
-  validate: (
-    data: LoginCredentials,
-  ) => ValidationErrorResponse | null | undefined;
-  validateSingle: (
-    val: any,
-    selector: string,
-  ) => SingleValidationErrorResponse | null | undefined;
 }
 
 export interface LoginCredentials {
@@ -33,8 +21,7 @@ export interface LoginCredentials {
 export const LoginForm = ({
   login,
   onSignupNowClick,
-  validate,
-  validateSingle,
+  ...otherProps
 }: LoginProps) => {
   const localization = useContext(LocalizationContext);
 
@@ -47,8 +34,7 @@ export const LoginForm = ({
           layout='horizontal'
           colon={false}
           onFormCompleted={(data: LoginCredentials) => login(data)}
-          validate={validate}
-          validateSingle={validateSingle}
+          {...otherProps}
         >
           <FormItem
             selector='email'

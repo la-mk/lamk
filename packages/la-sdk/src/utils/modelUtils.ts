@@ -1,9 +1,10 @@
 import isObject from 'lodash/isObject';
-import {errors} from './errors';
+import {errors, getError} from './errors';
 
 export interface SingleValidationErrorResponse {
   name: string;
   message: string;
+  args?: any[];
 }
 
 export interface ValidationErrorResponse {
@@ -29,7 +30,12 @@ export const validateSingle = (schema: any, val: any, selector: string) => {
 
   const validation = validator.testAll(val);
   if(validation.length > 0){
-    return errors[validation[0].rule.name] || errors['generic'];
+    // If it is an optional field, see what the real cause for the error is
+    if(validation[0].rule.name === 'optional'){
+      return getError(validation[0].cause.rule.name, validation[0].cause.rule.args);
+    }
+
+    return getError(validation[0].rule.name, validation[0].rule.args);
   }
 
   return null;

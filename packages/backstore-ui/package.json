@@ -38,8 +38,8 @@
     ]
   },
   "dependencies": {
-    "@lamk/blocks-ui": "^1.0.14",
-    "@lamk/la-sdk": "^1.0.13",
+    "@lamk/blocks-ui": "^1.0.17",
+    "@lamk/la-sdk": "^1.0.15",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.146",
     "@types/node": "^12.12.7",

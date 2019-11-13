@@ -2,27 +2,15 @@ import React, { useContext } from 'react';
 import { formInput } from './FormHelpers';
 import { Flex } from '../basic/Flex';
 import { Col } from '../basic/Grid';
-import {
-  Form,
-  FormItem,
-  ValidationErrorResponse,
-  SingleValidationErrorResponse,
-} from '../basic/Form/Form';
+import { Form, FormItem, FormHandlers } from '../basic/Form/Form';
 import { Button } from '../basic/Button';
 import { Text } from '../basic/Typography';
 import { Divider } from '../basic/Divider';
 import { LocalizationContext } from '../basic/Provider';
 
-export interface SignupProps {
+export interface SignupProps extends FormHandlers {
   signup: (credentials: SignupCredentials) => void;
   onLoginNowClick: () => void;
-  validate: (
-    data: SignupCredentials,
-  ) => ValidationErrorResponse | null | undefined;
-  validateSingle: (
-    val: any,
-    selector: string,
-  ) => SingleValidationErrorResponse | null | undefined;
 }
 
 export interface SignupCredentials {
@@ -32,8 +20,7 @@ export interface SignupCredentials {
 export const SignupForm = ({
   signup,
   onLoginNowClick,
-  validate,
-  validateSingle,
+  ...otherProps
 }: SignupProps) => {
   const localization = useContext(LocalizationContext);
 
@@ -46,8 +33,7 @@ export const SignupForm = ({
           layout='horizontal'
           colon={false}
           onFormCompleted={(data: SignupCredentials) => signup(data)}
-          validate={validate}
-          validateSingle={validateSingle}
+          {...otherProps}
         >
           <FormItem
             selector='email'
