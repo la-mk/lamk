@@ -5,7 +5,7 @@ const v8n = require('v8n');
 const sampleSchema = {
   name: v8n().string().maxLength(511),
   country: v8n().string().maxLength(255),
-  region: v8n().optional(v8n().string().maxLength(255)),
+  region: v8n().optional(v8n().string().maxLength(255), true),
   numberOfOffices: v8n().between(1, 50),
   addresses: v8n().optional(v8n().every.schema({
     street: v8n().string().maxLength(63),
@@ -31,6 +31,10 @@ const sampleData = {
 describe('Validation utility', () => {
   test('Should pass when a valid object is passed', () => {
     expect(modelUtils.validate(sampleSchema, sampleData)).toBeFalsy();
+  });
+
+  test('Should pass when an optional field is passed a trimmed string', () => {
+    expect(modelUtils.validate(sampleSchema, { ...sampleData, region: '  ' })).toBe(null)
   });
 
   test('Should pass when required should be ignored and object is empty', () => {

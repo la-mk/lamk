@@ -13,6 +13,7 @@ import {
   FormItem,
   formTextArea,
   formInput,
+  parsers,
   Cascader
 } from "@lamk/blocks-ui";
 import { Product } from "@lamk/la-sdk/dist/models/product";
@@ -171,11 +172,10 @@ export const ProductFormModal = ({
               </FormItem>
             </Col>
             <Col md={8} span={24}>
-              <FormItem label={t("common.price")} selector="price">
+              <FormItem label={t("common.price")} selector="price" parser={parsers.number}>
                 {formInput({
                   placeholder: t("product.priceExample"),
                   addonBefore: "Ден",
-                  type: 'number'
                 })}
               </FormItem>
             </Col>

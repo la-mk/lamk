@@ -9,7 +9,8 @@ import {
   Button,
   message,
   formInput,
-  formTextArea
+  formTextArea,
+  parsers
 } from "@lamk/blocks-ui";
 import { Product } from "@lamk/la-sdk/dist/models/product";
 import { sdk } from "@lamk/la-sdk";
@@ -83,7 +84,7 @@ export const AddProductCard = ({
           </FormItem>
         }
         extra={
-          <FormItem ml={3} mb={0} width="130px" selector="price">
+          <FormItem ml={3} mb={0} width="130px" selector="price" parser={parsers.number}>
             {formInput({ placeholder: t("common.price"), addonBefore: "Ден" })}
           </FormItem>
         }

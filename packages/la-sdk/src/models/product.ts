@@ -11,7 +11,7 @@ export const schema = {
   price: v8n().number().positive(),
   images: v8n().every.string().minLength(2).maxLength(4095),
   category: v8n().string().minLength(2).maxLength(511),
-  description: v8n().optional(v8n().string().minLength(2).maxLength(2047)),
+  description: v8n().optional(v8n().string().minLength(2).maxLength(2047), true),
 }
 
 export interface Product {

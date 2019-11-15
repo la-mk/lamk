@@ -1,3 +1,4 @@
+import identity from 'lodash/identity';
 import * as React from 'react';
 import { Form as AntForm } from 'antd';
 import { FormProps, FormItemProps } from 'antd/es/form';
@@ -76,8 +77,7 @@ export const Form = ({
   const [state, setState] = React.useState(externalState || {});
   React.useEffect(() => setState(externalState), [externalState]);
 
-  const inputChangeHandler = (e: any, selector: string) => {
-    const val = getVal(e);
+  const inputChangeHandler = (val: any, selector: string) => {
     const nextState = setIn(state, val, selector);
     setState(nextState);
 
@@ -91,8 +91,7 @@ export const Form = ({
     }
   };
 
-  const inputCompleteHandler = (e: any, selector: string) => {
-    const val = getVal(e);
+  const inputCompleteHandler = (val: any, selector: string) => {
     const error = validateSingle && validateSingle(val, selector);
     const nextState = setIn(state, val, selector);
     setState(nextState);
@@ -145,10 +144,12 @@ interface FormItemContextProps {
     onComplete: (val: any) => void,
   ) => React.ReactNode;
   selector: string;
+  parser?: (val: any) => any;
 }
 
 export const FormItem = ({
   selector,
+  parser = identity,
   children,
   ...props
 }: FormItemProps & SystemProps & FormItemContextProps) => {
@@ -177,8 +178,10 @@ export const FormItem = ({
           >
             {children(
               get(context.state, selector),
-              (val: any) => context.inputChangeHandler(val, selector),
-              (val: any) => context.inputCompleteHandler(val, selector),
+              (val: any) =>
+                context.inputChangeHandler(parser(getVal(val)), selector),
+              (val: any) =>
+                context.inputCompleteHandler(parser(getVal(val)), selector),
             )}
           </StyledFormItem>
         );

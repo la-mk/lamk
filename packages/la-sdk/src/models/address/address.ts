@@ -9,11 +9,11 @@ export const schema = {
   addressFor: v8n().string().minLength(2).maxLength(63),
   name: v8n().string().minLength(2).maxLength(511),
   country: v8n().string().minLength(2).maxLength(255),
-  region: v8n().optional(v8n().string().minLength(2).maxLength(511)),
+  region: v8n().optional(v8n().string().minLength(2).maxLength(511), true),
   city: v8n().string().minLength(2).maxLength(255),
   zip: v8n().string().minLength(2).maxLength(31),
   street: v8n().string().minLength(2).maxLength(255),
-  person: v8n().optional(v8n().string().minLength(2).maxLength(511)),
+  person: v8n().optional(v8n().string().minLength(2).maxLength(511), true),
   phoneNumber: v8n().string().minLength(2).maxLength(31),
 }
 

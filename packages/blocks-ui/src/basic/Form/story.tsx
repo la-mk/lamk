@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { Form, FormItem } from './Form';
 import { Provider } from '../Provider';
-import { formInput } from '../../compound/FormHelpers';
+import { formInput, parsers } from '../../compound/FormHelpers';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 
@@ -15,13 +15,15 @@ storiesOf('Form', module).add('basic form', () => (
       colon={false}
       onFormCompleted={console.log}
       externalState={{}}
-      validate={data => ({
-        price: { name: 'string', message: 'Error' },
-        delivery: { name: 'string', message: 'Error' },
-      })}
-      validateSingle={data => ({ name: 'string', message: 'Error' })}
+      validate={() => null}
+      validateSingle={() => null}
     >
-      <FormItem extra={'Some explanation'} selector='price' label={'Price'}>
+      <FormItem
+        extra={'Some explanation'}
+        selector='price'
+        label={'Price'}
+        parser={parsers.number}
+      >
         {formInput({ placeholder: '500', addonBefore: 'Yen' })}
       </FormItem>
 

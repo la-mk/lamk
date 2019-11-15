@@ -6,7 +6,8 @@ import {
   Flex,
   Button,
   Select,
-  Option
+  Option,
+  parsers
 } from "@lamk/blocks-ui";
 import { sdk } from "@lamk/la-sdk";
 import { Delivery } from "@lamk/la-sdk/dist/models/delivery";
@@ -50,6 +51,7 @@ export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
       <FormItem
         extra={t('delivery.priceExplanation')}
         selector="price"
+        parser={parsers.number}
         label={t('common.price')}
       >
         {formInput({ placeholder: t('common.price'), addonBefore: "Ден" })}
@@ -58,6 +60,7 @@ export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
       <FormItem
         extra={t('delivery.freeDeliveryExplanation')}
         selector="freeDeliveryOver"
+        parser={parsers.number}
         label={t('delivery.freeDelivery')}
       >
         {formInput({ placeholder: t('delivery.overPrice'), addonBefore: "Ден" })}

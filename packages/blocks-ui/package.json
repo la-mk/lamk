@@ -1,6 +1,6 @@
 {
   "name": "@lamk/blocks-ui",
-  "version": "1.0.17",
+  "version": "1.0.19",
   "description": "",
   "module": "dist/index.es5.js",
   "typings": "dist/types/index.d.ts",
