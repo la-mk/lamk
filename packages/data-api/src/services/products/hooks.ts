@@ -8,6 +8,8 @@ import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
 import { unless, keep, checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
+import { sdk } from '@lamk/la-sdk';
+import { validate } from '../../common/hooks/db';
 
 interface HookContextWithCategory extends HookContext {
   previousCategory?: string;
@@ -144,11 +146,16 @@ export const hooks = {
     all: [],
     find: [requireAnyQueryParam(['_id', 'soldBy'])],
     get: [],
-    create: [authenticate('jwt'), associateCurrentUser({ as: 'soldBy' })],
+    create: [
+      authenticate('jwt'),
+      associateCurrentUser({ as: 'soldBy' }),
+      validate(sdk.product.validate),
+    ],
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'soldBy' }),
       assignPreviousCategory,
+      validate(sdk.product.validate),
     ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'soldBy' })],
   },

@@ -5,6 +5,8 @@ import {
   queryWithCurrentUser,
   restrictToOwner,
 } from 'feathers-authentication-hooks';
+import { validate } from '../../common/hooks/db';
+import { sdk } from '@lamk/la-sdk';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
@@ -14,12 +16,17 @@ export const hooks = {
     all: [],
     find: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
     get: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
-    create: [hashPassword('password'), unique(['email'])],
+    create: [
+      hashPassword('password'),
+      unique(['email']),
+      validate(sdk.user.validate),
+    ],
     patch: [
       hashPassword('password'),
       authenticate('jwt'),
       restrictToOwner({ ownerField: '_id' }),
       unique(['email']),
+      validate(sdk.user.validate),
     ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: '_id' })],
   },

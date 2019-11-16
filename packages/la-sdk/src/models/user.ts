@@ -7,9 +7,9 @@ import v8n from 'v8n';
 export const schema = {
   email: v8n().string().minLength(2).maxLength(511),
   password: v8n().string().minLength(8).maxLength(255),
-  firstName: v8n().string().minLength(2).maxLength(255),
-  lastName: v8n().string().minLength(2).maxLength(255),
-  phoneNumber: v8n().string().minLength(2).maxLength(31),
+  firstName: v8n().optional(v8n().string().minLength(2).maxLength(255), true),
+  lastName: v8n().optional(v8n().string().minLength(2).maxLength(255), true),
+  phoneNumber: v8n().optional(v8n().string().minLength(2).maxLength(31), true),
 }
 
 export interface User {

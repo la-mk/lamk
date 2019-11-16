@@ -6,14 +6,24 @@ import {
 } from 'feathers-authentication-hooks';
 import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
 import { unless, keep } from 'feathers-hooks-common';
+import { sdk } from '@lamk/la-sdk';
+import { validate } from '../../common/hooks/db';
 
 export const hooks = {
   before: {
     all: [],
     find: [requireAnyQueryParam(['forStore'])],
     get: [],
-    create: [authenticate('jwt'), associateCurrentUser({ as: 'forStore' })],
-    patch: [authenticate('jwt'), restrictToOwner({ ownerField: 'forStore' })],
+    create: [
+      authenticate('jwt'),
+      associateCurrentUser({ as: 'forStore' }),
+      validate(sdk.delivery.validate),
+    ],
+    patch: [
+      authenticate('jwt'),
+      restrictToOwner({ ownerField: 'forStore' }),
+      validate(sdk.delivery.validate),
+    ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'forStore' })],
   },
 

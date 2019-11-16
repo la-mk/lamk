@@ -5,9 +5,15 @@ import {
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
 import { unique } from '../../common/hooks/unique';
-import { requireAnyQueryParam, isOwner, isPublished } from '../../common/hooks/filtering';
+import {
+  requireAnyQueryParam,
+  isOwner,
+  isPublished,
+} from '../../common/hooks/filtering';
 import { unless, keep } from 'feathers-hooks-common';
 import { NotFound } from '../../common/errors';
+import { sdk } from '@lamk/la-sdk';
+import { validate } from '../../common/hooks/db';
 
 export const hooks = {
   before: {
@@ -21,8 +27,13 @@ export const hooks = {
       associateCurrentUser({ as: '_id' }),
       // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
+      validate(sdk.store.validate),
     ],
-    patch: [authenticate('jwt'), restrictToOwner({ ownerField: 'ownedBy' })],
+    patch: [
+      authenticate('jwt'),
+      restrictToOwner({ ownerField: 'ownedBy' }),
+      validate(sdk.store.validate),
+    ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'ownedBy' })],
   },
 
@@ -31,7 +42,9 @@ export const hooks = {
     find: [
       unless(
         isOwner('ownedBy'),
-        unless(isPublished(), () => {throw new NotFound('Store not found')}) 
+        unless(isPublished(), () => {
+          throw new NotFound('Store not found');
+        }),
       ),
       unless(
         isOwner('ownedBy'),
@@ -41,7 +54,9 @@ export const hooks = {
     get: [
       unless(
         isOwner('ownedBy'),
-        unless(isPublished(), () => {throw new NotFound('Store not found')}) 
+        unless(isPublished(), () => {
+          throw new NotFound('Store not found');
+        }),
       ),
       unless(
         isOwner('ownedBy'),

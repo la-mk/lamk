@@ -68,6 +68,7 @@
     "@feathersjs/feathers": "^4.3.11",
     "@feathersjs/socket-commons": "^3.1.5",
     "@feathersjs/socketio": "^4.3.11",
+    "@lamk/la-sdk": "^1.0.16",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dauria": "^2.0.0",

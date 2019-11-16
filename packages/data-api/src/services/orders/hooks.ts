@@ -7,6 +7,8 @@ import {
 import { setFields } from '../../common/hooks/db';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
+import { sdk } from '@lamk/la-sdk';
+import { validate } from '../../common/hooks/db';
 
 // We need to check that the order only contains products from the specified store,
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
@@ -20,13 +22,15 @@ const validateOrderedItems = async (ctx: HookContext) => {
     }
   });
 
-  const products = (await ctx.app.services['products'].find({
-    query: {
-      _id: {
-        $in: orderedProducts.map((orderedProduct: any) => orderedProduct._id),
+  const products = (
+    await ctx.app.services['products'].find({
+      query: {
+        _id: {
+          $in: orderedProducts.map((orderedProduct: any) => orderedProduct._id),
+        },
       },
-    },
-  })).data;
+    })
+  ).data;
 
   orderedProducts.forEach((orderedProduct: any) => {
     const dbProduct = products.find(
@@ -56,11 +60,14 @@ export const hooks = {
       authenticate('jwt'),
       associateCurrentUser({ as: 'orderedBy' }),
       setFields({ status: 'pending' }),
+      validate(sdk.order.validate),
+      // TODO: This validation should be part of the model.
       validateOrderedItems,
     ],
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'orderedFrom' }),
+      validate(sdk.order.validate),
     ],
     remove: [
       authenticate('jwt'),

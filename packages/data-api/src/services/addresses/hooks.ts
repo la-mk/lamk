@@ -6,6 +6,8 @@ import {
   queryWithCurrentUser,
 } from 'feathers-authentication-hooks';
 import { alterItems } from 'feathers-hooks-common';
+import { sdk } from '@lamk/la-sdk';
+import { validate } from '../../common/hooks/db';
 
 export const hooks = {
   before: {
@@ -13,9 +15,26 @@ export const hooks = {
     find: [authenticate('jwt'), queryWithCurrentUser({ as: 'addressFor' })],
     get: [authenticate('jwt'), queryWithCurrentUser({ as: 'addressFor' })],
     // We only support shipping to Macedonia so far.
-    create: [authenticate('jwt'), associateCurrentUser({ as: 'addressFor' }), alterItems((record) => {record.country = 'Macedonia'})],
-    patch: [authenticate('jwt'), restrictToOwner({ ownerField: 'addressFor' }), alterItems((record) => {record.country = 'Macedonia'})],
-    remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'addressFor' })],
+    create: [
+      authenticate('jwt'),
+      associateCurrentUser({ as: 'addressFor' }),
+      alterItems(record => {
+        record.country = 'Macedonia';
+      }),
+      validate(sdk.address.validate),
+    ],
+    patch: [
+      authenticate('jwt'),
+      restrictToOwner({ ownerField: 'addressFor' }),
+      alterItems(record => {
+        record.country = 'Macedonia';
+      }),
+      validate(sdk.address.validate),
+    ],
+    remove: [
+      authenticate('jwt'),
+      restrictToOwner({ ownerField: 'addressFor' }),
+    ],
   },
 
   after: {

@@ -1,6 +1,10 @@
 import feathers from '@feathersjs/feathers';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
+import { setupSdk } from '@lamk/la-sdk';
+// Currently we only use the SDK for validations and not for doing requests.
+// We need to setup the SDK before it is used in the imports.
+setupSdk();
 
 import { initLogger, getSyncLogger } from '../common/logger';
 import { registerUnhandledErrorHandlers } from '../common/errors';
@@ -25,11 +29,12 @@ export default async () => {
 
   // Set up feathers transports
   app.configure(express.rest());
-  app.configure(socketio({
+  app.configure(
+    socketio({
       // This is needed if there is a cluster of services running, check https://docs.feathersjs.com/cookbook/general/scaling.html#cluster-configuration.
       // transports: ['websocket']
-    }
-  ));
+    }),
+  );
 
   initPreRouteMiddlewares(app);
 

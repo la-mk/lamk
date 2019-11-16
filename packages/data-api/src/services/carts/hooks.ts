@@ -7,6 +7,8 @@ import {
 } from 'feathers-authentication-hooks';
 import { unique } from '../../common/hooks/unique';
 import { disallow } from 'feathers-hooks-common';
+import { sdk } from '@lamk/la-sdk';
+import { validate } from '../../common/hooks/db';
 
 export const hooks = {
   before: {
@@ -20,8 +22,13 @@ export const hooks = {
       associateCurrentUser({ as: '_id' }),
       // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
+      validate(sdk.cart.validate),
     ],
-    patch: [authenticate('jwt'), restrictToOwner({ ownerField: 'forUser' })],
+    patch: [
+      authenticate('jwt'),
+      restrictToOwner({ ownerField: 'forUser' }),
+      validate(sdk.cart.validate),
+    ],
     // Only allow server to be able to remove a cart (TODO: when a user deletes their account)
     remove: [disallow('socketio', 'primus', 'rest', 'external')],
   },
