@@ -29,7 +29,7 @@ export const AddAddressCard = ({
       wrapperCol={{ span: 18 }}
       layout='horizontal'
       colon={false}
-      validate={sdk.address.validate}
+      validate={data => sdk.address.validate(data, Boolean(address))}
       validateSingle={sdk.address.validateSingle}
       externalState={address || {}}
       onFormCompleted={address ? onPatchAddress : onAddAddress}

@@ -37,7 +37,7 @@ export const AuthModal = () => {
           <LoginForm
             login={handleLogin}
             onSignupNowClick={() => setMethod('signup')}
-            validate={sdk.user.validate as any}
+            validate={data => sdk.user.validate(data as any, true) as any}
             validateSingle={sdk.user.validateSingle as any}
           />
         </Flex>
@@ -50,7 +50,7 @@ export const AuthModal = () => {
           <SignupForm
             signup={handleSignup}
             onLoginNowClick={() => setMethod('login')}
-            validate={sdk.user.validate as any}
+            validate={data => sdk.user.validate(data as any, true)}
             validateSingle={sdk.user.validateSingle as any}
           />
         </Flex>

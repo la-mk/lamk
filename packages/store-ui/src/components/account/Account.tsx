@@ -46,7 +46,7 @@ export const Account = ({ user }: AccountProps) => {
               colon={false}
               onFormCompleted={handlePatchAccount}
               externalState={user}
-              validate={sdk.user.validate}
+              validate={data => sdk.user.validate(data, true)}
               validateSingle={sdk.user.validateSingle}
             >
               <FormItem selector='firstName' label='First Name'>
