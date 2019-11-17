@@ -5,10 +5,13 @@ import { Head } from '../common/Head';
 import { Product as ProductType } from '@lamk/la-sdk/dist/models/product';
 import { Product } from '../../src/components/products/Product';
 import { Empty } from '@lamk/blocks-ui';
+import { useTranslation } from '../../src/common/i18n';
 
 const ProductPage = ({ product }: { product: ProductType }) => {
+  const { t } = useTranslation();
+
   if (!product) {
-    return <Empty mt={5} description='Product not found'></Empty>;
+    return <Empty mt={5} description={t('results.productNotFound')}></Empty>;
   }
 
   return (

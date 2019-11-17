@@ -2,11 +2,14 @@ import { NextPageContext } from 'next';
 import { Head } from '../common/Head';
 import { Checkout } from '../../src/components/cart/Checkout';
 import { setDeliveryIfNone } from '../common/initialProps/setDeliveryIfNone';
+import { useTranslation } from '../../src/common/i18n';
 
 function CheckoutPage() {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Head title='Checkout' />
+      <Head title={t('pages.checkout')} />
       <Checkout />
     </>
   );

@@ -2,11 +2,13 @@ import { NextPageContext } from 'next';
 import { Head } from '../common/Head';
 import { Cart } from '../../src/components/cart/Cart';
 import { setDeliveryIfNone } from '../common/initialProps/setDeliveryIfNone';
+import { useTranslation } from '../../src/common/i18n';
 
 function CartPage() {
+  const { t } = useTranslation();
   return (
     <>
-      <Head title='Cart' />
+      <Head title={t('pages.cart')} />
       <Cart />
     </>
   );

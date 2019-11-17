@@ -2,11 +2,14 @@ import React from 'react';
 import { NextPageContext } from 'next';
 import { Head } from '../common/Head';
 import { Order } from '../../src/components/orders/Order';
+import { useTranslation } from '../../src/common/i18n';
 
 const OrderPage = ({ orderId }: { orderId: string }) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Head title={'Order'} />
+      <Head title={t('pages.order')} />
       <Order orderId={orderId} />
     </>
   );

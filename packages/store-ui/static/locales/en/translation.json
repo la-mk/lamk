@@ -1,5 +1,24 @@
 {
+  "pages": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "myAccount": "My Account",
+    "myOrders": "My Orders",
+    "product": "Product",
+    "product_plural": "Products",
+    "order": "Order",
+    "order_plural": "Orders",
+    "cart": "Cart",
+    "checkout": "Checkout"
+  },
+  
   "auth": {
+    "logout": "Log out",
+    "login": "Log in",
     "no-user-information": "Could not load user information. Check if you are logged in."
+  },
+  
+  "results": {
+    "productNotFound": "Product not found"
   }
 }

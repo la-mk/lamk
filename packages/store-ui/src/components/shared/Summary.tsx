@@ -29,7 +29,7 @@ export const Summary = ({
   useEffect(() => {
     if (!delivery) {
       message.warning(
-        'Could not shipping cost, final price might not be accurate',
+        'Could not calculate shipping cost, final price might not be accurate',
       );
     }
   }, [delivery]);

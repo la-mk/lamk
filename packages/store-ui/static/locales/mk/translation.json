@@ -1,5 +1,24 @@
 {
+  "pages": {
+    "home": "Дома",
+    "aboutUs": "За нас",
+    "myAccount": "Моја сметка",
+    "myOrders": "Мои порачки",
+    "product": "Продукт",
+    "product_plural": "Продукти",
+    "order": "Порачка",
+    "order_plural": "Порачки",
+    "cart": "Корпа",
+    "checkout": "Каса"
+  },
+  
   "auth": {
+    "logout": "Одлогирај се",
+    "login": "Логирај се",
     "no-user-information": "Информациите за корисникот не се најдени. Проверете дали сте логирани."
+  },
+  
+  "results": {
+    "productNotFound": "Продуктот не е пронајден"
   }
 }

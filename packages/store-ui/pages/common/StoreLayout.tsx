@@ -26,6 +26,7 @@ import { getCartWithProducts } from '../../src/state/modules/cart/cart.selector'
 import { logout } from '../../src/state/modules/auth/auth.module';
 import { getUser } from '../../src/state/modules/user/user.selector';
 import { toggleAuthModal } from '../../src/state/modules/ui/ui.module';
+import { useTranslation } from '../../src/common/i18n';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -59,6 +60,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
   const user = useSelector(getUser);
   const cart = useSelector(getCartWithProducts);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   // Not a very clean solution, but it will do for now
   const matches = router.pathname.match(/\/([^/]*)(\/?)/);
@@ -90,12 +92,12 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
             <Menu mode='horizontal' selectedKeys={selectedKeys}>
               <MenuItem p={0} key='products'>
                 <Link href='/products' passHref>
-                  <Button type='link'>Products</Button>
+                  <Button type='link'>{t('pages.product_plural')}</Button>
                 </Link>
               </MenuItem>
               <MenuItem p={0} key='about'>
                 <Link href='/about' passHref>
-                  <Button type='link'>About us</Button>
+                  <Button type='link'>{t('pages.aboutUs')}</Button>
                 </Link>
               </MenuItem>
               <MenuItem p={0} key='cart'>
@@ -120,14 +122,14 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                         <MenuItem key='account'>
                           <Link href='/account' passHref>
                             <Button type='link' icon='user'>
-                              My Account
+                              {t('pages.myAccount')}
                             </Button>
                           </Link>
                         </MenuItem>
                         <MenuItem key='orders'>
                           <Link href='/orders' passHref>
                             <Button type='link' icon='shopping'>
-                              My Orders
+                              {t('pages.myOrders')}
                             </Button>
                           </Link>
                         </MenuItem>
@@ -139,7 +141,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                             href=''
                             onClick={handleLogout}
                           >
-                            Logout
+                            {t('auth.logout')}
                           </Button>
                         </MenuItem>
                       </Menu>
@@ -152,7 +154,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                             href=''
                             onClick={handleLogin}
                           >
-                            Log in
+                            {t('auth.login')}
                           </Button>
                         </MenuItem>
                       </Menu>

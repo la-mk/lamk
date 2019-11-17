@@ -4,11 +4,14 @@ import { Head } from '../common/Head';
 import { Products } from '../../src/components/products/Products';
 import { NextPageContext } from 'next';
 import { getStore } from '../../src/state/modules/store/store.selector';
+import { useTranslation } from '../../src/common/i18n';
 
 function ProductsPage({ products }: { products: Product[] }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Head title='Products' />
+      <Head title={t('pages.product_plural')} />
       <Products products={products} />
     </>
   );

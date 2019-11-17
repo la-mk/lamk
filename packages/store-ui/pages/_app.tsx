@@ -1,5 +1,5 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import { default as NextHead } from 'next/head';
 import { Provider as ThemeProvider, Empty } from '@lamk/blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -60,7 +60,7 @@ class MyApp extends App<{ store: any }> {
     }
 
     return (
-      <Container>
+      <>
         {laStore && (
           <NextHead>
             <link
@@ -85,7 +85,7 @@ class MyApp extends App<{ store: any }> {
             </ConnectedRouter>
           </ReduxProvider>
         </ThemeProvider>
-      </Container>
+      </>
     );
   }
 }

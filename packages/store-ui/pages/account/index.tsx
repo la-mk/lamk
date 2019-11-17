@@ -15,7 +15,7 @@ function AccountPage() {
 
   return (
     <>
-      <Head title='My Account' />
+      <Head title={t('pages.myAccount')} />
       <Account user={user} />
     </>
   );

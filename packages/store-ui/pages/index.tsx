@@ -4,11 +4,14 @@ import { sdk } from '@lamk/la-sdk';
 import { NextPageContext } from 'next';
 import { getStore } from '../src/state/modules/store/store.selector';
 import { setCategoriesIfNone } from './common/initialProps/setCategoriesIfNone';
+import { useTranslation } from '../src/common/i18n';
 
 function HomePage({ products }: any) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Head title='Home' />
+      <Head title={t('pages.home')} />
       <Home products={products} />
     </>
   );
