@@ -1,0 +1,5 @@
+{
+  "auth": {
+    "no-user-information": "Could not load user information. Check if you are logged in."
+  }
+}

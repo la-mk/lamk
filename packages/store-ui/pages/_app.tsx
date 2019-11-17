@@ -11,8 +11,9 @@ import { setStore } from '../src/state/modules/store/store.module';
 import { AuthModal } from '../src/components/signup/AuthModal';
 import { sdk, setupSdk } from '@lamk/la-sdk';
 import env from '../src/common/env';
-import 'antd/dist/antd.less';
 import { getStore } from '../src/state/modules/store/store.selector';
+import { appWithTranslation } from '../src/common/i18n';
+import 'antd/dist/antd.less';
 
 const setInitialDataInState = async (appCtx: any) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
@@ -92,4 +93,4 @@ class MyApp extends App<{ store: any }> {
 // We initialize the redux store, which will add the `store` prop to the context object.
 export default withRedux((initialState, options) =>
   configureStore(process.env.NODE_ENV, initialState, options),
-)(MyApp);
+)(appWithTranslation(MyApp));

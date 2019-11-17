@@ -146,7 +146,12 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                     ) : (
                       <Menu>
                         <MenuItem key='login'>
-                          <Button type='link' onClick={handleLogin}>
+                          <Button
+                            type='link'
+                            icon='login'
+                            href=''
+                            onClick={handleLogin}
+                          >
                             Log in
                           </Button>
                         </MenuItem>

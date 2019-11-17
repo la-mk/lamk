@@ -5,7 +5,7 @@ interface HeadProps {
   title: string;
 }
 
-export const Head = ({ title }) => {
+export const Head = ({ title }: HeadProps) => {
   return (
     <NextHead>
       <title key='title'>{title}</title>
