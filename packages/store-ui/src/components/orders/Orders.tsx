@@ -20,11 +20,13 @@ import { useCall } from '../shared/hooks/useCall';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../state/modules/user/user.selector';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { useTranslation } from '../../common/i18n';
 
 export const Orders = () => {
   const [caller, showSpinner] = useCall();
   const [orders, setOrders] = useState(null);
   const user = useSelector(getUser);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!user) {
@@ -37,11 +39,11 @@ export const Orders = () => {
   }, [caller, user]);
 
   if (!orders) {
-    return <Empty mt={5} description='Orders not found'></Empty>;
+    return <Empty mt={5} description={t('order.orderNotFound_plural')}></Empty>;
   }
 
   return (
-    <Page title='Orders'>
+    <Page title={t('pages.order_plural')}>
       <Spin spinning={showSpinner}>
         <List style={{ width: '100%' }}>
           {orders.map(order => (
@@ -55,7 +57,7 @@ export const Orders = () => {
                 >
                   <Text strong>{order.status}</Text>
                   <Text>
-                    Ordered{' '}
+                    {t('order.ordered')}{' '}
                     {formatDistanceToNow(new Date(order.createdAt), {
                       addSuffix: true,
                     })}
@@ -64,7 +66,7 @@ export const Orders = () => {
               }
               extra={
                 <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
-                  <Button type='link'>Order details</Button>
+                  <Button type='link'>{t('order.orderDetails')}</Button>
                 </Link>
               }
               mb={4}
@@ -98,7 +100,9 @@ export const Orders = () => {
                           <Flex ml={4} width='100%' flexDirection='row'>
                             <Flex flexDirection='column'>
                               <Text>{orderItem.product.price} ден</Text>
-                              <Text mt={2}>{orderItem.quantity} items</Text>
+                              <Text mt={2}>
+                                {orderItem.quantity} {t('common.items')}
+                              </Text>
                             </Flex>
                           </Flex>
                         </Flex>

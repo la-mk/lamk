@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import flatMap from 'lodash/flatMap';
 import {
   Flex,
@@ -10,14 +10,23 @@ import {
   Button,
 } from '@lamk/blocks-ui';
 import {
-  getGroupedCategories,
   getCategories,
   GroupedCategories,
+  createGetGroupedCategories,
 } from '../state/modules/categories/categories.selector';
 import { useSelector } from 'react-redux';
+import { useTranslation } from '../common/i18n';
 
 export const CategoriesList = () => {
   const categories = useSelector(getCategories);
+  const { t } = useTranslation();
+
+  const getGroupedCategories = useCallback(() => {
+    return createGetGroupedCategories((categoryKey: string) =>
+      t(`categories.${categoryKey}`),
+    );
+  }, [t])();
+
   const groupedCategories: GroupedCategories = useSelector(
     getGroupedCategories,
   );

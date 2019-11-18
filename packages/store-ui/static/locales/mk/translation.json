@@ -1,9 +1,21 @@
 {
+  "actions": {
+    "update": "Обновете",
+    "delete": "Избришете",
+    "remove": "Отстранете",
+    "create": "Создадете",
+    "toCheckout": "На каса",
+    "orderNow": "Порачајте сега",
+    "goToCart": "Прегледај корпа",
+    "addToCart": "Додади во корпа"
+  },
+
   "pages": {
     "home": "Дома",
     "aboutUs": "За нас",
     "myAccount": "Моја сметка",
     "myOrders": "Мои порачки",
+    "myCart": "Моја корпа",
     "product": "Продукт",
     "product_plural": "Продукти",
     "order": "Порачка",
@@ -12,13 +24,122 @@
     "checkout": "Каса"
   },
   
+  "common": {
+    "items": "Парчиња",
+    "summary": "Преглед",
+    "name": "Име",
+    "country": "Држава",
+    "city": "Град",
+    "zipcode": "Поштенски код",
+    "street": "Улица",
+    "streetExample": "пр. Солунска 25",
+    "addressee": "Примател",
+    "firstName": "Име",
+    "lastName": "Презиме",
+    "phoneNumber": "Телефонски број",
+    "address": "Адреса",
+    "address_plural": "Адреси",
+    "addressExample": "пр. Домашна адреса",
+    "personalInfo": "Лични податоци",
+    "quantity": "Количина"
+  },
+
+  "address": {
+    "shippingAddress": "Адреса за достава",
+    "chooseShippingAddress": "Одберете адреса за достава",
+    "addNewAddress": "Додадете нова адреса",
+    "createAddressSuccess": "Нова адреса успешно создадена",
+    "updateAddressSuccess": "Адресата беше успешно обновена",
+    "removeAddressSuccess": "Адресата беше успешно отстранета"
+  },
+
+  "order": {
+    "ordered": "Порачано",
+    "orderDetails": "Детали за порачка",
+    "seeOrder": "Видете ја порачката",
+    "orderNotFound": "Порачката не беше пронајдена",
+    "cancelled": "Откажана",
+    "pending": "Се процесира",
+    "shipped": "Испратена",
+    "completed": "Завршена",
+    "pendingDescription": "Се чека за достава",
+    "shippedDescription": "Испратена",
+    "completedDescription": "Испорачана",
+    "cancelledDescription": "Откажана"
+  },
+
+  "product": {
+    "seeOtherProducts": "Видете други продукти",
+    "relatedProducts": "Слични продукти"
+  },
+
+  "productSet": {
+    "newArrivals": "Нови продукти"
+  },
+
+  "cart": {
+    "emptyCartDescription": "Вашата корпа е празна",
+    "orderSuccess": "Вашата порачка беше успешна!",
+    "orderNumber": "Број на порачка: {{orderId}}.",
+    "cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
+    "addedToCart": "Додадено во корпа"
+  },
+
+  "countries": {
+    "mk": "Македонија"
+  },
+  
   "auth": {
     "logout": "Одлогирај се",
     "login": "Логирај се",
+    "signup": "Регистрирај се",
     "no-user-information": "Информациите за корисникот не се најдени. Проверете дали сте логирани."
   },
   
   "results": {
     "productNotFound": "Продуктот не е пронајден"
+  },
+
+  "finance": {
+    "subtotal": "Цена на производи",
+    "shippingCost": "Цена за достава",
+    "total": "Вкупна цена",
+    "priceBreakdown": "Преглед на вкупна цена"
+  },
+
+  "categories": {
+    "men-jogging-pants": "Тренерки",
+    "men-running-shoes": "Патики за трчање",
+    "men-shoes": "Машки патики",
+    "men-clothing": "Машка облека",
+    "men-pants": "Машки панталони",
+    "men-plain-tshirts": "Еднобојни маици",
+    "men-tshirts": "Машки маици",
+    "backpack-casual": "Секојдневни ранци",
+    "travel-backpack": "Ранци за патување",
+    "travel-gear": "Опрема за патување"
+  },
+
+  "errors": {
+    "pattern": "Полето не се совпаѓа со предвидената шема",
+    "string": "Полето треба да е текст",
+    "number": "Полето треба да е број",
+    "numeric": "Полето треба да е број",
+    "boolean": "Полето треба да е обележано или необележано",
+    "lowercase": "Полето треба да е со мали букви",
+    "uppercase": "Полето треба да е со големи букви",
+    "length": "Полето треба да е има помалку од {{0}} елементи",
+    "minLength": "Полето треба да е најмалку {{0}} карактери",
+    "maxLength": "Полето треба е најповеќе {{0}} карактери",
+    "negative": "Полето треба да е негативен број",
+    "positive": "Полето треба да е позитивен број",
+    "between": "Полето треба да помеѓу {{0}} и {{1}}",
+    "lessThan": "Полето треба да е помалку од {{0}}",
+    "greaterThan": "Полето треба да е повеќе од {{0}}",
+    "integer": "Полето треба да е цел број",
+    "schema": "Полето не се совпаѓа со предвидената шема",
+    "oneOf": "Полето треба да е една од {{0}}",
+    "generic": "Невалиден внес",
+    "invalid-schema-selector": "Невалиден селектор за шема"
   }
 }

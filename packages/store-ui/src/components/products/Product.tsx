@@ -25,6 +25,7 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { useTranslation } from '../../common/i18n';
 
 interface ProductProps {
   product: ProductType;
@@ -35,6 +36,7 @@ export const Product = ({ product }: ProductProps) => {
   const cart = useSelector(getCartWithProducts);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
+  const { t } = useTranslation();
 
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [selectedImage, setSelectedImage] = useState(
@@ -69,7 +71,7 @@ export const Product = ({ product }: ProductProps) => {
     }
 
     caller(action, () => {
-      message.info('Added to cart');
+      message.info(t('cart.addedToCart'));
       return addCartItemWithProduct({
         product,
         quantity,
@@ -113,7 +115,7 @@ export const Product = ({ product }: ProductProps) => {
             <Flex mt={[4, 4, 5, 5]} flexDirection='row' alignItems='center'>
               {!isProductInCart && (
                 <>
-                  <Text>Quantity:</Text>
+                  <Text>{t('common.quantity')}</Text>
                   <InputNumber
                     width='80px'
                     size='large'
@@ -127,10 +129,10 @@ export const Product = ({ product }: ProductProps) => {
               )}
               {isProductInCart ? (
                 <>
-                  <Text type='secondary'>Product already in cart</Text>
+                  <Text type='secondary'>{t('cart.productAlreadyInCart')}</Text>
                   <Link passHref href='/cart'>
                     <Button type='primary' size='large' ml={2}>
-                      Go to Cart
+                      {t('actions.goToCart')}
                     </Button>
                   </Link>
                 </>
@@ -141,14 +143,17 @@ export const Product = ({ product }: ProductProps) => {
                   size='large'
                   type='primary'
                 >
-                  Add to Cart
+                  {t('actions.addToCart')}
                 </Button>
               )}
             </Flex>
           </Flex>
         </Flex>
         <Flex mt={5}>
-          <ProductSet title='Related Products' products={relatedProducts} />
+          <ProductSet
+            title={t('product.relatedProducts')}
+            products={relatedProducts}
+          />
         </Flex>
       </Spin>
     </Page>

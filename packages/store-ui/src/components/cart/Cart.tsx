@@ -24,6 +24,7 @@ import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
 import { getUser } from '../../state/modules/user/user.selector';
+import { useTranslation } from '../../common/i18n';
 
 export const Cart = () => {
   const [caller, showSpinner] = useCall();
@@ -31,6 +32,7 @@ export const Cart = () => {
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (user && !cart) {
@@ -46,7 +48,7 @@ export const Cart = () => {
   }, [caller, user, cart]);
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Empty mt={5} description='You have no items in the cart'></Empty>;
+    return <Empty mt={5} description={t('cart.emptyCartDescription')}></Empty>;
   }
 
   const handleRemove = (cartItem: CartItemWithProduct) => {
@@ -84,7 +86,7 @@ export const Cart = () => {
   };
 
   return (
-    <Page title='My cart'>
+    <Page title={t('pages.myCart')}>
       <Spin spinning={showSpinner}>
         <Flex width='100%' flexDirection={['column', 'column', 'row', 'row']}>
           <Flex flex={2} mr={[0, 0, 3, 3]}>
@@ -119,7 +121,7 @@ export const Cart = () => {
                           pl={0}
                           type='link'
                         >
-                          Remove
+                          {t('actions.remove')}
                         </Button>
                       </Flex>
                       <Flex
@@ -151,11 +153,11 @@ export const Cart = () => {
             </List>
           </Flex>
           <Flex flex={1} ml={[0, 0, 3, 3]}>
-            <Card title='Summary' px={3} width='100%'>
+            <Card title={t('common.summary')} px={3} width='100%'>
               <Summary
                 items={cart.items}
                 delivery={delivery}
-                buttonTitle='To Checkout'
+                buttonTitle={t('actions.toCheckout')}
                 disabled={false}
                 onCheckout={handleCheckout}
               />

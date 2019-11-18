@@ -17,6 +17,7 @@ import { pickDiff } from '../../common/utils';
 import { Addresses } from './Addresses';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
+import { useTranslation } from '../../common/i18n';
 
 interface AccountProps {
   user: User;
@@ -25,6 +26,7 @@ interface AccountProps {
 export const Account = ({ user }: AccountProps) => {
   const [caller, showSpinner] = useCall();
   const [tab, setTab] = useState('addresses');
+  const { t } = useTranslation();
 
   const handlePatchAccount = (updatedUser: User) => {
     const updatedFields = pickDiff(user, updatedUser);
@@ -37,7 +39,7 @@ export const Account = ({ user }: AccountProps) => {
   return (
     <Page title='My account'>
       <Tabs animated={false} activeKey={tab} onChange={setTab}>
-        <TabPane pt={4} tab={'Personal Info'} key='personal'>
+        <TabPane pt={4} tab={t('common.personalInfo')} key='personal'>
           <Spin spinning={showSpinner}>
             <Form
               labelCol={{ span: 6 }}
@@ -48,28 +50,31 @@ export const Account = ({ user }: AccountProps) => {
               externalState={user}
               validate={data => sdk.user.validate(data, true)}
               validateSingle={sdk.user.validateSingle}
+              getErrorMessage={(errorName, context) =>
+                t(`errors.${errorName}`, context)
+              }
             >
-              <FormItem selector='firstName' label='First Name'>
+              <FormItem selector='firstName' label={t('common.firstName')}>
                 {formInput()}
               </FormItem>
 
-              <FormItem selector='lastName' label='Last Name'>
+              <FormItem selector='lastName' label={t('common.lastName')}>
                 {formInput()}
               </FormItem>
 
-              <FormItem selector='phoneNumber' label='Phone Number'>
+              <FormItem selector='phoneNumber' label={t('common.phoneNumber')}>
                 {formInput()}
               </FormItem>
 
               <Flex justifyContent='center' alignItems='center'>
                 <Button mr={2} type='primary' htmlType='submit' size='large'>
-                  Update
+                  {t('actions.update')}
                 </Button>
               </Flex>
             </Form>
           </Spin>
         </TabPane>
-        <TabPane pt={4} tab={'Addresses'} key='addresses'>
+        <TabPane pt={4} tab={t('common.address_plural')} key='addresses'>
           <Addresses user={user} />
         </TabPane>
       </Tabs>

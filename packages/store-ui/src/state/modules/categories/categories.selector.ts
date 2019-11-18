@@ -11,18 +11,23 @@ export const getCategories = createSelector<any, any, any>(
   categories => categories.categories,
 );
 
-const getFormattedLevel = (group: any, level: number) => {
+const getFormattedLevel = (
+  group: any,
+  level: number,
+  getLabel: (categoryKey: string) => string,
+) => {
   return Object.keys(group).reduce((res: any, groupKey) => {
     const children =
       level < NUM_LEVELS
         ? getFormattedLevel(
             groupBy(group[groupKey], `level${level + 1}`),
             level + 1,
+            getLabel,
           )
         : undefined;
 
     res.push({
-      label: groupKey,
+      label: getLabel(groupKey),
       value: groupKey,
       children,
     });
@@ -31,14 +36,17 @@ const getFormattedLevel = (group: any, level: number) => {
   }, []);
 };
 
-export const getGroupedCategories = createSelector<any, any, any>(
-  state => state.categories,
-  categories => {
-    if (!categories.categories) {
-      return null;
-    }
+export const createGetGroupedCategories = (
+  getLabel: (categoryKey: string) => string,
+) =>
+  createSelector<any, any, any>(
+    state => state.categories,
+    categories => {
+      if (!categories.categories) {
+        return null;
+      }
 
-    const level1Grouped = groupBy(categories.categories, 'level1');
-    return getFormattedLevel(level1Grouped, 1) as GroupedCategories;
-  },
-);
+      const level1Grouped = groupBy(categories.categories, 'level1');
+      return getFormattedLevel(level1Grouped, 1, getLabel) as GroupedCategories;
+    },
+  );

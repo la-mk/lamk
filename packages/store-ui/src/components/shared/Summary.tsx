@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../state/modules/user/user.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { OrderItem } from '@lamk/la-sdk/dist/models/order';
+import { useTranslation } from '../../common/i18n';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];
@@ -25,12 +26,11 @@ export const Summary = ({
 }: SummaryProps) => {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!delivery) {
-      message.warning(
-        'Could not calculate shipping cost, final price might not be accurate',
-      );
+      message.warning(t('cart.cantCalculateShipping'));
     }
   }, [delivery]);
 
@@ -50,16 +50,16 @@ export const Summary = ({
   return (
     <>
       <Flex flexDirection='row' justifyContent='space-between'>
-        <Text strong>Subtotal</Text>
+        <Text strong>{t('finance.subtotal')}</Text>
         <Text strong>{subtotal} ден</Text>
       </Flex>
       <Flex mt={2} flexDirection='row' justifyContent='space-between'>
-        <Text strong>Shipping cost</Text>
+        <Text strong>{t('finance.shippingCost')}</Text>
         <Text strong>{shippingCost} ден</Text>
       </Flex>
       <Divider />
       <Flex flexDirection='row' justifyContent='space-between'>
-        <Text strong>Total</Text>
+        <Text strong>{t('finance.total')}</Text>
         <Text strong>{total} ден</Text>
       </Flex>
 

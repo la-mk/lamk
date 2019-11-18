@@ -1,9 +1,21 @@
 {
+  "actions": {
+    "update": "Update",
+    "delete": "Delete",
+    "remove": "Remove",
+    "create": "Create",
+    "toCheckout": "To checkout",
+    "orderNow": "Order now",
+    "goToCart": "Go to Cart",
+    "addToCart": "Add to Cart"
+  },
+
   "pages": {
     "home": "Home",
     "aboutUs": "About Us",
     "myAccount": "My Account",
     "myOrders": "My Orders",
+    "myCart": "My cart",
     "product": "Product",
     "product_plural": "Products",
     "order": "Order",
@@ -11,14 +23,127 @@
     "cart": "Cart",
     "checkout": "Checkout"
   },
+
+  "common": {
+    "items": "Items",
+    "summary": "Summary",
+    "name": "Name",
+    "country": "Country",
+    "city": "City",
+    "zipcode": "Zipcode",
+    "street": "Street",
+    "streetExample": "eg. 10 Downing Street",
+    "addressee": "Addressee",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phoneNumber": "Phone number",
+    "address": "Address",
+    "address_plural": "Addresses",
+    "addressExample": "eg. Home Address",
+    "personalInfo": "Personal info",
+    "quantity": "Quantity"
+  },
+
+  "address": {
+    "shippingAddress": "Shipping address",
+    "chooseShippingAddress": "Choose shipping address",
+    "addNewAddress": "Add new address",
+    "createAddressSuccess": "Address successfully created",
+    "updateAddressSuccess": "Address successfully updated",
+    "removeAddressSuccess": "Address successfully removed"
+  },
+
+  "order": {
+    "ordered": "Ordered",
+    "orderDetails": "Order details",
+    "seeOrder": "See order",
+    "orderNotFound": "Order not found",
+    "orderNotFound_plural": "Orders not found",
+    "cancelled": "Cancelled",
+    "pending": "Pending",
+    "shipped": "Shipped",
+    "completed": "Completed",
+    "pendingDescription": "Awaiting shipment",
+    "shippedDescription": "Awaiting arrival",
+    "completedDescription": "All done!",
+    "cancelledDescription": "Cancelled"
+  },
+
+  "product": {
+    "product": "Product",
+    "product_plural": "Products",
+    "seeOtherProducts": "See other products",
+    "relatedProducts": "Related produts"
+  },
+
+  "productSet": {
+    "newArrivals": "New arrivals"
+  },
+
+  "cart": {
+    "emptyCartDescription": "You have no items in the cart",
+    "cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
+    "orderSuccess": "Your order was successful!",
+    "orderNumber": "Order number: {{orderId}}.",
+    "addedToCart": "Added to cart",
+    "productAlreadyInCart": "Product already in cart"
+  },
+
+  "countries": {
+    "mk": "Macedonia"
+  },
   
   "auth": {
     "logout": "Log out",
     "login": "Log in",
+    "signup": "Sign up",
     "no-user-information": "Could not load user information. Check if you are logged in."
   },
   
   "results": {
     "productNotFound": "Product not found"
+  },
+
+  "finance": {
+    "subtotal": "Subtotal",
+    "shippingCost": "Shipping cost",
+    "total": "Total",
+    "priceBreakdown": "Price breakdown"
+  },
+
+  "categories": {
+    "men-jogging-pants": "Jogging pants",
+    "men-running-shoes": "Running shoes",
+    "men-shoes": "Men shoes",
+    "men-clothing": "Men clothing",
+    "men-pants": "Men pants",
+    "men-plain-tshirts": "Plain t-shirts",
+    "men-tshirts": "Men t-shirts",
+    "backpack-casual": "Casual backpacks",
+    "travel-backpack": "Travel backpacks",
+    "travel-gear": "Travel gear"
+  },
+
+  "errors": {
+    "pattern": "Field does not match the expected pattern",
+    "string": "Field should be a string",
+    "number": "Field should be a number",
+    "numeric": "Field should be a numeric",
+    "boolean": "Field should be either true or false",
+    "lowercase": "Field should all be lowercase",
+    "uppercase": "Field should all be uppercase",
+    "length": "Field should have less than {{0}} entries",
+    "minLength": "Field should be at least {{0}} characters long",
+    "maxLength": "Field should be at most {{0}} characters long",
+    "negative": "Field should be a negative value",
+    "positive": "Field should be a positive value",
+    "between": "Field should be between {{0}} and {{1}}",
+    "lessThan": "Field should be less than {{0}}",
+    "greaterThan": "Field should be more than {{0}}",
+    "integer": "Field should be an integer",
+    "schema": "Field does not match the expected schema",
+    "oneOf": "Field should be one of {{0}}",
+    "generic": "Invalid entry",
+    "invalid-schema-selector": "Invalid schema selector passed"
   }
 }

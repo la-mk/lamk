@@ -21,6 +21,7 @@ import { Summary } from '../shared/Summary';
 import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useCall } from '../shared/hooks/useCall';
+import { useTranslation } from '../../common/i18n';
 
 const getStepIndex = (status: OrderType['status']) => {
   switch (status) {
@@ -38,6 +39,8 @@ export const Order = ({ orderId }: { orderId: string }) => {
   const [caller, showSpinner] = useCall();
   const delivery = useSelector(getDelivery);
   const user = useSelector(getUser);
+  const { t } = useTranslation();
+
   const [order, setOrder] = useState<OrderType>(null);
   const status = order && order.status;
   const stepIndex = status ? getStepIndex(status) : 0;
@@ -49,40 +52,49 @@ export const Order = ({ orderId }: { orderId: string }) => {
   }, [caller, user, orderId]);
 
   if (!order) {
-    return <Empty mt={5} description='Order not found'></Empty>;
+    return <Empty mt={5} description={t('order.orderNotFound')}></Empty>;
   }
 
   return (
-    <Page title='Order'>
+    <Page title={t('pages.order')}>
       <Spin spinning={showSpinner}>
         <Steps progressDot current={stepIndex}>
-          <Step title='Pending' description='Awaiting shipment' />
-          <Step title='Shipped' description='Awaiting arrival' />
+          <Step
+            title={t('order.pending')}
+            description={t('pendingDescription')}
+          />
+          <Step
+            title={t('order.shipped')}
+            description={t('shippedDescription')}
+          />
           {status !== 'cancelled' && (
-            <Step title='Completed' description='All done!' />
+            <Step
+              title={t('order.completed')}
+              description={t('completedDescription')}
+            />
           )}
           {status === 'cancelled' && (
             <Step
               status='error'
-              title='Cancelled'
-              description='Order cancelled'
+              title={t('order.cancelled')}
+              description={t('cancelledDescription')}
             />
           )}
         </Steps>
 
         <Flex flexWrap='wrap' my={4} justifyContent='center'>
           {order.deliverTo && (
-            <Card m={3} width={330} title={'Shipping address'}>
+            <Card m={3} width={330} title={t('address.shippingAddress')}>
               <ShippingDescription address={order.deliverTo} />
             </Card>
           )}
 
-          <Card m={3} width={330} title={'Price breakdown'}>
+          <Card m={3} width={330} title={t('finance.priceBreakdown')}>
             <Summary items={order.ordered} delivery={delivery} />
           </Card>
         </Flex>
         <Title mb={3} level={3}>
-          Items
+          {t('product.product_plural')}
         </Title>
         <Row
           type='flex'

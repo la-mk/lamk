@@ -2,6 +2,7 @@ import React from 'react';
 import { User } from '@lamk/la-sdk/dist/models/user';
 import { Modal } from '@lamk/blocks-ui';
 import { Addresses } from './Addresses';
+import { useTranslation } from '../../common/i18n';
 
 interface AddressesModalProps {
   user: User;
@@ -13,6 +14,8 @@ export const AddressesModal = ({
   visible,
   onClose,
 }: AddressesModalProps) => {
+  const { t } = useTranslation();
+
   return (
     <Modal
       width={'80%'}
@@ -21,7 +24,7 @@ export const AddressesModal = ({
       visible={visible}
       footer={null}
       onCancel={onClose}
-      title={'Addresses'}
+      title={t('common.address_plural')}
     >
       <Addresses user={user} />
     </Modal>

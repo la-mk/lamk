@@ -10,6 +10,7 @@ import { getAddresses } from '../../state/modules/user/user.selector';
 import { setAddresses } from '../../state/modules/user/user.module';
 import { useCall } from '../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { useTranslation } from '../../common/i18n';
 
 interface AddressesProps {
   user: User;
@@ -18,6 +19,7 @@ interface AddressesProps {
 export const Addresses = ({ user }: AddressesProps) => {
   const [caller, showSpinner] = useCall();
   const addresses = useSelector(getAddresses);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!user) {
@@ -34,7 +36,7 @@ export const Addresses = ({ user }: AddressesProps) => {
       sdk.address.create({ addressFor: user._id, ...address }),
       (address: Address) => {
         setAddresses([...addresses, address]);
-        message.success(`Address successfully created`);
+        message.success(t('address.createAddressSuccess'));
       },
     );
   };
@@ -57,7 +59,7 @@ export const Addresses = ({ user }: AddressesProps) => {
           ...addresses.filter(address => address._id !== patchedAddress._id),
           address,
         ]);
-        message.success(`Address successfully updated`);
+        message.success(t('address.updateAddressSuccess'));
       },
     );
   };
@@ -65,7 +67,7 @@ export const Addresses = ({ user }: AddressesProps) => {
   const handleRemoveAddress = (addressId: string) => {
     caller(sdk.address.remove(addressId), () => {
       setAddresses(addresses.filter(address => address._id !== addressId));
-      message.success(`Address successfully removed`);
+      message.success(t('address.removeAddressSuccess'));
     });
   };
 

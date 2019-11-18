@@ -30,6 +30,7 @@ import { useCall } from '../shared/hooks/useCall';
 import { CartWithProducts } from '@lamk/la-sdk/dist/models/cart';
 import { setAddresses } from '../../state/modules/user/user.module';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { useTranslation } from '../../common/i18n';
 
 export const Checkout = () => {
   const [caller, showSpinner] = useCall();
@@ -43,6 +44,7 @@ export const Checkout = () => {
   const [order, setOrder] = useState(null);
   const [deliverTo, setDeliverTo] = useState(null);
   const [addressModalVisible, setAddressModalVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!user || cart) {
@@ -81,7 +83,7 @@ export const Checkout = () => {
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Empty mt={5} description='You have no items in the cart'></Empty>;
+    return <Empty mt={5} description={t('cart.emptyCardDescription')}></Empty>;
   }
 
   const handleOrder = () => {
@@ -108,11 +110,11 @@ export const Checkout = () => {
   };
 
   return (
-    <Page title='Checkout'>
+    <Page title={t('pages.checkout')}>
       <Spin spinning={showSpinner}>
         <Flex width='100%' flexDirection={['column', 'column', 'row', 'row']}>
           <Flex flex={2} flexDirection='column' mr={[0, 0, 3, 3]}>
-            <Title level={3}>Choose Shipping Address</Title>
+            <Title level={3}>{t('address.chooseShippingAddress')}</Title>
             <Row
               type='flex'
               align='top'
@@ -146,18 +148,18 @@ export const Checkout = () => {
                   size='large'
                   onClick={() => setAddressModalVisible(true)}
                 >
-                  Add New Address
+                  {t('address.addNewAddress')}
                 </Button>
               </Col>
             </Row>
           </Flex>
           <Flex flex={1} ml={[0, 0, 3, 3]}>
-            <Card title='Summary' px={3} width='100%'>
+            <Card title={t('common.summary')} px={3} width='100%'>
               <Summary
                 items={cart.items}
                 delivery={delivery}
                 disabled={!deliverTo}
-                buttonTitle={'Order Now'}
+                buttonTitle={t('actions.orderNow')}
                 onCheckout={handleOrder}
               />
             </Card>
