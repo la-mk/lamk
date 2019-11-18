@@ -37,7 +37,7 @@ export const Account = ({ user }: AccountProps) => {
   };
 
   return (
-    <Page title='My account'>
+    <Page title={t('pages.myAccount')}>
       <Tabs animated={false} activeKey={tab} onChange={setTab}>
         <TabPane pt={4} tab={t('common.personalInfo')} key='personal'>
           <Spin spinning={showSpinner}>

@@ -55,7 +55,7 @@ export const Orders = () => {
                   flexDirection='column'
                   height={32}
                 >
-                  <Text strong>{order.status}</Text>
+                  <Text strong>{t(`order.${order.status}`)}</Text>
                   <Text>
                     {t('order.ordered')}{' '}
                     {formatDistanceToNow(new Date(order.createdAt), {

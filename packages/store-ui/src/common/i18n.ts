@@ -2,6 +2,7 @@ import NextI18Next from 'next-i18next';
 
 export const NextI18NextInstance = new NextI18Next({
   defaultNS: 'translation',
+  lng: 'mk',
   defaultLanguage: 'mk',
   otherLanguages: ['en'],
 });

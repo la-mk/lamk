@@ -61,23 +61,23 @@ export const Order = ({ orderId }: { orderId: string }) => {
         <Steps progressDot current={stepIndex}>
           <Step
             title={t('order.pending')}
-            description={t('pendingDescription')}
+            description={t('order.pendingDescription')}
           />
           <Step
             title={t('order.shipped')}
-            description={t('shippedDescription')}
+            description={t('order.shippedDescription')}
           />
           {status !== 'cancelled' && (
             <Step
               title={t('order.completed')}
-              description={t('completedDescription')}
+              description={t('order.completedDescription')}
             />
           )}
           {status === 'cancelled' && (
             <Step
               status='error'
               title={t('order.cancelled')}
-              description={t('cancelledDescription')}
+              description={t('order.cancelledDescription')}
             />
           )}
         </Steps>
@@ -120,7 +120,9 @@ export const Order = ({ orderId }: { orderId: string }) => {
                     <Flex ml={4} width='100%' flexDirection='row'>
                       <Flex flexDirection='column'>
                         <Text>{orderItem.product.price} ден</Text>
-                        <Text mt={2}>{orderItem.quantity} items</Text>
+                        <Text mt={2}>
+                          {orderItem.quantity} {t('common.items')}
+                        </Text>
                       </Flex>
                     </Flex>
                   </Flex>

@@ -63,12 +63,14 @@
     "shipped": "Испратена",
     "completed": "Завршена",
     "pendingDescription": "Се чека за достава",
-    "shippedDescription": "Испратена",
-    "completedDescription": "Испорачана",
+    "shippedDescription": "Испратена по карго",
+    "completedDescription": "Испорачана до купувач",
     "cancelledDescription": "Откажана"
   },
 
   "product": {
+    "product": "Продукт",
+    "product_plural": "Продукти",
     "seeOtherProducts": "Видете други продукти",
     "relatedProducts": "Слични продукти"
   },
