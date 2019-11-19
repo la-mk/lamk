@@ -30,6 +30,8 @@ import { createGetGroupedCategories, getCategories } from "../../state/modules/c
 import { Category } from "@lamk/la-sdk/dist/models/category";
 import { setCategories } from "../../state/modules/categories/categories.module";
 import { useTranslation } from "react-i18next";
+import { User } from "@lamk/la-sdk/dist/models/user";
+import { getUser } from "../../state/modules/user/user.selector";
 
 interface OnboardingProps {
   step: number;
@@ -39,11 +41,12 @@ interface OnboardingProps {
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const [isFinished, setIsFinished] = useState(false);
   const [caller, showSpinner] = useCall();
+  const user: User = useSelector(getUser);
   const store: Store = useSelector(getStore);
   const products: Product[] = useSelector(getProducts);
   const delivery: Delivery = useSelector(getDelivery);
-  const categories = useSelector(getCategories);
-  const {t} = useTranslation();
+  const categories: Category[] = useSelector(getCategories);
+  const { t } = useTranslation();
   
   const getGroupedCategories = useCallback(() => {
     return createGetGroupedCategories((categoryKey: string) =>
@@ -87,7 +90,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     }
     const handler = newStore._id
       ? sdk.store.patch(newStore._id, newStore)
-      : sdk.store.create({ ...newStore, isPublished: false });
+      : sdk.store.create(newStore);
 
     caller(handler, (store: Store) => {
       setStep(1);
@@ -97,7 +100,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
   const handleAddProduct = (newProduct: Product) => {
     caller(
-      sdk.product.create({ ...newProduct, soldBy: store._id }),
+      sdk.product.create(newProduct),
       addProduct
     );
   };
@@ -165,10 +168,11 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             </StickySteps>
 
             {step === 0 && (
-              <SetupStore onDone={handleSetupStoreDone} store={store} />
+              <SetupStore onDone={handleSetupStoreDone} store={store} userId={user._id} />
             )}
             {step === 1 && (
               <SetupProducts
+                storeId={ store._id }
                 products={products}
                 categories={categories}
                 groupedCategories={groupedCategories}
@@ -180,6 +184,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             )}
             {step === 2 && (
               <SetupDelivery
+                storeId={store._id}
                 delivery={delivery}
                 onDone={handleSetupDeliveryDone}
               />

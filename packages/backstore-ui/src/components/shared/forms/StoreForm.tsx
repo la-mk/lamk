@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {
   FormItem,
   formInput,
@@ -7,75 +7,91 @@ import {
   message,
   UploadContent,
   Flex,
-  Button,
-} from '@lamk/blocks-ui';
-import { sdk } from '@lamk/la-sdk';
+  Button
+} from "@lamk/blocks-ui";
+import { sdk } from "@lamk/la-sdk";
 import {
   uploadImage,
   handleArtifactUploadStatus,
-  getDefaultFileList,
-} from '../utils/artifacts';
-import { UploadChangeParam } from 'antd/lib/upload';
-import { Store } from '@lamk/la-sdk/dist/models/store';
-import { useTranslation } from 'react-i18next';
+  getDefaultFileList
+} from "../utils/artifacts";
+import { UploadChangeParam } from "antd/lib/upload";
+import { Store } from "@lamk/la-sdk/dist/models/store";
+import { useTranslation } from "react-i18next";
+import { User } from "@lamk/la-sdk/dist/models/user";
 
 interface StoreFormProps {
   store: Store | null;
+  userId: User["_id"] | undefined;
   onDone: (store: Store) => void;
 }
 
-export const StoreForm = ({ store, onDone }: StoreFormProps) => {
-  const {t} = useTranslation();
+export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
+  const [externalState, setExternalState] = useState<Partial<Store> | null>(
+    store
+  );
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!store) {
+      setExternalState({ ownedBy: userId, isPublished: false });
+    }
+    else {
+      setExternalState(store);
+    }
+  }, [store, userId]);
 
   return (
     <Form
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
-      layout='horizontal'
+      layout="horizontal"
       colon={false}
-      validate={(data) => sdk.store.validate(data, Boolean(store))}
+      validate={data => sdk.store.validate(data, Boolean(store))}
       validateSingle={sdk.store.validateSingle}
-      getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}
-      externalState={store || {}}
+      getErrorMessage={(errorName, context) =>
+        t(`errors.${errorName}`, context)
+      }
+      externalState={externalState}
       onFormCompleted={onDone}
     >
-      <FormItem selector='name' label={t('store.storeName')}>
+      <FormItem selector="name" label={t("store.storeName")}>
         {formInput()}
       </FormItem>
 
-      <FormItem selector='slug' label={t('store.storeUrl')}>
-        {formInput({ addonAfter: '.la.mk' })}
+      <FormItem selector="slug" label={t("store.storeUrl")}>
+        {formInput({ addonAfter: ".la.mk" })}
       </FormItem>
 
-      <FormItem selector='logo' label={t('store.storeLogo')}>
+      <FormItem selector="logo" label={t("store.storeLogo")}>
         {(val, _onChange, onComplete) => (
           <UploadDragger
             customRequest={uploadImage}
-            accept='.png, .jpg, .jpeg'
+            accept=".png, .jpg, .jpeg"
             onChange={(info: UploadChangeParam) =>
               handleArtifactUploadStatus(
                 info,
                 val,
                 true,
                 onComplete,
-                message.error,
+                message.error
               )
             }
             defaultFileList={getDefaultFileList(store ? store.logo : undefined)}
-            listType='picture'
-            name='company-logo'
+            listType="picture"
+            name="company-logo"
           >
             <UploadContent
-              text={t('actions.addLogo')}
-              hint={t('uploads.hint')}
+              text={t("actions.addLogo")}
+              hint={t("uploads.hint")}
             />
           </UploadDragger>
         )}
       </FormItem>
 
-      <Flex justifyContent='center' alignItems='center'>
-        <Button mr={2} type='primary' htmlType='submit' size='large'>
-          {store ? t('actions.update') : t('actions.create')}
+      <Flex justifyContent="center" alignItems="center">
+        <Button mr={2} type="primary" htmlType="submit" size="large">
+          {store ? t("actions.update") : t("actions.create")}
         </Button>
       </Flex>
     </Form>

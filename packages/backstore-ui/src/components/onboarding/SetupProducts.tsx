@@ -5,8 +5,10 @@ import { Product } from '@lamk/la-sdk/dist/models/product';
 import { Category } from '@lamk/la-sdk/dist/models/category';
 import { GroupedCategories } from '../../state/modules/categories/categories.selector';
 import { useTranslation } from 'react-i18next';
+import { Store } from '@lamk/la-sdk/dist/models/store';
 
 interface SetupProductsProps {
+  storeId: Store['_id'] | undefined;
   products: Product[];
   categories: Category[] | null;
   groupedCategories: GroupedCategories | null;
@@ -17,6 +19,7 @@ interface SetupProductsProps {
 }
 
 export const SetupProducts = ({
+  storeId,
   products,
   categories,
   groupedCategories,
@@ -49,6 +52,7 @@ export const SetupProducts = ({
           return (
             <Col key={product._id} mb={4}>
               <AddProductCard
+                storeId={storeId}
                 product={product}
                 categories={categories}
                 groupedCategories={groupedCategories}
@@ -62,6 +66,7 @@ export const SetupProducts = ({
 
         <Col mb={4}>
           <AddProductCard
+            storeId={storeId}
             product={undefined}
             categories={categories}
             groupedCategories={groupedCategories}

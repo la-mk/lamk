@@ -23,8 +23,10 @@ import {
 import { Category } from "@lamk/la-sdk/dist/models/category";
 import { GroupedCategories } from "../../state/modules/categories/categories.selector";
 import { useTranslation } from "react-i18next";
+import { Store } from "@lamk/la-sdk/dist/models/store";
 
 interface AddProductCardProps {
+  storeId: Store['_id'] | undefined;
   product?: Product;
   categories: Category[] | null;
   groupedCategories: GroupedCategories | null;
@@ -40,6 +42,7 @@ function filter(inputValue: string, path: any[]) {
 }
 
 export const AddProductCard = ({
+  storeId,
   product,
   categories,
   groupedCategories,
@@ -48,7 +51,17 @@ export const AddProductCard = ({
   onRemoveProduct
 }: AddProductCardProps) => {
   const [fullCategoryValue, setFullCategoryValue] = useState<string[]>([]);
+  const [externalState, setExternalState] = useState<Partial<Product> | undefined>(product);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if(!product){
+      setExternalState({soldBy: storeId});
+    }
+    else {
+      setExternalState(product);
+    }
+  }, [product, storeId])
 
   useEffect(() => {
     if (!categories || !product) {
@@ -74,7 +87,7 @@ export const AddProductCard = ({
       validate={(data) => sdk.product.validate(data, Boolean(product))}
       validateSingle={sdk.product.validateSingle}
       getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}
-      externalState={product || {}}
+      externalState={externalState}
       onFormCompleted={product ? onPatchProduct : onAddProduct}
     >
       <Card

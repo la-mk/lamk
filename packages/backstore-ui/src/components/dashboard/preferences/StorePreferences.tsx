@@ -10,10 +10,12 @@ import { setStore } from '../../../state/modules/store/store.module';
 import { StoreForm } from '../../shared/forms/StoreForm';
 import { useCall } from '../../shared/hooks/useCall';
 import { useTranslation } from 'react-i18next';
+import { getUser } from '../../../state/modules/user/user.selector';
 
 export const StorePreferences = () => {
   const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
+  const user = useSelector(getUser);
   const {t} = useTranslation();
 
   const handleSetupStoreDone = (newStore?: Store) => {
@@ -27,7 +29,7 @@ export const StorePreferences = () => {
   return (
     <Col>
       <Spin spinning={showSpinner} tip={t('store.updatingStoreTip')}>
-        <StoreForm store={store} onDone={handleSetupStoreDone} />
+        <StoreForm store={store} userId={user ? user._id : undefined} onDone={handleSetupStoreDone} />
       </Spin>
     </Col>
   );

@@ -3,13 +3,15 @@ import { Col, Title, Flex, Text } from '@lamk/blocks-ui';
 import { Store } from '@lamk/la-sdk/dist/models/store';
 import { StoreForm } from '../shared/forms/StoreForm';
 import { useTranslation } from 'react-i18next';
+import { User } from '@lamk/la-sdk/dist/models/user';
 
 interface SetupStoreProps {
   onDone: (newStore?: Store) => void;
   store: Store | null;
+  userId: User['_id'] | undefined;
 }
 
-export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
+export const SetupStore = ({ onDone, store, userId }: SetupStoreProps) => {
   const {t} = useTranslation();
   return (
     <Col>
@@ -19,7 +21,7 @@ export const SetupStore = ({ onDone, store }: SetupStoreProps) => {
           {t('onboarding.setupStoreSubtitle')}
         </Text>
       </Flex>
-      <StoreForm store={store} onDone={onDone} />
+      <StoreForm store={store} userId={userId} onDone={onDone} />
     </Col>
   );
 };

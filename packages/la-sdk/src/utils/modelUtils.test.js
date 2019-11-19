@@ -11,6 +11,10 @@ const sampleSchema = {
     street: v8n().string().maxLength(63),
     apartment: v8n().string().maxLength(63),
   })),
+  // Here min and max applies to the array length
+  employeeNames: v8n().every.string().minLength(4).maxLength(8),
+  // Here min and max applies to each element in the array
+  phoneNumbers: v8n().every.string().every.minLength(4).every.maxLength(8),
 }
 
 const sampleData = {
@@ -25,7 +29,9 @@ const sampleData = {
   {
     street: "Wakayama",
     apartment: "Pure Country"
-  }]
+  }],
+  employeeNames: ['John', 'Foo', 'Bar', 'Eric'],
+  phoneNumbers: ['123-456', '344-541'],
 }
 
 describe('Validation utility', () => {
@@ -51,10 +57,12 @@ describe('Validation utility', () => {
   });
 
   test('Should return an error per invalid field', () => {
-    expect(Object.keys(modelUtils.validate(sampleSchema, {}))).toHaveLength(3)
+    expect(Object.keys(modelUtils.validate(sampleSchema, {}))).toHaveLength(5)
     expect(modelUtils.validate(sampleSchema, {})).toHaveProperty('name')
     expect(modelUtils.validate(sampleSchema, {})).toHaveProperty('country')
     expect(modelUtils.validate(sampleSchema, {})).toHaveProperty('numberOfOffices')
+    expect(modelUtils.validate(sampleSchema, {})).toHaveProperty('phoneNumbers')
+    expect(modelUtils.validate(sampleSchema, {})).toHaveProperty('employeeNames')
   });
 
   test('Should return an error from an array of objects', () => {

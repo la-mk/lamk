@@ -42,7 +42,7 @@ export const DeliveryPreferences = () => {
   return (
     <Col>
       <Spin spinning={showSpinner} tip={t('delivery.updatingDeliveryTip')}>
-        <DeliveryForm delivery={delivery} onDone={handleSetupDeliveryDone} />
+        <DeliveryForm storeId={store ? store._id : undefined} delivery={delivery} onDone={handleSetupDeliveryDone} />
       </Spin>
     </Col>
   );

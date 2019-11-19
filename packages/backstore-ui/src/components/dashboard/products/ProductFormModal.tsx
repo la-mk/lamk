@@ -61,7 +61,17 @@ export const ProductFormModal = ({
   const store = useSelector(getStore);
   const categories: Category[] = useSelector(getCategories);
   const { t } = useTranslation();
-  
+  const [externalState, setExternalState] = useState<Partial<Product> | null>(product);
+
+  useEffect(() => {
+    if(!product){
+      setExternalState({soldBy: store._id});
+    }
+    else {
+      setExternalState(product);
+    }
+  }, [product, store._id])
+
   const getGroupedCategories = useCallback(() => {
     return createGetGroupedCategories((categoryKey: string) =>
       t(`categories.${categoryKey}`)
@@ -140,7 +150,7 @@ export const ProductFormModal = ({
       >
         <Form
           colon={false}
-          externalState={product}
+          externalState={externalState}
           validate={(data) => sdk.product.validate(data, Boolean(product))}
           validateSingle={sdk.product.validateSingle}
           getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormItem,
   formInput,
@@ -12,16 +12,30 @@ import {
 import { sdk } from "@lamk/la-sdk";
 import { Delivery } from "@lamk/la-sdk/dist/models/delivery";
 import { useTranslation } from "react-i18next";
+import { Store } from "@lamk/la-sdk/dist/models/store";
 
 interface DeliveryFormProps {
+  storeId: Store['_id'] | undefined;
   delivery: Delivery | null;
   onDone: (delivery: Delivery) => void;
 }
 
 const deliveryOptions = ["pickup", "cargo-pickup", "door-to-door"];
 
-export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
+export const DeliveryForm = ({ storeId, delivery, onDone }: DeliveryFormProps) => {
+  const [externalState, setExternalState] = useState<Partial<Delivery> | null>(
+    delivery
+  );
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!delivery) {
+      setExternalState({ forStore: storeId });
+    }
+    else {
+      setExternalState(delivery);
+    }
+  }, [delivery, storeId]);
 
   return (
     <Form
@@ -30,7 +44,7 @@ export const DeliveryForm = ({ delivery, onDone }: DeliveryFormProps) => {
       layout="horizontal"
       colon={false}
       onFormCompleted={onDone}
-      externalState={delivery || {}}
+      externalState={externalState}
       validate={(data) => sdk.delivery.validate(data, Boolean(delivery))}
       validateSingle={sdk.delivery.validateSingle}
       getErrorMessage={(errorName, context) => t(`errors.${errorName}`, context)}

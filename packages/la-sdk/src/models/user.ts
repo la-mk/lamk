@@ -16,11 +16,11 @@ export interface User {
   _id: string;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  createdAt: string;
-  modifiedAt: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  createdAt?: string;
+  modifiedAt?: string;
 }
 
 export const getUserSdk = (client: Application) => {

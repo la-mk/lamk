@@ -9,7 +9,7 @@ export const schema = {
   soldBy: v8n().string().minLength(2).maxLength(63),
   name: v8n().string().minLength(2).maxLength(511),
   price: v8n().number().positive(),
-  images: v8n().every.string().minLength(2).maxLength(4095),
+  images: v8n().every.string().every.minLength(2).every.maxLength(4095),
   category: v8n().string().minLength(2).maxLength(511),
   description: v8n().optional(v8n().string().minLength(2).maxLength(2047), true),
 }

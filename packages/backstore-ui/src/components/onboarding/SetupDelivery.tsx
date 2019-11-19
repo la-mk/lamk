@@ -3,13 +3,15 @@ import { Col, Flex, Title, Text } from '@lamk/blocks-ui';
 import { Delivery } from '@lamk/la-sdk/dist/models/delivery';
 import { DeliveryForm } from '../shared/forms/DeliveryForm';
 import { useTranslation } from 'react-i18next';
+import { Store } from '@lamk/la-sdk/dist/models/store';
 
 interface SetupDeliveryProps {
   onDone: (newDelivery?: Delivery) => void;
   delivery: Delivery | null;
+  storeId: Store['_id'] | undefined;
 }
 
-export const SetupDelivery = ({ onDone, delivery }: SetupDeliveryProps) => {
+export const SetupDelivery = ({ storeId, onDone, delivery }: SetupDeliveryProps) => {
   const {t} = useTranslation();
 
   return (
@@ -20,7 +22,7 @@ export const SetupDelivery = ({ onDone, delivery }: SetupDeliveryProps) => {
           {t('onboarding.setupDeliverySubtitle')}
         </Text>
       </Flex>
-      <DeliveryForm delivery={delivery} onDone={onDone} />
+      <DeliveryForm storeId={storeId} delivery={delivery} onDone={onDone} />
     </Col>
   );
 };
