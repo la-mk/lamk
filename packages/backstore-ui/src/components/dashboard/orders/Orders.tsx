@@ -13,8 +13,9 @@ import { OrderDetailsModal } from './OrderDetailsModal';
 import { useCall } from '../../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
+import { T } from '../../../config/i18n';
 
-const getColumns = (t: (tId: string) => string) => ([
+const getColumns = (t: T) => ([
   {
     title: t('common.id'),
     dataIndex: '_id',

@@ -38,9 +38,14 @@ function* authenticationCheckSaga(action: LocationChangeAction) {
 
   const isAuthRoute = authRoutes.includes(action.payload.location.pathname);
 
-  // If the user is already logged in, just redirect home.
+  // If the user is already logged in and at an auth page, just redirect home.
   if (authInfo && isAuthRoute) {
     yield afterAuthSaga();
+  }
+
+  // If the user is logged in, but at a dashboard page, just set the user in state
+  if(authInfo && !isAuthRoute){
+    yield put(setUser(authInfo.user))
   }
 
   // If the user is not logged in, redirect to login page.

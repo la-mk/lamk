@@ -11,6 +11,8 @@ import orders from './modules/orders/orders.persist';
 import delivery from './modules/delivery/delivery.persist';
 import categories from './modules/categories/categories.persist';
 import user from './modules/user/user.module';
+import { Action } from 'redux';
+import { CLEAR_SESSION } from './modules/ui/ui.module';
 
 const storageConfig = {
   key: 'rootStorage',
@@ -28,5 +30,14 @@ const getReducersSet = (history: History) => ({
   router: connectRouter(history),
 });
 
-export default (history: History) =>
-  persistCombineReducers(storageConfig, getReducersSet(history) as any);
+export default (history: History) => {
+  const reducers = persistCombineReducers(storageConfig, getReducersSet(history) as any);
+
+  return (state: any, action: Action) => {
+    if(action.type === CLEAR_SESSION){
+      return reducers(undefined, action);
+    }
+
+    return reducers(state, action);
+  }
+}

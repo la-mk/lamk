@@ -1,6 +1,6 @@
 // The token state is kept in the sdk, so we only use actions for now.
 
-interface Credentials {
+export interface Credentials {
   email: string;
   password: string;
 }

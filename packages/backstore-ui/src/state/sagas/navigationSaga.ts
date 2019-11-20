@@ -8,6 +8,7 @@ import { sdk } from '@lamk/la-sdk';
 import { setStore } from '../modules/store/store.module';
 import { LocationChangeAction } from 'connected-react-router';
 import { getUser } from '../modules/user/user.selector';
+import { SET_USER } from '../modules/user/user.module';
 
 // We want to fetch the store info on every navigation if it is missing, as it is the only mandatory data for everything else
 function* storeStateSaga(action: LocationChangeAction) {
@@ -27,7 +28,7 @@ function* storeStateSaga(action: LocationChangeAction) {
 }
 
 export function* watchStoreStateSaga() {
-  yield takeLeading(LOCATION_CHANGE, storeStateSaga);
+  yield takeLeading([LOCATION_CHANGE, SET_USER] , storeStateSaga);
 }
 
 export default { watchStoreStateSaga };

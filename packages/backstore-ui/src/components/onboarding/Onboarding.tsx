@@ -26,12 +26,12 @@ import { Redirect } from "react-router";
 import { StickySteps } from "../shared/components/StickySteps";
 import { useCall } from "../shared/hooks/useCall";
 import { FindResult } from "@lamk/la-sdk/dist/setup";
-import { createGetGroupedCategories, getCategories } from "../../state/modules/categories/categories.selector";
 import { Category } from "@lamk/la-sdk/dist/models/category";
 import { setCategories } from "../../state/modules/categories/categories.module";
 import { useTranslation } from "react-i18next";
 import { User } from "@lamk/la-sdk/dist/models/user";
 import { getUser } from "../../state/modules/user/user.selector";
+import { useCategories } from "../shared/hooks/useCategories";
 
 interface OnboardingProps {
   step: number;
@@ -39,32 +39,27 @@ interface OnboardingProps {
 }
 
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
+  const { t } = useTranslation();
   const [isFinished, setIsFinished] = useState(false);
   const [caller, showSpinner] = useCall();
-  const user: User = useSelector(getUser);
-  const store: Store = useSelector(getStore);
+  const user: User | null = useSelector(getUser);
+  const store: Store | null = useSelector(getStore);
   const products: Product[] = useSelector(getProducts);
-  const delivery: Delivery = useSelector(getDelivery);
-  const categories: Category[] = useSelector(getCategories);
-  const { t } = useTranslation();
+  const delivery: Delivery | null = useSelector(getDelivery);
+  const [categories, groupedCategories] = useCategories(t);
   
-  const getGroupedCategories = useCallback(() => {
-    return createGetGroupedCategories((categoryKey: string) =>
-      t(`categories.${categoryKey}`)
-    );
-  }, [t])();
-
-  const groupedCategories = useSelector(getGroupedCategories);
-
+  const storeId = store ? store._id : undefined;
+  const userId = user ? user._id : undefined;
+  
   useEffect(() => {
-    if (store) {
+    if (storeId) {
       caller(
-        sdk.product.findForStore(store._id),
+        sdk.product.findForStore(storeId),
         (products: FindResult<Product>) => setProducts(products.data)
       );
 
       caller(
-        sdk.delivery.findForStore(store._id),
+        sdk.delivery.findForStore(storeId),
         (deliveries: FindResult<Delivery>) => {
           if (deliveries.total > 0) {
             return setDelivery(deliveries.data[0]);
@@ -72,7 +67,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
         }
       );
     }
-  }, [caller, store]);
+  }, [caller, storeId]);
 
   useEffect(() => {
     if (categories) {
@@ -132,7 +127,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
     const handler = newDelivery._id
       ? sdk.delivery.patch(newDelivery._id, newDelivery)
-      : sdk.delivery.create({ ...newDelivery, forStore: store._id });
+      : sdk.delivery.create(newDelivery);
 
     caller(handler, (delivery: Delivery) => {
       setStep(3);
@@ -146,7 +141,11 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    caller(sdk.store.patch(store._id, { isPublished: true }), () => {
+    if(!storeId){
+      return;
+    }
+
+    caller(sdk.store.patch(storeId, { isPublished: true }), () => {
       setIsFinished(true);
     });
   };
@@ -168,11 +167,11 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             </StickySteps>
 
             {step === 0 && (
-              <SetupStore onDone={handleSetupStoreDone} store={store} userId={user._id} />
+              <SetupStore onDone={handleSetupStoreDone} store={store} userId={userId} />
             )}
             {step === 1 && (
               <SetupProducts
-                storeId={ store._id }
+                storeId={storeId }
                 products={products}
                 categories={categories}
                 groupedCategories={groupedCategories}
@@ -184,14 +183,14 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             )}
             {step === 2 && (
               <SetupDelivery
-                storeId={store._id}
+                storeId={storeId}
                 delivery={delivery}
                 onDone={handleSetupDeliveryDone}
               />
             )}
           </Flex>
         )}
-        {step === 3 && (
+        {step === 3 && store && (
           <Publish storeSlug={store.slug} onDone={handlePublishDone} />
         )}
         {isFinished && <Redirect push to="/dashboard" />}

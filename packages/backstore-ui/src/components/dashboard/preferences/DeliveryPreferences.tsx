@@ -16,6 +16,7 @@ export const DeliveryPreferences = () => {
   const [caller, showSpinner] = useCall();
   const delivery = useSelector(getDelivery);
   const store = useSelector(getStore);
+  const storeId = store ? store._id : undefined;
   const {t} = useTranslation();
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export const DeliveryPreferences = () => {
   return (
     <Col>
       <Spin spinning={showSpinner} tip={t('delivery.updatingDeliveryTip')}>
-        <DeliveryForm storeId={store ? store._id : undefined} delivery={delivery} onDone={handleSetupDeliveryDone} />
+        <DeliveryForm storeId={storeId} delivery={delivery} onDone={handleSetupDeliveryDone} />
       </Spin>
     </Col>
   );

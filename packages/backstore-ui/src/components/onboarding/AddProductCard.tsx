@@ -24,6 +24,9 @@ import { Category } from "@lamk/la-sdk/dist/models/category";
 import { GroupedCategories } from "../../state/modules/categories/categories.selector";
 import { useTranslation } from "react-i18next";
 import { Store } from "@lamk/la-sdk/dist/models/store";
+import { useFormState } from "../shared/hooks/useFormState";
+import { useFullCategory, FullCategory } from "../shared/hooks/useFullCategory";
+import {cascaderFilter} from '../shared/utils/form';
 
 interface AddProductCardProps {
   storeId: Store['_id'] | undefined;
@@ -35,12 +38,6 @@ interface AddProductCardProps {
   onRemoveProduct: (id: string) => void;
 }
 
-function filter(inputValue: string, path: any[]) {
-  return path.some(
-    option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
-  );
-}
-
 export const AddProductCard = ({
   storeId,
   product,
@@ -50,36 +47,9 @@ export const AddProductCard = ({
   onPatchProduct,
   onRemoveProduct
 }: AddProductCardProps) => {
-  const [fullCategoryValue, setFullCategoryValue] = useState<string[]>([]);
-  const [externalState, setExternalState] = useState<Partial<Product> | undefined>(product);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    if(!product){
-      setExternalState({soldBy: storeId});
-    }
-    else {
-      setExternalState(product);
-    }
-  }, [product, storeId])
-
-  useEffect(() => {
-    if (!categories || !product) {
-      return;
-    }
-    const categorySet = categories.find(
-      category => category.level3 === product.category
-    );
-    if (!categorySet) {
-      return;
-    }
-
-    setFullCategoryValue([
-      categorySet.level1,
-      categorySet.level2,
-      categorySet.level3
-    ]);
-  }, [product, categories]);
+  const [fullCategory, setFullCategory] = useFullCategory(categories, product);
+  const [externalState] = useFormState<Product>(product, {soldBy: storeId}, [product, storeId]);
 
   return (
     <Form
@@ -129,12 +99,12 @@ export const AddProductCard = ({
               options={groupedCategories!}
               onChange={value => {
                 // The cascader expects a full array of all categories, but we want to store only the last value (as the slugs should all be unique.)
-                setFullCategoryValue(value);
+                setFullCategory(value as FullCategory);
                 onComplete(value[value.length - 1]);
               }}
               placeholder={`${t("common.polite")} ${t("actions.select")}`}
-              showSearch={{ filter }}
-              value={fullCategoryValue}
+              showSearch={{ filter: cascaderFilter }}
+              value={fullCategory}
             />
           )}
         </FormItem>

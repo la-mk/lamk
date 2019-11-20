@@ -1,11 +1,9 @@
 import authSaga from './sagas/authSaga';
-import uiSaga from './sagas/uiSaga';
 import navigationSaga from './sagas/navigationSaga';
 import { SagaMiddleware } from 'redux-saga';
 
 const sagas = {
   ...authSaga,
-  ...uiSaga,
   ...navigationSaga,
 };
 

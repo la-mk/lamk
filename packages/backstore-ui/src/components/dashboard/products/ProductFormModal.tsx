@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Flex,
@@ -33,11 +33,11 @@ import { useCall } from "../../shared/hooks/useCall";
 import { setCategories } from "../../../state/modules/categories/categories.module";
 import { FindResult } from "@lamk/la-sdk/dist/setup";
 import { Category } from "@lamk/la-sdk/dist/models/category";
-import {
-  getCategories,
-  createGetGroupedCategories
-} from "../../../state/modules/categories/categories.selector";
 import { useTranslation } from "react-i18next";
+import { cascaderFilter } from "../../shared/utils/form";
+import { useFullCategory, FullCategory } from "../../shared/hooks/useFullCategory";
+import { useCategories } from "../../shared/hooks/useCategories";
+import { useFormState } from "../../shared/hooks/useFormState";
 
 interface ProductFormModalProps {
   product: Product | null;
@@ -45,58 +45,18 @@ interface ProductFormModalProps {
   visible: boolean;
 }
 
-function filter(inputValue: string, path: any[]) {
-  return path.some(
-    option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
-  );
-}
-
 export const ProductFormModal = ({
   product,
   onClose,
   visible
 }: ProductFormModalProps) => {
-  const [caller, showSpinner] = useCall();
-  const [fullCategoryValue, setFullCategoryValue] = useState<string[]>([]);
-  const store = useSelector(getStore);
-  const categories: Category[] = useSelector(getCategories);
   const { t } = useTranslation();
-  const [externalState, setExternalState] = useState<Partial<Product> | null>(product);
-
-  useEffect(() => {
-    if(!product){
-      setExternalState({soldBy: store._id});
-    }
-    else {
-      setExternalState(product);
-    }
-  }, [product, store._id])
-
-  const getGroupedCategories = useCallback(() => {
-    return createGetGroupedCategories((categoryKey: string) =>
-      t(`categories.${categoryKey}`)
-    );
-  }, [t])();
-
-  const groupedCategories = useSelector(getGroupedCategories);
-
-  useEffect(() => {
-    if (!categories || !product) {
-      return;
-    }
-    const categorySet = categories.find(
-      category => category.level3 === product.category
-    );
-    if (!categorySet) {
-      return;
-    }
-
-    setFullCategoryValue([
-      categorySet.level1,
-      categorySet.level2,
-      categorySet.level3
-    ]);
-  }, [product, categories]);
+  const [caller, showSpinner] = useCall();
+  const store = useSelector(getStore);
+  const storeId = store ? store._id : undefined;
+  const [categories, groupedCategories] = useCategories(t);
+  const [fullCategory, setFullCategory] = useFullCategory(categories, product);
+  const [externalState] = useFormState<Product>(product, {soldBy: storeId}, [product, storeId]);
 
   useEffect(() => {
     if (categories) {
@@ -120,7 +80,7 @@ export const ProductFormModal = ({
   const handleCreateProduct = (newProduct: Product) => {
     if (store) {
       caller(
-        sdk.product.create({ ...newProduct, soldBy: store._id }),
+        sdk.product.create(newProduct),
         (product: Product) => {
           message.success(t("product.addProductSuccess"));
           onClose();
@@ -168,15 +128,15 @@ export const ProductFormModal = ({
               <FormItem label={t("common.category")} selector="category">
                 {(val, _onChange, onComplete) => (
                   <Cascader
-                    options={groupedCategories}
+                    options={groupedCategories || []}
                     onChange={value => {
                       // The cascader expects a full array of all categories, but we want to store only the last value (as the slugs should all be unique.)
-                      setFullCategoryValue(value);
+                      setFullCategory(value as FullCategory);
                       onComplete(value[value.length - 1]);
                     }}
                     placeholder={`${t("common.polite")} ${t("actions.select")}`}
-                    showSearch={{ filter }}
-                    value={fullCategoryValue}
+                    showSearch={{ filter: cascaderFilter }}
+                    value={fullCategory}
                   />
                 )}
               </FormItem>

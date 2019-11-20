@@ -11,8 +11,10 @@ import { setProducts } from '../../../state/modules/products/products.module';
 import { useCall } from '../../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
+import { T } from '../../../config/i18n';
+import { Store } from '@lamk/la-sdk/dist/models/store';
 
-const getColumns = (t: (tId: string) => string) => ([
+const getColumns = (t: T) => ([
   {
     title: t('common.image_plural'),
     dataIndex: 'images',
@@ -54,7 +56,7 @@ export const Products = () => {
   const {t} = useTranslation();
 
   const products: Product[] = useSelector(getProducts);
-  const store = useSelector(getStore);
+  const store: Store | null = useSelector(getStore);
   const columns = getColumns(t)
 
   useEffect(() => {

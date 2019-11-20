@@ -16,6 +16,7 @@ export const StorePreferences = () => {
   const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
   const user = useSelector(getUser);
+  const userId = user ? user._id : undefined;
   const {t} = useTranslation();
 
   const handleSetupStoreDone = (newStore?: Store) => {
@@ -29,7 +30,7 @@ export const StorePreferences = () => {
   return (
     <Col>
       <Spin spinning={showSpinner} tip={t('store.updatingStoreTip')}>
-        <StoreForm store={store} userId={user ? user._id : undefined} onDone={handleSetupStoreDone} />
+        <StoreForm store={store} userId={userId} onDone={handleSetupStoreDone} />
       </Spin>
     </Col>
   );

@@ -2,7 +2,7 @@ import { User } from '@lamk/la-sdk/dist/models/user';
 
 const initialState = { user: null };
 
-const SET_USER = 'user/SET_USER';
+export const SET_USER = 'user/SET_USER';
 
 export default function user(state = initialState, action: any) {
   switch (action.type) {
