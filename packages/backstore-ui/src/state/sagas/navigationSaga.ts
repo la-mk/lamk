@@ -15,14 +15,18 @@ import { setUiReady } from '../modules/ui/ui.module';
 function* storeStateSaga(action: LocationChangeAction) {
   const store = yield select(getStore);
   const user = yield select(getUser);
+  const isPathOnboarding = document.location.pathname.includes('/onboarding');
 
   if (user && !store) {
     const stores = yield call(sdk.store.findOwned, user._id);
 
     if (stores.total > 0) {
       yield put(setStore(stores.data[0]));
-      yield put(replaceTo('/dashboard'))
-    } else if (!document.location.pathname.includes('/onboarding')) {
+      
+      if(!isPathOnboarding){
+        yield put(replaceTo('/dashboard'))
+      }
+    } else if (!isPathOnboarding) {
       // If they don't have a store created, go to onboarding.
       yield put(replaceTo('/onboarding'));
     }
