@@ -76,6 +76,10 @@
     "relatedProducts": "Related produts"
   },
 
+  "store": {
+    "no-aboutus-information": "Couldn't fetch the information about the store, try again later"
+  },
+
   "productSet": {
     "newArrivals": "New arrivals"
   },

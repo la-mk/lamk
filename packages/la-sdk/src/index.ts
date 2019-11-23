@@ -3,6 +3,7 @@ extendValidation();
 
 import { setupClient, SetupSdkOptions } from './setup';
 import { getStoreSdk } from './models/store';
+import { getStoreContentsSdk } from './models/storeContents';
 import { getProductSdk } from './models/product';
 import { getOrderSdk } from './models/order';
 import { getArtifactSdk } from './models/artifact';
@@ -21,6 +22,7 @@ export const setupSdk = (options: SetupSdkOptions = {}) => {
   const client = setupClient(options);
   const tempSdk = {
     store: getStoreSdk(client),
+    storeContents: getStoreContentsSdk(client),
     product: getProductSdk(client),
     delivery: getDeliverySdk(client),
     category: getCategorySdk(client),

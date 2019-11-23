@@ -9,7 +9,8 @@ import { users } from '../../services/users/users';
 import { carts } from '../../services/carts/carts';
 import { addresses } from '../../services/addresses/addresses';
 import { categories } from '../../services/categories/categories';
-import { categoriesPerStore } from '../../services/categoriesPerStore/categoriesPerStore';
+import { categoriesPerStore } from '../../services/categories-per-store/categoriesPerStore';
+import { storeContents } from '../../services/store-contents/storeContents';
 
 export const registerServices = (app: Application) => {
   authentication(app);
@@ -23,4 +24,5 @@ export const registerServices = (app: Application) => {
   addresses(app);
   categories(app);
   categoriesPerStore(app);
+  storeContents(app);
 };

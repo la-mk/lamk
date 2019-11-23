@@ -10,10 +10,40 @@ import {
   isOwner,
   isPublished,
 } from '../../common/hooks/filtering';
-import { unless, keep } from 'feathers-hooks-common';
+import { unless, keep, checkContext } from 'feathers-hooks-common';
 import { NotFound } from '../../common/errors';
 import { sdk } from '@lamk/la-sdk';
 import { validate } from '../../common/hooks/db';
+import { HookContext } from '@feathersjs/feathers';
+
+const createStoreContentsIfNotExists = async (ctx: HookContext) => {
+  checkContext(ctx, 'after', ['create']);
+  const store = ctx.result;
+  const existingStoreContents = await ctx.app.services['storeContents'].find({
+    query: { forStore: store._id },
+  });
+
+  if (existingStoreContents.total > 0) {
+    return;
+  }
+
+  await ctx.app.services['storeContents'].create({ forStore: store._id });
+};
+
+const removeStoreContents = async (ctx: HookContext) => {
+  checkContext(ctx, 'after', ['remove']);
+  const store = ctx.result;
+
+  const storeContents = await ctx.app.services['storeContents'].find({
+    query: { forStore: store._id },
+  });
+
+  if (storeContents.total === 0) {
+    return;
+  }
+
+  await ctx.app.services['storeContents'].remove(storeContents.data[0]._id);
+};
 
 export const hooks = {
   before: {
@@ -63,9 +93,9 @@ export const hooks = {
         keep('_id', 'name', 'slug', 'logo', 'isPublished', 'ownedBy'),
       ),
     ],
-    create: [],
+    create: [createStoreContentsIfNotExists],
     patch: [],
-    remove: [],
+    remove: [removeStoreContents],
   },
 
   error: {

@@ -75,6 +75,10 @@
     "relatedProducts": "Слични продукти"
   },
 
+  "store": {
+    "no-aboutus-information": "Информациите за продавницата не беа пронајдени, обидете се повторно."
+  },
+
   "productSet": {
     "newArrivals": "Нови продукти"
   },
@@ -84,7 +88,8 @@
     "orderSuccess": "Вашата порачка беше успешна!",
     "orderNumber": "Број на порачка: {{orderId}}.",
     "cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
-    "addedToCart": "Додадено во корпа"
+    "addedToCart": "Додадено во корпа",
+    "productAlreadyInCart": "Продуктот е веќе во корпата"
   },
 
   "countries": {
