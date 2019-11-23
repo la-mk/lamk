@@ -61,6 +61,18 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
               <span>{t('commerce.product_plural')}</span>
               <Link to='/dashboard/products' />
             </MenuItem>
+            <MenuItem key='store'>
+              <Icon type='shop' />
+              <span>{t('commerce.store')}</span>
+              <Link to='/dashboard/store' />
+            </MenuItem>
+            
+            <MenuItem key='delivery'>
+              <Icon type='code-sandbox' />
+              <span>{t('commerce.delivery')}</span>
+              <Link to='/dashboard/delivery' />
+            </MenuItem>
+            
             <MenuItem key='preferences'>
               <Icon type='setting' />
               <span>{t('common.preferences')}</span>

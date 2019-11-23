@@ -61,13 +61,13 @@ export const OrderDetailsModal = ({
 
   const handleStatusChanged = (status: Order["status"]) => {
     if (order) {
-      caller(sdk.order.setStatus(order._id, status), setOrder);
+      caller<Order>(sdk.order.setStatus(order._id, status), setOrder);
     }
   };
 
   const handleDeleteOrder = () => {
     if (orderId) {
-      caller(sdk.order.remove(orderId), () => {
+      caller<Order>(sdk.order.remove(orderId), () => {
         onClose();
         message.success(
           t("order.orderDeleted", { id: sdk.utils.getShortId(orderId) })

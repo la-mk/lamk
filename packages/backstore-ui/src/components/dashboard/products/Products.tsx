@@ -61,9 +61,9 @@ export const Products = () => {
 
   useEffect(() => {
     if (store) {
-      caller(
+      caller<FindResult<Product>>(
         sdk.product.findForStore(store._id),
-        (products: FindResult<Product>) => setProducts(products.data),
+        (products) => setProducts(products.data),
       );
     }
   }, [caller, store]);

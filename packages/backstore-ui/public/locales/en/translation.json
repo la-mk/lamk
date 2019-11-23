@@ -53,7 +53,9 @@
     "summary": "Summary",
     "email": "Email address",
     "password": "Password",
-    "actionsTip": "You can do bulk actions on multiple items"
+    "actionsTip": "You can do bulk actions on multiple items",
+    "basic": "Basic",
+    "aboutUs": "About us"
   },
 
   "commerce": {

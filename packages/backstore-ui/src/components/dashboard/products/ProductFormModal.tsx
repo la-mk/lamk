@@ -63,13 +63,13 @@ export const ProductFormModal = ({
       return;
     }
 
-    caller(sdk.category.find(), (categories: FindResult<Category>) =>
+    caller<FindResult<Category>>(sdk.category.find(), (categories) =>
       setCategories(categories.data)
     );
   }, [caller, categories]);
 
   const handlePatchProduct = (product: Product) => {
-    caller(sdk.product.patch(product._id, product), (product: Product) => {
+    caller<Product>(sdk.product.patch(product._id, product), (product) => {
       message.success(
         t("product.updateProductSuccess", { productName: product.name })
       );
@@ -79,9 +79,9 @@ export const ProductFormModal = ({
 
   const handleCreateProduct = (newProduct: Product) => {
     if (store) {
-      caller(
+      caller<Product>(
         sdk.product.create(newProduct),
-        (product: Product) => {
+        (product) => {
           message.success(t("product.addProductSuccess"));
           onClose();
           return addProduct(product);

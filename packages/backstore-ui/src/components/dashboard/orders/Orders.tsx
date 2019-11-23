@@ -52,7 +52,7 @@ export const Orders = () => {
 
   useEffect(() => {
     if (store) {
-      caller(sdk.order.findForStore(store._id), (res: FindResult<Order>) =>
+      caller<FindResult<Order>>(sdk.order.findForStore(store._id), (res) =>
         setOrders(res.data),
       );
     }

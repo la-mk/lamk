@@ -1,22 +1,28 @@
-import { useState, useCallback } from 'react';
-import { message } from '@lamk/blocks-ui';
-import { useDispatch } from 'react-redux';
+import { useState, useCallback } from "react";
+import { message } from "@lamk/blocks-ui";
+import { useDispatch } from "react-redux";
+import { Action } from "redux";
 
-export const useCall = () => {
+type Caller = <T extends any>(
+  promise: Promise<T>,
+  callback?: (res: T) => Action<any> | void
+) => void
+
+type UseCallResult = [
+  Caller,
+  boolean
+];
+
+export const useCall = (): UseCallResult => {
   const [isProcessing, setIsProcessing] = useState(false);
-  const [res, setRes] = useState();
   const dispatch = useDispatch();
 
   // The callback can optionally return a redux action object which will be dispatched
-  const caller = useCallback(
-    (
-      promise: Promise<any>,
-      callback?: (data?: any) => { type: string; [key: string]: any },
-    ) => {
+  const caller = useCallback<Caller>(
+    (promise, callback) => {
       setIsProcessing(true);
       promise
         .then(res => {
-          setRes(res);
           if (callback) {
             const action = callback(res);
             if (action) {
@@ -28,8 +34,8 @@ export const useCall = () => {
         .catch((err: Error) => message.error(err.message))
         .finally(() => setIsProcessing(false));
     },
-    [dispatch],
+    [dispatch]
   );
 
-  return [caller, isProcessing, res];
+  return [caller, isProcessing];
 };

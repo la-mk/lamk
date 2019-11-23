@@ -53,14 +53,14 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   
   useEffect(() => {
     if (storeId) {
-      caller(
+      caller<FindResult<Product>>(
         sdk.product.findForStore(storeId),
-        (products: FindResult<Product>) => setProducts(products.data)
+        (products) => setProducts(products.data)
       );
 
-      caller(
+      caller<FindResult<Delivery>>(
         sdk.delivery.findForStore(storeId),
-        (deliveries: FindResult<Delivery>) => {
+        (deliveries) => {
           if (deliveries.total > 0) {
             return setDelivery(deliveries.data[0]);
           }
@@ -74,7 +74,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    caller(sdk.category.find(), (categories: FindResult<Category>) =>
+    caller<FindResult<Category>>(sdk.category.find(), (categories) =>
       setCategories(categories.data)
     );
   }, [caller, categories]);
@@ -87,14 +87,14 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       ? sdk.store.patch(newStore._id, newStore)
       : sdk.store.create(newStore);
 
-    caller(handler, (store: Store) => {
+    caller<Store>(handler, (store) => {
       setStep(1);
       return setStore(store);
     });
   };
 
   const handleAddProduct = (newProduct: Product) => {
-    caller(
+    caller<Product>(
       sdk.product.create(newProduct),
       addProduct
     );
@@ -109,11 +109,11 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    caller(sdk.product.patch(newProduct._id, newProduct), patchProduct);
+    caller<Product>(sdk.product.patch(newProduct._id, newProduct), patchProduct);
   };
 
   const handleRemoveProduct = (id: string) => {
-    caller(sdk.product.remove(id), () => removeProduct(id));
+    caller<Product>(sdk.product.remove(id), () => removeProduct(id));
   };
 
   const handleAddProductsDone = () => {
@@ -129,7 +129,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       ? sdk.delivery.patch(newDelivery._id, newDelivery)
       : sdk.delivery.create(newDelivery);
 
-    caller(handler, (delivery: Delivery) => {
+    caller<Delivery>(handler, (delivery) => {
       setStep(3);
       return setDelivery(delivery);
     });
@@ -145,7 +145,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    caller(sdk.store.patch(storeId, { isPublished: true }), () => {
+    caller<Store>(sdk.store.patch(storeId, { isPublished: true }), () => {
       setIsFinished(true);
     });
   };
