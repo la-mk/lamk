@@ -54,8 +54,7 @@
     "email": "Email address",
     "password": "Password",
     "actionsTip": "You can do bulk actions on multiple items",
-    "basic": "Basic",
-    "aboutUs": "About us"
+    "basic": "Basic"
   },
 
   "commerce": {
@@ -106,7 +105,9 @@
     "updatingStoreTip": "Updating store...",
     "storeName": "Store name",
     "storeUrl": "Store URL",
-    "storeLogo": "Store Logo"
+    "storeLogo": "Store Logo",
+    "aboutUs": "About us",
+    "aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience..."
   },
 
   "order": {

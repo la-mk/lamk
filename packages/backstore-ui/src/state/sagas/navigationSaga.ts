@@ -9,6 +9,7 @@ import { setStore } from '../modules/store/store.module';
 import { LocationChangeAction } from 'connected-react-router';
 import { getUser } from '../modules/user/user.selector';
 import { SET_USER } from '../modules/user/user.module';
+import { setUiReady } from '../modules/ui/ui.module';
 
 // We want to fetch the store info on every navigation if it is missing, as it is the only mandatory data for everything else
 function* storeStateSaga(action: LocationChangeAction) {
@@ -20,10 +21,12 @@ function* storeStateSaga(action: LocationChangeAction) {
 
     if (stores.total > 0) {
       yield put(setStore(stores.data[0]));
-    } else if (!action.payload.location.pathname.includes('/onboarding')) {
+    } else if (!document.location.pathname.includes('/onboarding')) {
       // If they don't have a store created, go to onboarding.
       yield put(replaceTo('/onboarding'));
     }
+
+    yield put(setUiReady(true));
   }
 }
 

@@ -22,7 +22,7 @@ export const AboutUs = () => {
 
   return (
     <Flex mt={3} flexDirection="column">
-      <Spin spinning={showSpinner} tip={"Updating about us..."}>
+      <Spin spinning={showSpinner}>
         <Form
           colon={false}
           externalState={{}}
@@ -31,15 +31,15 @@ export const AboutUs = () => {
           onFormCompleted={() => null}
           layout="horizontal"
         >
-          <FormItem label={"About us"} selector="description">
+          <FormItem label={t('store.aboutUs')} selector="description">
             {formTextArea({
-              placeholder: `Win your customer's hearts`,
+              placeholder: t('store.aboutUsExample'),
               autoSize: { minRows: 8, maxRows: 16 }
             })}
           </FormItem>
           <Flex mt={3} justifyContent="center">
             <Button ml={2} htmlType="submit" type="primary">
-              Save changes
+              {t('actions.update')}
             </Button>
           </Flex>
         </Form>

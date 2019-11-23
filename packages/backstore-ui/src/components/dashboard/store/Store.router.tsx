@@ -17,7 +17,7 @@ export const StoreRouter = () => {
             <TabPane tab={t("common.basic")} key="basic">
               <Store />
             </TabPane>
-            <TabPane tab={t("common.aboutUs")} key="about-us">
+            <TabPane tab={t("store.aboutUs")} key="about-us">
               <AboutUs />
             </TabPane>
           </TabbedRouteRenderer>

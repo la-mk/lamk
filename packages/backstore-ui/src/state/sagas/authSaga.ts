@@ -6,20 +6,23 @@ import {
   LOCATION_CHANGE,
 } from '../modules/navigation/navigation.actions';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
-import { clearSession } from '../modules/ui/ui.module';
+import { clearSession, setUiReady } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
+import { message } from 'antd';
 
 const authRoutes = ['/login', '/signup'];
 
 function* afterAuthSaga() {
-  const authInfo = yield call(sdk.authentication.getAuthentication);
-  yield put(setUser(authInfo.user));
-  yield put(replaceTo('/'));
+  try {
+    const authInfo = yield call(sdk.authentication.getAuthentication);
+    yield put(setUser(authInfo.user));
+    return authInfo;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function* authenticationCheckSaga(action: LocationChangeAction) {
-  let authInfo;
-
   // If it is an initial render, try to reauthenticate using the existing token.
   if (action.payload.isFirstRendering) {
     try {
@@ -30,29 +33,16 @@ function* authenticationCheckSaga(action: LocationChangeAction) {
     }
   }
 
-  try {
-    authInfo = yield call(sdk.authentication.getAuthentication);
-  } catch (err) {
-    console.log(err);
-  }
-
+  const authInfo = yield call(afterAuthSaga);
   const isAuthRoute = authRoutes.includes(action.payload.location.pathname);
-
-  // If the user is already logged in and at an auth page, just redirect home.
-  if (authInfo && isAuthRoute) {
-    yield afterAuthSaga();
-  }
-
-  // If the user is logged in, but at a dashboard page, just set the user in state
-  if(authInfo && !isAuthRoute){
-    yield put(setUser(authInfo.user))
-  }
 
   // If the user is not logged in, redirect to login page.
   if (!authInfo && !isAuthRoute) {
     yield put(clearSession());
     yield put(replaceTo('/login'));
   }
+
+  yield put(setUiReady(true));
 }
 
 export function* logoutSaga() {
@@ -61,6 +51,7 @@ export function* logoutSaga() {
     yield put(clearSession());
     yield put(replaceTo('/login'));
   } catch (err) {
+    message.error(err.message);
     console.log(err);
   }
 }
@@ -74,6 +65,7 @@ export function* loginSaga(action: any) {
 
     yield afterAuthSaga();
   } catch (err) {
+    message.error(err.message);
     console.log(err);
   }
 }
@@ -88,6 +80,7 @@ export function* signupSaga(action: any) {
 
     yield afterAuthSaga();
   } catch (err) {
+    message.error(err.message);
     console.log(err);
   }
 }
