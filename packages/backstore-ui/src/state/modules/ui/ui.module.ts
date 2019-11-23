@@ -1,9 +1,11 @@
+import { enhanceReducer } from "../../utils";
+
 const initialState = { uiReady: false };
 
 export const CLEAR_SESSION = 'ui/CLEAR_SESSION';
 export const SET_UI_READY = 'ui/SET_UI_READY';
 
-export default function uiReady(state = initialState, action: any) {
+function uiReady(state = initialState, action: any) {
   switch (action.type) {
     case SET_UI_READY: {
       return { uiReady: action.uiReady };
@@ -12,6 +14,8 @@ export default function uiReady(state = initialState, action: any) {
       return state;
   }
 }
+
+export default enhanceReducer(uiReady);
 
 export function clearSession() {
   return { type: CLEAR_SESSION };

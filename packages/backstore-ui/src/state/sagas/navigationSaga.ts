@@ -21,6 +21,7 @@ function* storeStateSaga(action: LocationChangeAction) {
 
     if (stores.total > 0) {
       yield put(setStore(stores.data[0]));
+      yield put(replaceTo('/dashboard'))
     } else if (!document.location.pathname.includes('/onboarding')) {
       // If they don't have a store created, go to onboarding.
       yield put(replaceTo('/onboarding'));

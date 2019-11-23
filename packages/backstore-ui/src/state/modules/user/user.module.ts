@@ -1,10 +1,11 @@
 import { User } from '@lamk/la-sdk/dist/models/user';
+import { enhanceReducer } from '../../utils';
 
 const initialState = { user: null };
 
 export const SET_USER = 'user/SET_USER';
 
-export default function user(state = initialState, action: any) {
+function user(state = initialState, action: any) {
   switch (action.type) {
     case SET_USER: {
       return { user: action.user };
@@ -13,6 +14,8 @@ export default function user(state = initialState, action: any) {
       return state;
   }
 }
+
+export default enhanceReducer(user);
 
 export function setUser(user: User) {
   return {

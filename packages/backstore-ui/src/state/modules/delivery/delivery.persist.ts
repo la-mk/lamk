@@ -1,11 +1,11 @@
 import sessionStorage from 'redux-persist/lib/storage/session';
 
 import delivery from './delivery.module';
-import { persistReducer } from '../../utils';
+import { enhanceReducer } from '../../utils';
 
 const config = {
   key: 'delivery',
   storage: sessionStorage,
 };
 
-export default persistReducer(config, delivery);
+export default enhanceReducer(delivery, config);

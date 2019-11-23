@@ -1,16 +1,19 @@
 import { Action, Reducer } from "redux";
 import { CLEAR_SESSION } from "./modules/ui/ui.module";
-import { purgeStoredState, persistReducer as rPersistedReducer, PersistConfig } from "redux-persist";
+import { purgeStoredState, persistReducer, PersistConfig } from "redux-persist";
 
-export const persistReducer = (storageConfig: PersistConfig, reducer: Reducer<any, Action<any>>) => {
-  const persistedReducer = rPersistedReducer(storageConfig, reducer);
+export const enhanceReducer = (reducer: Reducer<any, Action<any>>, storageConfig?: PersistConfig) => {
+  const enhancedReducer = storageConfig ? persistReducer(storageConfig, reducer) : reducer;
 
   return (state: any, action: Action) => {
     if(action.type === CLEAR_SESSION){
-      purgeStoredState(storageConfig);
-      return persistedReducer(undefined, action);
+      if(storageConfig){
+        purgeStoredState(storageConfig);
+      }
+
+      return enhancedReducer(undefined, action);
     }
   
-    return persistedReducer(state, action);
+    return enhancedReducer(state, action);
   }
 }
