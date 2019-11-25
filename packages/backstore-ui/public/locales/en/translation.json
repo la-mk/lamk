@@ -11,7 +11,8 @@
     "addProductImages": "Add product images",
     "publish": "Publish",
     "goToDashboard": "Go to dashboard",
-    "addLogo": "Add logo"
+    "addLogo": "Add logo",
+    "addBanner": "Add banner"
   },
 
   "uploads": {
@@ -54,7 +55,8 @@
     "email": "Email address",
     "password": "Password",
     "actionsTip": "You can do bulk actions on multiple items",
-    "basic": "Basic"
+    "basic": "Basic",
+    "success": "Success!"
   },
 
   "commerce": {
@@ -107,7 +109,9 @@
     "storeUrl": "Store URL",
     "storeLogo": "Store Logo",
     "aboutUs": "About us",
-    "aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience..."
+    "aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience...",
+    "landingPage": "Landing page",
+    "storeBanner": "Banner"
   },
 
   "order": {

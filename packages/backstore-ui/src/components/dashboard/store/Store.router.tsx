@@ -5,6 +5,7 @@ import { TabbedRouteRenderer } from '../../shared/components/TabbedRouteRenderer
 import { TabPane } from '@lamk/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import {AboutUs} from './AboutUs';
+import { LandingPreferences } from './LandingPreferences';
 
 export const StoreRouter = () => {
   const {t} = useTranslation();
@@ -19,6 +20,9 @@ export const StoreRouter = () => {
             </TabPane>
             <TabPane tab={t("store.aboutUs")} key="about-us">
               <AboutUs />
+            </TabPane>
+            <TabPane tab={t("store.landingPage")} key="landing">
+              <LandingPreferences />
             </TabPane>
           </TabbedRouteRenderer>
         )}

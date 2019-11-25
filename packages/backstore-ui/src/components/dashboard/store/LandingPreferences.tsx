@@ -5,7 +5,8 @@ import {
   Spin,
   Form,
   FormItem,
-  formTextArea,
+  UploadContent,
+  UploadDragger,
   message
 } from "@lamk/blocks-ui";
 import { useTranslation } from "react-i18next";
@@ -15,12 +16,26 @@ import { useSelector } from "react-redux";
 import { getStore } from "../../../state/modules/store/store.selector";
 import { StoreContents } from "@lamk/la-sdk/dist/models/storeContents";
 import { FindResult } from "@lamk/la-sdk/dist/setup";
+import {
+  handleArtifactUploadStatus,
+  getDefaultFileList,
+  uploadImage
+} from "../../shared/utils/artifacts";
+import { UploadChangeParam } from "antd/lib/upload";
 
-export const AboutUs = () => {
+export const LandingPreferences = () => {
   const { t } = useTranslation();
   const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
+  // TODO: We need ot make uploading work better with `fileList` instead of `defaultFilelist`, without keeping local state everywhere.
+  const [fileList, setFileList] = useState();
+
+  useEffect(() => {
+    if(storeContents && storeContents.landing){
+      setFileList(getDefaultFileList(storeContents.landing.banner))
+    }
+  }, [storeContents])
 
   useEffect(() => {
     if (!store) {
@@ -33,14 +48,14 @@ export const AboutUs = () => {
     );
   }, [store]);
 
-  const handlePatchAboutUs = (data: Partial<StoreContents>) => {
+  const handlePatchBanner = (data: Partial<StoreContents>) => {
     if (!storeContents) {
       return;
     }
 
     caller<StoreContents>(
       sdk.storeContents
-        .patch(storeContents._id, {aboutUs: data.aboutUs})
+        .patch(storeContents._id, {landing: data.landing})
         .then(() => message.success(t("common.success"))),
     );
   };
@@ -56,15 +71,37 @@ export const AboutUs = () => {
           }
           validate={data => sdk.storeContents.validate(data, true)}
           // TODO: Add single validation when the validation library can handle nested schemas/selectors.
-          onFormCompleted={handlePatchAboutUs}
+          onFormCompleted={handlePatchBanner}
           layout="horizontal"
         >
-          <FormItem label={t("store.aboutUs")} selector="aboutUs.description">
-            {formTextArea({
-              placeholder: t("store.aboutUsExample"),
-              autoSize: { minRows: 8, maxRows: 16 }
-            })}
+          <FormItem selector="landing.banner" label={t("store.storeBanner")}>
+            {(val, _onChange, onComplete) => (
+              <UploadDragger
+                customRequest={uploadImage}
+                accept=".png, .jpg, .jpeg"
+                onChange={(info: UploadChangeParam) => {
+                  setFileList([...(info.fileList || [])])
+                  handleArtifactUploadStatus(
+                    info,
+                    val,
+                    true,
+                    onComplete,
+                    message.error
+                  )
+                }
+                }
+                fileList={fileList}
+                listType="picture"
+                name="landing-page-banner"
+              >
+                <UploadContent
+                  text={t("actions.addBanner")}
+                  hint={t("uploads.hint")}
+                />
+              </UploadDragger>
+            )}
           </FormItem>
+
           <Flex mt={3} justifyContent="center">
             <Button ml={2} htmlType="submit" type="primary">
               {t("actions.update")}

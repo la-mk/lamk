@@ -1,9 +1,9 @@
-import isString from 'lodash/isString';
-import isEmpty from 'lodash/isEmpty';
-import uniq from 'lodash/uniq';
-import { sdk } from '@lamk/la-sdk';
-import { UploadChangeParam } from 'antd/lib/upload';
-import { UploadFile } from 'antd/lib/upload/interface';
+import isString from "lodash/isString";
+import isEmpty from "lodash/isEmpty";
+import uniq from "lodash/uniq";
+import { sdk } from "@lamk/la-sdk";
+import { UploadChangeParam } from "antd/lib/upload";
+import { UploadFile } from "antd/lib/upload/interface";
 
 export const toBase64 = (file: Blob) => {
   return new Promise<string>((resolve, reject) => {
@@ -29,29 +29,31 @@ export const uploadImage = async ({ file, onSuccess, onError }: any) => {
 };
 
 export const getDefaultFileList = (value?: string | string[]) => {
+  if (!value || isEmpty(value)) {
+    return;
+  }
+
   if (isString(value)) {
     return value
       ? ([
           {
             uid: value,
             name: value,
-            status: 'done',
-            url: sdk.artifact.getUrlForArtifact(value),
-          },
+            status: "done",
+            url: sdk.artifact.getUrlForArtifact(value)
+          }
         ] as UploadFile[])
       : undefined;
   } else {
-    return !isEmpty(value)
-      ? value!.map(
-          fileId =>
-            ({
-              uid: fileId,
-              name: fileId,
-              status: 'done',
-              url: sdk.artifact.getUrlForArtifact(fileId),
-            } as UploadFile),
-        )
-      : undefined;
+    return value.map(
+      fileId =>
+        ({
+          uid: fileId,
+          name: fileId,
+          status: "done",
+          url: sdk.artifact.getUrlForArtifact(fileId)
+        } as UploadFile)
+    );
   }
 };
 
@@ -60,10 +62,10 @@ export const handleArtifactUploadStatus = (
   value: string | string[],
   single: boolean,
   onComplete: (val: any) => void,
-  onError: (message: string) => void,
+  onError: (message: string) => void
 ) => {
   switch (info.file.status) {
-    case 'removed': {
+    case "removed": {
       sdk.artifact
         .remove(info.file.uid)
         .then(() => {
@@ -72,8 +74,8 @@ export const handleArtifactUploadStatus = (
           } else {
             onComplete(
               (value as string[]).filter(
-                artifactId => artifactId !== info.file.uid,
-              ),
+                artifactId => artifactId !== info.file.uid
+              )
             );
           }
         })
@@ -85,7 +87,7 @@ export const handleArtifactUploadStatus = (
     }
 
     // There will be a response only if the image upload succeeded
-    case 'done': {
+    case "done": {
       if (single) {
         onComplete(info.file.response._id);
       } else {
@@ -95,7 +97,7 @@ export const handleArtifactUploadStatus = (
     }
 
     // TODO: Localize error
-    case 'error': {
+    case "error": {
       onError(`${info.file.name} file upload failed.`);
       break;
     }
