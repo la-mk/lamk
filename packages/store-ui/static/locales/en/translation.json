@@ -93,6 +93,10 @@
     "productAlreadyInCart": "Product already in cart"
   },
 
+  "sets": {
+    "latest": "Latest products"
+  },
+
   "countries": {
     "mk": "Macedonia"
   },

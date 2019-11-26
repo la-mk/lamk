@@ -25,7 +25,7 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
 import { FindResult } from '@lamk/la-sdk/dist/setup';
-import { useTranslation } from '../../common/i18n';
+import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 
 interface ProductProps {
   product: ProductType;
@@ -38,7 +38,7 @@ export const Product = ({ product }: ProductProps) => {
   const user = useSelector(getUser);
   const { t } = useTranslation();
 
-  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [productSets, setProductSets] = useState([]);
   const [selectedImage, setSelectedImage] = useState(
     sdk.artifact.getUrlForArtifact(product.images[0]),
   );
@@ -49,11 +49,15 @@ export const Product = ({ product }: ProductProps) => {
     cart.items.some(item => item.product._id === product._id);
 
   useEffect(() => {
+    if (!store) {
+      return;
+    }
+
     caller(
-      sdk.product.findForStore(store._id),
-      (products: FindResult<ProductType>) => setRelatedProducts(products.data),
+      sdk.product.getProductSetsForStore(store._id, [{ name: 'latest' }]),
+      setProductSets,
     );
-  }, [caller]);
+  }, [store]);
 
   useEffect(() => {
     setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));
@@ -150,10 +154,15 @@ export const Product = ({ product }: ProductProps) => {
           </Flex>
         </Flex>
         <Flex mt={5}>
-          <ProductSet
-            title={t('product.relatedProducts')}
-            products={relatedProducts}
-          />
+          {productSets
+            .filter(set => Boolean(set.data))
+            .map(set => (
+              <ProductSet
+                key={set.setTag.name + (set.setTag.value || '')}
+                products={set.data}
+                title={t(getTranslationBaseForSet(set.setTag))}
+              />
+            ))}
         </Flex>
       </Spin>
     </Page>

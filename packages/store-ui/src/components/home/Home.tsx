@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
 import { CategoriesList } from '../CategoriesList';
 import styled from 'styled-components';
-import { Flex } from '@lamk/blocks-ui';
-import { useTranslation } from '../../common/i18n';
-import { Product } from '@lamk/la-sdk/dist/models/product';
+import { Flex, Spin } from '@lamk/blocks-ui';
+import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import { ProductSet as ProductSetType } from '@lamk/la-sdk/dist/models/product';
 import { StoreContents } from '@lamk/la-sdk/dist/models/storeContents';
 import { sdk } from '@lamk/la-sdk';
+import { useCall } from '../shared/hooks/useCall';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../state/modules/store/store.selector';
+import { getCategories } from '../../state/modules/categories/categories.selector';
 
 const Banner = styled.div`
   position: relative;
@@ -19,13 +23,37 @@ const ImageBanner = styled.img`
 `;
 
 export const Home = ({
-  products,
   landingContent,
 }: {
-  products: Product[];
   landingContent: StoreContents['landing'];
 }) => {
   const { t } = useTranslation();
+  const store = useSelector(getStore);
+  const categories = useSelector(getCategories);
+  const [caller, showSpinner] = useCall();
+  const [productSets, setProductSets] = useState<ProductSetType[]>([]);
+
+  useEffect(() => {
+    if (!store || !categories) {
+      return;
+    }
+    let categorySetTags = [];
+
+    if (categories.length) {
+      categorySetTags = categories.slice(0, 2).map(category => ({
+        name: 'category',
+        value: category.level3,
+      }));
+    }
+
+    caller(
+      sdk.product.getProductSetsForStore(store._id, [
+        { name: 'latest' },
+        ...categorySetTags,
+      ]),
+      setProductSets,
+    );
+  }, [store, categories]);
 
   return (
     <>
@@ -38,9 +66,19 @@ export const Home = ({
           />
         )}
       </Banner>
-      <Flex mt={3} flexDirection='column'>
-        <ProductSet products={products} title={t('productSet.newArrivals')} />
-      </Flex>
+      <Spin spinning={showSpinner}>
+        <Flex mt={3} flexDirection='column'>
+          {productSets
+            .filter(set => Boolean(set.data))
+            .map(set => (
+              <ProductSet
+                key={set.setTag.name + (set.setTag.value || '')}
+                products={set.data}
+                title={t(getTranslationBaseForSet(set.setTag))}
+              />
+            ))}
+        </Flex>
+      </Spin>
     </>
   );
 };
