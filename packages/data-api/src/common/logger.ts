@@ -24,6 +24,7 @@ export const initLogger = (
   return logger;
 };
 
+// The final logger will reliably flush all logs in case the process crashes
 export const getSyncLogger = (
   handler: (err: Error, finalLogger: pino.Logger) => void,
 ) => {

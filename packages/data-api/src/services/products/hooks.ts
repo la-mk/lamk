@@ -10,6 +10,7 @@ import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { sdk } from '@lamk/la-sdk';
 import { validate } from '../../common/hooks/db';
+import { logger } from '../../common/logger';
 
 interface HookContextWithCategory extends HookContext {
   previousCategory?: string;
@@ -88,7 +89,7 @@ const createCategoriesPerStore = async (ctx: HookContext) => {
     );
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
-    console.log(err);
+    logger.error(err);
   }
 };
 
@@ -110,7 +111,7 @@ const patchCategoriesPerStore = async (ctx: HookContextWithCategory) => {
     );
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
-    console.log(err);
+    logger.error(err);
   }
 };
 
@@ -131,7 +132,7 @@ const removeCategoriesPerStore = async (ctx: HookContext) => {
     );
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
-    console.log(err);
+    logger.error(err);
   }
 };
 

@@ -3,11 +3,11 @@ import { HookContext } from '@feathersjs/feathers';
 import env from '../env';
 
 export const log = (context: HookContext) => {
-  logger.info(
-    `${context.type} app.service('${context.path}').${context.method}()`,
-  );
-
   if (env.NODE_ENV === 'development') {
+    logger.info(
+      `${context.type} app.service('${context.path}').${context.method}()`,
+    );
+
     logger.info(
       `
       Params: ${JSON.stringify(context.params.query, null, 2)}, ID: ${

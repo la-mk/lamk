@@ -30,7 +30,6 @@ export const requireAnyQueryParam = (params: string[]) => {
     }
 
     const { query = {} } = ctx.params;
-    console.log(query)
     const hasSome = params.some(param => Boolean(query[param]));
 
     if (!hasSome) {
@@ -75,12 +74,14 @@ export const isPublished = () => {
       if (ctx.method === 'get') {
         return ctx.result.isPublished === true;
       } else {
-        if(ctx.result.total > 0){
-          return !Boolean(ctx.result.data.filter((entry: any) => entry.isPublished !== true).length)
+        if (ctx.result.total > 0) {
+          return !ctx.result.data.filter(
+            (entry: any) => entry.isPublished !== true,
+          ).length;
         }
       }
     }
 
     return true;
   };
-}
+};

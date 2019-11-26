@@ -24,7 +24,6 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
-import { FindResult } from '@lamk/la-sdk/dist/setup';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 
 interface ProductProps {
