@@ -22,7 +22,7 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
           return <Paragraph>{paragraph}</Paragraph>;
         })
       ) : (
-        <Empty mt={5} description={t('store.no-aboutus-information')} />
+        <Empty mt={5} description={t('store.noAboutusInformation')} />
       )}
     </Page>
   );

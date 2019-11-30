@@ -1,0 +1,53 @@
+{
+  "name": "mylib",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Stevche Radevski",
+  "main": "dist/index.js",
+  "module": "dist/mylib.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "i18n": "sync-i18n --files 'src/locales/*.json' --primary en --languages mk --space 2",
+    "check-i18n": "npm run i18n -- --check"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint --fix"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@types/gulp": "^4.0.6",
+    "@types/jest": "^24.0.23",
+    "@types/lodash": "^4.14.149",
+    "@types/through2": "^2.0.34",
+    "gulp-debug": "^4.0.0",
+    "husky": "^3.1.0",
+    "i18next-json-sync": "^2.3.1",
+    "rollup-plugin-copy-glob": "^0.3.1",
+    "tsdx": "^0.11.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "glob": "^7.1.6",
+    "gulp": "^4.0.2",
+    "i18next-scanner": "^2.10.3",
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
+    "rimraf": "^3.0.0"
+  }
+}

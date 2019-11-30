@@ -9,7 +9,8 @@
     "eject": "react-scripts eject",
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
     "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
-    "aida": "aida run"
+    "aida": "aida run",
+    "i18n": "node ../translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'public/locales'"
   },
   "eslintConfig": {
     "extends": "react-app"

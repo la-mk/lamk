@@ -83,7 +83,7 @@ export const Checkout = () => {
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Empty mt={5} description={t('cart.emptyCardDescription')}></Empty>;
+    return <Empty mt={5} description={t('cart.emptyCartDescription')}></Empty>;
   }
 
   const handleOrder = () => {

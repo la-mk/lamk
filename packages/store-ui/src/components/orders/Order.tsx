@@ -60,24 +60,24 @@ export const Order = ({ orderId }: { orderId: string }) => {
       <Spin spinning={showSpinner}>
         <Steps progressDot current={stepIndex}>
           <Step
-            title={t('order.pending')}
-            description={t('order.pendingDescription')}
+            title={t('orderStatus.pending')}
+            description={t('orderStatus.pendingDescription')}
           />
           <Step
-            title={t('order.shipped')}
-            description={t('order.shippedDescription')}
+            title={t('orderStatus.shipped')}
+            description={t('orderStatus.shippedDescription')}
           />
           {status !== 'cancelled' && (
             <Step
-              title={t('order.completed')}
-              description={t('order.completedDescription')}
+              title={t('orderStatus.completed')}
+              description={t('orderStatus.completedDescription')}
             />
           )}
           {status === 'cancelled' && (
             <Step
               status='error'
-              title={t('order.cancelled')}
-              description={t('order.cancelledDescription')}
+              title={t('orderStatus.cancelled')}
+              description={t('orderStatus.cancelledDescription')}
             />
           )}
         </Steps>

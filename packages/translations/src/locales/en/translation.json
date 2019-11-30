@@ -1,0 +1,171 @@
+{
+  "actions": {
+		"add": "Add",
+		"addBanner": "Add banner",
+		"addLogo": "Add logo",
+		"addProductImages": "Add product images",
+		"addToCart": "Add to Cart",
+		"cancel": "Cancel",
+		"continue": "Continue",
+    "create": "Create",
+		"delete": "Delete",
+		"goToDashboard": "Go to dashboard",
+    "goToCart": "Go to Cart",
+		"orderNow": "Order now",
+		"publish": "Publish",
+		"remove": "Remove",
+		"save": "Save",
+		"select": "Select",
+    "toCheckout": "To checkout",
+    "update": "Update"
+  },
+  "address": {
+		"addNewAddress": "Add new address",
+		"chooseShippingAddress": "Choose shipping address",
+		"createAddressSuccess": "Address successfully created",
+		"removeAddressSuccess": "Address successfully removed",
+		"shippingAddress": "Shipping address",
+		"updateAddressSuccess": "Address successfully updated"
+  },
+  "auth": {
+		"account": "Account",
+		"accountSettings": "Account settings",
+		"alreadyHaveAccount": "Already have account?",
+		"login": "Log in",
+		"logout": "Log out",
+		"noAccount": "No account?",
+		"noUserInformation": "Could not load user information. Check if you are logged in.",
+		"signup": "Sign up",
+		"signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
+	},
+	"commerce": {
+		"buyer": "Buyer",
+		"delivery": "Delivery",
+		"order_plural": "Orders",
+		"product_plural": "Products",
+		"quantity": "Quantity",
+		"revenue": "Revenue",
+		"store": "Store"
+  },
+  "cart": {
+		"addedToCart": "Added to cart",
+		"cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
+		"emptyCartDescription": "You have no items in the cart",
+		"orderNumber": "Order number: {{orderId}}.",
+		"orderSuccess": "Your order was successful!",
+		"productAlreadyInCart": "Product already in cart"
+  },
+  "common": {
+		"action_plural": "Actions",
+		"actionsTip": "You can do bulk actions on multiple items",
+		"address": "Address",
+		"addressExample": "eg. Home Address",
+    "address_plural": "Addresses",
+		"addressee": "Addressee",
+		"basic": "Basic",
+		"category": "Category",
+		"city": "City",
+		"country": "Country",
+		"description": "Description",
+		"email": "Email address",
+		"firstName": "First name",
+		"id": "ID",
+		"image_plural": "Images",
+		"interface": "Interface",
+		"items": "Items",
+		"lastName": "Last name",
+		"more": "More",
+		"name": "Name",
+		"optional": "Optional",
+		"password": "Password",
+		"personalInfo": "Personal info",
+		"phoneNumber": "Phone number",
+		"polite": "Please",
+		"preferences": "Preferences",
+		"price": "Price",
+		"quantity": "Quantity",
+		"status": "Status",
+		"street": "Street",
+		"streetExample": "eg. 10 Downing Street",
+		"success": "Success!",
+		"summary": "Summary",
+		"unknown": "Unknown",
+    "zipcode": "Zipcode"
+  },
+  "countries": {
+    "mk": "Macedonia"
+	},
+	"delivery": {
+		"deliveryMethod": "Delivery method",
+		"freeDelivery": "Free delivery",
+		"freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
+		"overPrice": "Over price",
+		"priceExplanation": "This can be the average delivery cost.",
+		"updatingDeliveryTip": "Updating delivery..."
+  },
+  "finance": {
+		"priceBreakdown": "Price breakdown",
+		"shippingCost": "Shipping cost",
+		"subtotal": "Subtotal",
+		"total": "Total"
+	},
+	"onboarding": {
+		"setupDeliverySubtitle": "Don't worry, you can modify things later as well.",
+		"setupDeliveryTitle": "Finally, let's tell users about our delivery",
+		"setupProductSubtitle": "Don't worry, you can modify things later as well.",
+		"setupProductTitle": "Let's add some products",
+		"setupStoreSubtitle": "Don't worry, you can modify things later as well.",
+		"setupStoreTitle": "Let's kick things off by creating our store"
+  },
+  "order": {
+		"orderDate": "Order date",
+		"orderDeleted": "Order {{id}} successfully deleted",
+		"orderDetails": "Order details",
+		"ordered": "Ordered",
+		"orderId": "Order ID",
+		"orderNotFound_plural": "Orders not found",
+		"orderNotFound": "Order not found",
+		"seeOrder": "See order"
+  },
+  "pages": {
+    "aboutUs": "About Us",
+		"cart": "Cart",
+		"checkout": "Checkout",
+		"home": "Home",
+		"myAccount": "My Account",
+		"myCart": "My cart",
+		"myOrders": "My Orders",
+		"order": "Order",
+		"order_plural": "Orders",
+		"product_plural": "Products"
+  },
+  "product": {
+		"addProductSuccess": "Successfully added a new product",
+		"addingProductTip": "Adding product...",
+		"descriptionExample": "eg. High quality sneakers",
+		"nameExample": "eg. Nike Air Max",
+		"priceExample": "eg. 500",
+		"productCount": "Product count",
+		"product_plural": "Products",
+		"seeOtherProducts": "See other products",
+		"updateProductSuccess": "Successfully updated {{productName}}",
+		"updatingProductTip": "Updating product..."
+  },
+  "results": {
+    "productNotFound": "Product not found"
+  },
+  "store": {
+		"aboutUs": "About us",
+		"aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience...",
+		"landingPage": "Landing page",
+		"noAboutusInformation": "Couldn't fetch the information about the store, try again later",
+		"storeBanner": "Banner",
+		"storeLogo": "Store Logo",
+		"storeName": "Store name",
+		"storeUrl": "Store URL",
+		"updatingStoreTip": "Updating store..."
+	},
+	"uploads": {
+		"hint": "Support for single or bulk upload"
+  }
+}

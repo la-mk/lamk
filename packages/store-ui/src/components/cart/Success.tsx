@@ -9,8 +9,8 @@ export const Success = ({ order }: any) => {
   return (
     <Result
       status='success'
-      title={t('order.orderSuccess')}
-      subTitle={t('order.orderNumber', { orderId: order._id })}
+      title={t('cart.orderSuccess')}
+      subTitle={t('cart.orderNumber', { orderId: order._id })}
       extra={[
         <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
           <Button type='primary' key='console'>

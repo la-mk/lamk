@@ -4,12 +4,12 @@ import { createGetGroupedCategories, getCategories, GroupedCategories } from '..
 import { Category } from '@lamk/la-sdk/dist/models/category';
 import { T } from '../../../config/i18n';
 
-export const useCategories = (translator: T): [Category[] | null, GroupedCategories | null] => {
+export const useCategories = (t: T): [Category[] | null, GroupedCategories | null] => {
   const getGroupedCategories = useCallback(() => {
     return createGetGroupedCategories((categoryKey: string) =>
-      translator(`categories.${categoryKey}`)
+      t(`categories.${categoryKey}`)
     );
-  }, [translator])();
+  }, [t])();
 
   const groupedCategories: GroupedCategories | null = useSelector(getGroupedCategories);
   const categories: Category[] | null = useSelector(getCategories);

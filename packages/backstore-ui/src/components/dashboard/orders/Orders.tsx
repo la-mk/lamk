@@ -33,7 +33,7 @@ const getColumns = (t: T) => ([
     title: t('common.status'),
     dataIndex: 'status',
     render: status => {
-      return <Tag color={getOrderStatusColor(status)}>{t(`order.${status}`)}</Tag>;
+      return <Tag color={getOrderStatusColor(status)}>{t(`orderStatus.${status}`)}</Tag>;
     },
   },
   {

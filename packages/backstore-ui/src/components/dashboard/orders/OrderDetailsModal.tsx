@@ -110,7 +110,7 @@ export const OrderDetailsModal = ({
                     return (
                       <Option key={status} value={status}>
                         <Tag color={getOrderStatusColor(status)}>
-                          {t(`order.${status}`)}
+                          {t(`orderStatus.${status}`)}
                         </Tag>
                       </Option>
                     );

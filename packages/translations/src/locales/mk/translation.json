@@ -1,0 +1,171 @@
+{
+  "actions": {
+		"add": "Додадете",
+		"addBanner": "Додадете банер",
+		"addLogo": "Додадете лого",
+		"addProductImages": "Додадете слики од продуктот",
+		"addToCart": "Додади во корпа",
+		"cancel": "Откажете",
+    "continue": "Продолжи",
+		"create": "Создадете",
+		"delete": "Избришете",
+		"goToCart": "Прегледај корпа",
+		"goToDashboard": "Одете на главен панел",
+		"orderNow": "Порачајте сега",
+		"publish": "Објавете",
+		"remove": "Отстранете",
+		"save": "Зачувајте",
+    "select": "Одберете",
+		"toCheckout": "На каса",
+		"update": "Обновете"
+  },
+  "address": {
+		"addNewAddress": "Додадете нова адреса",
+		"chooseShippingAddress": "Одберете адреса за достава",
+		"createAddressSuccess": "Нова адреса успешно создадена",
+		"removeAddressSuccess": "Адресата беше успешно отстранета",
+		"shippingAddress": "Адреса за достава",
+		"updateAddressSuccess": "Адресата беше успешно обновена"
+  },
+  "auth": {
+		"account": "Сметка",
+		"accountSettings": "Поставки за сметка",
+		"alreadyHaveAccount": "Веќе имате сметка?",
+		"login": "Логирај се",
+		"logout": "Одлогирај се",
+		"noAccount": "Немате сметка?",
+		"noUserInformation": "Информациите за корисникот не се најдени. Проверете дали сте логирани.",
+		"signup": "Регистрирај се",
+		"signupClosedBeta": "Моментално сме во бета и регистрирањето е забрането. Доколку сакате пристап во бета, контактирајте не"
+  },
+  "cart": {
+		"addedToCart": "Додадено во корпа",
+		"cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
+		"emptyCartDescription": "Вашата корпа е празна",
+		"orderNumber": "Број на порачка: {{orderId}}.",
+		"orderSuccess": "Вашата порачка беше успешна!",
+		"productAlreadyInCart": "Продуктот е веќе во корпата"
+	},
+	"commerce": {
+		"buyer": "Купувач",
+		"delivery": "Достава",
+		"order_plural": "Порачки",
+		"product_plural": "Продукти",
+		"quantity": "Количина",
+		"revenue": "Приход",
+		"store": "Продавница"
+  },
+  "common": {
+		"action_plural": "Операции",
+		"actionsTip": "Можете да извршите акции на повеќе предмети истовремено",
+		"address": "Адреса",
+		"addressExample": "пр. Домашна адреса",
+		"address_plural": "Адреси",
+		"addressee": "Примател",
+		"basic": "Основи",
+		"category": "Категорија",
+		"city": "Град",
+		"country": "Држава",
+		"description": "Опис",
+		"email": "Емаил адреса",
+		"firstName": "Име",
+		"id": "Шифра",
+		"image_plural": "Слики",
+		"interface": "Интерфејс",
+		"items": "Парчиња",
+		"lastName": "Презиме",
+		"more": "Повеќе",
+		"name": "Име",
+		"optional": "Опционално",
+		"password": "Лозинка",
+		"personalInfo": "Лични податоци",
+		"phoneNumber": "Телефонски број",
+		"polite": "Ве молиме",
+		"preferences": "Поставки",
+		"price": "Цена",
+		"quantity": "Количина",
+		"status": "Статус",
+		"street": "Улица",
+		"streetExample": "пр. Солунска 25",
+		"success": "Операцијата беше успешна",
+		"summary": "Преглед",
+		"unknown": "Непознато",
+		"zipcode": "Поштенски код"
+  },
+  "countries": {
+    "mk": "Македонија"
+	},
+	"delivery": {
+		"deliveryMethod": "Метод на достава",
+		"freeDelivery": "Бесплатна достава",
+		"freeDeliveryExplanation": "Над која вредност доставата е бесплатна?",
+		"overPrice": "Над вредност од",
+		"priceExplanation": "Најчесто вредноста претставува просечна цена за достава",
+		"updatingDeliveryTip": "Доставата се обновува..."
+  },
+  "finance": {
+		"priceBreakdown": "Преглед на вкупна цена",
+		"shippingCost": "Цена за достава",
+		"subtotal": "Цена на производи",
+		"total": "Вкупна цена"
+	},
+	"onboarding": {
+		"setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна",
+		"setupDeliveryTitle": "За крај, ајде да ги информираме корисниците за достава",
+		"setupProductSubtitle": "Истите подесувања можат да се направат и подоцна",
+		"setupProductTitle": "Ајде да додадеме и неколку продукти",
+		"setupStoreSubtitle": "Истите подесувања можат да се направат и подоцна",
+		"setupStoreTitle": "Да започнеме со подесување на продавницата"
+  },
+  "order": {
+		"orderDate": "Датум на порачка",
+		"orderDeleted": "Порачка со шифра {{id}} беше успешно избришана",
+		"orderDetails": "Детали за порачка",
+		"ordered": "Порачано",
+		"orderId": "Шифра на порачка",
+		"orderNotFound_plural": "Порачките не беа пронајдени",
+		"orderNotFound": "Порачката не беше пронајдена",
+		"seeOrder": "Видете ја порачката"
+  },
+  "pages": {
+		"aboutUs": "За нас",
+		"cart": "Корпа",
+		"checkout": "Каса",
+		"home": "Дома",
+		"myAccount": "Моја сметка",
+		"myCart": "Моја корпа",
+		"myOrders": "Мои порачки",
+		"order": "Порачка",
+		"order_plural": "Порачки",
+		"product_plural": "Продукти"
+  },
+  "product": {
+		"addProductSuccess": "Нов продукт успешно додаден",
+		"addingProductTip": "Продуктот се додава...",
+		"descriptionExample": "пр. Високо квалитетни и лесни патики",
+		"nameExample": "пр. Nike Air Max",
+		"priceExample": "пр. 500",
+		"productCount": "Број на продукти",
+		"product_plural": "Продукти",
+		"seeOtherProducts": "Видете други продукти",
+		"updateProductSuccess": "Продуктот {{productName}} успешно обновен",
+		"updatingProductTip": "Продуктот се обновува..."
+  },
+  "results": {
+    "productNotFound": "Продуктот не е пронајден"
+  },
+  "store": {
+		"aboutUs": "За нас",
+		"aboutUsExample": "пр. Ние сме мултинационална компанија со 20 години искуство во производство...",
+		"landingPage": "Почетна страна",
+		"noAboutusInformation": "Информациите за продавницата не беа пронајдени, обидете се повторно",
+		"storeBanner": "Банер",
+		"storeLogo": "Лого на продавницата",
+		"storeName": "Име на продавницата",
+		"storeUrl": "Линк на продавницата",
+		"updatingStoreTip": "Продавница се обновува..."
+	},
+	"uploads": {
+		"hint": "Поддршка за еден или повеќе фајлови"
+  }
+}

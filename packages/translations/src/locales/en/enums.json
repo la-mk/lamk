@@ -1,0 +1,58 @@
+{
+	"categories": {
+		"backpack-casual": "Casual backpacks",
+		"men-clothing": "Men clothing",
+		"men-jogging-pants": "Jogging pants",
+		"men-pants": "Men pants",
+		"men-plain-tshirts": "Plain t-shirts",
+		"men-running-shoes": "Running shoes",
+		"men-shoes": "Men shoes",
+		"men-tshirts": "Men t-shirts",
+		"travel-backpack": "Travel backpacks",
+		"travel-gear": "Travel gear"
+  },
+
+  "deliveryMethods": {
+    "cargo-pickup": "Pickup from Cargo",
+    "door-to-door": "Door to Door",
+    "pickup": "Pickup"
+  },
+  
+	"errors": {
+		"between": "Field should be between {{0}} and {{1}}",
+		"boolean": "Field should be either true or false",
+		"generic": "Invalid entry",
+		"greaterThan": "Field should be more than {{0}}",
+		"integer": "Field should be an integer",
+		"invalid-schema-selector": "Invalid schema selector passed",
+		"length": "Field should have less than {{0}} entries",
+		"lessThan": "Field should be less than {{0}}",
+		"lowercase": "Field should all be lowercase",
+		"maxLength": "Field should be at most {{0}} characters long",
+		"minLength": "Field should be at least {{0}} characters long",
+		"negative": "Field should be a negative value",
+		"number": "Field should be a number",
+		"numeric": "Field should be a numeric",
+		"oneOf": "Field should be one of {{0}}",
+		"pattern": "Field does not match the expected pattern",
+		"positive": "Field should be a positive value",
+		"schema": "Field does not match the expected schema",
+		"string": "Field should be a string",
+		"uppercase": "Field should all be uppercase"
+  },
+
+	"orderStatus": {
+		"cancelled": "Cancelled",
+		"cancelledDescription": "Cancelled",
+		"completed": "Completed",
+		"completedDescription": "All done!",
+		"pending": "Pending",
+		"pendingDescription": "Awaiting shipment",
+		"shipped": "Shipped",
+		"shippedDescription": "Awaiting arrival"
+  },
+
+	"sets": {
+    "latest": "Latest products"
+	}
+}

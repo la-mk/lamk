@@ -1,6 +1,7 @@
 {
   "presets": ["next/babel"],
   "plugins": [
+    "i18next-extract",
     ["import", { "libraryName": "antd", "style": true }, "antd"],
     ["styled-components", { "ssr": true, "displayName":true }]
   ]
