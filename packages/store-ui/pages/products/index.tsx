@@ -1,6 +1,6 @@
 import { sdk } from '@lamk/la-sdk';
 import { Product } from '@lamk/la-sdk/dist/models/product';
-import { Head } from '../common/Head';
+import { Head } from '../../src/common/pageComponents/Head';
 import { Products } from '../../src/components/products/Products';
 import { NextPageContext } from 'next';
 import { getStore } from '../../src/state/modules/store/store.selector';

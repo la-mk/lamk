@@ -1,4 +1,4 @@
-import { Head } from '../common/Head';
+import { Head } from '../../src/common/pageComponents/Head';
 import { useTranslation } from '../../src/common/i18n';
 import { sdk } from '@lamk/la-sdk';
 import { getStore } from '../../src/state/modules/store/store.selector';

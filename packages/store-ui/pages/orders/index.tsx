@@ -1,4 +1,4 @@
-import { Head } from '../common/Head';
+import { Head } from '../../src/common/pageComponents/Head';
 import { Orders } from '../../src/components/orders/Orders';
 import { useTranslation } from '../../src/common/i18n';
 function OrdersPage() {

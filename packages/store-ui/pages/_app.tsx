@@ -6,7 +6,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
 import configureStore from '../src/state/configureStore';
-import { StoreLayout } from './common/StoreLayout';
+import { StoreLayout } from '../src/common/pageComponents/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
 import { AuthModal } from '../src/components/signup/AuthModal';
 import { sdk, setupSdk } from '@lamk/la-sdk';

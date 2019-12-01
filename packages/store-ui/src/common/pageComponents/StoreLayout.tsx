@@ -21,12 +21,12 @@ import Link from 'next/link';
 import { sdk } from '@lamk/la-sdk';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { getCartWithProducts } from '../../src/state/modules/cart/cart.selector';
-import { logout } from '../../src/state/modules/auth/auth.module';
-import { getUser } from '../../src/state/modules/user/user.selector';
-import { toggleAuthModal } from '../../src/state/modules/ui/ui.module';
-import { useTranslation } from '../../src/common/i18n';
+import { getStore } from '../../state/modules/store/store.selector';
+import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
+import { logout } from '../../state/modules/auth/auth.module';
+import { getUser } from '../../state/modules/user/user.selector';
+import { toggleAuthModal } from '../../state/modules/ui/ui.module';
+import { useTranslation } from '../i18n';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;

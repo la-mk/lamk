@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "PORT=4040 react-app-rewired start",
-    "build": "react-app-rewired build && npm run i18n",
+    "dev": "PORT=4040 react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && npm run i18n"
     }
   },
   "lint-staged": {

@@ -1,9 +1,9 @@
 import { Home } from '../src/components/home/Home';
-import { Head } from './common/Head';
+import { Head } from '../src/common/pageComponents/Head';
 import { sdk } from '@lamk/la-sdk';
 import { NextPageContext } from 'next';
 import { getStore } from '../src/state/modules/store/store.selector';
-import { setCategoriesIfNone } from './common/initialProps/setCategoriesIfNone';
+import { setCategoriesIfNone } from '../src/common/initialProps/setCategoriesIfNone';
 import { useTranslation } from '../src/common/i18n';
 import { StoreContents } from '@lamk/la-sdk/dist/models/storeContents';
 

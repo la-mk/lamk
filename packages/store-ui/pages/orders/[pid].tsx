@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextPageContext } from 'next';
-import { Head } from '../common/Head';
+import { Head } from '../../src/common/pageComponents/Head';
 import { Order } from '../../src/components/orders/Order';
 import { useTranslation } from '../../src/common/i18n';
 

@@ -1,7 +1,7 @@
-import { getStore } from '../../../src/state/modules/store/store.selector';
-import { getDelivery } from '../../../src/state/modules/delivery/delivery.selector';
+import { getStore } from '../../state/modules/store/store.selector';
+import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { sdk } from '@lamk/la-sdk';
-import { setDelivery } from '../../../src/state/modules/delivery/delivery.module';
+import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { NextPageContext } from 'next';
 
 export const setDeliveryIfNone = (ctx: NextPageContext & { store: any }) => {

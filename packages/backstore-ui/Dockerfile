@@ -1,23 +1,20 @@
-FROM node:12-slim as build-stage
-
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
-
+FROM node:12-slim as base
 WORKDIR /usr/src/app
-
 COPY package.json package-lock.json .npmrc ./
-RUN npm install
-# RUN npm ci && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
+FROM base as dev
+ENV NODE_ENV development
+CMD ["npm", "run", "dev"]
+
+FROM base as build
+WORKDIR /usr/src/app
+ENV NODE_ENV production
+RUN npm run build
 COPY . .
 
-# RUN if [ "$NODE_ENV" == "development" ]; \ 
-#   then echo "Running development" ; \
-#   else npm run build; \
-#   fi
-
-# FROM nginx:1.17-alpine
-
-# COPY --from=build-stage /usr/src/app/build /usr/src/backstore
-# COPY --from=build-stage ./nginx.conf /etc/nginx/conf.d/default.conf
-# ENTRYPOINT ["nginx","-g","daemon off;"]
+FROM node:12-slim as prod
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app/build ./
+COPY --from=build ./nginx.conf /etc/nginx/conf.d/default.conf
+ENTRYPOINT ["nginx","-g","daemon off;"]

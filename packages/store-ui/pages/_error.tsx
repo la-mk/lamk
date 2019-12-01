@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head } from './common/Head';
+import { Head } from '../src/common/pageComponents/Head';
 
 const ErrorPage = ({ errorCode }: { errorCode: number }) => {
   switch (errorCode) {

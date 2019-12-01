@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
-import { Head } from '../common/Head';
+import { Head } from '../../src/common/pageComponents/Head';
 import { Checkout } from '../../src/components/cart/Checkout';
-import { setDeliveryIfNone } from '../common/initialProps/setDeliveryIfNone';
+import { setDeliveryIfNone } from '../../src/common/initialProps/setDeliveryIfNone';
 import { useTranslation } from '../../src/common/i18n';
 
 function CheckoutPage() {
