@@ -7,11 +7,12 @@
   "license": "ISC",
   "scripts": {
     "dev": "nodemon",
-    "build": "next build && tsc --project tsconfig.server.json",
+    "build": "next build && npm run i18n && tsc --project tsconfig.server.json",
     "start": "NODE_ENV=production node dist/index.js",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "BUNDLE_ANALYZE=browser next build"
+    "analyze:browser": "BUNDLE_ANALYZE=browser next build",
+    "i18n": "node ./node_modules/@lamk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\"]' 'static/locales'"
   },
   "husky": {
     "hooks": {
@@ -47,6 +48,7 @@
     "styled-system": "^5.1.2"
   },
   "devDependencies": {
+    "@lamk/translations": "^0.1.4",
     "@types/express": "^4.17.2",
     "@types/next-redux-wrapper": "^2.0.2",
     "@types/node": "^12.12.7",

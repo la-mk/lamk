@@ -1,0 +1,143 @@
+{
+  "actions": {
+    "addToCart": "Add to Cart",
+    "create": "Create",
+    "delete": "Delete",
+    "goToCart": "Go to Cart",
+    "orderNow": "Order now",
+    "remove": "Remove",
+    "toCheckout": "To checkout",
+    "update": "Update"
+  },
+  "address": {
+    "addNewAddress": "Add new address",
+    "chooseShippingAddress": "Choose shipping address",
+    "createAddressSuccess": "Address successfully created",
+    "removeAddressSuccess": "Address successfully removed",
+    "shippingAddress": "Shipping address",
+    "updateAddressSuccess": "Address successfully updated"
+  },
+  "auth": {
+    "login": "Log in",
+    "logout": "Log out",
+    "noUserInformation": "Could not load user information. Check if you are logged in.",
+    "signup": "Sign up"
+  },
+  "cart": {
+    "addedToCart": "Added to cart",
+    "cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
+    "emptyCartDescription": "You have no items in the cart",
+    "orderNumber": "Order number: {{orderId}}.",
+    "orderSuccess": "Your order was successful!",
+    "productAlreadyInCart": "Product already in cart"
+  },
+  "categories": {
+    "backpack-casual": "Casual backpacks",
+    "men-clothing": "Men clothing",
+    "men-jogging-pants": "Jogging pants",
+    "men-pants": "Men pants",
+    "men-plain-tshirts": "Plain t-shirts",
+    "men-running-shoes": "Running shoes",
+    "men-shoes": "Men shoes",
+    "men-tshirts": "Men t-shirts",
+    "travel-backpack": "Travel backpacks",
+    "travel-gear": "Travel gear"
+  },
+  "common": {
+    "address": "Address",
+    "addressExample": "eg. Home Address",
+    "address_plural": "Addresses",
+    "addressee": "Addressee",
+    "city": "City",
+    "country": "Country",
+    "firstName": "First name",
+    "items": "Items",
+    "lastName": "Last name",
+    "name": "Name",
+    "personalInfo": "Personal info",
+    "phoneNumber": "Phone number",
+    "quantity": "Quantity",
+    "street": "Street",
+    "streetExample": "eg. 10 Downing Street",
+    "summary": "Summary",
+    "zipcode": "Zipcode"
+  },
+  "countries": {
+    "mk": "Macedonia"
+  },
+  "deliveryMethods": {
+    "cargo-pickup": "Pickup from Cargo",
+    "door-to-door": "Door to Door",
+    "pickup": "Pickup"
+  },
+  "errors": {
+    "between": "Field should be between {{0}} and {{1}}",
+    "boolean": "Field should be either true or false",
+    "generic": "Invalid entry",
+    "greaterThan": "Field should be more than {{0}}",
+    "integer": "Field should be an integer",
+    "invalid-schema-selector": "Invalid schema selector passed",
+    "length": "Field should have less than {{0}} entries",
+    "lessThan": "Field should be less than {{0}}",
+    "lowercase": "Field should all be lowercase",
+    "maxLength": "Field should be at most {{0}} characters long",
+    "minLength": "Field should be at least {{0}} characters long",
+    "negative": "Field should be a negative value",
+    "number": "Field should be a number",
+    "numeric": "Field should be a numeric",
+    "oneOf": "Field should be one of {{0}}",
+    "pattern": "Field does not match the expected pattern",
+    "positive": "Field should be a positive value",
+    "schema": "Field does not match the expected schema",
+    "string": "Field should be a string",
+    "uppercase": "Field should all be uppercase"
+  },
+  "finance": {
+    "priceBreakdown": "Price breakdown",
+    "shippingCost": "Shipping cost",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  },
+  "order": {
+    "orderDetails": "Order details",
+    "orderNotFound": "Order not found",
+    "orderNotFound_plural": "Orders not found",
+    "ordered": "Ordered",
+    "seeOrder": "See order"
+  },
+  "orderStatus": {
+    "cancelled": "Cancelled",
+    "cancelledDescription": "Cancelled",
+    "completed": "Completed",
+    "completedDescription": "All done!",
+    "pending": "Pending",
+    "pendingDescription": "Awaiting shipment",
+    "shipped": "Shipped",
+    "shippedDescription": "Awaiting arrival"
+  },
+  "pages": {
+    "aboutUs": "About Us",
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "home": "Home",
+    "myAccount": "My Account",
+    "myCart": "My cart",
+    "myOrders": "My Orders",
+    "order": "Order",
+    "order_plural": "Orders",
+    "product_plural": "Products"
+  },
+  "product": {
+    "product_plural": "Products",
+    "seeOtherProducts": "See other products"
+  },
+  "results": {
+    "productNotFound": "Product not found"
+  },
+  "sets": {
+    "latest": "Latest products"
+  },
+  "store": {
+    "noAboutusInformation": "Couldn't fetch the information about the store, try again later"
+  }
+}

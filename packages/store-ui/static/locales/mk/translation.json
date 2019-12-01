@@ -1,0 +1,143 @@
+{
+  "actions": {
+    "addToCart": "Додади во корпа",
+    "create": "Создадете",
+    "delete": "Избришете",
+    "goToCart": "Прегледај корпа",
+    "orderNow": "Порачајте сега",
+    "remove": "Отстранете",
+    "toCheckout": "На каса",
+    "update": "Обновете"
+  },
+  "address": {
+    "addNewAddress": "Додадете нова адреса",
+    "chooseShippingAddress": "Одберете адреса за достава",
+    "createAddressSuccess": "Нова адреса успешно создадена",
+    "removeAddressSuccess": "Адресата беше успешно отстранета",
+    "shippingAddress": "Адреса за достава",
+    "updateAddressSuccess": "Адресата беше успешно обновена"
+  },
+  "auth": {
+    "login": "Логирај се",
+    "logout": "Одлогирај се",
+    "noUserInformation": "Информациите за корисникот не се најдени. Проверете дали сте логирани.",
+    "signup": "Регистрирај се"
+  },
+  "cart": {
+    "addedToCart": "Додадено во корпа",
+    "cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
+    "emptyCartDescription": "Вашата корпа е празна",
+    "orderNumber": "Број на порачка: {{orderId}}.",
+    "orderSuccess": "Вашата порачка беше успешна!",
+    "productAlreadyInCart": "Продуктот е веќе во корпата"
+  },
+  "categories": {
+    "backpack-casual": "Секојдневни ранци",
+    "men-clothing": "Машка облека",
+    "men-jogging-pants": "Тренерки",
+    "men-pants": "Машки панталони",
+    "men-plain-tshirts": "Еднобојни маици",
+    "men-running-shoes": "Патики за трчање",
+    "men-shoes": "Машки патики",
+    "men-tshirts": "Машки маици",
+    "travel-backpack": "Ранци за патување",
+    "travel-gear": "Опрема за патување"
+  },
+  "common": {
+    "address": "Адреса",
+    "addressExample": "пр. Домашна адреса",
+    "address_plural": "Адреси",
+    "addressee": "Примател",
+    "city": "Град",
+    "country": "Држава",
+    "firstName": "Име",
+    "items": "Парчиња",
+    "lastName": "Презиме",
+    "name": "Име",
+    "personalInfo": "Лични податоци",
+    "phoneNumber": "Телефонски број",
+    "quantity": "Количина",
+    "street": "Улица",
+    "streetExample": "пр. Солунска 25",
+    "summary": "Преглед",
+    "zipcode": "Поштенски код"
+  },
+  "countries": {
+    "mk": "Македонија"
+  },
+  "deliveryMethods": {
+    "cargo-pickup": "Да се подигне од Карго",
+    "door-to-door": "Достава до дома",
+    "pickup": "Да се подигне"
+  },
+  "errors": {
+    "between": "Полето треба да помеѓу {{0}} и {{1}}",
+    "boolean": "Полето треба да е обележано или необележано",
+    "generic": "Невалиден внес",
+    "greaterThan": "Полето треба да е повеќе од {{0}}",
+    "integer": "Полето треба да е цел број",
+    "invalid-schema-selector": "Невалиден селектор за шема",
+    "length": "Полето треба да е има помалку од {{0}} елементи",
+    "lessThan": "Полето треба да е помалку од {{0}}",
+    "lowercase": "Полето треба да е со мали букви",
+    "maxLength": "Полето треба е најповеќе {{0}} карактери",
+    "minLength": "Полето треба да е најмалку {{0}} карактери",
+    "negative": "Полето треба да е негативен број",
+    "number": "Полето треба да е број",
+    "numeric": "Полето треба да е број",
+    "oneOf": "Полето треба да е една од {{0}}",
+    "pattern": "Полето не се совпаѓа со предвидената шема",
+    "positive": "Полето треба да е позитивен број",
+    "schema": "Полето не се совпаѓа со предвидената шема",
+    "string": "Полето треба да е текст",
+    "uppercase": "Полето треба да е со големи букви"
+  },
+  "finance": {
+    "priceBreakdown": "Преглед на вкупна цена",
+    "shippingCost": "Цена за достава",
+    "subtotal": "Цена на производи",
+    "total": "Вкупна цена"
+  },
+  "order": {
+    "orderDetails": "Детали за порачка",
+    "orderNotFound": "Порачката не беше пронајдена",
+    "orderNotFound_plural": "Порачките не беа пронајдени",
+    "ordered": "Порачано",
+    "seeOrder": "Видете ја порачката"
+  },
+  "orderStatus": {
+    "cancelled": "Откажана",
+    "cancelledDescription": "Откажана",
+    "completed": "Завршена",
+    "completedDescription": "Испорачана до купувач",
+    "pending": "Се процесира",
+    "pendingDescription": "Се чека за достава",
+    "shipped": "Испратена",
+    "shippedDescription": "Испратена по карго"
+  },
+  "pages": {
+    "aboutUs": "За нас",
+    "cart": "Корпа",
+    "checkout": "Каса",
+    "home": "Дома",
+    "myAccount": "Моја сметка",
+    "myCart": "Моја корпа",
+    "myOrders": "Мои порачки",
+    "order": "Порачка",
+    "order_plural": "Порачки",
+    "product_plural": "Продукти"
+  },
+  "product": {
+    "product_plural": "Продукти",
+    "seeOtherProducts": "Видете други продукти"
+  },
+  "results": {
+    "productNotFound": "Продуктот не е пронајден"
+  },
+  "sets": {
+    "latest": "Најнови продукти"
+  },
+  "store": {
+    "noAboutusInformation": "Информациите за продавницата не беа пронајдени, обидете се повторно"
+  }
+}

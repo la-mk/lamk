@@ -1,4 +1,29 @@
 {
+  "actions": {
+    "add": "Add",
+    "addBanner": "Add banner",
+    "addLogo": "Add logo",
+    "addProductImages": "Add product images",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "create": "Create",
+    "delete": "Delete",
+    "goToDashboard": "Go to dashboard",
+    "publish": "Publish",
+    "save": "Save",
+    "select": "Select",
+    "update": "Update"
+  },
+  "auth": {
+    "account": "Account",
+    "accountSettings": "Account settings",
+    "alreadyHaveAccount": "Already have account?",
+    "login": "Log in",
+    "logout": "Log out",
+    "noAccount": "No account?",
+    "signup": "Sign up",
+    "signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
+  },
   "categories": {
     "backpack-casual": "Casual backpacks",
     "men-clothing": "Men clothing",
@@ -10,6 +35,49 @@
     "men-tshirts": "Men t-shirts",
     "travel-backpack": "Travel backpacks",
     "travel-gear": "Travel gear"
+  },
+  "commerce": {
+    "buyer": "Buyer",
+    "delivery": "Delivery",
+    "order_plural": "Orders",
+    "product_plural": "Products",
+    "quantity": "Quantity",
+    "revenue": "Revenue",
+    "store": "Store"
+  },
+  "common": {
+    "action_plural": "Actions",
+    "actionsTip": "You can do bulk actions on multiple items",
+    "address": "Address",
+    "basic": "Basic",
+    "category": "Category",
+    "city": "City",
+    "country": "Country",
+    "description": "Description",
+    "email": "Email address",
+    "id": "ID",
+    "image_plural": "Images",
+    "interface": "Interface",
+    "more": "More",
+    "name": "Name",
+    "optional": "Optional",
+    "password": "Password",
+    "phoneNumber": "Phone number",
+    "polite": "Please",
+    "preferences": "Preferences",
+    "price": "Price",
+    "status": "Status",
+    "success": "Success!",
+    "summary": "Summary",
+    "unknown": "Unknown"
+  },
+  "delivery": {
+    "deliveryMethod": "Delivery method",
+    "freeDelivery": "Free delivery",
+    "freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
+    "overPrice": "Over price",
+    "priceExplanation": "This can be the average delivery cost.",
+    "updatingDeliveryTip": "Updating delivery..."
   },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
@@ -38,6 +106,20 @@
     "string": "Field should be a string",
     "uppercase": "Field should all be uppercase"
   },
+  "onboarding": {
+    "setupDeliverySubtitle": "Don't worry, you can modify things later as well.",
+    "setupDeliveryTitle": "Finally, let's tell users about our delivery",
+    "setupProductSubtitle": "Don't worry, you can modify things later as well.",
+    "setupProductTitle": "Let's add some products",
+    "setupStoreSubtitle": "Don't worry, you can modify things later as well.",
+    "setupStoreTitle": "Let's kick things off by creating our store"
+  },
+  "order": {
+    "orderDate": "Order date",
+    "orderDeleted": "Order {{id}} successfully deleted",
+    "orderDetails": "Order details",
+    "orderId": "Order ID"
+  },
   "orderStatus": {
     "cancelled": "Cancelled",
     "cancelledDescription": "Cancelled",
@@ -48,7 +130,30 @@
     "shipped": "Shipped",
     "shippedDescription": "Awaiting arrival"
   },
+  "product": {
+    "addProductSuccess": "Successfully added a new product",
+    "addingProductTip": "Adding product...",
+    "descriptionExample": "eg. High quality sneakers",
+    "nameExample": "eg. Nike Air Max",
+    "priceExample": "eg. 500",
+    "productCount": "Product count",
+    "updateProductSuccess": "Successfully updated {{productName}}",
+    "updatingProductTip": "Updating product..."
+  },
   "sets": {
     "latest": "Latest products"
+  },
+  "store": {
+    "aboutUs": "About us",
+    "aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience...",
+    "landingPage": "Landing page",
+    "storeBanner": "Banner",
+    "storeLogo": "Store Logo",
+    "storeName": "Store name",
+    "storeUrl": "Store URL",
+    "updatingStoreTip": "Updating store..."
+  },
+  "uploads": {
+    "hint": "Support for single or bulk upload"
   }
 }

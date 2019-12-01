@@ -1,9 +1,7 @@
 import * as util from 'util';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as gulp from 'gulp';
-// @ts-ignore
-import debug from 'gulp-debug';
+import * as vfs from 'vinyl-fs';
 import rimraf from 'rimraf';
 import glob from 'glob';
 import {
@@ -16,6 +14,7 @@ import {
 } from 'lodash';
 // @ts-ignore
 import scanner from 'i18next-scanner';
+import sortKeys from 'sort-keys';
 
 const asyncRimRaf = util.promisify(rimraf);
 const asyncReadFile = util.promisify(fs.readFile);
@@ -45,32 +44,28 @@ const NOT_TRANSLATED_VALUE = '__STRING_NOT_TRANSLATED__';
 const APPEND_NAMESPACES = ['enums'];
 
 const defaultScannerConfig = {
-  options: {
-    debug: true,
-    func: {
-      list: ['i18next.t', 'i18n.t', 't'],
-      extensions: ['.ts', '.tsx'],
-    },
-    output: './',
+  debug: false,
+  func: {
+    list: ['i18next.t', 'i18n.t', 't'],
+    extensions: ['.ts', '.tsx'],
+  },
 
-    // There is no `trans` config as we don't use the `Trans` component.
-    lngs: ['en', 'mk'],
-    ns: [NAMESPACE],
-    defaultLng: 'en',
-    defaultNs: NAMESPACE,
-    resource: {
-      loadPath: 'i18n/{{lng}}/{{ns}}.json',
-      savePath: 'i18n/{{lng}}/{{ns}}.json',
-      jsonIndent: 2,
-      lineEnding: '\n',
-    },
-    defaultValue: NOT_TRANSLATED_VALUE,
-    nsSeparator: false, // namespace separator
-    keySeparator: '.', // key separator
-    interpolation: {
-      prefix: '{{',
-      suffix: '}}',
-    },
+  // There is no `trans` config as we don't use the `Trans` component.
+  // We only specify a single language as we only care about the keys extracted from the scanner.
+  lngs: ['en'],
+  ns: [NAMESPACE],
+  defaultLng: 'en',
+  defaultNs: NAMESPACE,
+  resource: {
+    jsonIndent: 2,
+    lineEnding: '\n',
+  },
+  defaultValue: NOT_TRANSLATED_VALUE,
+  nsSeparator: false, // namespace separator
+  keySeparator: '.', // key separator
+  interpolation: {
+    prefix: '{{',
+    suffix: '}}',
   },
 };
 
@@ -78,11 +73,10 @@ const defaultScannerConfig = {
 // The resulting file is temporary storage for all the existing keys in a project, and should be removed.
 const scanTranslations = (srcPaths: MainArgs['srcPaths'], config: any) => {
   return new Promise((resolve, reject) => {
-    gulp
+    vfs
       .src(srcPaths)
-      // .pipe(debug({minimal: false}))
       .pipe(scanner(config))
-      .pipe(gulp.dest(ROOT_DESTINATION))
+      .pipe(vfs.dest(ROOT_DESTINATION))
       .on('error', reject)
       .on('end', resolve);
   });
@@ -148,34 +142,34 @@ const fillInMissing = (resLocale: any, masterLocale: any) => {
 };
 
 const main = async ({ srcPaths, localeFolderPath }: MainArgs) => {
-  const savePath = `${localeFolderPath}/{{lng}}/{{ns}}.json`;
-  const scannerConfig = defaultsDeep(
-    { resource: { savePath } },
-    defaultScannerConfig
-  );
   const fullDestinationLocalePath = path.join(
     ROOT_DESTINATION,
     localeFolderPath
   );
 
-  console.log('Cleaning up the locale path if there is anything there...\n');
+  const saveLoadPath = `${fullDestinationLocalePath}/{{lng}}/{{ns}}.json`;
+  const scannerConfig = defaultsDeep(
+    { resource: { savePath: saveLoadPath, loadPath: saveLoadPath } },
+    defaultScannerConfig
+  );
+
+  console.info('Cleaning up the locale path if there is anything there...\n');
   await asyncRimRaf(fullDestinationLocalePath);
 
-  console.log('Scanning source code for translations...\n');
+  console.info('Scanning source code for translations...\n');
   await scanTranslations(srcPaths, scannerConfig);
 
-  console.log('Parsing the generated locale file...\n');
+  console.info('Parsing the generated locale file...\n');
   const scannedJson = await getScannedJson(fullDestinationLocalePath);
-  console.log(scannedJson, fullDestinationLocalePath);
 
-  console.log('Cleaning up the generated locale file...\n');
+  console.info('Cleaning up the generated locale file...\n');
   await asyncRimRaf(fullDestinationLocalePath);
 
-  console.log('Fetching all master locale files...\n');
+  console.info('Fetching all master locale files...\n');
   const masterFilePaths = await asyncGlob(`${__dirname}/locales/**/*.json`);
 
   // Get a single namespace file per language (can be extended to multi-namespace setup later on).
-  console.log('Generating content for the extracted translation keys...\n');
+  console.info('Generating content for the extracted translation keys...\n');
   const localeData = await masterFilePaths.reduce(
     async (locales: Promise<Locales>, filePath) => {
       const res = await locales;
@@ -206,12 +200,14 @@ const main = async ({ srcPaths, localeFolderPath }: MainArgs) => {
     Promise.resolve({})
   );
 
-  console.log('Writing locales to destination...\n');
-  await writeContent(localeData);
+  const sortedLocaleData = sortKeys(localeData, { deep: true });
+
+  console.info('Writing locales to destination...\n');
+  await writeContent(sortedLocaleData);
 };
 
 const [srcPaths, localeFolderPath] = process.argv.slice(2);
 
 main({ srcPaths: JSON.parse(srcPaths), localeFolderPath })
-  .then(() => console.log('Success!'))
+  .then(() => console.info('Success!'))
   .catch(console.error);
