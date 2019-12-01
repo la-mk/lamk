@@ -8,13 +8,13 @@ ENV NODE_ENV development
 CMD ["npm", "run", "dev"]
 
 FROM base as build
-WORKDIR /usr/src/app
+COPY . .
 ENV NODE_ENV production
 RUN npm run build
-COPY . .
 
-FROM node:12-slim as prod
+FROM nginx:1.17-alpine as prod
 WORKDIR /usr/src/app
+ENV NODE_ENV production
+COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /usr/src/app/build ./
-COPY --from=build ./nginx.conf /etc/nginx/conf.d/default.conf
 ENTRYPOINT ["nginx","-g","daemon off;"]

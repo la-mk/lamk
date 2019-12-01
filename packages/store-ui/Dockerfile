@@ -8,12 +8,12 @@ ENV NODE_ENV development
 CMD ["npm", "run", "dev"]
 
 FROM base as build
-WORKDIR /usr/src/app
+COPY . .
 ENV NODE_ENV production
 RUN npm run build
-COPY . .
 
 FROM node:12-slim as prod
 WORKDIR /usr/src/app
+ENV NODE_ENV production
 COPY --from=build /usr/src/app ./
 ENTRYPOINT ["npm", "start"]

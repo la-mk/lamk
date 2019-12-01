@@ -1,10 +1,9 @@
 import { from } from 'env-var';
 
 // We have to assign all process.env to a separate variable first, because NextJS runs a babel transform that looks for `process.env` in the code and replaces it with the environment variables.
-
 const vars = {
-  HOST: process.env.HOST,
-  PORT: process.env.PORT,
+  HOST: process.env.HOST || 'dev.sradevski.com',
+  PORT: process.env.PORT || 80,
 };
 
 const envvar = from(vars as any);

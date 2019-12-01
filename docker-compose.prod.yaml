@@ -1,0 +1,99 @@
+version: '3.5'
+
+# This is an example setup that would work in production, although it is not really useful for multi-server setup.
+# To speed up dev builds, check https://blog.rocketinsights.com/speeding-up-docker-development-on-the-mac/
+# Good article on reverse proxy and dnsmasq: https://ianduffy.ie/blog/2019/02/22/local-development-with-virtual-hosts-and-https/
+networks:
+  main-network:
+    driver: bridge
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: lamk-proxy
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - data-api
+      - store-ui
+      - backstore-ui
+      - object-store
+    networks:
+      - main-network
+
+  object-store:
+    image: minio/minio
+    container_name: lamk-minio
+    command: server /data
+    expose: 
+      - 9000
+    volumes:
+      - ./data:/data
+    networks:
+      - main-network
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+      VIRTUAL_HOST: "images.dev.sradevski.com" #This is probably useful in development, in prod it is better if we allow for direct access for read to reduce server load.
+      VIRTUAL_PORT: 9000
+
+  data-api:
+    build: 
+      context: ./packages/data-api
+      target: prod
+    container_name: data-api
+    networks:
+      - main-network
+    expose: 
+      - 80
+    environment: 
+      VIRTUAL_HOST: "api.dev.sradevski.com" #used by nginx proxy to route all api. requests here
+      VIRTUAL_PORT: 80
+      SERVER_PORT: 80
+      SERVER_HOST: "api.dev.sradevski.com"
+      JWT_SECRET: "1234dev"
+      MONGODB_DB_NAME: dev
+      MONGODB_CONNECTION_STRING: "mongodb+srv://sradevski:Stev4e555@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
+      STORAGE_ENDPOINT: "images.dev.sradevski.com"
+      STORAGE_ACCESS_KEY_ID: minio
+      STORAGE_ACCESS_KEY_SECRET: minio123
+    
+  store-ui:
+    build: 
+      context: ./packages/store-ui
+      target: prod
+    container_name: store-ui
+    depends_on: 
+      - data-api
+    networks:
+      - main-network
+    expose: 
+      - 80
+    environment: 
+      VIRTUAL_HOST: "*.dev.sradevski.com" #used by nginx proxy to route all api. requests here
+      VIRTUAL_PORT: 80
+      HOST: "dev.sradevski.com"
+      PORT: 80
+
+  backstore-ui:
+    build: 
+      context: ./packages/backstore-ui
+      target: prod
+    container_name: backstore-ui
+    depends_on: 
+      - data-api
+    networks:
+      - main-network
+    expose: 
+      - 80
+    # CRA demands that all envvars start with REACT_APP_*
+    environment: 
+      VIRTUAL_HOST: "back.dev.sradevski.com" #used by nginx proxy to route all api. requests here
+      VIRTUAL_PORT: 80

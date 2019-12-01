@@ -41,16 +41,16 @@ html {
   }
 `;
 
+// Setup the SDK so it can be used on the server-side in getInitialProps calls.
+setupSdk({
+  transport: 'rest',
+  host: env.HOST,
+  port: env.PORT,
+});
+
 // The custom document is required to setup styled components for SSR.
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: NextPageContext & { renderPage: any }) {
-    // Setup the SDK so it can be used on the server-side in getInitialProps calls.
-    setupSdk({
-      transport: 'rest',
-      host: env.HOST,
-      port: env.PORT,
-    });
-
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
