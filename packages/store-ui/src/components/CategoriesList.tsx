@@ -1,3 +1,4 @@
+import isString from 'lodash/isString';
 import React, { useCallback } from 'react';
 import flatMap from 'lodash/flatMap';
 import {
@@ -16,6 +17,16 @@ import {
 } from '../state/modules/categories/categories.selector';
 import { useSelector } from 'react-redux';
 import { useTranslation } from '../common/i18n';
+import Link from 'next/link';
+import queryString from 'qs';
+
+const getQueryString = (categories: string | string[]) => {
+  if (isString(categories)) {
+    return queryString.stringify({ query: { category: categories } });
+  }
+
+  return queryString.stringify({ query: { category: { $in: categories } } });
+};
 
 export const CategoriesList = () => {
   const categories = useSelector(getCategories);
@@ -40,9 +51,14 @@ export const CategoriesList = () => {
       <Flex flexDirection='row' justifyContent='center' mb={4}>
         {categories.map(category => {
           return (
-            <Button type='link' mt={3} mx={3} key={category.level3}>
-              <Text strong>{category.level3}</Text>
-            </Button>
+            <Link
+              href={`/products?${getQueryString(category.level3)}`}
+              passHref
+            >
+              <Button type='link' mt={3} mx={3} key={category.level3}>
+                <Text strong>{category.level3}</Text>
+              </Button>
+            </Link>
           );
         })}
       </Flex>
@@ -58,9 +74,16 @@ export const CategoriesList = () => {
       <Flex flexDirection='row' justifyContent='center' mb={4}>
         {level2Categories.map(level2Category => {
           return (
-            <Button type='link' mt={3} mx={3} key={level2Category.value}>
-              <Text strong>{level2Category.label}</Text>
-            </Button>
+            <Link
+              href={`/products?${getQueryString(
+                level2Category.children.map(category3 => category3.value),
+              )}`}
+              passHref
+            >
+              <Button type='link' mt={3} mx={3} key={level2Category.value}>
+                <Text strong>{level2Category.label}</Text>
+              </Button>
+            </Link>
           );
         })}
       </Flex>
@@ -75,7 +98,13 @@ export const CategoriesList = () => {
             {level1Category.children.map(level2Category => {
               return (
                 <MenuItem key={level2Category.value}>
-                  {level2Category.label}
+                  <Link
+                    href={`/products?${getQueryString(
+                      level2Category.children.map(category3 => category3.value),
+                    )}`}
+                  >
+                    <a>{level2Category.label}</a>
+                  </Link>
                 </MenuItem>
               );
             })}

@@ -12,6 +12,7 @@ export const Page = ({ title, children }: PageProps) => {
       flexDirection='column'
       justifyContent='flex-start'
       width='100%'
+      minHeight='100vh'
       px={[3, 3, 5, 5]}
       mt={title ? 0 : 5}
     >

@@ -55,7 +55,7 @@ export const DeliveryForm = ({ storeId, delivery, onDone }: DeliveryFormProps) =
             {deliveryOptions.map(option => {
               return (
                 <Option key={option} value={option}>
-                  {t(`delivery.${option}`)}
+                  {t(`deliveryMethods.${option}`)}
                 </Option>
               );
             })}

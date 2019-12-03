@@ -171,9 +171,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
           </Flex>
         </BorderedHeader>
         <StyledContent minHeight='calc(100vh - 64px - 65px)'>
-          <Flex flexDirection='column' py={2}>
-            {children}
-          </Flex>
+          <Flex flexDirection='column'>{children}</Flex>
         </StyledContent>
         <Footer style={{ textAlign: 'center' }}>
           La.mk ©2019 Created by La.mk
