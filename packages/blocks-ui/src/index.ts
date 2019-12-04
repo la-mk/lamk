@@ -28,10 +28,12 @@ export {
 } from './basic/Menu';
 export { Modal } from './basic/Modal';
 export { Pagination } from './basic/Pagination';
+export { Popover } from './basic/Popover';
 export { Provider } from './basic/Provider';
 export { Result } from './basic/Result';
 export { Select, Option, OptionGroup } from './basic/Select';
 export { Set } from './basic/Set/Set';
+export { Slider } from './basic/Slider';
 export { Spin } from './basic/Spin';
 export { Statistic } from './basic/Statistic';
 export { Steps, Step } from './basic/Steps';
