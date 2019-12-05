@@ -14,9 +14,9 @@ const SDK = require('../../../dist/index');
 describe('Address validation', () => {
   beforeAll(() => {
     SDK.setupSdk({
-      transport: "socket",
+      transport: 'socket',
       host: 'localhost',
-      port: 3000
+      port: 3000,
     });
   });
 

@@ -1,9 +1,9 @@
-import merge from "lodash/fp/merge";
-import { Application, Params } from "@feathersjs/feathers";
-import { getCrudMethods } from "../setup";
-import { OmitServerProperties } from "../utils/utils";
-import { validate, validateSingle } from "../utils/modelUtils";
-import v8n from "v8n";
+import merge from 'lodash/fp/merge';
+import { Application, Params } from '@feathersjs/feathers';
+import { getCrudMethods } from '../setup';
+import { OmitServerProperties } from '../utils/utils';
+import { validate, validateSingle } from '../utils/modelUtils';
+import v8n from 'v8n';
 
 export const schema = {
   soldBy: v8n()
@@ -30,8 +30,8 @@ export const schema = {
       .string()
       .minLength(2)
       .maxLength(2047),
-    true
-  )
+    true,
+  ),
 };
 
 export interface Product {
@@ -59,16 +59,16 @@ export interface ProductSetTag {
 
 const getQueryForSet = (productSet: ProductSetTag) => {
   switch (productSet.name) {
-    case "category":
+    case 'category':
       return {
-        category: productSet.value
+        category: productSet.value,
       };
 
-    case "latest": {
+    case 'latest': {
       return {
         $sort: {
-          createdAt: -1
-        }
+          createdAt: -1,
+        },
       };
     }
   }
@@ -77,7 +77,7 @@ const getQueryForSet = (productSet: ProductSetTag) => {
 export const getProductSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Product>, Product>(
     client,
-    "products"
+    'products',
   );
 
   return {
@@ -91,7 +91,7 @@ export const getProductSdk = (client: Application) => {
     getProductSetsForStore: (
       storeId: string,
       productSetTags: ProductSetTag[],
-      params?: Params
+      params?: Params,
     ): Promise<ProductSet[]> => {
       return Promise.all(
         productSetTags.map(setTag => {
@@ -100,13 +100,13 @@ export const getProductSdk = (client: Application) => {
           if (!queryForSet) {
             return Promise.resolve({
               setTag,
-              error: new Error("Set not found")
+              error: new Error('Set not found'),
             });
           }
 
           const options = merge(
             { query: { soldBy: storeId, $limit: 10, ...queryForSet } },
-            params
+            params,
           );
 
           return crudMethods
@@ -117,7 +117,7 @@ export const getProductSdk = (client: Application) => {
             .catch(err => {
               return { setTag, error: err };
             });
-        })
+        }),
       );
     },
 
@@ -126,6 +126,6 @@ export const getProductSdk = (client: Application) => {
     },
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
-    }
+    },
   };
 };

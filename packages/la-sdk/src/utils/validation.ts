@@ -4,6 +4,7 @@ type Primitive = string | boolean | number;
 
 export const extendValidation = () => {
   v8n.extend({
-    oneOf: (expected: Array<Primitive>) => (value: Primitive) => expected.includes(value),
+    oneOf: (expected: Array<Primitive>) => (value: Primitive) =>
+      expected.includes(value),
   });
-}
+};

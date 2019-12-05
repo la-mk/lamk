@@ -11,6 +11,14 @@
     "prettier",
     "jest"
   ],
+  "overrides": [
+    {
+        "files": ["*.js", "*.jsx"],
+        "rules": {
+            "@typescript-eslint/no-var-requires": "off"
+        }
+    }
+  ],
   "rules": {
     "prettier/prettier": [
       "error",

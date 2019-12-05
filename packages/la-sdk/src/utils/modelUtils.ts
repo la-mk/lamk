@@ -1,5 +1,5 @@
 import isObject from 'lodash/isObject';
-import {errors, getError} from './errors';
+import { errors, getError } from './errors';
 
 export interface SingleValidationErrorResponse {
   name: string;
@@ -8,7 +8,7 @@ export interface SingleValidationErrorResponse {
 }
 
 export interface ValidationErrorResponse {
-  [key: string] : SingleValidationErrorResponse;
+  [key: string]: SingleValidationErrorResponse;
 }
 
 export const getShortId = (
@@ -24,39 +24,49 @@ export const getShortId = (
 
 export const validateSingle = (schema: any, val: any, selector: string) => {
   const validator = schema[selector];
-  if(!validator) {
+  if (!validator) {
     return errors['invalid-schema-selector'];
   }
 
   const validation = validator.testAll(val);
-  if(validation.length > 0){
+  if (validation.length > 0) {
     // If it is an optional field, see what the real cause for the error is
-    if(validation[0].rule.name === 'optional'){
-      return getError(validation[0].cause.rule.name, validation[0].cause.rule.args);
+    if (validation[0].rule.name === 'optional') {
+      return getError(
+        validation[0].cause.rule.name,
+        validation[0].cause.rule.args,
+      );
     }
 
     return getError(validation[0].rule.name, validation[0].rule.args);
   }
 
   return null;
-}
+};
 
-export const validate = (schema: any, data: any = {}, ignoreRequired: boolean) => {
-  const errorObj = Object.keys(schema).reduce((errs: ValidationErrorResponse, entry) => {
-    const val = data[entry];
-    if(ignoreRequired && (val === null || val === undefined)){
+export const validate = (
+  schema: any,
+  data: any = {},
+  ignoreRequired: boolean,
+) => {
+  const errorObj = Object.keys(schema).reduce(
+    (errs: ValidationErrorResponse, entry) => {
+      const val = data[entry];
+      if (ignoreRequired && (val === null || val === undefined)) {
+        return errs;
+      }
+
+      const err = validateSingle(schema, val, entry);
+      if (err) {
+        errs[entry] = err;
+      }
+
       return errs;
-    }
+    },
+    {},
+  );
 
-    const err = validateSingle(schema, val, entry);
-    if(err){
-      errs[entry] = err
-    }
-
-    return errs;
-  }, {});
-
-  if(Object.keys(errorObj).length > 0){
+  if (Object.keys(errorObj).length > 0) {
     return errorObj;
   }
 

@@ -9,9 +9,12 @@ export interface Artifact {
   length: number;
 }
 
-export const getArtifactSdk = (client: Application, options: SetupSdkOptions) => {
+export const getArtifactSdk = (
+  client: Application,
+  options: SetupSdkOptions,
+) => {
   const host = `http://images.${options.host}:${options.port}`;
-  
+
   return {
     //These are the only supported methods for handling an artifact.
     ...pick(

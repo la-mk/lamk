@@ -6,10 +6,19 @@ import { validate, validateSingle } from '../utils/modelUtils';
 import v8n from 'v8n';
 
 export const schema = {
-  level1: v8n().string().minLength(2).maxLength(511),
-  level2: v8n().string().minLength(2).maxLength(511),
-  level3: v8n().string().minLength(2).maxLength(511),
-}
+  level1: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(511),
+  level2: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(511),
+  level3: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(511),
+};
 
 export interface Category {
   _id: string;
@@ -30,10 +39,10 @@ export const getCategorySdk = (client: Application) => {
     'categories',
   );
 
-  const categoriesPerStoreCrudMethods = getCrudMethods<OmitServerProperties<CategoryForStore>, CategoryForStore>(
-    client,
-    'categoriesPerStore',
-  );
+  const categoriesPerStoreCrudMethods = getCrudMethods<
+    OmitServerProperties<CategoryForStore>,
+    CategoryForStore
+  >(client, 'categoriesPerStore');
 
   return {
     ...crudMethods,

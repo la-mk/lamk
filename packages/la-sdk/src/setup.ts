@@ -20,7 +20,7 @@ export interface SetupSdkOptions {
 
 export const setupClient = (options: SetupSdkOptions) => {
   const client: Application = feathers();
-  const host = `http://api.${options.host}:${options.port}`
+  const host = `http://api.${options.host}:${options.port}`;
 
   if (options.transport && options.transport === 'rest') {
     if (typeof window === 'undefined') {

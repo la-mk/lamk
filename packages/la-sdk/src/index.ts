@@ -1,4 +1,4 @@
-import {extendValidation} from './utils/validation';
+import { extendValidation } from './utils/validation';
 extendValidation();
 
 import { setupClient, SetupSdkOptions } from './setup';

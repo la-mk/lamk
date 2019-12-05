@@ -1,111 +1,110 @@
 export const errors: {
-  [key: string]: {
-    name: string;
-    message: string;
-    args?: any[];
-  }
+  [key: string]: { name: string; message: string; args?: any[] };
 } = {
-  'pattern': {
+  pattern: {
     name: 'pattern',
     message: 'Field does not match the expected pattern',
   },
-  'string': {
+  string: {
     name: 'string',
     message: 'Field should be a string',
   },
-  'number': {
+  number: {
     name: 'number',
     message: 'Field should be a number',
   },
-  'numeric': {
+  numeric: {
     name: 'numeric',
     message: 'Field should be a numeric',
   },
-  'boolean': {
+  boolean: {
     name: 'boolean',
     message: 'Field should be either true or false',
   },
-  'lowercase': {
+  lowercase: {
     name: 'lowercase',
     message: 'Field should all be lowercase',
   },
-  'uppercase': {
+  uppercase: {
     name: 'uppercase',
     message: 'Field should all be uppercase',
   },
-  'length': {
+  length: {
     name: 'length',
     message: 'Field should have less than {{0}} entries',
   },
-  'minLength': {
+  minLength: {
     name: 'minLength',
     message: 'Field should be at least {{0}} characters long',
   },
-  'maxLength': {
+  maxLength: {
     name: 'maxLength',
     message: 'Field should be at most {{0}} characters long',
   },
-  'negative': {
+  negative: {
     name: 'negative',
     message: 'Field should be a negative value',
   },
-  'positive': {
+  positive: {
     name: 'positive',
     message: 'Field should be a positive value',
   },
-  'between': {
+  between: {
     name: 'between',
     message: 'Field should be between {{0}} and {{1}}',
   },
-  'lessThan': {
+  lessThan: {
     name: 'lessThan',
     message: 'Field should be less than {{0}}',
   },
-  'greaterThan': {
+  greaterThan: {
     name: 'greaterThan',
     message: 'Field should be more than {{0}}',
   },
-  'integer': {
+  integer: {
     name: 'integer',
     message: 'Field should be an integer',
   },
-  'schema': {
+  schema: {
     name: 'schema',
     message: 'Field does not match the expected schema',
   },
-  'oneOf': {
+  oneOf: {
     name: 'oneOf',
-    message: 'Field should be one of {{0}}'
+    message: 'Field should be one of {{0}}',
   },
-  'generic': {
+  generic: {
     name: 'generic',
-    message: 'Invalid entry'
+    message: 'Invalid entry',
   },
   'invalid-schema-selector': {
     name: 'invalid-schema-selector',
     message: 'Invalid schema selector passed',
-  }
-}
+  },
+};
 
 const singleDigitBrackets = /{{[0-9]}}/g;
 
 export const getError = (name: string, args: any[]) => {
   const error = errors[name];
-  if(!error){
+  if (!error) {
     return errors['generic'];
   }
 
   // Get all matches (which might not be in the index order), and get the index for each. For now we only support single-digit indices.
   const matches = error.message.match(singleDigitBrackets);
-  if(!matches){
+  if (!matches) {
     return error;
   }
 
   const indices = matches.map(match => parseInt(match[2], 10));
   indices.forEach(index => {
-    error.message = error.message.replace(`{{${index}}}`, args[index].toString());
-  })
+    error.message = error.message.replace(
+      `{{${index}}}`,
+      args[index].toString(),
+    );
+  });
   error.args = args;
 
   return error;
-}
+};
