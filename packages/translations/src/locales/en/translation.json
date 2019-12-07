@@ -64,6 +64,7 @@
 		"addressee": "Addressee",
 		"basic": "Basic",
 		"category": "Category",
+		"category_plural": "Categories",
 		"city": "City",
 		"country": "Country",
 		"description": "Description",
@@ -76,6 +77,7 @@
 		"lastName": "Last name",
 		"more": "More",
 		"name": "Name",
+		"ok": "OK",
 		"optional": "Optional",
 		"password": "Password",
 		"personalInfo": "Personal info",
@@ -84,6 +86,8 @@
 		"preferences": "Preferences",
 		"price": "Price",
 		"quantity": "Quantity",
+		"selectCategory": "Select category",
+		"sort": "Sort",
 		"status": "Status",
 		"street": "Street",
 		"streetExample": "eg. 10 Downing Street",
@@ -102,7 +106,12 @@
 		"overPrice": "Over price",
 		"priceExplanation": "This can be the average delivery cost.",
 		"updatingDeliveryTip": "Updating delivery..."
-  },
+	},
+	"filters": {
+		"recommended": "Recommended",
+		"cheapestFirst": "Cheapest first",
+		"expensiveFirst": "Expensive first"
+	},
   "finance": {
 		"priceBreakdown": "Price breakdown",
 		"shippingCost": "Shipping cost",

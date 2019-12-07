@@ -27,13 +27,16 @@ export interface FlexProps
     AlignItemsProps,
     JustifyContentProps {}
 
-export const Flex = system<FlexProps>(styled.div`
-  box-sizing: border-box;
-  ${flex};
-  ${order};
-  ${flexWrap};
-  ${flexDirection};
-  ${alignItems};
-  ${justifyContent};
+export const Flex = system<FlexProps>(
+  styled.div`
+    box-sizing: border-box;
+    ${flex};
+    ${order};
+    ${flexWrap};
+    ${flexDirection};
+    ${alignItems};
+    ${justifyContent};
 
-  display: flex !important;` as any);
+    display: flex !important;
+  ` as any,
+);

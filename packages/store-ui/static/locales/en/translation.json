@@ -48,15 +48,20 @@
     "addressExample": "eg. Home Address",
     "address_plural": "Addresses",
     "addressee": "Addressee",
+    "category_plural": "Categories",
     "city": "City",
     "country": "Country",
     "firstName": "First name",
     "items": "Items",
     "lastName": "Last name",
     "name": "Name",
+    "ok": "OK",
     "personalInfo": "Personal info",
     "phoneNumber": "Phone number",
+    "price": "Price",
     "quantity": "Quantity",
+    "selectCategory": "Select category",
+    "sort": "Sort",
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
@@ -91,6 +96,11 @@
     "schema": "Field does not match the expected schema",
     "string": "Field should be a string",
     "uppercase": "Field should all be uppercase"
+  },
+  "filters": {
+    "cheapestFirst": "Cheapest first",
+    "expensiveFirst": "Expensive first",
+    "recommended": "Recommended"
   },
   "finance": {
     "priceBreakdown": "Price breakdown",

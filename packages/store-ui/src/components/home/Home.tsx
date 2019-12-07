@@ -72,6 +72,7 @@ export const Home = ({
             .filter(set => Boolean(set.data))
             .map(set => (
               <ProductSet
+                onSeeAll={() => null}
                 key={set.setTag.name + (set.setTag.value || '')}
                 products={set.data}
                 title={t(getTranslationBaseForSet(set.setTag))}

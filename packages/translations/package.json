@@ -1,6 +1,6 @@
 {
   "name": "@lamk/translations",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "author": "Stevche Radevski",
   "main": "dist/index.js",
@@ -14,8 +14,8 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "sync-i18n": "sync-i18n --files 'src/locales/*.json' --primary en --languages mk --space 2",
-    "check-i18n": "npm run i18n -- --check",
+    "sync-i18n": "sync-i18n --files './src/locales/*.json' --primary en --languages mk --space 2",
+    "check-i18n": "npm run sync-i18n -- --check",
     "publish:dev": "npm run bump:dev && npm publish --registry http://registry.dev.sradevski.com:8080",
     "bump:dev": "npm version patch",
     "prepack": "npm run build"

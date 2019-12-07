@@ -49,6 +49,7 @@ export function* handleCartForUserSaga(authInfo: any) {
 
       const localCart = yield select(getCartWithProducts);
 
+      // TODO: localCart or serverCart might be null, handle it
       const cartItems = unionWith(
         localCart.items,
         serverCart.items,

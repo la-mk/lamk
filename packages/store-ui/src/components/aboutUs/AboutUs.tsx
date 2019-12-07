@@ -19,7 +19,9 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
     <Page title={t('pages.aboutUs')}>
       {paragraphs ? (
         paragraphs.map(paragraph => {
-          return <Paragraph>{paragraph}</Paragraph>;
+          return (
+            <Paragraph key={paragraph.slice(0, 10)}>{paragraph}</Paragraph>
+          );
         })
       ) : (
         <Empty mt={5} description={t('store.noAboutusInformation')} />

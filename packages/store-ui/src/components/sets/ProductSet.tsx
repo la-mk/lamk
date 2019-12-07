@@ -5,14 +5,17 @@ import { Set } from '@lamk/blocks-ui';
 
 export const ProductSet = ({
   products,
+  onSeeAll,
   title,
 }: {
   products: Product[];
+  onSeeAll: () => void;
   title: string;
 }) => {
   return (
     <>
       <Set
+        onSeeAll={onSeeAll}
         title={title}
         itemKey={'_id'}
         items={products}

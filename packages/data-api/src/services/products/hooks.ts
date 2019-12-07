@@ -9,7 +9,7 @@ import { unless, keep, checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { sdk } from '@lamk/la-sdk';
-import { validate } from '../../common/hooks/db';
+import { validate, convertQueryToNumber } from '../../common/hooks/db';
 import { logger } from '../../common/logger';
 
 interface HookContextWithCategory extends HookContext {
@@ -142,10 +142,15 @@ const assignPreviousCategory = async (ctx: HookContext) => {
   (ctx as HookContextWithCategory).previousCategory = product.category;
 };
 
+const numberFieldsSet = new Set(['price']);
+
 export const hooks = {
   before: {
     all: [],
-    find: [requireAnyQueryParam(['_id', 'soldBy'])],
+    find: [
+      requireAnyQueryParam(['_id', 'soldBy']),
+      convertQueryToNumber(numberFieldsSet),
+    ],
     get: [],
     create: [
       authenticate('jwt'),

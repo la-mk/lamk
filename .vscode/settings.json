@@ -1,12 +1,14 @@
 {
   // There is an issue with multi-project directory and eslint, check https://github.com/microsoft/vscode-eslint/issues/696
   "eslint.workingDirectories": [              
-    "./aida-models",
-    "./backstore-ui",
-    "./data-api",
-    "./gateway",
-    "./la-sdk",
-    "./la-landing-ui",
-    "./la-store-ui"
-  ]
+    "./packages/aida-models",
+    "./packages/backstore-ui",
+    "./packages/blocks-ui",
+    "./packages/data-api",
+    "./packages/la-sdk",
+    "./packages/translations",
+    "./packages/landing-ui",
+    "./packages/store-ui"
+  ],
+  "typescript.tsdk": "packages/store-ui/node_modules/typescript/lib"
 }

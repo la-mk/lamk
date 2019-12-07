@@ -41,28 +41,20 @@ export const Products = ({
 
   return (
     <Page title={t('pages.product_plural')}>
-      <Layout theme='light' hasSider>
-        <Sider
-          style={{
-            background: 'white',
-            borderRight: 'solid 2px gray',
-          }}
-          breakpoint='lg'
-          collapsedWidth='0'
-        >
-          <Filters />
-        </Sider>
-        <Content pb={3} style={{ background: 'white' }}>
-          <Spin spinning={showSpinner}>
-            <FlexGrid
-              rowKey='_id'
-              totalItems={products.length}
-              dataSource={products}
-              renderItem={(item: any) => <ProductCard product={item} />}
-            />
-          </Spin>
-        </Content>
-      </Layout>
+      <Filters
+        mx={'auto'}
+        mb={4}
+        filters={filters || initialFilters}
+        onFiltersChange={setFilters}
+      />
+      <Spin spinning={showSpinner}>
+        <FlexGrid
+          rowKey='_id'
+          totalItems={products.length}
+          dataSource={products}
+          renderItem={(item: any) => <ProductCard product={item} />}
+        />
+      </Spin>
     </Page>
   );
 };

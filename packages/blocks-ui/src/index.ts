@@ -30,6 +30,7 @@ export { Modal } from './basic/Modal';
 export { Pagination } from './basic/Pagination';
 export { Popover } from './basic/Popover';
 export { Provider } from './basic/Provider';
+export { Radio, RadioButton, RadioGroup } from './basic/Radio';
 export { Result } from './basic/Result';
 export { Select, Option, OptionGroup } from './basic/Select';
 export { Set } from './basic/Set/Set';

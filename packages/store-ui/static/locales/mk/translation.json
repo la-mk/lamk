@@ -48,15 +48,20 @@
     "addressExample": "пр. Домашна адреса",
     "address_plural": "Адреси",
     "addressee": "Примател",
+    "category_plural": "Категории",
     "city": "Град",
     "country": "Држава",
     "firstName": "Име",
     "items": "Парчиња",
     "lastName": "Презиме",
     "name": "Име",
+    "ok": "OK",
     "personalInfo": "Лични податоци",
     "phoneNumber": "Телефонски број",
+    "price": "Цена",
     "quantity": "Количина",
+    "selectCategory": "Одбери категорија",
+    "sort": "Подредување",
     "street": "Улица",
     "streetExample": "пр. Солунска 25",
     "summary": "Преглед",
@@ -91,6 +96,11 @@
     "schema": "Полето не се совпаѓа со предвидената шема",
     "string": "Полето треба да е текст",
     "uppercase": "Полето треба да е со големи букви"
+  },
+  "filters": {
+    "cheapestFirst": "Најниска цена",
+    "expensiveFirst": "Највисока цена",
+    "recommended": "Препорачани"
   },
   "finance": {
     "priceBreakdown": "Преглед на вкупна цена",
