@@ -21,8 +21,6 @@
     "lint": "eslint --fix ./src/**/*.ts",
     "lint:ci": "eslint ./src/**/*.ts",
     "test:ci": "npm run build && npm run lint:ci",
-    "publish:dev": "npm run bump:dev && npm publish --registry http://registry.dev.sradevski.com:8080",
-    "bump:dev": "npm version patch",
     "prepack": "npm run build"
   },
   "husky": {

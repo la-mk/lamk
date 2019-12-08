@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,8 +21,6 @@
     "lint:ci": "eslint ./src/**/*.ts",
     "test": "jest",
     "test:ci": "npm run build && npm run lint:ci && jest --ci",
-    "publish:dev": "npm run bump:dev && npm publish --registry http://registry.dev.sradevski.com:8080",
-    "bump:dev": "npm version patch",
     "prepack": "npm run build"
   },
   "husky": {
