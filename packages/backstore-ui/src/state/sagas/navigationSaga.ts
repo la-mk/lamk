@@ -4,7 +4,7 @@ import {
   replaceTo,
 } from '../modules/navigation/navigation.actions';
 import { getStore } from '../modules/store/store.selector';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { setStore } from '../modules/store/store.module';
 import { LocationChangeAction } from 'connected-react-router';
 import { getUser } from '../modules/user/user.selector';
@@ -23,8 +23,8 @@ function* storeStateSaga(action: LocationChangeAction) {
     if (stores.total > 0) {
       yield put(setStore(stores.data[0]));
 
-      if(!isPathOnboarding){
-        yield put(replaceTo('/dashboard'))
+      if (!isPathOnboarding) {
+        yield put(replaceTo('/dashboard'));
       }
     } else if (!isPathOnboarding) {
       // If they don't have a store created, go to onboarding.
@@ -36,7 +36,7 @@ function* storeStateSaga(action: LocationChangeAction) {
 }
 
 export function* watchStoreStateSaga() {
-  yield takeLeading([LOCATION_CHANGE, SET_USER] , storeStateSaga);
+  yield takeLeading([LOCATION_CHANGE, SET_USER], storeStateSaga);
 }
 
 export default { watchStoreStateSaga };

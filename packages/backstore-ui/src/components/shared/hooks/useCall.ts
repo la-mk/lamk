@@ -1,17 +1,14 @@
-import { useState, useCallback } from "react";
-import { message } from "@lamk/blocks-ui";
-import { useDispatch } from "react-redux";
-import { Action } from "redux";
+import { useState, useCallback } from 'react';
+import { message } from '@sradevski/blocks-ui';
+import { useDispatch } from 'react-redux';
+import { Action } from 'redux';
 
 type Caller = <T extends any>(
   promise: Promise<T>,
-  callback?: (res: T) => Action<any> | void
-) => void
+  callback?: (res: T) => Action<any> | void,
+) => void;
 
-type UseCallResult = [
-  Caller,
-  boolean
-];
+type UseCallResult = [Caller, boolean];
 
 export const useCall = (): UseCallResult => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -34,7 +31,7 @@ export const useCall = (): UseCallResult => {
         .catch((err: Error) => message.error(err.message))
         .finally(() => setIsProcessing(false));
     },
-    [dispatch]
+    [dispatch],
   );
 
   return [caller, isProcessing];

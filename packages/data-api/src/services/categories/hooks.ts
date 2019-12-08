@@ -1,6 +1,6 @@
 import { disallow } from 'feathers-hooks-common';
 import { validate } from '../../common/hooks/db';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 
 export const hooks = {
   before: {

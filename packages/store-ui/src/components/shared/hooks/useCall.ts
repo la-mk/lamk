@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { message } from '@lamk/blocks-ui';
+import { message } from '@sradevski/blocks-ui';
 import { useDispatch } from 'react-redux';
 import { Action } from 'redux';
 

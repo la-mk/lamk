@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { InputNumber, Slider, Flex, Text, Button } from '@lamk/blocks-ui';
+import { InputNumber, Slider, Flex, Text, Button } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 
 interface PriceFilter {

@@ -10,16 +10,16 @@ import {
   Col,
   Empty,
   Spin,
-} from '@lamk/blocks-ui';
+} from '@sradevski/blocks-ui';
 import Link from 'next/link';
-import { Order } from '@lamk/la-sdk/dist/models/order';
-import { sdk } from '@lamk/la-sdk';
+import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { sdk } from '@sradevski/la-sdk';
 import { formatDistanceToNow } from 'date-fns';
 import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../state/modules/user/user.selector';
-import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 
 export const Orders = () => {

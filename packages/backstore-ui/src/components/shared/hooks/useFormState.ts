@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export const useFormState = <T extends any>(
   model: T | undefined | null,
   defaultValue: Partial<T>,
-  parameters: any[]
+  parameters: any[],
 ): [Partial<T> | {}] => {
   const [externalState, setExternalState] = useState<Partial<T> | {}>(
-    model || {}
+    model || {},
   );
 
   useEffect(() => {

@@ -1,6 +1,11 @@
 {
-  "name": "@lamk/translations",
-  "version": "0.1.5",
+  "name": "@sradevski/translations",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/sradevski/lamk.git",
+    "directory": "packages/translations"
+  },
+  "version": "0.0.2",
   "license": "MIT",
   "author": "Stevche Radevski",
   "main": "dist/index.js",
@@ -14,6 +19,7 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
+    "test:ci": "npm run lint",
     "sync-i18n": "sync-i18n --files './src/locales/*.json' --primary en --languages mk --space 2",
     "check-i18n": "npm run sync-i18n -- --check",
     "publish:dev": "npm run bump:dev && npm publish --registry http://registry.dev.sradevski.com:8080",

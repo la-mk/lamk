@@ -4,11 +4,11 @@ import isEmpty from 'lodash/isEmpty';
 import set from 'lodash/fp/set';
 import unset from 'lodash/fp/unset';
 import React, { useState } from 'react';
-import { Button, Popover, Flex } from '@lamk/blocks-ui';
+import { Button, Popover, Flex } from '@sradevski/blocks-ui';
 import { PriceFilter } from './PriceFilter';
 import { CategoriesFilter } from './CategoriesFilter';
 import { SortFilter } from './SortFilter';
-import { SystemProps } from '@lamk/blocks-ui/dist/types/system';
+import { SystemProps } from '@sradevski/blocks-ui/dist/types/system';
 import { useTranslation } from '../../../common/i18n';
 
 interface FiltersProps extends SystemProps {

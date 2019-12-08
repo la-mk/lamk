@@ -9,7 +9,7 @@ import {
   Icon,
   Text,
   Button,
-} from '@lamk/blocks-ui';
+} from '@sradevski/blocks-ui';
 import {
   getCategories,
   GroupedCategories,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, DescriptionItem } from '@lamk/blocks-ui';
+import { Descriptions, DescriptionItem } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 
 export const ShippingDescription = ({ address }: any) => {

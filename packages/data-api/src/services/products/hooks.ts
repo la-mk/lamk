@@ -8,7 +8,7 @@ import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
 import { unless, keep, checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { validate, convertQueryToNumber } from '../../common/hooks/db';
 import { logger } from '../../common/logger';
 

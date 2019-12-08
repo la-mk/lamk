@@ -1,6 +1,6 @@
 import { call, takeLeading, takeEvery, put } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-react-router';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import {
   replaceTo,
   LOCATION_CHANGE,

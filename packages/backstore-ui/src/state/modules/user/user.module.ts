@@ -1,4 +1,4 @@
-import { User } from '@lamk/la-sdk/dist/models/user';
+import { User } from '@sradevski/la-sdk/dist/models/user';
 import { enhanceReducer } from '../../utils';
 
 const initialState = { user: null };

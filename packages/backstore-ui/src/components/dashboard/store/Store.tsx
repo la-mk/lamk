@@ -1,16 +1,16 @@
-import React from "react";
-import { Spin } from "@lamk/blocks-ui";
+import React from 'react';
+import { Spin } from '@sradevski/blocks-ui';
 
-import { sdk } from "@lamk/la-sdk";
-import { Store as StoreType } from "@lamk/la-sdk/dist/models/store";
-import { useSelector } from "react-redux";
-import { getStore } from "../../../state/modules/store/store.selector";
-import isEqual from "lodash/isEqual";
-import { setStore } from "../../../state/modules/store/store.module";
-import { StoreForm } from "../../shared/forms/StoreForm";
-import { useCall } from "../../shared/hooks/useCall";
-import { useTranslation } from "react-i18next";
-import { getUser } from "../../../state/modules/user/user.selector";
+import { sdk } from '@sradevski/la-sdk';
+import { Store as StoreType } from '@sradevski/la-sdk/dist/models/store';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../../state/modules/store/store.selector';
+import isEqual from 'lodash/isEqual';
+import { setStore } from '../../../state/modules/store/store.module';
+import { StoreForm } from '../../shared/forms/StoreForm';
+import { useCall } from '../../shared/hooks/useCall';
+import { useTranslation } from 'react-i18next';
+import { getUser } from '../../../state/modules/user/user.selector';
 
 export const Store = () => {
   const [caller, showSpinner] = useCall();
@@ -28,12 +28,8 @@ export const Store = () => {
   };
 
   return (
-      <Spin spinning={showSpinner} tip={t("store.updatingStoreTip")}>
-        <StoreForm
-          store={store}
-          userId={userId}
-          onDone={handleSetupStoreDone}
-        />
-      </Spin>
+    <Spin spinning={showSpinner} tip={t('store.updatingStoreTip')}>
+      <StoreForm store={store} userId={userId} onDone={handleSetupStoreDone} />
+    </Spin>
   );
 };

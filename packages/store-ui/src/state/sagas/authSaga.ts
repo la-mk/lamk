@@ -1,13 +1,13 @@
 import unionWith from 'lodash/unionWith';
 import { call, takeLeading, takeEvery, put, select } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-next-router';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { clearSession } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
 import { setCartWithProducts } from '../modules/cart/cart.module';
 import { getCartWithProducts } from '../modules/cart/cart.selector';
-import { CartItemWithProduct } from '@lamk/la-sdk/dist/models/cart';
+import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 
 function* afterAuthSaga(authInfo: any) {
   // If expired, clear out all session and local storage state related to user, and let them browse around.

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Col, Row, Button, Flex, Title, Text } from '@lamk/blocks-ui';
+import { Col, Row, Button, Flex, Title, Text } from '@sradevski/blocks-ui';
 import { AddProductCard } from './AddProductCard';
-import { Product } from '@lamk/la-sdk/dist/models/product';
-import { Category } from '@lamk/la-sdk/dist/models/category';
+import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { GroupedCategories } from '../../state/modules/categories/categories.selector';
 import { useTranslation } from 'react-i18next';
-import { Store } from '@lamk/la-sdk/dist/models/store';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 interface SetupProductsProps {
   storeId: Store['_id'] | undefined;
@@ -28,7 +28,7 @@ export const SetupProducts = ({
   onPatchProduct,
   onRemoveProduct,
 }: SetupProductsProps) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <>
       <Flex mb={5} alignItems='center' flexDirection='column'>
@@ -38,9 +38,7 @@ export const SetupProducts = ({
             {t('actions.continue')}
           </Button>
         </Title>
-        <Text type='secondary'>
-          {t('onboarding.setupProductSubtitle')}
-        </Text>
+        <Text type='secondary'>{t('onboarding.setupProductSubtitle')}</Text>
       </Flex>
       <Row
         type='flex'

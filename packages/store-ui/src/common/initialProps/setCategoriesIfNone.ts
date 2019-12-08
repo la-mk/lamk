@@ -1,5 +1,5 @@
 import { getStore } from '../../state/modules/store/store.selector';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { NextPageContext } from 'next';
 import { getCategories } from '../../state/modules/categories/categories.selector';
 import { setCategories } from '../../state/modules/categories/categories.module';

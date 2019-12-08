@@ -1,24 +1,24 @@
-import React from "react";
-import { Provider } from "react-redux";
+import React from 'react';
+import { Provider } from 'react-redux';
 // @ts-ignore
-import { PersistGate } from "redux-persist/es/integration/react";
-import { Provider as BlocksUiProvider } from "@lamk/blocks-ui";
-import { setupSdk } from "@lamk/la-sdk";
-import { ConnectedRouter } from "connected-react-router";
-import { Root } from "./components/Root";
-import { FullScreenSpinner } from "./components/shared/components/FullScreenSpinner";
-import configureStore, { history } from "./state/configureStore";
-import env from "./common/env";
-import { useTranslation } from "react-i18next";
+import { PersistGate } from 'redux-persist/es/integration/react';
+import { Provider as BlocksUiProvider } from '@sradevski/blocks-ui';
+import { setupSdk } from '@sradevski/la-sdk';
+import { ConnectedRouter } from 'connected-react-router';
+import { Root } from './components/Root';
+import { FullScreenSpinner } from './components/shared/components/FullScreenSpinner';
+import configureStore, { history } from './state/configureStore';
+import env from './common/env';
+import { useTranslation } from 'react-i18next';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
-    email: t("common.email"),
-    password: t("common.password"),
-    signup: t("auth.signup"),
-    login: t("auth.login"),
-    noAccount: t("auth.noAccount"),
-    alreadyHaveAccount: t("auth.alreadyHaveAccount")
+    email: t('common.email'),
+    password: t('common.password'),
+    signup: t('auth.signup'),
+    login: t('auth.login'),
+    noAccount: t('auth.noAccount'),
+    alreadyHaveAccount: t('auth.alreadyHaveAccount'),
   };
 };
 
@@ -29,9 +29,9 @@ export const App = () => {
 
   const onBeforeLift = () => {
     setupSdk({
-      transport: "socket",
+      transport: 'socket',
       host: env.HOST,
-      port: env.PORT
+      port: env.PORT,
     });
   };
 

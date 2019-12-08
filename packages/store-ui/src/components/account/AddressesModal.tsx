@@ -1,6 +1,6 @@
 import React from 'react';
-import { User } from '@lamk/la-sdk/dist/models/user';
-import { Modal } from '@lamk/blocks-ui';
+import { User } from '@sradevski/la-sdk/dist/models/user';
+import { Modal } from '@sradevski/blocks-ui';
 import { Addresses } from './Addresses';
 import { useTranslation } from '../../common/i18n';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { StoreContents } from '@lamk/la-sdk/dist/models/storeContents';
-import { Empty, Paragraph } from '@lamk/blocks-ui';
+import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
+import { Empty, Paragraph } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Page } from '../shared/Page';
 

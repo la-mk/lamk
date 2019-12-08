@@ -6,7 +6,7 @@ import {
   queryWithCurrentUser,
 } from 'feathers-authentication-hooks';
 import { alterItems } from 'feathers-hooks-common';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 
 export const hooks = {

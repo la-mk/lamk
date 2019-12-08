@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
-import { RadioGroup, RadioButton, Flex, Button } from '@lamk/blocks-ui';
+import { RadioGroup, RadioButton, Flex, Button } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 
 interface SortFilterProps {

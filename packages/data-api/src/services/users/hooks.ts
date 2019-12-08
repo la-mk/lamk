@@ -6,7 +6,7 @@ import {
   restrictToOwner,
 } from 'feathers-authentication-hooks';
 import { validate } from '../../common/hooks/db';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;

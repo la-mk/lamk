@@ -2,7 +2,7 @@ import { Head } from '../../src/common/pageComponents/Head';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
 import { Account } from '../../src/components/account/Account';
-import { Empty } from '@lamk/blocks-ui';
+import { Empty } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
 
 function AccountPage() {

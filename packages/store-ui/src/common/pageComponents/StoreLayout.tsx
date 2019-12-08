@@ -15,10 +15,10 @@ import {
   Divider,
   Icon,
   SizedImage,
-} from '@lamk/blocks-ui';
+} from '@sradevski/blocks-ui';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';

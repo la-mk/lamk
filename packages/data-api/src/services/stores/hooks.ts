@@ -12,7 +12,7 @@ import {
 } from '../../common/hooks/filtering';
 import { unless, keep, checkContext } from 'feathers-hooks-common';
 import { NotFound } from '../../common/errors';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 import { HookContext } from '@feathersjs/feathers';
 

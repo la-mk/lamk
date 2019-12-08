@@ -1,7 +1,7 @@
 import {
   CartWithProducts,
   CartItemWithProduct,
-} from '@lamk/la-sdk/dist/models/cart';
+} from '@sradevski/la-sdk/dist/models/cart';
 
 const initialState = { cartWithProducts: null };
 

@@ -7,7 +7,7 @@ import {
 import { setFields } from '../../common/hooks/db';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 
 // We need to check that the order only contains products from the specified store,

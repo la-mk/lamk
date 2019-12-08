@@ -6,7 +6,7 @@ import {
 } from 'feathers-authentication-hooks';
 import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
 import { unless, keep } from 'feathers-hooks-common';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 
 export const hooks = {

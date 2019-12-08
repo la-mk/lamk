@@ -1,5 +1,13 @@
 import React from 'react';
-import { Layout, Sider, Content, Flex, Menu, MenuItem, Icon } from '@lamk/blocks-ui';
+import {
+  Layout,
+  Sider,
+  Content,
+  Flex,
+  Menu,
+  MenuItem,
+  Icon,
+} from '@sradevski/blocks-ui';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
@@ -27,7 +35,7 @@ const TopMenuContainer = styled(Flex)`
 
 const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   // Not a very clean solution, but it will do for now
   const matches = location.pathname.match(/\/dashboard\/(\w*)(\/?)/);
@@ -48,7 +56,7 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
           <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
             <MenuItem key='summary'>
               <Icon type='dashboard' />
-    <span>{t('common.summary')}</span>
+              <span>{t('common.summary')}</span>
               <Link to='/dashboard/summary' />
             </MenuItem>
             <MenuItem key='orders'>
@@ -66,13 +74,13 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
               <span>{t('commerce.store')}</span>
               <Link to='/dashboard/store' />
             </MenuItem>
-            
+
             <MenuItem key='delivery'>
               <Icon type='code-sandbox' />
               <span>{t('commerce.delivery')}</span>
               <Link to='/dashboard/delivery' />
             </MenuItem>
-            
+
             <MenuItem key='preferences'>
               <Icon type='setting' />
               <span>{t('common.preferences')}</span>

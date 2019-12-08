@@ -1,12 +1,12 @@
 import sum from 'lodash/sum';
 import React, { useEffect } from 'react';
-import { Flex, Text, Divider, Button, message } from '@lamk/blocks-ui';
-import { CartItemWithProduct } from '@lamk/la-sdk/dist/models/cart';
-import { Delivery } from '@lamk/la-sdk/dist/models/delivery';
+import { Flex, Text, Divider, Button, message } from '@sradevski/blocks-ui';
+import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
+import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../state/modules/user/user.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
-import { OrderItem } from '@lamk/la-sdk/dist/models/order';
+import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
 import { useTranslation } from '../../common/i18n';
 
 interface SummaryProps {

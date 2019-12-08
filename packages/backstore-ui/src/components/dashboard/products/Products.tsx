@@ -1,69 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import { Tooltip, Flex, Table, Title, Button, SizedImage } from '@lamk/blocks-ui';
-import { ColumnProps } from '@lamk/blocks-ui/dist/types/basic/Table';
+import {
+  Tooltip,
+  Flex,
+  Table,
+  Title,
+  Button,
+  SizedImage,
+} from '@sradevski/blocks-ui';
+import { ColumnProps } from '@sradevski/blocks-ui/dist/types/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { getProducts } from '../../../state/modules/products/products.selector';
-import { Product } from '@lamk/la-sdk/dist/models/product';
-import { sdk } from '@lamk/la-sdk';
+import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { sdk } from '@sradevski/la-sdk';
 import { setProducts } from '../../../state/modules/products/products.module';
 import { useCall } from '../../shared/hooks/useCall';
-import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
-import { Store } from '@lamk/la-sdk/dist/models/store';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
 
-const getColumns = (t: T) => ([
-  {
-    title: t('common.image_plural'),
-    dataIndex: 'images',
-    width: '180px',
-    render: (_text, product) => {
-      return (
-        <SizedImage
-          height='60px'
-          width='120px'
-          alt={product.name}
-          src={sdk.artifact.getUrlForArtifact(product.images[0])}
-        />
-      );
+const getColumns = (t: T) =>
+  [
+    {
+      title: t('common.image_plural'),
+      dataIndex: 'images',
+      width: '180px',
+      render: (_text, product) => {
+        return (
+          <SizedImage
+            height='60px'
+            width='120px'
+            alt={product.name}
+            src={sdk.artifact.getUrlForArtifact(product.images[0])}
+          />
+        );
+      },
     },
-  },
-  {
-    title: t('common.name'),
-    dataIndex: 'name',
-  },
-  {
-    title: t('common.category'),
-    dataIndex: 'category',
-    render: category => t(`categories.${category}`),
-  },
-  {
-    title: t('common.price'),
-    dataIndex: 'price',
-  },
-  {
-    title: t('common.description'),
-    dataIndex: 'description',
-  },
-] as ColumnProps<Product>[]);
+    {
+      title: t('common.name'),
+      dataIndex: 'name',
+    },
+    {
+      title: t('common.category'),
+      dataIndex: 'category',
+      render: category => t(`categories.${category}`),
+    },
+    {
+      title: t('common.price'),
+      dataIndex: 'price',
+    },
+    {
+      title: t('common.description'),
+      dataIndex: 'description',
+    },
+  ] as ColumnProps<Product>[];
 
 export const Products = () => {
   const [showModal, setShowModal] = useState(false);
   const [caller, showSpinner] = useCall();
   const [editingProduct, setEditingProduct] = useState();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const products: Product[] = useSelector(getProducts);
   const store: Store | null = useSelector(getStore);
-  const columns = getColumns(t)
+  const columns = getColumns(t);
 
   useEffect(() => {
     if (store) {
       caller<FindResult<Product>>(
         sdk.product.findForStore(store._id),
-        (products) => setProducts(products.data),
+        products => setProducts(products.data),
       );
     }
   }, [caller, store]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Result, Button } from '@lamk/blocks-ui';
+import { Result, Button } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useTranslation } from '../../common/i18n';
 

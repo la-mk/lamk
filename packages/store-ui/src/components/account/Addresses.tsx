@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { User } from '@lamk/la-sdk/dist/models/user';
-import { Row, Col, message, Spin } from '@lamk/blocks-ui';
-import { sdk } from '@lamk/la-sdk';
+import { User } from '@sradevski/la-sdk/dist/models/user';
+import { Row, Col, message, Spin } from '@sradevski/blocks-ui';
+import { sdk } from '@sradevski/la-sdk';
 import { AddAddressCard } from './AddAddressCard';
-import { Address } from '@lamk/la-sdk/dist/models/address';
+import { Address } from '@sradevski/la-sdk/dist/models/address';
 import { pickDiff } from '../../common/utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAddresses } from '../../state/modules/user/user.selector';
 import { setAddresses } from '../../state/modules/user/user.module';
 import { useCall } from '../shared/hooks/useCall';
-import { FindResult } from '@lamk/la-sdk/dist/setup';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 
 interface AddressesProps {

@@ -1,4 +1,4 @@
-import { Category } from '@lamk/la-sdk/dist/models/category';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
 
 const initialState = { categories: null };
 

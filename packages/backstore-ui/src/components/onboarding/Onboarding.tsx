@@ -1,37 +1,37 @@
-import isEqual from "lodash/isEqual";
-import React, { useEffect, useState, useCallback } from "react";
-import { useSelector } from "react-redux";
-import { SetupStore } from "./SetupStore";
-import { SetupProducts } from "./SetupProducts";
-import { SetupDelivery } from "./SetupDelivery";
+import isEqual from 'lodash/isEqual';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { SetupStore } from './SetupStore';
+import { SetupProducts } from './SetupProducts';
+import { SetupDelivery } from './SetupDelivery';
 
-import { Step, Flex, Spin } from "@lamk/blocks-ui";
-import { Publish } from "./Publish";
-import { Product } from "@lamk/la-sdk/dist/models/product";
-import { Store } from "@lamk/la-sdk/dist/models/store";
-import { Delivery } from "@lamk/la-sdk/dist/models/delivery";
-import { sdk } from "@lamk/la-sdk";
-import { getStore } from "../../state/modules/store/store.selector";
-import { setStore } from "../../state/modules/store/store.module";
+import { Step, Flex, Spin } from '@sradevski/blocks-ui';
+import { Publish } from './Publish';
+import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
+import { sdk } from '@sradevski/la-sdk';
+import { getStore } from '../../state/modules/store/store.selector';
+import { setStore } from '../../state/modules/store/store.module';
 import {
   setProducts,
   addProduct,
   removeProduct,
-  patchProduct
-} from "../../state/modules/products/products.module";
-import { getProducts } from "../../state/modules/products/products.selector";
-import { getDelivery } from "../../state/modules/delivery/delivery.selector";
-import { setDelivery } from "../../state/modules/delivery/delivery.module";
-import { Redirect } from "react-router";
-import { StickySteps } from "../shared/components/StickySteps";
-import { useCall } from "../shared/hooks/useCall";
-import { FindResult } from "@lamk/la-sdk/dist/setup";
-import { Category } from "@lamk/la-sdk/dist/models/category";
-import { setCategories } from "../../state/modules/categories/categories.module";
-import { useTranslation } from "react-i18next";
-import { User } from "@lamk/la-sdk/dist/models/user";
-import { getUser } from "../../state/modules/user/user.selector";
-import { useCategories } from "../shared/hooks/useCategories";
+  patchProduct,
+} from '../../state/modules/products/products.module';
+import { getProducts } from '../../state/modules/products/products.selector';
+import { getDelivery } from '../../state/modules/delivery/delivery.selector';
+import { setDelivery } from '../../state/modules/delivery/delivery.module';
+import { Redirect } from 'react-router';
+import { StickySteps } from '../shared/components/StickySteps';
+import { useCall } from '../shared/hooks/useCall';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { setCategories } from '../../state/modules/categories/categories.module';
+import { useTranslation } from 'react-i18next';
+import { User } from '@sradevski/la-sdk/dist/models/user';
+import { getUser } from '../../state/modules/user/user.selector';
+import { useCategories } from '../shared/hooks/useCategories';
 
 interface OnboardingProps {
   step: number;
@@ -47,24 +47,23 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const products: Product[] = useSelector(getProducts);
   const delivery: Delivery | null = useSelector(getDelivery);
   const [categories, groupedCategories] = useCategories(t);
-  
+
   const storeId = store ? store._id : undefined;
   const userId = user ? user._id : undefined;
-  
+
   useEffect(() => {
     if (storeId) {
-      caller<FindResult<Product>>(
-        sdk.product.findForStore(storeId),
-        (products) => setProducts(products.data)
+      caller<FindResult<Product>>(sdk.product.findForStore(storeId), products =>
+        setProducts(products.data),
       );
 
       caller<FindResult<Delivery>>(
         sdk.delivery.findForStore(storeId),
-        (deliveries) => {
+        deliveries => {
           if (deliveries.total > 0) {
             return setDelivery(deliveries.data[0]);
           }
-        }
+        },
       );
     }
   }, [caller, storeId]);
@@ -74,8 +73,8 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    caller<FindResult<Category>>(sdk.category.find(), (categories) =>
-      setCategories(categories.data)
+    caller<FindResult<Category>>(sdk.category.find(), categories =>
+      setCategories(categories.data),
     );
   }, [caller, categories]);
 
@@ -87,29 +86,29 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       ? sdk.store.patch(newStore._id, newStore)
       : sdk.store.create(newStore);
 
-    caller<Store>(handler, (store) => {
+    caller<Store>(handler, store => {
       setStep(1);
       return setStore(store);
     });
   };
 
   const handleAddProduct = (newProduct: Product) => {
-    caller<Product>(
-      sdk.product.create(newProduct),
-      addProduct
-    );
+    caller<Product>(sdk.product.create(newProduct), addProduct);
   };
 
   const handlePatchProduct = (newProduct: Product) => {
     const storeProduct = products.find(
-      product => product._id === newProduct._id
+      product => product._id === newProduct._id,
     );
 
     if (!storeProduct || isEqual(storeProduct, newProduct)) {
       return;
     }
 
-    caller<Product>(sdk.product.patch(newProduct._id, newProduct), patchProduct);
+    caller<Product>(
+      sdk.product.patch(newProduct._id, newProduct),
+      patchProduct,
+    );
   };
 
   const handleRemoveProduct = (id: string) => {
@@ -129,7 +128,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       ? sdk.delivery.patch(newDelivery._id, newDelivery)
       : sdk.delivery.create(newDelivery);
 
-    caller<Delivery>(handler, (delivery) => {
+    caller<Delivery>(handler, delivery => {
       setStep(3);
       return setDelivery(delivery);
     });
@@ -141,7 +140,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       return;
     }
 
-    if(!storeId){
+    if (!storeId) {
       return;
     }
 
@@ -152,9 +151,9 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
   return (
     <Spin spinning={showSpinner}>
-      <Flex flexDirection="column">
+      <Flex flexDirection='column'>
         {step !== 3 && (
-          <Flex px={[3, 3, 3, 4]} pb={4} flexDirection="column">
+          <Flex px={[3, 3, 3, 4]} pb={4} flexDirection='column'>
             <StickySteps
               py={[2, 2, 3]}
               mb={5}
@@ -167,11 +166,15 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             </StickySteps>
 
             {step === 0 && (
-              <SetupStore onDone={handleSetupStoreDone} store={store} userId={userId} />
+              <SetupStore
+                onDone={handleSetupStoreDone}
+                store={store}
+                userId={userId}
+              />
             )}
             {step === 1 && (
               <SetupProducts
-                storeId={storeId }
+                storeId={storeId}
                 products={products}
                 categories={categories}
                 groupedCategories={groupedCategories}
@@ -193,7 +196,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
         {step === 3 && store && (
           <Publish storeSlug={store.slug} onDone={handlePublishDone} />
         )}
-        {isFinished && <Redirect push to="/dashboard" />}
+        {isFinished && <Redirect push to='/dashboard' />}
       </Flex>
     </Spin>
   );

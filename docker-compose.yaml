@@ -45,6 +45,8 @@ services:
     build: 
       context: ./packages/data-api
       target: dev
+      args: 
+        - GPR_TOKEN=$GPR_TOKEN
     container_name: data-api
     volumes:
       - ./packages/data-api:/usr/src/app:delegated
@@ -71,6 +73,8 @@ services:
     build: 
       context: ./packages/store-ui
       target: dev
+      args: 
+        - GPR_TOKEN=$GPR_TOKEN
     container_name: store-ui
     depends_on: 
       - data-api
@@ -91,6 +95,8 @@ services:
     build: 
       context: ./packages/backstore-ui
       target: dev
+      args: 
+        - GPR_TOKEN=$GPR_TOKEN
     container_name: backstore-ui
     depends_on: 
       - data-api

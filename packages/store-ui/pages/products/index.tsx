@@ -1,5 +1,5 @@
-import { sdk } from '@lamk/la-sdk';
-import { Product } from '@lamk/la-sdk/dist/models/product';
+import { sdk } from '@sradevski/la-sdk';
+import { Product } from '@sradevski/la-sdk/dist/models/product';
 import queryString from 'qs';
 import { Head } from '../../src/common/pageComponents/Head';
 import { Products } from '../../src/components/products/Products';

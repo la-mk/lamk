@@ -1,6 +1,6 @@
-import { useState, useEffect, Dispatch } from "react";
-import { Category } from "@lamk/la-sdk/dist/models/category";
-import { Product } from "@lamk/la-sdk/dist/models/product";
+import { useState, useEffect, Dispatch } from 'react';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Product } from '@sradevski/la-sdk/dist/models/product';
 
 export type FullCategory = [string, string, string];
 
@@ -16,7 +16,7 @@ export const useFullCategory = (
     }
 
     const categorySet = categories.find(
-      category => category.level3 === product.category
+      category => category.level3 === product.category,
     );
 
     if (!categorySet) {
@@ -26,7 +26,7 @@ export const useFullCategory = (
     setFullCategory([
       categorySet.level1,
       categorySet.level2,
-      categorySet.level3
+      categorySet.level3,
     ]);
   }, [product, categories]);
 

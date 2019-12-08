@@ -3,7 +3,7 @@ const { authenticate } = feathersAuthentication.hooks;
 import { restrictToOwner } from 'feathers-authentication-hooks';
 import { requireAnyQueryParam } from '../../common/hooks/filtering';
 import { disallow } from 'feathers-hooks-common';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 import { unique } from '../../common/hooks/unique';
 

@@ -1,7 +1,7 @@
 import feathers from '@feathersjs/feathers';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
-import { setupSdk } from '@lamk/la-sdk';
+import { setupSdk } from '@sradevski/la-sdk';
 // Currently we only use the SDK for validations and not for doing requests.
 // We need to setup the SDK before it is used in the imports.
 setupSdk();

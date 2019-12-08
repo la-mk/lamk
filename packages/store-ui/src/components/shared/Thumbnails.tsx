@@ -1,5 +1,5 @@
 import React from 'react';
-import { SizedImage, Flex } from '@lamk/blocks-ui';
+import { SizedImage, Flex } from '@sradevski/blocks-ui';
 
 export interface ThumbnailsProps {
   images: string[];

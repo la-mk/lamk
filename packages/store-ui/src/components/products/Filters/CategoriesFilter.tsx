@@ -1,6 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React, { useState, useEffect, useCallback } from 'react';
-import { Flex, Select, OptionGroup, Option, Button } from '@lamk/blocks-ui';
+import { Flex, Select, OptionGroup, Option, Button } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import {
   createGetGroupedCategories,

@@ -1,4 +1,4 @@
-import { enhanceReducer } from "../../utils";
+import { enhanceReducer } from '../../utils';
 
 const initialState = { uiReady: false };
 

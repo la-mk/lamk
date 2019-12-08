@@ -6,9 +6,9 @@ import {
   Button,
   formInput,
   formTextArea,
-} from '@lamk/blocks-ui';
-import { sdk } from '@lamk/la-sdk';
-import { Address } from '@lamk/la-sdk/dist/models/address';
+} from '@sradevski/blocks-ui';
+import { sdk } from '@sradevski/la-sdk';
+import { Address } from '@sradevski/la-sdk/dist/models/address';
 import { useTranslation } from '../../common/i18n';
 
 interface AddAddressCardProps {

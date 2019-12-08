@@ -1,5 +1,5 @@
 import NextI18Next from 'next-i18next';
-import { ProductSetTag } from '@lamk/la-sdk/dist/models/product';
+import { ProductSetTag } from '@sradevski/la-sdk/dist/models/product';
 
 export const NextI18NextInstance = new NextI18Next({
   defaultNS: 'translation',

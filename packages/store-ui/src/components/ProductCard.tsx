@@ -1,7 +1,7 @@
 import React from 'react';
-import { Product } from '@lamk/la-sdk/dist/models/product';
-import { sdk } from '@lamk/la-sdk';
-import { Card, Title, Paragraph, Flex } from '@lamk/blocks-ui';
+import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { sdk } from '@sradevski/la-sdk';
+import { Card, Title, Paragraph, Flex } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Price } from './shared/Price';

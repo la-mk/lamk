@@ -1,12 +1,19 @@
 import React from 'react';
-import { Flex, Dropdown, Menu, MenuItem, Icon, MenuDivider } from '@lamk/blocks-ui';
+import {
+  Flex,
+  Dropdown,
+  Menu,
+  MenuItem,
+  Icon,
+  MenuDivider,
+} from '@sradevski/blocks-ui';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../state/modules/auth/auth.module';
 import { useTranslation } from 'react-i18next';
 
 export const Account = () => {
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     dispatch(logout());

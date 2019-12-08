@@ -10,7 +10,7 @@
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
     "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
     "aida": "aida run",
-    "i18n": "node ./node_modules/@lamk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'public/locales'"
+    "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'public/locales'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,8 +39,8 @@
     ]
   },
   "dependencies": {
-    "@lamk/blocks-ui": "^1.0.19",
-    "@lamk/la-sdk": "^1.0.19",
+    "@sradevski/blocks-ui": "0.0.2",
+    "@sradevski/la-sdk": "0.0.2",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.146",
     "@types/node": "^12.12.7",
@@ -82,7 +82,7 @@
     "@aida/injector-open-api": "0.0.6",
     "@aida/injector-routes": "0.0.6",
     "@aida/injector-routes-map": "0.0.6",
-    "@lamk/translations": "^0.1.4",
+    "@sradevski/translations": "0.0.2",
     "@types/socket.io-client": "^1.4.32",
     "babel-plugin-import": "^1.12.2",
     "dependency-cruiser": "^5.2.3",

@@ -1,9 +1,9 @@
 import { Head } from '../../src/common/pageComponents/Head';
 import { useTranslation } from '../../src/common/i18n';
-import { sdk } from '@lamk/la-sdk';
+import { sdk } from '@sradevski/la-sdk';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { NextPageContext } from 'next';
-import { StoreContents } from '@lamk/la-sdk/dist/models/storeContents';
+import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { AboutUs } from '../../src/components/aboutUs/AboutUs';
 
 function AboutPage({
