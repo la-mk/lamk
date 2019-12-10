@@ -29,3 +29,5 @@ You can add a `.npmrc` file that contains:
 
 And you can use the typical npm commands. This, however, can break the CI, and it is not required to manually handle packages anyway. 
 Also, you can run `npm login`, and once you successfully log in, you can read and publish packages as usual. This might be required when publishing a package for the first time.
+
+## DigitalOcean basic infra setup

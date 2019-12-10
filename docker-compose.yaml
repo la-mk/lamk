@@ -42,6 +42,7 @@ services:
       VIRTUAL_PORT: 9000
 
   data-api:
+    image: lamk/data-api
     build: 
       context: ./packages/data-api
       target: dev
@@ -70,6 +71,7 @@ services:
       STORAGE_ACCESS_KEY_SECRET: minio123
     
   store-ui:
+    image: lamk/store-ui
     build: 
       context: ./packages/store-ui
       target: dev
@@ -92,6 +94,7 @@ services:
       PORT: 80
 
   backstore-ui:
+    image: lamk/backstore-ui
     build: 
       context: ./packages/backstore-ui
       target: dev
