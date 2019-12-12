@@ -1,0 +1,154 @@
+# FUTURE: Check modules to extract common specs: https://www.terraform.io/docs/modules/index.html
+
+########## VARIABLE DEFINITION ############
+
+variable "domain" {
+  type = string
+}
+
+variable "artifacts_subdomain" {
+  type = string
+}
+
+variable "droplets_tags" {
+  type = list(string)
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}
+
+########## DO DATA ##############
+
+data "digitalocean_ssh_key" "droplets-ssh-key" {
+  name = "steve-do"
+}
+
+########### PROVIDER DEFINITION ###########
+
+provider "digitalocean" {
+  # You need a DIGITALOCEAN_TOKEN environment variable available, or optionally, provide it as a CLI arg and assign it to token
+  # Same is true for SPACES_ACCESS_KEY_ID and SPACES_SECRET_ACCESS_KEY
+  # token = var.do_token
+  # spaces_access_id = var.spaces_access_id
+  # spaces_secret_key = var.spaces_secret_key
+}
+
+########## DNS and GATEWAY ##########
+
+resource "digitalocean_droplet" "gateway-1" {
+    image = "ubuntu-18-04-x64"
+    name = "gateway-1"
+    region = "fra1"
+    # Sizes are here: https://developers.digitalocean.com/documentation/v2/#list-all-sizes
+    size = "s-1vcpu-1gb"
+    backups = true
+    private_networking = true
+    tags = var.droplets_tags
+    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+}
+
+resource "digitalocean_floating_ip" "floating-ip" {
+  droplet_id = digitalocean_droplet.gateway-1.id
+  region = "fra1"
+}
+
+resource "digitalocean_domain" "default-domain" {
+   name = var.domain
+   ip_address = digitalocean_floating_ip.floating-ip.ip_address
+}
+
+resource "digitalocean_record" "CNAME-www" {
+  domain = digitalocean_domain.default-domain.name
+  type = "CNAME"
+  name = "www"
+  value = "@"
+}
+
+######### SPACES ##########
+
+resource "digitalocean_spaces_bucket" "artifacts" {
+  name   = "lamk-artifacts"
+  region = "fra1"
+  acl="private"
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET"]
+    allowed_origins = ["*"]
+    max_age_seconds = 3000
+  }
+}
+
+resource "digitalocean_certificate" "cdn-cert" {
+  name    = "cdn-cert"
+  type    = "lets_encrypt"
+  domains = [var.artifacts_subdomain]
+  depends_on = [digitalocean_domain.default-domain]
+}
+
+# Add a CDN endpoint with a custom sub-domain to the Spaces Bucket
+resource "digitalocean_cdn" "cdn-subdomain" {
+  origin = digitalocean_spaces_bucket.artifacts.bucket_domain_name
+  custom_domain = var.artifacts_subdomain
+  certificate_id = digitalocean_certificate.cdn-cert.id
+}
+
+######## SERVICES ###########
+
+resource "digitalocean_droplet" "data-api-1" {
+    image = "ubuntu-18-04-x64"
+    name = "data-api-1"
+    region = "fra1"
+    size = "s-1vcpu-1gb"
+    backups = true
+    private_networking = true
+    tags = var.droplets_tags
+    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+}
+
+resource "digitalocean_droplet" "store-ui-1" {
+    image = "ubuntu-18-04-x64"
+    name = "store-ui-1"
+    region = "fra1"
+    size = "s-1vcpu-1gb"
+    backups = true
+    private_networking = true
+    tags = var.droplets_tags
+    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+}
+
+resource "digitalocean_droplet" "backstore-ui-1" {
+    image = "ubuntu-18-04-x64"
+    name = "backstore-ui-1"
+    region = "fra1"
+    size = "s-1vcpu-1gb"
+    backups = true
+    private_networking = true
+    tags = var.droplets_tags
+    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+}
+
+
+########## PROJECT DEFINITION ##########
+
+resource "digitalocean_project" "lamk-project" {
+  name        = var.project_name
+  description = "Lamk project resources"
+  purpose     = "Lamk system infrastructure"
+  environment = var.environment
+  resources   = [digitalocean_droplet.gateway-1.urn, digitalocean_droplet.data-api-1.urn, digitalocean_droplet.store-ui-1.urn, digitalocean_droplet.backstore-ui-1.urn, digitalocean_floating_ip.floating-ip.urn, digitalocean_domain.default-domain.urn, digitalocean_spaces_bucket.artifacts.urn]
+}
+
+
+######### MISC ############
+
+# Just a sample output variable. These can be used to extract valuable info after terraform applies changes.
+# The ip of the newly generated droplet.
+output "ip" {
+    value = digitalocean_droplet.gateway-1.ipv4_address
+}
