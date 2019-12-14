@@ -1,4 +1,5 @@
 name: Publish services
+
 on:
   push:
     branches: 
@@ -18,7 +19,8 @@ on:
 #          fi
    
 jobs:
-  build:
+  publish-dockerfiles:
+    name: Publish Service
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,7 +32,6 @@ jobs:
           login-server: index.docker.io
           username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
-      - name: Build and publish the Docker image
       - run: |
           docker build . --file Dockerfile --build-arg GPR_TOKEN=${{secrets.GITHUB_TOKEN}} --tag lamk/"${{matrix.service}}":latest
           docker push lamk/"${{matrix.service}}":latest

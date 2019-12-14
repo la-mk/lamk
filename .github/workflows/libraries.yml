@@ -1,6 +1,6 @@
-name: Publish packages
+name: Publish libraries
 
-# This should be on pull request instead when the packages are more mature and there are more people working
+# This should be on pull request instead when the libraries are more mature and there are more people working
 on:
   push:
     branches: 
@@ -12,11 +12,11 @@ on:
 
 jobs:
   publish-gpr:
-    name: Publish Package
+    name: Publish Library
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: ["blocks-ui", "la-sdk", "translations"]
+        library: ["blocks-ui", "la-sdk", "translations"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -29,11 +29,11 @@ jobs:
           CURRENT=`cat package.json | jq -r .version`
           if [ "$LATEST" != "$CURRENT" ]
           then
-            echo Publishing "$CURRENT" version "${{ matrix.package }}" package.
+            echo Publishing "$CURRENT" version "${{ matrix.library }}" library.
             npm ci
             npm publish
           fi
           
-        working-directory: ./packages/${{ matrix.package }}
+        working-directory: ./packages/${{ matrix.library }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
