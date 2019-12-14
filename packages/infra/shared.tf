@@ -41,15 +41,19 @@ provider "digitalocean" {
 ########## DNS and GATEWAY ##########
 
 resource "digitalocean_droplet" "gateway-1" {
-    image = "ubuntu-18-04-x64"
-    name = "gateway-1"
-    region = "fra1"
-    # Sizes are here: https://developers.digitalocean.com/documentation/v2/#list-all-sizes
-    size = "s-1vcpu-1gb"
-    backups = true
-    private_networking = true
-    tags = var.droplets_tags
-    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+  image = "ubuntu-18-04-x64"
+  name = "gateway-1"
+  region = "fra1"
+  # Sizes are here: https://developers.digitalocean.com/documentation/v2/#list-all-sizes
+  size = "s-1vcpu-1gb"
+  backups = true
+  private_networking = true
+  tags = var.droplets_tags
+  ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "digitalocean_floating_ip" "floating-ip" {
@@ -101,36 +105,48 @@ resource "digitalocean_cdn" "cdn-subdomain" {
 ######## SERVICES ###########
 
 resource "digitalocean_droplet" "data-api-1" {
-    image = "ubuntu-18-04-x64"
-    name = "data-api-1"
-    region = "fra1"
-    size = "s-1vcpu-1gb"
-    backups = true
-    private_networking = true
-    tags = var.droplets_tags
-    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+  image = "ubuntu-18-04-x64"
+  name = "data-api-1"
+  region = "fra1"
+  size = "s-1vcpu-1gb"
+  backups = true
+  private_networking = true
+  tags = var.droplets_tags
+  ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "digitalocean_droplet" "store-ui-1" {
-    image = "ubuntu-18-04-x64"
-    name = "store-ui-1"
-    region = "fra1"
-    size = "s-1vcpu-1gb"
-    backups = true
-    private_networking = true
-    tags = var.droplets_tags
-    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+  image = "ubuntu-18-04-x64"
+  name = "store-ui-1"
+  region = "fra1"
+  size = "s-1vcpu-1gb"
+  backups = true
+  private_networking = true
+  tags = var.droplets_tags
+  ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "digitalocean_droplet" "backstore-ui-1" {
-    image = "ubuntu-18-04-x64"
-    name = "backstore-ui-1"
-    region = "fra1"
-    size = "s-1vcpu-1gb"
-    backups = true
-    private_networking = true
-    tags = var.droplets_tags
-    ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+  image = "ubuntu-18-04-x64"
+  name = "backstore-ui-1"
+  region = "fra1"
+  size = "s-1vcpu-1gb"
+  backups = true
+  private_networking = true
+  tags = var.droplets_tags
+  ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
