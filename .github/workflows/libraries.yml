@@ -15,6 +15,7 @@ jobs:
     name: Publish Library
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         library: ["blocks-ui", "la-sdk", "translations"]
     steps:
