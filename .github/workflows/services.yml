@@ -24,13 +24,27 @@ jobs:
           username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
       - run: |
-          DTOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${{secrets.DOCKER_REGISTRY_USERNAME}}'", "password": "'${{secrets.DOCKER_REGISTRY_PASSWORD}}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
-              
-          IMAGE_TAGS=$(curl -s -H "Authorization: JWT $DTOKEN" https://hub.docker.com/v2/repositories/lamk/${{matrix.service}}/tags/?page_size=10 | jq -r '.results|.[]|.name')
-
+          DOCKER_HUB_ORG="lamk"
+          DOCKER_HUB_REPO="${{ matrix.service }}"
+          DOCKER_HUB_USER=${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          DOCKER_HUB_PASSWORD=${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          
+          AUTH_DOMAIN="auth.docker.io"
+          AUTH_SERVICE="registry.docker.io"
+          AUTH_SCOPE="repository:${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}:pull"
+          AUTH_OFFLINE_TOKEN="1"
+          AUTH_CLIENT_ID="shell"
+          
+          API_DOMAIN="registry-1.docker.io"
+          
+          TOKEN=$(curl -X GET -u ${DOCKER_HUB_USER}:${DOCKER_HUB_PASSWORD} "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
+          
+          IMAGE_TAGS=$(curl -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}/tags/list?page_size=10 | jq -r '.tags[]')
+          
           LATEST=$(echo $IMAGE_TAGS | cut -d' ' --output-delimiter=$'\n' -f1- | sort -t. -k 1,1nr -k 2,2nr -k 3,3nr -k 4,4nr | head -n 1)
 
           CURRENT=`cat package.json | jq -r .version`
+          
           if [ "$LATEST" != "$CURRENT" ]
           then
             echo Publishing "$CURRENT" version "${{ matrix.service }}" service.
