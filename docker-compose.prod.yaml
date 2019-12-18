@@ -59,8 +59,8 @@ services:
     environment: 
       VIRTUAL_HOST: "api.dev.sradevski.com" #used by nginx proxy to route all api. requests here
       VIRTUAL_PORT: 80
-      SERVER_PORT: 80
-      SERVER_HOST: "api.dev.sradevski.com"
+      PORT: 80
+      HOST: "api.dev.sradevski.com"
       JWT_SECRET: "1234dev"
       MONGODB_DB_NAME: dev
       MONGODB_CONNECTION_STRING: "mongodb+srv://sradevski:Stev4e555@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"

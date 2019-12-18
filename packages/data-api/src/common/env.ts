@@ -6,13 +6,13 @@ export default {
     .required()
     .asEnum(['test', 'development', 'staging', 'production']),
 
-  SERVER_PORT: envvar
-    .get('SERVER_PORT')
+  PORT: envvar
+    .get('PORT')
     .required()
     .asPortNumber(),
 
-  SERVER_HOST: envvar
-    .get('SERVER_HOST')
+  HOST: envvar
+    .get('HOST')
     .required()
     .asString(),
 

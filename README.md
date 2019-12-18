@@ -1,3 +1,7 @@
+# Deploying to production
+
+1. In order to create a new version of libraries or services, all you need to do is run `npm version patch|minor|major` inside the library/service, and the CI will take care of building and releasing the library/service to the appropriate registries.
+
 # Setup
 
 Describe the DevEnv setup, tools, and the entire deployment pipeline.

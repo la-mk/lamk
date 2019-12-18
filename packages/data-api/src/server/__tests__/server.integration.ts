@@ -6,10 +6,10 @@ import { Server } from 'http';
 import { Application } from '@feathersjs/express';
 import { MongoClient } from 'mongodb';
 
-const port = env.SERVER_PORT || 3030;
+const port = env.PORT || 3030;
 const getUrl = (pathname?: string) =>
   url.format({
-    hostname: env.SERVER_HOST || 'localhost',
+    hostname: env.HOST || 'localhost',
     protocol: 'http',
     port,
     pathname,
