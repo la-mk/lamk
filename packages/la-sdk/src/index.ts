@@ -18,7 +18,7 @@ import * as utils from './utils/modelUtils';
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
 
-export const setupSdk = (options: SetupSdkOptions = {}) => {
+export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
   const client = setupClient(options);
   const tempSdk = {
     store: getStoreSdk(client),

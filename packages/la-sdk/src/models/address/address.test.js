@@ -15,8 +15,7 @@ describe('Address validation', () => {
   beforeAll(() => {
     SDK.setupSdk({
       transport: 'socket',
-      host: 'localhost',
-      port: 3000,
+      apiEndpoint: 'http://localhost:3000',
     });
   });
 
