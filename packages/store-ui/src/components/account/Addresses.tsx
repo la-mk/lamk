@@ -3,7 +3,7 @@ import { User } from '@sradevski/la-sdk/dist/models/user';
 import { Row, Col, message, Spin } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { AddAddressCard } from './AddAddressCard';
-import { Address } from '@sradevski/la-sdk/dist/models/address';
+import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { pickDiff } from '../../common/utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAddresses } from '../../state/modules/user/user.selector';

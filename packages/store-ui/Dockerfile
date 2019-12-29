@@ -22,6 +22,9 @@ RUN npm run build
 FROM node:12-slim as prod
 WORKDIR /usr/src/app
 ENV NODE_ENV production
+COPY ./entry.sh ./
 # This will also copy dev dependencies, but it is fine for now.
 COPY --from=build /usr/src/app ./
-ENTRYPOINT ["node", "dist/server/index.js"]
+
+ENTRYPOINT ["./entry.sh"]
+CMD ["node", "dist/server/index.js"]

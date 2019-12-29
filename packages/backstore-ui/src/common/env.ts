@@ -1,12 +1,12 @@
 import { from } from 'env-var';
 
-// Except for NODE_ENV, CRA demands that all envvars start with REACT_APP_*
+// Except for NODE_ENV, CRA demands that all envvars start with REACT_APP_*, if you wish to use some during build time.
 // We have to assign all process.env to a separate variable first, because during build process.env.* is replaced with its value.
 const vars = {
+  // This is specified during build time, so we read from process.env
   NODE_ENV: process.env.NODE_ENV || 'development',
-  API_ENDPOINT:
-    process.env.REACT_APP_API_ENDPOINT || 'http://api.dev.sradevski.com',
-  PORT: process.env.REACT_APP_PORT || 80,
+  // @ts-ignore
+  API_ENDPOINT: window._env.API_ENDPOINT || `http://api.dev.sradevski.com`,
 };
 
 const envvar = from(vars as any);
@@ -16,15 +16,10 @@ export default {
   NODE_ENV: envvar
     .get('NODE_ENV')
     .required()
-    .asEnum(['test', 'staging', 'development', 'production']),
+    .asEnum(['test', 'development', 'production']),
 
   API_ENDPOINT: envvar
     .get('API_ENDPOINT')
     .required()
     .asString(),
-
-  PORT: envvar
-    .get('PORT')
-    .required()
-    .asPortNumber(),
 };

@@ -23,5 +23,8 @@ FROM nginx:1.17-alpine as prod
 WORKDIR /usr/src/app
 ENV NODE_ENV production
 COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./entry.sh ./
 COPY --from=build /usr/src/app/build ./
-ENTRYPOINT ["nginx","-g","daemon off;"]
+
+ENTRYPOINT ["./entry.sh"]
+CMD ["nginx", "-g", "daemon off;"]

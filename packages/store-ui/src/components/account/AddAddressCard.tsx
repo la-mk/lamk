@@ -8,7 +8,7 @@ import {
   formTextArea,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
-import { Address } from '@sradevski/la-sdk/dist/models/address';
+import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { useTranslation } from '../../common/i18n';
 
 interface AddAddressCardProps {

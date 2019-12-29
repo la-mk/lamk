@@ -16,5 +16,5 @@ const handle = app.getRequestHandler();
   server.get('*', (req: any, res: any) => handle(req, res));
 
   await server.listen(port);
-  console.log(`> Ready on [store].${process.env.HOST}, ${port}`); // eslint-disable-line no-console
+  console.log(`> Ready on port ${port}`); // eslint-disable-line no-console
 })();

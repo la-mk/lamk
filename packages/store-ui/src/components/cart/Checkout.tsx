@@ -22,7 +22,7 @@ import {
   setCartWithProducts,
 } from '../../state/modules/cart/cart.module';
 import { Success } from './Success';
-import { Address } from '@sradevski/la-sdk/dist/models/address';
+import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { AddressesModal } from '../account/AddressesModal';
 import { Page } from '../shared/Page';
