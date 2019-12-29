@@ -4,7 +4,7 @@ import socketio from '@feathersjs/socketio';
 import { setupSdk } from '@sradevski/la-sdk';
 // Currently we only use the SDK for validations and not for doing requests.
 // We need to setup the SDK before it is used in the imports.
-setupSdk();
+setupSdk({ apiEndpoint: '' });
 
 import { initLogger, getSyncLogger } from '../common/logger';
 import { registerUnhandledErrorHandlers } from '../common/errors';

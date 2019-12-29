@@ -44,8 +44,7 @@ html {
 // Setup the SDK so it can be used on the server-side in getInitialProps calls.
 setupSdk({
   transport: 'rest',
-  host: env.HOST,
-  port: env.PORT,
+  apiEndpoint: env.API_ENDPOINT,
 });
 
 // The custom document is required to setup styled components for SSR.

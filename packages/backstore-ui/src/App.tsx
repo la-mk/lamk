@@ -30,8 +30,7 @@ export const App = () => {
   const onBeforeLift = () => {
     setupSdk({
       transport: 'socket',
-      host: env.HOST,
-      port: env.PORT,
+      apiEndpoint: env.API_ENDPOINT,
     });
   };
 

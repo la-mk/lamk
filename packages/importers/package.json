@@ -24,8 +24,14 @@
   "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint --fix"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "./**/*.{js,mjs,jsx,ts,tsx}": [
+      "tsdx lint --fix",
+      "git add"
+    ]
   },
   "prettier": {
     "printWidth": 80,
@@ -44,7 +50,7 @@
     "typescript": "^3.7.3"
   },
   "dependencies": {
-    "@sradevski/la-sdk": "0.0.3",
+    "@sradevski/la-sdk": "0.0.5",
     "csvtojson": "^2.0.10",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",

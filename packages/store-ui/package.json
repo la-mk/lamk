@@ -8,7 +8,6 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
-    "start": "node dist/server/index.js",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
@@ -27,7 +26,7 @@
   },
   "dependencies": {
     "@sradevski/blocks-ui": "0.0.2",
-    "@sradevski/la-sdk": "0.0.2",
+    "@sradevski/la-sdk": "0.0.5",
     "antd": "^3.25.1",
     "connected-next-router": "^1.0.2",
     "date-fns": "^2.7.0",

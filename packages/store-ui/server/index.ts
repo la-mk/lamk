@@ -3,7 +3,7 @@ import next from 'next';
 import nextI18NextMiddleware from 'next-i18next/middleware';
 import { NextI18NextInstance } from '../src/common/i18n';
 
-const port = process.env.VIRTUAL_PORT || 8080;
+const port = process.env.PORT ?? 5050;
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = app.getRequestHandler();
 
@@ -16,5 +16,5 @@ const handle = app.getRequestHandler();
   server.get('*', (req: any, res: any) => handle(req, res));
 
   await server.listen(port);
-  console.log(`> Ready on store.${process.env.HOST}${port}`); // eslint-disable-line no-console
+  console.log(`> Ready on [store].${process.env.HOST}, ${port}`); // eslint-disable-line no-console
 })();

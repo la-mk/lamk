@@ -54,8 +54,7 @@ class MyApp extends App<{ store: any }> {
     if (!sdk) {
       setupSdk({
         transport: 'rest',
-        host: env.HOST,
-        port: env.PORT,
+        apiEndpoint: env.API_ENDPOINT,
       });
     }
 

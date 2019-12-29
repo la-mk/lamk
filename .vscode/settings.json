@@ -8,7 +8,7 @@
     "./packages/la-sdk",
     "./packages/translations",
     "./packages/landing-ui",
-    "./packages/store-ui"
+    "./packages/store-ui",
+    "./packages/importers"
   ],
-  "typescript.tsdk": "packages/store-ui/node_modules/typescript/lib"
 }

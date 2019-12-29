@@ -6,7 +6,7 @@ const withLess = require('@zeit/next-less');
 const config = {
   env: {
     // We cannot pass NODE_ENV as it is handled by nextjs and gives an error if passed.
-    HOST: process.env.HOST,
+    API_ENDPOINT: process.env.API_ENDPOINT,
     PORT: process.env.PORT,
   },
 };

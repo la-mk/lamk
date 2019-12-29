@@ -27,8 +27,14 @@
   "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint --fix"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "./**/*.{js,mjs,jsx,ts,tsx}": [
+      "tsdx lint --fix",
+      "git add"
+    ]
   },
   "prettier": {
     "printWidth": 80,

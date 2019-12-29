@@ -4,7 +4,7 @@ import { from } from 'env-var';
 // We have to assign all process.env to a separate variable first, because during build process.env.* is replaced with its value.
 const vars = {
   NODE_ENV: process.env.NODE_ENV || 'development',
-  HOST: process.env.REACT_APP_HOST || 'dev.sradevski.com',
+  API_ENDPOINT: process.env.REACT_APP_API_ENDPOINT || 'dev.sradevski.com',
   PORT: process.env.REACT_APP_PORT || 80,
 };
 
@@ -17,8 +17,8 @@ export default {
     .required()
     .asEnum(['test', 'staging', 'development', 'production']),
 
-  HOST: envvar
-    .get('HOST')
+  API_ENDPOINT: envvar
+    .get('API_ENDPOINT')
     .required()
     .asString(),
 

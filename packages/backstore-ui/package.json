@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@sradevski/blocks-ui": "0.0.2",
-    "@sradevski/la-sdk": "0.0.2",
+    "@sradevski/la-sdk": "0.0.5",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.146",
     "@types/node": "^12.12.7",
