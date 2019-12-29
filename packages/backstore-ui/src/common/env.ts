@@ -4,7 +4,8 @@ import { from } from 'env-var';
 // We have to assign all process.env to a separate variable first, because during build process.env.* is replaced with its value.
 const vars = {
   NODE_ENV: process.env.NODE_ENV || 'development',
-  API_ENDPOINT: process.env.REACT_APP_API_ENDPOINT || 'dev.sradevski.com',
+  API_ENDPOINT:
+    process.env.REACT_APP_API_ENDPOINT || 'http://api.dev.sradevski.com',
   PORT: process.env.REACT_APP_PORT || 80,
 };
 

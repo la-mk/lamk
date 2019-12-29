@@ -14,7 +14,7 @@ services:
       # - --log.level=DEBUG
       - --api.insecure=true
       - --providers.docker=true
-      - --providers.docker.exposedbydefault=false
+      - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
       - --entrypoints.web.address=:80
     ports:
        # The Web UI (enabled by --api.insecure=true)
@@ -64,16 +64,16 @@ services:
     networks:
       - main-network
     expose: 
-      - 3030
+      - 80
     ports:
       - 9229:9229 #debug port
     labels:
       - traefik.enable=true
       - traefik.http.routers.data-api.priority=1000
       - traefik.http.routers.data-api.rule=Host(`api.dev.sradevski.com`)
-      - traefik.http.services.data-api.loadbalancer.server.port=3030 
+      - traefik.http.services.data-api.loadbalancer.server.port=80 
     environment: 
-      PORT: 3030
+      PORT: 80
       HOST: "api.dev.sradevski.com"
       JWT_SECRET: "1234dev"
       MONGODB_DB_NAME: dev
@@ -99,15 +99,15 @@ services:
     networks:
       - main-network
     expose: 
-      - 5050
+      - 80
     labels:
       - traefik.enable=true
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
       - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.dev.sradevski.com`)
-      - traefik.http.services.store-ui.loadbalancer.server.port=5050 
+      - traefik.http.services.store-ui.loadbalancer.server.port=80 
     environment: 
       API_ENDPOINT: "http://api.dev.sradevski.com"
-      PORT: 5050
+      PORT: 80
 
   backstore-ui:
     image: lamk/backstore-ui
@@ -126,13 +126,13 @@ services:
     networks:
       - main-network
     expose: 
-      - 4040
+      - 80
     labels:
       - traefik.enable=true
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`back.dev.sradevski.com`)
-      - traefik.http.services.backstore-ui.loadbalancer.server.port=4040 
+      - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
     # CRA demands that all envvars start with REACT_APP_*
     environment: 
       REACT_APP_API_ENDPOINT: "http://api.dev.sradevski.com"
-      REACT_APP_PORT: 4040
+      REACT_APP_PORT: 80
