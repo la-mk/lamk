@@ -5,8 +5,10 @@ const { publicRuntimeConfig } = getConfig();
 // These are frontend-only envvars. The server has additional environment variables , such as PORT, that might be required, but are accessed directly. See `server/index.ts for details.
 
 const vars = {
-  API_ENDPOINT: publicRuntimeConfig.API_ENDPOINT,
-  ARTIFACTS_ENDPOINT: publicRuntimeConfig.ARTIFACTS_ENDPOINT,
+  // We also check process env as it is set to a mock value so the build succeeds.
+  API_ENDPOINT: publicRuntimeConfig.API_ENDPOINT || process.env.API_ENDPOINT,
+  ARTIFACTS_ENDPOINT:
+    publicRuntimeConfig.ARTIFACTS_ENDPOINT || process.env.API_ENDPOINT,
 };
 
 const envvar = from(vars as any);

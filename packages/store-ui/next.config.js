@@ -8,6 +8,10 @@ const config = {
     // These are replaced at build time, so you can access them in your code using `process.env.*`
     // We cannot pass NODE_ENV as it is handled by nextjs and gives an error if passed.
     PORT: process.env.PORT,
+
+    // We include these so the required envvar checks don't fail at build time
+    API_ENDPOINT: 'mock',
+    ARTIFACTS_ENDPOINT: 'mock',
   },
 
   // Using config makes it incompatible with static resource optimization, see https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
