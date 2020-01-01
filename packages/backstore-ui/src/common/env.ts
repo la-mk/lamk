@@ -6,13 +6,11 @@ import { from } from 'env-var';
 const vars = {
   // This is specified during build time, so we read from process.env
   NODE_ENV: process.env.NODE_ENV || 'development',
-  API_ENDPOINT:
-    // @ts-ignore
-    process.env.REACT_APP_API_ENDPOINT || window._env.REACT_APP_API_ENDPOINT,
+  // @ts-ignore
+  API_ENDPOINT: process.env.REACT_APP_API_ENDPOINT || window._env.API_ENDPOINT,
   ARTIFACTS_ENDPOINT:
-    process.env.REACT_APP_ARTIFACTS_ENDPOINT ||
     // @ts-ignore
-    window._env.REACT_APP_ARTIFACTS_ENDPOINT,
+    process.env.REACT_APP_ARTIFACTS_ENDPOINT || window._env.ARTIFACTS_ENDPOINT,
 };
 
 const envvar = from(vars as any);
