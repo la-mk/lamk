@@ -23,7 +23,7 @@ FROM node:12-slim as prod
 WORKDIR /usr/src/app
 ENV NODE_ENV production
 COPY ./entry.sh ./
-# This will also copy dev dependencies, but it is fine for now.
+# This will also copy dev dependencies, but it is fine for now. Otherwise, we need `dist`, `.next`, `node_modules` with prod only, and potentially package.json. The custom server in dist will automatically pick up the `.next` folder where the built code is located
 COPY --from=build /usr/src/app ./
 
 ENTRYPOINT ["./entry.sh"]

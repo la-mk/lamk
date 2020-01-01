@@ -1,9 +1,12 @@
 import { from } from 'env-var';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
 
-// We have to assign all process.env to a separate variable first, because NextJS runs a babel transform that looks for `process.env` in the code and replaces it with the environment variables.
+// These are frontend-only envvars. The server has additional environment variables , such as PORT, that might be required, but are accessed directly. See `server/index.ts for details.
+
 const vars = {
-  API_ENDPOINT: process.env.API_ENDPOINT || 'http://api.dev.sradevski.com',
-  PORT: process.env.PORT || 80,
+  API_ENDPOINT: publicRuntimeConfig.API_ENDPOINT,
+  ARTIFACTS_ENDPOINT: publicRuntimeConfig.ARTIFACTS_ENDPOINT,
 };
 
 const envvar = from(vars as any);
@@ -14,8 +17,8 @@ export default {
     .required()
     .asString(),
 
-  PORT: envvar
-    .get('PORT')
+  ARTIFACTS_ENDPOINT: envvar
+    .get('ARTIFACTS_ENDPOINT')
     .required()
-    .asPortNumber(),
+    .asString(),
 };

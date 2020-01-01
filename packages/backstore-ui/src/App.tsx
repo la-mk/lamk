@@ -31,6 +31,7 @@ export const App = () => {
     setupSdk({
       transport: 'socket',
       apiEndpoint: env.API_ENDPOINT,
+      imagesEndpoint: env.ARTIFACTS_ENDPOINT,
     });
   };
 

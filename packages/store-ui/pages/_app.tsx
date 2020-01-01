@@ -55,6 +55,7 @@ class MyApp extends App<{ store: any }> {
       setupSdk({
         transport: 'rest',
         apiEndpoint: env.API_ENDPOINT,
+        imagesEndpoint: env.ARTIFACTS_ENDPOINT,
       });
     }
 

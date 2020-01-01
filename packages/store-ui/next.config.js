@@ -7,8 +7,17 @@ const config = {
   env: {
     // These are replaced at build time, so you can access them in your code using `process.env.*`
     // We cannot pass NODE_ENV as it is handled by nextjs and gives an error if passed.
-    API_ENDPOINT: process.env.API_ENDPOINT,
     PORT: process.env.PORT,
+  },
+
+  // Using config makes it incompatible with static resource optimization, see https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
+  // These are only available when doing SSR.
+  serverRuntimeConfig: {},
+
+  // These are available both to client and server.
+  publicRuntimeConfig: {
+    API_ENDPOINT: process.env.API_ENDPOINT,
+    ARTIFACTS_ENDPOINT: process.env.ARTIFACTS_ENDPOINT,
   },
 };
 

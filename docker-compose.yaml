@@ -9,7 +9,7 @@ networks:
 services:
   reverse-proxy:
     image: traefik:v2.0
-    container_name: reverse-proxy
+    container_name: reverse-proxy-dev
     command:
       # - --log.level=DEBUG
       - --api.insecure=true
@@ -32,7 +32,7 @@ services:
 
   object-store:
     image: minio/minio
-    container_name: object-store
+    container_name: object-store-dev
     command: server /data
     expose: 
       - 9000
@@ -43,7 +43,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.object-store.priority=1000
-      - traefik.http.routers.object-store.rule=Host(`images.dev.sradevski.com`)
+      - traefik.http.routers.object-store.rule=Host(`artifacts.dev.sradevski.com`)
       - traefik.http.services.object-store.loadbalancer.server.port=9000
     environment:
       MINIO_ACCESS_KEY: minio
@@ -56,7 +56,7 @@ services:
       target: dev
       args: 
         - GPR_TOKEN=$GPR_TOKEN
-    container_name: data-api
+    container_name: data-api-dev
     volumes:
       - ./packages/data-api:/usr/src/app:delegated
       - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
@@ -78,7 +78,7 @@ services:
       JWT_SECRET: "1234dev"
       MONGODB_DB_NAME: dev
       MONGODB_CONNECTION_STRING: "mongodb+srv://sradevski:Stev4e555@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
-      STORAGE_ENDPOINT: "images.dev.sradevski.com"
+      STORAGE_ENDPOINT: "artifacts.dev.sradevski.com"
       STORAGE_ACCESS_KEY_ID: minio
       STORAGE_ACCESS_KEY_SECRET: minio123
     
@@ -89,7 +89,7 @@ services:
       target: dev
       args: 
         - GPR_TOKEN=$GPR_TOKEN
-    container_name: store-ui
+    container_name: store-ui-dev
     depends_on: 
       - data-api
     volumes:
@@ -107,6 +107,7 @@ services:
       - traefik.http.services.store-ui.loadbalancer.server.port=80 
     environment: 
       API_ENDPOINT: "http://api.dev.sradevski.com"
+      ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com"
       PORT: 80
 
   backstore-ui:
@@ -116,7 +117,7 @@ services:
       target: dev
       args: 
         - GPR_TOKEN=$GPR_TOKEN
-    container_name: backstore-ui
+    container_name: backstore-ui-dev
     depends_on: 
       - data-api
     volumes:
@@ -133,5 +134,6 @@ services:
       - traefik.http.routers.backstore-ui.rule=Host(`back.dev.sradevski.com`)
       - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
     environment: 
-      API_ENDPOINT: "http://api.dev.sradevski.com"
+      REACT_APP_API_ENDPOINT: "http://api.dev.sradevski.com"
+      REACT_APP_ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com"
       PORT: 80
