@@ -58,14 +58,17 @@ export const Home = ({
   return (
     <>
       <CategoriesList />
-      <Banner>
-        {landingContent.banner && (
+      {landingContent.banner && (
+        <Banner>
           <ImageBanner
-            src={sdk.artifact.getUrlForArtifact(landingContent.banner)}
+            src={
+              landingContent.banner &&
+              sdk.artifact.getUrlForArtifact(landingContent.banner)
+            }
             alt='Banner image'
           />
-        )}
-      </Banner>
+        </Banner>
+      )}
       <Spin spinning={showSpinner}>
         <Flex mt={3} flexDirection='column'>
           {productSets
