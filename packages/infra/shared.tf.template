@@ -1,3 +1,4 @@
+# For now, we just use this as a reference document, as the current architecture isn't using this approach.
 # FUTURE: Check modules to extract common specs: https://www.terraform.io/docs/modules/index.html
 
 ########## VARIABLE DEFINITION ############
@@ -15,6 +16,10 @@ variable "droplets_tags" {
 }
 
 variable "project_name" {
+  type = string
+}
+
+variable "artifacts-name" {
   type = string
 }
 
@@ -66,17 +71,18 @@ resource "digitalocean_domain" "default-domain" {
    ip_address = digitalocean_floating_ip.floating-ip.ip_address
 }
 
-resource "digitalocean_record" "CNAME-www" {
+resource "digitalocean_record" "CNAME-all" {
   domain = digitalocean_domain.default-domain.name
   type = "CNAME"
-  name = "www"
+  name = "*"
   value = "@"
+  ttl = 43200
 }
 
 ######### SPACES ##########
 
 resource "digitalocean_spaces_bucket" "artifacts" {
-  name   = "lamk-artifacts"
+  name   = var.artifacts-name
   region = "fra1"
   acl="private"
 

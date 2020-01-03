@@ -22,4 +22,15 @@ In order to be able to run the development environment locally, you need to set 
 - To recreate the containers, you can run `docker-compose up --force-recreate --build -d`
 - Run all the containers `docker-compose up -d`
 
-## DigitalOcean basic infra setup
+## Deploying to DO
+
+You need several environment variables set locally, namely:
+- SYSTEM_TLD
+- GPR_TOKEN
+- DOCKERHUB_TOKEN
+- DIGITALOCEAN_TOKEN
+- SPACES_ACCESS_KEY_ID
+- SPACES_SECRET_ACCESS_KEY
+
+Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars.tfvars` (change to prod folder for production deployment). The rest is handled automatically.
+

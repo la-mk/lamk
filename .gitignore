@@ -26,6 +26,7 @@
 # misc
 .DS_Store
 .next
+envvars
 .env
 .env.local
 .env.development.local
