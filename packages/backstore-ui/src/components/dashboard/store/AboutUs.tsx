@@ -31,7 +31,7 @@ export const AboutUs = () => {
       sdk.storeContents.findForStore(store._id),
       res => (res.total > 0 ? setStoreContents(res.data[0]) : undefined),
     );
-  }, [store]);
+  }, [store, caller]);
 
   const handlePatchAboutUs = (data: Partial<StoreContents>) => {
     if (!storeContents) {

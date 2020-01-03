@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SetupStore } from './SetupStore';
 import { SetupProducts } from './SetupProducts';

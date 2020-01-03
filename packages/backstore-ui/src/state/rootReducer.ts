@@ -1,4 +1,4 @@
-import { persistCombineReducers, purgeStoredState } from 'redux-persist';
+import { persistCombineReducers } from 'redux-persist';
 import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
 

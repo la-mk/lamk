@@ -22,8 +22,9 @@ const getCompoundLocale = (t: (key: string) => string) => {
   };
 };
 
+const store = configureStore(env.NODE_ENV);
+
 export const App = () => {
-  const store = configureStore(env.NODE_ENV);
   const { t } = useTranslation();
   const compoundLocale = getCompoundLocale(t);
 

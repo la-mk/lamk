@@ -46,7 +46,7 @@ export const LandingPreferences = () => {
       sdk.storeContents.findForStore(store._id),
       res => (res.total > 0 ? setStoreContents(res.data[0]) : undefined),
     );
-  }, [store]);
+  }, [store, caller]);
 
   const handlePatchBanner = (data: Partial<StoreContents>) => {
     if (!storeContents) {
