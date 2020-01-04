@@ -15,6 +15,7 @@ import { Summary } from '../shared/Summary';
 import {
   CartItemWithProduct,
   CartWithProducts,
+  Cart as CartType,
 } from '@sradevski/la-sdk/dist/models/cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCartWithProducts } from '../../state/modules/cart/cart.module';
@@ -25,6 +26,7 @@ import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 export const Cart = () => {
   const [caller, showSpinner] = useCall();
@@ -52,7 +54,12 @@ export const Cart = () => {
   }
 
   const handleRemove = (cartItem: CartItemWithProduct) => {
-    caller(sdk.cart.removeItemFromCart(cart._id, cartItem), () =>
+    // If it's not authenticated, the cart comes from local storage, so we don't update the server
+    const handler = cart._id
+      ? sdk.cart.removeItemFromCart(cart._id, cartItem)
+      : Promise.resolve();
+
+    caller<CartType | void>(handler, () =>
       setCartWithProducts({
         ...cart,
         items: cart.items.filter(
@@ -66,18 +73,20 @@ export const Cart = () => {
     cartItem: CartItemWithProduct,
     quantity: number,
   ) => {
-    caller(
-      sdk.cart.changeQuantityForCartItem(cart._id, cartItem, quantity),
-      () =>
-        setCartWithProducts({
-          ...cart,
-          items: cart.items.map(item => {
-            if (item.product._id === cartItem.product._id) {
-              return { ...item, quantity };
-            }
-            return item;
-          }),
+    const handler = cart._id
+      ? sdk.cart.changeQuantityForCartItem(cart._id, cartItem, quantity)
+      : Promise.resolve();
+
+    caller<CartType | void>(handler, () =>
+      setCartWithProducts({
+        ...cart,
+        items: cart.items.map(item => {
+          if (item.product._id === cartItem.product._id) {
+            return { ...item, quantity };
+          }
+          return item;
         }),
+      }),
     );
   };
 

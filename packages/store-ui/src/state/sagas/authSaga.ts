@@ -9,11 +9,11 @@ import { setCartWithProducts } from '../modules/cart/cart.module';
 import { getCartWithProducts } from '../modules/cart/cart.selector';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 
-function* afterAuthSaga(authInfo: any) {
-  // If expired, clear out all session and local storage state related to user, and let them browse around.
-  if (!authInfo) {
+function* afterAuthSaga(authInfo: any, wasAuthenticated: boolean = false) {
+  // If user was logged in but token has expired, clear out all session and local storage state related to user, and let them browse around.
+  if (!authInfo && wasAuthenticated) {
     yield put(clearSession());
-  } else {
+  } else if (authInfo) {
     yield put(setUser(authInfo.user));
     yield handleCartForUserSaga(authInfo);
   }
@@ -72,9 +72,12 @@ export function* handleCartForUserSaga(authInfo: any) {
 
 // Do the auth check and flow.
 function* authenticationCheckSaga(action: LocationChangeAction) {
+  const oldAuthInfo = yield call(sdk.authentication.getAuthentication);
+  const wasAuthenticated = Boolean(oldAuthInfo);
+
   yield reauthenticateUserSaga();
   const authInfo = yield getAuthenticationSaga();
-  yield afterAuthSaga(authInfo);
+  yield afterAuthSaga(authInfo, wasAuthenticated);
 }
 
 export function* logoutSaga() {
