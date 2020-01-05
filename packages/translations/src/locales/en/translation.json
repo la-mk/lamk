@@ -68,6 +68,7 @@
 		"city": "City",
 		"country": "Country",
 		"description": "Description",
+		"details": "Details",
 		"email": "Email address",
 		"firstName": "First name",
 		"id": "ID",
@@ -129,7 +130,6 @@
   "order": {
 		"orderDate": "Order date",
 		"orderDeleted": "Order {{id}} successfully deleted",
-		"orderDetails": "Order details",
 		"ordered": "Ordered",
 		"orderId": "Order ID",
 		"orderNotFound_plural": "Orders not found",
