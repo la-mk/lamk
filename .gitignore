@@ -27,6 +27,7 @@
 .DS_Store
 .next
 envvars
+secrets.tfvars
 .env
 .env.local
 .env.development.local

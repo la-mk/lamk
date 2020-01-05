@@ -32,5 +32,16 @@ You need several environment variables set locally, namely:
 - SPACES_ACCESS_KEY_ID
 - SPACES_SECRET_ACCESS_KEY
 
-Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars.tfvars` (change to prod folder for production deployment). The rest is handled automatically.
+You also need to add a `secrets.tfvars` file that is gitignored in both staging and production. This holds any secrets that are environment-specific.
+
+If there is an existing deployment already, first you need to taint the services server using
+`terraform taint digitalocean_droplet.services-1`, update the `docker-compose.yaml` to the appropriate services versions, and then run the command below.
+
+Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars.tfvars --var-file=./stg/secrets.tfvars` (change to prod folder for production deployment). The rest is handled automatically. 
+
+## DB Backups
+
+Backups will be automatically handled by MongoDB Atlas once we have a need for a larger cluster (paid one). For now, we can use the free one, and do manual backups using:
+`mongodump --uri="<connectionstring>"`
+`mongorestore --uri="<connectionstring>"`
 

@@ -78,8 +78,8 @@ services:
       PORT: 80
       HOST: "api.dev.sradevski.com"
       JWT_SECRET: "1234dev"
-      MONGODB_DB_NAME: dev
-      MONGODB_CONNECTION_STRING: "mongodb+srv://sradevski:Stev4e555@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
+      MONGODB_DB_NAME: db
+      MONGODB_CONNECTION_STRING: "mongodb+srv://dev-user:ou1ewM4eGQH1lxLq@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
       STORAGE_ENDPOINT: "artifacts.dev.sradevski.com"
       STORAGE_ACCESS_KEY_ID: minio
       STORAGE_ACCESS_KEY_SECRET: minio123

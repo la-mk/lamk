@@ -6,15 +6,15 @@ variable "domain" {
   type = string
 }
 
-variable "artifacts_subdomain" {
+variable "artifacts-subdomain" {
   type = string
 }
 
-variable "droplets_tags" {
+variable "droplets-tags" {
   type = list(string)
 }
 
-variable "project_name" {
+variable "project-name" {
   type = string
 }
 
@@ -23,6 +23,14 @@ variable "artifacts-name" {
 }
 
 variable "environment" {
+  type = string
+}
+
+variable "mongodb-connection-string" {
+  type = string
+}
+
+variable "jwt-secret" {
   type = string
 }
 
@@ -49,7 +57,7 @@ resource "digitalocean_droplet" "services-1" {
   name = "services-1"
   region = "fra1"
   size = "s-2vcpu-2gb"
-  tags = var.droplets_tags
+  tags = var.droplets-tags
   ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
 
   lifecycle {
@@ -74,11 +82,15 @@ export DIGITALOCEAN_TOKEN=$DIGITALOCEAN_TOKEN;
 export DOCKERHUB_TOKEN=$DOCKERHUB_TOKEN;
 export SPACES_ACCESS_KEY_ID=$SPACES_ACCESS_KEY_ID;
 export SPACES_SECRET_ACCESS_KEY=$SPACES_SECRET_ACCESS_KEY;
+export MONGODB_CONNECTION_STRING=$MONGODB_CONNECTION_STRING;
+export JWT_SECRET=$JWT_SECRET;
 ENVVARS_TPL
 EOT
 
     environment= {
       SYSTEM_TLD = var.domain
+      MONGODB_CONNECTION_STRING = var.mongodb-connection-string
+      JWT_SECRET = var.jwt-secret
     }
   }
 
@@ -121,16 +133,20 @@ resource "digitalocean_spaces_bucket" "artifacts" {
 }
 
 resource "digitalocean_certificate" "cdn-cert" {
-  name    = "cdn-cert"
+  name    = var.artifacts-subdomain
   type    = "lets_encrypt"
-  domains = [var.artifacts_subdomain]
+  domains = [var.artifacts-subdomain]
   depends_on = [digitalocean_domain.default-domain]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # Add a CDN endpoint with a custom sub-domain to the Spaces Bucket
 resource "digitalocean_cdn" "cdn-subdomain" {
   origin = digitalocean_spaces_bucket.artifacts.bucket_domain_name
-  custom_domain = var.artifacts_subdomain
+  custom_domain = var.artifacts-subdomain
   certificate_id = digitalocean_certificate.cdn-cert.id
 }
 
@@ -159,7 +175,7 @@ resource "digitalocean_record" "CNAME-all" {
 ########## PROJECT DEFINITION ##########
 
 resource "digitalocean_project" "lamk-project" {
-  name        = var.project_name
+  name        = var.project-name
   description = "Lamk project resources"
   purpose     = "Lamk system infrastructure"
   environment = var.environment

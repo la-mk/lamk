@@ -9,17 +9,19 @@ networks:
 
 services:
   reverse-proxy:
-    image: traefik:v2.0
+    image: traefik:v2.1
     container_name: reverse-proxy
     restart: always
     command:
+      # - --log.level=DEBUG
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
       - --entrypoints.web.address=:80
       - --entrypoints.web-secure.address=:443
       - --certificatesresolvers.cert-resolve.acme.email=sradevski@live.com
-      - --certificatesresolvers.cert-resolve.acme.storage=/acme.json
+      - --certificatesresolvers.cert-resolve.acme.storage=acme.json
       # The DNS challenge requires you to have a DO_AUTH_TOKEN environment variable set.
+      # - --certificatesresolvers.cert-resolve.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge=true
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.provider=digitalocean
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.delayBeforeCheck=0
@@ -58,15 +60,15 @@ services:
       - traefik.http.routers.data-api.rule=Host(`api.${SYSTEM_TLD}`)
       - traefik.http.services.data-api.loadbalancer.server.port=80 
       - traefik.http.routers.data-api.tls=true
-      - traefik.http.routers.data-api.tls.certresolver=cert-resolve
-      - traefik.http.routers.data-api.tls.domains[0].main=${SYSTEM_TLD}
-      - traefik.http.routers.data-api.tls.domains[0].sans=*.${SYSTEM_TLD}
+      # The store-ui domain is more generic, so a single definition for all subdomains is enough for the cert.
+      # - traefik.http.routers.data-api.tls.certresolver=cert-resolve
+      # - traefik.http.routers.data-api.tls.domains[0].main=api.${SYSTEM_TLD}
     environment: 
       PORT: 80
       HOST: ${SYSTEM_TLD}
-      JWT_SECRET: "1234dev"
-      MONGODB_DB_NAME: dev
-      MONGODB_CONNECTION_STRING: "mongodb+srv://sradevski:Stev4e555@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
+      JWT_SECRET: $JWT_SECRET
+      MONGODB_DB_NAME: db
+      MONGODB_CONNECTION_STRING: $MONGODB_CONNECTION_STRING
       STORAGE_ENDPOINT: artifacts.${SYSTEM_TLD}
       STORAGE_ACCESS_KEY_ID: $SPACES_ACCESS_KEY_ID
       STORAGE_ACCESS_KEY_SECRET: $SPACES_SECRET_ACCESS_KEY
@@ -88,8 +90,7 @@ services:
       - traefik.http.services.store-ui.loadbalancer.server.port=80
       - traefik.http.routers.store-ui.tls=true
       - traefik.http.routers.store-ui.tls.certresolver=cert-resolve
-      - traefik.http.routers.store-ui.tls.domains[0].main=${SYSTEM_TLD}
-      - traefik.http.routers.store-ui.tls.domains[0].sans=*.${SYSTEM_TLD}
+      - traefik.http.routers.store-ui.tls.domains[0].main=*.${SYSTEM_TLD}
     environment: 
       API_ENDPOINT: https://api.${SYSTEM_TLD}
       ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
@@ -111,9 +112,8 @@ services:
       - traefik.http.routers.backstore-ui.rule=Host(`back.${SYSTEM_TLD}`)
       - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
       - traefik.http.routers.backstore-ui.tls=true
-      - traefik.http.routers.backstore-ui.tls.certresolver=cert-resolve
-      - traefik.http.routers.backstore-ui.tls.domains[0].main=${SYSTEM_TLD}
-      - traefik.http.routers.backstore-ui.tls.domains[0].sans=*.${SYSTEM_TLD}
+      # - traefik.http.routers.backstore-ui.tls.certresolver=cert-resolve
+      # - traefik.http.routers.backstore-ui.tls.domains[0].main=back.${SYSTEM_TLD}
     environment: 
       REACT_APP_API_ENDPOINT: https://api.${SYSTEM_TLD}
       REACT_APP_ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
