@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/blocks-ui"
   },
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "",
   "module": "dist/index.es5.js",
   "typings": "dist/types/index.d.ts",

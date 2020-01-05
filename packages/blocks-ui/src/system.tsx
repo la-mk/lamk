@@ -13,6 +13,8 @@ import {
   MaxHeightProps,
   MinWidthProps,
   MinHeightProps,
+  display,
+  DisplayProps,
 } from 'styled-system';
 import styled from 'styled-components';
 
@@ -23,7 +25,8 @@ export interface SystemProps
     MaxWidthProps,
     MaxHeightProps,
     MinWidthProps,
-    MinHeightProps {}
+    MinHeightProps,
+    DisplayProps {}
 
 export const system = function<T>(Component: React.ComponentClass<T>) {
   // Use multiple & to increase specificity over the Ant components.
@@ -36,6 +39,7 @@ export const system = function<T>(Component: React.ComponentClass<T>) {
       ${minHeight}
       ${maxWidth}
       ${maxHeight}
+      ${display}
     }
   `;
 };
