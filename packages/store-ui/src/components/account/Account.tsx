@@ -25,7 +25,7 @@ interface AccountProps {
 
 export const Account = ({ user }: AccountProps) => {
   const [caller, showSpinner] = useCall();
-  const [tab, setTab] = useState('addresses');
+  const [tab, setTab] = useState('personal');
   const { t } = useTranslation();
 
   const handlePatchAccount = (updatedUser: User) => {
@@ -42,8 +42,14 @@ export const Account = ({ user }: AccountProps) => {
         <TabPane pt={4} tab={t('common.personalInfo')} key='personal'>
           <Spin spinning={showSpinner}>
             <Form
-              labelCol={{ span: 6 }}
-              wrapperCol={{ span: 12 }}
+              labelCol={{
+                xs: { span: 24 },
+                md: { span: 6 },
+              }}
+              wrapperCol={{
+                xs: { span: 24 },
+                md: { span: 12 },
+              }}
               layout='horizontal'
               colon={false}
               onFormCompleted={handlePatchAccount}

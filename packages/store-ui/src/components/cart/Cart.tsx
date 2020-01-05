@@ -50,7 +50,7 @@ export const Cart = () => {
   }, [caller, user, cart]);
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Empty mt={5} description={t('cart.emptyCartDescription')}></Empty>;
+    return <Empty mt={6} description={t('cart.emptyCartDescription')}></Empty>;
   }
 
   const handleRemove = (cartItem: CartItemWithProduct) => {
@@ -117,7 +117,12 @@ export const Cart = () => {
                         )}
                       />
                     </Flex>
-                    <Flex ml={4} width='100%' flexDirection='row'>
+                    <Flex
+                      ml={[3, 3, 4, 4]}
+                      maxWidth='80%'
+                      alignItems='flex-start'
+                      flexDirection='row'
+                    >
                       <Flex
                         flex={1}
                         flexDirection='column'
@@ -161,7 +166,7 @@ export const Cart = () => {
               ))}
             </List>
           </Flex>
-          <Flex flex={1} ml={[0, 0, 3, 3]}>
+          <Flex flex={1} ml={[0, 0, 3, 3]} mt={[4, 4, 0, 0]}>
             <Card title={t('common.summary')} px={3} width='100%'>
               <Summary
                 items={cart.items}

@@ -70,7 +70,7 @@ export const Home = ({
         </Banner>
       )}
       <Spin spinning={showSpinner}>
-        <Flex mt={3} flexDirection='column'>
+        <Flex px={[2, 3, 4, 5]} mt={3} flexDirection='column'>
           {productSets
             .filter(set => Boolean(set.data))
             .map(set => (

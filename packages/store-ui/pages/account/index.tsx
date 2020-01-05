@@ -10,7 +10,7 @@ function AccountPage() {
   const { t } = useTranslation();
 
   if (!user) {
-    return <Empty mt={5} description={t('auth.noUserInformation')} />;
+    return <Empty mt={6} description={t('auth.noUserInformation')} />;
   }
 
   return (

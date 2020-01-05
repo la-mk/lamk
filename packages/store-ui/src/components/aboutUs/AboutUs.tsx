@@ -24,7 +24,7 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
           );
         })
       ) : (
-        <Empty mt={5} description={t('store.noAboutusInformation')} />
+        <Empty mt={6} description={t('store.noAboutusInformation')} />
       )}
     </Page>
   );

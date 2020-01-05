@@ -32,7 +32,12 @@ module.exports = withPlugins(
       {
         lessLoaderOptions: {
           javascriptEnabled: true,
-          modifyVars: {},
+          modifyVars: {
+            '@heading-1-size': '34px',
+            '@heading-2-size': '26px',
+            '@heading-3-size': '20px',
+            '@heading-4-size': '16px',
+          },
         },
         webpack: (config, { isServer }) => {
           if (isServer) {

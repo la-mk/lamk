@@ -113,10 +113,10 @@ export const CategoriesList = () => {
 
         return (
           <Dropdown mt={3} mx={3} key={level1Category.value} overlay={menu}>
-            <div>
+            <Flex flexWrap='nowrap' alignItems='center'>
               <Text strong>{level1Category.label}</Text>
               <Icon ml={2} type='down' />
-            </div>
+            </Flex>
           </Dropdown>
         );
       })}

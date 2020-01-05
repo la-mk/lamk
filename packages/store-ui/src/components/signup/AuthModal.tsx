@@ -39,7 +39,7 @@ export const AuthModal = () => {
     >
       {method === 'login' && (
         <Flex width='100%' flexDirection='column' alignItems='center'>
-          <Title mb={5} level={1}>
+          <Title mb={6} level={1}>
             {t('auth.login')}
           </Title>
           <LoginForm
@@ -55,7 +55,7 @@ export const AuthModal = () => {
       )}
       {method === 'signup' && (
         <Flex width='100%' flexDirection='column' alignItems='center'>
-          <Title mb={5} level={1}>
+          <Title mb={6} level={1}>
             {t('auth.signup')}
           </Title>
           <SignupForm

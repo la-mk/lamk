@@ -93,7 +93,7 @@ export const Product = ({ product }: ProductProps) => {
             justifyContent='flex-start'
             flexDirection='column'
           >
-            <SizedImage height='350px' src={selectedImage} />
+            <SizedImage height='280px' src={selectedImage} />
             <Box mt={3} maxWidth={['100%', '80%', '100%', '80%']}>
               <Thumbnails
                 images={product.images.map(imageId =>
@@ -120,7 +120,7 @@ export const Product = ({ product }: ProductProps) => {
                 <>
                   <Text>{t('common.quantity')}</Text>
                   <InputNumber
-                    width='80px'
+                    width='68px'
                     size='large'
                     min={1}
                     max={999}
@@ -152,7 +152,7 @@ export const Product = ({ product }: ProductProps) => {
             </Flex>
           </Flex>
         </Flex>
-        <Flex mt={5}>
+        <Flex mt={6}>
           {productSets
             .filter(set => Boolean(set.data))
             .map(set => (

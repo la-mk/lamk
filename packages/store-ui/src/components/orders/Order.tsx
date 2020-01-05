@@ -52,13 +52,13 @@ export const Order = ({ orderId }: { orderId: string }) => {
   }, [caller, user, orderId]);
 
   if (!order) {
-    return <Empty mt={5} description={t('order.orderNotFound')}></Empty>;
+    return <Empty mt={6} description={t('order.orderNotFound')}></Empty>;
   }
 
   return (
     <Page title={t('pages.order')}>
       <Spin spinning={showSpinner}>
-        <Steps progressDot current={stepIndex}>
+        <Steps size='small' current={stepIndex}>
           <Step
             title={t('orderStatus.pending')}
             description={t('orderStatus.pendingDescription')}
@@ -89,7 +89,11 @@ export const Order = ({ orderId }: { orderId: string }) => {
             </Card>
           )}
 
-          <Card m={3} width={330} title={t('finance.priceBreakdown')}>
+          <Card
+            m={3}
+            width={['100%', '330px', '330px', '330px']}
+            title={t('finance.priceBreakdown')}
+          >
             <Summary items={order.ordered} delivery={delivery} />
           </Card>
         </Flex>
@@ -104,8 +108,12 @@ export const Order = ({ orderId }: { orderId: string }) => {
         >
           {order.ordered.map(orderItem => {
             return (
-              <Col key={orderItem.product._id} mb={4}>
-                <Card width={340} type='inner' title={orderItem.product.name}>
+              <Col
+                width={['100%', '330px', '330px', '330px']}
+                key={orderItem.product._id}
+                mb={4}
+              >
+                <Card width='100%' type='inner' title={orderItem.product.name}>
                   <Flex width={1}>
                     <Flex justifyContent='center' alignItems='center'>
                       <SizedImage

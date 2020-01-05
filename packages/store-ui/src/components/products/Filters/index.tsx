@@ -116,7 +116,12 @@ export const Filters = ({
   const sort = parseSortFilter($sort);
 
   return (
-    <Flex {...otherProps}>
+    <Flex
+      {...otherProps}
+      flexWrap='wrap'
+      justifyContent='center'
+      alignItems='center'
+    >
       <Popover
         title={t('common.category_plural')}
         placement='bottom'
@@ -132,7 +137,7 @@ export const Filters = ({
         }
         trigger='click'
       >
-        <Button onClick={() => setVisiblePopover('categories')}>
+        <Button mt={1} onClick={() => setVisiblePopover('categories')}>
           {t('common.category_plural')}
         </Button>
       </Popover>
@@ -155,7 +160,7 @@ export const Filters = ({
         }
         trigger='click'
       >
-        <Button mx={3} onClick={() => setVisiblePopover('price')}>
+        <Button mt={1} mx={3} onClick={() => setVisiblePopover('price')}>
           {t('common.price')}
         </Button>
       </Popover>
@@ -175,7 +180,7 @@ export const Filters = ({
         }
         trigger='click'
       >
-        <Button onClick={() => setVisiblePopover('sort')}>
+        <Button mt={1} onClick={() => setVisiblePopover('sort')}>
           {t('common.sort')}
         </Button>
       </Popover>

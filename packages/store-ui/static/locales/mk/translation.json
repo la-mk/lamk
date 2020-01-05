@@ -1,6 +1,6 @@
 {
   "actions": {
-    "addToCart": "Додади во корпа",
+    "addToCart": "Стави во корпа",
     "create": "Создадете",
     "delete": "Избришете",
     "goToCart": "Прегледај корпа",
@@ -51,6 +51,7 @@
     "category_plural": "Категории",
     "city": "Град",
     "country": "Држава",
+    "details": "Детали",
     "firstName": "Име",
     "items": "Парчиња",
     "lastName": "Презиме",
@@ -109,7 +110,6 @@
     "total": "Вкупна цена"
   },
   "order": {
-    "orderDetails": "Детали за порачка",
     "orderNotFound": "Порачката не беше пронајдена",
     "orderNotFound_plural": "Порачките не беа пронајдени",
     "ordered": "Порачано",

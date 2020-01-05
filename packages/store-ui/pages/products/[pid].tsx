@@ -11,7 +11,7 @@ const ProductPage = ({ product }: { product: ProductType }) => {
   const { t } = useTranslation();
 
   if (!product) {
-    return <Empty mt={5} description={t('results.productNotFound')}></Empty>;
+    return <Empty mt={6} description={t('results.productNotFound')}></Empty>;
   }
 
   return (

@@ -83,7 +83,7 @@ export const Checkout = () => {
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Empty mt={5} description={t('cart.emptyCartDescription')}></Empty>;
+    return <Empty mt={6} description={t('cart.emptyCartDescription')}></Empty>;
   }
 
   const handleOrder = () => {
@@ -135,7 +135,7 @@ export const Checkout = () => {
                         }
                         hoverable={true}
                         onClick={() => setDeliverTo(address)}
-                        width='330px'
+                        width={['100%', '320px', '320px', '320px']}
                         title={address.name}
                       >
                         <ShippingDescription address={address} />
@@ -153,7 +153,7 @@ export const Checkout = () => {
               </Col>
             </Row>
           </Flex>
-          <Flex flex={1} ml={[0, 0, 3, 3]}>
+          <Flex flex={1} ml={[0, 0, 3, 3]} my={[4, 4, 0, 0]}>
             <Card title={t('common.summary')} px={3} width='100%'>
               <Summary
                 items={cart.items}

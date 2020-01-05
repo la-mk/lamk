@@ -39,7 +39,7 @@ export const Orders = () => {
   }, [caller, user]);
 
   if (!orders) {
-    return <Empty mt={5} description={t('order.orderNotFound_plural')}></Empty>;
+    return <Empty mt={6} description={t('order.orderNotFound_plural')}></Empty>;
   }
 
   return (
@@ -48,28 +48,32 @@ export const Orders = () => {
         <List style={{ width: '100%' }}>
           {orders.map(order => (
             <Card
-              title={
-                <Flex
-                  mr={3}
-                  justifyContent='center'
-                  flexDirection='column'
-                  height={32}
-                >
-                  <Text strong>{t(`orderStatus.${order.status}`)}</Text>
-                  <Text>
-                    {t('order.ordered')}{' '}
-                    {formatDistanceToNow(new Date(order.createdAt), {
-                      addSuffix: true,
-                    })}
-                  </Text>
+              extra={
+                <Flex flexDirection='row' justifyContent='center'>
+                  <Flex
+                    mr={3}
+                    justifyContent='center'
+                    flexDirection='column'
+                    height={32}
+                  >
+                    <Text strong>{t(`orderStatus.${order.status}`)}</Text>
+                    <Text>
+                      {t('order.ordered')}{' '}
+                      {formatDistanceToNow(new Date(order.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </Text>
+                  </Flex>
+                  <Link
+                    passHref
+                    href='/orders/[pid]'
+                    as={`/orders/${order._id}`}
+                  >
+                    <Button type='link'>{t('common.details')}</Button>
+                  </Link>
                 </Flex>
               }
-              extra={
-                <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
-                  <Button type='link'>{t('order.orderDetails')}</Button>
-                </Link>
-              }
-              mb={4}
+              mb={5}
               key={order._id}
             >
               <Row
@@ -80,9 +84,13 @@ export const Orders = () => {
               >
                 {order.ordered.map(orderItem => {
                   return (
-                    <Col key={orderItem.product._id} mb={4}>
+                    <Col
+                      width={['100%', '330px', '330px', '330px']}
+                      key={orderItem.product._id}
+                      mb={4}
+                    >
                       <Card
-                        width={340}
+                        width={'100%'}
                         type='inner'
                         title={orderItem.product.name}
                       >

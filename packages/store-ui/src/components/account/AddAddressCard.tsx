@@ -28,8 +28,14 @@ export const AddAddressCard = ({
 
   return (
     <Form
-      labelCol={{ span: 6 }}
-      wrapperCol={{ span: 18 }}
+      labelCol={{
+        xs: { span: 24 },
+        md: { span: 8 },
+      }}
+      wrapperCol={{
+        xs: { span: 24 },
+        md: { span: 16 },
+      }}
       layout='horizontal'
       colon={false}
       validate={data => sdk.address.validate(data, Boolean(address))}
@@ -46,7 +52,7 @@ export const AddAddressCard = ({
             {formInput({ placeholder: t('common.addressExample') })}
           </FormItem>
         }
-        width={390}
+        width={['100%', '400px', '400px', '400px']}
         actions={[
           ...(address
             ? [

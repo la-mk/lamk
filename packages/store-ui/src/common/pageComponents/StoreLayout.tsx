@@ -15,6 +15,7 @@ import {
   Divider,
   Icon,
   SizedImage,
+  Text,
 } from '@sradevski/blocks-ui';
 import styled from 'styled-components';
 import Link from 'next/link';
@@ -41,6 +42,7 @@ const StyledContent = styled(Content)`
 const LineHeightFreeAnchor = styled.a`
   line-height: 0;
   height: 56px;
+  min-width: 56px;
   margin: 4px 0;
 `;
 
@@ -89,15 +91,25 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
               </LineHeightFreeAnchor>
             </Link>
             {/* <SizedSearch mx={4} my={3} /> */}
-            <Menu mode='horizontal' selectedKeys={selectedKeys}>
+            <Menu maxWidth='80%' mode='horizontal' selectedKeys={selectedKeys}>
               <MenuItem p={0} key='products'>
                 <Link href='/products' passHref>
-                  <Button type='link'>{t('pages.product_plural')}</Button>
+                  <Button type='link'>
+                    <Icon style={{ fontSize: 24 }} type='shopping' />
+                    <Text display={['none', 'initial', 'initial', 'initial']}>
+                      {t('pages.product_plural')}
+                    </Text>
+                  </Button>
                 </Link>
               </MenuItem>
               <MenuItem p={0} key='about'>
                 <Link href='/about' passHref>
-                  <Button type='link'>{t('pages.aboutUs')}</Button>
+                  <Button type='link'>
+                    <Icon style={{ fontSize: 24 }} type='shop' />
+                    <Text display={['none', 'initial', 'initial', 'initial']}>
+                      {t('pages.aboutUs')}
+                    </Text>
+                  </Button>
                 </Link>
               </MenuItem>
               <MenuItem p={0} key='cart'>

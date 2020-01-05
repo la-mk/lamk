@@ -11,7 +11,7 @@ const CARD_WIDTH = 320;
 const ProductImage = styled.img`
   max-width: calc(${CARD_WIDTH}px - 2px);
   width: 'auto';
-  height: 240px;
+  height: 100%;
   margin-top: 16px;
 `;
 
@@ -21,9 +21,13 @@ export const ProductCard = ({ product }: { product: Product }) => {
       <a style={{ textDecoration: 'none' }}>
         <Card
           hoverable
-          width={CARD_WIDTH}
+          width={['180px', '200px', '240px', '280px']}
           cover={
-            <Flex justifyContent='center' alignItems='center'>
+            <Flex
+              height={['90px', '120px', '140px', '180px']}
+              justifyContent='center'
+              alignItems='center'
+            >
               <ProductImage
                 alt={`${product.name}`}
                 src={sdk.artifact.getUrlForArtifact(product.images[0])}
@@ -32,11 +36,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
           }
         >
           <Flex flexDirection='column'>
-            <Title mt={2} mb={0} level={4} ellipsis>
+            <Title mt={2} mb={0} level={4} ellipsis={{ rows: 2 }}>
               {product.name}
             </Title>
             <Price price={product.price} currency={'ден'} />
-            <Paragraph mt={3} mb={0} ellipsis>
+            <Paragraph mt={3} mb={0} ellipsis={{ rows: 3 }}>
               {product.description}
             </Paragraph>
           </Flex>

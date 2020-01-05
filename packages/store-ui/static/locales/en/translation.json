@@ -51,6 +51,7 @@
     "category_plural": "Categories",
     "city": "City",
     "country": "Country",
+    "details": "Details",
     "firstName": "First name",
     "items": "Items",
     "lastName": "Last name",
@@ -109,7 +110,6 @@
     "total": "Total"
   },
   "order": {
-    "orderDetails": "Order details",
     "orderNotFound": "Order not found",
     "orderNotFound_plural": "Orders not found",
     "ordered": "Ordered",
