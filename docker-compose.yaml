@@ -62,7 +62,6 @@ services:
     volumes:
       - ./packages/data-api:/usr/src/app:delegated
       - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
-      - /dev/null:/usr/src/app/.npmrc #We don't want npmrc included, as it will error due to missing token
     networks:
       - main-network
     expose: 
@@ -75,6 +74,7 @@ services:
       - traefik.http.routers.data-api.rule=Host(`api.dev.sradevski.com`)
       - traefik.http.services.data-api.loadbalancer.server.port=80 
     environment: 
+      GPR_TOKEN: $GPR_TOKEN
       PORT: 80
       HOST: "api.dev.sradevski.com"
       JWT_SECRET: "1234dev"
@@ -97,7 +97,6 @@ services:
     volumes:
       - ./packages/store-ui:/usr/src/app:delegated
       - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
-      - /dev/null:/usr/src/app/.npmrc #We don't want npmrc included, as it will error due to missing token
     networks:
       - main-network
     expose: 
@@ -108,6 +107,7 @@ services:
       - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.dev.sradevski.com`)
       - traefik.http.services.store-ui.loadbalancer.server.port=80 
     environment: 
+      GPR_TOKEN: $GPR_TOKEN
       API_ENDPOINT: "http://api.dev.sradevski.com"
       ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com"
       PORT: 80
@@ -125,7 +125,6 @@ services:
     volumes:
       - ./packages/backstore-ui:/usr/src/app:delegated
       - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
-      - /dev/null:/usr/src/app/.npmrc #We don't want npmrc included, as it will error due to missing token
     networks:
       - main-network
     expose: 
@@ -135,7 +134,8 @@ services:
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`back.dev.sradevski.com`)
       - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
-    environment: 
+    environment:
+      GPR_TOKEN: $GPR_TOKEN
       REACT_APP_API_ENDPOINT: "http://api.dev.sradevski.com"
       REACT_APP_ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com"
       PORT: 80
