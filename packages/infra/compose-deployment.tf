@@ -54,7 +54,7 @@ provider "digitalocean" {
 
 resource "digitalocean_droplet" "services-1" {
   image = "docker-18-04"
-  name = "services-1"
+  name = "services-${var.environment}-1"
   region = "fra1"
   size = "s-2vcpu-2gb"
   tags = var.droplets-tags
@@ -187,5 +187,5 @@ resource "digitalocean_project" "lamk-project" {
 # Just a sample output variable. These can be used to extract valuable info after terraform applies changes.
 # The ip of the newly generated droplet.
 output "ip" {
-    value = digitalocean_droplet.services-1.ipv4_address
+    value = digitalocean_floating_ip.floating-ip-1.ip_address
 }

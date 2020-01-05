@@ -37,6 +37,8 @@ You also need to add a `secrets.tfvars` file that is gitignored in both staging 
 If there is an existing deployment already, first you need to taint the services server using
 `terraform taint digitalocean_droplet.services-1`, update the `docker-compose.yaml` to the appropriate services versions, and then run the command below.
 
+Next, you need to set the workspace for terraform. You can do that using `terraform workspace select default/prod`, where default is the staging environment. This makes sure that the two environments have separate state.
+
 Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars.tfvars --var-file=./stg/secrets.tfvars` (change to prod folder for production deployment). The rest is handled automatically. 
 
 ## DB Backups
