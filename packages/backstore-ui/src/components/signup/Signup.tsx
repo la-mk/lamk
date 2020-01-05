@@ -15,10 +15,10 @@ export const Signup = () => {
 
   return (
     <Flex flexDirection='column' alignItems='center'>
-      <Title mt={5} level={1}>
+      <Title mt={6} level={1}>
         {t('auth.signup')}
       </Title>
-      <Text mb={5} type='secondary'>
+      <Text mb={6} type='secondary'>
         {t('auth.signupClosedBeta')}
       </Text>
 

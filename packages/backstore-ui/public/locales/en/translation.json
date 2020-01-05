@@ -54,6 +54,7 @@
     "city": "City",
     "country": "Country",
     "description": "Description",
+    "details": "Details",
     "email": "Email address",
     "id": "ID",
     "image_plural": "Images",
@@ -117,7 +118,6 @@
   "order": {
     "orderDate": "Order date",
     "orderDeleted": "Order {{id}} successfully deleted",
-    "orderDetails": "Order details",
     "orderId": "Order ID"
   },
   "orderStatus": {

@@ -31,7 +31,7 @@ export const SetupProducts = ({
   const { t } = useTranslation();
   return (
     <>
-      <Flex mb={5} alignItems='center' flexDirection='column'>
+      <Flex mb={6} alignItems='center' flexDirection='column'>
         <Title level={3}>
           {t('onboarding.setupProductTitle')}
           <Button mx={3} size='large' onClick={onDone} type='primary'>

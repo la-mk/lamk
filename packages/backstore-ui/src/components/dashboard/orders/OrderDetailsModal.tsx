@@ -85,7 +85,7 @@ export const OrderDetailsModal = ({
       visible={Boolean(order)}
       footer={null}
       onCancel={onClose}
-      title={t('order.orderDetails')}
+      title={t('common.details')}
     >
       {order && (
         <Spin spinning={showSpinner}>

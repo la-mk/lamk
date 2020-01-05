@@ -54,6 +54,7 @@
     "city": "Град",
     "country": "Држава",
     "description": "Опис",
+    "details": "Детали",
     "email": "Емаил адреса",
     "id": "Шифра",
     "image_plural": "Слики",
@@ -117,7 +118,6 @@
   "order": {
     "orderDate": "Датум на порачка",
     "orderDeleted": "Порачка со шифра {{id}} беше успешно избришана",
-    "orderDetails": "Детали за порачка",
     "orderId": "Шифра на порачка"
   },
   "orderStatus": {

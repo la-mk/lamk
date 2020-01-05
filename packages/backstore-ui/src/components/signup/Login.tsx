@@ -16,7 +16,7 @@ export const Login = () => {
 
   return (
     <Flex width='100%' flexDirection='column' alignItems='center'>
-      <Title mt={5} level={1}>
+      <Title mt={6} level={1}>
         {t('auth.login')}
       </Title>
       <LoginForm

@@ -15,7 +15,7 @@ export const SetupStore = ({ onDone, store, userId }: SetupStoreProps) => {
   const { t } = useTranslation();
   return (
     <Col>
-      <Flex mb={5} alignItems='center' flexDirection='column'>
+      <Flex mb={6} alignItems='center' flexDirection='column'>
         <Title level={3}>{t('onboarding.setupStoreTitle')}</Title>
         <Text type='secondary'>{t('onboarding.setupStoreSubtitle')}</Text>
       </Flex>

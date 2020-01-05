@@ -20,7 +20,7 @@ export const SetupDelivery = ({
 
   return (
     <Col>
-      <Flex mb={5} alignItems='center' flexDirection='column'>
+      <Flex mb={6} alignItems='center' flexDirection='column'>
         <Title level={3}>{t('onboarding.setupDeliveryTitle')}</Title>
         <Text type='secondary'>{t('onboarding.setupDeliverySubtitle')}</Text>
       </Flex>

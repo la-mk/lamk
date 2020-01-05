@@ -156,7 +156,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
           <Flex px={[3, 3, 3, 4]} pb={4} flexDirection='column'>
             <StickySteps
               py={[2, 2, 3]}
-              mb={5}
+              mb={6}
               current={step}
               onChange={setStep}
             >
