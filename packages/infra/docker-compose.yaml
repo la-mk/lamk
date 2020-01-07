@@ -74,7 +74,7 @@ services:
       STORAGE_ACCESS_KEY_SECRET: $SPACES_SECRET_ACCESS_KEY
     
   store-ui:
-    image: lamk/store-ui:1.0.3
+    image: lamk/store-ui:1.0.4
     container_name: store-ui
     restart: always
     depends_on: 
@@ -97,7 +97,7 @@ services:
       PORT: 80
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.4
+    image: lamk/backstore-ui:1.0.5
     container_name: backstore-ui
     restart: always
     depends_on: 
