@@ -29,8 +29,14 @@ export const LoginForm = ({
     <>
       <Col width={['100%', '80%', '60%']}>
         <Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 12 }}
+          labelCol={{
+            xs: { span: 24 },
+            md: { span: 6 },
+          }}
+          wrapperCol={{
+            xs: { span: 24 },
+            md: { span: 12 },
+          }}
           layout='horizontal'
           colon={false}
           onFormCompleted={(data: LoginCredentials) => login(data)}

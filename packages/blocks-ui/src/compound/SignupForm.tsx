@@ -28,8 +28,14 @@ export const SignupForm = ({
     <>
       <Col width={['100%', '80%', '60%']}>
         <Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 12 }}
+          labelCol={{
+            xs: { span: 24 },
+            md: { span: 6 },
+          }}
+          wrapperCol={{
+            xs: { span: 24 },
+            md: { span: 12 },
+          }}
           layout='horizontal'
           colon={false}
           onFormCompleted={(data: SignupCredentials) => signup(data)}
@@ -61,7 +67,7 @@ export const SignupForm = ({
         {localization.alreadyHaveAccount || 'Already have an account?'}
       </Text>
       <Button type='link' onClick={onLoginNowClick}>
-        {localization.login || 'login'}
+        {localization.login || 'Log in'}
       </Button>
     </>
   );

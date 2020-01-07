@@ -45,6 +45,7 @@ storiesOf('Set', module).add('with text', () => (
           {item.name}
         </Card>
       )}
+      onSeeAll={() => null}
     />
   </Provider>
 ));
