@@ -14,7 +14,7 @@ export const Signup = () => {
   };
 
   return (
-    <Flex flexDirection='column' alignItems='center'>
+    <Flex flexDirection='column' alignItems='center' p={3}>
       <Title mt={6} level={1}>
         {t('auth.signup')}
       </Title>

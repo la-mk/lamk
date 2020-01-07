@@ -1,10 +1,8 @@
-# Deploying to production
+# Development
 
-1. In order to create a new version of libraries or services, all you need to do is run `npm version patch|minor|major` inside the library/service, and the CI will take care of building and releasing the library/service to the appropriate registries.
+## Setup
 
-# Setup
-
-Describe the DevEnv setup, tools, and the entire deployment pipeline.
+TODO: Describe the DevEnv setup, tools, and the entire deployment pipeline.
 
 ## Environment Variables
 
@@ -22,6 +20,11 @@ In order to be able to run the development environment locally, you need to set 
 - To recreate the containers, you can run `docker-compose up --force-recreate --build -d`
 - Run all the containers `docker-compose up -d`
 
+
+# Production
+
+1. In order to create a new version of libraries or services, all you need to do is run `npm version patch|minor|major` inside the library/service, and the CI (Github Actions) will take care of building and releasing the library/service to the appropriate registries.
+
 ## Deploying to DO
 
 You need several environment variables set locally, namely:
@@ -34,8 +37,7 @@ You need several environment variables set locally, namely:
 
 You also need to add a `secrets.tfvars` file that is gitignored in both staging and production. This holds any secrets that are environment-specific.
 
-If there is an existing deployment already, first you need to taint the services server using
-`terraform taint digitalocean_droplet.services-1`, update the `docker-compose.yaml` to the appropriate services versions, and then run the command below.
+If there is an existing deployment already, first you need to taint the services server using `terraform taint digitalocean_droplet.services-1`, update the `docker-compose.yaml` to the appropriate services versions, and then run the command below.
 
 Next, you need to set the workspace for terraform. You can do that using `terraform workspace select default/prod`, where default is the staging environment. This makes sure that the two environments have separate state.
 

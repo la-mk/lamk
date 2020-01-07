@@ -15,7 +15,7 @@ export const Login = () => {
   };
 
   return (
-    <Flex width='100%' flexDirection='column' alignItems='center'>
+    <Flex width='100%' flexDirection='column' alignItems='center' p={3}>
       <Title mt={6} level={1}>
         {t('auth.login')}
       </Title>

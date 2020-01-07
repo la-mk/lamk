@@ -150,7 +150,6 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                           <Button
                             type='link'
                             icon='logout'
-                            href=''
                             onClick={handleLogout}
                           >
                             {t('auth.logout')}
@@ -163,7 +162,6 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                           <Button
                             type='link'
                             icon='login'
-                            href=''
                             onClick={handleLogin}
                           >
                             {t('auth.login')}
