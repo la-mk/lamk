@@ -28,6 +28,10 @@ export const getArtifactSdk = (
     ),
 
     getUrlForArtifact: (id: string) => {
+      if (!id) {
+        return null;
+      }
+
       return `${host}/${imagesBucket}/${id}`;
     },
   };
