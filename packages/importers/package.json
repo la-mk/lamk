@@ -40,6 +40,7 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.29",
     "@types/jest": "^24.0.24",
     "@types/lodash": "^4.14.149",
     "@types/node-fetch": "^2.5.4",
@@ -51,6 +52,7 @@
   },
   "dependencies": {
     "@sradevski/la-sdk": "0.0.5",
+    "bluebird": "^3.7.2",
     "csvtojson": "^2.0.10",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",

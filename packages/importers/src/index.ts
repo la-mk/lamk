@@ -3,11 +3,13 @@ import path from 'path';
 import util from 'util';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { execute as shopify } from './shopify';
+import { importProducts } from './importer';
 
 export interface LamkProduct extends Omit<Product, 'images'> {
   images: Array<{
     name: string;
-    blob: Blob;
+    format: string;
+    buffer: ArrayBuffer | null;
   }>;
 }
 
@@ -31,6 +33,12 @@ const main = async ([serviceName, dataPath]: string[]) => {
   return execute(serviceName, serviceData);
 };
 
-main(process.argv.slice(2)).then(res => {
-  process.stdout.write(JSON.stringify(res, null, 2));
-});
+main(process.argv.slice(2))
+  .then(importProducts)
+  .then(imported =>
+    console.log(
+      `Imported ${
+        imported.filter(x => Object.keys(x).length > 0).length
+      } out of ${imported.length} products`
+    )
+  );

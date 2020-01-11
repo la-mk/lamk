@@ -104,10 +104,26 @@ const normalizeDataFields = (products: any[]): LamkProduct[] => {
 };
 
 const fetchRemoteImage = async (url: string) => {
-  const blob = (await fetch(url).then(r => r.blob())) as Blob;
+  const buffer = (await fetch(url).then(async r => {
+    const imgBuffer = await r.arrayBuffer();
+    const asTxt = Buffer.from(imgBuffer).toString('utf-8');
+    // This is a hacky way of checking if the product was not found, as the request always returns 200.
+    if(asTxt.includes('could not be found')) {
+      return null;
+    }
+
+    return imgBuffer;
+  })) as ArrayBuffer | null;
+
+  let format = 'png';
+  if (url.includes('.jpg') || url.includes('.jpeg')) {
+    format = 'jpeg';
+  }
+
   return {
-    blob,
+    buffer,
     name: url,
+    format,
   };
 };
 
@@ -118,12 +134,12 @@ const normalizeImages = async (
   const imageUrls = sortBy<any>(shopifyProduct['Image Src'], 'pos').map(
     x => x.img
   );
-  const blobImages = await Promise.all(
+  const bufferImages = await Promise.all(
     imageUrls.map(url => fetchRemoteImage(url))
   );
 
   return {
-    'Image Src': blobImages,
+    'Image Src': bufferImages,
   };
 };
 
