@@ -15,6 +15,7 @@ export { FlexGrid } from './basic/FlexGrid';
 export { Form, FormItem } from './basic/Form/Form';
 export { Row, Col } from './basic/Grid';
 export { Icon } from './basic/Icon';
+export { Image } from './basic/Image/Image';
 export { Input, InputGroup, TextArea, Password, Search } from './basic/Input';
 export { InputNumber } from './basic/InputNumber';
 export { Layout, Header, Footer, Sider, Content } from './basic/Layout';
@@ -48,7 +49,6 @@ export { Upload, UploadDragger } from './basic/Upload';
 export { formInput, formTextArea, parsers } from './compound/FormHelpers';
 export { LoginForm } from './compound/LoginForm';
 export { SignupForm } from './compound/SignupForm';
-export { SizedImage } from './compound/SizedImage';
 export { UploadContent } from './compound/UploadContent';
 
 export { message } from './static/message';
