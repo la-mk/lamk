@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
 import { CategoriesList } from '../CategoriesList';
 import styled from 'styled-components';
-import { Flex, Spin } from '@sradevski/blocks-ui';
+import { Flex, Spin, Image } from '@sradevski/blocks-ui';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 import { ProductSet as ProductSetType } from '@sradevski/la-sdk/dist/models/product';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
@@ -16,14 +16,8 @@ const Banner = styled.div`
   position: relative;
 `;
 
-const ImageBanner = styled.img`
-  object-fit: contain;
-  width: 100%;
-  height: auto;
-`;
-
 export const Home = ({
-  landingContent,
+  landingContent = {},
 }: {
   landingContent: StoreContents['landing'];
 }) => {
@@ -60,7 +54,8 @@ export const Home = ({
       <CategoriesList />
       {landingContent.banner && (
         <Banner>
-          <ImageBanner
+          <Image
+            width='100%'
             src={
               landingContent.banner &&
               sdk.artifact.getUrlForArtifact(landingContent.banner)

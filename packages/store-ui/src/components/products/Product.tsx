@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Flex,
-  SizedImage,
+  Image,
   Text,
   Title,
   Button,
@@ -9,6 +9,7 @@ import {
   Box,
   message,
   Spin,
+  Paragraph,
 } from '@sradevski/blocks-ui';
 import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
@@ -41,6 +42,7 @@ export const Product = ({ product }: ProductProps) => {
   const [selectedImage, setSelectedImage] = useState(
     sdk.artifact.getUrlForArtifact(product.images[0]),
   );
+
   const [quantity, setQuantity] = React.useState(1);
   const isProductInCart =
     cart &&
@@ -93,7 +95,7 @@ export const Product = ({ product }: ProductProps) => {
             justifyContent='flex-start'
             flexDirection='column'
           >
-            <SizedImage height='280px' src={selectedImage} />
+            <Image maxHeight='280px' src={selectedImage} />
             <Box mt={3} maxWidth={['100%', '80%', '100%', '80%']}>
               <Thumbnails
                 images={product.images.map(imageId =>
@@ -114,7 +116,9 @@ export const Product = ({ product }: ProductProps) => {
               {product.name}
             </Title>
             <Price price={product.price} currency={'ден'} />
-            <Text mt={4}>{product.description}</Text>
+            <Paragraph style={{ whiteSpace: 'pre-wrap' }} mt={4}>
+              {product.description}
+            </Paragraph>
             <Flex mt={[4, 4, 5, 5]} flexDirection='row' alignItems='center'>
               {!isProductInCart && (
                 <>

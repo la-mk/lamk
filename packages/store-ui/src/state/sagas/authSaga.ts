@@ -3,13 +3,15 @@ import { call, takeLeading, takeEvery, put, select } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-next-router';
 import { sdk } from '@sradevski/la-sdk';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
-import { clearSession } from '../modules/ui/ui.module';
+import { clearSession, toggleAuthModal } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
 import { setCartWithProducts } from '../modules/cart/cart.module';
 import { getCartWithProducts } from '../modules/cart/cart.selector';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
+import { message } from 'antd';
 
 function* afterAuthSaga(authInfo: any, wasAuthenticated: boolean = false) {
+  yield put(toggleAuthModal(false));
   // If user was logged in but token has expired, clear out all session and local storage state related to user, and let them browse around.
   if (!authInfo && wasAuthenticated) {
     yield put(clearSession());
@@ -97,6 +99,7 @@ export function* loginSaga(action: any) {
     });
 
     const authInfo = yield getAuthenticationSaga();
+    message.success('Welcome!');
     yield afterAuthSaga(authInfo);
   } catch (err) {
     console.log(err);
@@ -112,6 +115,7 @@ export function* signupSaga(action: any) {
     });
 
     const authInfo = yield getAuthenticationSaga();
+    message.success('Welcome!');
     yield afterAuthSaga(authInfo);
   } catch (err) {
     console.log(err);

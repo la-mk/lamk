@@ -6,6 +6,8 @@ import {
   Button,
   formInput,
   formTextArea,
+  Select,
+  Option,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
@@ -72,7 +74,13 @@ export const AddAddressCard = ({
         ]}
       >
         <FormItem selector='country' label={t('common.country')}>
-          {formInput({ disabled: true, placeholder: t('countries.mk') })}
+          {(val, _onChange, onComplete) => (
+            <Select value={val} onChange={onComplete}>
+              <Option key={'MK'} value={'MK'}>
+                {t('countries.mk')}
+              </Option>
+            </Select>
+          )}
         </FormItem>
 
         <FormItem selector='city' label={t('common.city')}>

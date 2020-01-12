@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {
   Flex,
   List,
-  SizedImage,
+  Image,
   Text,
   Button,
   InputNumber,
@@ -26,7 +26,6 @@ import { Page } from '../shared/Page';
 import { useCall } from '../shared/hooks/useCall';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 export const Cart = () => {
   const [caller, showSpinner] = useCall();
@@ -108,9 +107,8 @@ export const Cart = () => {
                       justifyContent='center'
                       alignItems='center'
                     >
-                      <SizedImage
-                        height='90px'
-                        width='100%'
+                      <Image
+                        maxHeight='90px'
                         alt={cartItem.product.name}
                         src={sdk.artifact.getUrlForArtifact(
                           cartItem.product.images[0],

@@ -14,7 +14,7 @@ import {
   Avatar,
   Divider,
   Icon,
-  SizedImage,
+  Image,
   Text,
 } from '@sradevski/blocks-ui';
 import styled from 'styled-components';
@@ -83,8 +83,8 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
           <Flex justifyContent='space-between'>
             <Link href='/' passHref>
               <LineHeightFreeAnchor>
-                <SizedImage
-                  height='100%'
+                <Image
+                  maxHeight='100%'
                   src={sdk.artifact.getUrlForArtifact(store.logo)}
                   alt='logo'
                 />

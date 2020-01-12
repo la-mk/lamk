@@ -1,5 +1,5 @@
 import React from 'react';
-import { SizedImage, Flex } from '@sradevski/blocks-ui';
+import { Image, Flex } from '@sradevski/blocks-ui';
 
 export interface ThumbnailsProps {
   images: string[];
@@ -29,10 +29,11 @@ export const Thumbnails = ({
             height='72px'
             m={2}
           >
-            <SizedImage
+            <Image
+              maxHeight='62px'
+              maxWidth='62px'
+              style={{ cursor: 'pointer' }}
               onClick={() => onImageClick(imageUrl)}
-              height='62px'
-              style={{ maxWidth: '62px', cursor: 'pointer' }}
               src={imageUrl}
             />
           </Flex>

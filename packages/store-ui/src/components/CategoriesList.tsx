@@ -56,6 +56,7 @@ export const CategoriesList = () => {
               passHref
             >
               <Button type='link' mt={3} mx={3} key={category.level3}>
+                {/* TODO: Flatten categories and use category level 3 label instead*/}
                 <Text strong>{category.level3}</Text>
               </Button>
             </Link>

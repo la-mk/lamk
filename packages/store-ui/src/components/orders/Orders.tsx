@@ -5,7 +5,7 @@ import {
   List,
   Text,
   Card,
-  SizedImage,
+  Image,
   Row,
   Col,
   Empty,
@@ -33,8 +33,9 @@ export const Orders = () => {
       return;
     }
 
-    caller(sdk.order.findForUser(user._id), (orders: FindResult<Order>) =>
-      setOrders(orders.data),
+    caller(
+      sdk.order.findForUser(user._id, { query: { $limit: 20 } }),
+      (orders: FindResult<Order>) => setOrders(orders.data),
     );
   }, [caller, user]);
 
@@ -96,9 +97,9 @@ export const Orders = () => {
                       >
                         <Flex width={1}>
                           <Flex justifyContent='center' alignItems='center'>
-                            <SizedImage
-                              height='90px'
-                              width='180px'
+                            <Image
+                              maxHeight='90px'
+                              maxWidth='90px'
                               alt={orderItem.product.name}
                               src={sdk.artifact.getUrlForArtifact(
                                 orderItem.product.images[0],

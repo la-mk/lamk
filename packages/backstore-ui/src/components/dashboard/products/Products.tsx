@@ -5,7 +5,7 @@ import {
   Table,
   Title,
   Button,
-  SizedImage,
+  Image,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/types/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
@@ -27,11 +27,11 @@ const getColumns = (t: T) =>
       title: t('common.image_plural'),
       dataIndex: 'images',
       width: '180px',
+      align: 'center',
       render: (_text, product) => {
         return (
-          <SizedImage
-            height='60px'
-            width='120px'
+          <Image
+            maxHeight='60px'
             alt={product.name}
             src={sdk.artifact.getUrlForArtifact(product.images[0])}
           />

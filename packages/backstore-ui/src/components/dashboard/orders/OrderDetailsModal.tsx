@@ -12,7 +12,7 @@ import {
   Tag,
   Card,
   List,
-  SizedImage,
+  Image,
   Text,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
@@ -139,10 +139,13 @@ export const OrderDetailsModal = ({
                         alignItems='center'
                       >
                         <Flex alignItems='center'>
-                          <Flex width={'120px'} alignItems='center'>
-                            <SizedImage
-                              height='60px'
-                              width='120px'
+                          <Flex
+                            width={'120px'}
+                            justifyContent='center'
+                            alignItems='center'
+                          >
+                            <Image
+                              maxHeight='60px'
                               alt={product.name}
                               src={sdk.artifact.getUrlForArtifact(
                                 product.images[0],

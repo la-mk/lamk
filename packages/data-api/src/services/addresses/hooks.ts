@@ -19,7 +19,7 @@ export const hooks = {
       authenticate('jwt'),
       associateCurrentUser({ as: 'addressFor' }),
       alterItems(record => {
-        record.country = 'Macedonia';
+        record.country = 'MK';
       }),
       validate(sdk.address.validate),
     ],
@@ -27,7 +27,7 @@ export const hooks = {
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'addressFor' }),
       alterItems(record => {
-        record.country = 'Macedonia';
+        record.country = 'MK';
       }),
       validate(sdk.address.validate),
     ],

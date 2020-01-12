@@ -7,7 +7,7 @@ import {
   Card,
   Row,
   Col,
-  SizedImage,
+  Image,
   Text,
   Empty,
   Spin,
@@ -116,9 +116,9 @@ export const Order = ({ orderId }: { orderId: string }) => {
                 <Card width='100%' type='inner' title={orderItem.product.name}>
                   <Flex width={1}>
                     <Flex justifyContent='center' alignItems='center'>
-                      <SizedImage
-                        height='90px'
-                        width='180px'
+                      <Image
+                        maxHeight='90px'
+                        maxWidth='90px'
                         alt={orderItem.product.name}
                         src={sdk.artifact.getUrlForArtifact(
                           orderItem.product.images[0],

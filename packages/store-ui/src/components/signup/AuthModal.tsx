@@ -21,18 +21,17 @@ export const AuthModal = () => {
 
   const handleLogin = (data: any) => {
     dispatch(login(data, 'local'));
-    dispatch(toggleAuthModal(false));
   };
 
   const handleSignup = (data: any) => {
     dispatch(signup(data, 'local'));
-    dispatch(toggleAuthModal(false));
   };
 
   return (
     <Modal
       width='80%'
       centered
+      destroyOnClose
       visible={visible}
       footer={null}
       onCancel={() => dispatch(toggleAuthModal(false))}
