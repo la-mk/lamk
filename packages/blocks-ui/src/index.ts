@@ -11,7 +11,7 @@ export { Divider } from './basic/Divider';
 export { Dropdown } from './basic/Dropdown';
 export { Empty } from './basic/Empty';
 export { Flex } from './basic/Flex';
-export { FlexGrid } from './basic/FlexGrid';
+export { FlexGrid } from './basic/FlexGrid/FlexGrid';
 export { Form, FormItem } from './basic/Form/Form';
 export { Row, Col } from './basic/Grid';
 export { Icon } from './basic/Icon';
