@@ -9,7 +9,7 @@ networks:
 
 services:
   reverse-proxy:
-    image: traefik:v2.1
+    image: traefik:v2.1.1
     container_name: reverse-proxy
     restart: always
     command:
@@ -24,7 +24,7 @@ services:
       # - --certificatesresolvers.cert-resolve.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge=true
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.provider=digitalocean
-      - --certificatesresolvers.cert-resolve.acme.dnsChallenge.delayBeforeCheck=0
+      - --certificatesresolvers.cert-resolve.acme.dnsChallenge.delayBeforeCheck=20
     ports:
        - "80:80"
        - "443:443"
@@ -47,7 +47,7 @@ services:
       # This is needed by Traefik to do proper let's encrypt DNS challenge.
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
   data-api:
-    image: lamk/data-api:1.0.13
+    image: lamk/data-api:1.0.14
     container_name: data-api
     restart: always
     networks:
@@ -74,7 +74,7 @@ services:
       STORAGE_ACCESS_KEY_SECRET: $SPACES_SECRET_ACCESS_KEY
     
   store-ui:
-    image: lamk/store-ui:1.0.4
+    image: lamk/store-ui:1.0.5
     container_name: store-ui
     restart: always
     depends_on: 
@@ -97,7 +97,7 @@ services:
       PORT: 80
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.5
+    image: lamk/backstore-ui:1.0.6
     container_name: backstore-ui
     restart: always
     depends_on: 
