@@ -33,12 +33,14 @@ type UseAdvancedCallResult = [any, PaginationProps, boolean];
 export const useAdvancedCall = <T extends any>(
   fetcher: ((params: any) => Promise<FindResult<T>>) | null,
   resultHandler: (res: FindResult<T>) => Action<any> | void,
+  initialPagination: PaginationProps = {},
 ): UseAdvancedCallResult => {
   const [caller, showSpinner] = useCall();
   const [pagination, setPagination] = useState<PaginationProps>({
     current: 1,
     pageSize: 20,
     showSizeChanger: false,
+    ...initialPagination,
   });
 
   useEffect(() => {
