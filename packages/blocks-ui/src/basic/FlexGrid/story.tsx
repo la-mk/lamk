@@ -15,8 +15,8 @@ storiesOf('Flex Grid', module).add('standard', () => {
       <>
         <FlexGrid
           rowKey='item'
-          loading={true}
-          dataSource={[{ item: 'a' }, { item: 'b' }, { item: 'c' }]}
+          loading={false}
+          items={[{ item: 'a' }, { item: 'b' }, { item: 'c' }]}
           renderItem={(item: any) => <div>{item.item}</div>}
           pagination={{
             ...pagination,

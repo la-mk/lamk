@@ -15,7 +15,7 @@ export interface FlexGridProps<T> {
   className?: string;
   rowKey: string;
   loading?: boolean;
-  dataSource: Array<T>;
+  items: Array<T>;
   renderItem: any;
   pagination: PaginationProps;
 }
@@ -24,18 +24,10 @@ const FlexGridBase = <T extends any>({
   className,
   rowKey,
   loading,
-  dataSource,
+  items,
   renderItem,
   pagination,
 }: FlexGridProps<T>) => {
-  const itemsPerPage = pagination?.pageSize ?? 20;
-  const currentPage = pagination?.current ?? 1;
-
-  const slice = dataSource.slice(
-    (currentPage - 1) * itemsPerPage,
-    (currentPage - 1) * itemsPerPage + itemsPerPage,
-  );
-
   return (
     <Flex flexDirection='column' alignItems='center' width='100%'>
       <Spin spinning={loading}>
@@ -46,7 +38,7 @@ const FlexGridBase = <T extends any>({
           flexWrap='wrap'
           flexDirection='row'
         >
-          {slice.map((entry: any) => {
+          {items.map((entry: any) => {
             return <Box key={entry[rowKey]}>{renderItem(entry)}</Box>;
           })}
         </Flex>
