@@ -7,10 +7,9 @@ import {
   Card,
   Row,
   Col,
-  Image,
-  Text,
   Empty,
   Spin,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
@@ -20,8 +19,8 @@ import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { Summary } from '../shared/Summary';
 import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
-import { useCall } from '../shared/hooks/useCall';
 import { useTranslation } from '../../common/i18n';
+import { OrderProductCard } from './OrderProductCard';
 
 const getStepIndex = (status: OrderType['status']) => {
   switch (status) {
@@ -36,7 +35,7 @@ const getStepIndex = (status: OrderType['status']) => {
 };
 
 export const Order = ({ orderId }: { orderId: string }) => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const delivery = useSelector(getDelivery);
   const user = useSelector(getUser);
   const { t } = useTranslation();
@@ -113,28 +112,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
                 key={orderItem.product._id}
                 mb={4}
               >
-                <Card width='100%' type='inner' title={orderItem.product.name}>
-                  <Flex width={1}>
-                    <Flex justifyContent='center' alignItems='center'>
-                      <Image
-                        maxHeight='90px'
-                        maxWidth='90px'
-                        alt={orderItem.product.name}
-                        src={sdk.artifact.getUrlForArtifact(
-                          orderItem.product.images[0],
-                        )}
-                      />
-                    </Flex>
-                    <Flex ml={4} width='100%' flexDirection='row'>
-                      <Flex flexDirection='column'>
-                        <Text>{orderItem.product.price} ден</Text>
-                        <Text mt={2}>
-                          {orderItem.quantity} {t('common.items')}
-                        </Text>
-                      </Flex>
-                    </Flex>
-                  </Flex>
-                </Card>
+                <OrderProductCard orderItem={orderItem} />
               </Col>
             );
           })}

@@ -16,7 +16,12 @@ const ProductPage = ({ product }: { product: ProductType }) => {
 
   return (
     <>
-      <Head title={product.name} />
+      <Head
+        title={product.name}
+        previewImages={product.images.map(imageId =>
+          sdk.artifact.getUrlForArtifact(imageId),
+        )}
+      />
       <Product product={product} />
     </>
   );

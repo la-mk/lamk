@@ -1,43 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import {
   Flex,
   Button,
   List,
   Text,
   Card,
-  Image,
   Row,
   Col,
   Empty,
   Spin,
+  hooks,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
 import { formatDistanceToNow } from 'date-fns';
 import { Page } from '../shared/Page';
-import { useCall } from '../shared/hooks/useCall';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../state/modules/user/user.selector';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
+import { OrderProductCard } from './OrderProductCard';
 
 export const Orders = () => {
-  const [caller, showSpinner] = useCall();
   const [orders, setOrders] = useState(null);
   const user = useSelector(getUser);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (!user) {
-      return;
-    }
+  const fetcher = useMemo(
+    () =>
+      user ? (params: any) => sdk.order.findForUser(user._id, params) : null,
+    [user],
+  );
 
-    caller(
-      sdk.order.findForUser(user._id, { query: { $limit: 20 } }),
-      (orders: FindResult<Order>) => setOrders(orders.data),
-    );
-  }, [caller, user]);
+  const resultHandler = useCallback((res: FindResult<Order>) => {
+    return setOrders(res.data);
+  }, []);
+
+  const [handlePageChange, pagination, showSpinner] = hooks.useAdvancedCall(
+    fetcher,
+    resultHandler,
+  );
 
   if (!orders) {
     return <Empty mt={6} description={t('order.orderNotFound_plural')}></Empty>;
@@ -45,85 +48,63 @@ export const Orders = () => {
 
   return (
     <Page title={t('pages.order_plural')}>
-      <Spin spinning={showSpinner}>
-        <List style={{ width: '100%' }}>
-          {orders.map(order => (
-            <Card
-              extra={
-                <Flex flexDirection='row' justifyContent='center'>
-                  <Flex
-                    mr={3}
-                    justifyContent='center'
-                    flexDirection='column'
-                    height={32}
-                  >
-                    <Text strong>{t(`orderStatus.${order.status}`)}</Text>
-                    <Text>
-                      {t('order.ordered')}{' '}
-                      {formatDistanceToNow(new Date(order.createdAt), {
-                        addSuffix: true,
-                      })}
-                    </Text>
-                  </Flex>
-                  <Link
-                    passHref
-                    href='/orders/[pid]'
-                    as={`/orders/${order._id}`}
-                  >
-                    <Button type='link'>{t('common.details')}</Button>
-                  </Link>
-                </Flex>
-              }
-              mb={5}
-              key={order._id}
-            >
-              <Row
-                type='flex'
-                align='top'
-                justify='start'
-                gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
+      <List<Order>
+        style={{ width: '100%' }}
+        pagination={{
+          ...pagination,
+          onChange: (page, pageSize) =>
+            handlePageChange({ ...pagination, current: page, pageSize }),
+        }}
+        loading={showSpinner}
+        dataSource={orders}
+        renderItem={order => (
+          <Card
+            headStyle={{ fontWeight: 'normal', fontSize: 14 }}
+            title={
+              <Flex
+                mr={3}
+                justifyContent='center'
+                flexDirection='column'
+                height={32}
               >
-                {order.ordered.map(orderItem => {
-                  return (
-                    <Col
-                      width={['100%', '330px', '330px', '330px']}
-                      key={orderItem.product._id}
-                      mb={4}
-                    >
-                      <Card
-                        width={'100%'}
-                        type='inner'
-                        title={orderItem.product.name}
-                      >
-                        <Flex width={1}>
-                          <Flex justifyContent='center' alignItems='center'>
-                            <Image
-                              maxHeight='90px'
-                              maxWidth='90px'
-                              alt={orderItem.product.name}
-                              src={sdk.artifact.getUrlForArtifact(
-                                orderItem.product.images[0],
-                              )}
-                            />
-                          </Flex>
-                          <Flex ml={4} width='100%' flexDirection='row'>
-                            <Flex flexDirection='column'>
-                              <Text>{orderItem.product.price} ден</Text>
-                              <Text mt={2}>
-                                {orderItem.quantity} {t('common.items')}
-                              </Text>
-                            </Flex>
-                          </Flex>
-                        </Flex>
-                      </Card>
-                    </Col>
-                  );
-                })}
-              </Row>
-            </Card>
-          ))}
-        </List>
-      </Spin>
+                <Text strong>{t(`orderStatus.${order.status}`)}</Text>
+                <Text>
+                  {t('order.ordered')}{' '}
+                  {formatDistanceToNow(new Date(order.createdAt), {
+                    addSuffix: true,
+                  })}
+                </Text>
+              </Flex>
+            }
+            extra={
+              <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
+                <Button type='link'>{t('common.details')}</Button>
+              </Link>
+            }
+            mb={5}
+            key={order._id}
+          >
+            <Row
+              type='flex'
+              align='top'
+              justify='start'
+              gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
+            >
+              {order.ordered.map(orderItem => {
+                return (
+                  <Col
+                    width={['100%', '330px', '330px', '330px']}
+                    key={orderItem.product._id}
+                    mb={4}
+                  >
+                    <OrderProductCard orderItem={orderItem} />
+                  </Col>
+                );
+              })}
+            </Row>
+          </Card>
+        )}
+      ></List>
     </Page>
   );
 };

@@ -7,9 +7,9 @@ import {
   FormItem,
   formTextArea,
   message,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
-import { useCall } from '../../shared/hooks/useCall';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
@@ -18,7 +18,7 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 export const AboutUs = () => {
   const { t } = useTranslation();
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
 

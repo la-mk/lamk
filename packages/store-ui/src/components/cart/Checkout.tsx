@@ -8,6 +8,7 @@ import {
   Button,
   Empty,
   Spin,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
@@ -26,14 +27,13 @@ import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { AddressesModal } from '../account/AddressesModal';
 import { Page } from '../shared/Page';
-import { useCall } from '../shared/hooks/useCall';
 import { CartWithProducts } from '@sradevski/la-sdk/dist/models/cart';
 import { setAddresses } from '../../state/modules/user/user.module';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 
 export const Checkout = () => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
   const store = useSelector(getStore);

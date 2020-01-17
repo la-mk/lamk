@@ -4,8 +4,8 @@ import { hooks } from './hooks';
 
 export const carts = (app: Application) => {
   const paginate = {
-    default: 10,
-    max: 50,
+    default: 200,
+    max: 200,
   };
 
   const mongoDb = app.get('mongoDb');

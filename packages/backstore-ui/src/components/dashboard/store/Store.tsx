@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin } from '@sradevski/blocks-ui';
+import { Spin, hooks } from '@sradevski/blocks-ui';
 
 import { sdk } from '@sradevski/la-sdk';
 import { Store as StoreType } from '@sradevski/la-sdk/dist/models/store';
@@ -8,12 +8,11 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import isEqual from 'lodash/isEqual';
 import { setStore } from '../../../state/modules/store/store.module';
 import { StoreForm } from '../../shared/forms/StoreForm';
-import { useCall } from '../../shared/hooks/useCall';
 import { useTranslation } from 'react-i18next';
 import { getUser } from '../../../state/modules/user/user.selector';
 
 export const Store = () => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const userId = user ? user._id : undefined;

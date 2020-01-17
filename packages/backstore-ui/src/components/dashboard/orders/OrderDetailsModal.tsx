@@ -14,6 +14,7 @@ import {
   List,
   Image,
   Text,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
@@ -28,7 +29,6 @@ import {
 } from '../../../state/modules/orders/orders.module';
 import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
-import { useCall } from '../../shared/hooks/useCall';
 import { useTranslation } from 'react-i18next';
 
 interface OrderDetailsModalProps {
@@ -48,7 +48,7 @@ export const OrderDetailsModal = ({
   orderId,
   onClose,
 }: OrderDetailsModalProps) => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const order = useSelector<any, Order>(getOrder(orderId));
   const [products, setProducts] = useState<Product[]>([]);
   const { t } = useTranslation();

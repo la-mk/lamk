@@ -15,6 +15,7 @@ import {
   formInput,
   parsers,
   Cascader,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
@@ -29,7 +30,6 @@ import {
   patchProduct,
 } from '../../../state/modules/products/products.module';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { useCall } from '../../shared/hooks/useCall';
 import { setCategories } from '../../../state/modules/categories/categories.module';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
@@ -40,7 +40,6 @@ import {
   FullCategory,
 } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
-import { useFormState } from '../../shared/hooks/useFormState';
 
 interface ProductFormModalProps {
   product: Product | null;
@@ -54,15 +53,16 @@ export const ProductFormModal = ({
   visible,
 }: ProductFormModalProps) => {
   const { t } = useTranslation();
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;
   const [categories, groupedCategories] = useCategories(t);
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
-  const [externalState] = useFormState<Product>(product, { soldBy: storeId }, [
+  const [externalState] = hooks.useFormState<Product>(
     product,
-    storeId,
-  ]);
+    { soldBy: storeId },
+    [product, storeId],
+  );
 
   useEffect(() => {
     if (categories) {

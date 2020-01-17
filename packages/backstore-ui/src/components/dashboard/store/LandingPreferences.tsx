@@ -8,9 +8,9 @@ import {
   UploadContent,
   UploadDragger,
   message,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
-import { useCall } from '../../shared/hooks/useCall';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
@@ -25,7 +25,7 @@ import { UploadChangeParam } from 'antd/lib/upload';
 
 export const LandingPreferences = () => {
   const { t } = useTranslation();
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
   // TODO: We need ot make uploading work better with `fileList` instead of `defaultFilelist`, without keeping local state everywhere.

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import {
   Tooltip,
   Flex,
@@ -6,6 +6,7 @@ import {
   Title,
   Button,
   Image,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/types/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
@@ -15,7 +16,6 @@ import { getProducts } from '../../../state/modules/products/products.selector';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { setProducts } from '../../../state/modules/products/products.module';
-import { useCall } from '../../shared/hooks/useCall';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
@@ -59,7 +59,6 @@ const getColumns = (t: T) =>
 
 export const Products = () => {
   const [showModal, setShowModal] = useState(false);
-  const [caller, showSpinner] = useCall();
   const [editingProduct, setEditingProduct] = useState();
   const { t } = useTranslation();
 
@@ -67,14 +66,22 @@ export const Products = () => {
   const store: Store | null = useSelector(getStore);
   const columns = getColumns(t);
 
-  useEffect(() => {
-    if (store) {
-      caller<FindResult<Product>>(
-        sdk.product.findForStore(store._id),
-        products => setProducts(products.data),
-      );
-    }
-  }, [caller, store]);
+  const fetcher = useMemo(
+    () =>
+      store
+        ? (params: any) => sdk.product.findForStore(store._id, params)
+        : null,
+    [store],
+  );
+
+  const resultHandler = useCallback((res: FindResult<Product>) => {
+    return setProducts(res.data);
+  }, []);
+
+  const [handlePageChange, pagination, showSpinner] = hooks.useAdvancedCall(
+    fetcher,
+    resultHandler,
+  );
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
@@ -92,11 +99,12 @@ export const Products = () => {
           </Button>
         </Tooltip>
       </Flex>
-
       <Table<Product>
-        loading={showSpinner}
         dataSource={products}
         columns={columns}
+        loading={showSpinner}
+        pagination={pagination}
+        onChange={handlePageChange}
         rowKey='_id'
         onRow={product => ({
           onClick: () => {

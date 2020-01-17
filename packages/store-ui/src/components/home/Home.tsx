@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
 import { CategoriesList } from '../CategoriesList';
 import styled from 'styled-components';
-import { Flex, Spin, Image } from '@sradevski/blocks-ui';
+import { Flex, Spin, Image, hooks } from '@sradevski/blocks-ui';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 import { ProductSet as ProductSetType } from '@sradevski/la-sdk/dist/models/product';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { sdk } from '@sradevski/la-sdk';
-import { useCall } from '../shared/hooks/useCall';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getCategories } from '../../state/modules/categories/categories.selector';
@@ -24,7 +23,7 @@ export const Home = ({
   const { t } = useTranslation();
   const store = useSelector(getStore);
   const categories = useSelector(getCategories);
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const [productSets, setProductSets] = useState<ProductSetType[]>([]);
 
   useEffect(() => {

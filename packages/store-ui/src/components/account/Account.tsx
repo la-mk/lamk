@@ -10,13 +10,13 @@ import {
   Spin,
   Tabs,
   TabPane,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
 import { pickDiff } from '../../common/utils';
 import { Addresses } from './Addresses';
 import { Page } from '../shared/Page';
-import { useCall } from '../shared/hooks/useCall';
 import { useTranslation } from '../../common/i18n';
 
 interface AccountProps {
@@ -24,7 +24,7 @@ interface AccountProps {
 }
 
 export const Account = ({ user }: AccountProps) => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const [tab, setTab] = useState('personal');
   const { t } = useTranslation();
 

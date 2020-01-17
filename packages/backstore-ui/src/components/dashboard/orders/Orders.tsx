@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Tooltip } from '@sradevski/blocks-ui';
-import { Flex, Table, Title, Tag, Button } from '@sradevski/blocks-ui';
+import { Flex, Title, Table, Tag, Button, hooks } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/types/basic/Table';
 import { useSelector } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
@@ -10,10 +10,9 @@ import { setOrders } from '../../../state/modules/orders/orders.module';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
-import { useCall } from '../../shared/hooks/useCall';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 const getColumns = (t: T) =>
   [
@@ -48,20 +47,26 @@ const getColumns = (t: T) =>
   ] as ColumnProps<Order>[];
 
 export const Orders = () => {
-  const [caller, showSpinner] = useCall();
   const [orderIdToView, setOrderIdToView] = useState<string>();
   const store = useSelector(getStore);
   const orders = useSelector(getOrders);
   const { t } = useTranslation();
   const columns = getColumns(t);
 
-  useEffect(() => {
-    if (store) {
-      caller<FindResult<Order>>(sdk.order.findForStore(store._id), res =>
-        setOrders(res.data),
-      );
-    }
-  }, [caller, store]);
+  const fetcher = useMemo(
+    () =>
+      store ? (params: any) => sdk.order.findForStore(store._id, params) : null,
+    [store],
+  );
+
+  const resultHandler = useCallback((res: FindResult<Order>) => {
+    return setOrders(res.data);
+  }, []);
+
+  const [handlePageChange, pagination, showSpinner] = hooks.useAdvancedCall(
+    fetcher,
+    resultHandler,
+  );
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
@@ -78,9 +83,11 @@ export const Orders = () => {
       </Flex>
 
       <Table<Order>
-        loading={showSpinner}
         dataSource={orders}
         columns={columns}
+        loading={showSpinner}
+        pagination={pagination}
+        onChange={handlePageChange}
         rowKey='_id'
         onRow={order => ({
           onClick: () => {

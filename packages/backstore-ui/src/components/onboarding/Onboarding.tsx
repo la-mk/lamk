@@ -5,7 +5,7 @@ import { SetupStore } from './SetupStore';
 import { SetupProducts } from './SetupProducts';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Step, Flex, Spin } from '@sradevski/blocks-ui';
+import { Step, Flex, Spin, hooks } from '@sradevski/blocks-ui';
 import { Publish } from './Publish';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
@@ -24,7 +24,6 @@ import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Redirect } from 'react-router';
 import { StickySteps } from '../shared/components/StickySteps';
-import { useCall } from '../shared/hooks/useCall';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { setCategories } from '../../state/modules/categories/categories.module';
@@ -41,7 +40,7 @@ interface OnboardingProps {
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const { t } = useTranslation();
   const [isFinished, setIsFinished] = useState(false);
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const user: User | null = useSelector(getUser);
   const store: Store | null = useSelector(getStore);
   const products: Product[] = useSelector(getProducts);

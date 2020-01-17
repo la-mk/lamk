@@ -4,7 +4,7 @@ import { hooks } from './hooks';
 
 export const orders = (app: Application) => {
   const paginate = {
-    default: 10,
+    default: 20,
     max: 50,
   };
 

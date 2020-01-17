@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Row, Col, message, Spin } from '@sradevski/blocks-ui';
+import { Row, Col, message, Spin, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { AddAddressCard } from './AddAddressCard';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { pickDiff } from '../../common/utils';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getAddresses } from '../../state/modules/user/user.selector';
 import { setAddresses } from '../../state/modules/user/user.module';
-import { useCall } from '../shared/hooks/useCall';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 
@@ -17,7 +16,7 @@ interface AddressesProps {
 }
 
 export const Addresses = ({ user }: AddressesProps) => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const addresses = useSelector(getAddresses);
   const { t } = useTranslation();
 

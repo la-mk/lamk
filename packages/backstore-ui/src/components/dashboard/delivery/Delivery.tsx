@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Spin, Col, Title, Flex } from '@sradevski/blocks-ui';
+import { Spin, Col, Title, Flex, hooks } from '@sradevski/blocks-ui';
 import { Delivery as DeliveryType } from '@sradevski/la-sdk/dist/models/delivery';
 import { sdk } from '@sradevski/la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
@@ -8,12 +8,11 @@ import isEqual from 'lodash/isEqual';
 import { setDelivery } from '../../../state/modules/delivery/delivery.module';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { DeliveryForm } from '../../shared/forms/DeliveryForm';
-import { useCall } from '../../shared/hooks/useCall';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 
 export const Delivery = () => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const delivery = useSelector(getDelivery);
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;

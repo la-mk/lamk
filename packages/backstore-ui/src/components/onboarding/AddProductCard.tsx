@@ -11,6 +11,7 @@ import {
   formInput,
   formTextArea,
   parsers,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
@@ -24,7 +25,6 @@ import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { GroupedCategories } from '../../state/modules/categories/categories.selector';
 import { useTranslation } from 'react-i18next';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { useFormState } from '../shared/hooks/useFormState';
 import { useFullCategory, FullCategory } from '../shared/hooks/useFullCategory';
 import { cascaderFilter } from '../shared/utils/form';
 
@@ -49,10 +49,11 @@ export const AddProductCard = ({
 }: AddProductCardProps) => {
   const { t } = useTranslation();
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
-  const [externalState] = useFormState<Product>(product, { soldBy: storeId }, [
+  const [externalState] = hooks.useFormState<Product>(
     product,
-    storeId,
-  ]);
+    { soldBy: storeId },
+    [product, storeId],
+  );
 
   return (
     <Form

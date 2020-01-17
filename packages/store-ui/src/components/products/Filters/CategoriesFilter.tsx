@@ -1,6 +1,12 @@
 import isEqual from 'lodash/isEqual';
 import React, { useState, useEffect, useCallback } from 'react';
-import { Flex, Select, OptionGroup, Option, Button } from '@sradevski/blocks-ui';
+import {
+  Flex,
+  Select,
+  OptionGroup,
+  Option,
+  Button,
+} from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import {
   createGetGroupedCategories,
@@ -10,11 +16,13 @@ import { useSelector } from 'react-redux';
 
 interface CategoriesFilterProps {
   categories: string[];
+  onCancel: () => void;
   onChange: (categories: string[]) => void;
 }
 
 export const CategoriesFilter = ({
   categories,
+  onCancel,
   onChange,
 }: CategoriesFilterProps) => {
   const [localCategories, setLocalCategories] = useState(categories);
@@ -69,16 +77,19 @@ export const CategoriesFilter = ({
           ))}
       </Select>
 
-      <Button
-        disabled={isEqual(categories, localCategories)}
-        onClick={() => onChange(localCategories)}
-        width='80px'
-        type='primary'
-        ml={'auto'}
-        mt={4}
-      >
-        {t('common.ok')}
-      </Button>
+      <Flex mt={4} justifyContent='flex-end'>
+        <Button onClick={onCancel} width='100px' mr={3}>
+          {t('actions.cancel')}
+        </Button>
+        <Button
+          disabled={isEqual(categories, localCategories)}
+          onClick={() => onChange(localCategories)}
+          width='100px'
+          type='primary'
+        >
+          {t('common.ok')}
+        </Button>
+      </Flex>
     </Flex>
   );
 };

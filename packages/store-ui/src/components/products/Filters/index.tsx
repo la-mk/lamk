@@ -129,6 +129,7 @@ export const Filters = ({
         content={
           <CategoriesFilter
             categories={categories}
+            onCancel={() => setVisiblePopover(null)}
             onChange={categories => {
               onFiltersChange(setFiltersCategory(filters, categories));
               setVisiblePopover(null);
@@ -137,7 +138,14 @@ export const Filters = ({
         }
         trigger='click'
       >
-        <Button mt={1} onClick={() => setVisiblePopover('categories')}>
+        <Button
+          mt={1}
+          onClick={() =>
+            setVisiblePopover(
+              visiblePopover === 'categories' ? null : 'categories',
+            )
+          }
+        >
           {t('common.category_plural')}
         </Button>
       </Popover>
@@ -152,6 +160,7 @@ export const Filters = ({
             to={toPrice}
             min={MIN_PRICE}
             max={MAX_PRICE}
+            onCancel={() => setVisiblePopover(null)}
             onChange={(from, to) => {
               onFiltersChange(setFiltersPrice(filters, from, to));
               setVisiblePopover(null);
@@ -160,7 +169,13 @@ export const Filters = ({
         }
         trigger='click'
       >
-        <Button mt={1} mx={3} onClick={() => setVisiblePopover('price')}>
+        <Button
+          mt={1}
+          mx={3}
+          onClick={() =>
+            setVisiblePopover(visiblePopover === 'price' ? null : 'price')
+          }
+        >
           {t('common.price')}
         </Button>
       </Popover>
@@ -172,6 +187,7 @@ export const Filters = ({
         content={
           <SortFilter
             sort={sort}
+            onCancel={() => setVisiblePopover(null)}
             onChange={sort => {
               onFiltersChange(setFiltersSort(filters, sort));
               setVisiblePopover(null);
@@ -180,7 +196,12 @@ export const Filters = ({
         }
         trigger='click'
       >
-        <Button mt={1} onClick={() => setVisiblePopover('sort')}>
+        <Button
+          mt={1}
+          onClick={() =>
+            setVisiblePopover(visiblePopover === 'sort' ? null : 'sort')
+          }
+        >
           {t('common.sort')}
         </Button>
       </Popover>

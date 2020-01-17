@@ -10,6 +10,7 @@ import {
   message,
   Spin,
   Paragraph,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
@@ -24,7 +25,6 @@ import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
-import { useCall } from '../shared/hooks/useCall';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 
 interface ProductProps {
@@ -32,7 +32,7 @@ interface ProductProps {
 }
 
 export const Product = ({ product }: ProductProps) => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const cart = useSelector(getCartWithProducts);
   const store = useSelector(getStore);
   const user = useSelector(getUser);

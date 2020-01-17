@@ -9,6 +9,7 @@ import {
   Card,
   Empty,
   Spin,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Summary } from '../shared/Summary';
@@ -23,12 +24,11 @@ import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { Page } from '../shared/Page';
-import { useCall } from '../shared/hooks/useCall';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
 
 export const Cart = () => {
-  const [caller, showSpinner] = useCall();
+  const [caller, showSpinner] = hooks.useCall();
   const user = useSelector(getUser);
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);

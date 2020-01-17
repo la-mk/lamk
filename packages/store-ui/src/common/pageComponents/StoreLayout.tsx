@@ -78,7 +78,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
 
   return (
     <>
-      <Layout theme='dark'>
+      <Layout theme='dark' style={{ backgroundColor: 'white' }}>
         <BorderedHeader px={[2, 3, 3, 4]}>
           <Flex justifyContent='space-between'>
             <Link href='/' passHref>
@@ -183,7 +183,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
         <StyledContent minHeight='calc(100vh - 64px - 65px)'>
           <Flex flexDirection='column'>{children}</Flex>
         </StyledContent>
-        <Footer style={{ textAlign: 'center' }}>
+        <Footer mt={4} style={{ textAlign: 'center' }}>
           La.mk ©2019 Created by La.mk
         </Footer>
       </Layout>

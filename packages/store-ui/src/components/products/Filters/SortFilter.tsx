@@ -6,6 +6,7 @@ import { useTranslation } from '../../../common/i18n';
 
 interface SortFilterProps {
   sort: { [key: string]: number };
+  onCancel: () => void;
   onChange: (sort: any) => void;
 }
 
@@ -39,7 +40,7 @@ const getSortFromValue = (value: SortValues) => {
   }
 };
 
-export const SortFilter = ({ sort, onChange }: SortFilterProps) => {
+export const SortFilter = ({ sort, onCancel, onChange }: SortFilterProps) => {
   const { t } = useTranslation();
   const [localSort, setLocalSort] = useState(getSortValue(sort));
 
@@ -62,16 +63,19 @@ export const SortFilter = ({ sort, onChange }: SortFilterProps) => {
         </RadioButton>
       </RadioGroup>
 
-      <Button
-        disabled={isEqual(getSortValue(sort), localSort)}
-        onClick={() => onChange(getSortFromValue(localSort))}
-        width='80px'
-        type='primary'
-        ml={'auto'}
-        mt={4}
-      >
-        {t('common.ok')}
-      </Button>
+      <Flex mt={4} justifyContent='flex-end'>
+        <Button onClick={onCancel} width='100px' mr={3}>
+          {t('actions.cancel')}
+        </Button>
+        <Button
+          disabled={isEqual(getSortValue(sort), localSort)}
+          onClick={() => onChange(getSortFromValue(localSort))}
+          width='100px'
+          type='primary'
+        >
+          {t('common.ok')}
+        </Button>
+      </Flex>
     </Flex>
   );
 };

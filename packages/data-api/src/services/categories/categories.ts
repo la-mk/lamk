@@ -4,7 +4,7 @@ import { hooks } from './hooks';
 
 export const categories = (app: Application) => {
   const paginate = {
-    default: 10,
+    default: 1000,
     max: 99999,
   };
 

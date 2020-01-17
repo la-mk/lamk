@@ -6,6 +6,8 @@ import { Products } from '../../src/components/products/Products';
 import { NextPageContext } from 'next';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { useTranslation } from '../../src/common/i18n';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { setCategoriesIfNone } from '../../src/common/initialProps/setCategoriesIfNone';
 
 const getQueryString = (path: string) => {
   if (path.includes('?')) {
@@ -19,7 +21,7 @@ function ProductsPage({
   products,
   filters,
 }: {
-  products: Product[];
+  products: FindResult<Product>;
   filters: any;
 }) {
   const { t } = useTranslation();
@@ -38,13 +40,17 @@ ProductsPage.getInitialProps = async (
   const store = getStore(ctx.store.getState());
   const query = queryString.parse(getQueryString(ctx.asPath));
   try {
-    const products = await sdk.product.findForStore(store._id, query);
-    return { products: products.data };
+    const res = await Promise.all([
+      sdk.product.findForStore(store._id, query),
+      setCategoriesIfNone(ctx),
+    ]);
+
+    return { products: res[0], filters: query };
   } catch (err) {
     console.log(err);
   }
 
-  return { products: [], filters: query };
+  return { products: { data: [] }, filters: query };
 };
 
 export default ProductsPage;

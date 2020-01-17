@@ -1,4 +1,4 @@
-import Document from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
 import { setupSdk } from '@sradevski/la-sdk';
 import { NextPageContext } from 'next';
@@ -79,5 +79,17 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
+  }
+
+  render() {
+    return (
+      <Html prefix='og: http://ogp.me/ns#'>
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }

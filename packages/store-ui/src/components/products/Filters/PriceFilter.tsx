@@ -7,10 +7,18 @@ interface PriceFilter {
   to: number;
   min: number;
   max: number;
+  onCancel: () => void;
   onChange: (from: number, to: number) => void;
 }
 
-export const PriceFilter = ({ from, to, min, max, onChange }: PriceFilter) => {
+export const PriceFilter = ({
+  from,
+  to,
+  min,
+  max,
+  onCancel,
+  onChange,
+}: PriceFilter) => {
   const { t } = useTranslation();
   const [range, setRange] = useState<[number, number]>([from, to]);
   const [start, end] = range;
@@ -46,16 +54,19 @@ export const PriceFilter = ({ from, to, min, max, onChange }: PriceFilter) => {
         mt={4}
       />
 
-      <Button
-        disabled={from === start && to === end}
-        onClick={() => onChange(start, end)}
-        width='80px'
-        type='primary'
-        ml={'auto'}
-        mt={4}
-      >
-        {t('common.ok')}
-      </Button>
+      <Flex mt={4} justifyContent='flex-end'>
+        <Button onClick={onCancel} width='100px' mr={3}>
+          {t('actions.cancel')}
+        </Button>
+        <Button
+          disabled={from === start && to === end}
+          onClick={() => onChange(start, end)}
+          width='100px'
+          type='primary'
+        >
+          {t('common.ok')}
+        </Button>
+      </Flex>
     </Flex>
   );
 };
