@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

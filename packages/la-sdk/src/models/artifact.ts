@@ -15,7 +15,6 @@ export const getArtifactSdk = (
 ) => {
   const host =
     options.imagesEndpoint ?? options.apiEndpoint.replace('api', 'images');
-  const imagesBucket = 'images';
 
   return {
     //These are the only supported methods for handling an artifact.
@@ -27,12 +26,12 @@ export const getArtifactSdk = (
       ['create', 'remove'],
     ),
 
-    getUrlForArtifact: (id: string) => {
-      if (!id) {
+    getUrlForArtifact: (id: string, bucket: string) => {
+      if (!id || !bucket) {
         return null;
       }
 
-      return `${host}/${imagesBucket}/${id}`;
+      return `${host}/${bucket}/${id}`;
     },
   };
 };
