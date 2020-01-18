@@ -77,6 +77,10 @@ export const errors: {
     name: 'generic',
     message: 'Invalid entry',
   },
+  'missing-in-schema': {
+    name: 'missing-in-schema',
+    message: 'Entry is not permitted for use',
+  },
   'invalid-schema-selector': {
     name: 'invalid-schema-selector',
     message: 'Invalid schema selector passed',

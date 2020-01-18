@@ -44,30 +44,55 @@ export const validateSingle = (schema: any, val: any, selector: string) => {
   return null;
 };
 
+const checkMissingInSchema = (schema: any, data: any) =>
+  Object.keys(data).reduce((errs: ValidationErrorResponse, entry) => {
+    const existsInSchema = Boolean(schema[entry]);
+    if (!existsInSchema) {
+      errs[entry] = getError('missing-in-schema', [entry]);
+    }
+
+    return errs;
+  }, {});
+
+const checkDataAgainstSchema = (
+  schema: any,
+  data: any,
+  ignoreRequired: boolean,
+) =>
+  Object.keys(schema).reduce((errs: ValidationErrorResponse, entry) => {
+    const val = data[entry];
+    if (ignoreRequired && (val === null || val === undefined)) {
+      return errs;
+    }
+
+    const err = validateSingle(schema, val, entry);
+    if (err) {
+      errs[entry] = err;
+    }
+
+    return errs;
+  }, {});
+
 export const validate = (
   schema: any,
   data: any = {},
   ignoreRequired: boolean,
 ) => {
-  const errorObj = Object.keys(schema).reduce(
-    (errs: ValidationErrorResponse, entry) => {
-      const val = data[entry];
-      if (ignoreRequired && (val === null || val === undefined)) {
-        return errs;
-      }
-
-      const err = validateSingle(schema, val, entry);
-      if (err) {
-        errs[entry] = err;
-      }
-
-      return errs;
-    },
-    {},
+  const failedValidationErrors = checkDataAgainstSchema(
+    schema,
+    data,
+    ignoreRequired,
   );
 
-  if (Object.keys(errorObj).length > 0) {
-    return errorObj;
+  const missingInSchemaErrors = checkMissingInSchema(schema, data);
+
+  const allErrors = {
+    ...missingInSchemaErrors,
+    ...failedValidationErrors,
+  };
+
+  if (Object.keys(allErrors).length > 0) {
+    return allErrors;
   }
 
   return null;

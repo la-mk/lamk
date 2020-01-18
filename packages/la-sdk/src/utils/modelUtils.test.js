@@ -112,6 +112,15 @@ describe('Validation utility', () => {
     ).toHaveProperty('addresses');
   });
 
+  test('Should return an error if data field does not exist in schema', () => {
+    expect(
+      modelUtils.validate(sampleSchema, {
+        ...sampleData,
+        nonexistentField: 1,
+      }),
+    ).toHaveProperty('nonexistentField');
+  });
+
   test('Should return the true validation error on an optional field', () => {
     expect(
       modelUtils.validate(sampleSchema, { ...sampleData, region: 123 }).region
