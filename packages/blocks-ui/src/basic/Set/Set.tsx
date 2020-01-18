@@ -12,7 +12,7 @@ interface SetProps<T> {
   itemKey: string;
   title?: string;
   gutter?: number | string | (number | string)[];
-  onSeeAll: () => void;
+  footer?: React.ReactNode;
 }
 
 const SetContainer = styled.div`
@@ -63,7 +63,7 @@ function SetBase<T>({
   itemKey,
   title,
   gutter,
-  onSeeAll,
+  footer,
 }: SetProps<T>) {
   const setListRef = useRef<HTMLUListElement>(null);
   const handleArrowClick = (direction: ArrowDirection) => {
@@ -113,9 +113,7 @@ function SetBase<T>({
         direction='right'
       />
 
-      <Button type='link' onClick={onSeeAll}>
-        See all
-      </Button>
+      {footer}
     </SetContainer>
   );
 }
