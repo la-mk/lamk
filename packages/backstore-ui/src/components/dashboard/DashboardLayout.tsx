@@ -22,11 +22,14 @@ interface DashboardLayoutProps {
 const FixedSider = styled(Sider)`
   overflow: auto;
   height: 100vh;
+  position: fixed;
+  left: 0;
 `;
 
 const StyledContent = styled(Content)`
   overflow: initial;
   background: white;
+  transition: margin 250ms;
 `;
 
 const TopMenuContainer = styled(Flex)`
@@ -88,7 +91,14 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
             </MenuItem>
           </Menu>
         </FixedSider>
-        <StyledContent m={3}>{children}</StyledContent>
+        <StyledContent
+          minHeight={'calc(100vh - 32px)'}
+          ml={isSidebarCollapsed ? 96 : 216}
+          my={16}
+          mr={16}
+        >
+          {children}
+        </StyledContent>
       </Layout>
     </>
   );

@@ -12,8 +12,21 @@ import { AuthModal } from '../src/components/signup/AuthModal';
 import { sdk, setupSdk } from '@sradevski/la-sdk';
 import env from '../src/common/env';
 import { getStore } from '../src/state/modules/store/store.selector';
-import { appWithTranslation } from '../src/common/i18n';
+import { appWithTranslation, useTranslation } from '../src/common/i18n';
 import 'antd/dist/antd.less';
+import mk_MK from 'antd/lib/locale/mk_MK';
+import { I18n } from 'next-i18next';
+
+const getCompoundLocale = (t: (key: string) => string) => {
+  return {
+    email: t('common.email'),
+    password: t('common.password'),
+    signup: t('auth.signup'),
+    login: t('auth.login'),
+    noAccount: t('auth.noAccount'),
+    alreadyHaveAccount: t('auth.alreadyHaveAccount'),
+  };
+};
 
 const setInitialDataInState = async (appCtx: any) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
@@ -38,7 +51,28 @@ const setInitialDataInState = async (appCtx: any) => {
   }
 };
 
-class MyApp extends App<{ store: any }> {
+const Main = ({ store, children }) => {
+  const { t, i18n } = useTranslation();
+  return (
+    <ThemeProvider
+      basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
+      compoundLocale={getCompoundLocale(t)}
+    >
+      <ReduxProvider store={store}>
+        <ConnectedRouter>
+          <StoreLayout>
+            <>
+              {children}
+              <AuthModal />
+            </>
+          </StoreLayout>
+        </ConnectedRouter>
+      </ReduxProvider>
+    </ThemeProvider>
+  );
+};
+
+class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
   static async getInitialProps(appCtx: any) {
     // You need to set the initial state before doing `getInitialProps`, otherwise the individual pages won't have access to the initial state.
     await setInitialDataInState(appCtx);
@@ -47,7 +81,7 @@ class MyApp extends App<{ store: any }> {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, pageProps, store, i18nServerInstance } = this.props;
     const laStore = getStore(store.getState());
 
     // This makes sure the sdk is available on the client-side as well.
@@ -69,22 +103,13 @@ class MyApp extends App<{ store: any }> {
             />
           </NextHead>
         )}
-        <ThemeProvider>
-          <ReduxProvider store={store}>
-            <ConnectedRouter>
-              <StoreLayout>
-                <>
-                  {laStore ? (
-                    <Component {...pageProps} />
-                  ) : (
-                    <Empty description='Store not found'></Empty>
-                  )}
-                  <AuthModal />
-                </>
-              </StoreLayout>
-            </ConnectedRouter>
-          </ReduxProvider>
-        </ThemeProvider>
+        <Main store={store}>
+          {laStore ? (
+            <Component {...pageProps} />
+          ) : (
+            <Empty description='Store not found'></Empty>
+          )}
+        </Main>
       </>
     );
   }

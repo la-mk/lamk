@@ -19,8 +19,10 @@
     "updateAddressSuccess": "Address successfully updated"
   },
   "auth": {
+    "alreadyHaveAccount": "Already have account?",
     "login": "Log in",
     "logout": "Log out",
+    "noAccount": "No account?",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "signup": "Sign up"
   },
@@ -53,11 +55,13 @@
     "city": "City",
     "country": "Country",
     "details": "Details",
+    "email": "Email address",
     "firstName": "First name",
     "items": "Items",
     "lastName": "Last name",
     "name": "Name",
     "ok": "OK",
+    "password": "Password",
     "personalInfo": "Personal info",
     "phoneNumber": "Phone number",
     "price": "Price",

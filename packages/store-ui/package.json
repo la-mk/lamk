@@ -27,7 +27,7 @@
   "dependencies": {
     "@sradevski/blocks-ui": "0.0.12",
     "@sradevski/la-sdk": "0.0.6",
-    "antd": "^3.26.6",
+    "antd": "^3.26.7",
     "connected-next-router": "^1.0.2",
     "date-fns": "^2.7.0",
     "env-var": "^5.1.0",

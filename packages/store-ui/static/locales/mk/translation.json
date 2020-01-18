@@ -19,8 +19,10 @@
     "updateAddressSuccess": "Адресата беше успешно обновена"
   },
   "auth": {
+    "alreadyHaveAccount": "Веќе имате сметка?",
     "login": "Логирај се",
     "logout": "Одлогирај се",
+    "noAccount": "Немате сметка?",
     "noUserInformation": "Информациите за корисникот не се најдени. Проверете дали сте логирани.",
     "signup": "Регистрирај се"
   },
@@ -53,11 +55,13 @@
     "city": "Град",
     "country": "Држава",
     "details": "Детали",
+    "email": "Емаил адреса",
     "firstName": "Име",
     "items": "Парчиња",
     "lastName": "Презиме",
     "name": "Име",
     "ok": "OK",
+    "password": "Лозинка",
     "personalInfo": "Лични податоци",
     "phoneNumber": "Телефонски број",
     "price": "Цена",

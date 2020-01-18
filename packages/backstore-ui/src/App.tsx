@@ -10,6 +10,7 @@ import { FullScreenSpinner } from './components/shared/components/FullScreenSpin
 import configureStore, { history } from './state/configureStore';
 import env from './common/env';
 import { useTranslation } from 'react-i18next';
+import mk_MK from 'antd/es/locale/mk_MK';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
@@ -25,7 +26,7 @@ const getCompoundLocale = (t: (key: string) => string) => {
 const store = configureStore(env.NODE_ENV);
 
 export const App = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const compoundLocale = getCompoundLocale(t);
 
   const onBeforeLift = () => {
@@ -43,7 +44,10 @@ export const App = () => {
         onBeforeLift={onBeforeLift}
         persistor={store.persistor}
       >
-        <BlocksUiProvider compoundLocale={compoundLocale}>
+        <BlocksUiProvider
+          basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
+          compoundLocale={compoundLocale}
+        >
           <ConnectedRouter history={history}>
             <Root />
           </ConnectedRouter>
