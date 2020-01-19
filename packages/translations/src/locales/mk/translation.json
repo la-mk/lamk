@@ -158,6 +158,7 @@
 		"product_plural": "Продукти",
 		"seeOtherProducts": "Видете други продукти",
 		"sku": "Сторна шифра",
+		"skuExample": "пр. 42356731",
 		"updateProductSuccess": "Продуктот {{productName}} успешно обновен",
 		"updatingProductTip": "Продуктот се обновува..."
   },
