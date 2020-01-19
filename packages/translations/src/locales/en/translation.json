@@ -157,6 +157,7 @@
 		"productCount": "Product count",
 		"product_plural": "Products",
 		"seeOtherProducts": "See other products",
+		"sku": "Inventory code",
 		"updateProductSuccess": "Successfully updated {{productName}}",
 		"updatingProductTip": "Updating product..."
   },

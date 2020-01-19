@@ -157,6 +157,7 @@
 		"productCount": "Број на продукти",
 		"product_plural": "Продукти",
 		"seeOtherProducts": "Видете други продукти",
+		"sku": "Сторна шифра",
 		"updateProductSuccess": "Продуктот {{productName}} успешно обновен",
 		"updatingProductTip": "Продуктот се обновува..."
   },
