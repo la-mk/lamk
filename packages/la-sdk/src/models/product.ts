@@ -50,6 +50,7 @@ export interface ProductSet {
   setTag: ProductSetTag;
   data?: Product[];
   error?: Error;
+  filter?: { query: { [key: string]: any } };
 }
 
 export interface ProductSetTag {
@@ -101,7 +102,7 @@ export const getProductSdk = (client: Application) => {
             return Promise.resolve({
               setTag,
               error: new Error('Set not found'),
-            });
+            } as ProductSet);
           }
 
           const options = merge(
@@ -112,10 +113,10 @@ export const getProductSdk = (client: Application) => {
           return crudMethods
             .find(options)
             .then(res => {
-              return { setTag, data: res.data };
+              return { setTag, data: res.data, filter: { query: queryForSet } };
             })
             .catch(err => {
-              return { setTag, error: err };
+              return { setTag, error: err, filter: { query: queryForSet } };
             });
         }),
       );
