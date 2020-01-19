@@ -6,7 +6,7 @@ import {
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
 import { unique } from '../../common/hooks/unique';
-import { disallow } from 'feathers-hooks-common';
+import { disallow, discard } from 'feathers-hooks-common';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 
@@ -27,6 +27,7 @@ export const hooks = {
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'forUser' }),
+      discard('_id'),
       validate(sdk.cart.validate),
     ],
     // Only allow server to be able to remove a cart (TODO: when a user deletes their account)

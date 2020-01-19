@@ -19,7 +19,7 @@ export const Head = ({ title, previewImages }: HeadProps) => {
       <meta property='og:title' content={title} />
       {previewImages &&
         previewImages.map(image => (
-          <meta property='og:image' content={image} />
+          <meta key={image} property='og:image' content={image} />
         ))}
     </NextHead>
   );

@@ -10,7 +10,7 @@ import {
   isOwner,
   isPublished,
 } from '../../common/hooks/filtering';
-import { unless, keep, checkContext } from 'feathers-hooks-common';
+import { unless, keep, checkContext, discard } from 'feathers-hooks-common';
 import { NotFound } from '../../common/errors';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
@@ -62,6 +62,7 @@ export const hooks = {
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'ownedBy' }),
+      discard('_id'),
       validate(sdk.store.validate),
     ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'ownedBy' })],

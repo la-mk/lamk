@@ -2,7 +2,7 @@ import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
 import { restrictToOwner } from 'feathers-authentication-hooks';
 import { requireAnyQueryParam } from '../../common/hooks/filtering';
-import { disallow } from 'feathers-hooks-common';
+import { disallow, discard } from 'feathers-hooks-common';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 import { unique } from '../../common/hooks/unique';
@@ -17,6 +17,7 @@ export const hooks = {
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'forStore' }),
       unique(['forStore']),
+      discard('_id'),
       validate(sdk.storeContents.validate),
     ],
     remove: [disallow('external')],

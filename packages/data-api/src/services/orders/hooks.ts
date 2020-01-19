@@ -9,6 +9,7 @@ import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
+import { discard } from 'feathers-hooks-common';
 
 // We need to check that the order only contains products from the specified store,
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
@@ -67,6 +68,7 @@ export const hooks = {
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'orderedFrom' }),
+      discard('_id'),
       validate(sdk.order.validate),
     ],
     remove: [

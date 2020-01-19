@@ -40,7 +40,7 @@ export const Cart = () => {
   useEffect(() => {
     if (user && !cart) {
       caller(
-        sdk.cart.getCartWithProductsForUser(user._id),
+        sdk.cart.getCartWithProductsForUser(user._id, store._id),
         (cartWithProducts: CartWithProducts) => {
           if (cartWithProducts) {
             return setCartWithProducts(cartWithProducts);

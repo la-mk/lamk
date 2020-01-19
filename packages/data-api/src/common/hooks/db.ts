@@ -32,9 +32,20 @@ export const validate = (
       ignoreRequired = true;
     }
 
-    const errors = validator(context.data, ignoreRequired);
+    let data = context.data;
+    if (context.data['$push']) {
+      // Push contains a single object that will be added to an otherwise array field, so we need to convert it for proper validation.
+      data = context.data['$push'];
+      data = Object.keys(data).reduce((asArray: any, key) => {
+        asArray[key] = [data[key]];
+        return asArray;
+      }, {});
+    }
+
+    const errors = validator(data, ignoreRequired);
 
     if (errors) {
+      console.error(data, errors);
       throw new BadRequest('The passed data is invalid', errors);
     }
   };

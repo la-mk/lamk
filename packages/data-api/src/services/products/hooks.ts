@@ -5,7 +5,7 @@ import {
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
 import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
-import { unless, keep, checkContext } from 'feathers-hooks-common';
+import { unless, keep, checkContext, discard } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { sdk } from '@sradevski/la-sdk';
@@ -161,6 +161,7 @@ export const hooks = {
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'soldBy' }),
       assignPreviousCategory,
+      discard('_id'),
       validate(sdk.product.validate),
     ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'soldBy' })],

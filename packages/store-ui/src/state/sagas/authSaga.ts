@@ -9,6 +9,7 @@ import { setCartWithProducts } from '../modules/cart/cart.module';
 import { getCartWithProducts } from '../modules/cart/cart.selector';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { message } from 'antd';
+import { getStore } from '../modules/store/store.selector';
 
 function* afterAuthSaga(authInfo: any, wasAuthenticated: boolean = false) {
   yield put(toggleAuthModal(false));
@@ -44,9 +45,11 @@ export function* handleCartForUserSaga(authInfo: any) {
   // If logged in, fetch latest cart state and update redux.
   if (authInfo) {
     try {
+      const store = yield select(getStore);
       const serverCart = yield call(
         sdk.cart.getCartWithProductsForUser,
         authInfo.user._id,
+        store._id,
       );
 
       const localCart = yield select(getCartWithProducts);
@@ -59,10 +62,12 @@ export function* handleCartForUserSaga(authInfo: any) {
       );
 
       yield call(sdk.cart.patch, serverCart._id, {
-        items: cartItems.map((item: CartItemWithProduct) => ({
-          ...item,
-          product: item.product._id,
-        })),
+        items: cartItems
+          .filter(item => item.fromStore === store._id)
+          .map((item: CartItemWithProduct) => ({
+            ...item,
+            product: item.product._id,
+          })),
       });
 
       yield put(setCartWithProducts({ ...serverCart, items: cartItems }));

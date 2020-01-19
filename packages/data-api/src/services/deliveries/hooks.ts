@@ -5,7 +5,7 @@ import {
   associateCurrentUser,
 } from 'feathers-authentication-hooks';
 import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
-import { unless, keep } from 'feathers-hooks-common';
+import { unless, keep, discard } from 'feathers-hooks-common';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 
@@ -22,6 +22,7 @@ export const hooks = {
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'forStore' }),
+      discard('_id'),
       validate(sdk.delivery.validate),
     ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'forStore' })],

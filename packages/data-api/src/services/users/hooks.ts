@@ -7,6 +7,7 @@ import {
 } from 'feathers-authentication-hooks';
 import { validate } from '../../common/hooks/db';
 import { sdk } from '@sradevski/la-sdk';
+import { discard } from 'feathers-hooks-common';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
@@ -26,6 +27,7 @@ export const hooks = {
       authenticate('jwt'),
       restrictToOwner({ ownerField: '_id' }),
       unique(['email']),
+      discard('_id'),
       validate(sdk.user.validate),
     ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: '_id' })],

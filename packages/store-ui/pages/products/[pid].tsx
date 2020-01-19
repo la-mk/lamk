@@ -44,7 +44,7 @@ ProductPage.getInitialProps = async function(
       .get(ctx.query.pid as string)
       .catch(err => console.log(err));
 
-    return { product };
+    return { product, store };
   }
 
   return { product: null, store };

@@ -52,7 +52,7 @@ export const Checkout = () => {
     }
 
     caller(
-      sdk.cart.getCartWithProductsForUser(user._id),
+      sdk.cart.getCartWithProductsForUser(user._id, store._id),
       (cartWithProducts: CartWithProducts) => {
         if (cartWithProducts) {
           return setCartWithProducts(cartWithProducts);

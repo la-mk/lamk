@@ -5,7 +5,7 @@ import {
   associateCurrentUser,
   queryWithCurrentUser,
 } from 'feathers-authentication-hooks';
-import { alterItems } from 'feathers-hooks-common';
+import { alterItems, discard } from 'feathers-hooks-common';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 
@@ -26,6 +26,7 @@ export const hooks = {
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'addressFor' }),
+      discard('_id'),
       alterItems(record => {
         record.country = 'MK';
       }),
