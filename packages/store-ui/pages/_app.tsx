@@ -28,25 +28,48 @@ const getCompoundLocale = (t: (key: string) => string) => {
   };
 };
 
+// TODO: Cache heavily for a long period.
+const getSlugForCustomDomain = async (host: string) => {
+  const laStoreResult = await sdk.store.find({ query: { customDomain: host } });
+  if (laStoreResult.total === 0) {
+    throw new Error('Store not found');
+  }
+
+  if (laStoreResult.total > 1) {
+    console.error(`Multiple stores with the domain ${host} found`);
+    throw new Error('Found multiple stores with the same domain.');
+  }
+
+  return laStoreResult.data[0];
+};
+
+const getStoreFromHost = (host: string) => {
+  const tld = host.substr(host.indexOf('.'), host.indexOf('/'));
+  const serverTld = env.API_ENDPOINT.substr(env.API_ENDPOINT.indexOf('.') + 1);
+  if (tld !== serverTld) {
+    return getSlugForCustomDomain(host);
+  }
+
+  const slug = host.substr(0, host.indexOf('.'));
+  if (!slug) {
+    throw new Error('Store not found');
+  }
+
+  return sdk.store.getBySlug(slug).catch(err => {
+    console.log(err);
+    return null;
+  });
+};
+
 const setInitialDataInState = async (appCtx: any) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
   if (appCtx.ctx.req) {
     const host: string = appCtx.ctx.req.headers.host;
     if (!host) {
-      throw new Error('Store not found');
+      throw new Error('Store request misconfigured');
     }
 
-    const slug = host.substr(0, host.indexOf('.'));
-
-    if (!slug) {
-      throw new Error('Store not found');
-    }
-
-    const laStore = await sdk.store.getBySlug(slug).catch(err => {
-      console.log(err);
-      return null;
-    });
-
+    const laStore = await getStoreFromHost(host);
     appCtx.ctx.store.dispatch(setStore(laStore));
   }
 };

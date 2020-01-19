@@ -48,7 +48,7 @@ const removeStoreContents = async (ctx: HookContext) => {
 export const hooks = {
   before: {
     all: [],
-    find: [requireAnyQueryParam(['ownedBy', 'slug'])],
+    find: [requireAnyQueryParam(['ownedBy', 'slug', 'customDomain'])],
     get: [],
     create: [
       authenticate('jwt'),
@@ -79,7 +79,15 @@ export const hooks = {
       ),
       unless(
         isOwner('ownedBy'),
-        keep('_id', 'name', 'slug', 'logo', 'isPublished', 'ownedBy'),
+        keep(
+          '_id',
+          'name',
+          'slug',
+          'customDomain',
+          'logo',
+          'isPublished',
+          'ownedBy',
+        ),
       ),
     ],
     get: [
@@ -91,7 +99,15 @@ export const hooks = {
       ),
       unless(
         isOwner('ownedBy'),
-        keep('_id', 'name', 'slug', 'logo', 'isPublished', 'ownedBy'),
+        keep(
+          '_id',
+          'name',
+          'slug',
+          'customDomain',
+          'logo',
+          'isPublished',
+          'ownedBy',
+        ),
       ),
     ],
     create: [createStoreContentsIfNotExists],

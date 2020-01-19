@@ -11,7 +11,7 @@ services:
     image: traefik:v2.1.1
     container_name: reverse-proxy-dev
     command:
-      # - --log.level=DEBUG
+      - --log.level=DEBUG
       - --api.insecure=true
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
@@ -104,7 +104,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
-      - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.dev.sradevski.com`)
+      - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.dev.sradevski.com`, `local-agnesa-test.lamk.tech`)
       - traefik.http.services.store-ui.loadbalancer.server.port=80 
     environment: 
       GPR_TOKEN: $GPR_TOKEN
