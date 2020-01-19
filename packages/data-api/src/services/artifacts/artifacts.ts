@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import { Application, Service } from '@feathersjs/feathers';
+import { Application, Service, Params } from '@feathersjs/feathers';
 import * as Minio from 'minio';
 // @ts-ignore
 import { parseDataURI } from 'dauria';
@@ -7,6 +7,24 @@ import * as mimeTypes from 'mime-types';
 import { hooks } from './hooks';
 import env from '../../common/env';
 import { BadRequest } from '../../common/errors';
+
+const BUCKETS_REGION = 'fra-1';
+
+const getReadPolicy = (bucketName: string) =>
+  JSON.stringify({
+    Version: '2012-10-17',
+    Statement: [
+      {
+        Action: ['s3:GetObject'],
+        Effect: 'Allow',
+        Principal: {
+          AWS: ['*'],
+        },
+        Resource: [`arn:aws:s3:::${bucketName}/*`],
+        Sid: '',
+      },
+    ],
+  });
 
 const bufferToHash = (buffer: Buffer) => {
   const hash = crypto.createHash('sha256');
@@ -20,9 +38,7 @@ interface ArtifactsServiceData {
 
 class ArtifactsService implements Service<ArtifactsServiceData> {
   client: Minio.Client;
-  bucket: string;
-
-  constructor(options: { client: Minio.Client; bucket: string }) {
+  constructor(options: { client: Minio.Client }) {
     if (!options || !options.client) {
       throw new Error(
         'Artifacts service: constructor `options.client` must be provided',
@@ -30,24 +46,34 @@ class ArtifactsService implements Service<ArtifactsServiceData> {
     }
 
     this.client = options.client;
-    this.bucket = options.bucket || 'images';
   }
 
   // @ts-ignore
-  async create(data: Partial<ArtifactsServiceData>) {
-    const { uri } = data;
+  async create(data: Partial<ArtifactsServiceData & { storeId: string }>) {
+    const { uri, storeId } = data;
 
     const result = parseDataURI(uri);
     const contentType = result.MIME;
     const buffer = result.buffer;
 
+    if (!storeId) {
+      throw new BadRequest('Missing store ID');
+    }
+
     if (!buffer || !contentType) {
       throw new BadRequest('The uploaded file is invalid');
     }
 
+    const bucket = storeId;
+    const bucketExists = await this.client.bucketExists(bucket);
+    if (!bucketExists) {
+      await this.client.makeBucket(bucket, BUCKETS_REGION);
+      await this.client.setBucketPolicy(bucket, getReadPolicy(bucket));
+    }
+
     const ext = mimeTypes.extension(contentType);
     const id = `${bufferToHash(buffer)}.${ext}`;
-    await this.client.putObject(this.bucket, id, buffer);
+    await this.client.putObject(bucket, id, buffer);
     return {
       _id: id,
       uri: '',
@@ -55,12 +81,18 @@ class ArtifactsService implements Service<ArtifactsServiceData> {
   }
 
   // @ts-ignore
-  async remove(id: string) {
+  async remove(id: string, params: Params) {
     if (!id) {
       throw new BadRequest('Id for removal not passed');
     }
 
-    await this.client.removeObject(this.bucket, id.toString());
+    const storeId = params.query?.storeId;
+
+    if (!storeId) {
+      throw new BadRequest('Store ID not passed');
+    }
+
+    await this.client.removeObject(storeId, id.toString());
     return {
       id: id,
       uri: '',
@@ -69,7 +101,6 @@ class ArtifactsService implements Service<ArtifactsServiceData> {
 }
 
 export const artifacts = (app: Application) => {
-  // TODO: This will need some modification for prod.
   const minioClient = new Minio.Client({
     endPoint: env.STORAGE_ENDPOINT,
     port: 80,
@@ -78,10 +109,7 @@ export const artifacts = (app: Application) => {
     secretKey: env.STORAGE_ACCESS_KEY_SECRET,
   });
 
-  app.use(
-    '/artifacts',
-    new ArtifactsService({ client: minioClient, bucket: 'images' }),
-  );
+  app.use('/artifacts', new ArtifactsService({ client: minioClient }));
   const service = app.service('artifacts');
   service.hooks(hooks);
 };

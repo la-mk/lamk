@@ -26,10 +26,12 @@ import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
+import { getStore } from '../../state/modules/store/store.selector';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall();
   const user = useSelector(getUser);
+  const store = useSelector(getStore);
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
   const dispatch = useDispatch();
@@ -112,6 +114,7 @@ export const Cart = () => {
                         alt={cartItem.product.name}
                         src={sdk.artifact.getUrlForArtifact(
                           cartItem.product.images[0],
+                          store._id,
                         )}
                       />
                     </Flex>

@@ -19,7 +19,7 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import {
   handleArtifactUploadStatus,
   getDefaultFileList,
-  uploadImage,
+  getImageUploader,
 } from '../../shared/utils/artifacts';
 import { UploadChangeParam } from 'antd/lib/upload';
 
@@ -33,7 +33,9 @@ export const LandingPreferences = () => {
 
   useEffect(() => {
     if (storeContents && storeContents.landing) {
-      setFileList(getDefaultFileList(storeContents.landing.banner));
+      setFileList(
+        getDefaultFileList(storeContents.landing.banner || [], store._id),
+      );
     }
   }, [storeContents]);
 
@@ -77,7 +79,10 @@ export const LandingPreferences = () => {
           <FormItem selector='landing.banner' label={t('store.storeBanner')}>
             {(val, _onChange, onComplete) => (
               <UploadDragger
-                customRequest={uploadImage}
+                customRequest={getImageUploader({
+                  maxHeight: 1600,
+                  maxWidth: 2000,
+                })}
                 accept='.png, .jpg, .jpeg'
                 onChange={(info: UploadChangeParam) => {
                   setFileList([...(info.fileList || [])]);

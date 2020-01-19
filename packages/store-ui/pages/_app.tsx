@@ -99,7 +99,7 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
           <NextHead>
             <link
               rel='shortcut icon'
-              href={sdk.artifact.getUrlForArtifact(laStore.logo)}
+              href={sdk.artifact.getUrlForArtifact(laStore.logo, laStore._id)}
             />
           </NextHead>
         )}

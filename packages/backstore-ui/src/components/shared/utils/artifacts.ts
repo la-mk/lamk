@@ -4,6 +4,7 @@ import uniq from 'lodash/uniq';
 import { sdk } from '@sradevski/la-sdk';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
+import Compressor from 'compressorjs';
 
 export const toBase64 = (file: Blob) => {
   return new Promise<string>((resolve, reject) => {
@@ -19,16 +20,31 @@ export const toBase64 = (file: Blob) => {
   });
 };
 
-export const uploadImage = async ({ file, onSuccess, onError }: any) => {
-  const base64 = await toBase64(file);
+export const getImageUploader = (
+  options: {
+    maxWidth: number;
+    maxHeight: number;
+  } = { maxWidth: 800, maxHeight: 800 },
+) => async ({ file, onSuccess, onError }: any) => {
+  new Compressor(file, {
+    ...options,
+    quality: 0.85,
+    success: async compressedFile => {
+      const base64 = await toBase64(compressedFile);
 
-  sdk.artifact
-    .create({ uri: base64 })
-    .then(onSuccess)
-    .catch(onError);
+      sdk.artifact
+        .create({ uri: base64 })
+        .then(onSuccess)
+        .catch(onError);
+    },
+    error: onError,
+  });
 };
 
-export const getDefaultFileList = (value?: string | string[]) => {
+export const getDefaultFileList = (
+  value: string | string[],
+  bucket: string,
+) => {
   if (!value || isEmpty(value)) {
     return;
   }
@@ -40,7 +56,7 @@ export const getDefaultFileList = (value?: string | string[]) => {
             uid: value,
             name: value,
             status: 'done',
-            url: sdk.artifact.getUrlForArtifact(value),
+            url: sdk.artifact.getUrlForArtifact(value, bucket),
           },
         ] as UploadFile[])
       : undefined;
@@ -51,7 +67,7 @@ export const getDefaultFileList = (value?: string | string[]) => {
           uid: fileId,
           name: fileId,
           status: 'done',
-          url: sdk.artifact.getUrlForArtifact(fileId),
+          url: sdk.artifact.getUrlForArtifact(fileId, bucket),
         } as UploadFile),
     );
   }

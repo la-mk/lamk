@@ -85,7 +85,9 @@ export const Products = ({
         loading={showSpinner}
         rowKey='_id'
         items={products}
-        renderItem={(item: any) => <ProductCard product={item} />}
+        renderItem={(item: any) => (
+          <ProductCard product={item} storeId={store._id} />
+        )}
         pagination={{
           ...pagination,
           current: pagination.current,

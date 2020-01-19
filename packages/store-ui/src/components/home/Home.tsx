@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import queryString from 'qs';
 import { ProductSet } from '../sets/ProductSet';
 import { CategoriesList } from '../CategoriesList';
 import styled from 'styled-components';
@@ -57,7 +58,7 @@ export const Home = ({
             width='100%'
             src={
               landingContent.banner &&
-              sdk.artifact.getUrlForArtifact(landingContent.banner)
+              sdk.artifact.getUrlForArtifact(landingContent.banner, store._id)
             }
             alt='Banner image'
           />
@@ -69,7 +70,8 @@ export const Home = ({
             .filter(set => Boolean(set.data))
             .map(set => (
               <ProductSet
-                onSeeAll={() => null}
+                storeId={store._id}
+                allHref={`/products?${queryString.stringify(set.filter)}`}
                 key={set.setTag.name + (set.setTag.value || '')}
                 products={set.data}
                 title={t(getTranslationBaseForSet(set.setTag))}

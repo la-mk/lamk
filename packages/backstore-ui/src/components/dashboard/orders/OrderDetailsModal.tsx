@@ -30,6 +30,7 @@ import {
 import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
+import { getStore } from '../../../state/modules/store/store.selector';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -49,6 +50,7 @@ export const OrderDetailsModal = ({
   onClose,
 }: OrderDetailsModalProps) => {
   const [caller, showSpinner] = hooks.useCall();
+  const store = useSelector(getStore);
   const order = useSelector<any, Order>(getOrder(orderId));
   const [products, setProducts] = useState<Product[]>([]);
   const { t } = useTranslation();
@@ -149,6 +151,7 @@ export const OrderDetailsModal = ({
                               alt={product.name}
                               src={sdk.artifact.getUrlForArtifact(
                                 product.images[0],
+                                store._id,
                               )}
                             />
                           </Flex>

@@ -17,7 +17,7 @@ import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { UploadChangeParam } from 'antd/es/upload';
 import {
-  uploadImage,
+  getImageUploader,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../shared/utils/artifacts';
@@ -27,6 +27,8 @@ import { useTranslation } from 'react-i18next';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { useFullCategory, FullCategory } from '../shared/hooks/useFullCategory';
 import { cascaderFilter } from '../shared/utils/form';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../state/modules/store/store.selector';
 
 interface AddProductCardProps {
   storeId: Store['_id'] | undefined;
@@ -49,6 +51,7 @@ export const AddProductCard = ({
 }: AddProductCardProps) => {
   const { t } = useTranslation();
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
+  const store = useSelector(getStore);
   const [externalState] = hooks.useFormState<Product>(
     product,
     { soldBy: storeId },
@@ -126,7 +129,7 @@ export const AddProductCard = ({
             <UploadDragger
               multiple
               listType='picture-card'
-              customRequest={uploadImage}
+              customRequest={getImageUploader()}
               accept='.png, .jpg, .jpeg'
               onChange={(info: UploadChangeParam) =>
                 handleArtifactUploadStatus(
@@ -139,6 +142,7 @@ export const AddProductCard = ({
               }
               defaultFileList={getDefaultFileList(
                 product ? product.images : [],
+                store._id,
               )}
               name='product-images'
             >

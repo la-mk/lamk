@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 
-const getColumns = (t: T) =>
+const getColumns = (t: T, storeId: string) =>
   [
     {
       title: t('common.image_plural'),
@@ -33,7 +33,7 @@ const getColumns = (t: T) =>
           <Image
             maxHeight='60px'
             alt={product.name}
-            src={sdk.artifact.getUrlForArtifact(product.images[0])}
+            src={sdk.artifact.getUrlForArtifact(product.images[0], storeId)}
           />
         );
       },
@@ -64,7 +64,7 @@ export const Products = () => {
 
   const products: Product[] = useSelector(getProducts);
   const store: Store | null = useSelector(getStore);
-  const columns = getColumns(t);
+  const columns = getColumns(t, store ? store._id : '');
 
   const fetcher = useMemo(
     () =>

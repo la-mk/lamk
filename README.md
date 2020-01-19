@@ -6,7 +6,6 @@ TODO: Describe the DevEnv setup, tools, and the entire deployment pipeline.
 
 ### Installing and updating packages
 Until we find a better way, currently if you wish to install a new dependency, or update an existing one, you need to do the following:
-- Run `npm i <package-name>` in the project you wish to add the dependency
 - Run `docker exec <container-name> sh -c "npm install <package-name>"`
 - Run `docker restart <container-name>`
 

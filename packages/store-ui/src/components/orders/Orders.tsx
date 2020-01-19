@@ -21,10 +21,12 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 import { OrderProductCard } from './OrderProductCard';
+import { getStore } from '../../state/modules/store/store.selector';
 
 export const Orders = () => {
   const [orders, setOrders] = useState(null);
   const user = useSelector(getUser);
+  const store = useSelector(getStore);
   const { t } = useTranslation();
 
   const fetcher = useMemo(
@@ -97,7 +99,10 @@ export const Orders = () => {
                     key={orderItem.product._id}
                     mb={4}
                   >
-                    <OrderProductCard orderItem={orderItem} />
+                    <OrderProductCard
+                      orderItem={orderItem}
+                      storeId={store._id}
+                    />
                   </Col>
                 );
               })}

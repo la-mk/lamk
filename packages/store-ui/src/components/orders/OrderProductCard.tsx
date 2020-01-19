@@ -3,7 +3,13 @@ import { Flex, Text, Card, Image } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from '../../common/i18n';
 
-export const OrderProductCard = ({ orderItem }: { orderItem: any }) => {
+export const OrderProductCard = ({
+  orderItem,
+  storeId,
+}: {
+  orderItem: any;
+  storeId: string;
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -14,7 +20,10 @@ export const OrderProductCard = ({ orderItem }: { orderItem: any }) => {
             maxHeight='90px'
             maxWidth='90px'
             alt={orderItem.product.name}
-            src={sdk.artifact.getUrlForArtifact(orderItem.product.images[0])}
+            src={sdk.artifact.getUrlForArtifact(
+              orderItem.product.images[0],
+              storeId,
+            )}
           />
         </Flex>
         <Flex ml={4} width='100%' flexDirection='row'>

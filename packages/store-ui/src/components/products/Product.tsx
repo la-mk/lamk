@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import queryString from 'qs';
 import {
   Flex,
   Image,
@@ -12,7 +13,10 @@ import {
   Paragraph,
   hooks,
 } from '@sradevski/blocks-ui';
-import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
+import {
+  Product as ProductType,
+  ProductSet as ProductSetType,
+} from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { Price } from '../shared/Price';
 import { ProductSet } from '../sets/ProductSet';
@@ -38,9 +42,9 @@ export const Product = ({ product }: ProductProps) => {
   const user = useSelector(getUser);
   const { t } = useTranslation();
 
-  const [productSets, setProductSets] = useState([]);
+  const [productSets, setProductSets] = useState<ProductSetType[]>([]);
   const [selectedImage, setSelectedImage] = useState(
-    sdk.artifact.getUrlForArtifact(product.images[0]),
+    sdk.artifact.getUrlForArtifact(product.images[0], store._id),
   );
 
   const [quantity, setQuantity] = React.useState(1);
@@ -61,7 +65,9 @@ export const Product = ({ product }: ProductProps) => {
   }, [store]);
 
   useEffect(() => {
-    setSelectedImage(sdk.artifact.getUrlForArtifact(product.images[0]));
+    setSelectedImage(
+      sdk.artifact.getUrlForArtifact(product.images[0], store._id),
+    );
   }, [product]);
 
   const handleAddToCart = () => {
@@ -99,7 +105,7 @@ export const Product = ({ product }: ProductProps) => {
             <Box mt={3} maxWidth={['100%', '80%', '100%', '80%']}>
               <Thumbnails
                 images={product.images.map(imageId =>
-                  sdk.artifact.getUrlForArtifact(imageId),
+                  sdk.artifact.getUrlForArtifact(imageId, store._id),
                 )}
                 selectedImage={selectedImage}
                 onImageClick={setSelectedImage}
@@ -161,7 +167,8 @@ export const Product = ({ product }: ProductProps) => {
             .filter(set => Boolean(set.data))
             .map(set => (
               <ProductSet
-                onSeeAll={() => null}
+                storeId={store._id}
+                allHref={`/products?${queryString.stringify(set.filter)}`}
                 key={set.setTag.name + (set.setTag.value || '')}
                 products={set.data}
                 title={t(getTranslationBaseForSet(set.setTag))}

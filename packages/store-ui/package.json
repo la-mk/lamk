@@ -25,8 +25,8 @@
     ]
   },
   "dependencies": {
-    "@sradevski/blocks-ui": "0.0.12",
-    "@sradevski/la-sdk": "0.0.6",
+    "@sradevski/blocks-ui": "0.0.13",
+    "@sradevski/la-sdk": "0.0.9",
     "antd": "^3.26.7",
     "connected-next-router": "^1.0.2",
     "date-fns": "^2.7.0",
@@ -48,7 +48,7 @@
     "styled-system": "^5.1.2"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.3",
+    "@sradevski/translations": "0.0.4",
     "@types/express": "^4.17.2",
     "@types/next-redux-wrapper": "^2.0.2",
     "@types/node": "^12.12.7",

@@ -5,7 +5,13 @@ import { Card, Title, Paragraph, Flex, Image } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { Price } from './shared/Price';
 
-export const ProductCard = ({ product }: { product: Product }) => {
+export const ProductCard = ({
+  product,
+  storeId,
+}: {
+  product: Product;
+  storeId: string;
+}) => {
   return (
     <Link href='/products/[pid]' as={`/products/${product._id}`}>
       <a style={{ textDecoration: 'none' }}>
@@ -21,7 +27,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             >
               <Image
                 height='100%'
-                src={sdk.artifact.getUrlForArtifact(product.images[0])}
+                src={sdk.artifact.getUrlForArtifact(product.images[0], storeId)}
                 alt={product.name}
               />
             </Flex>

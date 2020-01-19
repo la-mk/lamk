@@ -93,6 +93,7 @@
     "lowercase": "Field should all be lowercase",
     "maxLength": "Field should be at most {{0}} characters long",
     "minLength": "Field should be at least {{0}} characters long",
+    "missing-in-schema": "Field {{0}} is not in permitted for use",
     "negative": "Field should be a negative value",
     "number": "Field should be a number",
     "numeric": "Field should be a numeric",

@@ -20,7 +20,7 @@ import {
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import {
-  uploadImage,
+  getImageUploader,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../../shared/utils/artifacts';
@@ -165,7 +165,7 @@ export const ProductFormModal = ({
               <UploadDragger
                 multiple
                 listType='picture-card'
-                customRequest={uploadImage}
+                customRequest={getImageUploader()}
                 accept='.png, .jpg, .jpeg'
                 onChange={info =>
                   handleArtifactUploadStatus(
@@ -177,7 +177,8 @@ export const ProductFormModal = ({
                   )
                 }
                 defaultFileList={getDefaultFileList(
-                  product ? product.images : undefined,
+                  product ? product.images : [],
+                  storeId,
                 )}
                 name='product-images'
               >

@@ -11,7 +11,7 @@ import {
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import {
-  uploadImage,
+  getImageUploader,
   handleArtifactUploadStatus,
   getDefaultFileList,
 } from '../utils/artifacts';
@@ -65,7 +65,7 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
       <FormItem selector='logo' label={t('store.storeLogo')}>
         {(val, _onChange, onComplete) => (
           <UploadDragger
-            customRequest={uploadImage}
+            customRequest={getImageUploader({ maxHeight: 480, maxWidth: 480 })}
             accept='.png, .jpg, .jpeg'
             onChange={(info: UploadChangeParam) =>
               handleArtifactUploadStatus(
@@ -76,7 +76,10 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
                 message.error,
               )
             }
-            defaultFileList={getDefaultFileList(store ? store.logo : undefined)}
+            defaultFileList={getDefaultFileList(
+              store ? store.logo : [],
+              store ? store._id : '',
+            )}
             listType='picture'
             name='company-logo'
           >

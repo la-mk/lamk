@@ -21,6 +21,7 @@ import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
 import { OrderProductCard } from './OrderProductCard';
+import { getStore } from '../../state/modules/store/store.selector';
 
 const getStepIndex = (status: OrderType['status']) => {
   switch (status) {
@@ -37,6 +38,7 @@ const getStepIndex = (status: OrderType['status']) => {
 export const Order = ({ orderId }: { orderId: string }) => {
   const [caller, showSpinner] = hooks.useCall();
   const delivery = useSelector(getDelivery);
+  const store = useSelector(getStore);
   const user = useSelector(getUser);
   const { t } = useTranslation();
 
@@ -112,7 +114,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
                 key={orderItem.product._id}
                 mb={4}
               >
-                <OrderProductCard orderItem={orderItem} />
+                <OrderProductCard orderItem={orderItem} storeId={store._id} />
               </Col>
             );
           })}
