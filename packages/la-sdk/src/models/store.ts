@@ -26,6 +26,13 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(511),
+  customDomain: v8n().optional(
+    v8n()
+      .string()
+      .minLength(2)
+      .maxLength(1023),
+    true,
+  ),
   logo: v8n()
     .string()
     .minLength(2)
@@ -53,6 +60,7 @@ export interface Store {
   ownedBy: string;
   name: string;
   slug: string;
+  customDomain?: string;
   logo: string;
   isPublished: boolean;
   createdAt: string;
