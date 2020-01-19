@@ -33,9 +33,19 @@ export const validate = (
     }
 
     let data = context.data;
-    if (context.data['$push']) {
+    // If the user tries to pull an object, no need to do any validation on it as the DB will validate
+    if (data['$pull']) {
+      data = _.omit(data, '$pull');
+    }
+
+    // TODO: Validating $set is complicated, skip it for now
+    if (data['$set']) {
+      data = _.omit(data, '$set');
+    }
+
+    if (data['$push']) {
       // Push contains a single object that will be added to an otherwise array field, so we need to convert it for proper validation.
-      data = context.data['$push'];
+      data = data['$push'];
       data = Object.keys(data).reduce((asArray: any, key) => {
         asArray[key] = [data[key]];
         return asArray;

@@ -138,6 +138,8 @@
     "nameExample": "eg. Nike Air Max",
     "priceExample": "eg. 500",
     "productCount": "Product count",
+    "sku": "Inventory code",
+    "skuExample": "eg. 42356731",
     "updateProductSuccess": "Successfully updated {{productName}}",
     "updatingProductTip": "Updating product..."
   },

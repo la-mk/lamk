@@ -138,6 +138,8 @@
     "nameExample": "пр. Nike Air Max",
     "priceExample": "пр. 500",
     "productCount": "Број на продукти",
+    "sku": "Шифра",
+    "skuExample": "пр. 42356731",
     "updateProductSuccess": "Продуктот {{productName}} успешно обновен",
     "updatingProductTip": "Продуктот се обновува..."
   },

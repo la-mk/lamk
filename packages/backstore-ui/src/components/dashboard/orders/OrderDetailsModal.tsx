@@ -155,7 +155,14 @@ export const OrderDetailsModal = ({
                               )}
                             />
                           </Flex>
-                          <Text mx={2}>{product.name}</Text>
+                          <Flex flexDirection='column'>
+                            <Text mx={2}>{product.name}</Text>
+                            {product.sku && (
+                              <Text strong mx={2}>
+                                {`${t('product.sku')}: ${product.sku}`}
+                              </Text>
+                            )}
+                          </Flex>
                         </Flex>
                         <Text mx={2}>
                           {t('commerce.quantity')}:{' '}

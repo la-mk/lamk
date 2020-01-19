@@ -123,13 +123,13 @@ export const ProductFormModal = ({
           layout='horizontal'
         >
           <Row gutter={24}>
-            <Col md={8} span={24}>
+            <Col md={12} span={24}>
               <FormItem label={t('common.name')} selector='name'>
                 {formInput({ placeholder: t('product.nameExample') })}
               </FormItem>
             </Col>
 
-            <Col md={8} span={24}>
+            <Col md={12} span={24}>
               <FormItem label={t('common.category')} selector='category'>
                 {(val, _onChange, onComplete) => (
                   <Cascader
@@ -146,7 +146,9 @@ export const ProductFormModal = ({
                 )}
               </FormItem>
             </Col>
-            <Col md={8} span={24}>
+          </Row>
+          <Row gutter={24}>
+            <Col md={12} span={24}>
               <FormItem
                 label={t('common.price')}
                 selector='price'
@@ -155,6 +157,13 @@ export const ProductFormModal = ({
                 {formInput({
                   placeholder: t('product.priceExample'),
                   addonBefore: 'Ден',
+                })}
+              </FormItem>
+            </Col>
+            <Col md={12} span={24}>
+              <FormItem label={t('product.sku')} selector='sku'>
+                {formInput({
+                  placeholder: t('product.skuExample'),
                 })}
               </FormItem>
             </Col>
