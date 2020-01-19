@@ -14,6 +14,13 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(511),
+  sku: v8n().optional(
+    v8n()
+      .string()
+      .minLength(2)
+      .maxLength(511),
+    true,
+  ),
   price: v8n()
     .number()
     .positive(),
@@ -38,6 +45,7 @@ export interface Product {
   _id: string;
   soldBy: string;
   name: string;
+  sku: string;
   price: number;
   images: string[];
   category: string;
