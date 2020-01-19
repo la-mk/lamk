@@ -62,14 +62,16 @@ export const getCartSdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
-    getCartWithProductsForUser: async (userId: string) => {
+    getCartWithProductsForUser: async (userId: string, storeId?: string) => {
       const cartRes = await crudMethods.find({ query: { forUser: userId } });
       if (cartRes.total < 1) {
         throw new Error('There is no cart for the current user.');
       }
 
       const cart = cartRes.data[0];
-      const productIds = cart.items.map((item: CartItem) => item.product);
+      const productIds = cart.items
+        .filter(item => (storeId ? item.fromStore === storeId : true))
+        .map(item => item.product);
 
       const productsRes =
         productIds.length > 0
