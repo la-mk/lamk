@@ -18,18 +18,19 @@ services:
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
       - --entrypoints.web.address=:80
       - --entrypoints.web-secure.address=:443
+      # The DNS challenge requires you to have a DO_AUTH_TOKEN environment variable set.
+      # - --certificatesresolvers.cert-resolve.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      
       - --certificatesresolvers.cert-resolve.acme.email=sradevski@live.com
       - --certificatesresolvers.cert-resolve.acme.storage=acme.json
-      # The DNS challenge requires you to have a DO_AUTH_TOKEN environment variable set.
-      - --certificatesresolvers.cert-resolve.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge=true
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.provider=digitalocean
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.delayBeforeCheck=20
       
-      - --certificatesresolvers.custom-certs.acme.email=sradevski@live.com
-      - --certificatesresolvers.custom-certs.acme.storage=customcert.json
-      - --certificatesresolvers.cert-resolve.acme.tlsChallenge=true
+      # - --certificatesresolvers.custom-certs.acme.email=sradevski@live.com
+      # - --certificatesresolvers.custom-certs.acme.storage=customcert.json
+      # - --certificatesresolvers.custom-certs.acme.httpChallenge=true
+      # - --certificatesResolvers.custom-certs.acme.httpChallenge.entryPoint="web"
     ports:
        - "80:80"
        - "443:443"
@@ -52,7 +53,7 @@ services:
       # This is needed by Traefik to do proper let's encrypt DNS challenge.
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
   data-api:
-    image: lamk/data-api:1.0.14
+    image: lamk/data-api:1.0.15
     container_name: data-api
     restart: always
     networks:
@@ -79,7 +80,7 @@ services:
       STORAGE_ACCESS_KEY_SECRET: $SPACES_SECRET_ACCESS_KEY
     
   store-ui:
-    image: lamk/store-ui:1.0.5
+    image: lamk/store-ui:1.0.7
     container_name: store-ui
     restart: always
     depends_on: 
@@ -92,17 +93,19 @@ services:
       - traefik.enable=true
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
       - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.${SYSTEM_TLD}`)
+      - traefik.http.routers.store-ui.service=store-ui
       - traefik.http.services.store-ui.loadbalancer.server.port=80
       - traefik.http.routers.store-ui.tls=true
       - traefik.http.routers.store-ui.tls.certresolver=cert-resolve
       - traefik.http.routers.store-ui.tls.domains[0].main=*.${SYSTEM_TLD}
 
-      - traefik.http.routers.agnesa-test.priority=1 #Set to low priority so our services resolve before stores
-      - traefik.http.routers.agnesa-test.rule=HostRegexp(`agnesa-test.lamk.tech`)
-      - traefik.http.services.agnesa-test.loadbalancer.server.port=80
-      - traefik.http.routers.agnesa-test.tls=true
-      - traefik.http.routers.agnesa-test.tls.certresolver=custom-certs
-      - traefik.http.routers.agnesa-test.tls.domains[0].main=agnesa-test.lamk.tech
+      # - traefik.http.routers.agnesa-test.priority=1 #Set to low priority so our services resolve before stores
+      # - traefik.http.routers.agnesa-test.rule=HostRegexp(`agnesa-test.lamk.tech`)
+      # - traefik.http.routers.agnesa-test.service=agnesa-test
+      # - traefik.http.services.agnesa-test.loadbalancer.server.port=80
+      # - traefik.http.routers.agnesa-test.tls=true
+      # - traefik.http.routers.agnesa-test.tls.certresolver=custom-certs
+      # - traefik.http.routers.agnesa-test.tls.domains[0].main=agnesa-test.lamk.tech
 
     environment: 
       API_ENDPOINT: https://api.${SYSTEM_TLD}
@@ -110,7 +113,7 @@ services:
       PORT: 80
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.6
+    image: lamk/backstore-ui:1.0.7
     container_name: backstore-ui
     restart: always
     depends_on: 

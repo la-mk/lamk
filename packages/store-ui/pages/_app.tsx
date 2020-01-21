@@ -44,7 +44,7 @@ const getSlugForCustomDomain = async (host: string) => {
 };
 
 const getStoreFromHost = (host: string) => {
-  const tld = host.substr(host.indexOf('.'), host.indexOf('/'));
+  const tld = host.substr(host.indexOf('.') + 1);
   const serverTld = env.API_ENDPOINT.substr(env.API_ENDPOINT.indexOf('.') + 1);
   if (tld !== serverTld) {
     return getSlugForCustomDomain(host);
