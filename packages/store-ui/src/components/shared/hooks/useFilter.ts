@@ -1,32 +1,139 @@
+import merge from 'lodash/fp/merge';
 import noop from 'lodash/noop';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import queryString from 'qs';
-import Router, { useRouter } from 'next/router';
+import {
+  expandFilterObject,
+  minifiyFilterObject,
+  parseFiltersUrl,
+} from '../../../common/filterUtils';
 
-export const useFilter = () => {
-  // If it is not a browser environment (in case of SSR), just skip it
-  // This should work fine with hooks as it is run on the server only.
-  if (!process.browser) {
-    return [null, noop];
-  }
+export interface FilterRouter {
+  push: (
+    uri: string,
+    as: string,
+    options: {
+      shallow: boolean;
+    },
+  ) => void;
+}
 
-  // TODO: Track patch changes (when user goes back for example)
-  const router = useRouter();
+export interface UseFilterConfig {
+  storage: 'url' | 'local' | 'session';
+  storageKey?: string | number;
+  router?: FilterRouter;
+}
 
-  const parsed = queryString.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
-  const [filters, setFilters] = useState(parsed);
+export interface FilterObject {
+  pagination?: { currentPage: number; pageSize: number };
+  filtering?: any;
+  sorting?: { field: string; order: 'ascend' | 'descend' };
+}
 
-  const handleSetFilter = useCallback(newFilters => {
-    if (newFilters) {
-      const stringified = queryString.stringify(newFilters);
-      const baseUri = location.pathname;
-      const newUri = `${baseUri}?${stringified}`;
-      Router.push(newUri, newUri, { shallow: true });
+export interface MinifiedFilterObject {
+  p?: FilterObject['pagination'];
+  f?: FilterObject['filtering'];
+  s?: FilterObject['sorting'];
+}
+
+const defaultConfig: UseFilterConfig = {
+  storage: 'session',
+};
+
+const getInitialState = (
+  storage: UseFilterConfig['storage'],
+  storageKey?: UseFilterConfig['storageKey'],
+) => {
+  switch (storage) {
+    case 'url': {
+      return parseFiltersUrl(location.href);
     }
 
-    setFilters(newFilters);
+    case 'local': {
+      if (!localStorage) {
+        return {} as FilterObject;
+      }
+      const key = storageKey || location.pathname;
+      const asObj = localStorage[key] ? JSON.parse(localStorage[key]) : {};
+      return expandFilterObject(asObj as MinifiedFilterObject);
+    }
+
+    case 'session': {
+      if (!sessionStorage) {
+        return {} as FilterObject;
+      }
+
+      const key = storageKey || location.pathname;
+      const asObj = sessionStorage[key] ? JSON.parse(sessionStorage[key]) : {};
+      return expandFilterObject(asObj as MinifiedFilterObject);
+    }
+  }
+};
+
+const addToStorage = (
+  filter: MinifiedFilterObject,
+  storage: UseFilterConfig['storage'],
+  storageKey?: UseFilterConfig['storageKey'],
+  router?: FilterRouter,
+) => {
+  switch (storage) {
+    case 'url': {
+      const stringified = queryString.stringify(filter);
+      const baseUri = location.pathname;
+      const newUri = `${baseUri}?${stringified}`;
+      if (!router) {
+        throw new Error('You need to provide a router for URL storage');
+      }
+
+      router.push(newUri, newUri, { shallow: true });
+      return;
+    }
+
+    case 'local': {
+      if (!localStorage) {
+        return;
+      }
+      const key = storageKey || location.pathname;
+      localStorage[key] = JSON.stringify(filter);
+      return;
+    }
+
+    case 'session': {
+      if (!sessionStorage) {
+        return;
+      }
+
+      const key = storageKey || location.pathname;
+      sessionStorage[key] = JSON.stringify(filter);
+      return;
+    }
+  }
+};
+
+// FUTURE: Add listener to all of the stores
+export const useFilter = (
+  initialFilters: FilterObject | null,
+  config?: UseFilterConfig,
+): [FilterObject, (filter: FilterObject) => void] => {
+  // If it is not a browser environment (in case of SSR with NextJS), just skip it
+  // This should work fine with hooks being defined conditionally as it is run on the server only.
+  if (!process.browser) {
+    return [initialFilters || {}, noop];
+  }
+
+  const { storage, storageKey, router } = merge(defaultConfig, config);
+  const initialState = useMemo(
+    () => (initialFilters ? initialFilters : getInitialState(storage)),
+    [],
+  );
+
+  const [filters, setFilters] = useState(initialState);
+
+  // TODO: Handle situations when due to filtering the total number of objects is less than the pagination. Maybe reset pagination on every filter change?
+  const handleSetFilter = useCallback((filters: FilterObject) => {
+    const minified = minifiyFilterObject(filters);
+    addToStorage(minified, storage, storageKey, router);
+    setFilters(filters);
   }, []);
 
   return [filters, handleSetFilter];

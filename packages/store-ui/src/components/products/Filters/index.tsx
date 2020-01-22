@@ -10,72 +10,61 @@ import { CategoriesFilter } from './CategoriesFilter';
 import { SortFilter } from './SortFilter';
 import { SystemProps } from '@sradevski/blocks-ui/dist/types/system';
 import { useTranslation } from '../../../common/i18n';
+import { FilterObject } from '../../shared/hooks/useFilter';
 
 interface FiltersProps extends SystemProps {
-  filters?: any;
-  onFiltersChange: (filters: any) => void;
+  filters?: FilterObject;
+  onFiltersChange: (filters: FilterObject) => void;
 }
 
 // A pretty random max price, until we have a better method to calculate it for each query.
 const MAX_PRICE = 20000;
 const MIN_PRICE = 0;
 
-const parsePriceFilter = priceFilter => {
-  if (!priceFilter) {
+const parsePriceFilter = (filtering: FilterObject['filtering']) => {
+  if (!filtering || !filtering.price) {
     return [0, MAX_PRICE];
   }
 
   // If it is an exact value, set that to be both from and to
-  if (isNumber(priceFilter)) {
-    return [priceFilter, priceFilter];
+  if (isNumber(filtering.price)) {
+    return [filtering.price, filtering.price];
   }
 
-  const fromPrice = priceFilter.$gt || priceFilter.$gte || 0;
-  const toPrice = priceFilter.$lt || priceFilter.$lte || MAX_PRICE;
+  const fromPrice = filtering.price.$gt || filtering.price.$gte || 0;
+  const toPrice = filtering.price.$lt || filtering.price.$lte || MAX_PRICE;
 
   return [fromPrice, toPrice];
 };
 
-const parseCategoryFilter = categoryFilter => {
-  if (!categoryFilter) {
+const parseCategoryFilter = (filtering: FilterObject['filtering']) => {
+  if (!filtering || !filtering.category) {
     return [];
   }
 
-  if (isString(categoryFilter)) {
-    return [categoryFilter];
+  if (isString(filtering.category)) {
+    return [filtering.category];
   }
 
-  return categoryFilter.$in || [];
+  return filtering.category.$in || [];
 };
 
-const parseSortFilter = sortFilter => {
-  if (!sortFilter) {
-    return {};
-  }
-
-  return sortFilter.price ? { price: parseInt(sortFilter.price, 10) } : {};
-};
-
-const setFiltersCategory = (filters: any, categories: string[]) => {
+const getCategoryFiltering = (categories: string[]) => {
   if (!categories.length) {
-    return unset('query.category', filters);
+    return { category: undefined };
   }
 
   if (categories.length === 1) {
-    return set('query.category', categories[0], filters);
+    return { category: categories[0] };
   }
 
-  return set('query.category', { $in: categories }, filters);
+  return { category: { $in: categories } };
 };
 
-const setFiltersPrice = (filters: any, from: number, to: number) => {
+const getPriceFiltering = (from: number, to: number) => {
   let priceQuery: { $gte?: number; $lte?: number } = {};
-  if (from === to) {
-    return set('query.price', from, filters);
-  }
-
-  if (from > to) {
-    return set('query.price', from, filters);
+  if (from === to || from > to) {
+    return { price: from };
   }
 
   if (from > MIN_PRICE) {
@@ -86,15 +75,7 @@ const setFiltersPrice = (filters: any, from: number, to: number) => {
     priceQuery.$lte = to;
   }
 
-  return set('query.price', priceQuery, filters);
-};
-
-const setFiltersSort = (filters: any, sort: { [key: string]: number }) => {
-  if (isEmpty(sort)) {
-    return unset('query.$sort', filters);
-  }
-
-  return set('query.$sort', sort, filters);
+  return { price: priceQuery };
 };
 
 export const Filters = ({
@@ -107,13 +88,9 @@ export const Filters = ({
     'categories' | 'price' | 'sort' | null
   >(null);
 
-  // @ts-ignore
-  const { category, price, $sort } =
-    filters && filters.query ? filters.query : {};
-
-  const [fromPrice, toPrice] = parsePriceFilter(price);
-  const categories = parseCategoryFilter(category);
-  const sort = parseSortFilter($sort);
+  const { filtering, sorting } = filters;
+  const [fromPrice, toPrice] = parsePriceFilter(filtering);
+  const categories = parseCategoryFilter(filtering);
 
   return (
     <Flex
@@ -131,7 +108,13 @@ export const Filters = ({
             categories={categories}
             onCancel={() => setVisiblePopover(null)}
             onChange={categories => {
-              onFiltersChange(setFiltersCategory(filters, categories));
+              onFiltersChange({
+                ...filters,
+                filtering: {
+                  ...filtering,
+                  ...getCategoryFiltering(categories),
+                },
+              });
               setVisiblePopover(null);
             }}
           />
@@ -162,7 +145,13 @@ export const Filters = ({
             max={MAX_PRICE}
             onCancel={() => setVisiblePopover(null)}
             onChange={(from, to) => {
-              onFiltersChange(setFiltersPrice(filters, from, to));
+              onFiltersChange({
+                ...filters,
+                filtering: {
+                  ...(filtering || {}),
+                  ...getPriceFiltering(from, to),
+                },
+              });
               setVisiblePopover(null);
             }}
           />
@@ -186,10 +175,10 @@ export const Filters = ({
         visible={visiblePopover === 'sort'}
         content={
           <SortFilter
-            sort={sort}
+            sort={sorting}
             onCancel={() => setVisiblePopover(null)}
             onChange={sort => {
-              onFiltersChange(setFiltersSort(filters, sort));
+              onFiltersChange({ ...filters, sorting: sort });
               setVisiblePopover(null);
             }}
           />

@@ -3,40 +3,41 @@ import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
 import { RadioGroup, RadioButton, Flex, Button } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
+import { FilterObject } from '../../shared/hooks/useFilter';
 
 interface SortFilterProps {
-  sort: { [key: string]: number };
+  sort: FilterObject['sorting'];
   onCancel: () => void;
-  onChange: (sort: any) => void;
+  onChange: (sort: FilterObject['sorting']) => void;
 }
 
 type SortValues = 'recommended' | 'cheap' | 'expensive';
 
-const getSortValue = (sort: SortFilterProps['sort']): SortValues => {
+const getSortValue = (sort: FilterObject['sorting']): SortValues => {
   if (isEmpty(sort)) {
     return 'recommended';
   }
 
-  if (sort.price && sort.price === 1) {
+  if (sort.field === 'price' && sort.order === 'ascend') {
     return 'cheap';
   }
 
-  if (sort.price && sort.price === -1) {
+  if (sort.field === 'price' && sort.order === 'descend') {
     return 'expensive';
   }
 };
 
-const getSortFromValue = (value: SortValues) => {
+const getSortFromValue = (value: SortValues): FilterObject['sorting'] => {
   if (value === 'recommended') {
-    return {};
+    return undefined;
   }
 
   if (value === 'cheap') {
-    return { price: 1 };
+    return { field: 'price', order: 'ascend' };
   }
 
   if (value === 'expensive') {
-    return { price: -1 };
+    return { field: 'price', order: 'descend' };
   }
 };
 

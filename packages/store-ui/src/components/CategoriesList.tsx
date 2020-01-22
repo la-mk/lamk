@@ -52,6 +52,7 @@ export const CategoriesList = () => {
         {categories.map(category => {
           return (
             <Link
+              key={category.level3}
               href={`/products?${getQueryString(category.level3)}`}
               passHref
             >
@@ -76,6 +77,7 @@ export const CategoriesList = () => {
         {level2Categories.map(level2Category => {
           return (
             <Link
+              key={level2Category.value}
               href={`/products?${getQueryString(
                 level2Category.children.map(category3 => category3.value),
               )}`}
