@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Flex,
   Button,
@@ -8,7 +8,6 @@ import {
   Row,
   Col,
   Empty,
-  Spin,
   hooks,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
@@ -22,29 +21,30 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
+import { useFilter } from '../shared/hooks/useFilter';
+import Router from 'next/router';
+import { filtersAsQuery } from '../../common/filterUtils';
 
 export const Orders = () => {
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState<FindResult<Order> | null>(null);
   const user = useSelector(getUser);
   const store = useSelector(getStore);
   const { t } = useTranslation();
+  const [caller, showSpinner] = hooks.useCall();
+  const [filters, setFilters] = useFilter(null, {
+    storage: 'url',
+    router: Router,
+  });
 
-  const fetcher = useMemo(
-    () =>
-      user ? (params: any) => sdk.order.findForUser(user._id, params) : null,
-    [user],
-  );
+  React.useEffect(() => {
+    if (!user) {
+      return;
+    }
 
-  const resultHandler = useCallback((res: FindResult<Order>) => {
-    return setOrders(res.data);
-  }, []);
+    caller(sdk.order.findForUser(user._id, filtersAsQuery(filters)), setOrders);
+  }, [user, filters]);
 
-  const [handlePageChange, pagination, showSpinner] = hooks.useAdvancedCall(
-    fetcher,
-    resultHandler,
-  );
-
-  if (!orders) {
+  if (orders && orders.total === 0) {
     return <Empty mt={6} description={t('order.orderNotFound_plural')}></Empty>;
   }
 
@@ -53,12 +53,14 @@ export const Orders = () => {
       <List<Order>
         style={{ width: '100%' }}
         pagination={{
-          ...pagination,
-          onChange: (page, pageSize) =>
-            handlePageChange({ ...pagination, current: page, pageSize }),
+          current: filters.pagination ? filters.pagination.currentPage : 1,
+          pageSize: filters.pagination ? filters.pagination.pageSize : 10,
+          total: orders ? orders.total : 0,
+          onChange: (currentPage, pageSize) =>
+            setFilters({ ...filters, pagination: { currentPage, pageSize } }),
         }}
         loading={showSpinner}
-        dataSource={orders}
+        dataSource={orders ? orders.data : []}
         renderItem={order => (
           <Card
             headStyle={{ fontWeight: 'normal', fontSize: 14 }}
