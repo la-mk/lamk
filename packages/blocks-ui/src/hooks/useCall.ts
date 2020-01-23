@@ -1,12 +1,15 @@
 import { useState, useCallback } from 'react';
 import { message } from '../static/message';
 import { useDispatch } from 'react-redux';
-import { Action } from './useAdvancedCall';
 
 type Caller = <T extends any>(
   promise: Promise<T>,
   callback?: (res: T) => Action<any> | void,
 ) => void;
+
+export interface Action<T = any> {
+  type: T;
+}
 
 type UseCallResult = [Caller, boolean];
 

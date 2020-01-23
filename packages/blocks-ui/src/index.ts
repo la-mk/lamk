@@ -54,6 +54,7 @@ export { UploadContent } from './compound/UploadContent';
 export { message } from './static/message';
 
 export { default as hooks } from './hooks';
+export { default as utils } from './utils';
 
 export { system } from './system';
 export { default as theme } from './theme';

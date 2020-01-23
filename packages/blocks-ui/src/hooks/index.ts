@@ -1,9 +1,9 @@
 import { useCall } from './useCall';
-import { useAdvancedCall } from './useAdvancedCall';
 import { useFormState } from './useFormState';
+import { useFilter } from './useFilter';
 
 export default {
   useCall,
-  useAdvancedCall,
   useFormState,
+  useFilter,
 };
