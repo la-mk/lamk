@@ -1,4 +1,4 @@
-import merge from 'lodash/fp/merge';
+import merge from 'lodash/merge';
 import noop from 'lodash/noop';
 import { useState, useCallback, useMemo } from 'react';
 import * as queryString from 'qs';
@@ -122,7 +122,10 @@ export const useFilter = (
     return [initialFilters || {}, noop];
   }
 
-  const { storage, storageKey, router } = merge(defaultConfig, config);
+  let mergedConfig: any = {}
+  merge(mergedConfig, defaultConfig, config);
+  const { storage, storageKey, router } = mergedConfig;
+
   const initialState = useMemo(
     () => (initialFilters ? initialFilters : getInitialState(storage)),
     [],

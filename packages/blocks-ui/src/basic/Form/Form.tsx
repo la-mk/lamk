@@ -4,12 +4,15 @@ import { Form as AntForm } from 'antd';
 import { FormProps, FormItemProps } from 'antd/es/form';
 import 'antd/es/form/style/index.less';
 import get from 'lodash/get';
-import { clone, setWith, curry } from 'lodash/fp';
+import { clone, set } from 'lodash';
 import { system, SystemProps } from '../../system';
 
-const setIn = curry((obj: any, value: any, path: string) =>
-  setWith(clone, path, value, clone(obj)),
-);
+const setIn = (obj: any, value: any, path: string) => {
+  const cloned = clone(obj);
+  set(cloned, path, value);
+
+  return cloned;
+};
 
 const getVal = (eventOrVal: any) => {
   // If it is an event, get the target value, otherwise assume the passed argument is the value itself.
