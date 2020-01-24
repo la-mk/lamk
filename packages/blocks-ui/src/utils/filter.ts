@@ -2,16 +2,24 @@ import toInteger from 'lodash/toInteger';
 import * as queryString from 'qs';
 import { FilterObject, MinifiedFilterObject } from '../hooks/useFilter';
 
-export const singleItemFilter = (fieldName: string, value: string | number, notEqual?: boolean) => {
-  if(notEqual) {
-    return {[fieldName]: {$ne: value}}
+export const singleItemFilter = (
+  fieldName: string,
+  value: string | number | null | undefined,
+  notEqual?: boolean
+) => {
+  if (notEqual) {
+    return { [fieldName]: { $ne: value } };
   }
-  
-  return {[fieldName]: value}
-}
 
-export const multipleItemsFilter = (fieldName: string, items: Array<string | number>, notEqual?: boolean) => {
-  if (!items.length) {
+  return { [fieldName]: value };
+};
+
+export const multipleItemsFilter = (
+  fieldName: string,
+  items: Array<string | number> | null | undefined,
+  notEqual?: boolean
+) => {
+  if (!items || !items.length) {
     return { [fieldName]: undefined };
   }
 
@@ -19,15 +27,25 @@ export const multipleItemsFilter = (fieldName: string, items: Array<string | num
     return singleItemFilter(fieldName, items[0], notEqual);
   }
 
-  if(notEqual){
-    return { [fieldName]: { $nin: items } };  
+  if (notEqual) {
+    return { [fieldName]: { $nin: items } };
   }
-  
-  return { [fieldName]: { $in: items } };
-}
 
-export const rangeFilter = (fieldName: string, from: number, to: number, minValue: number, maxValue: number ) => {
+  return { [fieldName]: { $in: items } };
+};
+
+export const rangeFilter = (
+  fieldName: string,
+  from: number | null | undefined,
+  to: number | null | undefined,
+  minValue: number,
+  maxValue: number
+) => {
   let query: { $gte?: number; $lte?: number } = {};
+  if (from === null || from === undefined || to === null || to === undefined) {
+    return { [fieldName]: undefined };
+  }
+
   if (from === to || from > to) {
     return { [fieldName]: from };
   }
@@ -41,7 +59,7 @@ export const rangeFilter = (fieldName: string, from: number, to: number, minValu
   }
 
   return { [fieldName]: query };
-}
+};
 
 export const expandFilterObject = (obj: MinifiedFilterObject): FilterObject => {
   if (!obj) {
@@ -68,7 +86,7 @@ export const minifiyFilterObject = ({
 };
 
 const paginationAsQuery = (
-  pagination: FilterObject['pagination'] | undefined,
+  pagination: FilterObject['pagination'] | undefined
 ) => {
   if (!pagination) {
     return {};
