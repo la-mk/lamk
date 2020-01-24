@@ -1,18 +1,17 @@
 import isEqual from 'lodash/isEqual';
 import React, { useState } from 'react';
-import { FlexGrid, hooks } from '@sradevski/blocks-ui';
+import { FlexGrid, hooks, utils } from '@sradevski/blocks-ui';
 import { ProductCard } from '../ProductCard';
 import { Page } from '../shared/Page';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { useTranslation } from '../../common/i18n';
 import { Filters } from './Filters';
-import { useFilter, FilterObject } from '../shared/hooks/useFilter';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import Router from 'next/router';
-import { filtersAsQuery } from '../../common/filterUtils';
+import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
 interface ProductsProps {
   initialProducts: FindResult<Product>;
@@ -27,7 +26,7 @@ export const Products = ({
   const store = useSelector(getStore);
   const [products, setProducts] = useState(initialProducts);
   const [caller, showSpinner] = hooks.useCall();
-  const [filters, setFilters] = useFilter(initialFilters, {
+  const [filters, setFilters] = hooks.useFilter(initialFilters, {
     storage: 'url',
     router: Router,
   });
@@ -38,7 +37,7 @@ export const Products = ({
     }
 
     caller(
-      sdk.product.findForStore(store._id, filtersAsQuery(filters)),
+      sdk.product.findForStore(store._id, utils.filter.filtersAsQuery(filters)),
       setProducts,
     );
   }, [store, initialFilters, filters]);

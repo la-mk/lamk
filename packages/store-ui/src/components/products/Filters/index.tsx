@@ -8,9 +8,9 @@ import { Button, Popover, Flex } from '@sradevski/blocks-ui';
 import { PriceFilter } from './PriceFilter';
 import { CategoriesFilter } from './CategoriesFilter';
 import { SortFilter } from './SortFilter';
-import { SystemProps } from '@sradevski/blocks-ui/dist/types/system';
+import { SystemProps } from '@sradevski/blocks-ui/dist/system';
 import { useTranslation } from '../../../common/i18n';
-import { FilterObject } from '../../shared/hooks/useFilter';
+import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
 interface FiltersProps extends SystemProps {
   filters?: FilterObject;

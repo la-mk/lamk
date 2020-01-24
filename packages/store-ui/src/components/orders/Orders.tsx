@@ -9,6 +9,7 @@ import {
   Col,
   Empty,
   hooks,
+  utils,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
@@ -21,9 +22,7 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
-import { useFilter } from '../shared/hooks/useFilter';
 import Router from 'next/router';
-import { filtersAsQuery } from '../../common/filterUtils';
 
 export const Orders = () => {
   const [orders, setOrders] = useState<FindResult<Order> | null>(null);
@@ -31,7 +30,7 @@ export const Orders = () => {
   const store = useSelector(getStore);
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
-  const [filters, setFilters] = useFilter(null, {
+  const [filters, setFilters] = hooks.useFilter(null, {
     storage: 'url',
     router: Router,
   });
@@ -41,7 +40,10 @@ export const Orders = () => {
       return;
     }
 
-    caller(sdk.order.findForUser(user._id, filtersAsQuery(filters)), setOrders);
+    caller(
+      sdk.order.findForUser(user._id, utils.filter.filtersAsQuery(filters)),
+      setOrders,
+    );
   }, [user, filters]);
 
   if (orders && orders.total === 0) {

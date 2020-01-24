@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
 import { RadioGroup, RadioButton, Flex, Button } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
-import { FilterObject } from '../../shared/hooks/useFilter';
+import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
 interface SortFilterProps {
   sort: FilterObject['sorting'];
