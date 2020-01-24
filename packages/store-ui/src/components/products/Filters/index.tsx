@@ -1,10 +1,7 @@
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
-import isEmpty from 'lodash/isEmpty';
-import set from 'lodash/fp/set';
-import unset from 'lodash/fp/unset';
 import React, { useState } from 'react';
-import { Button, Popover, Flex } from '@sradevski/blocks-ui';
+import { Button, Popover, Flex, utils } from '@sradevski/blocks-ui';
 import { PriceFilter } from './PriceFilter';
 import { CategoriesFilter } from './CategoriesFilter';
 import { SortFilter } from './SortFilter';
@@ -49,35 +46,6 @@ const parseCategoryFilter = (filtering: FilterObject['filtering']) => {
   return filtering.category.$in || [];
 };
 
-const getCategoryFiltering = (categories: string[]) => {
-  if (!categories.length) {
-    return { category: undefined };
-  }
-
-  if (categories.length === 1) {
-    return { category: categories[0] };
-  }
-
-  return { category: { $in: categories } };
-};
-
-const getPriceFiltering = (from: number, to: number) => {
-  let priceQuery: { $gte?: number; $lte?: number } = {};
-  if (from === to || from > to) {
-    return { price: from };
-  }
-
-  if (from > MIN_PRICE) {
-    priceQuery.$gte = from;
-  }
-
-  if (to < MAX_PRICE) {
-    priceQuery.$lte = to;
-  }
-
-  return { price: priceQuery };
-};
-
 export const Filters = ({
   filters,
   onFiltersChange,
@@ -112,7 +80,7 @@ export const Filters = ({
                 ...filters,
                 filtering: {
                   ...filtering,
-                  ...getCategoryFiltering(categories),
+                  ...utils.filter.multipleItemsFilter('category', categories),
                 },
               });
               setVisiblePopover(null);
@@ -149,7 +117,13 @@ export const Filters = ({
                 ...filters,
                 filtering: {
                   ...(filtering || {}),
-                  ...getPriceFiltering(from, to),
+                  ...utils.filter.rangeFilter(
+                    'price',
+                    from,
+                    to,
+                    MIN_PRICE,
+                    MAX_PRICE,
+                  ),
                 },
               });
               setVisiblePopover(null);

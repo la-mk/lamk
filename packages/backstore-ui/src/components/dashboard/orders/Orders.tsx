@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
-import { Tooltip, utils } from '@sradevski/blocks-ui';
-import { Flex, Title, Table, Tag, Button, hooks } from '@sradevski/blocks-ui';
+import {
+  Flex,
+  Title,
+  Table,
+  Tag,
+  Button,
+  hooks,
+  Tooltip,
+  utils,
+} from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
+import compareAsc from 'date-fns/compareAsc';
+import format from 'date-fns/format';
 import { useSelector } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from '@sradevski/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { getOrderStatusColor } from '../../shared/utils/statuses';
+import {
+  getOrderStatusColor,
+  possibleOrderStatuses,
+} from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
@@ -31,6 +44,15 @@ const getColumns = (t: T) =>
     {
       title: t('common.status'),
       dataIndex: 'status',
+      filters: possibleOrderStatuses.map(status => ({
+        text: t(`orderStatus.${status}`),
+        value: status,
+      })),
+      onFilter: (value, record) => record.status === value,
+      sorter: (a, b) =>
+        t(`orderStatus.${a.status}`).localeCompare(
+          t(`orderStatus.${b.status}`),
+        ),
       render: status => {
         return (
           <Tag color={getOrderStatusColor(status)}>
@@ -42,6 +64,9 @@ const getColumns = (t: T) =>
     {
       title: t('order.orderDate'),
       dataIndex: 'createdAt',
+      render: date => format(new Date(date), 'MM/dd/yyyy'),
+      sorter: (a, b) =>
+        compareAsc(new Date(a.createdAt), new Date(b.createdAt)),
     },
   ] as ColumnProps<Order>[];
 
@@ -96,7 +121,7 @@ export const Orders = () => {
           current: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 20,
         }}
-        onChange={(pagination, filters, sorter) => {
+        onChange={(pagination, tableFilters, sorter) => {
           setFilters({
             pagination: {
               pageSize: pagination.pageSize || 20,
@@ -107,7 +132,11 @@ export const Orders = () => {
               order: sorter.order,
             },
             filtering: {
-              ...filters,
+              ...filters.filtering,
+              ...utils.filter.multipleItemsFilter(
+                'status',
+                tableFilters.status,
+              ),
             },
           });
         }}

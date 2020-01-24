@@ -39,7 +39,7 @@
     ]
   },
   "dependencies": {
-    "@sradevski/blocks-ui": "0.0.18",
+    "@sradevski/blocks-ui": "0.0.20",
     "@sradevski/la-sdk": "0.0.12",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.146",
@@ -54,6 +54,7 @@
     "compressorjs": "^1.0.6",
     "connected-react-router": "^6.5.2",
     "customize-cra": "^0.5.0",
+    "date-fns": "^2.9.0",
     "env-var": "^5.1.0",
     "i18next": "^19.0.0",
     "i18next-browser-languagedetector": "^4.0.1",

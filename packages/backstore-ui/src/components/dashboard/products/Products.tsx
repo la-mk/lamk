@@ -41,6 +41,7 @@ const getColumns = (t: T, storeId: string) =>
     {
       title: t('common.name'),
       dataIndex: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: t('product.sku'),
@@ -50,10 +51,13 @@ const getColumns = (t: T, storeId: string) =>
       title: t('common.category'),
       dataIndex: 'category',
       render: category => t(`categories.${category}`),
+      sorter: (a, b) =>
+        t(`categories.${a.category}`).localeCompare(`categories.${b.category}`),
     },
     {
       title: t('common.price'),
       dataIndex: 'price',
+      sorter: (a, b) => a.price - b.price,
     },
     {
       title: t('common.description'),
@@ -116,7 +120,7 @@ export const Products = () => {
           current: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 20,
         }}
-        onChange={(pagination, filters, sorter) => {
+        onChange={(pagination, tableFilters, sorter) => {
           setFilters({
             pagination: {
               pageSize: pagination.pageSize || 20,
@@ -127,7 +131,11 @@ export const Products = () => {
               order: sorter.order,
             },
             filtering: {
-              ...filters,
+              ...filters.filtering,
+              // ...utils.filter.multipleItemsFilter(
+              //   'status',
+              //   tableFilters.status,
+              // ),
             },
           });
         }}
