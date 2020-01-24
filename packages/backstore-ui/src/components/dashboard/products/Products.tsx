@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Tooltip,
   Flex,
@@ -7,8 +7,9 @@ import {
   Button,
   Image,
   hooks,
+  utils,
 } from '@sradevski/blocks-ui';
-import { ColumnProps } from '@sradevski/blocks-ui/dist/types/basic/Table';
+import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
@@ -16,7 +17,6 @@ import { getProducts } from '../../../state/modules/products/products.selector';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { setProducts } from '../../../state/modules/products/products.module';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
@@ -64,28 +64,32 @@ const getColumns = (t: T, storeId: string) =>
 export const Products = () => {
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState();
+  const [total, setTotal] = useState<number | undefined>();
   const { t } = useTranslation();
 
   const products: Product[] = useSelector(getProducts);
   const store: Store | null = useSelector(getStore);
   const columns = getColumns(t, store ? store._id : '');
 
-  const fetcher = useMemo(
-    () =>
-      store
-        ? (params: any) => sdk.product.findForStore(store._id, params)
-        : null,
-    [store],
-  );
+  const [caller, showSpinner] = hooks.useCall();
+  const [filters, setFilters] = hooks.useFilter(null, {
+    storage: 'session',
+    storageKey: `${store ? store._id : ''}/productFilters`,
+  });
 
-  const resultHandler = useCallback((res: FindResult<Product>) => {
-    return setProducts(res.data);
-  }, []);
+  React.useEffect(() => {
+    if (!store) {
+      return;
+    }
 
-  const [handlePageChange, pagination, showSpinner] = hooks.useAdvancedCall(
-    fetcher,
-    resultHandler,
-  );
+    caller(
+      sdk.product.findForStore(store._id, utils.filter.filtersAsQuery(filters)),
+      res => {
+        setTotal(res.total);
+        return setProducts(res.data);
+      },
+    );
+  }, [store, filters]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
@@ -107,8 +111,26 @@ export const Products = () => {
         dataSource={products}
         columns={columns}
         loading={showSpinner}
-        pagination={pagination}
-        onChange={handlePageChange}
+        pagination={{
+          total: total || 0,
+          current: filters.pagination ? filters.pagination.currentPage : 1,
+          pageSize: filters.pagination ? filters.pagination.pageSize : 20,
+        }}
+        onChange={(pagination, filters, sorter) => {
+          setFilters({
+            pagination: {
+              pageSize: pagination.pageSize || 20,
+              currentPage: pagination.current || 1,
+            },
+            sorting: {
+              field: sorter.field,
+              order: sorter.order,
+            },
+            filtering: {
+              ...filters,
+            },
+          });
+        }}
         rowKey='_id'
         onRow={product => ({
           onClick: () => {

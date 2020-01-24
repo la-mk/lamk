@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { Tooltip } from '@sradevski/blocks-ui';
+import React, { useState } from 'react';
+import { Tooltip, utils } from '@sradevski/blocks-ui';
 import { Flex, Title, Table, Tag, Button, hooks } from '@sradevski/blocks-ui';
-import { ColumnProps } from '@sradevski/blocks-ui/dist/types/basic/Table';
+import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { useSelector } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from '@sradevski/la-sdk';
@@ -12,7 +12,6 @@ import { getOrderStatusColor } from '../../shared/utils/statuses';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 const getColumns = (t: T) =>
   [
@@ -48,25 +47,31 @@ const getColumns = (t: T) =>
 
 export const Orders = () => {
   const [orderIdToView, setOrderIdToView] = useState<string>();
+  const [total, setTotal] = useState<number | undefined>();
   const store = useSelector(getStore);
   const orders = useSelector(getOrders);
   const { t } = useTranslation();
   const columns = getColumns(t);
 
-  const fetcher = useMemo(
-    () =>
-      store ? (params: any) => sdk.order.findForStore(store._id, params) : null,
-    [store],
-  );
+  const [caller, showSpinner] = hooks.useCall();
+  const [filters, setFilters] = hooks.useFilter(null, {
+    storage: 'session',
+    storageKey: `${store ? store._id : ''}/orderFilters`,
+  });
 
-  const resultHandler = useCallback((res: FindResult<Order>) => {
-    return setOrders(res.data);
-  }, []);
+  React.useEffect(() => {
+    if (!store) {
+      return;
+    }
 
-  const [handlePageChange, pagination, showSpinner] = hooks.useAdvancedCall(
-    fetcher,
-    resultHandler,
-  );
+    caller(
+      sdk.order.findForStore(store._id, utils.filter.filtersAsQuery(filters)),
+      res => {
+        setTotal(res.total);
+        return setOrders(res.data);
+      },
+    );
+  }, [store, filters]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
@@ -86,8 +91,26 @@ export const Orders = () => {
         dataSource={orders}
         columns={columns}
         loading={showSpinner}
-        pagination={pagination}
-        onChange={handlePageChange}
+        pagination={{
+          total: total || 0,
+          current: filters.pagination ? filters.pagination.currentPage : 1,
+          pageSize: filters.pagination ? filters.pagination.pageSize : 20,
+        }}
+        onChange={(pagination, filters, sorter) => {
+          setFilters({
+            pagination: {
+              pageSize: pagination.pageSize || 20,
+              currentPage: pagination.current || 1,
+            },
+            sorting: {
+              field: sorter.field,
+              order: sorter.order,
+            },
+            filtering: {
+              ...filters,
+            },
+          });
+        }}
         rowKey='_id'
         onRow={order => ({
           onClick: () => {
