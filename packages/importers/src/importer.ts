@@ -59,7 +59,7 @@ export const importProducts = async (res: LamkProduct[]): Promise<Array<Product 
 
       return sdk.product.create({
         ...product,
-        category: 'men-running-shoes',
+        category: 'drywall',
         images: imageIds,
         soldBy: storeId,
       });
