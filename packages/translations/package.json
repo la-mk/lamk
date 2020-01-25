@@ -6,7 +6,7 @@
     "directory": "packages/translations"
   },
   "version": "0.0.7",
-  "license": "MIT",
+  "license": "ISC",
   "author": "Stevche Radevski",
   "main": "dist/index.js",
   "module": "dist/translations.esm.js",
