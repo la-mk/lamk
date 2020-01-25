@@ -47,24 +47,47 @@ export const importCategories = async (
   );
 };
 
+const flatlist = (categories: Array<Category>) => {
+  const list = categories.reduce((list: string[], category) => {
+    list.push(category.level1);
+    list.push(category.level2);
+    list.push(category.level3);
+
+    return list;
+  }, []);
+
+  return Array.from(new Set(list));
+};
+
 const promisifiedReadFile = util.promisify(fs.readFile);
 
 const loadDataFromPath = (dataPath: string) => {
   return promisifiedReadFile(path.normalize(dataPath), { encoding: 'utf8' });
 };
 
-const main = async ([dataPath]: string[]) => {
+const main = async ([action, dataPath]: string[]) => {
   const categoriesData = await loadDataFromPath(dataPath);
   const categoriesAsJson = await csvtojson({ noheader: false }).fromString(
     categoriesData
   );
-  return importCategories(categoriesAsJson);
+  switch (action) {
+    case 'import':
+      return importCategories(categoriesAsJson).then(categories =>
+        console.log(
+          `Imported ${
+            categories.filter(x => Object.keys(x).length > 0).length
+          } out of ${categories.length} categories`
+        )
+      );
+
+    case 'flatlist':
+      const list = flatlist(categoriesAsJson);
+      process.stdout.write(list.join('\n'));
+      return;
+
+    default:
+      throw new Error('Action not specified.');
+  }
 };
 
-main(process.argv.slice(2)).then(imported =>
-  console.log(
-    `Imported ${
-      imported.filter(x => Object.keys(x).length > 0).length
-    } out of ${imported.length} categories`
-  )
-);
+main(process.argv.slice(2));
