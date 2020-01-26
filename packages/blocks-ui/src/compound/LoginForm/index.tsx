@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { formInput } from './FormHelpers';
-import { Flex } from '../basic/Flex';
-import { Col } from '../basic/Grid';
-import { Form, FormItem, FormHandlers } from '../basic/Form/Form';
-import { Button } from '../basic/Button';
-import { Text } from '../basic/Typography';
-import { Divider } from '../basic/Divider';
-import { LocalizationContext } from '../basic/Provider';
+import { formInput } from '../FormHelpers';
+import { Flex } from '../../basic/Flex';
+import { Col } from '../../basic/Grid';
+import { Form, FormItem, FormHandlers } from '../../basic/Form/Form';
+import { Button } from '../../basic/Button';
+import { Text } from '../../basic/Typography';
+import { Divider } from '../../basic/Divider';
+import { LocalizationContext } from '../../basic/Provider';
 
 export interface LoginProps extends FormHandlers {
   login: (credentials: LoginCredentials) => void;

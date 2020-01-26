@@ -7,7 +7,7 @@ import get from 'lodash/get';
 import { clone, set } from 'lodash';
 import { system, SystemProps } from '../../system';
 
-const setIn = (obj: any, value: any, path: string) => {
+const setIn = (obj = {}, value: any, path: string) => {
   const cloned = clone(obj);
   set(cloned, path, value);
 

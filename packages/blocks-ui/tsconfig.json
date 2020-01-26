@@ -20,6 +20,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
+    // This is due to an issue with react-native typings in SC: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015
+    "types": ["node"],
     "baseUrl": "./",
     "paths": {
       "*": ["src/*", "node_modules/*"]
