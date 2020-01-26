@@ -16,6 +16,7 @@ export const hooks = {
     find: [authenticate('jwt'), queryWithCurrentUser({ as: 'forUser' })],
     get: [authenticate('jwt'), queryWithCurrentUser({ as: 'forUser' })],
     create: [
+      disallow('socketio', 'primus', 'rest', 'external'),
       authenticate('jwt'),
       associateCurrentUser({ as: 'forUser' }),
       // For a start, we want to have 1:1 mapping between user and cart and use the same ID to simplify usage.
@@ -30,7 +31,7 @@ export const hooks = {
       discard('_id'),
       validate(sdk.cart.validate),
     ],
-    // Only allow server to be able to remove a cart (TODO: when a user deletes their account)
+    // Only allow server to be able to remove a cart
     remove: [disallow('socketio', 'primus', 'rest', 'external')],
   },
 
