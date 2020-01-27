@@ -36,6 +36,11 @@ export default {
     .required()
     .asString(),
 
+  STORAGE_BUCKET_NAME: envvar
+    .get('STORAGE_BUCKET_NAME')
+    .required()
+    .asString(),
+
   STORAGE_ACCESS_KEY_ID: envvar
     .get('STORAGE_ACCESS_KEY_ID')
     .required()

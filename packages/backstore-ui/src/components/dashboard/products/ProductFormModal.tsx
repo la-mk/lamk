@@ -79,6 +79,7 @@ export const ProductFormModal = ({
       message.success(
         t('product.updateProductSuccess', { productName: product.name }),
       );
+      onClose();
       return patchProduct(product);
     });
   };

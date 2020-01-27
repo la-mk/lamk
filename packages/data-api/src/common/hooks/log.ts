@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { logger } from '../logger';
 import { HookContext } from '@feathersjs/feathers';
 import env from '../env';
@@ -13,8 +14,8 @@ export const log = (context: HookContext) => {
       Params: ${JSON.stringify(context.params.query, null, 2)}, ID: ${
         context.id
       }, 
-      Data: ${JSON.stringify(context.data, null, 2)}, 
-      Result: ${JSON.stringify(context.result, null, 2)}`,
+      Data: ${JSON.stringify(_.omit(context.data, 'uri'), null, 2)}, 
+      Result: ${JSON.stringify(_.omit(context.result, 'uri'), null, 2)}`,
     );
   }
 

@@ -53,7 +53,7 @@ services:
       # This is needed by Traefik to do proper let's encrypt DNS challenge.
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
   data-api:
-    image: lamk/data-api:1.0.15
+    image: lamk/data-api:1.0.16
     container_name: data-api
     restart: always
     networks:
@@ -75,12 +75,13 @@ services:
       JWT_SECRET: $JWT_SECRET
       MONGODB_DB_NAME: db
       MONGODB_CONNECTION_STRING: $MONGODB_CONNECTION_STRING
-      STORAGE_ENDPOINT: artifacts.${SYSTEM_TLD}
+      STORAGE_ENDPOINT: fra1.digitaloceanspaces.com
+      STORAGE_BUCKET_NAME: $STORAGE_BUCKET_NAME
       STORAGE_ACCESS_KEY_ID: $SPACES_ACCESS_KEY_ID
       STORAGE_ACCESS_KEY_SECRET: $SPACES_SECRET_ACCESS_KEY
     
   store-ui:
-    image: lamk/store-ui:1.0.7
+    image: lamk/store-ui:1.0.10
     container_name: store-ui
     restart: always
     depends_on: 
@@ -110,10 +111,12 @@ services:
     environment: 
       API_ENDPOINT: https://api.${SYSTEM_TLD}
       ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
+      ANALYTICS_TRACKING_ID: $ANALYTICS_TRACKING_ID 
       PORT: 80
 
+
   backstore-ui:
-    image: lamk/backstore-ui:1.0.7
+    image: lamk/backstore-ui:1.0.9
     container_name: backstore-ui
     restart: always
     depends_on: 

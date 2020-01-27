@@ -58,6 +58,10 @@ export const AddProductCard = ({
     [product, storeId],
   );
 
+  if (!store) {
+    return null;
+  }
+
   return (
     <Form
       colon={false}

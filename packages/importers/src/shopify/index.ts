@@ -79,6 +79,9 @@ const FIELDS_MAPPING: any = {
       });
     },
   },
+  sku: {
+    key: 'Variant SKU',
+  },
   price: {
     key: 'Variant Price',
   },

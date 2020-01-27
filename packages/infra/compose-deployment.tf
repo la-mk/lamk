@@ -84,17 +84,19 @@ cat > envvars << ENVVARS_TPL
 export SYSTEM_TLD=$SYSTEM_TLD;
 export DIGITALOCEAN_TOKEN=$DIGITALOCEAN_TOKEN;
 export DOCKERHUB_TOKEN=$DOCKERHUB_TOKEN;
+export STORAGE_BUCKET_NAME=$STORAGE_BUCKET_NAME;
 export SPACES_ACCESS_KEY_ID=$SPACES_ACCESS_KEY_ID;
 export SPACES_SECRET_ACCESS_KEY=$SPACES_SECRET_ACCESS_KEY;
 export MONGODB_CONNECTION_STRING=$MONGODB_CONNECTION_STRING;
 export JWT_SECRET=$JWT_SECRET;
-export ANALYTICS_TRACKING_ID=$ANALYTICS_TRACKING_ID
+export ANALYTICS_TRACKING_ID=$ANALYTICS_TRACKING_ID;
 ENVVARS_TPL
 EOT
 
     environment= {
       SYSTEM_TLD = var.domain
       MONGODB_CONNECTION_STRING = var.mongodb-connection-string
+      STORAGE_BUCKET_NAME = var.artifacts-name
       JWT_SECRET = var.jwt-secret
       ANALYTICS_TRACKING_ID = var.analytics-tracking-id
     }
@@ -134,7 +136,7 @@ resource "digitalocean_spaces_bucket" "artifacts" {
     allowed_headers = ["*"]
     allowed_methods = ["GET"]
     allowed_origins = ["*"]
-    max_age_seconds = 3000
+    max_age_seconds = 7200
   }
 }
 

@@ -24,7 +24,7 @@ const createCartForUser = async (ctx: HookContext) => {
     return;
   }
 
-  await ctx.app.services['carts'].create({ forUser: user._id });
+  await ctx.app.services['carts'].create({ forUser: user._id, items: [] });
 };
 
 const removeCartForUser = async (ctx: HookContext) => {

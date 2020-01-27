@@ -80,10 +80,10 @@ services:
       JWT_SECRET: "1234dev"
       MONGODB_DB_NAME: db
       MONGODB_CONNECTION_STRING: "mongodb+srv://dev-user:ou1ewM4eGQH1lxLq@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
+      STORAGE_BUCKET_NAME: dev-bucket
       STORAGE_ENDPOINT: "artifacts.dev.sradevski.com"
       STORAGE_ACCESS_KEY_ID: minio
       STORAGE_ACCESS_KEY_SECRET: minio123
-      ANALYTICS_TRACKING_ID: '' 
     
   store-ui:
     image: lamk/store-ui-dev
@@ -111,6 +111,7 @@ services:
       GPR_TOKEN: $GPR_TOKEN
       API_ENDPOINT: "http://api.dev.sradevski.com"
       ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com"
+      ANALYTICS_TRACKING_ID: '' 
       PORT: 80
 
   backstore-ui:
