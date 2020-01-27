@@ -8,22 +8,6 @@ import { hooks } from './hooks';
 import env from '../../common/env';
 import { BadRequest } from '../../common/errors';
 
-// const getReadPolicy = (bucketName: string) =>
-//   JSON.stringify({
-//     Version: '2012-10-17',
-//     Statement: [
-//       {
-//         Action: ['s3:GetObject'],
-//         Effect: 'Allow',
-//         Principal: {
-//           AWS: ['*'],
-//         },
-//         Resource: [`arn:aws:s3:::${bucketName}/*`],
-//         Sid: '',
-//       },
-//     ],
-//   });
-
 const bufferToHash = (buffer: Buffer) => {
   const hash = crypto.createHash('sha256');
   hash.update(buffer);
@@ -65,14 +49,16 @@ class ArtifactsService implements Service<ArtifactsServiceData> {
       throw new BadRequest('The uploaded file is invalid');
     }
 
-    // await this.client.setBucketPolicy(
-    //   'lamk-artifacts-stg',
-    //   getReadPolicy('lamk-artifacts-stg'),
-    // );
-
     const ext = mimeTypes.extension(contentType);
     const id = `${bufferToHash(buffer)}.${ext}`;
-    await this.client.putObject(this.bucket, `${storeId}/${id}`, buffer);
+    await this.client.putObject(
+      this.bucket,
+      `${storeId}/${id}`,
+      buffer,
+      undefined,
+      // Make file publicly accessible
+      { 'x-amz-acl': 'public-read' },
+    );
     return {
       _id: id,
       uri: '',
