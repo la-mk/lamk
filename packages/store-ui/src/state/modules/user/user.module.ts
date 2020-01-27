@@ -3,7 +3,7 @@ import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 
 const initialState = { user: null, addresses: null };
 
-const SET_USER = 'user/SET_USER';
+export const SET_USER = 'user/SET_USER';
 const PATCH_USER = 'user/PATCH_USER';
 const SET_ADDRESSES = 'user/SET_ADDRESSES';
 

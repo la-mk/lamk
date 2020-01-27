@@ -34,6 +34,10 @@ variable "jwt-secret" {
   type = string
 }
 
+variable "analytics-tracking-id" {
+  type = string
+}
+
 ########## DO DATA ##############
 
 data "digitalocean_ssh_key" "droplets-ssh-key" {
@@ -84,6 +88,7 @@ export SPACES_ACCESS_KEY_ID=$SPACES_ACCESS_KEY_ID;
 export SPACES_SECRET_ACCESS_KEY=$SPACES_SECRET_ACCESS_KEY;
 export MONGODB_CONNECTION_STRING=$MONGODB_CONNECTION_STRING;
 export JWT_SECRET=$JWT_SECRET;
+export ANALYTICS_TRACKING_ID=$ANALYTICS_TRACKING_ID
 ENVVARS_TPL
 EOT
 
@@ -91,6 +96,7 @@ EOT
       SYSTEM_TLD = var.domain
       MONGODB_CONNECTION_STRING = var.mongodb-connection-string
       JWT_SECRET = var.jwt-secret
+      ANALYTICS_TRACKING_ID = var.analytics-tracking-id
     }
   }
 

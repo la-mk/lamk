@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import App from 'next/app';
 import { default as NextHead } from 'next/head';
 import { Provider as ThemeProvider, Empty } from '@sradevski/blocks-ui';
@@ -16,6 +16,7 @@ import { appWithTranslation, useTranslation } from '../src/common/i18n';
 import 'antd/dist/antd.less';
 import mk_MK from 'antd/lib/locale/mk_MK';
 import { I18n } from 'next-i18next';
+import { analytics, initialize } from '../src/analytics';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
@@ -106,6 +107,11 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
   render() {
     const { Component, pageProps, store, i18nServerInstance } = this.props;
     const laStore = getStore(store.getState());
+
+    // Initialize analytics if not yet done, and only in the browser for now.
+    if (!analytics && process.browser) {
+      initialize(laStore.slug);
+    }
 
     // This makes sure the sdk is available on the client-side as well.
     if (!sdk) {

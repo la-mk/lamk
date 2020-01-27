@@ -9,7 +9,7 @@ Until we get admin users, just remove the `disallow` hook from categories locall
 You need to set several environment variables before you can import products, namely:
 - API_ENDPOINT
 
-You can create a `.env` file and run: `source .env && node import dist/index.js ./categories.csv`
+You can create a `.env` file and run: `source .env && node dist/index.js import ./categories.csv`
 
 Other actions that are supported, aside from `import` are:
 - `flatlist` - List down all categories from all levels, used for generating translations.

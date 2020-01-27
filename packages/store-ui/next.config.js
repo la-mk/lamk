@@ -27,6 +27,8 @@ const config = {
   publicRuntimeConfig: {
     API_ENDPOINT: process.env.API_ENDPOINT,
     ARTIFACTS_ENDPOINT: process.env.ARTIFACTS_ENDPOINT,
+    NODE_ENV: process.env.NODE_ENV,
+    ANALYTICS_TRACKING_ID: process.env.ANALYTICS_TRACKING_ID,
   },
 };
 

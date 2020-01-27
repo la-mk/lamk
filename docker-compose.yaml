@@ -83,6 +83,7 @@ services:
       STORAGE_ENDPOINT: "artifacts.dev.sradevski.com"
       STORAGE_ACCESS_KEY_ID: minio
       STORAGE_ACCESS_KEY_SECRET: minio123
+      ANALYTICS_TRACKING_ID: '' 
     
   store-ui:
     image: lamk/store-ui-dev
