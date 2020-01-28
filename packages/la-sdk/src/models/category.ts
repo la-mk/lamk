@@ -26,6 +26,7 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(511),
+
   // createdAt is optional as it is added by server on creation.
   createdAt: v8n().optional(
     v8n()
@@ -41,6 +42,15 @@ export const schema = {
       .maxLength(63),
     true,
   ),
+};
+
+// TODO: Maybe we want to create a separate model for `perStore`.
+export const categoriesPerStoreSchema = {
+  ...schema,
+  forStore: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(63),
 };
 
 export interface Category {
@@ -79,6 +89,14 @@ export const getCategorySdk = (client: Application) => {
       return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {
+      return validateSingle(schema, val, selector);
+    },
+
+    // This is for categoriesForStore
+    validatePerStore: (data: Category, ignoreRequired = false) => {
+      return validate(schema, data, ignoreRequired);
+    },
+    validateSinglePerStore: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
   };
