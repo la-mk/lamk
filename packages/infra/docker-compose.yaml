@@ -17,7 +17,7 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
       - --entrypoints.web.address=:80
-      - --entrypoints.web-secure.address=:443
+      - --entrypoints.websecure.address=:443
       # The DNS challenge requires you to have a DO_AUTH_TOKEN environment variable set.
       # - --certificatesresolvers.cert-resolve.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       
@@ -42,13 +42,6 @@ services:
       - backstore-ui
     networks:
       - main-network
-    labels: 
-      # global redirect to https
-      - traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)
-      - traefik.http.routers.http-catchall.entrypoints=web
-      - traefik.http.routers.http-catchall.middlewares=redirect-to-https
-      # middleware redirect
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
     environment:
       # This is needed by Traefik to do proper let's encrypt DNS challenge.
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
@@ -62,9 +55,17 @@ services:
       - 80
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.data-api-https.redirectscheme.scheme=https
+      
+      - traefik.http.routers.data-api-http.priority=1000
+      - traefik.http.routers.data-api-http.entrypoints=web
+      - traefik.http.routers.data-api-http.rule=Host(`api.${SYSTEM_TLD}`)
+      - traefik.http.routers.data-api-http.middlewares=data-api-https@docker
+
       - traefik.http.routers.data-api.priority=1000
       - traefik.http.routers.data-api.rule=Host(`api.${SYSTEM_TLD}`)
       - traefik.http.services.data-api.loadbalancer.server.port=80 
+      - traefik.http.routers.data-api.entrypoints=websecure
       - traefik.http.routers.data-api.tls=true
       # The store-ui domain is more generic, so a single definition for all subdomains is enough for the cert.
       # - traefik.http.routers.data-api.tls.certresolver=cert-resolve
@@ -92,10 +93,19 @@ services:
       - 80
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.store-ui-https.redirectscheme.scheme=https
+      
+      - traefik.http.routers.store-ui-http.priority=1
+      - traefik.http.routers.store-ui-http.entrypoints=web
+      - traefik.http.routers.store-ui-http.rule=HostRegexp(`{subdomain:.+}.${SYSTEM_TLD}`)
+      - traefik.http.routers.store-ui-http.middlewares=store-ui-https@docker
+      
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
+      - traefik.http.routers.store-ui.entrypoints=websecure
       - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.${SYSTEM_TLD}`)
       - traefik.http.routers.store-ui.service=store-ui
       - traefik.http.services.store-ui.loadbalancer.server.port=80
+
       - traefik.http.routers.store-ui.tls=true
       - traefik.http.routers.store-ui.tls.certresolver=cert-resolve
       - traefik.http.routers.store-ui.tls.domains[0].main=*.${SYSTEM_TLD}
@@ -127,9 +137,17 @@ services:
       - 80
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.backstore-ui-https.redirectscheme.scheme=https
+      
+      - traefik.http.routers.backstore-ui-http.priority=1000
+      - traefik.http.routers.backstore-ui-http.entrypoints=web
+      - traefik.http.routers.backstore-ui-http.rule=Host(`back.${SYSTEM_TLD}`)
+      - traefik.http.routers.backstore-ui-http.middlewares=backstore-ui-https@docker
+
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`back.${SYSTEM_TLD}`)
       - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
+      - traefik.http.routers.backstore-ui.entrypoints=websecure
       - traefik.http.routers.backstore-ui.tls=true
       # - traefik.http.routers.backstore-ui.tls.certresolver=cert-resolve
       # - traefik.http.routers.backstore-ui.tls.domains[0].main=back.${SYSTEM_TLD}
