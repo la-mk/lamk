@@ -72,7 +72,7 @@ const FIELDS_MAPPING: any = {
         return;
       }
 
-      const withNewlines = val.replace(/<br>/, '\n');
+      const withNewlines = val.replace(/<br>/g, '\n');
       return sanitizeHtml(withNewlines, {
         allowedTags: [],
         allowedAttributes: {},

@@ -33,7 +33,7 @@ const uploadImages = (productName: string, images: Array<{name: string, format: 
         })
         .then(img => img._id);
     },
-    { concurrency: 4 }
+    { concurrency: 2 }
   )
   .filter(x => x.length > 0);
 }
@@ -46,8 +46,6 @@ export const importProducts = async (res: LamkProduct[]): Promise<Array<Product 
   return Bluebird.map(
     res,
     async product => {
-      const imageIds = await uploadImages(product.name, product.images);
-      
       const productExists = await sdk.product.findForStore(storeId, {
         query: { name: product.name },
       });
@@ -57,6 +55,8 @@ export const importProducts = async (res: LamkProduct[]): Promise<Array<Product 
         return Promise.resolve({});
       }
 
+      const imageIds = await uploadImages(product.name, product.images);
+
       return sdk.product.create({
         ...product,
         category: '#missing',
@@ -64,6 +64,6 @@ export const importProducts = async (res: LamkProduct[]): Promise<Array<Product 
         soldBy: storeId,
       });
     },
-    { concurrency: 5 }
+    { concurrency: 2 }
   );
 };
