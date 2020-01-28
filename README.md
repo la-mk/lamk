@@ -48,6 +48,8 @@ Next, you need to set the workspace for terraform. You can do that using `terraf
 
 Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars.tfvars --var-file=./stg/secrets.tfvars` (change to prod folder for production deployment). The rest is handled automatically. 
 
+Finally, you need to whitelist the ip address of the new server that was created in MongoDB Atlas.
+
 ## DB Backups
 
 Backups will be automatically handled by MongoDB Atlas once we have a need for a larger cluster (paid one). For now, we can use the free one, and do manual backups using:
