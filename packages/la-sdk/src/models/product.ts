@@ -22,13 +22,6 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(511),
-  sku: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(511),
-    true,
-  ),
   price: v8n()
     .number()
     .positive(),
@@ -46,6 +39,18 @@ export const schema = {
       .minLength(2)
       .maxLength(2047),
     true,
+  ),
+  sku: v8n().optional(
+    v8n()
+      .string()
+      .minLength(2)
+      .maxLength(511),
+    true,
+  ),
+  inventory: v8n().optional(
+    v8n()
+      .number()
+      .not.negative(),
   ),
   // createdAt is optional as it is added by server on creation.
   createdAt: v8n().optional(
@@ -68,11 +73,12 @@ export interface Product {
   _id: string;
   soldBy: string;
   name: string;
-  sku: string;
   price: number;
   images: string[];
   category: string;
   description?: string;
+  sku: string;
+  inventory?: number;
   createdAt: string;
   modifiedAt: string;
 }
