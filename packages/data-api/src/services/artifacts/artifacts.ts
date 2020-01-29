@@ -1,4 +1,3 @@
-import * as crypto from 'crypto';
 import { Application, Service, Params } from '@feathersjs/feathers';
 import * as Minio from 'minio';
 // @ts-ignore
@@ -7,12 +6,7 @@ import * as mimeTypes from 'mime-types';
 import { hooks } from './hooks';
 import env from '../../common/env';
 import { BadRequest } from '../../common/errors';
-
-const bufferToHash = (buffer: Buffer) => {
-  const hash = crypto.createHash('sha256');
-  hash.update(buffer);
-  return hash.digest('hex');
-};
+import uuid = require('uuid/v4');
 
 interface ArtifactsServiceData {
   uri: string;
@@ -50,7 +44,7 @@ class ArtifactsService implements Service<ArtifactsServiceData> {
     }
 
     const ext = mimeTypes.extension(contentType);
-    const id = `${bufferToHash(buffer)}.${ext}`;
+    const id = `${uuid()}.${ext}`;
     await this.client.putObject(
       this.bucket,
       `${storeId}/${id}`,
