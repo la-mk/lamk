@@ -12,6 +12,7 @@ export const useFullCategory = (
 
   useEffect(() => {
     if (!categories || !product) {
+      setFullCategory(undefined);
       return;
     }
 

@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@sradevski/blocks-ui": "0.0.21",
-    "@sradevski/la-sdk": "0.0.12",
+    "@sradevski/la-sdk": "0.0.17",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.146",
     "@types/node": "^12.12.7",
@@ -84,7 +84,7 @@
     "@aida/injector-open-api": "0.0.6",
     "@aida/injector-routes": "0.0.6",
     "@aida/injector-routes-map": "0.0.6",
-    "@sradevski/translations": "0.0.8",
+    "@sradevski/translations": "0.0.9",
     "@types/socket.io-client": "^1.4.32",
     "babel-plugin-import": "^1.12.2",
     "dependency-cruiser": "^5.2.3",

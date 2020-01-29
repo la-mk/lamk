@@ -16,6 +16,7 @@ import {
   parsers,
   Cascader,
   hooks,
+  InputNumber,
 } from '@sradevski/blocks-ui';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
@@ -149,7 +150,7 @@ export const ProductFormModal = ({
             </Col>
           </Row>
           <Row gutter={24}>
-            <Col md={12} span={24}>
+            <Col md={8} span={24}>
               <FormItem
                 label={t('common.price')}
                 selector='price'
@@ -161,11 +162,37 @@ export const ProductFormModal = ({
                 })}
               </FormItem>
             </Col>
-            <Col md={12} span={24}>
+            <Col md={8} span={24}>
               <FormItem label={t('product.sku')} selector='sku'>
                 {formInput({
                   placeholder: t('product.skuExample'),
                 })}
+              </FormItem>
+            </Col>
+            <Col md={8} span={24}>
+              <FormItem
+                help={t('product.stockTip')}
+                label={t('product.stock')}
+                selector='stock'
+                parser={parsers.integer}
+              >
+                {(
+                  val: any,
+                  onChange: (val: any) => void,
+                  onComplete: (val: any) => void,
+                ) => {
+                  return (
+                    <InputNumber
+                      width='100%'
+                      min={0}
+                      max={999999}
+                      value={val}
+                      onChange={onChange}
+                      onBlur={onComplete}
+                      placeholder={t('product.stockExample')}
+                    />
+                  );
+                }}
               </FormItem>
             </Col>
           </Row>

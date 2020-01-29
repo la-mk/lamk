@@ -102,7 +102,13 @@ export const Products = () => {
       </Title>
 
       <Flex my={3} justifyContent='space-between'>
-        <Button type='primary' onClick={() => setShowModal(true)}>
+        <Button
+          type='primary'
+          onClick={() => {
+            setEditingProduct(undefined);
+            setShowModal(true);
+          }}
+        >
           {t('actions.add')}
         </Button>
         <Tooltip title={t('common.actionsTip')}>

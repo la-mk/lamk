@@ -208,6 +208,9 @@
     "productCount": "Product count",
     "sku": "Inventory code",
     "skuExample": "eg. 42356731",
+    "stock": "Stock",
+    "stockExample": "eg. 12",
+    "stockTip": "Leave empty for unmanaged stock",
     "updateProductSuccess": "Successfully updated {{productName}}",
     "updatingProductTip": "Updating product..."
   },
