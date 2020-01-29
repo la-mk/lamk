@@ -1,6 +1,6 @@
 {
   "name": "@lamk/data-api",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "private": true,
   "description": "",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -67,7 +67,7 @@
     "@feathersjs/feathers": "^4.3.11",
     "@feathersjs/socket-commons": "^3.1.5",
     "@feathersjs/socketio": "^4.3.11",
-    "@sradevski/la-sdk": "0.0.13",
+    "@sradevski/la-sdk": "0.0.15",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dauria": "^2.0.0",
