@@ -77,7 +77,22 @@
 		"standing-light": "Standing lights",
 		"spotlight": "Spotlights",
 		"ceiling-light": "Ceiling lights",
-		"light-part": "Light parts"
+		"light-part": "Light parts",
+		"construction-material-other": "Others",
+		"electrical-item-other": "Others" ,
+		"piping-other": "Others" ,
+		"paint-laquer-other": "Others" ,
+		"woodwork-other": "Others" ,
+		"metal-item-other": "Others" ,
+		"manual-tool-other": "Others" ,
+		"electric-tool-other": "Others" ,
+		"tool-part-other": "Others" ,
+		"ladder-other": "Others" ,
+		"work-attire-other": "Others" ,
+		"home-bathroom-other": "Others" ,
+		"garden-other": "Others" ,
+		"kitchen-other": "Others" ,
+		"lighting-other": "Others" 
   },
 
   "deliveryMethods": {

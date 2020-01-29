@@ -77,7 +77,22 @@
 		"standing-light": "Столни ламби",
 		"spotlight": "Рефлектори",
 		"ceiling-light": "Лустери",
-		"light-part": "Делови за осветлување"
+		"light-part": "Делови за осветлување",
+		"construction-material-other": "Останато",
+		"electrical-item-other": "Останато" ,
+		"piping-other": "Останато" ,
+		"paint-laquer-other": "Останато" ,
+		"woodwork-other": "Останато" ,
+		"metal-item-other": "Останато" ,
+		"manual-tool-other": "Останато" ,
+		"electric-tool-other": "Останато" ,
+		"tool-part-other": "Останато" ,
+		"ladder-other": "Останато" ,
+		"work-attire-other": "Останато" ,
+		"home-bathroom-other": "Останато" ,
+		"garden-other": "Останато" ,
+		"kitchen-other": "Останато" ,
+		"lighting-other": "Останато" 
   },
 
 	"deliveryMethods": {
