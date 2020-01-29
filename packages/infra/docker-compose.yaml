@@ -46,7 +46,7 @@ services:
       # This is needed by Traefik to do proper let's encrypt DNS challenge.
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
   data-api:
-    image: lamk/data-api:1.0.18
+    image: lamk/data-api:1.0.19
     container_name: data-api
     restart: always
     networks:
