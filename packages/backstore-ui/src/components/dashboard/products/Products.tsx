@@ -106,9 +106,9 @@ export const Products = () => {
           {t('actions.add')}
         </Button>
         <Tooltip title={t('common.actionsTip')}>
-          <Button mx={3} type='ghost'>
+          {/* <Button mx={3} type='ghost'>
             {t('common.action_plural')}
-          </Button>
+          </Button> */}
         </Tooltip>
       </Flex>
       <Table<Product>

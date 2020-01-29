@@ -32,7 +32,7 @@ export const Products = ({
   });
 
   React.useEffect(() => {
-    if (!store || !store._id || isEqual(filters, initialFilters)) {
+    if (!store || !store._id) {
       return;
     }
 
@@ -40,7 +40,7 @@ export const Products = ({
       sdk.product.findForStore(store._id, utils.filter.filtersAsQuery(filters)),
       setProducts,
     );
-  }, [store, initialFilters, filters]);
+  }, [store, filters]);
 
   return (
     <Page title={t('pages.product_plural')}>

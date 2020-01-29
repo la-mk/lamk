@@ -1,3 +1,4 @@
+import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
 import queryString from 'qs';
 import { ProductSet } from '../sets/ProductSet';
@@ -11,6 +12,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getCategories } from '../../state/modules/categories/categories.selector';
+import { getFiltersFromSetQuery } from '../../common/filterUtils';
 
 const Banner = styled.div`
   position: relative;
@@ -34,7 +36,7 @@ export const Home = ({
     let categorySetTags = [];
 
     if (categories.length) {
-      categorySetTags = categories.slice(0, 2).map(category => ({
+      categorySetTags = sampleSize(categories, 3).map(category => ({
         name: 'category',
         value: category.level3,
       }));
@@ -71,7 +73,9 @@ export const Home = ({
             .map(set => (
               <ProductSet
                 storeId={store._id}
-                allHref={`/products?${queryString.stringify(set.filter)}`}
+                allHref={`/products?${queryString.stringify(
+                  getFiltersFromSetQuery(set.filter.query),
+                )}`}
                 key={set.setTag.name + (set.setTag.value || '')}
                 products={set.data}
                 title={t(getTranslationBaseForSet(set.setTag))}

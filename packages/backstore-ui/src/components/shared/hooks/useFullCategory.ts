@@ -20,6 +20,7 @@ export const useFullCategory = (
     );
 
     if (!categorySet) {
+      setFullCategory(undefined);
       return;
     }
 

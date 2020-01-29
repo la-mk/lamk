@@ -1,11 +1,11 @@
 import merge from 'lodash/merge';
 import noop from 'lodash/noop';
 import { useState, useCallback, useMemo } from 'react';
-import * as queryString from 'qs';
 import {
   expandFilterObject,
   minifiyFilterObject,
   parseFiltersUrl,
+  stringifyFilters,
 } from '../utils/filter';
 
 export interface FilterRouter {
@@ -78,7 +78,7 @@ const addToStorage = (
 ) => {
   switch (storage) {
     case 'url': {
-      const stringified = queryString.stringify(filter);
+      const stringified = stringifyFilters(filter)
       const baseUri = location.pathname;
       const newUri = `${baseUri}?${stringified}`;
       if (!router) {

@@ -30,6 +30,7 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import { getFiltersFromSetQuery } from '../../common/filterUtils';
 
 interface ProductProps {
   product: ProductType;
@@ -168,7 +169,9 @@ export const Product = ({ product }: ProductProps) => {
             .map(set => (
               <ProductSet
                 storeId={store._id}
-                allHref={`/products?${queryString.stringify(set.filter)}`}
+                allHref={`/products?${queryString.stringify(
+                  getFiltersFromSetQuery(set.filter.query),
+                )}`}
                 key={set.setTag.name + (set.setTag.value || '')}
                 products={set.data}
                 title={t(getTranslationBaseForSet(set.setTag))}

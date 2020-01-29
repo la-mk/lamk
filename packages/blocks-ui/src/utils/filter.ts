@@ -145,3 +145,7 @@ export const parseFiltersUrl = (url: string) => {
       : undefined,
   };
 };
+
+export const stringifyFilters = (filters: MinifiedFilterObject) => {
+  return queryString.stringify(filters);
+}

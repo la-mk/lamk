@@ -84,6 +84,9 @@ export const handleArtifactUploadStatus = (
     case 'removed': {
       sdk.artifact
         .remove(info.file.uid)
+        .catch(() => {
+          console.error('Failed to remove file');
+        })
         .then(() => {
           if (single) {
             onComplete(null);
@@ -94,9 +97,6 @@ export const handleArtifactUploadStatus = (
               ),
             );
           }
-        })
-        .catch(() => {
-          onError(`Failed to remove file`);
         });
 
       break;

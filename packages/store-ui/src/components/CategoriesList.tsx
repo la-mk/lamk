@@ -22,10 +22,10 @@ import queryString from 'qs';
 
 const getQueryString = (categories: string | string[]) => {
   if (isString(categories)) {
-    return queryString.stringify({ query: { category: categories } });
+    return queryString.stringify({ f: { category: categories } });
   }
 
-  return queryString.stringify({ query: { category: { $in: categories } } });
+  return queryString.stringify({ f: { category: { $in: categories } } });
 };
 
 export const CategoriesList = () => {

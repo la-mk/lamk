@@ -56,3 +56,5 @@ Backups will be automatically handled by MongoDB Atlas once we have a need for a
 `mongodump --uri="<connectionstring>"`
 `mongorestore --uri="<connectionstring>"`
 
+See MongoDB Atlas for the exact command to run `(in the cluster page, press ... -> Command line)`
+
