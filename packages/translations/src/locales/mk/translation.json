@@ -159,6 +159,9 @@
 		"seeOtherProducts": "Видете други продукти",
 		"sku": "Шифра",
 		"skuExample": "пр. 42356731",
+		"stock": "Залиха",
+		"stockExample": "пр. 12",
+		"stockTip": "Оставете празно за неограничена залиха",
 		"updateProductSuccess": "Продуктот {{productName}} успешно обновен",
 		"updatingProductTip": "Продуктот се обновува..."
   },

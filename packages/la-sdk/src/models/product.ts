@@ -47,7 +47,7 @@ export const schema = {
       .maxLength(511),
     true,
   ),
-  inventory: v8n().optional(
+  stock: v8n().optional(
     v8n()
       .number()
       .not.negative(),
@@ -78,7 +78,7 @@ export interface Product {
   category: string;
   description?: string;
   sku: string;
-  inventory?: number;
+  stock?: number;
   createdAt: string;
   modifiedAt: string;
 }

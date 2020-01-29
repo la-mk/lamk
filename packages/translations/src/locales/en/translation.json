@@ -158,6 +158,9 @@
 		"product_plural": "Products",
 		"seeOtherProducts": "See other products",
 		"sku": "Inventory code",
+		"stock": "Stock",
+		"stockExample": "eg. 12",
+		"stockTip": "Leave empty for unmanaged stock",
 		"skuExample": "eg. 42356731",
 		"updateProductSuccess": "Successfully updated {{productName}}",
 		"updatingProductTip": "Updating product..."
