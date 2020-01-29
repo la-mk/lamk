@@ -94,10 +94,10 @@ export const getCategorySdk = (client: Application) => {
 
     // This is for categoriesForStore
     validatePerStore: (data: Category, ignoreRequired = false) => {
-      return validate(schema, data, ignoreRequired);
+      return validate(categoriesPerStoreSchema, data, ignoreRequired);
     },
     validateSinglePerStore: (val: any, selector: string) => {
-      return validateSingle(schema, val, selector);
+      return validateSingle(categoriesPerStoreSchema, val, selector);
     },
   };
 };
