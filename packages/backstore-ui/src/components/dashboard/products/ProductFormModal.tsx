@@ -29,6 +29,7 @@ import { useSelector } from 'react-redux';
 import {
   addProduct,
   patchProduct,
+  removeProduct,
 } from '../../../state/modules/products/products.module';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setCategories } from '../../../state/modules/categories/categories.module';
@@ -95,6 +96,20 @@ export const ProductFormModal = ({
     }
   };
 
+  const handleDeleteProduct = () => {
+    if (product && product._id) {
+      caller<Product>(sdk.product.remove(product._id), () => {
+        onClose();
+        message.success(
+          t('product.productDeleted', {
+            id: sdk.utils.getShortId(product._id),
+          }),
+        );
+        return removeProduct(product._id);
+      });
+    }
+  };
+
   return (
     <Modal
       width={'80%'}
@@ -113,6 +128,14 @@ export const ProductFormModal = ({
             : t('product.addingProductTip')
         }
       >
+        {product && (
+          <Flex mb={3} justifyContent='flex-end'>
+            <Button onClick={handleDeleteProduct} type='danger'>
+              {t('actions.delete')}
+            </Button>
+          </Flex>
+        )}
+
         <Form
           colon={false}
           externalState={externalState}
