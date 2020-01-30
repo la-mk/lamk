@@ -155,6 +155,7 @@
 		"nameExample": "eg. Nike Air Max",
 		"priceExample": "eg. 500",
 		"productCount": "Product count",
+		"productDeleted": "Product {{id}} successfully deleted",
 		"product_plural": "Products",
 		"seeOtherProducts": "See other products",
 		"sku": "Inventory code",

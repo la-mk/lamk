@@ -155,6 +155,7 @@
 		"nameExample": "пр. Nike Air Max",
 		"priceExample": "пр. 500",
 		"productCount": "Број на продукти",
+		"productDeleted": "Продуктот со шифра {{id}} беше успешно избришан",
 		"product_plural": "Продукти",
 		"seeOtherProducts": "Видете други продукти",
 		"sku": "Шифра",
