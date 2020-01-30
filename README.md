@@ -50,6 +50,12 @@ Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars
 
 Finally, you need to whitelist the ip address of the new server that was created in MongoDB Atlas.
 
+## Adding custom domain (currently only Agnesa's)
+
+Go to the DB, in the store model add `customDomain`.
+In the `vars.tfvars` change the domain.
+deploy as usual.
+
 ## DB Backups
 
 Backups will be automatically handled by MongoDB Atlas once we have a need for a larger cluster (paid one). For now, we can use the free one, and do manual backups using:

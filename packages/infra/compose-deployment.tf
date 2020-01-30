@@ -38,6 +38,10 @@ variable "analytics-tracking-id" {
   type = string
 }
 
+variable "agnesa-domain" {
+  type = string
+}
+
 ########## DO DATA ##############
 
 data "digitalocean_ssh_key" "droplets-ssh-key" {
@@ -90,6 +94,7 @@ export SPACES_SECRET_ACCESS_KEY=$SPACES_SECRET_ACCESS_KEY;
 export MONGODB_CONNECTION_STRING=$MONGODB_CONNECTION_STRING;
 export JWT_SECRET=$JWT_SECRET;
 export ANALYTICS_TRACKING_ID=$ANALYTICS_TRACKING_ID;
+export AGNESA_DOMAIN=$AGNESA_DOMAIN;
 ENVVARS_TPL
 EOT
 
@@ -99,6 +104,7 @@ EOT
       STORAGE_BUCKET_NAME = var.artifacts-name
       JWT_SECRET = var.jwt-secret
       ANALYTICS_TRACKING_ID = var.analytics-tracking-id
+      AGNESA_DOMAIN = var.agnesa-domain
     }
   }
 

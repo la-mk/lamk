@@ -4,3 +4,4 @@ droplets-tags = ["stg"]
 project-name="lamk-stg"
 artifacts-name="lamk-artifacts-stg"
 environment="Staging"
+agnesa-domain="agnesa-test.lamk.tech"
