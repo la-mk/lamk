@@ -100,6 +100,7 @@ services:
       - traefik.http.routers.store-ui-http.entrypoints=web
       - traefik.http.routers.store-ui-http.rule=HostRegexp(`{subdomain:.+}.${SYSTEM_TLD}`)
       - traefik.http.routers.store-ui-http.middlewares=store-ui-https
+      - traefik.http.routers.store-ui-http.service=store-ui #never called due to redirect
 
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
       - traefik.http.routers.store-ui.entrypoints=websecure
@@ -118,6 +119,7 @@ services:
       - traefik.http.routers.agnesa-domain-http.entrypoints=web
       - traefik.http.routers.agnesa-domain-http.rule=Host(`${AGNESA_DOMAIN}`)
       - traefik.http.routers.agnesa-domain-http.middlewares=agnesa-domain-https
+      - traefik.http.routers.agnesa-domain-http.service=agnesa-domain
       
       - traefik.http.routers.agnesa-domain.priority=1 #Set to low priority so our services resolve before stores
       - traefik.http.routers.agnesa-domain.entrypoints=websecure
