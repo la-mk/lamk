@@ -146,7 +146,12 @@
 		"myOrders": "Мои порачки",
 		"order": "Порачка",
 		"order_plural": "Порачки",
-		"product_plural": "Продукти"
+		"product_plural": "Продукти",
+		"legal": "Правни",
+		"privacy": "Приватност",
+		"returnAndRefund": "Замена на производ",
+		"generalRules": "Општи одредби",
+		"termsOfUse": "Услови на употреба"
   },
   "product": {
 		"addProductSuccess": "Нов продукт успешно додаден",

@@ -33,6 +33,51 @@ export const schema = {
       .maxLength(1023),
     true,
   ),
+  company: v8n().schema({
+    companyName: v8n()
+      .string()
+      .minLength(2)
+      .maxLength(511),
+    companyAddress: v8n()
+      .string()
+      .minLength(2)
+      .maxLength(1023),
+    registryNumber: v8n()
+      .string()
+      .minLength(2)
+      .maxLength(127),
+    taxNumber: v8n()
+      .string()
+      .minLength(2)
+      .maxLength(127),
+  }),
+  contact: v8n().schema({
+    email: v8n()
+      .string()
+      .minLength(4)
+      .maxLength(63),
+    phoneNumber: v8n()
+      .string()
+      .minLength(4)
+      .maxLength(63),
+    alternatePhoneNumber: v8n.optional(
+      v8n()
+        .string()
+        .minLength(4)
+        .maxLength(63),
+    ),
+    product: v8n()
+      .string()
+      .minLength(2)
+      .maxLength(63),
+    fromStore: v8n()
+      .string()
+      .minLength(2)
+      .maxLength(63),
+    quantity: v8n()
+      .number()
+      .positive(),
+  }),
   logo: v8n()
     .string()
     .minLength(2)
@@ -61,6 +106,17 @@ export interface Store {
   name: string;
   slug: string;
   customDomain?: string;
+  company: {
+    companyName: string;
+    companyAddress: string;
+    registryNumber: string;
+    taxNumber: string;
+  };
+  contact: {
+    email: string;
+    phoneNumber: string;
+    alternatePhoneNumber?: string;
+  };
   logo: string;
   isPublished: boolean;
   createdAt: string;

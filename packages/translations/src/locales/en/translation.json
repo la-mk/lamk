@@ -146,7 +146,12 @@
 		"myOrders": "My Orders",
 		"order": "Order",
 		"order_plural": "Orders",
-		"product_plural": "Products"
+		"product_plural": "Products",
+		"legal": "Legal",
+		"privacy": "Privacy",
+		"returnAndRefund": "Returns and refunds",
+		"generalRules": "General rules",
+		"termsOfUse": "Terms of use"
   },
   "product": {
 		"addProductSuccess": "Successfully added a new product",
