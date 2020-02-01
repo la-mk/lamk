@@ -28,6 +28,7 @@ import { logout } from '../../state/modules/auth/auth.module';
 import { getUser } from '../../state/modules/user/user.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { useTranslation } from '../i18n';
+import { FooterContent } from './FooterContent';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -184,7 +185,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
           <Flex flexDirection='column'>{children}</Flex>
         </StyledContent>
         <Footer mt={4} style={{ textAlign: 'center' }}>
-          La.mk ©2019 Created by La.mk
+          <FooterContent store={store} />
         </Footer>
       </Layout>
     </>

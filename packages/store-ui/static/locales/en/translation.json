@@ -246,13 +246,18 @@
     "aboutUs": "About Us",
     "cart": "Cart",
     "checkout": "Checkout",
+    "generalRules": "General rules",
     "home": "Home",
+    "legal": "Legal",
     "myAccount": "My Account",
     "myCart": "My cart",
     "myOrders": "My Orders",
     "order": "Order",
     "order_plural": "Orders",
-    "product_plural": "Products"
+    "privacy": "Privacy",
+    "product_plural": "Products",
+    "returnAndRefund": "Returns and refunds",
+    "termsOfUse": "Terms of use"
   },
   "product": {
     "product_plural": "Products",
