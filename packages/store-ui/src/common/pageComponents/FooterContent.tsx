@@ -87,7 +87,7 @@ export const FooterContent = ({ store }: { store: Store }) => {
               <Flex
                 flexDirection='column'
                 alignItems='flex-start'
-                key={menu.link}
+                key={menu.text}
                 mr={4}
               >
                 {menu.link && (
@@ -111,7 +111,7 @@ export const FooterContent = ({ store }: { store: Store }) => {
           <Collapse bordered={false} style={{ background: 'transparent' }}>
             {menus.map(menu => {
               return (
-                <CollapsePanel key={menu.link} header={menu.text}>
+                <CollapsePanel key={menu.text} header={menu.text}>
                   <Submenu submenus={menu.submenus} />
                 </CollapsePanel>
               );

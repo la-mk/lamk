@@ -1,9 +1,17 @@
 import React from 'react';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { Card, Title, Paragraph, Flex, Image } from '@sradevski/blocks-ui';
+import {
+  Card,
+  Title,
+  Paragraph,
+  Text,
+  Flex,
+  Image,
+} from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { Price } from './shared/Price';
+import { useTranslation } from '../common/i18n';
 
 export const ProductCard = ({
   product,
@@ -12,6 +20,8 @@ export const ProductCard = ({
   product: Product;
   storeId: string;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Link href='/products/[pid]' as={`/products/${product._id}`}>
       <a style={{ textDecoration: 'none' }}>
@@ -38,6 +48,9 @@ export const ProductCard = ({
               {product.name}
             </Title>
             <Price price={product.price} currency={'ден'} />
+            {product.stock === 0 && (
+              <Text type='danger'>{t('product.outOfStock')}</Text>
+            )}
             <Paragraph
               style={{ whiteSpace: 'pre-wrap' }}
               mt={3}

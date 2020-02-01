@@ -34,8 +34,8 @@ export const Addresses = ({ user }: AddressesProps) => {
     caller(
       sdk.address.create({ addressFor: user._id, ...address }),
       (address: Address) => {
-        setAddresses([...addresses, address]);
         message.success(t('address.createAddressSuccess'));
+        return setAddresses([...addresses, address]);
       },
     );
   };
@@ -54,19 +54,21 @@ export const Addresses = ({ user }: AddressesProps) => {
     caller(
       sdk.address.patch(patchedAddress._id, updatedFields),
       (address: Address) => {
-        setAddresses([
+        message.success(t('address.updateAddressSuccess'));
+        return setAddresses([
           ...addresses.filter(address => address._id !== patchedAddress._id),
           address,
         ]);
-        message.success(t('address.updateAddressSuccess'));
       },
     );
   };
 
   const handleRemoveAddress = (addressId: string) => {
     caller(sdk.address.remove(addressId), () => {
-      setAddresses(addresses.filter(address => address._id !== addressId));
       message.success(t('address.removeAddressSuccess'));
+      return setAddresses(
+        addresses.filter(address => address._id !== addressId),
+      );
     });
   };
 
@@ -83,6 +85,7 @@ export const Addresses = ({ user }: AddressesProps) => {
             return (
               <Col key={address._id} mb={4}>
                 <AddAddressCard
+                  userId={user._id}
                   address={address}
                   onAddAddress={handleAddAddress}
                   onPatchAddress={handlePatchAddress}
@@ -94,6 +97,7 @@ export const Addresses = ({ user }: AddressesProps) => {
 
         <Col mb={4}>
           <AddAddressCard
+            userId={user._id}
             address={undefined}
             onAddAddress={handleAddAddress}
             onPatchAddress={handlePatchAddress}

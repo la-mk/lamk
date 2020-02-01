@@ -42,6 +42,7 @@ export const Product = ({ product }: ProductProps) => {
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const { t } = useTranslation();
+  const outOfStock = product.stock === 0;
 
   const [productSets, setProductSets] = useState<ProductSetType[]>([]);
   const [selectedImage, setSelectedImage] = useState(
@@ -126,41 +127,50 @@ export const Product = ({ product }: ProductProps) => {
             <Paragraph style={{ whiteSpace: 'pre-wrap' }} mt={4}>
               {product.description}
             </Paragraph>
-            <Flex mt={[4, 4, 5, 5]} flexDirection='row' alignItems='center'>
-              {!isProductInCart && (
-                <>
-                  <Text>{t('common.quantity')}</Text>
-                  <InputNumber
-                    width='68px'
+            <Box mt={[3, 3, 4, 4]}>
+              {outOfStock && (
+                <Text type='danger'>{t('product.outOfStockLong')}</Text>
+              )}
+
+              <Flex mt={[2, 2, 3, 3]} flexDirection='row' alignItems='center'>
+                {!isProductInCart && (
+                  <>
+                    <InputNumber
+                      disabled={outOfStock}
+                      width='68px'
+                      size='large'
+                      min={1}
+                      max={product.stock || 999}
+                      value={quantity}
+                      onChange={setQuantity}
+                      mr={2}
+                    />
+                  </>
+                )}
+                {isProductInCart ? (
+                  <>
+                    <Text type='secondary'>
+                      {t('cart.productAlreadyInCart')}
+                    </Text>
+                    <Link passHref href='/cart'>
+                      <Button type='primary' size='large' ml={2}>
+                        {t('actions.goToCart')}
+                      </Button>
+                    </Link>
+                  </>
+                ) : (
+                  <Button
+                    disabled={outOfStock}
+                    onClick={handleAddToCart}
+                    ml={2}
                     size='large'
-                    min={1}
-                    max={999}
-                    value={quantity}
-                    onChange={setQuantity}
-                    mx={2}
-                  />
-                </>
-              )}
-              {isProductInCart ? (
-                <>
-                  <Text type='secondary'>{t('cart.productAlreadyInCart')}</Text>
-                  <Link passHref href='/cart'>
-                    <Button type='primary' size='large' ml={2}>
-                      {t('actions.goToCart')}
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <Button
-                  onClick={handleAddToCart}
-                  ml={2}
-                  size='large'
-                  type='primary'
-                >
-                  {t('actions.addToCart')}
-                </Button>
-              )}
-            </Flex>
+                    type='primary'
+                  >
+                    {t('actions.addToCart')}
+                  </Button>
+                )}
+              </Flex>
+            </Box>
           </Flex>
         </Flex>
         <Flex mt={6}>

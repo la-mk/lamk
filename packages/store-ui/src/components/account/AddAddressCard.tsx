@@ -8,12 +8,14 @@ import {
   formTextArea,
   Select,
   Option,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { useTranslation } from '../../common/i18n';
 
 interface AddAddressCardProps {
+  userId: string;
   address?: Address;
   onAddAddress: (address: Address) => void;
   onPatchAddress: (address: Address) => void;
@@ -21,12 +23,18 @@ interface AddAddressCardProps {
 }
 
 export const AddAddressCard = ({
+  userId,
   address,
   onAddAddress,
   onPatchAddress,
   onRemoveAddress,
 }: AddAddressCardProps) => {
   const { t } = useTranslation();
+  const [externalState] = hooks.useFormState<Address>(
+    address,
+    { addressFor: userId },
+    [address, userId],
+  );
 
   return (
     <Form
@@ -40,9 +48,12 @@ export const AddAddressCard = ({
       }}
       layout='horizontal'
       colon={false}
-      validate={data => sdk.address.validate(data, Boolean(address))}
+      validate={data => {
+        console.log(sdk.address.validate(data, Boolean(address)));
+        return sdk.address.validate(data, Boolean(address));
+      }}
       validateSingle={sdk.address.validateSingle}
-      externalState={address || {}}
+      externalState={externalState}
       onFormCompleted={address ? onPatchAddress : onAddAddress}
       getErrorMessage={(errorName, context) =>
         t(`errors.${errorName}`, context)

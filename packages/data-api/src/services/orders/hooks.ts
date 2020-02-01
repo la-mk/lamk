@@ -15,10 +15,9 @@ import { discard } from 'feathers-hooks-common';
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
 const validateOrderedItems = async (ctx: HookContext) => {
   const { orderedFrom, ordered } = ctx.data;
-  const orderedProducts = ordered.map((orderItem: any) => orderItem.product);
 
-  orderedProducts.forEach((orderedProduct: any) => {
-    if (orderedProduct.soldBy !== orderedFrom) {
+  ordered.forEach((orderItem: any) => {
+    if (orderItem.product.soldBy !== orderedFrom) {
       throw new BadRequest('Product is not from the specified store');
     }
   });
@@ -27,24 +26,36 @@ const validateOrderedItems = async (ctx: HookContext) => {
     await ctx.app.services['products'].find({
       query: {
         _id: {
-          $in: orderedProducts.map((orderedProduct: any) => orderedProduct._id),
+          $in: ordered.map((orderItem: any) => orderItem.product._id),
         },
       },
     })
   ).data;
 
-  orderedProducts.forEach((orderedProduct: any) => {
+  ordered.forEach((orderItem: any) => {
     const dbProduct = products.find(
-      (product: any) => product._id === orderedProduct._id,
+      (product: any) => product._id === orderItem.product._id,
     );
 
     if (!dbProduct) {
       throw new BadRequest('A product in the cart no longer exists');
     }
 
-    if (dbProduct.price !== orderedProduct.price) {
+    if (dbProduct.price !== orderItem.product.price) {
       throw new BadRequest(
         'The price of a product in your cart changed, refresh the page and try again',
+      );
+    }
+
+    if (dbProduct.stock === 0) {
+      throw new BadRequest(
+        `It seems ${dbProduct.name} is out of stock, try again later`,
+      );
+    }
+
+    if (dbProduct.stock < orderItem.quantity) {
+      throw new BadRequest(
+        `There aren't enough items in stock for ${dbProduct.name}, try again later`,
       );
     }
   });

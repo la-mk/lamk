@@ -176,7 +176,6 @@
     "personalInfo": "Personal info",
     "phoneNumber": "Phone number",
     "price": "Price",
-    "quantity": "Quantity",
     "selectCategory": "Select category",
     "sort": "Sort",
     "street": "Street",
@@ -260,6 +259,8 @@
     "termsOfUse": "Terms of use"
   },
   "product": {
+    "outOfStock": "Out of stock",
+    "outOfStockLong": "We are out of stock, come back later",
     "product_plural": "Products",
     "seeOtherProducts": "See other products"
   },

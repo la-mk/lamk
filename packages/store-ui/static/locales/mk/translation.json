@@ -176,7 +176,6 @@
     "personalInfo": "Лични податоци",
     "phoneNumber": "Телефонски број",
     "price": "Цена",
-    "quantity": "Количина",
     "selectCategory": "Одбери категорија",
     "sort": "Подредување",
     "street": "Улица",
@@ -260,6 +259,8 @@
     "termsOfUse": "Услови на употреба"
   },
   "product": {
+    "outOfStock": "Нема залиха",
+    "outOfStockLong": "Нема залиха, работиме на обновување на залихите",
     "product_plural": "Продукти",
     "seeOtherProducts": "Видете други продукти"
   },
