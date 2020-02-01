@@ -22,14 +22,14 @@ services:
       # The DNS challenge requires you to have a DO_AUTH_TOKEN environment variable set.
       # - --certificatesresolvers.cert-resolve.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cert-resolve.acme.email=sradevski@live.com
-      - --certificatesresolvers.cert-resolve.acme.storage=acme.json
+      - --certificatesresolvers.cert-resolve.acme.storage=/certs/acme.json
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge=true
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.provider=digitalocean
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.delayBeforeCheck=20
       
       # - --certificatesresolvers.custom-certs.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.custom-certs.acme.email=sradevski@live.com
-      - --certificatesresolvers.custom-certs.acme.storage=customcert.json
+      - --certificatesresolvers.custom-certs.acme.storage=/certs/customcert.json
       - --certificatesresolvers.custom-certs.acme.httpChallenge=true
       - --certificatesResolvers.custom-certs.acme.httpChallenge.entryPoint=web
     ports:
@@ -37,6 +37,7 @@ services:
        - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /certs:/certs
     depends_on:
       - data-api
       - store-ui
