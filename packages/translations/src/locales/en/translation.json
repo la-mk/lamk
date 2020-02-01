@@ -169,7 +169,9 @@
 		"stockTip": "Leave empty for unmanaged stock",
 		"skuExample": "eg. 42356731",
 		"updateProductSuccess": "Successfully updated {{productName}}",
-		"updatingProductTip": "Updating product..."
+		"updatingProductTip": "Updating product...",
+		"outOfStock": "Out of stock",
+		"outOfStockLong": "We are out of stock, come back later"
   },
   "results": {
     "productNotFound": "Product not found"

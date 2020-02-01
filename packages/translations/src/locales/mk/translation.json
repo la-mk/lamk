@@ -169,7 +169,9 @@
 		"stockExample": "пр. 12",
 		"stockTip": "Оставете празно за неограничена залиха",
 		"updateProductSuccess": "Продуктот {{productName}} успешно обновен",
-		"updatingProductTip": "Продуктот се обновува..."
+		"updatingProductTip": "Продуктот се обновува...",
+		"outOfStock": "Нема залиха",
+		"outOfStockLong": "Нема залиха, работиме на обновување на залихите"
   },
   "results": {
     "productNotFound": "Продуктот не е пронајден"
