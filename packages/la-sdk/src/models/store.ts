@@ -60,7 +60,7 @@ export const schema = {
       .string()
       .minLength(4)
       .maxLength(63),
-    alternatePhoneNumber: v8n.optional(
+    alternatePhoneNumber: v8n().optional(
       v8n()
         .string()
         .minLength(4)
