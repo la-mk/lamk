@@ -55,7 +55,7 @@ export const schema = {
     email: v8n()
       .string()
       .minLength(4)
-      .maxLength(63),
+      .maxLength(1023),
     phoneNumber: v8n()
       .string()
       .minLength(4)
@@ -65,19 +65,20 @@ export const schema = {
         .string()
         .minLength(4)
         .maxLength(63),
+      true,
     ),
-    product: v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63),
-    fromStore: v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63),
-    quantity: v8n()
-      .number()
-      .positive(),
   }),
+  product: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(63),
+  fromStore: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(63),
+  quantity: v8n()
+    .number()
+    .positive(),
   logo: v8n()
     .string()
     .minLength(2)
