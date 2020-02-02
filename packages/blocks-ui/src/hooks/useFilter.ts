@@ -113,7 +113,7 @@ const addToStorage = (
 
 // If the filtering changes, the number of shown items potentially changes as well, so we want to reset pagination in order for it to not be larger than the total items shown
 const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: FilterObject) => {
-  if(isEqual(filtersBefore, filtersAfter)){
+  if(isEqual(filtersBefore.filtering, filtersAfter.filtering)){
     return filtersAfter;
   }
 
