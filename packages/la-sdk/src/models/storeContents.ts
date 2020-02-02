@@ -14,6 +14,10 @@ export const schema = {
       .maxLength(63),
     true,
   ),
+  forStore: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(63),
   aboutUs: v8n().optional(
     v8n().schema({
       description: v8n().optional(
@@ -53,6 +57,7 @@ export const schema = {
 
 export interface StoreContents {
   _id: string;
+  forStore: string;
   aboutUs?: {
     description: string;
   };
