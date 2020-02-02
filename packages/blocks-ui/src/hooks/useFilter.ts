@@ -1,6 +1,7 @@
 import merge from 'lodash/merge';
 import noop from 'lodash/noop';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 import { useState, useCallback, useMemo } from 'react';
 import {
   expandFilterObject,
@@ -113,7 +114,10 @@ const addToStorage = (
 
 // If the filtering changes, the number of shown items potentially changes as well, so we want to reset pagination in order for it to not be larger than the total items shown
 const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: FilterObject) => {
-  if(isEqual(filtersBefore.filtering, filtersAfter.filtering)){
+  // This takes care of null, undefined, and an empty object, which are practically the same;
+  const areEquallyEmpty = isEmpty(filtersBefore.filtering) === isEmpty(filtersAfter.filtering);
+
+  if(areEquallyEmpty && isEqual(filtersBefore.filtering, filtersAfter.filtering)){
     return filtersAfter;
   }
 
@@ -154,7 +158,7 @@ export const useFilter = (
     const minified = minifiyFilterObject(normalized);
     addToStorage(minified, storage, storageKey, router);
     setFilters(normalized);
-  }, []);
+  }, [filters]);
 
   return [filters, handleSetFilter];
 };
