@@ -31,6 +31,7 @@
 		"account": "Account",
 		"accountSettings": "Account settings",
 		"alreadyHaveAccount": "Already have account?",
+		"accountUpdateSuccess": "Account successfully updated",
 		"login": "Log in",
 		"logout": "Log out",
 		"noAccount": "No account?",
@@ -95,7 +96,8 @@
 		"success": "Success!",
 		"summary": "Summary",
 		"unknown": "Unknown",
-    "zipcode": "Zipcode"
+		"zipcode": "Zipcode",
+		"seeAll": "See all"
   },
   "countries": {
     "mk": "Macedonia"

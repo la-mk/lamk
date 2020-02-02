@@ -31,6 +31,7 @@
 		"account": "Сметка",
 		"accountSettings": "Поставки за сметка",
 		"alreadyHaveAccount": "Веќе имате сметка?",
+		"accountUpdateSuccess": "Сметката беше успешно обновена",
 		"login": "Логирај се",
 		"logout": "Одлогирај се",
 		"noAccount": "Немате сметка?",
@@ -95,7 +96,8 @@
 		"success": "Операцијата беше успешна",
 		"summary": "Преглед",
 		"unknown": "Непознато",
-		"zipcode": "Поштенски код"
+		"zipcode": "Поштенски код",
+		"seeAll": "Види ги сите"
   },
   "countries": {
     "mk": "Македонија"
