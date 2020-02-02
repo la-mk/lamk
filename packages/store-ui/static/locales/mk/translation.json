@@ -19,6 +19,7 @@
     "updateAddressSuccess": "Адресата беше успешно обновена"
   },
   "auth": {
+    "accountUpdateSuccess": "Сметката беше успешно обновена",
     "alreadyHaveAccount": "Веќе имате сметка?",
     "login": "Логирај се",
     "logout": "Одлогирај се",
@@ -176,6 +177,7 @@
     "personalInfo": "Лични податоци",
     "phoneNumber": "Телефонски број",
     "price": "Цена",
+    "seeAll": "Види ги сите",
     "selectCategory": "Одбери категорија",
     "sort": "Подредување",
     "street": "Улица",

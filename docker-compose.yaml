@@ -110,7 +110,8 @@ services:
     environment: 
       GPR_TOKEN: $GPR_TOKEN
       API_ENDPOINT: "http://api.dev.sradevski.com"
-      ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com"
+      # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
+      ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com/dev-bucket"
       ANALYTICS_TRACKING_ID: '' 
       PORT: 80
 
@@ -139,5 +140,6 @@ services:
     environment:
       GPR_TOKEN: $GPR_TOKEN
       REACT_APP_API_ENDPOINT: "http://api.dev.sradevski.com"
-      REACT_APP_ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com"
+      # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
+      REACT_APP_ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com/dev-bucket"
       PORT: 80

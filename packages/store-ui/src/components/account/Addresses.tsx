@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { Row, Col, message, Spin, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
@@ -16,6 +16,7 @@ interface AddressesProps {
 }
 
 export const Addresses = ({ user }: AddressesProps) => {
+  const [shouldResetAddressForm, setShouldResetAddressForm] = useState(false);
   const [caller, showSpinner] = hooks.useCall();
   const addresses = useSelector(getAddresses);
   const { t } = useTranslation();
@@ -35,6 +36,7 @@ export const Addresses = ({ user }: AddressesProps) => {
       sdk.address.create({ addressFor: user._id, ...address }),
       (address: Address) => {
         message.success(t('address.createAddressSuccess'));
+        setShouldResetAddressForm(x => !x);
         return setAddresses([...addresses, address]);
       },
     );
@@ -87,6 +89,7 @@ export const Addresses = ({ user }: AddressesProps) => {
                 <AddAddressCard
                   userId={user._id}
                   address={address}
+                  resetAddressForm={false}
                   onAddAddress={handleAddAddress}
                   onPatchAddress={handlePatchAddress}
                   onRemoveAddress={handleRemoveAddress}
@@ -99,6 +102,7 @@ export const Addresses = ({ user }: AddressesProps) => {
           <AddAddressCard
             userId={user._id}
             address={undefined}
+            resetAddressForm={shouldResetAddressForm}
             onAddAddress={handleAddAddress}
             onPatchAddress={handlePatchAddress}
             onRemoveAddress={handleRemoveAddress}

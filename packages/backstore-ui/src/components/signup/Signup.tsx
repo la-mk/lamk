@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title, SignupForm, Text } from '@sradevski/blocks-ui';
+import { Flex, Title, SignupForm, Text, Button } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useDispatch } from 'react-redux';
 import { signup, Credentials } from '../../state/modules/auth/auth.module';
@@ -21,8 +21,10 @@ export const Signup = () => {
       <Text mb={6} type='secondary'>
         {t('auth.signupClosedBeta')}
       </Text>
-
-      <SignupForm
+      <Button type='primary' onClick={() => dispatch(goTo('/login'))}>
+        {t('auth.login')}
+      </Button>
+      {/* <SignupForm
         signup={handleSignup}
         validate={data => sdk.user.validate(data, true)}
         validateSingle={sdk.user.validateSingle}
@@ -30,7 +32,7 @@ export const Signup = () => {
           t(`errors.${errorName}`, context)
         }
         onLoginNowClick={() => dispatch(goTo('/login'))}
-      />
+      /> */}
     </Flex>
   );
 };

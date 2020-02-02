@@ -16,6 +16,7 @@ import { useTranslation } from '../../common/i18n';
 
 interface AddAddressCardProps {
   userId: string;
+  resetAddressForm: boolean;
   address?: Address;
   onAddAddress: (address: Address) => void;
   onPatchAddress: (address: Address) => void;
@@ -25,6 +26,8 @@ interface AddAddressCardProps {
 export const AddAddressCard = ({
   userId,
   address,
+  // TODO: A hacky way to reset the address form after successful submission. Find a better way to do it;
+  resetAddressForm,
   onAddAddress,
   onPatchAddress,
   onRemoveAddress,
@@ -33,7 +36,7 @@ export const AddAddressCard = ({
   const [externalState] = hooks.useFormState<Address>(
     address,
     { addressFor: userId },
-    [address, userId],
+    [address, resetAddressForm, userId],
   );
 
   return (

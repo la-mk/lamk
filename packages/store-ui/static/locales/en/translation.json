@@ -19,6 +19,7 @@
     "updateAddressSuccess": "Address successfully updated"
   },
   "auth": {
+    "accountUpdateSuccess": "Account successfully updated",
     "alreadyHaveAccount": "Already have account?",
     "login": "Log in",
     "logout": "Log out",
@@ -176,6 +177,7 @@
     "personalInfo": "Personal info",
     "phoneNumber": "Phone number",
     "price": "Price",
+    "seeAll": "See all",
     "selectCategory": "Select category",
     "sort": "Sort",
     "street": "Street",

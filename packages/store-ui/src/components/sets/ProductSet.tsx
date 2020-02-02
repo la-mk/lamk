@@ -3,6 +3,7 @@ import { ProductCard } from '../ProductCard';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Set, Button } from '@sradevski/blocks-ui';
 import Link from 'next/link';
+import { useTranslation } from '../../common/i18n';
 
 export const ProductSet = ({
   products,
@@ -15,6 +16,7 @@ export const ProductSet = ({
   title: string;
   storeId: string;
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Set
@@ -27,7 +29,7 @@ export const ProductSet = ({
         footer={
           <Link href={allHref} passHref>
             <Button type='link' mt={2}>
-              See all
+              {t('common.seeAll')}
             </Button>
           </Link>
         }

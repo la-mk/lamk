@@ -28,6 +28,12 @@ export const LandingPreferences = () => {
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
+  const [externalState] = hooks.useFormState<StoreContents>(
+    storeContents,
+    { forStore: store._id },
+    [storeContents, store._id],
+  );
+
   // TODO: We need ot make uploading work better with `fileList` instead of `defaultFilelist`, without keeping local state everywhere.
   const [fileList, setFileList] = useState();
 
@@ -56,9 +62,10 @@ export const LandingPreferences = () => {
     }
 
     caller<StoreContents>(
-      sdk.storeContents
-        .patch(storeContents._id, { landing: data.landing })
-        .then(() => message.success(t('common.success'))),
+      sdk.storeContents.patch(storeContents._id, { landing: data.landing }),
+      () => {
+        message.success(t('common.success'));
+      },
     );
   };
 
@@ -67,7 +74,7 @@ export const LandingPreferences = () => {
       <Spin spinning={showSpinner}>
         <Form
           colon={false}
-          externalState={storeContents}
+          externalState={externalState}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }

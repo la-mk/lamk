@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Spin, Col, Title, Flex, hooks } from '@sradevski/blocks-ui';
+import { Spin, Col, Title, Flex, message, hooks } from '@sradevski/blocks-ui';
 import { Delivery as DeliveryType } from '@sradevski/la-sdk/dist/models/delivery';
 import { sdk } from '@sradevski/la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
@@ -38,7 +38,10 @@ export const Delivery = () => {
 
     caller<DeliveryType>(
       sdk.delivery.patch(newDelivery._id, newDelivery),
-      setDelivery,
+      updatedDelivery => {
+        message.success(t('common.success'));
+        return setDelivery(updatedDelivery);
+      },
     );
   };
 

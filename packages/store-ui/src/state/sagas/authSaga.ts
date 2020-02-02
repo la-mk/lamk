@@ -91,8 +91,9 @@ export function* logoutSaga() {
   try {
     yield call(sdk.authentication.logout);
     yield put(clearSession());
+    message.success('See you soon!');
   } catch (err) {
-    console.log(err);
+    message.error(err.message);
   }
 }
 
@@ -107,7 +108,7 @@ export function* loginSaga(action: any) {
     message.success('Welcome!');
     yield afterAuthSaga(authInfo);
   } catch (err) {
-    console.log(err);
+    message.error(err.message);
   }
 }
 
@@ -123,7 +124,7 @@ export function* signupSaga(action: any) {
     message.success('Welcome!');
     yield afterAuthSaga(authInfo);
   } catch (err) {
-    console.log(err);
+    message.error(err.message);
   }
 }
 

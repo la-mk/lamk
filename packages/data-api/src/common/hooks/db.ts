@@ -10,6 +10,14 @@ export const appendId = (context: HookContext) => {
   context.data._id = uuid();
 };
 
+export const setFieldsFromOther = (pairs: Array<[string, string]>) => (
+  context: HookContext,
+) => {
+  pairs.forEach(pair => {
+    context.data[pair[0]] = context.data[pair[1]];
+  });
+};
+
 export const setFields = (pairs: { [key: string]: any }) => (
   context: HookContext,
 ) => {

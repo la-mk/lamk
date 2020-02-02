@@ -31,7 +31,7 @@ export const Account = ({ user }: AccountProps) => {
   const handlePatchAccount = (updatedUser: User) => {
     const updatedFields = pickDiff(user, updatedUser);
     caller(sdk.user.patch(user._id, updatedFields), (user: User) => {
-      message.success(`Account successfully updated`);
+      message.success(t('auth.accountUpdateSuccess'));
       return patchUser(user);
     });
   };

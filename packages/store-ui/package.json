@@ -25,8 +25,8 @@
     ]
   },
   "dependencies": {
-    "@sradevski/blocks-ui": "0.0.22",
-    "@sradevski/la-sdk": "0.0.19",
+    "@sradevski/blocks-ui": "0.0.23",
+    "@sradevski/la-sdk": "0.0.21",
     "amplitude-js": "^5.8.0",
     "analytics": "^0.3.0",
     "antd": "^3.26.7",
@@ -50,7 +50,7 @@
     "styled-system": "^5.1.2"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.13",
+    "@sradevski/translations": "0.0.14",
     "@types/express": "^4.17.2",
     "@types/next-redux-wrapper": "^2.0.2",
     "@types/node": "^12.12.7",

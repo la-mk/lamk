@@ -10,7 +10,13 @@ import {
   isOwner,
   isPublished,
 } from '../../common/hooks/filtering';
-import { unless, keep, checkContext, discard } from 'feathers-hooks-common';
+import {
+  unless,
+  keep,
+  checkContext,
+  discard,
+  disallow,
+} from 'feathers-hooks-common';
 import { NotFound } from '../../common/errors';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
@@ -51,6 +57,7 @@ export const hooks = {
     find: [requireAnyQueryParam(['ownedBy', 'slug', 'customDomain'])],
     get: [],
     create: [
+      disallow('external'),
       authenticate('jwt'),
       associateCurrentUser({ as: 'ownedBy' }),
       // For a start, we want to have 1:1 mapping between user and store and use the same ID to simplify usage.
