@@ -1,5 +1,6 @@
 import merge from 'lodash/merge';
 import noop from 'lodash/noop';
+import isEqual from 'lodash/isEqual';
 import { useState, useCallback, useMemo } from 'react';
 import {
   expandFilterObject,
@@ -110,6 +111,21 @@ const addToStorage = (
   }
 };
 
+// If the filtering changes, the number of shown items potentially changes as well, so we want to reset pagination in order for it to not be larger than the total items shown
+const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: FilterObject) => {
+  if(isEqual(filtersBefore, filtersAfter)){
+    return filtersAfter;
+  }
+
+  return {
+    ...filtersAfter,
+    pagination: {
+      pageSize: filtersAfter.pagination?.pageSize || 20,
+      currentPage: 1
+    }
+  }
+}
+
 // FUTURE: Add listener to all of the stores
 export const useFilter = (
   initialFilters: FilterObject | null,
@@ -133,11 +149,11 @@ export const useFilter = (
 
   const [filters, setFilters] = useState(initialState);
 
-  // TODO: Handle situations when due to filtering the total number of objects is less than the pagination. Maybe reset pagination on every filter change?
-  const handleSetFilter = useCallback((filters: FilterObject) => {
-    const minified = minifiyFilterObject(filters);
+  const handleSetFilter = useCallback((updatedFilters: FilterObject) => {
+    const normalized = resetPaginationIfNecessary(filters, updatedFilters);
+    const minified = minifiyFilterObject(normalized);
     addToStorage(minified, storage, storageKey, router);
-    setFilters(filters);
+    setFilters(normalized);
   }, []);
 
   return [filters, handleSetFilter];
