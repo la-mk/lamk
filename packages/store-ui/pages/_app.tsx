@@ -44,14 +44,24 @@ const getSlugForCustomDomain = async (host: string) => {
   return laStoreResult.data[0];
 };
 
+const stripWww = (host: string) => {
+  if (host.startsWith('www')) {
+    return host.substring(4);
+  }
+
+  return host;
+};
+
 const getStoreFromHost = (host: string) => {
-  const tld = host.substr(host.indexOf('.') + 1);
+  const normalizedHost = stripWww(host);
+  const tld = normalizedHost.substr(normalizedHost.indexOf('.') + 1);
   const serverTld = env.API_ENDPOINT.substr(env.API_ENDPOINT.indexOf('.') + 1);
+
   if (tld !== serverTld) {
     return getSlugForCustomDomain(host);
   }
 
-  const slug = host.substr(0, host.indexOf('.'));
+  const slug = normalizedHost.substr(0, normalizedHost.indexOf('.'));
   if (!slug) {
     throw new Error('Store not found');
   }
