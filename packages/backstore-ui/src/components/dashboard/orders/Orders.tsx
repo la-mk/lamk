@@ -1,13 +1,14 @@
+import sum from 'lodash/sum';
 import React, { useState } from 'react';
 import {
   Flex,
   Title,
   Table,
   Tag,
-  Button,
   hooks,
   Tooltip,
   utils,
+  Text,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import compareAsc from 'date-fns/compareAsc';
@@ -17,7 +18,7 @@ import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from '@sradevski/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Order, OrderItem } from '@sradevski/la-sdk/dist/models/order';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,
@@ -34,11 +35,17 @@ const getColumns = (t: T) =>
       render: id => sdk.utils.getShortId(id),
     },
     {
-      title: t('product.productCount'),
+      title: t('finance.total'),
       dataIndex: 'ordered',
-      render: orderList => {
-        const orderedProducts = orderList.length;
-        return orderedProducts;
+      render: (orderList: OrderItem[], order: Order) => {
+        const subtotal = sum(
+          order.ordered.map(item => item.quantity * item.product.price),
+        );
+        const shippingCost =
+          order.delivery.freeDeliveryOver < subtotal ? 0 : order.delivery.price;
+        const total = subtotal + shippingCost;
+
+        return <Text>{total} ден</Text>;
       },
     },
     {

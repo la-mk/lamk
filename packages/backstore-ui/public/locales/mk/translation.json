@@ -219,6 +219,12 @@
     "string": "Полето треба да е текст",
     "uppercase": "Полето треба да е со големи букви"
   },
+  "finance": {
+    "priceBreakdown": "Преглед на вкупна цена",
+    "shippingCost": "Цена за достава",
+    "subtotal": "Цена на производи",
+    "total": "Вкупна цена"
+  },
   "onboarding": {
     "setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна",
     "setupDeliveryTitle": "За крај, ајде да ги информираме корисниците за достава",
@@ -248,7 +254,6 @@
     "descriptionExample": "пр. Високо квалитетни и лесни патики",
     "nameExample": "пр. Nike Air Max",
     "priceExample": "пр. 500",
-    "productCount": "Број на продукти",
     "productDeleted": "Продуктот со шифра {{id}} беше успешно избришан",
     "sku": "Шифра",
     "skuExample": "пр. 42356731",

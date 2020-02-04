@@ -219,6 +219,12 @@
     "string": "Field should be a string",
     "uppercase": "Field should all be uppercase"
   },
+  "finance": {
+    "priceBreakdown": "Price breakdown",
+    "shippingCost": "Shipping cost",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  },
   "onboarding": {
     "setupDeliverySubtitle": "Don't worry, you can modify things later as well.",
     "setupDeliveryTitle": "Finally, let's tell users about our delivery",
@@ -248,7 +254,6 @@
     "descriptionExample": "eg. High quality sneakers",
     "nameExample": "eg. Nike Air Max",
     "priceExample": "eg. 500",
-    "productCount": "Product count",
     "productDeleted": "Product {{id}} successfully deleted",
     "sku": "Inventory code",
     "skuExample": "eg. 42356731",

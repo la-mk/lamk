@@ -14,11 +14,13 @@ import {
   List,
   Image,
   Text,
+  Divider,
   hooks,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
+import format from 'date-fns/format';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,
@@ -31,6 +33,7 @@ import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
+import sum from 'lodash/sum';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -43,6 +46,14 @@ const getQuantityForProduct = (order: Order, product: Product) => {
   );
 
   return orderItem ? orderItem.quantity : null;
+};
+
+const getTotalPriceForProduct = (order: Order, product: Product) => {
+  const orderItem = order.ordered.find(
+    item => item.product._id === product._id,
+  );
+
+  return orderItem ? orderItem.quantity * orderItem.product.price : null;
 };
 
 export const OrderDetailsModal = ({
@@ -78,6 +89,16 @@ export const OrderDetailsModal = ({
       });
     }
   };
+
+  const subtotal = order
+    ? sum(order.ordered.map(item => item.quantity * item.product.price))
+    : 0;
+  const shippingCost = order
+    ? order.delivery.freeDeliveryOver < subtotal
+      ? 0
+      : order.delivery.price
+    : 0;
+  const total = subtotal + shippingCost;
 
   return (
     <Modal
@@ -120,66 +141,38 @@ export const OrderDetailsModal = ({
                 </Select>
               </DescriptionItem>
               <DescriptionItem label={t('order.orderDate')}>
-                {order.createdAt}
+                {format(new Date(order.createdAt), 'MM/dd/yyyy')}
               </DescriptionItem>
             </Descriptions>
           </Flex>
 
           <Flex flexDirection={['column', 'column', 'row']}>
+            {/* TODO: This is copy-pasted from Store, together with the data calculation. Unify in one component*/}
             <Card
-              title={t('commerce.product_plural')}
-              width={[1, 1, 2 / 3]}
+              title={t('finance.priceBreakdown')}
               mr={[0, 0, 2]}
+              mt={[3, 3, 0]}
+              width={[1, 1, 1 / 2]}
             >
-              {Boolean(products) && (
-                <List>
-                  {products!.map(product => (
-                    <List.Item key={product._id}>
-                      <Flex
-                        width={1}
-                        justifyContent='space-between'
-                        alignItems='center'
-                      >
-                        <Flex alignItems='center'>
-                          <Flex
-                            width={'120px'}
-                            justifyContent='center'
-                            alignItems='center'
-                          >
-                            <Image
-                              maxHeight='60px'
-                              alt={product.name}
-                              src={sdk.artifact.getUrlForArtifact(
-                                product.images[0],
-                                store._id,
-                              )}
-                            />
-                          </Flex>
-                          <Flex flexDirection='column'>
-                            <Text mx={2}>{product.name}</Text>
-                            {product.sku && (
-                              <Text strong mx={2}>
-                                {`${t('product.sku')}: ${product.sku}`}
-                              </Text>
-                            )}
-                          </Flex>
-                        </Flex>
-                        <Text mx={2}>
-                          {t('commerce.quantity')}:{' '}
-                          {getQuantityForProduct(order, product) ||
-                            t('common.unknown')}
-                        </Text>
-                      </Flex>
-                    </List.Item>
-                  ))}
-                </List>
-              )}
+              <Flex flexDirection='row' justifyContent='space-between'>
+                <Text strong>{t('finance.subtotal')}</Text>
+                <Text strong>{subtotal} ден</Text>
+              </Flex>
+              <Flex mt={2} flexDirection='row' justifyContent='space-between'>
+                <Text strong>{t('finance.shippingCost')}</Text>
+                <Text strong>{shippingCost} ден</Text>
+              </Flex>
+              <Divider />
+              <Flex flexDirection='row' justifyContent='space-between'>
+                <Text strong>{t('finance.total')}</Text>
+                <Text strong>{total} ден</Text>
+              </Flex>
             </Card>
             <Card
               title={t('commerce.buyer')}
               ml={[0, 0, 2]}
-              mt={[2, 2, 0]}
-              width={[1, 1, 1 / 3]}
+              mt={[3, 3, 0]}
+              width={[1, 1, 1 / 2]}
             >
               {order.deliverTo && (
                 <Descriptions size='small' column={1}>
@@ -202,7 +195,58 @@ export const OrderDetailsModal = ({
               )}
             </Card>
           </Flex>
-          <Flex />
+          <Card title={t('commerce.product_plural')} mt={3}>
+            {Boolean(products) && (
+              <List>
+                {products!.map(product => (
+                  <List.Item key={product._id}>
+                    <Flex
+                      width={1}
+                      justifyContent='space-between'
+                      alignItems='center'
+                    >
+                      <Flex alignItems='center'>
+                        <Flex
+                          width={'120px'}
+                          justifyContent='center'
+                          alignItems='center'
+                        >
+                          <Image
+                            maxHeight='60px'
+                            alt={product.name}
+                            src={sdk.artifact.getUrlForArtifact(
+                              product.images[0],
+                              store._id,
+                            )}
+                          />
+                        </Flex>
+                        <Flex flexDirection='column'>
+                          <Text mx={2}>{product.name}</Text>
+                          {product.sku && (
+                            <Text strong mx={2}>
+                              {`${t('product.sku')}: ${product.sku}`}
+                            </Text>
+                          )}
+                        </Flex>
+                      </Flex>
+                      <Flex mx={2} flexDirection='column'>
+                        <Text>
+                          {t('commerce.quantity')}:{' '}
+                          {getQuantityForProduct(order, product) ||
+                            t('common.unknown')}
+                        </Text>
+                        <Text strong>
+                          {t('finance.total')}:{' '}
+                          {`${getTotalPriceForProduct(order, product)} ден` ||
+                            t('common.unknown')}
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </List.Item>
+                ))}
+              </List>
+            )}
+          </Card>
         </Spin>
       )}
     </Modal>
