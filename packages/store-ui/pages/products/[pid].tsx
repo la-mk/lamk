@@ -14,17 +14,26 @@ const ProductPage = ({
   store,
 }: {
   product: ProductType;
-  store: Store;
+  store: Store | undefined;
 }) => {
   const { t } = useTranslation();
 
   if (!product) {
-    return <Empty mt={6} description={t('results.productNotFound')}></Empty>;
+    return (
+      <>
+        <Head
+          storeName={store && store.name}
+          title={t('results.pageNotFound')}
+        />
+        <Empty mt={6} description={t('results.productNotFound')} />
+      </>
+    );
   }
 
   return (
     <>
       <Head
+        storeName={store && store.name}
         title={product.name}
         previewImages={product.images.map(imageId =>
           sdk.artifact.getUrlForArtifact(imageId, store._id),

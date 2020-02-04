@@ -4,6 +4,7 @@
     "cancel": "Cancel",
     "create": "Create",
     "delete": "Delete",
+    "goBack": "Go back",
     "goToCart": "Go to Cart",
     "orderNow": "Order now",
     "remove": "Remove",
@@ -267,7 +268,12 @@
     "seeOtherProducts": "See other products"
   },
   "results": {
-    "productNotFound": "Product not found"
+    "genericError": "Error occured",
+    "pageNotFound": "Not found",
+    "pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
+    "productNotFound": "Product not found",
+    "serverError": "Server error",
+    "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
   },
   "sets": {
     "latest": "Latest products"

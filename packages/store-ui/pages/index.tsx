@@ -6,17 +6,20 @@ import { getStore } from '../src/state/modules/store/store.selector';
 import { setCategoriesIfNone } from '../src/common/initialProps/setCategoriesIfNone';
 import { useTranslation } from '../src/common/i18n';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 function HomePage({
+  store,
   landingContent,
 }: {
+  store: Store | undefined;
   landingContent: StoreContents['landing'];
 }) {
   const { t } = useTranslation();
 
   return (
     <>
-      <Head title={t('pages.home')} />
+      <Head storeName={store && store.name} title={t('pages.home')} />
       <Home landingContent={landingContent} />
     </>
   );
@@ -30,12 +33,12 @@ HomePage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
       setCategoriesIfNone(ctx),
     ]);
 
-    return { landingContent: res[0] };
+    return { store, landingContent: res[0] };
   } catch (err) {
     console.log(err);
   }
 
-  return { landingContent: {} };
+  return { store, landingContent: {} };
 };
 
 export default HomePage;

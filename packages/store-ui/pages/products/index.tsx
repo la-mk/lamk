@@ -9,19 +9,22 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { useTranslation } from '../../src/common/i18n';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { setCategoriesIfNone } from '../../src/common/initialProps/setCategoriesIfNone';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 function ProductsPage({
   products,
   filters,
+  store,
 }: {
   products: FindResult<Product>;
   filters: FilterObject;
+  store: Store | undefined;
 }) {
   const { t } = useTranslation();
 
   return (
     <>
-      <Head title={t('pages.product_plural')} />
+      <Head storeName={store && store.name} title={t('pages.product_plural')} />
       <Products initialProducts={products} initialFilters={filters} />
     </>
   );
@@ -39,12 +42,12 @@ ProductsPage.getInitialProps = async (
       setCategoriesIfNone(ctx),
     ]);
 
-    return { products: res[0], filters: parsedFilters };
+    return { store, products: res[0], filters: parsedFilters };
   } catch (err) {
     console.log(err);
   }
 
-  return { products: { data: [] }, filters: parsedFilters };
+  return { store, products: { data: [] }, filters: parsedFilters };
 };
 
 export default ProductsPage;

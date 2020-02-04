@@ -3,14 +3,15 @@ import React from 'react';
 
 interface HeadProps {
   title: string;
+  storeName?: string;
   previewImages?: string[];
 }
 
 // Check opengraph for more details on the og: tags.
-export const Head = ({ title, previewImages }: HeadProps) => {
+export const Head = ({ storeName, title, previewImages }: HeadProps) => {
   return (
     <NextHead>
-      <title key='title'>{title}</title>
+      <title key='title'>{storeName ? `${title} | ${storeName}` : title}</title>
       <meta
         key='viewport'
         name='viewport'

@@ -5,16 +5,19 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { NextPageContext } from 'next';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { AboutUs } from '../../src/components/aboutUs/AboutUs';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 function AboutPage({
+  store,
   aboutUs,
 }: {
+  store: Store | undefined;
   aboutUs: StoreContents['aboutUs'] | undefined;
 }) {
   const { t } = useTranslation();
   return (
     <>
-      <Head title={t('pages.aboutUs')} />
+      <Head storeName={store && store.name} title={t('pages.aboutUs')} />
       <AboutUs aboutUs={aboutUs} />
     </>
   );
@@ -29,7 +32,7 @@ AboutPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
     }
 
     const aboutUs = await sdk.storeContents.getAboutUsForStore(store._id);
-    return { aboutUs };
+    return { store, aboutUs };
   } catch (err) {
     console.log(err);
   }

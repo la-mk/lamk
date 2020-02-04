@@ -41,7 +41,7 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
 
   return (
     <>
-      <Head title={title} />
+      <Head storeName={store && store.name} title={title} />
       <LegalContent title={title} body={returnAndRefundPolicy} />
     </>
   );

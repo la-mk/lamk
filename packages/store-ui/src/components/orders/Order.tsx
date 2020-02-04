@@ -84,12 +84,6 @@ export const Order = ({ orderId }: { orderId: string }) => {
         </Steps>
 
         <Flex flexWrap='wrap' my={4} justifyContent='center'>
-          {order.deliverTo && (
-            <Card m={3} width={330} title={t('address.shippingAddress')}>
-              <ShippingDescription address={order.deliverTo} />
-            </Card>
-          )}
-
           <Card
             m={3}
             width={['100%', '330px', '330px', '330px']}
@@ -97,6 +91,12 @@ export const Order = ({ orderId }: { orderId: string }) => {
           >
             <Summary items={order.ordered} delivery={delivery} />
           </Card>
+
+          {order.deliverTo && (
+            <Card m={3} width={330} title={t('address.shippingAddress')}>
+              <ShippingDescription address={order.deliverTo} />
+            </Card>
+          )}
         </Flex>
         <Title mb={3} level={3}>
           {t('product.product_plural')}

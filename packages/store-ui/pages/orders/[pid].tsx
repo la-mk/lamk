@@ -3,13 +3,21 @@ import { NextPageContext } from 'next';
 import { Head } from '../../src/common/pageComponents/Head';
 import { Order } from '../../src/components/orders/Order';
 import { useTranslation } from '../../src/common/i18n';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { getStore } from '../../src/state/modules/store/store.selector';
 
-const OrderPage = ({ orderId }: { orderId: string }) => {
+const OrderPage = ({
+  store,
+  orderId,
+}: {
+  store: Store | undefined;
+  orderId: string;
+}) => {
   const { t } = useTranslation();
 
   return (
     <>
-      <Head title={t('pages.order')} />
+      <Head storeName={store && store.name} title={t('pages.order')} />
       <Order orderId={orderId} />
     </>
   );
@@ -19,7 +27,9 @@ const OrderPage = ({ orderId }: { orderId: string }) => {
 OrderPage.getInitialProps = async function(
   ctx: NextPageContext & { store: any },
 ) {
-  return { orderId: ctx.query.pid };
+  const state = ctx.store.getState();
+  const store = getStore(state);
+  return { store, orderId: ctx.query.pid };
 };
 
 export default OrderPage;

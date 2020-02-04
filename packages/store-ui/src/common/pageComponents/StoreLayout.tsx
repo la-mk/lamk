@@ -83,7 +83,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
         <BorderedHeader px={[2, 3, 3, 4]}>
           <Flex justifyContent='space-between'>
             <Link href='/' passHref>
-              <LineHeightFreeAnchor>
+              <LineHeightFreeAnchor style={{ display: 'flex' }}>
                 <Image
                   maxHeight='100%'
                   src={sdk.artifact.getUrlForArtifact(store.logo, store._id)}

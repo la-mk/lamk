@@ -1,28 +1,60 @@
 import React from 'react';
 import { Head } from '../src/common/pageComponents/Head';
+import { Result, Button } from '@sradevski/blocks-ui';
+import Link from 'next/link';
+import { useTranslation } from '../src/common/i18n';
 
 const ErrorPage = ({ errorCode }: { errorCode: number }) => {
+  const { t } = useTranslation();
+
   switch (errorCode) {
     case 200:
     case 404:
       return (
         <div>
-          <Head title='404 | Not Found' />
-          The page does not exist.
+          <Head title={`404 | ${t('results.pageNotFound')}`} />
+          <Result
+            status='404'
+            title='404'
+            subTitle={t('results.pageNotFoundExplanation')}
+            extra={
+              <Link href='/' passHref>
+                <Button type='link'>{t('actions.goBack')}</Button>
+              </Link>
+            }
+          />
         </div>
       );
     case 500:
       return (
         <div>
-          <Head title='500 | Server Error' />
-          <p>An internal server error occurred.</p>
+          <Head title={`500 | ${t('results.serverError')}`} />
+          <Result
+            status='500'
+            title='500'
+            subTitle={t('results.serverErrorExplanation')}
+            extra={
+              <Link href='/' passHref>
+                <Button type='link'>{t('actions.goBack')}</Button>
+              </Link>
+            }
+          />
         </div>
       );
     default:
       return (
         <div>
-          <Head title={`${errorCode} | Error Occured`} />
-          An <strong>HTTP {errorCode}</strong> error occurred.
+          <Head title={`${errorCode} | ${t('results.genericError')}`} />
+          <Result
+            status='error'
+            title={errorCode}
+            subTitle={t('results.genericError', { statusCode: errorCode })}
+            extra={
+              <Link href='/' passHref>
+                <Button type='link'>{t('actions.goBack')}</Button>
+              </Link>
+            }
+          />
         </div>
       );
   }
