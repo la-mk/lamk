@@ -10,7 +10,8 @@
     "create": "Create",
 		"delete": "Delete",
 		"goToDashboard": "Go to dashboard",
-    "goToCart": "Go to Cart",
+		"goToCart": "Go to Cart",
+		"goBack": "Go back",
 		"orderNow": "Order now",
 		"publish": "Publish",
 		"remove": "Remove",
@@ -161,7 +162,6 @@
 		"descriptionExample": "eg. High quality sneakers",
 		"nameExample": "eg. Nike Air Max",
 		"priceExample": "eg. 500",
-		"productCount": "Product count",
 		"productDeleted": "Product {{id}} successfully deleted",
 		"product_plural": "Products",
 		"seeOtherProducts": "See other products",
@@ -176,7 +176,13 @@
 		"outOfStockLong": "We are out of stock, come back later"
   },
   "results": {
-    "productNotFound": "Product not found"
+		"productNotFound": "Product not found",
+		"pageNotFound": "Not found",
+		"pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
+		"serverError": "Server error",
+		"serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists",
+		"genericError": "Error occured",
+		"genericErrorExplanation": "There was an error with status code {{statusCode}}. Contact us if the issue persists"
   },
   "store": {
 		"aboutUs": "About us",

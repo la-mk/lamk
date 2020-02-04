@@ -11,6 +11,7 @@
 		"delete": "Избришете",
 		"goToCart": "Прегледај корпа",
 		"goToDashboard": "Одете на главен панел",
+		"goBack": "Одете назад",
 		"orderNow": "Порачајте сега",
 		"publish": "Објавете",
 		"remove": "Отстранете",
@@ -161,7 +162,6 @@
 		"descriptionExample": "пр. Високо квалитетни и лесни патики",
 		"nameExample": "пр. Nike Air Max",
 		"priceExample": "пр. 500",
-		"productCount": "Број на продукти",
 		"productDeleted": "Продуктот со шифра {{id}} беше успешно избришан",
 		"product_plural": "Продукти",
 		"seeOtherProducts": "Видете други продукти",
@@ -176,7 +176,13 @@
 		"outOfStockLong": "Нема залиха, работиме на обновување на залихите"
   },
   "results": {
-    "productNotFound": "Продуктот не е пронајден"
+		"productNotFound": "Продуктот не е пронајден",
+		"pageNotFound": "Не е пронајдена",
+		"pageNotFoundExplanation": "Страницата што ја баравте не беше пронајдена",
+		"serverError": "Серверска грешка",
+		"serverErrorExplanation": "Се појави грешка при вашето барање, пробајте повторно. Доколку сеуште имате проблем, контактирајте не",
+		"genericError": "Се појави грешка",
+		"genericErrorExplanation": "Се појави грешка со статусен код {{statusCode}}. Доколку сеуште имате проблем, контактирајте не"
   },
   "store": {
 		"aboutUs": "За нас",
