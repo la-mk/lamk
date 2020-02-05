@@ -25,6 +25,10 @@ export const schema = {
   price: v8n()
     .number()
     .positive(),
+  unit: v8n()
+    .string()
+    .minLength(1)
+    .maxLength(127),
   images: v8n()
     .every.string()
     .every.minLength(2)
@@ -74,6 +78,7 @@ export interface Product {
   soldBy: string;
   name: string;
   price: number;
+  unit: string;
   images: string[];
   category: string;
   description?: string;
