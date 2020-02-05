@@ -1,0 +1,19 @@
+
+{
+  "name": "@sradevski/migrations",
+  "version": "0.0.1",
+  "description": "Database migration tool",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/sradevski/lamk.git",
+    "directory": "packages/migrations"
+  },
+  "author": "Stevche Radevski",
+  "license": "ISC",
+  "scripts": {
+    "migrate": "migrate-mongo"
+  },
+  "dependencies": {
+    "migrate-mongo": "^7.0.1"
+  }
+}
