@@ -260,6 +260,7 @@
     "stock": "Stock",
     "stockExample": "eg. 12",
     "stockTip": "Leave empty for unmanaged stock",
+    "unit": "Unit",
     "updateProductSuccess": "Successfully updated {{productName}}",
     "updatingProductTip": "Updating product..."
   },
@@ -275,6 +276,16 @@
     "storeName": "Store name",
     "storeUrl": "Store URL",
     "updatingStoreTip": "Updating store..."
+  },
+  "units": {
+    "cm": "centimeter",
+    "g": "gram",
+    "item": "item",
+    "kg": "kilogram",
+    "m": "meter",
+    "m2": "square meter",
+    "mm": "millimeter",
+    "pack": "pack"
   },
   "uploads": {
     "hint": "Support for single or bulk upload"

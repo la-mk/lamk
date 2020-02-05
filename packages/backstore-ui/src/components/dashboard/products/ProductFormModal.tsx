@@ -17,6 +17,8 @@ import {
   Cascader,
   hooks,
   InputNumber,
+  Select,
+  Option,
 } from '@sradevski/blocks-ui';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
@@ -42,6 +44,7 @@ import {
   FullCategory,
 } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
+import { possibleUnits } from '../../shared/utils/enums';
 
 interface ProductFormModalProps {
   product: Product | null;
@@ -62,7 +65,7 @@ export const ProductFormModal = ({
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
   const [externalState] = hooks.useFormState<Product>(
     product,
-    { soldBy: storeId },
+    { soldBy: storeId, unit: 'item' },
     [product, storeId],
   );
 
@@ -173,7 +176,7 @@ export const ProductFormModal = ({
             </Col>
           </Row>
           <Row gutter={24}>
-            <Col md={8} span={24}>
+            <Col md={6} span={24}>
               <FormItem
                 label={t('common.price')}
                 selector='price'
@@ -185,14 +188,22 @@ export const ProductFormModal = ({
                 })}
               </FormItem>
             </Col>
-            <Col md={8} span={24}>
-              <FormItem label={t('product.sku')} selector='sku'>
-                {formInput({
-                  placeholder: t('product.skuExample'),
-                })}
+            <Col md={6} span={24}>
+              <FormItem label={t('product.unit')} selector='unit'>
+                {(val, _onChange, onComplete) => (
+                  <Select value={val} onChange={onComplete}>
+                    {possibleUnits.map(option => {
+                      return (
+                        <Option key={option} value={option}>
+                          {t(`units.${option}`)}
+                        </Option>
+                      );
+                    })}
+                  </Select>
+                )}
               </FormItem>
             </Col>
-            <Col md={8} span={24}>
+            <Col md={6} span={24}>
               <FormItem
                 help={t('product.stockTip')}
                 label={t('product.stock')}
@@ -216,6 +227,13 @@ export const ProductFormModal = ({
                     />
                   );
                 }}
+              </FormItem>
+            </Col>
+            <Col md={6} span={24}>
+              <FormItem label={t('product.sku')} selector='sku'>
+                {formInput({
+                  placeholder: t('product.skuExample'),
+                })}
               </FormItem>
             </Col>
           </Row>

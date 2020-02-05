@@ -22,7 +22,7 @@ import { Order, OrderItem } from '@sradevski/la-sdk/dist/models/order';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,
-} from '../../shared/utils/statuses';
+} from '../../shared/utils/enums';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';

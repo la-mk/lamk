@@ -24,7 +24,7 @@ import format from 'date-fns/format';
 import {
   getOrderStatusColor,
   possibleOrderStatuses,
-} from '../../shared/utils/statuses';
+} from '../../shared/utils/enums';
 import {
   setOrder,
   removeOrder,
