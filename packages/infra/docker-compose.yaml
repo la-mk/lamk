@@ -49,7 +49,7 @@ services:
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
   
   data-api:
-    image: lamk/data-api:1.0.22
+    image: lamk/data-api:1.0.23
     container_name: data-api
     restart: always
     networks:
@@ -149,7 +149,7 @@ services:
 
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.18
+    image: lamk/backstore-ui:1.0.19
     container_name: backstore-ui
     restart: always
     depends_on: 
