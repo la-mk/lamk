@@ -25,10 +25,7 @@ export const schema = {
   price: v8n()
     .number()
     .positive(),
-  unit: v8n()
-    .string()
-    .minLength(1)
-    .maxLength(127),
+  unit: v8n().oneOf(['item', 'pack', 'm2', 'm', 'cm', 'mm', 'kg', 'g']),
   images: v8n()
     .every.string()
     .every.minLength(2)

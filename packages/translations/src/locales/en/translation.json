@@ -167,6 +167,7 @@
 		"seeOtherProducts": "See other products",
 		"sku": "Inventory code",
 		"stock": "Stock",
+		"unit": "Unit",
 		"stockExample": "eg. 12",
 		"stockTip": "Leave empty for unmanaged stock",
 		"skuExample": "eg. 42356731",

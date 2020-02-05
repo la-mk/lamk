@@ -168,6 +168,7 @@
 		"sku": "Шифра",
 		"skuExample": "пр. 42356731",
 		"stock": "Залиха",
+		"unit": "Мерна единица",
 		"stockExample": "пр. 12",
 		"stockTip": "Оставете празно за неограничена залиха",
 		"updateProductSuccess": "Продуктот {{productName}} успешно обновен",

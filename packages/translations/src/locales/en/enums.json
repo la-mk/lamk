@@ -127,7 +127,18 @@
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",
     "pickup": "Pickup"
-  },
+	},
+	
+	"units": {
+		"item": "item",
+		"pack": "pack",
+		"m2": "square meter",
+		"m": "meter",
+		"cm": "centimeter",
+		"mm": "millimeter",
+		"kg": "kilogram",
+		"g": "gram"
+	},
   
 	"errors": {
 		"between": "Field should be between {{0}} and {{1}}",
