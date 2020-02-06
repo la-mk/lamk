@@ -1,15 +1,9 @@
 import React from 'react';
 import { Flex } from '../Flex';
-import styled from 'styled-components';
 import { system } from '../../system';
 import { Pagination } from '../Pagination';
 import { PaginationProps } from 'antd/es/pagination';
 import { Spin } from '../Spin';
-
-const Box = styled.div`
-  margin: 0 ${props => props.theme.space[4]}px
-    ${props => props.theme.space[3]}px;
-`;
 
 export interface FlexGridProps<T> {
   className?: string;
@@ -39,7 +33,7 @@ const FlexGridBase = <T extends any>({
           flexDirection='row'
         >
           {items.map((entry: any) => {
-            return <Box key={entry[rowKey]}>{renderItem(entry)}</Box>;
+            return <React.Fragment key={entry[rowKey]}>{renderItem(entry)}</React.Fragment>;
           })}
         </Flex>
       </Spin>
