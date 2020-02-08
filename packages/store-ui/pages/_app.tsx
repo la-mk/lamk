@@ -117,6 +117,12 @@ const Main = ({ store, children }) => {
 
 class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
   static async getInitialProps(appCtx: any) {
+    // FUTURE: This (and <style> below) resolves a Chrome bug where the stylings flash for a second when doing SSR. See https://github.com/luffyZh/next-antd-scaffold/blob/master/docs/FAQ.md#the-ant-design-style-flash-when-page-refresh, https://github.com/ant-design/ant-design/issues/16037
+    if (typeof window !== 'undefined') {
+      window.onload = () => {
+        document.getElementById('flashbug_style').remove();
+      };
+    }
     // You need to set the initial state before doing `getInitialProps`, otherwise the individual pages won't have access to the initial state.
     await setInitialDataInState(appCtx);
     const appProps = await App.getInitialProps(appCtx);
@@ -148,6 +154,14 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
             <link
               rel='shortcut icon'
               href={sdk.artifact.getUrlForArtifact(laStore.logo, laStore._id)}
+            />
+            <style
+              id='flashbug_style'
+              dangerouslySetInnerHTML={{
+                __html: `*, *::before, *::after {
+                  transition: none!important;
+                }`,
+              }}
             />
           </NextHead>
         )}

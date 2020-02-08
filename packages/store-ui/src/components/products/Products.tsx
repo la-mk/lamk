@@ -106,6 +106,7 @@ export const Products = ({
             pageSize: filters.pagination ? filters.pagination.pageSize : 20,
             total: products.total,
             onChange: (currentPage: number, pageSize: number) => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
               setFilters({ ...filters, pagination: { currentPage, pageSize } });
             },
           }}
