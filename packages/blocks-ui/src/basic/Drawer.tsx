@@ -1,7 +1,6 @@
 import { Drawer as AntDrawer } from 'antd';
-import { DrawerProps } from 'antd/es/drawer';
+import { DrawerProps as AntDrawerProps } from 'antd/es/drawer';
 import 'antd/es/drawer/style/index.less';
 
-import { system } from '../system';
-
-export const Drawer = system<DrawerProps>(AntDrawer as any);
+export const Drawer = AntDrawer as any;
+export type DrawerProps = AntDrawerProps;
