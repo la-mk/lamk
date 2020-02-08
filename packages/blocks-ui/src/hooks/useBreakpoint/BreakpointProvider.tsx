@@ -41,8 +41,6 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
       setCurrentBreakpoint(1);
     } else if (clientWidth < breakpoints[2]) {
       setCurrentBreakpoint(2);
-    } else if (clientWidth <= breakpoints[3] || clientWidth > breakpoints[3]) {
-      setCurrentBreakpoint(3);
     }
   };
 
