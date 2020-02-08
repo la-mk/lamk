@@ -33,7 +33,10 @@ const getColumns = (t: T, storeId: string) =>
           <Image
             maxHeight='60px'
             alt={product.name}
-            src={sdk.artifact.getUrlForArtifact(product.images[0], storeId)}
+            src={
+              sdk.artifact.getUrlForArtifact(product.images[0], storeId) ||
+              undefined
+            }
           />
         );
       },
@@ -96,7 +99,7 @@ export const Products = () => {
   }, [store, filters]);
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
+    <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
         {t('commerce.product_plural')}
       </Title>

@@ -1,7 +1,6 @@
 {
   "actions": {
     "addToCart": "Add to Cart",
-    "cancel": "Cancel",
     "create": "Create",
     "delete": "Delete",
     "goBack": "Go back",
@@ -169,17 +168,16 @@
     "country": "Country",
     "details": "Details",
     "email": "Email address",
+    "filter_plural": "Filters",
     "firstName": "First name",
     "items": "Items",
     "lastName": "Last name",
     "name": "Name",
-    "ok": "OK",
     "password": "Password",
     "personalInfo": "Personal info",
     "phoneNumber": "Phone number",
     "price": "Price",
     "seeAll": "See all",
-    "selectCategory": "Select category",
     "sort": "Sort",
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
@@ -280,5 +278,15 @@
   },
   "store": {
     "noAboutusInformation": "Couldn't fetch the information about the store, try again later"
+  },
+  "units": {
+    "cm": "centimeter",
+    "g": "gram",
+    "item": "item",
+    "kg": "kilogram",
+    "m": "meter",
+    "m2": "square meter",
+    "mm": "millimeter",
+    "pack": "pack"
   }
 }

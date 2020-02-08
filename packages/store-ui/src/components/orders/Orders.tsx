@@ -99,7 +99,7 @@ export const Orders = () => {
               {order.ordered.map(orderItem => {
                 return (
                   <Col
-                    width={['100%', '330px', '330px', '330px']}
+                    width={['100%', '330px', '330px']}
                     key={orderItem.product._id}
                     mb={4}
                   >

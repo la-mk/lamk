@@ -42,8 +42,14 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
 
   return (
     <Form
-      labelCol={{ span: 6 }}
-      wrapperCol={{ span: 12 }}
+      labelCol={{
+        xs: { span: 24 },
+        md: { span: 6 },
+      }}
+      wrapperCol={{
+        xs: { span: 24 },
+        md: { span: 12 },
+      }}
       layout='horizontal'
       colon={false}
       validate={data => sdk.store.validate(data, Boolean(store))}

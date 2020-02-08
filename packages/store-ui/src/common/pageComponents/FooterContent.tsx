@@ -71,17 +71,16 @@ export const FooterContent = ({ store }: { store: Store }) => {
 
   return (
     <Box>
-      <Flex
-        flexDirection={['column', 'column', 'row', 'row']}
-        justifyContent={'center'}
-      >
-        <Box maxWidth={['100%', '100%', '25%', '25%']}>
+      <Flex flexDirection={['column', 'row', 'row']} justifyContent={'center'}>
+        <Box maxWidth={['100%', '25%', '25%']}>
           <StoreFooterSection store={store} />
         </Box>
-        <Box display={['none', 'none', 'initial', 'initial']} mx={2}>
+
+        <Box display={['none', 'initial', 'initial']} mx={2}>
           <Divider height='100%' type='vertical' />
         </Box>
-        <Box display={['none', 'none', 'initial', 'initial']}>
+
+        <Box display={['none', 'initial', 'initial']}>
           {menus.map(menu => {
             return (
               <Flex
@@ -107,7 +106,7 @@ export const FooterContent = ({ store }: { store: Store }) => {
             );
           })}
         </Box>
-        <Box mt={[2, 2, 0, 0]} display={['initial', 'initial', 'none', 'none']}>
+        <Box mt={[2, 2, 0]} display={['initial', 'none', 'none']}>
           <Collapse bordered={false} style={{ background: 'transparent' }}>
             {menus.map(menu => {
               return (

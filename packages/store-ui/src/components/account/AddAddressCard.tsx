@@ -43,11 +43,11 @@ export const AddAddressCard = ({
     <Form
       labelCol={{
         xs: { span: 24 },
-        md: { span: 8 },
+        md: { span: 10 },
       }}
       wrapperCol={{
         xs: { span: 24 },
-        md: { span: 16 },
+        md: { span: 14 },
       }}
       layout='horizontal'
       colon={false}
@@ -68,7 +68,7 @@ export const AddAddressCard = ({
             {formInput({ placeholder: t('common.addressExample') })}
           </FormItem>
         }
-        width={['100%', '400px', '400px', '400px']}
+        width={['100%', '400px', '400px']}
         actions={[
           ...(address
             ? [

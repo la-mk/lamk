@@ -1,14 +1,7 @@
 import React from 'react';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import {
-  Card,
-  Title,
-  Paragraph,
-  Text,
-  Flex,
-  Image,
-} from '@sradevski/blocks-ui';
+import { Card, Title, Text, Flex, Image, hooks } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { Price } from './shared/Price';
 import { useTranslation } from '../common/i18n';
@@ -21,17 +14,23 @@ export const ProductCard = ({
   storeId: string;
 }) => {
   const { t } = useTranslation();
+  const cardSize = hooks.useBreakpoint<'small' | 'default'>([
+    'small',
+    'default',
+    'default',
+  ]);
 
   return (
     <Link href='/products/[pid]' as={`/products/${product._id}`}>
       <a style={{ textDecoration: 'none' }}>
         <Card
+          size={cardSize}
           hoverable
-          width={['180px', '200px', '240px', '280px']}
+          width={['160px', '240px', '280px']}
           cover={
             <Flex
               mt={3}
-              height={['90px', '120px', '140px', '180px']}
+              height={['100px', '140px', '180px']}
               justifyContent='center'
               alignItems='center'
             >
@@ -43,23 +42,15 @@ export const ProductCard = ({
             </Flex>
           }
         >
-          <Flex flexDirection='column'>
+          <Flex height={80} flexDirection='column'>
             <Title mt={2} mb={0} level={4} ellipsis={{ rows: 2 }}>
               {product.name}
             </Title>
-            <Price price={product.price} currency={'ден'} />
             {product.stock === 0 && (
               <Text type='danger'>{t('product.outOfStock')}</Text>
             )}
-            <Paragraph
-              style={{ whiteSpace: 'pre-wrap' }}
-              mt={3}
-              mb={0}
-              ellipsis={{ rows: 3 }}
-            >
-              {product.description}
-            </Paragraph>
           </Flex>
+          <Price price={product.price + 10000} currency={'ден'} />
         </Card>
       </a>
     </Link>

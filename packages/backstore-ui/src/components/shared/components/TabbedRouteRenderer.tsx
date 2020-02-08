@@ -15,7 +15,7 @@ export const TabbedRouteRenderer = ({
   children,
 }: TabbedRouteProps) => {
   return (
-    <Flex flexDirection='column' px={[3, 3, 3, 4]} py={2}>
+    <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
       {title && (
         <Title mb={3} level={2}>
           {title}

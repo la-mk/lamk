@@ -96,15 +96,15 @@ export const Product = ({ product }: ProductProps) => {
   return (
     <Page>
       <Spin spinning={showSpinner}>
-        <Flex flexDirection={['column', 'column', 'row', 'row']}>
+        <Flex flexDirection={['column', 'row', 'row']}>
           <Flex
-            width={['100%', '100%', '50%', '50%']}
+            width={['100%', '50%', '50%']}
             alignItems='center'
             justifyContent='flex-start'
             flexDirection='column'
           >
             <Image maxHeight='280px' src={selectedImage} />
-            <Box mt={3} maxWidth={['100%', '80%', '100%', '80%']}>
+            <Box mt={3} maxWidth={['100%', '100%', '80%']}>
               <Thumbnails
                 images={product.images.map(imageId =>
                   sdk.artifact.getUrlForArtifact(imageId, store._id),
@@ -115,24 +115,28 @@ export const Product = ({ product }: ProductProps) => {
             </Box>
           </Flex>
           <Flex
-            width={['100%', '100%', '50%', '50%']}
-            alignItems={['center', 'center', 'flex-start', 'flex-start']}
+            width={['100%', '50%', '50%']}
+            alignItems={['center', 'flex-start', 'flex-start']}
             justifyContent='flex-start'
             flexDirection='column'
           >
-            <Title level={2} ellipsis>
+            <Title
+              style={{ textAlign: 'center' }}
+              level={2}
+              ellipsis={{ rows: 2 }}
+            >
               {product.name}
             </Title>
             <Price price={product.price} currency={'ден'} />
             <Paragraph style={{ whiteSpace: 'pre-wrap' }} mt={4}>
               {product.description}
             </Paragraph>
-            <Box mt={[3, 3, 4, 4]}>
+            <Box mt={[3, 4, 4]}>
               {outOfStock && (
                 <Text type='danger'>{t('product.outOfStockLong')}</Text>
               )}
 
-              <Flex mt={[2, 2, 3, 3]} flexDirection='row' alignItems='center'>
+              <Flex mt={[2, 3, 3]} flexDirection='row' alignItems='center'>
                 {!isProductInCart && (
                   <>
                     <InputNumber

@@ -84,11 +84,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
         </Steps>
 
         <Flex flexWrap='wrap' my={4} justifyContent='center'>
-          <Card
-            m={3}
-            width={['100%', '330px', '330px', '330px']}
-            title={t('finance.priceBreakdown')}
-          >
+          <Card m={3} width={330} title={t('finance.priceBreakdown')}>
             <Summary items={order.ordered} delivery={delivery} />
           </Card>
 
@@ -110,7 +106,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
           {order.ordered.map(orderItem => {
             return (
               <Col
-                width={['100%', '330px', '330px', '330px']}
+                width={['100%', '330px', '330px']}
                 key={orderItem.product._id}
                 mb={4}
               >

@@ -112,8 +112,12 @@ export const Checkout = () => {
   return (
     <Page title={t('pages.checkout')}>
       <Spin spinning={showSpinner}>
-        <Flex width='100%' flexDirection={['column', 'column', 'row', 'row']}>
-          <Flex flex={2} flexDirection='column' mr={[0, 0, 3, 3]}>
+        <Flex
+          width='100%'
+          justifyContent='space-between'
+          flexDirection={['column', 'row', 'row']}
+        >
+          <Flex flex={1} flexDirection='column' mr={[0, 3, 3]}>
             <Title level={3}>{t('address.chooseShippingAddress')}</Title>
             <Row
               type='flex'
@@ -135,7 +139,7 @@ export const Checkout = () => {
                         }
                         hoverable={true}
                         onClick={() => setDeliverTo(address)}
-                        width={['100%', '320px', '320px', '320px']}
+                        width={320}
                         title={address.name}
                       >
                         <ShippingDescription address={address} />
@@ -153,7 +157,7 @@ export const Checkout = () => {
               </Col>
             </Row>
           </Flex>
-          <Flex flex={1} ml={[0, 0, 3, 3]} my={[4, 4, 0, 0]}>
+          <Flex maxWidth={[0, 500, 500]} flex={1} ml={[0, 3, 3]} my={[4, 0, 0]}>
             <Card title={t('common.summary')} px={3} width='100%'>
               <Summary
                 items={cart.items}

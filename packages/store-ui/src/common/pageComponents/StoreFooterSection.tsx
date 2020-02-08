@@ -8,7 +8,7 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
   return (
     <Flex
       flexDirection='column'
-      alignItems={['center', 'center', 'flex-start', 'flex-start']}
+      alignItems={['center', 'flex-start', 'flex-start']}
     >
       <Image
         maxHeight='192px'

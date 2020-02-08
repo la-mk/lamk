@@ -14,7 +14,7 @@ export const OrderProductCard = ({
 
   return (
     <Card width={'100%'} type='inner' title={orderItem.product.name}>
-      <Flex width={1}>
+      <Flex width={'100%'}>
         <Flex justifyContent='center' alignItems='center'>
           <Image
             maxHeight='90px'

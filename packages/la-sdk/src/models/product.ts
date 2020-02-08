@@ -21,15 +21,18 @@ export const schema = {
   name: v8n()
     .string()
     .minLength(2)
-    .maxLength(511),
+    .maxLength(255),
   price: v8n()
+    .number(false)
+    .positive(),
+  discountPercentage: v8n()
     .number()
     .positive(),
   unit: v8n().oneOf(['item', 'pack', 'm2', 'm', 'cm', 'mm', 'kg', 'g']),
   images: v8n()
     .every.string()
     .every.minLength(2)
-    .every.maxLength(4095),
+    .every.maxLength(2047),
   category: v8n()
     .string()
     .minLength(2)
@@ -38,7 +41,7 @@ export const schema = {
     v8n()
       .string()
       .minLength(2)
-      .maxLength(2047),
+      .maxLength(4095),
     true,
   ),
   sku: v8n().optional(

@@ -2,9 +2,8 @@ import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
 import queryString from 'qs';
 import { ProductSet } from '../sets/ProductSet';
-import { CategoriesList } from '../CategoriesList';
 import styled from 'styled-components';
-import { Flex, Spin, Image, hooks } from '@sradevski/blocks-ui';
+import { Flex, Spin, Image, hooks, Box } from '@sradevski/blocks-ui';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 import { ProductSet as ProductSetType } from '@sradevski/la-sdk/dist/models/product';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
@@ -13,8 +12,9 @@ import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getCategories } from '../../state/modules/categories/categories.selector';
 import { getFiltersFromSetQuery } from '../../common/filterUtils';
+import { CategoriesMenu } from '../shared/CategoriesMenu';
 
-const Banner = styled.div`
+const Banner = styled(Box)`
   position: relative;
 `;
 
@@ -53,9 +53,11 @@ export const Home = ({
 
   return (
     <>
-      <CategoriesList />
+      <Box mx='auto'>
+        <CategoriesMenu mode='horizontal' />
+      </Box>
       {landingContent.banner && (
-        <Banner>
+        <Banner mt={3}>
           <Image
             width='100%'
             src={
@@ -67,7 +69,7 @@ export const Home = ({
         </Banner>
       )}
       <Spin spinning={showSpinner}>
-        <Flex px={[2, 3, 4, 5]} mt={3} flexDirection='column'>
+        <Flex px={[2, 4, 5]} mt={3} flexDirection='column'>
           {productSets
             .filter(set => Boolean(set.data))
             .map(set => (

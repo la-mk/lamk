@@ -1,7 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import App from 'next/app';
 import { default as NextHead } from 'next/head';
-import { Provider as ThemeProvider, Empty } from '@sradevski/blocks-ui';
+import {
+  Provider as ThemeProvider,
+  Empty,
+  hooks,
+  theme,
+} from '@sradevski/blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
@@ -94,12 +99,16 @@ const Main = ({ store, children }) => {
     >
       <ReduxProvider store={store}>
         <ConnectedRouter>
-          <StoreLayout>
-            <>
-              {children}
-              <AuthModal />
-            </>
-          </StoreLayout>
+          <hooks.BreakpointProvider
+            breakpoints={theme.breakpoints.map(x => parseInt(x))}
+          >
+            <StoreLayout>
+              <>
+                {children}
+                <AuthModal />
+              </>
+            </StoreLayout>
+          </hooks.BreakpointProvider>
         </ConnectedRouter>
       </ReduxProvider>
     </ThemeProvider>

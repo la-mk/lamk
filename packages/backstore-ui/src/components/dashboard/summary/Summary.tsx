@@ -6,7 +6,7 @@ export const Summary = () => {
   const { t } = useTranslation();
 
   return (
-    <Row type='flex' gutter={16} px={[3, 3, 3, 4]} py={2}>
+    <Row type='flex' gutter={16} px={[3, 3, 4]} py={2}>
       <Col mt={2} xs={24} lg={8}>
         <Card>
           <Statistic

@@ -98,12 +98,12 @@ export const Cart = () => {
   return (
     <Page title={t('pages.myCart')}>
       <Spin spinning={showSpinner}>
-        <Flex width='100%' flexDirection={['column', 'column', 'row', 'row']}>
-          <Flex flex={2} mr={[0, 0, 3, 3]}>
+        <Flex width='100%' flexDirection={['column', 'column', 'row']}>
+          <Flex flex={2} mr={[0, 0, 3]}>
             <List style={{ width: '100%' }}>
               {cart.items.map(cartItem => (
                 <List.Item key={cartItem.product._id}>
-                  <Flex width={1}>
+                  <Flex>
                     <Flex
                       width='180px'
                       justifyContent='center'
@@ -119,7 +119,7 @@ export const Cart = () => {
                       />
                     </Flex>
                     <Flex
-                      ml={[3, 3, 4, 4]}
+                      ml={[3, 4, 4]}
                       maxWidth='80%'
                       alignItems='flex-start'
                       flexDirection='row'
@@ -167,7 +167,7 @@ export const Cart = () => {
               ))}
             </List>
           </Flex>
-          <Flex flex={1} ml={[0, 0, 3, 3]} mt={[4, 4, 0, 0]}>
+          <Flex flex={1} ml={[0, 0, 3]} mt={[4, 4, 0]}>
             <Card title={t('common.summary')} px={3} width='100%'>
               <Summary
                 items={cart.items}

@@ -80,7 +80,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
   return (
     <>
       <Layout theme='dark' style={{ backgroundColor: 'white' }}>
-        <BorderedHeader px={[2, 3, 3, 4]}>
+        <BorderedHeader px={[2, 3, 4]}>
           <Flex justifyContent='space-between'>
             <Link href='/' passHref>
               <LineHeightFreeAnchor style={{ display: 'flex' }}>
@@ -97,7 +97,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                 <Link href='/products' passHref>
                   <Button type='link'>
                     <Icon style={{ fontSize: 24 }} type='shopping' />
-                    <Text display={['none', 'initial', 'initial', 'initial']}>
+                    <Text display={['none', 'initial', 'initial']}>
                       {t('pages.product_plural')}
                     </Text>
                   </Button>
@@ -107,7 +107,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                 <Link href='/about' passHref>
                   <Button type='link'>
                     <Icon style={{ fontSize: 24 }} type='shop' />
-                    <Text display={['none', 'initial', 'initial', 'initial']}>
+                    <Text display={['none', 'initial', 'initial']}>
                       {t('pages.aboutUs')}
                     </Text>
                   </Button>

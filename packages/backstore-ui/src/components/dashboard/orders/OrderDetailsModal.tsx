@@ -119,7 +119,7 @@ export const OrderDetailsModal = ({
           </Flex>
 
           <Flex mb={3}>
-            <Descriptions size='middle' width={1} bordered>
+            <Descriptions size='middle' width={'100%'} bordered>
               <DescriptionItem label={t('order.orderId')}>
                 {sdk.utils.getShortId(order)}
               </DescriptionItem>
@@ -152,7 +152,7 @@ export const OrderDetailsModal = ({
               title={t('finance.priceBreakdown')}
               mr={[0, 0, 2]}
               mt={[3, 3, 0]}
-              width={[1, 1, 1 / 2]}
+              width={['100%', '100%', '50%']}
             >
               <Flex flexDirection='row' justifyContent='space-between'>
                 <Text strong>{t('finance.subtotal')}</Text>
@@ -172,7 +172,7 @@ export const OrderDetailsModal = ({
               title={t('commerce.buyer')}
               ml={[0, 0, 2]}
               mt={[3, 3, 0]}
-              width={[1, 1, 1 / 2]}
+              width={['100%', '100%', '50%']}
             >
               {order.deliverTo && (
                 <Descriptions size='small' column={1}>
@@ -201,7 +201,7 @@ export const OrderDetailsModal = ({
                 {products!.map(product => (
                   <List.Item key={product._id}>
                     <Flex
-                      width={1}
+                      width={'100%'}
                       justifyContent='space-between'
                       alignItems='center'
                     >
@@ -214,10 +214,12 @@ export const OrderDetailsModal = ({
                           <Image
                             maxHeight='60px'
                             alt={product.name}
-                            src={sdk.artifact.getUrlForArtifact(
-                              product.images[0],
-                              store._id,
-                            )}
+                            src={
+                              sdk.artifact.getUrlForArtifact(
+                                product.images[0],
+                                store._id,
+                              ) || undefined
+                            }
                           />
                         </Flex>
                         <Flex flexDirection='column'>
