@@ -117,7 +117,7 @@ const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: F
   // This takes care of null, undefined, and an empty object, which are practically the same;
   const areEquallyEmpty = isEmpty(filtersBefore.filtering) === isEmpty(filtersAfter.filtering);
 
-  if(areEquallyEmpty && isEqual(filtersBefore.filtering, filtersAfter.filtering)){
+  if(areEquallyEmpty || isEqual(filtersBefore.filtering, filtersAfter.filtering)){
     return filtersAfter;
   }
 
