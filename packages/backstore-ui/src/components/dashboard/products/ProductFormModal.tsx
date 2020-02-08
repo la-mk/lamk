@@ -45,6 +45,7 @@ import {
 } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
 import { possibleUnits } from '../../shared/utils/enums';
+import { parse } from 'path';
 
 interface ProductFormModalProps {
   product: Product | null;
@@ -182,10 +183,28 @@ export const ProductFormModal = ({
                 selector='price'
                 parser={parsers.number}
               >
-                {formInput({
-                  placeholder: t('product.priceExample'),
-                  addonBefore: 'Ден',
-                })}
+                {(
+                  val: any,
+                  onChange: (val: any) => void,
+                  onComplete: (val: any) => void,
+                ) => {
+                  return (
+                    <InputNumber
+                      placeholder={t('product.priceExample')}
+                      formatter={value => {
+                        return value ? `${value} ден` : '';
+                      }}
+                      parser={value => (value || '').replace(/[^0-9.]/g, '')}
+                      width='100%'
+                      min={0}
+                      max={99999999}
+                      decimalSeparator='.'
+                      value={val}
+                      onChange={onChange}
+                      onBlur={onComplete}
+                    />
+                  );
+                }}
               </FormItem>
             </Col>
             <Col md={6} span={24}>

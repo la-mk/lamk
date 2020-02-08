@@ -50,7 +50,7 @@ export const ProductCard = ({
               <Text type='danger'>{t('product.outOfStock')}</Text>
             )}
           </Flex>
-          <Price price={product.price + 10000} currency={'ден'} />
+          <Price price={product.price} currency={'ден'} />
         </Card>
       </a>
     </Link>
