@@ -12,8 +12,8 @@ export const authentication = (app: Application) => {
     authStrategies: ['jwt', 'local'],
     jwtOptions: {
       header: { typ: 'access' },
-      audience: 'https://la.mk',
-      issuer: 'lamk',
+      audience: env.HOST,
+      issuer: env.HOST,
       algorithm: 'HS256',
       expiresIn: '10d',
     },

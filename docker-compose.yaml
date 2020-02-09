@@ -76,7 +76,7 @@ services:
     environment: 
       GPR_TOKEN: $GPR_TOKEN
       PORT: 80
-      HOST: "api.dev.sradevski.com"
+      HOST: "dev.sradevski.com"
       JWT_SECRET: "1234dev"
       MONGODB_DB_NAME: db
       MONGODB_CONNECTION_STRING: "mongodb+srv://dev-user:ou1ewM4eGQH1lxLq@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
