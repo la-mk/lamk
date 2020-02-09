@@ -157,6 +157,7 @@
 		"number": "Field should be a number",
 		"numeric": "Field should be a numeric",
 		"oneOf": "Field should be one of {{0}}",
+		"email": "Field should be a valid email address",
 		"pattern": "Field does not match the expected pattern",
 		"positive": "Field should be a positive value",
 		"schema": "Field does not match the expected schema",
