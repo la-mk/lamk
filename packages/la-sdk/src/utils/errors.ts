@@ -73,6 +73,10 @@ export const errors: {
     name: 'oneOf',
     message: 'Field should be one of {{0}}',
   },
+  email: {
+    name: 'email',
+    message: 'Field should be a valid email address',
+  },
   generic: {
     name: 'generic',
     message: 'Invalid entry',

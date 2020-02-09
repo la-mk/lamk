@@ -13,10 +13,7 @@ export const schema = {
       .maxLength(63),
     true,
   ),
-  email: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
+  email: v8n().email(),
   password: v8n()
     .string()
     .minLength(8)

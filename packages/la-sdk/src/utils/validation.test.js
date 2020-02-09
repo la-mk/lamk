@@ -49,4 +49,19 @@ describe('Custom validators', () => {
         .test('a'),
     ).toBeFalsy();
   });
+
+  // The tests are sparse as the regex used is already well tested and there is no need to repeat it here.
+  test('email', () => {
+    expect(
+      v8n()
+        .email()
+        .test('some@email.com'),
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .email()
+        .test('somenotemail'),
+    ).toBeFalsy();
+  });
 });
