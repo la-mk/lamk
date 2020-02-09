@@ -50,4 +50,9 @@ export default {
     .get('STORAGE_ACCESS_KEY_SECRET')
     .required()
     .asString(),
+
+  MAIL_SERVICE_API_KEY: envvar
+    .get('MAIL_SERVICE_API_KEY')
+    .required()
+    .asString(),
 };

@@ -84,6 +84,7 @@ services:
       STORAGE_ENDPOINT: "artifacts.dev.sradevski.com"
       STORAGE_ACCESS_KEY_ID: minio
       STORAGE_ACCESS_KEY_SECRET: minio123
+      MAIL_SERVICE_API_KEY: "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"
     
   store-ui:
     image: lamk/store-ui-dev
