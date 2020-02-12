@@ -9,6 +9,7 @@ on:
       - packages/la-sdk/**
       - packages/blocks-ui/**
       - packages/translations/**
+      - packages/nlp/**
 
 jobs:
   publish-gpr:
@@ -17,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        library: ["blocks-ui", "la-sdk", "translations"]
+        library: ["blocks-ui", "la-sdk", "translations", "nlp"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
