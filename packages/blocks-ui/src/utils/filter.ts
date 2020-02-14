@@ -70,6 +70,7 @@ export const expandFilterObject = (obj: MinifiedFilterObject): FilterObject => {
     pagination: obj.p,
     filtering: obj.f,
     sorting: obj.s,
+    searching: obj.q,
   };
 };
 
@@ -77,11 +78,13 @@ export const minifiyFilterObject = ({
   pagination,
   filtering,
   sorting,
+  searching,
 }: FilterObject): MinifiedFilterObject => {
   return {
     p: pagination,
     f: filtering,
     s: sorting,
+    q: searching,
   };
 };
 
@@ -114,12 +117,19 @@ const filteringAsQuery = (filtering: FilterObject['filtering']) => {
   return filtering || {};
 };
 
+const searchingAsQuery = (searching: FilterObject['searching']) => {
+  return {
+    search: searching,
+  }
+}
+
 export const filtersAsQuery = (filters: FilterObject) => {
   return {
     query: {
       ...paginationAsQuery(filters.pagination),
       ...sortingAsQuery(filters.sorting),
       ...filteringAsQuery(filters.filtering),
+      ...searchingAsQuery(filters.searching),
     },
   };
 };

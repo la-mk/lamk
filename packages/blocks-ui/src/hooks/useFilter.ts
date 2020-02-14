@@ -30,12 +30,14 @@ export interface FilterObject {
   pagination?: { currentPage: number; pageSize: number };
   filtering?: any;
   sorting?: { field: string; order: 'ascend' | 'descend' };
+  searching?: string;
 }
 
 export interface MinifiedFilterObject {
   p?: FilterObject['pagination'];
   f?: FilterObject['filtering'];
   s?: FilterObject['sorting'];
+  q?: FilterObject['searching'];
 }
 
 const defaultConfig: UseFilterConfig = {
@@ -115,9 +117,13 @@ const addToStorage = (
 // If the filtering changes, the number of shown items potentially changes as well, so we want to reset pagination in order for it to not be larger than the total items shown
 const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: FilterObject) => {
   // This takes care of null, undefined, and an empty object, which are practically the same;
-  const areEquallyEmpty = isEmpty(filtersBefore.filtering) === isEmpty(filtersAfter.filtering);
+  const isFilteringEquallyEmpty = isEmpty(filtersBefore.filtering) === isEmpty(filtersAfter.filtering);
+  const isSearchEquallyEmpty = isEmpty(filtersBefore.searching) === isEmpty(filtersAfter.searching);
 
-  if(areEquallyEmpty || isEqual(filtersBefore.filtering, filtersAfter.filtering)){
+  const isFilteringSame = isFilteringEquallyEmpty || isEqual(filtersBefore.filtering, filtersAfter.filtering);
+  const isSearchingSame = isSearchEquallyEmpty || isEqual(filtersBefore.searching, filtersAfter.searching);
+
+  if(isFilteringSame && isSearchingSame){
     return filtersAfter;
   }
 
