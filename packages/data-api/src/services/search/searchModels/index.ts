@@ -24,6 +24,11 @@ export const productsModel = {
         facet: false,
       },
       {
+        name: 'soldBy',
+        type: 'string',
+        facet: false,
+      },
+      {
         name: 'price',
         type: 'float',
         facet: false,
@@ -51,11 +56,14 @@ export const productsModel = {
 
   searchFields: ['name', 'description'],
 
+  storeIdField: 'soldBy',
+
   transformSearchQuery: (search: string) => normalizeText(search),
 
   transform: (product: Product) => {
     return {
       id: product._id,
+      soldBy: product.soldBy,
       name: normalizeText(product.name),
       description: normalizeText(product.description),
       price: product.price,

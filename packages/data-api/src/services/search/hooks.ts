@@ -30,7 +30,9 @@ const convertGetToStandardResponse = async (ctx: HookContext) => {
 export const hooks = {
   before: {
     all: [],
-    find: [requireAllQueryParams(['model', 'search', '$limit', '$skip'])],
+    find: [
+      requireAllQueryParams(['model', 'search', 'storeId', '$limit', '$skip']),
+    ],
     get: [requireAnyQueryParam(['model'])],
     create: [disallow('external')],
     patch: [disallow('external')],

@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Application, Service, Params } from '@feathersjs/feathers';
 // @ts-ignore
 import * as Typesense from 'typesense';
@@ -38,8 +39,29 @@ class SearchService implements Service<SearchServiceData> {
 
   // @ts-ignore
   async find(params: Params<any>) {
-    // TODO: Support filtering and sorting
-    const { model, search, $skip, $limit /*...rest*/ } = params.query;
+    // TODO: Support filtering for non-primitives (`$*`)
+    const {
+      model,
+      search,
+      storeId,
+      $skip,
+      $limit,
+      $sort,
+      ...rest
+    } = params.query;
+
+    const sort = _.first(
+      Object.keys($sort || []).map(
+        key => `${key}:${$sort[key] === -1 ? 'desc' : 'asc'}`,
+      ),
+    );
+
+    const filters = [
+      `${getModel(model).storeIdField}:${storeId}`,
+      ...Object.keys(rest || []).map(key => {
+        return `${key}:${rest[key]}`;
+      }),
+    ].join(' && ');
 
     const searchParameters = {
       q: getModel(model).transformSearchQuery(search),
@@ -49,8 +71,10 @@ class SearchService implements Service<SearchServiceData> {
       per_page: $limit,
       // eslint-disable-next-line
       query_by: getModel(model).searchFields.join(','),
-      // filter_by: 'num_employees:>100',
-      // sort_by: 'num_employees:desc',
+      // eslint-disable-next-line
+      filter_by: filters,
+      // eslint-disable-next-line
+      sort_by: sort,
     };
 
     try {
@@ -89,15 +113,12 @@ class SearchService implements Service<SearchServiceData> {
   // @ts-ignore
   async create(entry: SearchServiceData) {
     const transformedData = getModel(entry.model).transform(entry.data);
-    console.log(transformedData);
 
     try {
-      console.log(
-        await this.engineClient
-          .collections(entry.model)
-          .documents()
-          .create(transformedData),
-      );
+      await this.engineClient
+        .collections(entry.model)
+        .documents()
+        .create(transformedData);
 
       return;
     } catch (err) {
