@@ -12,6 +12,7 @@ import { categories } from '../../services/categories/categories';
 import { categoriesPerStore } from '../../services/categories-per-store/categoriesPerStore';
 import { storeContents } from '../../services/store-contents/storeContents';
 import { email } from '../../services/email/email';
+import { search } from '../../services/search/search';
 
 export const registerServices = (app: Application) => {
   authentication(app);
@@ -27,4 +28,5 @@ export const registerServices = (app: Application) => {
   categoriesPerStore(app);
   storeContents(app);
   email(app);
+  search(app);
 };

@@ -55,4 +55,14 @@ export default {
     .get('MAIL_SERVICE_API_KEY')
     .required()
     .asString(),
+
+  SEARCH_SERVICE_ENDPOINT: envvar
+    .get('SEARCH_SERVICE_ENDPOINT')
+    .required()
+    .asString(),
+
+  SEARCH_SERVICE_API_KEY: envvar
+    .get('SEARCH_SERVICE_API_KEY')
+    .required()
+    .asString(),
 };

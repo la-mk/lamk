@@ -29,6 +29,7 @@ services:
       - store-ui
       - backstore-ui
       - object-store
+      - search
     networks:
       - main-network
 
@@ -50,6 +51,25 @@ services:
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
+
+  search:
+    image: typesense/typesense:0.11.2
+    container_name: search-dev
+    command: ./typesense-server
+    expose:
+      - 8108
+    volumes:
+      - ./search-data:/data
+    networks:
+      - main-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.search.priority=1000
+      - traefik.http.routers.search.rule=Host(`search.dev.sradevski.com`)
+      - traefik.http.services.search.loadbalancer.server.port=8108
+    environment:
+      TYPESENSE_DATA_DIR: /data
+      TYPESENSE_API_KEY: 12345678
 
   data-api:
     image: lamk/data-api-dev
@@ -85,7 +105,9 @@ services:
       STORAGE_ACCESS_KEY_ID: minio
       STORAGE_ACCESS_KEY_SECRET: minio123
       MAIL_SERVICE_API_KEY: "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"
-    
+      SEARCH_SERVICE_ENDPOINT: "search.dev.sradevski.com"
+      SEARCH_SERVICE_API_KEY: "12345678"
+
   store-ui:
     image: lamk/store-ui-dev
     build: 
