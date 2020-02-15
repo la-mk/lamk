@@ -19,6 +19,38 @@ const getModel = (model: string) => {
   throw new BadRequest('The requested search model does not exist');
 };
 
+// These are the only supported operators for searching as of now.
+const getSearchEngineFilters = (filters: any) => {
+  return Object.keys(filters || [])
+    .flatMap(key => {
+      const value = filters[key];
+
+      if (!_.isObject(value)) {
+        return `${key}:${value}`;
+      }
+
+      if ((value as any).$in) {
+        return `${key}:[${(value as any).$in}]`;
+      }
+
+      if ((value as any).$gte && (value as any).$lte) {
+        return [
+          `${key}:>=${(value as any).$gte}`,
+          `${key}:<=${(value as any).$lte}`,
+        ];
+      }
+
+      if ((value as any).$gte) {
+        return `${key}:>=${(value as any).$gte}`;
+      }
+
+      if ((value as any).$lte) {
+        return `${key}:<=${(value as any).$lte}`;
+      }
+    })
+    .join(' && ');
+};
+
 // The actual data sengrid accepts is much larger than this, but this should do for now.
 export interface SearchServiceData {
   model: 'products';
@@ -39,7 +71,6 @@ class SearchService implements Service<SearchServiceData> {
 
   // @ts-ignore
   async find(params: Params<any>) {
-    // TODO: Support filtering for non-primitives (`$*`)
     const {
       model,
       search,
@@ -56,12 +87,12 @@ class SearchService implements Service<SearchServiceData> {
       ),
     );
 
-    const filters = [
-      `${getModel(model).storeIdField}:${storeId}`,
-      ...Object.keys(rest || []).map(key => {
-        return `${key}:${rest[key]}`;
-      }),
-    ].join(' && ');
+    const filters = getSearchEngineFilters({
+      [getModel(model).storeIdField]: storeId,
+      ...rest,
+    });
+
+    console.log(filters);
 
     const searchParameters = {
       q: getModel(model).transformSearchQuery(search),
