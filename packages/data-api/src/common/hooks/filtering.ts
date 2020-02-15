@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../errors';
 import { isProvider } from 'feathers-hooks-common';
@@ -14,7 +15,7 @@ export const requireAllQueryParams = (params: string[]) => {
     const { query = {} } = ctx.params;
 
     params.forEach(param => {
-      if (!query[param]) {
+      if (_.isNil(query[param])) {
         throw new BadRequest(`Missing parameter ${param} while querying`);
       }
     });
@@ -30,7 +31,7 @@ export const requireAnyQueryParam = (params: string[]) => {
     }
 
     const { query = {} } = ctx.params;
-    const hasSome = params.some(param => Boolean(query[param]));
+    const hasSome = params.some(param => !_.isNil(query[param]));
 
     if (!hasSome) {
       throw new BadRequest(
