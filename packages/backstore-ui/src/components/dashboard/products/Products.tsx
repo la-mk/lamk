@@ -8,6 +8,8 @@ import {
   Image,
   hooks,
   utils,
+  Search,
+  Box,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
@@ -84,6 +86,8 @@ export const Products = () => {
     storageKey: `${store ? store._id : ''}/productFilters`,
   });
 
+  console.log(utils.filter.filtersAsQuery(filters));
+
   React.useEffect(() => {
     if (!store) {
       return;
@@ -120,6 +124,25 @@ export const Products = () => {
           </Button> */}
         </Tooltip>
       </Flex>
+
+      <Box
+        maxWidth='600px'
+        width={['100%', '60%', '40%']}
+        mx='auto'
+        mt={2}
+        mb={3}
+      >
+        <Search
+          size='large'
+          allowClear
+          placeholder='Search'
+          onSearch={value => {
+            setFilters({ ...filters, searching: value });
+          }}
+          enterButton
+        />
+      </Box>
+
       <Table<Product>
         dataSource={products}
         columns={columns}
