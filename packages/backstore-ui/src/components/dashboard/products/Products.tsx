@@ -135,7 +135,7 @@ export const Products = () => {
         <Search
           size='large'
           allowClear
-          placeholder='Search'
+          placeholder={t('actions.search')}
           onSearch={value => {
             setFilters({ ...filters, searching: value });
           }}

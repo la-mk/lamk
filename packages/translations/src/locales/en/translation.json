@@ -18,7 +18,8 @@
 		"save": "Save",
 		"select": "Select",
     "toCheckout": "To checkout",
-    "update": "Update"
+		"update": "Update",
+		"search": "Search"
   },
   "address": {
 		"addNewAddress": "Add new address",

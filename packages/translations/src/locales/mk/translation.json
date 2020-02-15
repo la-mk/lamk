@@ -18,7 +18,8 @@
 		"save": "Зачувајте",
     "select": "Одберете",
 		"toCheckout": "На каса",
-		"update": "Обновете"
+		"update": "Обновете",
+		"search": "Пребарајте"
   },
   "address": {
 		"addNewAddress": "Додадете нова адреса",
