@@ -118,6 +118,10 @@ const filteringAsQuery = (filtering: FilterObject['filtering']) => {
 };
 
 const searchingAsQuery = (searching: FilterObject['searching']) => {
+  if(!searching){
+    return {}
+  }
+
   return {
     search: searching,
   }
