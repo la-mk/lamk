@@ -86,3 +86,20 @@ export const isPublished = () => {
     return true;
   };
 };
+
+// Similar to queryWithCurrentUser, but it puts multiple fields in an $or
+export const queryOneOfWithCurrentUser = (fields: string[]) => {
+  return (ctx: HookContext) => {
+    fields.map(field => {
+      if (!ctx.params.query) {
+        ctx.params.query = {};
+      }
+
+      if (!ctx.params.query.$or) {
+        ctx.params.query.$or = [];
+      }
+
+      ctx.params.query.$or.push({ [field]: ctx.params.user._id });
+    });
+  };
+};

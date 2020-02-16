@@ -10,6 +10,7 @@ import { BadRequest } from '../../common/errors';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
 import { discard } from 'feathers-hooks-common';
+import { queryOneOfWithCurrentUser } from '../../common/hooks/filtering';
 
 // We need to check that the order only contains products from the specified store,
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
@@ -64,10 +65,14 @@ const validateOrderedItems = async (ctx: HookContext) => {
 export const hooks = {
   before: {
     all: [],
-    // find: [authenticate('jwt'), queryWithCurrentUser({ as: 'orderedFrom' })],
-    // get: [authenticate('jwt'), queryWithCurrentUser({ as: 'orderedFrom' })],
-    find: [authenticate('jwt')],
-    get: [authenticate('jwt')],
+    find: [
+      authenticate('jwt'),
+      queryOneOfWithCurrentUser(['orderedFrom', 'orderedBy']),
+    ],
+    get: [
+      authenticate('jwt'),
+      queryOneOfWithCurrentUser(['orderedFrom', 'orderedBy']),
+    ],
     create: [
       authenticate('jwt'),
       associateCurrentUser({ as: 'orderedBy' }),
