@@ -18,6 +18,7 @@ export interface FilterRouter {
       shallow: boolean;
     },
   ) => void;
+  routeChangeListener?: (cb: () => void) => () => void
 }
 
 export interface UseFilterConfig {
@@ -45,7 +46,7 @@ const defaultConfig: UseFilterConfig = {
 };
 
 const getStorageState = (
-  storage: UseFilterConfig['storage'],
+  storage?: UseFilterConfig['storage'],
   storageKey?: UseFilterConfig['storageKey'],
 ) => {
   switch (storage) {
@@ -71,12 +72,15 @@ const getStorageState = (
       const asObj = sessionStorage[key] ? JSON.parse(sessionStorage[key]) : {};
       return expandFilterObject(asObj as MinifiedFilterObject);
     }
+
+    default: 
+      return {};
   }
 };
 
 const addToStorage = (
   filter: MinifiedFilterObject,
-  storage: UseFilterConfig['storage'],
+  storage?: UseFilterConfig['storage'],
   storageKey?: UseFilterConfig['storageKey'],
   router?: FilterRouter,
 ) => {
@@ -148,7 +152,7 @@ export const useFilter = (
     return [initialFilters || {}, noop];
   }
 
-  let mergedConfig: any = {}
+  let mergedConfig: Partial<UseFilterConfig> = {}
   merge(mergedConfig, defaultConfig, config);
   const { storage, storageKey, router } = mergedConfig;
 
@@ -161,7 +165,7 @@ export const useFilter = (
 
   // Listen to storage state changes and make it the source of truth.
   useEffect(() => {
-    if(storage === 'url') {
+    if(storage === 'url' && router?.routeChangeListener) {
       const listener = () => {
         const storageState = getStorageState(storage, storageKey);
         if(!isEqual(filters, storageState)){
@@ -169,8 +173,7 @@ export const useFilter = (
         }
       };
 
-      window.addEventListener('hashchange', listener);
-      return () => window.removeEventListener('hashchange', listener)
+      return router.routeChangeListener(listener);
     }
     // FUTURE: Add listener for local and session storage as well.
     
