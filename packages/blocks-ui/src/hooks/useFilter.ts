@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 import noop from 'lodash/noop';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import {
   expandFilterObject,
   minifiyFilterObject,
@@ -44,7 +44,7 @@ const defaultConfig: UseFilterConfig = {
   storage: 'session',
 };
 
-const getInitialState = (
+const getStorageState = (
   storage: UseFilterConfig['storage'],
   storageKey?: UseFilterConfig['storageKey'],
 ) => {
@@ -153,11 +153,29 @@ export const useFilter = (
   const { storage, storageKey, router } = mergedConfig;
 
   const initialState = useMemo(
-    () => (initialFilters ? initialFilters : getInitialState(storage)),
+    () => (initialFilters ? initialFilters : getStorageState(storage, storageKey)),
     [],
   );
 
   const [filters, setFilters] = useState(initialState);
+
+  // Listen to storage state changes and make it the source of truth.
+  useEffect(() => {
+    if(storage === 'url') {
+      const listener = () => {
+        const storageState = getStorageState(storage, storageKey);
+        if(!isEqual(filters, storageState)){
+          setFilters(storageState);
+        }
+      };
+
+      window.addEventListener('hashchange', listener);
+      return () => window.removeEventListener('hashchange', listener)
+    }
+    // FUTURE: Add listener for local and session storage as well.
+    
+    return;
+  }, [filters, storage, storageKey])
 
   const handleSetFilter = useCallback((updatedFilters: FilterObject) => {
     const normalized = resetPaginationIfNecessary(filters, updatedFilters);
