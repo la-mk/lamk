@@ -1,7 +1,7 @@
 import { extendValidation } from './utils/validation';
 extendValidation();
 
-import { setupClient, SetupSdkOptions } from './setup';
+import { setupClient, SetupSdkOptions, getCrudMethods } from './setup';
 import { getStoreSdk } from './models/store';
 import { getStoreContentsSdk } from './models/storeContents';
 import { getProductSdk } from './models/product';
@@ -32,6 +32,7 @@ export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
     cart: getCartSdk(client),
     address: getAddressSdk(client),
     authentication: getAuthenticationSdk(client),
+    request: (serviceName: string) => getCrudMethods(client, serviceName),
     utils,
   };
 
