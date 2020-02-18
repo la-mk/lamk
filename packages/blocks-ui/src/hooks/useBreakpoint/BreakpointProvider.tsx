@@ -17,6 +17,17 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
   );
 
   React.useLayoutEffect(() => {
+    const handleResize = () => {
+      const clientWidth = window.innerWidth;
+      if (clientWidth < breakpoints[0]) {
+        setCurrentBreakpoint(0);
+      } else if (clientWidth < breakpoints[1]) {
+        setCurrentBreakpoint(1);
+      } else {
+        setCurrentBreakpoint(2);
+      }
+    };
+
     const debouncedResize = debounce(handleResize, 80);
 
     window.addEventListener('resize', debouncedResize, { passive: true });
@@ -25,24 +36,13 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
     return () => {
       window.removeEventListener('resize', debouncedResize);
     };
-  }, []);
+  }, [breakpoints]);
 
   React.useEffect(() => {
     if (onBreakpointChange) {
       onBreakpointChange(currentBreakpoint);
     }
   }, [currentBreakpoint]);
-
-  const handleResize = () => {
-    const clientWidth = window.innerWidth;
-    if (clientWidth < breakpoints[0]) {
-      setCurrentBreakpoint(0);
-    } else if (clientWidth < breakpoints[1]) {
-      setCurrentBreakpoint(1);
-    } else if (clientWidth < breakpoints[2]) {
-      setCurrentBreakpoint(2);
-    }
-  };
 
   return (
     <BreakpointContext.Provider value={{ currentBreakpoint }}>
