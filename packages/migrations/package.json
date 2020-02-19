@@ -1,4 +1,3 @@
-
 {
   "name": "@sradevski/migrations",
   "version": "0.0.1",
@@ -14,6 +13,9 @@
     "migrate": "migrate-mongo"
   },
   "dependencies": {
-    "migrate-mongo": "^7.0.1"
+    "@sradevski/la-sdk": "0.0.26",
+    "bluebird": "^3.7.2",
+    "migrate-mongo": "^7.0.1",
+    "mongodb": "^3.5.3"
   }
 }

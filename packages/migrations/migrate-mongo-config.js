@@ -1,6 +1,6 @@
 const config = {
   mongodb: {
-    url: "mongodb+srv://ADD STRING HERE",
+    // url: "mongodb+srv://ADD STRING HERE",
     databaseName: "db",
 
     options: {
