@@ -19,7 +19,7 @@ const createProductSearch = async (ctx: HookContext) => {
   try {
     await ctx.app.services['search'].create({
       model: 'products',
-      data: product,
+      item: product,
     });
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
@@ -34,11 +34,23 @@ const patchProductSearch = async (ctx: HookContext) => {
   try {
     await ctx.app.services['search'].patch(product._id, {
       model: 'products',
-      data: product,
+      item: product,
     });
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
     logger.error('Failed to patch product for search', product._id, err);
+  }
+};
+
+const removeProductSearch = async (ctx: HookContext) => {
+  checkContext(ctx, 'after', ['remove']);
+  const product = ctx.result;
+
+  try {
+    await ctx.app.services['search'].remove(product._id, { model: 'products' });
+  } catch (err) {
+    // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
+    logger.error('Failed to remove product for search', product._id, err);
   }
 };
 
@@ -235,7 +247,7 @@ export const hooks = {
     ],
     create: [createCategoriesPerStore, createProductSearch],
     patch: [patchCategoriesPerStore, patchProductSearch],
-    remove: [removeCategoriesPerStore],
+    remove: [removeCategoriesPerStore, removeProductSearch],
   },
 
   error: {

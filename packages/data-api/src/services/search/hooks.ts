@@ -10,7 +10,6 @@ const convertFindToStandardResponse = async (ctx: HookContext) => {
   const { result, params } = ctx;
   const total = result.found;
   const itemIds = result.hits.map((hit: any) => hit.document.id);
-
   const items = await ctx.app.services[params.query?.model].find({
     query: { _id: { $in: itemIds } },
   });
@@ -32,6 +31,7 @@ export const hooks = {
     all: [],
     find: [
       requireAllQueryParams(['model', 'search', 'storeId', '$limit', '$skip']),
+      // TODO: Enforce search query length to a limited number of characters.
     ],
     get: [requireAnyQueryParam(['model'])],
     create: [disallow('external')],

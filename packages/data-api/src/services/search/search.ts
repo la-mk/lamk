@@ -7,7 +7,11 @@ import { productsModel } from './searchModels';
 import env from '../../common/env';
 import { logger } from '../../common/logger';
 import { GeneralError, BadRequest } from '../../common/errors';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+
+interface SearchData {
+  model: string;
+  item: any;
+}
 
 const getModel = (model: string) => {
   switch (model) {
@@ -21,7 +25,7 @@ const getModel = (model: string) => {
 
 // These are the only supported operators for searching as of now.
 const getSearchEngineFilters = (filters: any) => {
-  return Object.keys(filters || [])
+  return Object.keys(filters || {})
     .flatMap(key => {
       const value = filters[key];
 
@@ -51,13 +55,7 @@ const getSearchEngineFilters = (filters: any) => {
     .join(' && ');
 };
 
-// The actual data sengrid accepts is much larger than this, but this should do for now.
-export interface SearchServiceData {
-  model: 'products';
-  data: Product;
-}
-
-class SearchService implements Service<SearchServiceData> {
+class SearchService implements Service<SearchData> {
   engineClient: any;
   constructor(options: { engineClient: any }) {
     if (!options || !options.engineClient) {
@@ -82,7 +80,7 @@ class SearchService implements Service<SearchServiceData> {
     } = params.query;
 
     const sort = _.first(
-      Object.keys($sort || []).map(
+      Object.keys($sort || {}).map(
         key => `${key}:${$sort[key] === -1 ? 'desc' : 'asc'}`,
       ),
     );
@@ -91,8 +89,6 @@ class SearchService implements Service<SearchServiceData> {
       [getModel(model).storeIdField]: storeId,
       ...rest,
     });
-
-    console.log(filters);
 
     const searchParameters = {
       q: getModel(model).transformSearchQuery(search),
@@ -142,27 +138,40 @@ class SearchService implements Service<SearchServiceData> {
   }
 
   // @ts-ignore
-  async create(entry: SearchServiceData) {
-    const transformedData = getModel(entry.model).transform(entry.data);
+  async create(entry: SearchData, params: Params) {
+    const { model, item } = entry;
+    if (!model) {
+      throw new BadRequest('model is required when creating a search entry');
+    }
+
+    const transformedData = getModel(model).transform(item);
 
     try {
       await this.engineClient
-        .collections(entry.model)
+        .collections(model)
         .documents()
         .create(transformedData);
 
-      return;
+      return transformedData;
     } catch (err) {
+      // The product already exists, so we just want to return.
+      if (err.message.includes(409)) {
+        return transformedData;
+      }
+
       // The collection doesn't exist, so we lazily create it first.
       if (err.message.includes(404)) {
         try {
-          await this.engineClient
-            .collections()
-            .create(getModel(entry.model).schema);
+          await this.engineClient.collections().create(getModel(model).schema);
 
           // We retry to create the document. We shouldn't enter in a loop, as this will only run if the collection was successfully created.
-          this.create(entry);
+          this.create(entry, params);
         } catch (err) {
+          // A concurrent process might have already created the collection, so just try again and create the search entry.
+          if (err.message.includes(409)) {
+            this.create(entry, params);
+          }
+
           if (err instanceof GeneralError) {
             throw err;
           }
@@ -178,11 +187,16 @@ class SearchService implements Service<SearchServiceData> {
   }
 
   // @ts-ignore
-  async patch(id: string, entry: SearchServiceData) {
+  async patch(id: string, entry: SearchData, params: Params) {
+    const { model, item } = entry;
+    if (!model) {
+      throw new BadRequest('model is required when patching a search entry');
+    }
+
     try {
       // The search engine doesn't support updates, so we remove and then add the entry.
-      await this.remove(id, { query: { model: entry.model } });
-      await this.create(entry);
+      await this.remove(id, { query: { model } });
+      return await this.create(item, params);
     } catch (err) {
       logger.error(
         'Failed to patch document to search collection:',

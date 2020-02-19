@@ -57,6 +57,7 @@ export const hooks = {
     find: [requireAnyQueryParam(['ownedBy', 'slug', 'customDomain'])],
     get: [],
     create: [
+      // We currently don't allow registrations while we are in alpha.
       disallow('external'),
       authenticate('jwt'),
       associateCurrentUser({ as: 'ownedBy' }),
