@@ -4,6 +4,7 @@ import {
   requireAllQueryParams,
 } from '../../common/hooks/filtering';
 import { HookContext } from '@feathersjs/feathers';
+import { convertQueryToNumber } from '../../common/hooks/db';
 
 const convertFindToStandardResponse = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['find']);
@@ -11,9 +12,11 @@ const convertFindToStandardResponse = async (ctx: HookContext) => {
   const total = result.found;
   const itemIds = result.hits.map((hit: any) => hit.document.id);
   const items = await ctx.app.services[params.query?.model].find({
-    query: { _id: { $in: itemIds } },
+    query: { _id: { $in: itemIds }, $sort: params.query?.$sort ?? {} },
   });
-  items.total = total;
+
+  // The current search engine only allows up to 500 results.
+  items.total = total > 500 ? 500 : total;
   // eslint-disable-next-line
   ctx.result = items;
 };
@@ -26,12 +29,14 @@ const convertGetToStandardResponse = async (ctx: HookContext) => {
   ctx.result = item;
 };
 
+const numberFieldsSet = new Set(['price']);
+
 export const hooks = {
   before: {
     all: [],
     find: [
       requireAllQueryParams(['model', 'search', 'storeId', '$limit', '$skip']),
-      // TODO: Enforce search query length to a limited number of characters.
+      convertQueryToNumber(numberFieldsSet),
     ],
     get: [requireAnyQueryParam(['model'])],
     create: [disallow('external')],

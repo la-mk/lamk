@@ -56,8 +56,7 @@ export const Products = ({
     <Page
       title={
         filters.searching
-          ? // TODO: Translate
-            `${t('pages.product_plural')} for '${filters.searching}'`
+          ? `${t('pages.product_plural')} - '${filters.searching}'`
           : t('pages.product_plural')
       }
     >

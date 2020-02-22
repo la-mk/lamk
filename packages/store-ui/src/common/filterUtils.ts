@@ -1,3 +1,4 @@
+import isNil from 'lodash/isNil';
 import Router from 'next/router';
 import { FilterRouter } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
@@ -11,7 +12,7 @@ export const getFiltersFromSetQuery = (query: { [key: string]: any }) => {
 };
 
 export const getFiltersFromSearch = (search: string) => {
-  if (!search) {
+  if (isNil(search)) {
     return {};
   }
 

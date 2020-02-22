@@ -57,7 +57,7 @@
 		"orderNumber": "Order number: {{orderId}}.",
 		"orderSuccess": "Your order was successful!",
 		"productAlreadyInCart": "Product already in cart"
-  },
+	},
   "common": {
 		"action_plural": "Actions",
 		"actionsTip": "You can do bulk actions on multiple items",

@@ -81,7 +81,7 @@ class SearchService implements Service<SearchData> {
 
     const sort = _.first(
       Object.keys($sort || {}).map(
-        key => `${key}:${$sort[key] === -1 ? 'desc' : 'asc'}`,
+        key => `${key}:${$sort[key] === '-1' ? 'desc' : 'asc'}`,
       ),
     );
 
@@ -92,8 +92,8 @@ class SearchService implements Service<SearchData> {
 
     const searchParameters = {
       q: getModel(model).transformSearchQuery(search),
-      // Page starts from
-      page: $skip + 1,
+      // Page starts from 1
+      page: $skip / $limit + 1,
       // eslint-disable-next-line
       per_page: $limit,
       // eslint-disable-next-line
@@ -102,6 +102,9 @@ class SearchService implements Service<SearchData> {
       filter_by: filters,
       // eslint-disable-next-line
       sort_by: sort,
+      // Can be between 0 and 2
+      // eslint-disable-next-line
+      num_typos: 1,
     };
 
     try {
