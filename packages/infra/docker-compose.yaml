@@ -26,7 +26,7 @@ services:
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge=true
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.provider=digitalocean
       - --certificatesresolvers.cert-resolve.acme.dnsChallenge.delayBeforeCheck=20
-      
+
       # - --certificatesresolvers.custom-certs.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.custom-certs.acme.email=sradevski@live.com
       - --certificatesresolvers.custom-certs.acme.storage=/certs/customcert.json
@@ -42,14 +42,46 @@ services:
       - data-api
       - store-ui
       - backstore-ui
+      - search
     networks:
       - main-network
     environment:
       # This is needed by Traefik to do proper let's encrypt DNS challenge.
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
-  
+
+  search:
+    image: typesense/typesense:0.11.2
+    container_name: search
+    command: ./typesense-server
+    expose:
+      - 8108
+    volumes:
+      - /search-data:/search-data
+    networks:
+      - main-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.search-https.redirectscheme.scheme=https
+
+      - traefik.http.routers.search-http.priority=1000
+      - traefik.http.routers.search-http.entrypoints=web
+      - traefik.http.routers.search-http.rule=Host(`search.${SYSTEM_TLD}`)
+      - traefik.http.routers.search-http.middlewares=search-https
+
+      - traefik.http.routers.search.priority=1000
+      - traefik.http.routers.search.rule=Host(`search.${SYSTEM_TLD}`)
+      - traefik.http.services.search.loadbalancer.server.port=8108
+      - traefik.http.routers.search.entrypoints=websecure
+      - traefik.http.routers.search.tls=true
+      # The store-ui domain is more generic, so a single definition for all subdomains is enough for the cert.
+      # - traefik.http.routers.search.tls.certresolver=cert-resolve
+      # - traefik.http.routers.search.tls.domains[0].main=search.${SYSTEM_TLD}
+    environment:
+      TYPESENSE_DATA_DIR: /search-data
+      TYPESENSE_API_KEY: $SEARCH_SERVICE_API_KEY
+
   data-api:
-    image: lamk/data-api:1.0.23
+    image: lamk/data-api:1.0.24
     container_name: data-api
     restart: always
     networks:
@@ -84,9 +116,11 @@ services:
       STORAGE_ACCESS_KEY_ID: $SPACES_ACCESS_KEY_ID
       STORAGE_ACCESS_KEY_SECRET: $SPACES_SECRET_ACCESS_KEY
       MAIL_SERVICE_API_KEY: $MAIL_SERVICE_API_KEY
-    
+      SEARCH_SERVICE_API_KEY: $SEARCH_SERVICE_API_KEY
+      SEARCH_SERVICE_ENDPOINT: https://search.${SYSTEM_TLD}
+
   store-ui:
-    image: lamk/store-ui:1.0.22
+    image: lamk/store-ui:1.0.23
     container_name: store-ui
     restart: always
     depends_on: 
@@ -150,7 +184,7 @@ services:
 
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.21
+    image: lamk/backstore-ui:1.0.22
     container_name: backstore-ui
     restart: always
     depends_on: 
