@@ -34,9 +34,14 @@ export const productsModel = {
         facet: false,
       },
       {
-        name: 'category',
+        name: 'sku',
         type: 'string',
         facet: false,
+      },
+      {
+        name: 'category',
+        type: 'string',
+        facet: true,
       },
       {
         name: 'description',
@@ -54,7 +59,7 @@ export const productsModel = {
     default_sorting_field: 'createdAt',
   },
 
-  searchFields: ['name', 'description'],
+  searchFields: ['name', 'description', 'sku'],
 
   storeIdField: 'soldBy',
 
@@ -65,7 +70,8 @@ export const productsModel = {
       id: product._id,
       soldBy: product.soldBy,
       name: normalizeText(product.name),
-      description: normalizeText(product.description),
+      description: normalizeText(product.description) ?? '',
+      sku: product.sku ?? '',
       price: product.price,
       category: product.category,
       // Convert to seconds so it fits in int32 (required for default sort)

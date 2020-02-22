@@ -188,15 +188,10 @@ class SearchService implements Service<SearchData> {
 
   // @ts-ignore
   async patch(id: string, entry: SearchData, params: Params) {
-    const { model, item } = entry;
-    if (!model) {
-      throw new BadRequest('model is required when patching a search entry');
-    }
-
     try {
       // The search engine doesn't support updates, so we remove and then add the entry.
-      await this.remove(id, { query: { model } });
-      return await this.create(item, params);
+      await this.remove(id, { query: { model: entry.model } });
+      return await this.create(entry, params);
     } catch (err) {
       logger.error(
         'Failed to patch document to search collection:',
