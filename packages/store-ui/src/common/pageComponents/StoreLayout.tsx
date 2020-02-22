@@ -3,7 +3,6 @@ import {
   Menu,
   MenuItem,
   Flex,
-  // Search,
   Layout,
   Content,
   Header,
@@ -16,7 +15,10 @@ import {
   Icon,
   Image,
   Text,
+  Search,
+  Box,
 } from '@sradevski/blocks-ui';
+import queryString from 'qs';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { sdk } from '@sradevski/la-sdk';
@@ -29,6 +31,7 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { useTranslation } from '../i18n';
 import { FooterContent } from './FooterContent';
+import { getFiltersFromSearch } from '../filterUtils';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -46,11 +49,6 @@ const LineHeightFreeAnchor = styled.a`
   min-width: 56px;
   margin: 4px 0;
 `;
-
-// const SizedSearch = styled(Search)`
-//   max-width: 400px;
-//   min-width: 80px;
-// `;
 
 const BorderedHeader = styled(Header)`
   background: white;
@@ -77,10 +75,28 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
     dispatch(toggleAuthModal(true));
   };
 
+  const presetSearch = (
+    <Search
+      size='large'
+      allowClear
+      onSearch={val => {
+        // Preserve the existing query parameters
+        const productsUrl = `/products?${queryString.stringify({
+          ...router.query,
+          ...getFiltersFromSearch(val),
+        })}`;
+
+        router.push(productsUrl);
+      }}
+      placeholder={t('actions.search')}
+      enterButton
+    />
+  );
+
   return (
     <>
       <Layout theme='dark' style={{ backgroundColor: 'white' }}>
-        <BorderedHeader px={[2, 3, 4]}>
+        <BorderedHeader height={['128px', '64px', '64px']} px={[2, 3, 4]}>
           <Flex justifyContent='space-between'>
             <Link href='/' passHref>
               <LineHeightFreeAnchor style={{ display: 'flex' }}>
@@ -91,13 +107,30 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                 />
               </LineHeightFreeAnchor>
             </Link>
-            {/* <SizedSearch mx={4} my={3} /> */}
-            <Menu maxWidth='80%' mode='horizontal' selectedKeys={selectedKeys}>
+            <Box
+              display={['none', 'block', 'block']}
+              flex={1}
+              minWidth='300px'
+              maxWidth='800px'
+              pt={2}
+              mx={[2, 3, 4]}
+              height='56px'
+              my={1}
+            >
+              {presetSearch}
+            </Box>
+            <Menu
+              style={{ borderBottom: 'none' }}
+              my={1}
+              maxWidth='80%'
+              mode='horizontal'
+              selectedKeys={selectedKeys}
+            >
               <MenuItem p={0} key='products'>
                 <Link href='/products' passHref>
                   <Button type='link'>
                     <Icon style={{ fontSize: 24 }} type='shopping' />
-                    <Text display={['none', 'initial', 'initial']}>
+                    <Text display={['none', 'none', 'initial']}>
                       {t('pages.product_plural')}
                     </Text>
                   </Button>
@@ -107,7 +140,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                 <Link href='/about' passHref>
                   <Button type='link'>
                     <Icon style={{ fontSize: 24 }} type='shop' />
-                    <Text display={['none', 'initial', 'initial']}>
+                    <Text display={['none', 'none', 'initial']}>
                       {t('pages.aboutUs')}
                     </Text>
                   </Button>
@@ -180,6 +213,15 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
               </MenuItem>
             </Menu>
           </Flex>
+          <Box
+            display={['block', 'none', 'none']}
+            pt={2}
+            mx={[2, 3, 4]}
+            height='56px'
+            my={1}
+          >
+            {presetSearch}
+          </Box>
         </BorderedHeader>
         <StyledContent minHeight='calc(100vh - 64px - 65px)'>
           <Flex flexDirection='column'>{children}</Flex>

@@ -1,3 +1,6 @@
+import Router from 'next/router';
+import { FilterRouter } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+
 export const getFiltersFromSetQuery = (query: { [key: string]: any }) => {
   if (query.$sort) {
     const [field, order] = Object.entries(query.$sort)[0];
@@ -6,3 +9,19 @@ export const getFiltersFromSetQuery = (query: { [key: string]: any }) => {
 
   return { f: query };
 };
+
+export const getFiltersFromSearch = (search: string) => {
+  if (!search) {
+    return {};
+  }
+
+  return { q: search };
+};
+
+export const filterRouter = {
+  push: Router.push,
+  routeChangeListener: cb => {
+    Router.events.on('routeChangeComplete', cb);
+    return () => Router.events.off('routeChangeComplete', cb);
+  },
+} as FilterRouter;

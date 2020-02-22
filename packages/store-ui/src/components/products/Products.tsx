@@ -18,9 +18,9 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
-import Router from 'next/router';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { ProductsSidemenu } from './ProductsSidemenu';
+import { filterRouter } from '../../common/filterUtils';
 
 interface ProductsProps {
   initialProducts: FindResult<Product>;
@@ -38,7 +38,7 @@ export const Products = ({
   const [caller, showSpinner] = hooks.useCall();
   const [filters, setFilters] = hooks.useFilter(initialFilters, {
     storage: 'url',
-    router: Router,
+    router: filterRouter,
   });
 
   React.useEffect(() => {
@@ -53,7 +53,14 @@ export const Products = ({
   }, [store, filters]);
 
   return (
-    <Page title={t('pages.product_plural')}>
+    <Page
+      title={
+        filters.searching
+          ? // TODO: Translate
+            `${t('pages.product_plural')} for '${filters.searching}'`
+          : t('pages.product_plural')
+      }
+    >
       <Flex flexDirection={['column', 'column', 'row']}>
         <Card mr={2} display={['none', 'none', 'initial']}>
           <ProductsSidemenu
