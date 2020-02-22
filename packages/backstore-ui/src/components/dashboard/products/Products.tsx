@@ -22,8 +22,16 @@ import { setProducts } from '../../../state/modules/products/products.module';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { getUniqueCategories } from '../../../state/modules/categories/categories.selector';
+import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
-const getColumns = (t: T, storeId: string) =>
+const getColumns = (
+  t: T,
+  storeId: string,
+  categories: Category[] | null,
+  filters: FilterObject,
+) =>
   [
     {
       title: t('common.image_plural'),
@@ -33,7 +41,7 @@ const getColumns = (t: T, storeId: string) =>
       render: (_text, product) => {
         return (
           <Image
-            maxHeight='60px'
+            height='60px'
             alt={product.name}
             src={
               sdk.artifact.getUrlForArtifact(product.images[0], storeId) ||
@@ -46,7 +54,6 @@ const getColumns = (t: T, storeId: string) =>
     {
       title: t('common.name'),
       dataIndex: 'name',
-      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: t('product.sku'),
@@ -55,13 +62,23 @@ const getColumns = (t: T, storeId: string) =>
     {
       title: t('common.category'),
       dataIndex: 'category',
+      filters: categories
+        ? categories.map(category => ({
+            text: t(`categories.${category}`),
+            value: category,
+          }))
+        : [],
+      filteredValue:
+        filters.filtering?.category?.$in ??
+        (filters.filtering?.category ? [filters.filtering?.category] : []),
+      onFilter: (value, record) => record.category === value,
       render: category => t(`categories.${category}`),
-      sorter: (a, b) =>
-        t(`categories.${a.category}`).localeCompare(`categories.${b.category}`),
     },
     {
       title: t('common.price'),
       dataIndex: 'price',
+      sortOrder:
+        filters.sorting?.field === 'price' ? filters.sorting?.order : undefined,
       sorter: (a, b) => a.price - b.price,
     },
     {
@@ -78,15 +95,16 @@ export const Products = () => {
 
   const products: Product[] = useSelector(getProducts);
   const store: Store | null = useSelector(getStore);
-  const columns = getColumns(t, store ? store._id : '');
 
   const [caller, showSpinner] = hooks.useCall();
   const [filters, setFilters] = hooks.useFilter(null, {
     storage: 'session',
     storageKey: `${store ? store._id : ''}/productFilters`,
   });
-
-  console.log(utils.filter.filtersAsQuery(filters));
+  const categories = useSelector(getUniqueCategories('level2'));
+  const columns = React.useMemo(() => {
+    return getColumns(t, store ? store._id : '', categories, filters);
+  }, [store, categories, filters]);
 
   React.useEffect(() => {
     if (!store) {
@@ -136,6 +154,7 @@ export const Products = () => {
           size='large'
           allowClear
           placeholder={t('actions.search')}
+          defaultValue={filters.searching}
           onSearch={value => {
             setFilters({ ...filters, searching: value });
           }}
@@ -158,17 +177,20 @@ export const Products = () => {
               pageSize: pagination.pageSize || 20,
               currentPage: pagination.current || 1,
             },
-            sorting: {
-              field: sorter.field,
-              order: sorter.order,
-            },
+            sorting: sorter.field
+              ? {
+                  field: sorter.field,
+                  order: sorter.order,
+                }
+              : undefined,
             filtering: {
               ...filters.filtering,
-              // ...utils.filter.multipleItemsFilter(
-              //   'status',
-              //   tableFilters.status,
-              // ),
+              ...utils.filter.multipleItemsFilter(
+                'category',
+                tableFilters.category,
+              ),
             },
+            searching: filters.searching,
           });
         }}
         rowKey='_id'

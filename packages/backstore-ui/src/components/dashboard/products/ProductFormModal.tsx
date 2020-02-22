@@ -45,7 +45,6 @@ import {
 } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
 import { possibleUnits } from '../../shared/utils/enums';
-import { parse } from 'path';
 
 interface ProductFormModalProps {
   product: Product | null;

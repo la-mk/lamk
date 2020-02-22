@@ -1,6 +1,8 @@
+import uniq from 'lodash/uniq';
 import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
 import { CascaderOptionType } from 'antd/es/cascader';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
 
 const NUM_LEVELS = 3;
 
@@ -10,6 +12,16 @@ export const getCategories = createSelector<any, any, any>(
   state => state.categories,
   categories => categories.categories,
 );
+
+export const getUniqueCategories = (level: 'level1' | 'level2' | 'level3') => {
+  return createSelector<any, any, any>(
+    state => state.categories,
+    categories =>
+      categories.categories
+        ? uniq(categories.categories.map((x: Category) => x[level]))
+        : [],
+  );
+};
 
 const getFormattedLevel = (
   group: any,

@@ -26,8 +26,9 @@ import {
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
+import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
-const getColumns = (t: T) =>
+const getColumns = (t: T, filters: FilterObject) =>
   [
     {
       title: t('common.id'),
@@ -51,11 +52,16 @@ const getColumns = (t: T) =>
     {
       title: t('common.status'),
       dataIndex: 'status',
+      filteredValue:
+        filters.filtering?.status?.$in ??
+        (filters.filtering?.status ? [filters.filtering?.status] : []),
       filters: possibleOrderStatuses.map(status => ({
         text: t(`orderStatus.${status}`),
         value: status,
       })),
       onFilter: (value, record) => record.status === value,
+      sortOrder:
+        filters.sorting?.field === 'status' ? filters.sorting.order : undefined,
       sorter: (a, b) =>
         t(`orderStatus.${a.status}`).localeCompare(
           t(`orderStatus.${b.status}`),
@@ -72,6 +78,10 @@ const getColumns = (t: T) =>
       title: t('order.orderDate'),
       dataIndex: 'createdAt',
       render: date => format(new Date(date), 'MM/dd/yyyy'),
+      sortOrder:
+        filters.sorting?.field === 'createdAt'
+          ? filters.sorting.order
+          : undefined,
       sorter: (a, b) =>
         compareAsc(new Date(a.createdAt), new Date(b.createdAt)),
     },
@@ -83,13 +93,13 @@ export const Orders = () => {
   const store = useSelector(getStore);
   const orders = useSelector(getOrders);
   const { t } = useTranslation();
-  const columns = getColumns(t);
 
   const [caller, showSpinner] = hooks.useCall();
   const [filters, setFilters] = hooks.useFilter(null, {
     storage: 'session',
     storageKey: `${store ? store._id : ''}/orderFilters`,
   });
+  const columns = getColumns(t, filters);
 
   React.useEffect(() => {
     if (!store) {
