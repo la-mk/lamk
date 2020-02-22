@@ -14,9 +14,7 @@
     "build": "tsc",
     "dev": "nodemon",
     "test": "jest --ci",
-    "test:watch": "jest --watch --coverage -u",
-    "test:integration": "jest --config '{\"testMatch\": [\"**/?(*.)(integration).?(m)js?(x)\"]}'",
-    "test:coverage": "jest --coverage --collectCoverageFrom=src/**/*{.js,.jsx} "
+    "test:watch": "jest --watch --coverage -u"
   },
   "husky": {
     "hooks": {
@@ -35,7 +33,7 @@
     "@types/feathersjs__socket-commons": "^3.1.4",
     "@types/got": "^9.6.9",
     "@types/helmet": "0.0.44",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^25.1.3",
     "@types/lodash": "^4.14.146",
     "@types/mime-types": "^2.1.0",
     "@types/minio": "^7.0.3",
@@ -43,20 +41,23 @@
     "@types/node": "^12.12.7",
     "@types/pino": "^5.8.13",
     "@types/uuid": "^3.4.6",
+    "@types/yaml": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.0.9",
-    "jest": "^24.8.0",
+    "jest": "^25.1.0",
     "lint-staged": "^9.4.2",
+    "mongodb-memory-server": "^6.2.4",
     "nodemon": "^1.19.4",
     "pino-pretty": "^3.3.0",
     "prettier": "^1.19.1",
-    "ts-jest": "^24.1.0",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.5.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "yaml": "^1.7.2"
   },
   "dependencies": {
     "@feathersjs/authentication": "^4.3.11",

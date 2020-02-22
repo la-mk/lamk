@@ -13,7 +13,7 @@ export const hooks = {
   before: {
     all: [],
     find: [authenticate('jwt'), queryWithCurrentUser({ as: 'addressFor' })],
-    get: [authenticate('jwt'), queryWithCurrentUser({ as: 'addressFor' })],
+    get: [authenticate('jwt'), restrictToOwner({ ownerField: 'addressFor' })],
     // We only support shipping to Macedonia so far.
     create: [
       authenticate('jwt'),

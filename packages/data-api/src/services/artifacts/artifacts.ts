@@ -81,17 +81,17 @@ class ArtifactsService implements Service<ArtifactsServiceData> {
 
 export const artifacts = (app: Application) => {
   const minioClient = new Minio.Client({
-    endPoint: env.STORAGE_ENDPOINT,
-    useSSL: env.NODE_ENV === 'production',
-    accessKey: env.STORAGE_ACCESS_KEY_ID,
-    secretKey: env.STORAGE_ACCESS_KEY_SECRET,
+    endPoint: env().STORAGE_ENDPOINT,
+    useSSL: env().NODE_ENV === 'production',
+    accessKey: env().STORAGE_ACCESS_KEY_ID,
+    secretKey: env().STORAGE_ACCESS_KEY_SECRET,
   });
 
   app.use(
     '/artifacts',
     new ArtifactsService({
       client: minioClient,
-      bucket: env.STORAGE_BUCKET_NAME,
+      bucket: env().STORAGE_BUCKET_NAME,
     }),
   );
   const service = app.service('artifacts');

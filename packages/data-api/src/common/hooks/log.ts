@@ -4,7 +4,7 @@ import { HookContext } from '@feathersjs/feathers';
 import env from '../env';
 
 export const log = (context: HookContext) => {
-  if (env.NODE_ENV === 'development') {
+  if (env().NODE_ENV === 'development') {
     logger.info(
       `${context.type} app.service('${context.path}').${context.method}()`,
     );

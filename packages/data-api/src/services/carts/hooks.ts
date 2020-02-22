@@ -14,7 +14,7 @@ export const hooks = {
   before: {
     all: [],
     find: [authenticate('jwt'), queryWithCurrentUser({ as: 'forUser' })],
-    get: [authenticate('jwt'), queryWithCurrentUser({ as: 'forUser' })],
+    get: [authenticate('jwt'), restrictToOwner({ ownerField: 'forUser' })],
     create: [
       disallow('socketio', 'primus', 'rest', 'external'),
       authenticate('jwt'),
@@ -33,7 +33,7 @@ export const hooks = {
       validate(sdk.cart.validate),
     ],
     // Only allow server to be able to remove a cart
-    remove: [disallow('socketio', 'primus', 'rest', 'external')],
+    remove: [disallow('external')],
   },
 
   after: {

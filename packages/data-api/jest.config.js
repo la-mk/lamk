@@ -3,8 +3,7 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  setupFiles: ['dotenv/config'],
-  globalSetup: './jest.setup.js',
-  globalTeardown: './jest.teardown.js',
+  globalSetup: './jest.setup.ts',
+  globalTeardown: './jest.teardown.ts',
   collectCoverageFrom: ['src/**/*{.ts,.tsx}'],
 };

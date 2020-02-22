@@ -57,11 +57,11 @@ class EmailService implements Service<EmailServiceData> {
 
 export const email = (app: Application) => {
   const mailClient = sendgridClient;
-  mailClient.setApiKey(env.MAIL_SERVICE_API_KEY);
+  mailClient.setApiKey(env().MAIL_SERVICE_API_KEY);
 
   app.use(
     '/email',
-    new EmailService({ mailClient, isProd: env.NODE_ENV === 'production' }),
+    new EmailService({ mailClient, isProd: env().NODE_ENV === 'production' }),
   );
   const service = app.service('email');
   service.hooks(hooks);

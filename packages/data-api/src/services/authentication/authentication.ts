@@ -6,14 +6,14 @@ import env from '../../common/env';
 
 export const authentication = (app: Application) => {
   app.set('authentication', {
-    secret: env.JWT_SECRET,
+    secret: env().JWT_SECRET,
     entity: 'user',
     service: 'users',
     authStrategies: ['jwt', 'local'],
     jwtOptions: {
       header: { typ: 'access' },
-      audience: env.HOST,
-      issuer: env.HOST,
+      audience: env().HOST,
+      issuer: env().HOST,
       algorithm: 'HS256',
       expiresIn: '10d',
     },

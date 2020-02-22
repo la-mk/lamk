@@ -46,7 +46,7 @@ export const hooks = {
   before: {
     all: [],
     find: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
-    get: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
+    get: [authenticate('jwt'), restrictToOwner({ ownerField: '_id' })],
     create: [
       hashPassword('password'),
       unique(['email']),

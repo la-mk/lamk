@@ -21,7 +21,7 @@ import { initMongoClient } from './mongo';
 import env from '../common/env';
 
 export default async () => {
-  initLogger({ env: env.NODE_ENV });
+  initLogger({ env: env().NODE_ENV });
   registerUnhandledErrorHandlers(getSyncLogger);
 
   const app = express(feathers());
