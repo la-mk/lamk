@@ -12,7 +12,8 @@ interface SortFilterProps {
 type SortValues = 'recommended' | 'cheap' | 'expensive';
 
 const getSortValue = (sort: FilterObject['sorting']): SortValues => {
-  if (isEmpty(sort)) {
+  // Currently we don't have a ranking system, so we just use createdAt as te one.
+  if (isEmpty(sort) || sort.field === 'createdAt') {
     return 'recommended';
   }
 
