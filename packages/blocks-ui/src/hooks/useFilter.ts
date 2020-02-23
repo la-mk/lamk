@@ -169,7 +169,8 @@ export const useFilter = (
       const listener = () => {
         const storageState = getStorageState(storage, storageKey);
         if(!isEqual(filters, storageState)){
-          setFilters(storageState);
+          const normalized = resetPaginationIfNecessary(filters, storageState);
+          setFilters(normalized);
         }
       };
 
