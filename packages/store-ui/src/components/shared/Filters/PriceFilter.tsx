@@ -1,7 +1,9 @@
 import isNumber from 'lodash/isNumber';
+import toNumber from 'lodash/toNumber';
 import React, { useState, useEffect } from 'react';
 import { InputNumber, Slider, Flex, Text, utils } from '@sradevski/blocks-ui';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { isString } from 'util';
 
 const parsePriceFilter = (
   filtering: FilterObject['filtering'],
@@ -13,12 +15,14 @@ const parsePriceFilter = (
   }
 
   // If it is an exact value, set that to be both from and to
-  if (isNumber(filtering.price)) {
-    return [filtering.price, filtering.price];
+  if (isString(filtering.price) || isNumber(filtering.price)) {
+    return [toNumber(filtering.price), toNumber(filtering.price)];
   }
 
-  const fromPrice = filtering.price.$gt || filtering.price.$gte || min;
-  const toPrice = filtering.price.$lt || filtering.price.$lte || max;
+  const fromPrice = toNumber(
+    filtering.price.$gt || filtering.price.$gte || min,
+  );
+  const toPrice = toNumber(filtering.price.$lt || filtering.price.$lte || max);
 
   return [fromPrice, toPrice];
 };

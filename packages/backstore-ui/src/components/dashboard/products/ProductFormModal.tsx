@@ -47,7 +47,7 @@ import { useCategories } from '../../shared/hooks/useCategories';
 import { possibleUnits } from '../../shared/utils/enums';
 
 interface ProductFormModalProps {
-  product: Product | null;
+  product: Product | undefined;
   onClose: () => void;
   visible: boolean;
 }

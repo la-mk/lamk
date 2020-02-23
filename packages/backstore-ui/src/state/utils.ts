@@ -4,7 +4,7 @@ import { purgeStoredState, persistReducer, PersistConfig } from 'redux-persist';
 
 export const enhanceReducer = (
   reducer: Reducer<any, Action<any>>,
-  storageConfig?: PersistConfig,
+  storageConfig?: PersistConfig<any>,
 ) => {
   const enhancedReducer = storageConfig
     ? persistReducer(storageConfig, reducer)

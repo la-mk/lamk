@@ -89,7 +89,9 @@ const getColumns = (
 
 export const Products = () => {
   const [showModal, setShowModal] = useState(false);
-  const [editingProduct, setEditingProduct] = useState();
+  const [editingProduct, setEditingProduct] = useState<Product | undefined>(
+    undefined,
+  );
   const [total, setTotal] = useState<number | undefined>();
   const { t } = useTranslation();
 
@@ -101,7 +103,7 @@ export const Products = () => {
     storage: 'session',
     storageKey: `${store ? store._id : ''}/productFilters`,
   });
-  const categories = useSelector(getUniqueCategories('level2'));
+  const categories = useSelector(getUniqueCategories('level3'));
   const columns = React.useMemo(() => {
     return getColumns(t, store ? store._id : '', categories, filters);
   }, [store, categories, filters]);

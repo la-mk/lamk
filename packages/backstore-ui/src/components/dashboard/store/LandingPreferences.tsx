@@ -22,6 +22,7 @@ import {
   getImageUploader,
 } from '../../shared/utils/artifacts';
 import { UploadChangeParam } from 'antd/lib/upload';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 export const LandingPreferences = () => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ export const LandingPreferences = () => {
   );
 
   // TODO: We need ot make uploading work better with `fileList` instead of `defaultFilelist`, without keeping local state everywhere.
-  const [fileList, setFileList] = useState();
+  const [fileList, setFileList] = useState<UploadFile<any>[] | undefined>();
 
   useEffect(() => {
     if (storeContents && storeContents.landing) {
@@ -43,7 +44,7 @@ export const LandingPreferences = () => {
         getDefaultFileList(storeContents.landing.banner || [], store._id),
       );
     }
-  }, [storeContents]);
+  }, [storeContents, store._id]);
 
   useEffect(() => {
     if (!store) {
