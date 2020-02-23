@@ -26,9 +26,6 @@ export const schema = {
   price: v8n()
     .number(false)
     .positive(),
-  discountPercentage: v8n()
-    .number()
-    .positive(),
   unit: v8n().oneOf(['item', 'pack', 'm2', 'm', 'cm', 'mm', 'kg', 'g']),
   images: v8n()
     .every.string()
