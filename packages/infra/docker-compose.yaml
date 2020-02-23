@@ -81,7 +81,7 @@ services:
       TYPESENSE_API_KEY: $SEARCH_SERVICE_API_KEY
 
   data-api:
-    image: lamk/data-api:1.0.25
+    image: lamk/data-api:1.0.26
     container_name: data-api
     restart: always
     networks:
@@ -120,7 +120,7 @@ services:
       SEARCH_SERVICE_ENDPOINT: search.${SYSTEM_TLD}
 
   store-ui:
-    image: lamk/store-ui:1.0.24
+    image: lamk/store-ui:1.0.25
     container_name: store-ui
     restart: always
     depends_on: 
@@ -184,7 +184,7 @@ services:
 
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.23
+    image: lamk/backstore-ui:1.0.24
     container_name: backstore-ui
     restart: always
     depends_on: 
