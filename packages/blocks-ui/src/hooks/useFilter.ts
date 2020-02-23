@@ -51,6 +51,7 @@ const getStorageState = (
 ) => {
   switch (storage) {
     case 'url': {
+      // TODO: Some of the parsed values can be a number, but this will return all of them as strings.
       return parseFiltersUrl(location.href);
     }
 
@@ -121,8 +122,8 @@ const addToStorage = (
 // If the filtering changes, the number of shown items potentially changes as well, so we want to reset pagination in order for it to not be larger than the total items shown
 const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: FilterObject) => {
   // This takes care of null, undefined, and an empty object, which are practically the same;
-  const isFilteringEquallyEmpty = isEmpty(filtersBefore.filtering) === isEmpty(filtersAfter.filtering);
-  const isSearchEquallyEmpty = isEmpty(filtersBefore.searching) === isEmpty(filtersAfter.searching);
+  const isFilteringEquallyEmpty = isEmpty(filtersBefore.filtering) === true && isEmpty(filtersAfter.filtering) === true;
+  const isSearchEquallyEmpty = isEmpty(filtersBefore.searching) === true && isEmpty(filtersAfter.searching) === true;
 
   const isFilteringSame = isFilteringEquallyEmpty || isEqual(filtersBefore.filtering, filtersAfter.filtering);
   const isSearchingSame = isSearchEquallyEmpty || isEqual(filtersBefore.searching, filtersAfter.searching);
