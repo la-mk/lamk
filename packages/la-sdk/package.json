@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,29 +35,29 @@
     ]
   },
   "dependencies": {
-    "@feathersjs/authentication-client": "^4.3.11",
-    "@feathersjs/feathers": "^4.3.11",
-    "@feathersjs/rest-client": "^4.3.11",
-    "@feathersjs/socketio-client": "^4.3.11",
+    "@feathersjs/authentication-client": "^4.5.1",
+    "@feathersjs/feathers": "^4.5.1",
+    "@feathersjs/rest-client": "^4.5.1",
+    "@feathersjs/socketio-client": "^4.5.1",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "socket.io-client": "^2.3.0",
     "v8n": "^1.3.3"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.146",
+    "@types/lodash": "^4.14.149",
     "@types/socket.io-client": "^1.4.32",
-    "@typescript-eslint/eslint-plugin": "^2.7.0",
-    "@typescript-eslint/parser": "^2.7.0",
-    "concurrently": "^5.0.0",
-    "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-jest": "^23.0.3",
-    "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^3.0.9",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.4.2",
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
+    "concurrently": "^5.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-jest": "^23.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^3.1.0",
+    "jest": "^25.1.0",
+    "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "typescript": "^3.7.2"
+    "typescript": "^3.8.2"
   }
 }
