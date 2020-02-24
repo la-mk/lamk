@@ -144,10 +144,13 @@ export const Orders = () => {
               pageSize: pagination.pageSize || 20,
               currentPage: pagination.current || 1,
             },
-            sorting: {
-              field: sorter.field,
-              order: sorter.order,
-            },
+            sorting:
+              sorter.field && sorter.order
+                ? {
+                    field: sorter.field,
+                    order: sorter.order,
+                  }
+                : undefined,
             filtering: {
               ...filters.filtering,
               ...utils.filter.multipleItemsFilter(

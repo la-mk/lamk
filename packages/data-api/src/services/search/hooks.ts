@@ -6,17 +6,31 @@ import {
 import { HookContext } from '@feathersjs/feathers';
 import { convertQueryToNumber } from '../../common/hooks/db';
 
+// Mutates the passed items array
+const sortAsOther = (items: Array<{ _id: string }>, as: string[]) => {
+  const asMap = as.reduce((asMap: { [id: string]: number }, x, index) => {
+    asMap[x] = index;
+    return asMap;
+  }, {});
+
+  // Sort based on the index in the `as` array, set to the largest if not in map
+  items.sort(
+    (a, b) => (asMap[a._id] ?? as.length) - (asMap[b._id] ?? as.length),
+  );
+};
+
 const convertFindToStandardResponse = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['find']);
   const { result, params } = ctx;
   const total = result.found;
   const itemIds = result.hits.map((hit: any) => hit.document.id);
   const items = await ctx.app.services[params.query?.model].find({
-    query: { _id: { $in: itemIds }, $sort: params.query?.$sort ?? {} },
+    query: { _id: { $in: itemIds } },
   });
 
   // The current search engine only allows up to 500 results.
   items.total = total > 500 ? 500 : total;
+  sortAsOther(items.data, itemIds);
   // eslint-disable-next-line
   ctx.result = items;
 };

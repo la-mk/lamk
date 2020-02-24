@@ -174,17 +174,19 @@ export const Products = () => {
           pageSize: filters.pagination ? filters.pagination.pageSize : 20,
         }}
         onChange={(pagination, tableFilters, sorter) => {
+          console.log(sorter);
           setFilters({
             pagination: {
               pageSize: pagination.pageSize || 20,
               currentPage: pagination.current || 1,
             },
-            sorting: sorter.field
-              ? {
-                  field: sorter.field,
-                  order: sorter.order,
-                }
-              : undefined,
+            sorting:
+              sorter.field && sorter.order
+                ? {
+                    field: sorter.field,
+                    order: sorter.order,
+                  }
+                : undefined,
             filtering: {
               ...filters.filtering,
               ...utils.filter.multipleItemsFilter(
