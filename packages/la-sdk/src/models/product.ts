@@ -28,6 +28,7 @@ export const schema = {
     .positive(),
   unit: v8n().oneOf(['item', 'pack', 'm2', 'm', 'cm', 'mm', 'kg', 'g']),
   images: v8n()
+    .maxLength(10)
     .every.string()
     .every.minLength(2)
     .every.maxLength(2047),
@@ -54,6 +55,11 @@ export const schema = {
       .number()
       .not.negative(),
   ),
+  groups: v8n()
+    .maxLength(10)
+    .every.string()
+    .every.minLength(2)
+    .every.maxLength(127),
   // createdAt is optional as it is added by server on creation.
   createdAt: v8n().optional(
     v8n()
@@ -82,6 +88,7 @@ export interface Product {
   description?: string;
   sku: string;
   stock?: number;
+  groups: string[];
   createdAt: string;
   modifiedAt: string;
 }

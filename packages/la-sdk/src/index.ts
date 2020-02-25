@@ -13,6 +13,7 @@ import { getUserSdk } from './models/user';
 import { getAuthenticationSdk } from './models/authentication';
 import { getCartSdk } from './models/cart';
 import { getAddressSdk } from './models/address/address';
+import { getProductGroupSdk } from './models/productGroup';
 import * as utils from './utils/modelUtils';
 
 // eslint-disable-next-line
@@ -31,6 +32,7 @@ export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
     user: getUserSdk(client),
     cart: getCartSdk(client),
     address: getAddressSdk(client),
+    productGroup: getProductGroupSdk(client),
     authentication: getAuthenticationSdk(client),
     request: (serviceName: string) => getCrudMethods(client, serviceName),
     utils,
