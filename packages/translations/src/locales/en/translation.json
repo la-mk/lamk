@@ -162,6 +162,8 @@
 		"addProductSuccess": "Successfully added a new product",
 		"addingProductTip": "Adding product...",
 		"descriptionExample": "eg. High quality sneakers",
+		"groups": "Groups",
+		"groupsTip": "Groups are used to logically group products. You can have up to 10 groups per product",
 		"nameExample": "eg. Nike Air Max",
 		"priceExample": "eg. 500",
 		"productDeleted": "Product {{id}} successfully deleted",
