@@ -7,40 +7,11 @@ import {
 } from 'feathers-authentication-hooks';
 import { validate } from '../../common/hooks/db';
 import { sdk } from '@sradevski/la-sdk';
-import { discard, checkContext } from 'feathers-hooks-common';
-import { HookContext } from '@feathersjs/feathers';
+import { discard } from 'feathers-hooks-common';
+import { createCartForUser, removeCartForUser } from './serviceHooks/carts';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
-
-const createCartForUser = async (ctx: HookContext) => {
-  checkContext(ctx, 'after', ['create']);
-  const user = ctx.result;
-  const existingUserCart = await ctx.app.services['carts'].find({
-    query: { forUser: user._id },
-  });
-
-  if (existingUserCart.total > 0) {
-    return;
-  }
-
-  await ctx.app.services['carts'].create({ forUser: user._id, items: [] });
-};
-
-const removeCartForUser = async (ctx: HookContext) => {
-  checkContext(ctx, 'after', ['remove']);
-
-  const user = ctx.result;
-  const userCart = await ctx.app.services['carts'].find({
-    query: { forUser: user._id },
-  });
-
-  if (userCart.total === 0) {
-    return;
-  }
-
-  await ctx.app.services['carts'].remove(userCart.data[0]._id);
-};
 
 export const hooks = {
   before: {

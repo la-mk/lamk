@@ -48,7 +48,6 @@ export interface ProductGroup {
   forStore: string;
   groupName: string;
   itemCountInGroup: number;
-  freeDeliveryOver: number;
   createdAt?: string;
   modifiedAt?: string;
 }

@@ -95,3 +95,14 @@ export const convertQueryToNumber = (fields: Set<string>) => {
     convertObjToNumber(fields, query);
   };
 };
+
+export const removeDuplicates = (field: string) => {
+  return (context: HookContext) => {
+    checkContext(context, 'before', ['create', 'patch']);
+    if (!Array.isArray(context.data[field])) {
+      throw new BadRequest(`${field} has to be an array`);
+    }
+
+    context.data[field] = _.uniq(context.data[field] ?? []);
+  };
+};
