@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import throttle from 'lodash/throttle';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Flex,
@@ -45,6 +46,7 @@ import {
 } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
 import { possibleUnits } from '../../shared/utils/enums';
+import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
 
 interface ProductFormModalProps {
   product: Product | undefined;
@@ -59,13 +61,15 @@ export const ProductFormModal = ({
 }: ProductFormModalProps) => {
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
+  const [groupsCaller, groupsLoading] = hooks.useCall();
+  const [groups, setGroups] = useState<string[] | undefined>();
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;
   const [categories, groupedCategories] = useCategories(t);
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
   const [externalState] = hooks.useFormState<Product>(
     product,
-    { soldBy: storeId, unit: 'item' },
+    { soldBy: storeId, unit: 'item', groups: [] },
     [product, storeId],
   );
 
@@ -78,6 +82,17 @@ export const ProductFormModal = ({
       setCategories(categories.data),
     );
   }, [caller, categories]);
+
+  const fetchProductGroups = throttle(
+    () => {
+      groupsCaller<FindResult<ProductGroup>>(
+        sdk.productGroup.findForStore(storeId),
+        productGroups => setGroups(productGroups.data.map(x => x.groupName)),
+      );
+    },
+    5000,
+    { leading: true, trailing: false },
+  );
 
   const handlePatchProduct = (product: Product) => {
     caller<Product>(sdk.product.patch(product._id, product), product => {
@@ -159,7 +174,7 @@ export const ProductFormModal = ({
 
             <Col md={12} span={24}>
               <FormItem label={t('common.category')} selector='category'>
-                {(val, _onChange, onComplete) => (
+                {(_val, _onChange, onComplete) => (
                   <Cascader
                     options={groupedCategories || []}
                     onChange={value => {
@@ -255,7 +270,41 @@ export const ProductFormModal = ({
               </FormItem>
             </Col>
           </Row>
-
+          <Row gutter={24}>
+            <Col md={24} span={24}>
+              <FormItem
+                help={t('product.groupsTip')}
+                label={t('product.groups')}
+                selector='groups'
+              >
+                {(val, _onChange, onComplete) => (
+                  <Select
+                    mode='tags'
+                    value={val}
+                    onChange={onComplete}
+                    onFocus={fetchProductGroups}
+                    tokenSeparators={[',']}
+                    maxTagTextLength={127}
+                    notFoundContent={
+                      groupsLoading ? <Spin size='small' /> : null
+                    }
+                  >
+                    {groups && !groupsLoading
+                      ? groups
+                          .filter(x => !val || !val.includes(x))
+                          .map(option => {
+                            return (
+                              <Option key={option} value={option}>
+                                {option}
+                              </Option>
+                            );
+                          })
+                      : null}
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+          </Row>
           <FormItem selector='images'>
             {(val, _onChange, onComplete) => (
               <UploadDragger
