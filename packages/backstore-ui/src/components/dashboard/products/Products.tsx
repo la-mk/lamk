@@ -10,6 +10,7 @@ import {
   utils,
   Search,
   Box,
+  Tag,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
@@ -60,6 +61,13 @@ const getColumns = (
       dataIndex: 'sku',
     },
     {
+      title: t('common.price'),
+      dataIndex: 'price',
+      sortOrder:
+        filters.sorting?.field === 'price' ? filters.sorting?.order : undefined,
+      sorter: (a, b) => a.price - b.price,
+    },
+    {
       title: t('common.category'),
       dataIndex: 'category',
       filters: categories
@@ -75,15 +83,21 @@ const getColumns = (
       render: category => t(`categories.${category}`),
     },
     {
-      title: t('common.price'),
-      dataIndex: 'price',
-      sortOrder:
-        filters.sorting?.field === 'price' ? filters.sorting?.order : undefined,
-      sorter: (a, b) => a.price - b.price,
-    },
-    {
-      title: t('common.description'),
-      dataIndex: 'description',
+      title: t('product.groups'),
+      dataIndex: 'groups',
+      render: (groups: Product['groups']) => {
+        if (!groups || !groups.length) {
+          return null;
+        }
+
+        return (
+          <Flex flexWrap={'wrap'}>
+            {groups.map(group => (
+              <Tag m={1}>{group}</Tag>
+            ))}
+          </Flex>
+        );
+      },
     },
   ] as ColumnProps<Product>[];
 
