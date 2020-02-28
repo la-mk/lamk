@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,12 +39,14 @@
     "@feathersjs/feathers": "^4.5.1",
     "@feathersjs/rest-client": "^4.5.1",
     "@feathersjs/socketio-client": "^4.5.1",
+    "bluebird": "^3.7.2",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "socket.io-client": "^2.3.0",
     "v8n": "^1.3.3"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.29",
     "@types/lodash": "^4.14.149",
     "@types/socket.io-client": "^1.4.32",
     "@typescript-eslint/eslint-plugin": "^2.20.0",

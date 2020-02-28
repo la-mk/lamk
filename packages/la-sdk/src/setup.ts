@@ -1,3 +1,4 @@
+import Bluebird from 'bluebird';
 import feathers from '@feathersjs/feathers';
 import socketio from '@feathersjs/socketio-client';
 import rest from '@feathersjs/rest-client';
@@ -62,5 +63,30 @@ export function getCrudMethods<T, U>(client: Application, serviceName: string) {
       client.service(serviceName).patch(id, data, params) as Promise<U>,
     remove: (id: NullableId, params?: Params) =>
       client.service(serviceName).remove(id, params) as Promise<U>,
+    batchPatch: (ids: Id[], data: PatchData<T>, params?: Params) => {
+      if (!ids || !ids.length) {
+        return Promise.resolve([]);
+      }
+      return Bluebird.map(
+        ids,
+        id => {
+          return client.service(serviceName).patch(id, data, params);
+        },
+        { concurrency: 10 },
+      ) as Promise<U[]>;
+    },
+    batchRemove: (ids: Id[], params?: Params) => {
+      if (!ids || !ids.length) {
+        return Promise.resolve([]);
+      }
+
+      return Bluebird.map(
+        ids,
+        id => {
+          return client.service(serviceName).remove(id, params);
+        },
+        { concurrency: 10 },
+      ) as Promise<U[]>;
+    },
   };
 }
