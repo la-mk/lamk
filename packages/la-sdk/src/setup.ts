@@ -63,6 +63,8 @@ export function getCrudMethods<T, U>(client: Application, serviceName: string) {
       client.service(serviceName).patch(id, data, params) as Promise<U>,
     remove: (id: NullableId, params?: Params) =>
       client.service(serviceName).remove(id, params) as Promise<U>,
+
+    // Currently we don't allow for actions on multiple actions in a single request in the API, but we can easily switch to it without any code changes to sdk clients
     batchPatch: (ids: Id[], data: PatchData<T>, params?: Params) => {
       if (!ids || !ids.length) {
         return Promise.resolve([]);

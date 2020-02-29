@@ -27,6 +27,14 @@ export const schema = {
     .number(false)
     .positive(),
   unit: v8n().oneOf(['item', 'pack', 'm2', 'm', 'cm', 'mm', 'kg', 'g']),
+  discount: v8n().optional(
+    v8n().schema({
+      value: v8n()
+        .number(false)
+        .positive(),
+      unit: v8n().oneOf(['%', 'ден']),
+    }),
+  ),
   images: v8n()
     .maxLength(10)
     .every.string()
@@ -83,6 +91,10 @@ export interface Product {
   name: string;
   price: number;
   unit: string;
+  discount?: {
+    value: number;
+    unit: '%' | 'ден';
+  };
   images: string[];
   category: string;
   description?: string;
