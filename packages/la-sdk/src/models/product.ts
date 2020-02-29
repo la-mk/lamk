@@ -23,10 +23,10 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(255),
+  unit: v8n().oneOf(['item', 'pack', 'm2', 'm', 'cm', 'mm', 'kg', 'g']),
   price: v8n()
     .number(false)
     .positive(),
-  unit: v8n().oneOf(['item', 'pack', 'm2', 'm', 'cm', 'mm', 'kg', 'g']),
   discount: v8n().optional(
     v8n().schema({
       value: v8n()
@@ -34,6 +34,12 @@ export const schema = {
         .positive(),
       unit: v8n().oneOf(['%', 'ден']),
     }),
+  ),
+  // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
+  calculatedPrice: v8n().optional(
+    v8n()
+      .number(false)
+      .positive(),
   ),
   images: v8n()
     .maxLength(10)
@@ -89,12 +95,13 @@ export interface Product {
   _id: string;
   soldBy: string;
   name: string;
-  price: number;
   unit: string;
+  price: number;
   discount?: {
     value: number;
     unit: '%' | 'ден';
   };
+  calculatedPrice: number;
   images: string[];
   category: string;
   description?: string;
