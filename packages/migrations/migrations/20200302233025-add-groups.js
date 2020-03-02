@@ -4,6 +4,6 @@ module.exports = {
   },
 
   async down(db, client) {
-    await db.collection('products').updateMany({}, {$unset: 'groups'});
+    await db.collection('products').updateMany({}, {$unset: {groups: ""}});
   }
 };
