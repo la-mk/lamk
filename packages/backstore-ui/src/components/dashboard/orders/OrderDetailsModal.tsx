@@ -53,7 +53,9 @@ const getTotalPriceForProduct = (order: Order, product: Product) => {
     item => item.product._id === product._id,
   );
 
-  return orderItem ? orderItem.quantity * orderItem.product.price : null;
+  return orderItem
+    ? orderItem.quantity * orderItem.product.calculatedPrice
+    : null;
 };
 
 export const OrderDetailsModal = ({
@@ -91,7 +93,9 @@ export const OrderDetailsModal = ({
   };
 
   const subtotal = order
-    ? sum(order.ordered.map(item => item.quantity * item.product.price))
+    ? sum(
+        order.ordered.map(item => item.quantity * item.product.calculatedPrice),
+      )
     : 0;
   const shippingCost = order
     ? order.delivery.freeDeliveryOver < subtotal

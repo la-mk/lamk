@@ -11,6 +11,7 @@ import {
   Search,
   Box,
   Tag,
+  Text,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
@@ -62,10 +63,15 @@ const getColumns = (
     },
     {
       title: t('common.price'),
-      dataIndex: 'price',
+      dataIndex: 'calculatedPrice',
       sortOrder:
-        filters.sorting?.field === 'price' ? filters.sorting?.order : undefined,
-      sorter: (a, b) => a.price - b.price,
+        filters.sorting?.field === 'calculatedPrice'
+          ? filters.sorting?.order
+          : undefined,
+      sorter: (a, b) => a.calculatedPrice - b.calculatedPrice,
+      render: (val, record) => (
+        <Text type={record.discount ? 'danger' : undefined}>{val}</Text>
+      ),
     },
     {
       title: t('common.category'),
@@ -188,7 +194,6 @@ export const Products = () => {
           pageSize: filters.pagination ? filters.pagination.pageSize : 20,
         }}
         onChange={(pagination, tableFilters, sorter) => {
-          console.log(sorter);
           setFilters({
             pagination: {
               pageSize: pagination.pageSize || 20,

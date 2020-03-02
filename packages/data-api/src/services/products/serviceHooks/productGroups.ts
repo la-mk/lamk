@@ -12,6 +12,10 @@ const createProductGroupsIfNotExist = async (
   forStore: string,
   ctx: HookContext,
 ) => {
+  if (groupNames.length <= 0) {
+    return;
+  }
+
   const existingGroups: FindResult<ProductGroup> = await ctx.app.services[
     'productGroups'
   ].find({
@@ -54,6 +58,10 @@ const removeOprhanedProductGroups = async (
   forStore: string,
   ctx: HookContext,
 ) => {
+  if (groupNames.length <= 0) {
+    return;
+  }
+
   const groups: FindResult<ProductGroup> = await ctx.app.services[
     'productGroups'
   ].find({
@@ -68,6 +76,10 @@ const removeOprhanedProductGroups = async (
     groups.data,
     group => group.itemCountInGroup <= 1,
   );
+
+  if (orphanedGroups.length <= 0) {
+    return;
+  }
 
   await Promise.all(
     groupsToPatch.map(async group => {
@@ -109,14 +121,18 @@ export const patchProductGroups = async (
   checkContext(ctx, 'after', ['patch']);
   const product = ctx.result;
   const previousProduct = ctx.beforeState;
+  const removedGroups = _.difference(
+    previousProduct?.groups ?? [],
+    product.groups,
+  );
+  const addedGroups = _.difference(
+    product.groups,
+    previousProduct?.groups ?? [],
+  );
 
   try {
-    await removeOprhanedProductGroups(
-      previousProduct?.groups ?? [],
-      product.soldBy,
-      ctx,
-    );
-    await createProductGroupsIfNotExist(product.groups, product.soldBy, ctx);
+    await removeOprhanedProductGroups(removedGroups, product.soldBy, ctx);
+    await createProductGroupsIfNotExist(addedGroups, product.soldBy, ctx);
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
     logger.error(err);

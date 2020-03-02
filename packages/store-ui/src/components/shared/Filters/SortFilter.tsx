@@ -17,11 +17,11 @@ const getSortValue = (sort: FilterObject['sorting']): SortValues => {
     return 'recommended';
   }
 
-  if (sort.field === 'price' && sort.order === 'ascend') {
+  if (sort.field === 'calculatedPrice' && sort.order === 'ascend') {
     return 'cheap';
   }
 
-  if (sort.field === 'price' && sort.order === 'descend') {
+  if (sort.field === 'calculatedPrice' && sort.order === 'descend') {
     return 'expensive';
   }
 };
@@ -32,11 +32,11 @@ const getSortFromValue = (value: SortValues): FilterObject['sorting'] => {
   }
 
   if (value === 'cheap') {
-    return { field: 'price', order: 'ascend' };
+    return { field: 'calculatedPrice', order: 'ascend' };
   }
 
   if (value === 'expensive') {
-    return { field: 'price', order: 'descend' };
+    return { field: 'calculatedPrice', order: 'descend' };
   }
 };
 

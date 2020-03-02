@@ -2,6 +2,7 @@ import React from 'react';
 import { Flex, Text, Card, Image } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from '../../common/i18n';
+import { Price } from '../shared/Price';
 
 export const OrderProductCard = ({
   orderItem,
@@ -28,7 +29,11 @@ export const OrderProductCard = ({
         </Flex>
         <Flex ml={4} width='100%' flexDirection='row'>
           <Flex flexDirection='column'>
-            <Text>{orderItem.product.price} ден</Text>
+            <Price
+              calculatedPrice={orderItem.product.calculatedPrice}
+              basePrice={orderItem.product.price}
+              currency='ден'
+            />
             <Text mt={2}>
               {orderItem.quantity} {t('common.items')}
             </Text>

@@ -27,6 +27,7 @@ import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
 import { getStore } from '../../state/modules/store/store.selector';
+import { Price } from '../shared/Price';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall();
@@ -145,7 +146,11 @@ export const Cart = () => {
                         justifyContent='space-between'
                         alignItems='center'
                       >
-                        <Text>{cartItem.product.price} ден</Text>
+                        <Price
+                          calculatedPrice={cartItem.product.calculatedPrice}
+                          basePrice={cartItem.product.price}
+                          currency='ден'
+                        />
                         <InputNumber
                           width='80px'
                           size='default'
@@ -158,7 +163,8 @@ export const Cart = () => {
                           mx={2}
                         />
                         <Text strong>
-                          {cartItem.quantity * cartItem.product.price} ден
+                          {cartItem.quantity * cartItem.product.calculatedPrice}{' '}
+                          ден
                         </Text>
                       </Flex>
                     </Flex>

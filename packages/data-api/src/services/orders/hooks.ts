@@ -42,7 +42,10 @@ const validateOrderedItems = async (ctx: HookContext) => {
       throw new BadRequest('A product in the cart no longer exists');
     }
 
-    if (dbProduct.price !== orderItem.product.price) {
+    if (
+      dbProduct.price !== orderItem.product.price ||
+      dbProduct.calculatedPrice !== orderItem.product.calculatedPrice
+    ) {
       throw new BadRequest(
         'The price of a product in your cart changed, refresh the page and try again',
       );

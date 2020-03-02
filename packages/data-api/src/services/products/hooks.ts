@@ -35,6 +35,7 @@ import {
   patchProductGroups,
   createProductGroups,
 } from './serviceHooks/productGroups';
+import { BadRequest } from '../../common/errors';
 
 export interface HookContextWithState<T> extends HookContext {
   beforeState?: T;
@@ -46,7 +47,34 @@ const assignPreviousProduct = async (ctx: HookContext) => {
   (ctx as HookContextWithState<Product>).beforeState = product;
 };
 
-const numberFieldsSet = new Set(['price']);
+const calculatePrice = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create', 'patch']);
+  // If we are creating the object, we are sure the price field is present.
+  if (ctx.method === 'create') {
+    ctx.data.calculatedPrice = ctx.data.price - ctx.data.discount ?? 0;
+    if (ctx.data.calculatedPrice <= 0) {
+      throw new BadRequest('Product has to have a positive price');
+    }
+    return;
+  }
+
+  // If both the price and discount were not updated, there is no need to recalculate price.
+  if (!ctx.data.price && ctx.data.discount) {
+    return;
+  }
+
+  // If we are patching, and we only patch either just price or discount, we won't have all info to calculate the final price.
+  const product = await ctx.app.services['products'].get(ctx.id);
+  ctx.data.calculatedPrice =
+    (ctx.data.price ?? product.price) -
+    (ctx.data.discount ?? product.discount ?? 0);
+
+  if (ctx.data.calculatedPrice <= 0) {
+    throw new BadRequest('Product has to have a positive price');
+  }
+};
+
+const numberFieldsSet = new Set(['price', 'discount', 'calculatedPrice']);
 
 export const hooks = {
   before: {
@@ -59,16 +87,18 @@ export const hooks = {
     create: [
       authenticate('jwt'),
       associateCurrentUser({ as: 'soldBy' }),
-      removeDuplicates('groups'),
       validate(sdk.product.validate),
+      removeDuplicates('groups'),
+      calculatePrice,
     ],
     patch: [
       authenticate('jwt'),
       restrictToOwner({ ownerField: 'soldBy' }),
       assignPreviousProduct,
       discard('_id'),
-      removeDuplicates('groups'),
       validate(sdk.product.validate),
+      removeDuplicates('groups'),
+      calculatePrice,
     ],
     remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'soldBy' })],
   },
@@ -82,8 +112,10 @@ export const hooks = {
         keep(
           '_id',
           'name',
-          'price',
           'unit',
+          'price',
+          'discount',
+          'calculatedPrice',
           'category',
           'images',
           'description',
@@ -100,8 +132,10 @@ export const hooks = {
         keep(
           '_id',
           'name',
-          'price',
           'unit',
+          'price',
+          'discount',
+          'calculatedPrice',
           'category',
           'images',
           'description',

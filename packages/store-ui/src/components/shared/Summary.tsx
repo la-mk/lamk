@@ -34,7 +34,9 @@ export const Summary = ({
     }
   }, [delivery]);
 
-  const subtotal = sum(items.map(item => item.quantity * item.product.price));
+  const subtotal = sum(
+    items.map(item => item.quantity * item.product.calculatedPrice),
+  );
   const shippingCost =
     !delivery || delivery.freeDeliveryOver < subtotal ? 0 : delivery.price;
   const total = subtotal + shippingCost;

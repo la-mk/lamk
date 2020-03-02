@@ -191,7 +191,7 @@ export const ProductFormModal = ({
             </Col>
           </Row>
           <Row gutter={24}>
-            <Col md={6} span={24}>
+            <Col md={8} span={24}>
               <FormItem
                 label={t('common.price')}
                 selector='price'
@@ -221,7 +221,36 @@ export const ProductFormModal = ({
                 }}
               </FormItem>
             </Col>
-            <Col md={6} span={24}>
+            <Col md={8} span={24}>
+              <FormItem
+                label={t('product.discount')}
+                selector='discount'
+                parser={parsers.number}
+              >
+                {(
+                  val: any,
+                  onChange: (val: any) => void,
+                  onComplete: (val: any) => void,
+                ) => {
+                  return (
+                    <InputNumber
+                      formatter={value => {
+                        return value ? `${value} ден` : '';
+                      }}
+                      parser={value => (value || '').replace(/[^0-9.]/g, '')}
+                      width='100%'
+                      min={0}
+                      max={99999999}
+                      decimalSeparator='.'
+                      value={val}
+                      onChange={onChange}
+                      onBlur={onComplete}
+                    />
+                  );
+                }}
+              </FormItem>
+            </Col>
+            <Col md={8} span={24}>
               <FormItem label={t('product.unit')} selector='unit'>
                 {(val, _onChange, onComplete) => (
                   <Select value={val} onChange={onComplete}>
@@ -236,7 +265,9 @@ export const ProductFormModal = ({
                 )}
               </FormItem>
             </Col>
-            <Col md={6} span={24}>
+          </Row>
+          <Row gutter={24}>
+            <Col md={12} span={24}>
               <FormItem
                 help={t('product.stockTip')}
                 label={t('product.stock')}
@@ -262,7 +293,7 @@ export const ProductFormModal = ({
                 }}
               </FormItem>
             </Col>
-            <Col md={6} span={24}>
+            <Col md={12} span={24}>
               <FormItem label={t('product.sku')} selector='sku'>
                 {formInput({
                   placeholder: t('product.skuExample'),

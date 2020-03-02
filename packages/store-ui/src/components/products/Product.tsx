@@ -127,7 +127,11 @@ export const Product = ({ product }: ProductProps) => {
             >
               {product.name}
             </Title>
-            <Price price={product.price} currency={'ден'} />
+            <Price
+              calculatedPrice={product.calculatedPrice}
+              basePrice={product.price}
+              currency={'ден'}
+            />
             <Paragraph style={{ whiteSpace: 'pre-wrap' }} mt={4}>
               {product.description}
             </Paragraph>

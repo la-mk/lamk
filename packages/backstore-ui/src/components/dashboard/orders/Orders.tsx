@@ -40,7 +40,9 @@ const getColumns = (t: T, filters: FilterObject) =>
       dataIndex: 'ordered',
       render: (orderList: OrderItem[], order: Order) => {
         const subtotal = sum(
-          order.ordered.map(item => item.quantity * item.product.price),
+          order.ordered.map(
+            item => item.quantity * item.product.calculatedPrice,
+          ),
         );
         const shippingCost =
           order.delivery.freeDeliveryOver < subtotal ? 0 : order.delivery.price;

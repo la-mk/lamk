@@ -3,8 +3,8 @@ import { Text, Flex } from '@sradevski/blocks-ui';
 import styled from 'styled-components';
 
 interface PriceProps {
-  price: number;
-  discountedPrice?: number;
+  calculatedPrice: number;
+  basePrice: number;
   currency: string;
 }
 
@@ -12,20 +12,22 @@ const CrossedOutPrice = styled(Text)`
   text-decoration: line-through;
 `;
 
-export const Price = ({ price, discountedPrice, currency }: PriceProps) => {
+export const Price = ({ basePrice, calculatedPrice, currency }: PriceProps) => {
+  const discounted = basePrice !== calculatedPrice;
+
   return (
     <Flex flexWrap='wrap'>
       <Text
         style={{ fontSize: 16 }}
-        type={discountedPrice ? 'danger' : undefined}
-        mr={discountedPrice ? [1, 1, 2, 2] : undefined}
+        type={discounted ? 'danger' : undefined}
+        mr={discounted ? [1, 1, 2, 2] : undefined}
         strong
       >
-        {price} {currency}
+        {calculatedPrice} {currency}
       </Text>
-      {discountedPrice && (
+      {discounted && (
         <CrossedOutPrice style={{ fontSize: 16 }}>
-          {discountedPrice} {currency}
+          {basePrice} {currency}
         </CrossedOutPrice>
       )}
     </Flex>
