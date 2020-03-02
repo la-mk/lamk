@@ -162,6 +162,7 @@
 		"addProductSuccess": "Successfully added a new product",
 		"addingProductTip": "Adding product...",
 		"descriptionExample": "eg. High quality sneakers",
+		"discount": "Discount",
 		"groups": "Groups",
 		"groupsTip": "Groups are used to logically group products. You can have up to 10 groups per product",
 		"nameExample": "eg. Nike Air Max",
