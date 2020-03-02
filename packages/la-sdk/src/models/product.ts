@@ -27,13 +27,11 @@ export const schema = {
   price: v8n()
     .number(false)
     .positive(),
+  // Discount is always a value in the base currency, even if we allow the user to input in % (we can just convert to a currency value).
   discount: v8n().optional(
-    v8n().schema({
-      value: v8n()
-        .number(false)
-        .positive(),
-      unit: v8n().oneOf(['%', 'ден']),
-    }),
+    v8n()
+      .number(false)
+      .positive(),
   ),
   // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
   calculatedPrice: v8n().optional(
@@ -97,10 +95,7 @@ export interface Product {
   name: string;
   unit: string;
   price: number;
-  discount?: {
-    value: number;
-    unit: '%' | 'ден';
-  };
+  discount?: number;
   calculatedPrice: number;
   images: string[];
   category: string;
