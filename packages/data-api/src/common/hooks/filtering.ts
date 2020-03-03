@@ -43,31 +43,6 @@ export const requireAnyQueryParam = (params: string[]) => {
   };
 };
 
-// Requires either the query to have the owner field, or the result. This is so we avoid an additional call to the DB, but it might change in the future.
-export const isOwner = (ownerField: string) => {
-  return (ctx: HookContext) => {
-    const userEntity = ctx.params['user'];
-    // Not authenticated, so not owner for sure.
-    if (!userEntity) {
-      return false;
-    }
-
-    // If getting a single field, look in the resulting data.
-    if (ctx.method === 'get') {
-      if (ctx.result) {
-        return ctx.result[ownerField] === userEntity._id;
-      }
-      // Otherwise look in the query itself
-    } else if (ctx.method === 'find') {
-      if (ctx.params.query) {
-        return ctx.params.query[ownerField] === userEntity._id;
-      }
-    }
-
-    return false;
-  };
-};
-
 // Looks for `isPublished` field in the results, and returns a boolean stating whether the result is published or not.
 export const isPublished = () => {
   return (ctx: HookContext) => {
@@ -84,22 +59,5 @@ export const isPublished = () => {
     }
 
     return true;
-  };
-};
-
-// Similar to queryWithCurrentUser, but it puts multiple fields in an $or
-export const queryOneOfWithCurrentUser = (fields: string[]) => {
-  return (ctx: HookContext) => {
-    fields.map(field => {
-      if (!ctx.params.query) {
-        ctx.params.query = {};
-      }
-
-      if (!ctx.params.query.$or) {
-        ctx.params.query.$or = [];
-      }
-
-      ctx.params.query.$or.push({ [field]: ctx.params.user._id });
-    });
   };
 };

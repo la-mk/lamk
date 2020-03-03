@@ -5,7 +5,7 @@ import { parseDataURI } from 'dauria';
 import * as mimeTypes from 'mime-types';
 import { hooks } from './hooks';
 import env from '../../common/env';
-import { BadRequest } from '../../common/errors';
+import { BadRequest, GeneralError } from '../../common/errors';
 import uuid = require('uuid/v4');
 
 interface ArtifactsServiceData {
@@ -18,7 +18,7 @@ class ArtifactsService implements Service<ArtifactsServiceData> {
 
   constructor(options: { client: Minio.Client; bucket: string }) {
     if (!options || !options.client || !options.bucket) {
-      throw new Error(
+      throw new GeneralError(
         'Artifacts service: `options.client` and `options.bucket` must be provided',
       );
     }

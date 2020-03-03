@@ -1,16 +1,11 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
-import {
-  restrictToOwner,
-  associateCurrentUser,
-} from 'feathers-authentication-hooks';
+import { sdk } from '@sradevski/la-sdk';
 import { setFields } from '../../common/hooks/db';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
-import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
-import { discard } from 'feathers-hooks-common';
-import { queryOneOfWithCurrentUser } from '../../common/hooks/filtering';
+import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
 
 // We need to check that the order only contains products from the specified store,
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
@@ -75,15 +70,15 @@ export const hooks = {
     all: [],
     find: [
       authenticate('jwt'),
-      queryOneOfWithCurrentUser(['orderedFrom', 'orderedBy']),
+      queryWithCurrentUser(['orderedFrom', 'orderedBy']),
     ],
     get: [
       authenticate('jwt'),
-      queryOneOfWithCurrentUser(['orderedFrom', 'orderedBy']),
+      queryWithCurrentUser(['orderedFrom', 'orderedBy']),
     ],
     create: [
       authenticate('jwt'),
-      associateCurrentUser({ as: 'orderedBy' }),
+      setCurrentUser(['orderedBy']),
       setFields({ status: 'pending' }),
       validate(sdk.order.validate),
       // TODO: This validation should be part of the model.
@@ -91,31 +86,10 @@ export const hooks = {
     ],
     patch: [
       authenticate('jwt'),
-      restrictToOwner({ ownerField: 'orderedFrom' }),
-      discard('_id'),
+      // Only the store can modify an order as things stand now.
+      queryWithCurrentUser(['orderedFrom']),
       validate(sdk.order.validate),
     ],
-    remove: [
-      authenticate('jwt'),
-      restrictToOwner({ ownerField: 'orderedFrom' }),
-    ],
-  },
-
-  after: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
+    remove: [authenticate('jwt'), queryWithCurrentUser(['orderedFrom'])],
   },
 };

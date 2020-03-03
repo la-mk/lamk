@@ -1,14 +1,9 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 import * as local from '@feathersjs/authentication-local';
-import { unique } from '../../common/hooks/unique';
-import {
-  queryWithCurrentUser,
-  restrictToOwner,
-} from 'feathers-authentication-hooks';
-import { validate } from '../../common/hooks/db';
+import { validate, unique } from '../../common/hooks/db';
 import { sdk } from '@sradevski/la-sdk';
-import { discard } from 'feathers-hooks-common';
 import { createCartForUser, removeCartForUser } from './serviceHooks/carts';
+import { queryWithCurrentUser } from '../../common/hooks/auth';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
@@ -16,22 +11,21 @@ const { hashPassword, protect } = local.hooks;
 export const hooks = {
   before: {
     all: [],
-    find: [authenticate('jwt'), queryWithCurrentUser({ as: '_id' })],
-    get: [authenticate('jwt'), restrictToOwner({ ownerField: '_id' })],
+    find: [authenticate('jwt'), queryWithCurrentUser(['_id'])],
+    get: [authenticate('jwt'), queryWithCurrentUser(['_id'])],
     create: [
       hashPassword('password'),
-      unique(['email']),
       validate(sdk.user.validate),
+      unique(['email']),
     ],
     patch: [
-      hashPassword('password'),
       authenticate('jwt'),
-      restrictToOwner({ ownerField: '_id' }),
-      unique(['email']),
-      discard('_id'),
+      queryWithCurrentUser(['_id']),
+      hashPassword('password'),
       validate(sdk.user.validate),
+      unique(['email']),
     ],
-    remove: [authenticate('jwt'), restrictToOwner({ ownerField: '_id' })],
+    remove: [authenticate('jwt'), queryWithCurrentUser(['_id'])],
   },
 
   after: {
@@ -45,14 +39,5 @@ export const hooks = {
     create: [createCartForUser],
     patch: [],
     remove: [removeCartForUser],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
   },
 };

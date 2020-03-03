@@ -1,8 +1,5 @@
 import { disallow, checkContext } from 'feathers-hooks-common';
-import {
-  requireAnyQueryParam,
-  requireAllQueryParams,
-} from '../../common/hooks/filtering';
+import { requireAllQueryParams } from '../../common/hooks/filtering';
 import { HookContext } from '@feathersjs/feathers';
 import { convertQueryToNumber } from '../../common/hooks/db';
 
@@ -52,25 +49,16 @@ export const hooks = {
       requireAllQueryParams(['model', 'search', 'storeId', '$limit', '$skip']),
       convertQueryToNumber(numberFieldsSet),
     ],
-    get: [requireAnyQueryParam(['model'])],
+    get: [requireAllQueryParams(['model'])],
     create: [disallow('external')],
     patch: [disallow('external')],
-    remove: [disallow('external'), requireAnyQueryParam(['model'])],
+    remove: [disallow('external'), requireAllQueryParams(['model'])],
   },
 
   after: {
     all: [],
     find: [convertFindToStandardResponse],
     get: [convertGetToStandardResponse],
-    create: [],
-    patch: [],
-    remove: [],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
     create: [],
     patch: [],
     remove: [],

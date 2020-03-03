@@ -5,7 +5,7 @@ import { hooks } from './hooks';
 export const storeContents = (app: Application) => {
   const paginate = {
     default: 1,
-    max: 5,
+    max: 1,
   };
 
   const mongoDb = app.get('mongoDb');

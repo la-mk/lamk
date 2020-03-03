@@ -1,23 +1,19 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
-import {
-  restrictToOwner,
-  associateCurrentUser,
-  queryWithCurrentUser,
-} from 'feathers-authentication-hooks';
-import { alterItems, discard } from 'feathers-hooks-common';
+import { alterItems } from 'feathers-hooks-common';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
+import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
 
 export const hooks = {
   before: {
     all: [],
-    find: [authenticate('jwt'), queryWithCurrentUser({ as: 'addressFor' })],
-    get: [authenticate('jwt'), restrictToOwner({ ownerField: 'addressFor' })],
+    find: [authenticate('jwt'), queryWithCurrentUser(['addressFor'])],
+    get: [authenticate('jwt'), queryWithCurrentUser(['addressFor'])],
     // We only support shipping to Macedonia so far.
     create: [
       authenticate('jwt'),
-      associateCurrentUser({ as: 'addressFor' }),
+      setCurrentUser(['addressFor']),
       alterItems(record => {
         record.country = 'MK';
       }),
@@ -25,35 +21,12 @@ export const hooks = {
     ],
     patch: [
       authenticate('jwt'),
-      restrictToOwner({ ownerField: 'addressFor' }),
-      discard('_id'),
+      queryWithCurrentUser(['addressFor']),
       alterItems(record => {
         record.country = 'MK';
       }),
       validate(sdk.address.validate),
     ],
-    remove: [
-      authenticate('jwt'),
-      restrictToOwner({ ownerField: 'addressFor' }),
-    ],
-  },
-
-  after: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: [],
+    remove: [authenticate('jwt'), queryWithCurrentUser(['addressFor'])],
   },
 };

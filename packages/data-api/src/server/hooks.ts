@@ -6,7 +6,7 @@ import {
   appendModifyTimestamp,
 } from '../common/hooks/timestamps';
 import { appendId } from '../common/hooks/db';
-import { disallow } from 'feathers-hooks-common';
+import { disallow, discard } from 'feathers-hooks-common';
 
 const hooks: HooksObject = {
   before: {
@@ -17,7 +17,8 @@ const hooks: HooksObject = {
     create: [appendCreateTimestamp, appendId],
     // We only want to support `patch` requests, as PUT is not as useful.
     update: [disallow()],
-    patch: [appendModifyTimestamp],
+    // IDs cannot be patched, so we remove them from the data
+    patch: [appendModifyTimestamp, discard('_id')],
     remove: [],
   },
 

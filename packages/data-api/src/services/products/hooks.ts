@@ -1,17 +1,7 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
-import {
-  restrictToOwner,
-  associateCurrentUser,
-} from 'feathers-authentication-hooks';
-import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
-import {
-  unless,
-  keep,
-  checkContext,
-  discard,
-  isProvider,
-} from 'feathers-hooks-common';
+import { requireAnyQueryParam } from '../../common/hooks/filtering';
+import { checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
 import { sdk } from '@sradevski/la-sdk';
 import {
@@ -36,6 +26,11 @@ import {
   createProductGroups,
 } from './serviceHooks/productGroups';
 import { BadRequest } from '../../common/errors';
+import {
+  setCurrentUser,
+  queryWithCurrentUser,
+  allowFields,
+} from '../../common/hooks/auth';
 
 export interface HookContextWithState<T> extends HookContext {
   beforeState?: T;
@@ -74,6 +69,21 @@ const calculatePrice = async (ctx: HookContext) => {
   }
 };
 
+const allowedFields = [
+  '_id',
+  'name',
+  'unit',
+  'price',
+  'discount',
+  'calculatedPrice',
+  'category',
+  'images',
+  'description',
+  'soldBy',
+  'sku',
+  'stock',
+];
+
 const numberFieldsSet = new Set(['price', 'discount', 'calculatedPrice']);
 
 export const hooks = {
@@ -86,65 +96,26 @@ export const hooks = {
     get: [],
     create: [
       authenticate('jwt'),
-      associateCurrentUser({ as: 'soldBy' }),
-      validate(sdk.product.validate),
+      setCurrentUser(['soldBy']),
       removeDuplicates('groups'),
       calculatePrice,
+      validate(sdk.product.validate),
     ],
     patch: [
       authenticate('jwt'),
-      restrictToOwner({ ownerField: 'soldBy' }),
+      queryWithCurrentUser(['soldBy']),
       assignPreviousProduct,
-      discard('_id'),
-      validate(sdk.product.validate),
       removeDuplicates('groups'),
       calculatePrice,
+      validate(sdk.product.validate),
     ],
-    remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'soldBy' })],
+    remove: [authenticate('jwt'), queryWithCurrentUser(['soldBy'])],
   },
 
   after: {
     all: [],
-    find: [
-      unless(
-        (...args) =>
-          isOwner('soldBy')(...args) || isProvider('server')(...args),
-        keep(
-          '_id',
-          'name',
-          'unit',
-          'price',
-          'discount',
-          'calculatedPrice',
-          'category',
-          'images',
-          'description',
-          'soldBy',
-          'sku',
-          'stock',
-        ),
-      ),
-    ],
-    get: [
-      unless(
-        (...args) =>
-          isOwner('soldBy')(...args) || isProvider('server')(...args),
-        keep(
-          '_id',
-          'name',
-          'unit',
-          'price',
-          'discount',
-          'calculatedPrice',
-          'category',
-          'images',
-          'description',
-          'soldBy',
-          'sku',
-          'stock',
-        ),
-      ),
-    ],
+    find: [allowFields(['soldBy'], allowedFields)],
+    get: [allowFields(['soldBy'], allowedFields)],
     create: [
       createProductSearch,
       createCategoriesPerStore,
@@ -156,14 +127,5 @@ export const hooks = {
       removeCategoriesPerStore,
       removeProductGroups,
     ],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
   },
 };

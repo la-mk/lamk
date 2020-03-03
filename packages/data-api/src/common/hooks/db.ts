@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { HookContext } from '@feathersjs/feathers';
 import * as uuid from 'uuid/v4';
 import { ValidationErrorResponse } from '@sradevski/la-sdk/dist/utils/modelUtils';
-import { BadRequest } from '../errors';
+import { BadRequest, UniqueConstraint } from '../errors';
 import { checkContext } from 'feathers-hooks-common';
 
 export const appendId = (context: HookContext) => {
@@ -104,5 +104,26 @@ export const removeDuplicates = (field: string) => {
     }
 
     context.data[field] = _.uniq(context.data[field] ?? []);
+  };
+};
+
+export const unique = (keys: string[]) => {
+  return async (context: HookContext) => {
+    const data = context.data;
+    const queryArray = keys
+      .filter(key => data && data[key])
+      .map(key => ({ [key]: data[key] }));
+
+    if (queryArray.length > 0) {
+      const results = await context.service.find({
+        query: {
+          $or: queryArray,
+        },
+      });
+
+      if (results.total > 0) {
+        throw new UniqueConstraint(`${keys.join(', ')} need to be unique`);
+      }
+    }
   };
 };

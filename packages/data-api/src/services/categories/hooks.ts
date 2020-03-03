@@ -12,22 +12,4 @@ export const hooks = {
     patch: [disallow(), validate(sdk.category.validate)],
     remove: [disallow()],
   },
-
-  after: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
-  },
 };

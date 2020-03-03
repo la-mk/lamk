@@ -1,13 +1,21 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
-import {
-  restrictToOwner,
-  associateCurrentUser,
-} from 'feathers-authentication-hooks';
-import { requireAnyQueryParam, isOwner } from '../../common/hooks/filtering';
-import { unless, keep, discard } from 'feathers-hooks-common';
+import { requireAnyQueryParam } from '../../common/hooks/filtering';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
+import {
+  setCurrentUser,
+  queryWithCurrentUser,
+  allowFields,
+} from '../../common/hooks/auth';
+
+const allowedFields = [
+  '_id',
+  'method',
+  'price',
+  'freeDeliveryOver',
+  'forStore',
+];
 
 export const hooks = {
   before: {
@@ -16,41 +24,21 @@ export const hooks = {
     get: [],
     create: [
       authenticate('jwt'),
-      associateCurrentUser({ as: 'forStore' }),
+      setCurrentUser(['forStore']),
       validate(sdk.delivery.validate),
     ],
     patch: [
       authenticate('jwt'),
-      restrictToOwner({ ownerField: 'forStore' }),
-      discard('_id'),
+      queryWithCurrentUser(['forStore']),
       validate(sdk.delivery.validate),
     ],
-    remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'forStore' })],
+    remove: [authenticate('jwt'), queryWithCurrentUser(['forStore'])],
   },
 
   after: {
     all: [],
-    find: [
-      unless(
-        isOwner('forStore'),
-        keep('_id', 'method', 'price', 'freeDeliveryOver', 'forStore'),
-      ),
-    ],
-    get: [
-      unless(
-        isOwner('forStore'),
-        keep('_id', 'method', 'price', 'freeDeliveryOver', 'forStore'),
-      ),
-    ],
-    create: [],
-    patch: [],
-    remove: [],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
+    find: [allowFields(['forStore'], allowedFields)],
+    get: [allowFields(['forStore'], allowedFields)],
     create: [],
     patch: [],
     remove: [],

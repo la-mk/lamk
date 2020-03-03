@@ -1,23 +1,35 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
 import {
-  restrictToOwner,
-  associateCurrentUser,
-} from 'feathers-authentication-hooks';
-import { unique } from '../../common/hooks/unique';
-import {
   requireAnyQueryParam,
-  isOwner,
   isPublished,
 } from '../../common/hooks/filtering';
-import { unless, keep, discard, disallow } from 'feathers-hooks-common';
+import { unless, disallow } from 'feathers-hooks-common';
 import { NotFound } from '../../common/errors';
 import { sdk } from '@sradevski/la-sdk';
-import { validate } from '../../common/hooks/db';
+import { validate, unique } from '../../common/hooks/db';
 import {
   createStoreContentsIfNotExists,
   removeStoreContents,
 } from './serviceHooks/storeContents';
+import {
+  setCurrentUser,
+  queryWithCurrentUser,
+  allowFields,
+  isOwner,
+} from '../../common/hooks/auth';
+
+const allowedFields = [
+  '_id',
+  'name',
+  'slug',
+  'customDomain',
+  'logo',
+  'isPublished',
+  'ownedBy',
+  'contact',
+  'company',
+];
 
 export const hooks = {
   before: {
@@ -28,79 +40,42 @@ export const hooks = {
       // We currently don't allow registrations while we are in alpha.
       disallow('external'),
       authenticate('jwt'),
-      associateCurrentUser({ as: 'ownedBy' }),
       // For a start, we want to have 1:1 mapping between user and store and use the same ID to simplify usage.
-      associateCurrentUser({ as: '_id' }),
+      setCurrentUser(['_id', 'ownedBy']),
+      validate(sdk.store.validate),
       // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
-      validate(sdk.store.validate),
     ],
     patch: [
       authenticate('jwt'),
-      restrictToOwner({ ownerField: 'ownedBy' }),
-      discard('_id'),
+      queryWithCurrentUser(['ownedBy']),
       validate(sdk.store.validate),
     ],
-    remove: [authenticate('jwt'), restrictToOwner({ ownerField: 'ownedBy' })],
+    remove: [authenticate('jwt'), queryWithCurrentUser(['ownedBy'])],
   },
 
   after: {
     all: [],
     find: [
       unless(
-        isOwner('ownedBy'),
+        isOwner(['ownedBy']),
         unless(isPublished(), () => {
           throw new NotFound('Store not found');
         }),
       ),
-      unless(
-        isOwner('ownedBy'),
-        keep(
-          '_id',
-          'name',
-          'slug',
-          'customDomain',
-          'logo',
-          'isPublished',
-          'ownedBy',
-          'contact',
-          'company',
-        ),
-      ),
+      allowFields(['ownedBy'], allowedFields),
     ],
     get: [
       unless(
-        isOwner('ownedBy'),
+        isOwner(['ownedBy']),
         unless(isPublished(), () => {
           throw new NotFound('Store not found');
         }),
       ),
-      unless(
-        isOwner('ownedBy'),
-        keep(
-          '_id',
-          'name',
-          'slug',
-          'customDomain',
-          'logo',
-          'isPublished',
-          'ownedBy',
-          'contact',
-          'company',
-        ),
-      ),
+      allowFields(['ownedBy'], allowedFields),
     ],
     create: [createStoreContentsIfNotExists],
     patch: [],
     remove: [removeStoreContents],
-  },
-
-  error: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    patch: [],
-    remove: [],
   },
 };
