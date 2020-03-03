@@ -69,7 +69,7 @@ export const ProductFormModal = ({
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
   const [externalState] = hooks.useFormState<Product>(
     product,
-    { soldBy: storeId, unit: 'item', groups: [] },
+    { soldBy: storeId, unit: 'item', images: [], groups: [] },
     [product, storeId],
   );
 

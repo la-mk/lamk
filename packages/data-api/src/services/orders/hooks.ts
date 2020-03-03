@@ -51,6 +51,11 @@ const validateOrderedItems = async (ctx: HookContext) => {
       );
     }
 
+    // If the stock is not set, it means there is unlimited stock.
+    if (dbProduct.stock === null) {
+      return;
+    }
+
     if (dbProduct.stock === 0) {
       throw new BadRequest(
         `It seems ${dbProduct.name} is out of stock, try again later`,

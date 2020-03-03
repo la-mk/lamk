@@ -72,7 +72,7 @@ export const productsModel = {
       name: normalizeText(product.name),
       description: normalizeText(product.description) ?? '',
       sku: product.sku ?? '',
-      price: product.calculatedPrice,
+      calculatedPrice: product.calculatedPrice,
       category: product.category,
       // Convert to seconds so it fits in int32 (required for default sort)
       createdAt: Math.round(new Date(product.createdAt).getTime() / 1000),

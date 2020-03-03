@@ -81,7 +81,7 @@ class SearchService implements Service<SearchData> {
 
     const sort = _.first(
       Object.keys($sort || {}).map(
-        key => `${key}:${$sort[key] === '-1' ? 'desc' : 'asc'}`,
+        key => `${key}:${$sort[key].toString() === '-1' ? 'desc' : 'asc'}`,
       ),
     );
 

@@ -97,7 +97,8 @@ export const Checkout = () => {
         ordered: cart.items
           .filter(item => item.fromStore === store._id)
           .map(item => ({
-            product: item.product,
+            // Groups are required, but we don't pass them to the store as it can be sensitive info.
+            product: { ...item.product, groups: [] },
             quantity: item.quantity,
           })),
       }),

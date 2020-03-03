@@ -43,7 +43,7 @@ const convertGetToStandardResponse = async (ctx: HookContext) => {
   ctx.result = item;
 };
 
-const numberFieldsSet = new Set(['price']);
+const numberFieldsSet = new Set(['calculatedPrice', '$limit', '$skip']);
 
 export const hooks = {
   before: {

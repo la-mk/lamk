@@ -1,6 +1,7 @@
 const config = {
   mongodb: {
     // url: "mongodb+srv://ADD STRING HERE",
+    url: "mongodb+srv://dev-user:ou1ewM4eGQH1lxLq@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority",
     databaseName: "db",
 
     options: {
