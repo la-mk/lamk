@@ -93,14 +93,14 @@ export interface Product {
   _id: string;
   soldBy: string;
   name: string;
-  unit: string;
+  unit: 'item' | 'pack' | 'm2' | 'm' | 'cm' | 'mm' | 'kg' | 'g';
   price: number;
   discount?: number;
   calculatedPrice: number;
   images: string[];
   category: string;
   description?: string;
-  sku: string;
+  sku?: string;
   stock?: number;
   groups: string[];
   createdAt: string;

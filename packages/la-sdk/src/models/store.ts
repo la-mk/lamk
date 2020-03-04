@@ -68,17 +68,6 @@ export const schema = {
       true,
     ),
   }),
-  product: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(63),
-  fromStore: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(63),
-  quantity: v8n()
-    .number()
-    .positive(),
   logo: v8n()
     .string()
     .minLength(2)
