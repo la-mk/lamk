@@ -8,8 +8,8 @@ export const hooks = {
     find: [],
     get: [],
     // For now, we only allow for manual modifications directly in the DB.
-    create: [disallow(), validate(sdk.category.validate)],
-    patch: [disallow(), validate(sdk.category.validate)],
-    remove: [disallow()],
+    create: [disallow('external'), validate(sdk.category.validate)],
+    patch: [disallow('external'), validate(sdk.category.validate)],
+    remove: [disallow('external')],
   },
 };

@@ -19,6 +19,7 @@ export const hooks = {
       // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
     ],
+    // TODO: We can check if the product exists when adding it to the cart, although it is not critical to do so.
     patch: [
       authenticate('jwt'),
       queryWithCurrentUser(['forUser']),

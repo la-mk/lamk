@@ -35,11 +35,6 @@ describe('"users" service', () => {
     carts = feathersApp.service('carts');
   });
 
-  afterAll(async () => {
-    await feathersApp.get('mongoDb').close();
-    await feathersApp.get('mongoClient').close();
-  });
-
   it('creates a user', async () => {
     testUser = await users.create(testUserCredentials);
     expect(testUser.email).toBe('test@example.com');

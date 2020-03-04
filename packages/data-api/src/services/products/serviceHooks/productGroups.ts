@@ -23,6 +23,8 @@ const createProductGroupsIfNotExist = async (
       forStore: forStore,
       groupName: { $in: groupNames },
     },
+    authenticated: true,
+    user: ctx.params.user._id,
   });
 
   await Promise.all(
@@ -34,16 +36,23 @@ const createProductGroupsIfNotExist = async (
 
         // There can easily be a race condition here, but it's preferred for now for simplicity reasons.
         if (existing) {
-          await ctx.app.services['productGroups'].patch(existing._id, {
-            ...existing,
-            itemCountInGroup: existing.itemCountInGroup + 1,
-          });
+          await ctx.app.services['productGroups'].patch(
+            existing._id,
+            {
+              ...existing,
+              itemCountInGroup: existing.itemCountInGroup + 1,
+            },
+            { authenticated: true, user: ctx.params.user._id },
+          );
         } else {
-          await ctx.app.services['productGroups'].create({
-            forStore,
-            groupName,
-            itemCountInGroup: 1,
-          });
+          await ctx.app.services['productGroups'].create(
+            {
+              forStore,
+              groupName,
+              itemCountInGroup: 1,
+            },
+            { authenticated: true, user: ctx.params.user._id },
+          );
         }
       } catch (err) {
         // We don't want to throw here, just log that there was an error.
@@ -69,6 +78,8 @@ const removeOprhanedProductGroups = async (
       forStore: forStore,
       groupName: { $in: groupNames },
     },
+    authenticated: true,
+    user: ctx.params.user._id,
   });
 
   // Only remove groups for which this product held the last group name.
@@ -84,10 +95,14 @@ const removeOprhanedProductGroups = async (
   await Promise.all(
     groupsToPatch.map(async group => {
       try {
-        await ctx.app.services['productGroups'].patch(group._id, {
-          ...group,
-          itemCountInGroup: group.itemCountInGroup - 1,
-        });
+        await ctx.app.services['productGroups'].patch(
+          group._id,
+          {
+            ...group,
+            itemCountInGroup: group.itemCountInGroup - 1,
+          },
+          { authenticated: true, user: ctx.params.user._id },
+        );
       } catch (err) {
         // We don't want to throw here, just log that there was an error.
         logger.error(err);
@@ -96,11 +111,15 @@ const removeOprhanedProductGroups = async (
   );
 
   // The group is not in use anymore, so it is safe to remove.
-  await ctx.app.services['productGroups'].remove(null, {
-    query: {
-      _id: { $in: orphanedGroups.map(x => x._id) },
+  await ctx.app.services['productGroups'].remove(
+    null,
+    {
+      query: {
+        _id: { $in: orphanedGroups.map(x => x._id) },
+      },
     },
-  });
+    { authenticated: true, user: ctx.params.user._id },
+  );
 };
 
 export const createProductGroups = async (ctx: HookContext) => {

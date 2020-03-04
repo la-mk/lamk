@@ -4,7 +4,7 @@ import { GeneralError } from '../../common/errors';
 
 export const queryWithCurrentUser = (fields: string[]) => {
   return (ctx: HookContext) => {
-    checkContext(ctx, 'before', ['get', 'find']);
+    checkContext(ctx, 'before', ['get', 'find', 'patch', 'remove']);
     if (fields.length <= 0) {
       throw new GeneralError('You have to query on at least one field');
     }
@@ -39,6 +39,12 @@ export const setCurrentUser = (fields: string[]) => {
     if (fields.length <= 0) {
       throw new GeneralError(
         'You have to specify at least one field to set the user to',
+      );
+    }
+
+    if (!ctx.params.user) {
+      throw new GeneralError(
+        'You need to ensure the user is authenticated before using setCurrentUser',
       );
     }
 

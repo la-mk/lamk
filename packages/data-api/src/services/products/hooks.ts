@@ -46,7 +46,7 @@ const calculatePrice = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['create', 'patch']);
   // If we are creating the object, we are sure the price field is present.
   if (ctx.method === 'create') {
-    ctx.data.calculatedPrice = ctx.data.price - ctx.data.discount ?? 0;
+    ctx.data.calculatedPrice = ctx.data.price - (ctx.data.discount ?? 0);
     if (ctx.data.calculatedPrice <= 0) {
       throw new BadRequest('Product has to have a positive price');
     }

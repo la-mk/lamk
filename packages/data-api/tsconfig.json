@@ -15,10 +15,10 @@
     "removeComments": true,
     "noImplicitAny": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "outDir": "dist",
     // This is required for ts-node to find the custom typings.
-    "typeRoots": ["./node_modules/@types", "./typings"]
+    "typeRoots": ["./node_modules/@types", "./typings"],
   },
   "include": [
 		"src/**/*.ts",
