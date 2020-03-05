@@ -18,12 +18,12 @@ COPY . .
 RUN rm -f .npmrc
 ENV NODE_ENV production
 RUN npm run build
+RUN npm prune --development
 
 FROM node:12-slim as prod
 WORKDIR /usr/src/app
 # Environment variables are not preserved from other build stages, and it is required by the application
 ENV NODE_ENV production
-# This will copy dev dependencies as well, which is fine for now.
 COPY --from=build /usr/src/app/node_modules ./node_modules/
 COPY --from=build /usr/src/app/dist ./dist/
 ENTRYPOINT ["node", "./dist/index.js"]
