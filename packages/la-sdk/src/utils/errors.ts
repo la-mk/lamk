@@ -77,6 +77,10 @@ export const errors: {
     name: 'email',
     message: 'Field should be a valid email address',
   },
+  date: {
+    name: 'date',
+    message: 'Field should be a valid date',
+  },
   generic: {
     name: 'generic',
     message: 'Invalid entry',

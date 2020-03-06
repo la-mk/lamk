@@ -64,4 +64,62 @@ describe('Custom validators', () => {
         .test('somenotemail'),
     ).toBeFalsy();
   });
+
+  test('date', () => {
+    // Valid date
+    expect(
+      v8n()
+        .datetime()
+        .test('2020-01-12T11:03:14.071Z'),
+    ).toBeTruthy();
+
+    // Valid leap year
+    expect(
+      v8n()
+        .datetime()
+        .test('2020-02-29T11:03:14.071Z'),
+    ).toBeTruthy();
+
+    // Invalid leap year
+    expect(
+      v8n()
+        .datetime()
+        .test('2020-02-30T11:03:14.071Z'),
+    ).toBeFalsy();
+
+    // Invalid time
+    expect(
+      v8n()
+        .datetime()
+        .test('2020-02-30T11:63:14.071Z'),
+    ).toBeFalsy();
+
+    // Invalid date
+    expect(
+      v8n()
+        .datetime()
+        .test('2020-02230T11:63:14.071Z'),
+    ).toBeFalsy();
+
+    // No timezone
+    expect(
+      v8n()
+        .datetime()
+        .test('2020-01-12T11:03:14.071'),
+    ).toBeFalsy();
+
+    // Valid date but in a different ISO format
+    expect(
+      v8n()
+        .datetime()
+        .test('1994-11-05T08:15:30-05:00'),
+    ).toBeFalsy();
+
+    // Invalid date-only format
+    expect(
+      v8n()
+        .datetime()
+        .test('1994-11-05'),
+    ).toBeFalsy();
+  });
 });

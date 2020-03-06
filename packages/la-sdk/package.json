@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -40,6 +40,7 @@
     "@feathersjs/rest-client": "^4.5.1",
     "@feathersjs/socketio-client": "^4.5.1",
     "bluebird": "^3.7.2",
+    "iso-datestring-validator": "^2.0.4",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "socket.io-client": "^2.3.0",
