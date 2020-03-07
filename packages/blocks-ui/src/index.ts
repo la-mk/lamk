@@ -5,6 +5,7 @@ export { Box } from './basic/Box';
 export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
 export { Cascader } from './basic/Cascader';
+export {Checkbox, CheckboxGroup} from './basic/Checkbox';
 export { Collapse, CollapsePanel } from './basic/Collapse';
 export { DatePicker, RangePicker, WeekPicker, MonthPicker } from './basic/DatePicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
@@ -41,6 +42,7 @@ export { Slider } from './basic/Slider';
 export { Spin } from './basic/Spin';
 export { Statistic } from './basic/Statistic';
 export { Steps, Step } from './basic/Steps';
+export { Switch } from './basic/Switch'
 export { Table } from './basic/Table';
 export { Tabs, TabPane } from './basic/Tabs';
 export { Tag } from './basic/Tag';
