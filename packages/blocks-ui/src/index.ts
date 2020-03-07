@@ -6,6 +6,7 @@ export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
 export { Cascader } from './basic/Cascader';
 export { Collapse, CollapsePanel } from './basic/Collapse';
+export { DatePicker, RangePicker, WeekPicker, MonthPicker } from './basic/DatePicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider } from './basic/Divider';
 export { Drawer } from './basic/Drawer';
