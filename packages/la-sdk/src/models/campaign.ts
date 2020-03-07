@@ -18,6 +18,10 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(63),
+  name: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(255),
   validFrom: v8n().datetime(),
   validTo: v8n().datetime(),
   isActive: v8n().boolean(),
@@ -61,6 +65,7 @@ export const schema = {
 export interface Campaign {
   _id: string;
   forStore: string;
+  name: string;
   validFrom: string;
   validTo?: string;
   isActive: boolean;
