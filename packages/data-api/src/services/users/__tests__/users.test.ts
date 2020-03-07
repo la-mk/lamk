@@ -47,21 +47,24 @@ describe('"users" service', () => {
   });
 
   it('removes a cart when a user is removed', async () => {
+    expect.assertions(1);
     const userId = testUser2._id;
     await users.remove(testUser2._id);
     const cartForUserPromise = carts.get(userId);
 
-    expect(cartForUserPromise).rejects.toThrow(NotFound);
+    await expect(cartForUserPromise).rejects.toThrow(NotFound);
   });
 
   it('ensures email is unique when creating a user', async () => {
+    expect.assertions(1);
     const createUserPromise = users.create(testUserCredentials);
-    expect(createUserPromise).rejects.toThrow(UniqueConstraint);
+    await expect(createUserPromise).rejects.toThrow(UniqueConstraint);
   });
 
   it('ensures email is unique when patching a user', async () => {
+    expect.assertions(1);
     const createUserPromise = users.patch(testUser._id, testUserCredentials);
-    expect(createUserPromise).rejects.toThrow(UniqueConstraint);
+    await expect(createUserPromise).rejects.toThrow(UniqueConstraint);
   });
 
   it('excludes the password from the returned results', async () => {

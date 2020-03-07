@@ -8,6 +8,7 @@ import { MethodNotAllowed, NotFound } from '../../../common/errors';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
 
 const userFixture = {
   email: 'carts@fixture.com',
@@ -36,6 +37,12 @@ const storeFixture = {
   isPublished: true,
 };
 
+const categoryFixture: Partial<Category> = {
+  level1: 'some-category',
+  level2: 'some-category',
+  level3: 'some-category',
+};
+
 const productFixture: Partial<Product> = {
   name: 'Test product',
   unit: 'item',
@@ -62,6 +69,7 @@ describe('"carts" service', () => {
     carts = feathersApp.service('carts');
     stores = feathersApp.service('stores');
     products = feathersApp.service('products');
+    await feathersApp.service('categories').create(categoryFixture);
     testUser = await users.create(userFixture);
     testUser2 = await users.create(user2Fixture);
     testStore = await stores.create(storeFixture, {
@@ -75,9 +83,10 @@ describe('"carts" service', () => {
   });
 
   it('create is disallowed for external requests', async () => {
+    expect.assertions(1);
     const params = getExternalUserParams(testUser);
     const cartsPromise = carts.create({}, params);
-    expect(cartsPromise).rejects.toThrow(MethodNotAllowed);
+    await expect(cartsPromise).rejects.toThrow(MethodNotAllowed);
   });
 
   it('find returns only users cart', async () => {
@@ -88,9 +97,10 @@ describe('"carts" service', () => {
   });
 
   it('get throws with notFound when fetching other user cart', async () => {
+    expect.assertions(1);
     const params = getExternalUserParams(testUser);
     const cartPromise = carts.get(testUser2._id, params);
-    expect(cartPromise).rejects.toThrow(NotFound);
+    await expect(cartPromise).rejects.toThrow(NotFound);
   });
 
   it('get returns the user cart', async () => {
@@ -116,8 +126,9 @@ describe('"carts" service', () => {
   });
 
   it('remove is disallowed for external requests', async () => {
+    expect.assertions(1);
     const params = getExternalUserParams(testUser);
     const cartPromise = carts.remove(testUser2._id, params);
-    expect(cartPromise).rejects.toThrow(MethodNotAllowed);
+    await expect(cartPromise).rejects.toThrow(MethodNotAllowed);
   });
 });

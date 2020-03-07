@@ -52,10 +52,11 @@ describe('"addresses" service', () => {
   });
 
   it('create throws if not authenticated', async () => {
+    expect.assertions(1);
     const addressPromise = addresses.create(addressFixture, {
       provider: 'rest',
     });
-    expect(addressPromise).rejects.toThrow(NotAuthenticated);
+    await expect(addressPromise).rejects.toThrow(NotAuthenticated);
   });
 
   it('creates an address for user', async () => {
@@ -75,9 +76,10 @@ describe('"addresses" service', () => {
   });
 
   it('get throws notFound when fetching address owned by another user', async () => {
+    expect.assertions(1);
     const params = getExternalUserParams(testUser);
     const addressPromise = addresses.get(testAddress._id, params);
-    expect(addressPromise).rejects.toThrow(NotFound);
+    await expect(addressPromise).rejects.toThrow(NotFound);
   });
 
   it('get returns the address for user', async () => {
@@ -87,9 +89,10 @@ describe('"addresses" service', () => {
   });
 
   it('remove throws notFound when removing address owned by another user', async () => {
+    expect.assertions(1);
     const params = getExternalUserParams(testUser);
-    const addressPromise = addresses.get(testAddress._id, params);
-    expect(addressPromise).rejects.toThrow(NotFound);
+    const addressPromise = addresses.remove(testAddress._id, params);
+    await expect(addressPromise).rejects.toThrow(NotFound);
   });
 
   it('removes an address for user', async () => {
