@@ -76,7 +76,7 @@ const checkDataAgainstSchema = (
 export const validate = (
   schema: any,
   data: any = {},
-  ignoreRequired: boolean,
+  ignoreRequired: boolean = false,
 ) => {
   const failedValidationErrors = checkDataAgainstSchema(
     schema,

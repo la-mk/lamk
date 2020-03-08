@@ -1,4 +1,4 @@
-const SDK = require('../../../dist/index');
+import * as sdk from '../../../dist/index';
 
 // const sampleAddress = {
 //   addressFor: 'uuid',
@@ -13,7 +13,7 @@ const SDK = require('../../../dist/index');
 
 describe('Address validation', () => {
   beforeAll(() => {
-    SDK.setupSdk({
+    sdk.setupSdk({
       transport: 'socket',
       apiEndpoint: 'http://localhost:3000',
     });

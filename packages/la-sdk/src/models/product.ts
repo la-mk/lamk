@@ -144,6 +144,10 @@ const getQueryForSet = (productSet: ProductSetTag) => {
         },
       };
     }
+
+    default: {
+      return {}
+    }
   }
 };
 

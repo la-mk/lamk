@@ -1,5 +1,5 @@
-const modelUtils = require('../../dist/utils/modelUtils');
-const v8n = require('v8n');
+import * as modelUtils from '../modelUtils';
+import v8n from 'v8n';
 
 const sampleSchema = {
   name: v8n()
@@ -76,9 +76,7 @@ describe('Validation utility', () => {
       modelUtils.validate(sampleSchema, { country: 123 }, true),
     ).toHaveProperty('country');
     expect(
-      modelUtils.validate(sampleSchema, { country: 123 }, true)['country'][
-        'name'
-      ],
+      modelUtils.validate(sampleSchema, { country: 123 }, true)?.country.name
     ).toBe('string');
   });
 
@@ -89,7 +87,7 @@ describe('Validation utility', () => {
   });
 
   test('Should return an error per invalid field', () => {
-    expect(Object.keys(modelUtils.validate(sampleSchema, {}))).toHaveLength(5);
+    expect(Object.keys(modelUtils.validate(sampleSchema, {}) || {})).toHaveLength(5);
     expect(modelUtils.validate(sampleSchema, {})).toHaveProperty('name');
     expect(modelUtils.validate(sampleSchema, {})).toHaveProperty('country');
     expect(modelUtils.validate(sampleSchema, {})).toHaveProperty(
@@ -123,7 +121,7 @@ describe('Validation utility', () => {
 
   test('Should return the true validation error on an optional field', () => {
     expect(
-      modelUtils.validate(sampleSchema, { ...sampleData, region: 123 }).region
+      modelUtils.validate(sampleSchema, { ...sampleData, region: 123 })?.region
         .name,
     ).toBe('string');
   });
@@ -132,10 +130,10 @@ describe('Validation utility', () => {
     const err = modelUtils.validate(sampleSchema, {
       ...sampleData,
       numberOfOffices: 123,
-    }).numberOfOffices;
-    expect(err.message).toContain('1');
-    expect(err.message).toContain('50');
-    expect(err.args).toContain(1);
-    expect(err.args).toContain(50);
+    })?.numberOfOffices;
+    expect(err?.message).toContain('1');
+    expect(err?.message).toContain('50');
+    expect(err?.args).toContain(1);
+    expect(err?.args).toContain(50);
   });
 });

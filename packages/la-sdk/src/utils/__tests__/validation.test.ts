@@ -1,11 +1,7 @@
-const { extendValidation } = require('../../dist/utils/validation');
-const v8n = require('v8n');
+import '../validation';
+import v8n from 'v8n';
 
 describe('Custom validators', () => {
-  beforeAll(() => {
-    extendValidation();
-  });
-
   test('oneOf', () => {
     expect(
       v8n()

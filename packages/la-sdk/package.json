@@ -5,22 +5,20 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.38",
+  "version": "0.0.39",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "/dist"
-  ],
-  "author": "Stevche Radevski <sradevski@live.com>",
   "license": "ISC",
+  "author": "Stevche Radevski <sradevski@live.com>",
+  "module": "dist/la-sdk.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "concurrently 'tsc -w' 'jest --watch'",
-    "build": "tsc",
-    "lint": "eslint --fix ./src/**/*.ts",
-    "lint:ci": "eslint ./src/**/*.ts",
-    "test": "jest",
-    "test:ci": "npm run build && npm run lint:ci && jest --ci",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
     "prepack": "npm run build"
   },
   "husky": {
@@ -30,9 +28,15 @@
   },
   "lint-staged": {
     "./**/*.{js,mjs,jsx,ts,tsx}": [
-      "eslint --fix",
+      "tsdx lint --fix",
       "git add"
     ]
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
   "dependencies": {
     "@feathersjs/authentication-client": "^4.5.1",
@@ -42,25 +46,19 @@
     "bluebird": "^3.7.2",
     "iso-datestring-validator": "^2.0.4",
     "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
     "node-fetch": "^2.6.0",
     "socket.io-client": "^2.3.0",
     "v8n": "^1.3.3"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.29",
+    "@types/jest": "^25.1.4",
     "@types/lodash": "^4.14.149",
     "@types/socket.io-client": "^1.4.32",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
-    "concurrently": "^5.1.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-jest": "^23.8.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^3.1.0",
-    "jest": "^25.1.0",
-    "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1",
-    "typescript": "^3.8.2"
+    "husky": "^4.2.3",
+    "tsdx": "^0.12.3",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   }
 }

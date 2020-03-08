@@ -1,6 +1,4 @@
-import { extendValidation } from './utils/validation';
-extendValidation();
-
+import './utils/validation';
 import { setupClient, SetupSdkOptions, getCrudMethods } from './setup';
 import { getStoreSdk } from './models/store';
 import { getStoreContentsSdk } from './models/storeContents';
