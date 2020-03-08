@@ -145,6 +145,7 @@ interface FormItemContextProps {
     currentVal: any,
     onChange: (val: any) => void,
     onComplete: (val: any) => void,
+    state: any,
   ) => React.ReactNode;
   selector: string;
   parser?: (val: any) => any;
@@ -185,6 +186,7 @@ export const FormItem = ({
                 context.inputChangeHandler(parser(getVal(val)), selector),
               (val: any) =>
                 context.inputCompleteHandler(parser(getVal(val)), selector),
+              context.state,
             )}
           </StyledFormItem>
         );
