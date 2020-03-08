@@ -22,11 +22,10 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(255),
-  validFrom: v8n().datetime(),
-  validTo: v8n().datetime(),
+  // validFrom: v8n().datetime(),
+  // validTo: v8n().datetime(),
   isActive: v8n().boolean(),
   isPromoted: v8n().boolean(),
-
   type: v8n().oneOf(['cart-discount']),
   reward: v8n().schema({
     type: v8n().oneOf(['percentage-discount', 'value-discount']),
@@ -66,8 +65,8 @@ export interface Campaign {
   _id: string;
   forStore: string;
   name: string;
-  validFrom: string;
-  validTo?: string;
+  // validFrom: string;
+  // validTo?: string;
   isActive: boolean;
   isPromoted: boolean;
   type: 'cart-discount'; // | 'public-code' | 'bulk-code' | 'referral' | 'loyalty'
@@ -78,7 +77,7 @@ export interface Campaign {
   productRules: [
     {
       type: 'all'; // | 'group';
-      value?: string;
+      value: string;
     },
   ];
   // For now we don't need to support customer rules and redemption budgets, as well as certain types of campaigns.
