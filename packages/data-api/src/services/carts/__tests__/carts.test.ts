@@ -9,6 +9,7 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { sdk } from '@sradevski/la-sdk';
 
 const userFixture = {
   email: 'carts@fixture.com',
@@ -45,7 +46,7 @@ const categoryFixture: Partial<Category> = {
 
 const productFixture: Partial<Product> = {
   name: 'Test product',
-  unit: 'item',
+  unit: sdk.product.ProductUnit.ITEM,
   price: 1234,
   category: 'some-category',
   images: [] as string[],

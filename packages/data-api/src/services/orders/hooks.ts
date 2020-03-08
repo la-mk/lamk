@@ -79,7 +79,7 @@ export const hooks = {
     create: [
       authenticate('jwt'),
       setCurrentUser(['orderedBy']),
-      setFields({ status: 'pending' }),
+      setFields({ status: sdk.order.OrderStatus.PENDING }),
       validate(sdk.order.validate),
       // TODO: This validation should be part of the model.
       validateOrderedItems,

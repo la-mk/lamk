@@ -9,6 +9,7 @@ import { getExternalUserParams } from '../../../../tests/utils';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { sdk } from '@sradevski/la-sdk';
 
 const userFixture = {
   email: 'campaigns@fixture.com',
@@ -39,18 +40,16 @@ const storeFixture: Partial<Store> = {
 
 const campaignFixture: Partial<Campaign> = {
   name: 'Test campaign',
-  validFrom: '2020-01-12T11:03:14.071Z',
-  validTo: '2020-03-12T11:03:14.071Z',
   isActive: true,
-  isPromoted: true,
-  type: 'cart-discount',
+  isPromoted: false,
+  type: sdk.campaign.CampaignTypes.CART_DISCOUNT,
   reward: {
-    type: 'percentage-discount',
+    type: sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT,
     value: 20,
   },
   productRules: [
     {
-      type: 'all',
+      type: sdk.campaign.ProductRuleTypes.ALL,
       value: 'all',
     },
   ],
@@ -103,6 +102,19 @@ describe('"campaigns" service', () => {
     await expect(campaignPromise).rejects.toThrow(NotAuthenticated);
   });
 
+  it('patch throws if not authenticated', async () => {
+    expect.assertions(1);
+    const campaignPromise = campaigns.patch(
+      testCampaign._id,
+      { ...campaignFixture, forStore: testStore._id },
+      {
+        provider: 'rest',
+      },
+    );
+
+    await expect(campaignPromise).rejects.toThrow(NotAuthenticated);
+  });
+
   it('find returns campaigns for store unauthenticated', async () => {
     const campaignsForUser = (await campaigns.find({
       query: { forStore: testStore._id },
@@ -130,7 +142,6 @@ describe('"campaigns" service', () => {
       params,
     );
 
-    console.log(campaign, campaignFixture);
     expect(campaign).toMatchObject(campaignFixture);
     expect(campaign.forStore).toBe(testStore2._id);
   });
@@ -160,6 +171,23 @@ describe('"campaigns" service', () => {
     );
     const removedCampaign = await campaigns.remove(newCampaign._id, params);
     expect(removedCampaign._id).toBe(newCampaign._id);
+  });
+
+  it('setting percentage discount to invalid percentage throws', async () => {
+    expect.assertions(2);
+    const params = getExternalUserParams(testUser);
+    const largerThanHundredPromise = campaigns.patch(
+      testCampaign._id,
+      {
+        reward: {
+          type: sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT,
+          value: 102,
+        },
+      },
+      params,
+    );
+
+    await expect(largerThanHundredPromise).rejects.toThrow(BadRequest);
   });
 
   it('throws an error when creating a campaign, if there are 10 active campaigns per store', async () => {
@@ -214,5 +242,50 @@ describe('"campaigns" service', () => {
     );
 
     await expect(patchAsActivePromise).rejects.toThrow(BadRequest);
+  });
+
+  it('throws an error when creating a campaign, if there is 1 promoted campaign per store', async () => {
+    expect.assertions(1);
+    const params = getExternalUserParams(testUser2);
+    await campaigns.create(
+      {
+        ...campaignFixture,
+        isActive: false,
+        isPromoted: true,
+      },
+      params,
+    );
+
+    const newPromotedCampaignPromise = campaigns.create(
+      {
+        ...campaignFixture,
+        isActive: false,
+        isPromoted: true,
+      },
+      params,
+    );
+
+    await expect(newPromotedCampaignPromise).rejects.toThrow(BadRequest);
+  });
+
+  it('throws an error when patching a campaign as active, if there is 1 promoted campaign per store', async () => {
+    expect.assertions(1);
+    const params = getExternalUserParams(testUser);
+    await campaigns.create(
+      {
+        ...campaignFixture,
+        isActive: false,
+        isPromoted: true,
+      },
+      params,
+    );
+
+    const patchAsPromotedPromise = campaigns.patch(
+      testCampaign._id,
+      { isPromoted: true },
+      params,
+    );
+
+    await expect(patchAsPromotedPromise).rejects.toThrow(BadRequest);
   });
 });
