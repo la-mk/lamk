@@ -91,7 +91,7 @@ export const Checkout = () => {
       sdk.order.create({
         orderedFrom: store._id,
         orderedBy: user._id,
-        status: 'pending',
+        status: sdk.order.OrderStatus.PENDING,
         delivery,
         deliverTo,
         ordered: cart.items

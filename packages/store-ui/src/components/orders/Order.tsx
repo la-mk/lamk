@@ -25,12 +25,12 @@ import { getStore } from '../../state/modules/store/store.selector';
 
 const getStepIndex = (status: OrderType['status']) => {
   switch (status) {
-    case 'pending':
+    case sdk.order.OrderStatus.PENDING:
       return 0;
-    case 'shipped':
+    case sdk.order.OrderStatus.SHIPPED:
       return 1;
-    case 'completed':
-    case 'cancelled':
+    case sdk.order.OrderStatus.COMPLETED:
+    case sdk.order.OrderStatus.CANCELLED:
       return 2;
   }
 };

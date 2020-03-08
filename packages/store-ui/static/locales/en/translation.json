@@ -28,6 +28,10 @@
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "signup": "Sign up"
   },
+  "campaignRewardTypes": {
+    "constant-discount": "Fixed amount",
+    "percentage-discount": "Percent"
+  },
   "cart": {
     "addedToCart": "Added to cart",
     "cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
@@ -196,6 +200,7 @@
   "errors": {
     "between": "Field should be between {{0}} and {{1}}",
     "boolean": "Field should be either true or false",
+    "datetime": "Field should be a valid date",
     "email": "Field should be a valid email address",
     "generic": "Invalid entry",
     "greaterThan": "Field should be more than {{0}}",
