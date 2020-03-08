@@ -124,7 +124,7 @@
 	},
 
 	"campaignRewardTypes": {
-		"percent-discount": "Проценти",
+		"percentage-discount": "Проценти",
 		"constant-discount": "Фиксна вредност"
 	},
 

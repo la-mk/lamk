@@ -19,10 +19,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
 import { Order, OrderItem } from '@sradevski/la-sdk/dist/models/order';
-import {
-  getOrderStatusColor,
-  possibleOrderStatuses,
-} from '../../shared/utils/enums';
+import { getOrderStatusColor } from '../../shared/utils/enums';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
@@ -57,7 +54,7 @@ const getColumns = (t: T, filters: FilterObject) =>
       filteredValue:
         filters.filtering?.status?.$in ??
         (filters.filtering?.status ? [filters.filtering?.status] : []),
-      filters: possibleOrderStatuses.map(status => ({
+      filters: Object.values(sdk.order.OrderStatus).map(status => ({
         text: t(`orderStatus.${status}`),
         value: status,
       })),

@@ -20,8 +20,6 @@ interface DeliveryFormProps {
   onDone: (delivery: Delivery) => void;
 }
 
-const deliveryOptions = ['pickup', 'cargo-pickup', 'door-to-door'];
-
 export const DeliveryForm = ({
   storeId,
   delivery,
@@ -63,7 +61,7 @@ export const DeliveryForm = ({
       <FormItem selector='method' label={t('delivery.deliveryMethod')}>
         {(val, _onChange, onComplete) => (
           <Select value={val} onChange={onComplete}>
-            {deliveryOptions.map(option => {
+            {Object.values(sdk.delivery.DeliveryMethods).map(option => {
               return (
                 <Option key={option} value={option}>
                   {t(`deliveryMethods.${option}`)}

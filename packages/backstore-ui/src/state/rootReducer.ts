@@ -10,6 +10,7 @@ import products from './modules/products/products.persist';
 import orders from './modules/orders/orders.persist';
 import delivery from './modules/delivery/delivery.persist';
 import categories from './modules/categories/categories.persist';
+import campaigns from './modules/campaigns/campaigns.persist';
 import user from './modules/user/user.module';
 import ui from './modules/ui/ui.module';
 
@@ -25,6 +26,7 @@ const getReducersSet = (history: History) => ({
   orders,
   delivery,
   categories,
+  campaigns,
   user,
   ui,
   router: connectRouter(history),

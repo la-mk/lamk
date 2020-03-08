@@ -25,6 +25,22 @@
     "signup": "Регистрирај се",
     "signupClosedBeta": "Моментално сме во бета и регистрирањето е забрането. Доколку сакате пристап во бета, контактирајте не"
   },
+  "campaign": {
+    "active": "Активна",
+    "addCampaignSuccess": "Новa кампања успешно додадена",
+    "addingCampaignTip": "Кампањата се додава...",
+    "campaignDeleted": "Кампањата со шифра {{id}} беше успешно избришана",
+    "nameExample": "пр. Летен попуст",
+    "promoted": "Се промовира",
+    "promotedTip": "Дали да се прикаже банер за кампањата",
+    "reward": "Награда",
+    "updateCampaignSuccess": "Кампањата {{campaignName}} е успешно обновена",
+    "updatingCampaignTip": "Кампањата се обновува..."
+  },
+  "campaignRewardTypes": {
+    "constant-discount": "Фиксна вредност",
+    "percentage-discount": "Проценти"
+  },
   "categories": {
     "adhesive": "Лепаци",
     "bath-accessory": "Аксесоари",
@@ -150,6 +166,7 @@
   },
   "commerce": {
     "buyer": "Купувач",
+    "campaign_plural": "Кампањи",
     "delivery": "Достава",
     "order_plural": "Порачки",
     "product_plural": "Продукти",
@@ -200,6 +217,7 @@
   "errors": {
     "between": "Полето треба да помеѓу {{0}} и {{1}}",
     "boolean": "Полето треба да е обележано или необележано",
+    "datetime": "Полето треба да е валиден датум",
     "email": "Полето треба да е валидна емаил адреса",
     "generic": "Невалиден внес",
     "greaterThan": "Полето треба да е повеќе од {{0}}",

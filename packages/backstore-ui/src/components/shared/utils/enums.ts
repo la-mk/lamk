@@ -1,37 +1,18 @@
 import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-
-// TODO: export these to the SDK
-export const possibleOrderStatuses = [
-  'cancelled',
-  'pending',
-  'shipped',
-  'completed',
-] as Order['status'][];
-
-export const possibleUnits = [
-  'item',
-  'pack',
-  'm2',
-  'm',
-  'cm',
-  'mm',
-  'kg',
-  'g',
-] as Product['unit'][];
+import { sdk } from '@sradevski/la-sdk';
 
 export const getOrderStatusColor = (orderStatus: Order['status']) => {
   switch (orderStatus) {
-    case 'cancelled': {
+    case sdk.order.OrderStatus.CANCELLED: {
       return 'red';
     }
-    case 'pending': {
+    case sdk.order.OrderStatus.PENDING: {
       return 'yellow';
     }
-    case 'shipped': {
+    case sdk.order.OrderStatus.SHIPPED: {
       return 'orange';
     }
-    case 'completed': {
+    case sdk.order.OrderStatus.COMPLETED: {
       return 'green';
     }
     default: {

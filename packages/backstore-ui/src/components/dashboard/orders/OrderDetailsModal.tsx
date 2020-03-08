@@ -21,10 +21,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import format from 'date-fns/format';
-import {
-  getOrderStatusColor,
-  possibleOrderStatuses,
-} from '../../shared/utils/enums';
+import { getOrderStatusColor } from '../../shared/utils/enums';
 import {
   setOrder,
   removeOrder,
@@ -133,7 +130,7 @@ export const OrderDetailsModal = ({
                   onChange={handleStatusChanged as any}
                   value={order.status}
                 >
-                  {possibleOrderStatuses.map(status => {
+                  {Object.values(sdk.order.OrderStatus).map(status => {
                     return (
                       <Option key={status} value={status}>
                         <Tag color={getOrderStatusColor(status)}>

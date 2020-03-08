@@ -25,6 +25,22 @@
     "signup": "Sign up",
     "signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
   },
+  "campaign": {
+    "active": "Active",
+    "addCampaignSuccess": "Successfully added a new campaign",
+    "addingCampaignTip": "Adding campaign...",
+    "campaignDeleted": "Campaign {{id}} successfully deleted",
+    "nameExample": "eg. Summer discount",
+    "promoted": "Promoted",
+    "promotedTip": "Show a banner to promote the campaign",
+    "reward": "Reward",
+    "updateCampaignSuccess": "Successfully updated {{campaignName}}",
+    "updatingCampaignTip": "Updating product..."
+  },
+  "campaignRewardTypes": {
+    "constant-discount": "Fixed amount",
+    "percentage-discount": "Percent"
+  },
   "categories": {
     "adhesive": "Adhesives",
     "bath-accessory": "Accessories",
@@ -150,6 +166,7 @@
   },
   "commerce": {
     "buyer": "Buyer",
+    "campaign_plural": "Campaigns",
     "delivery": "Delivery",
     "order_plural": "Orders",
     "product_plural": "Products",
@@ -200,6 +217,7 @@
   "errors": {
     "between": "Field should be between {{0}} and {{1}}",
     "boolean": "Field should be either true or false",
+    "datetime": "Field should be a valid date",
     "email": "Field should be a valid email address",
     "generic": "Invalid entry",
     "greaterThan": "Field should be more than {{0}}",

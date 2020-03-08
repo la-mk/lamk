@@ -124,7 +124,7 @@
   },
 
 	"campaignRewardTypes": {
-		"percent-discount": "Percent",
+		"percentage-discount": "Percent",
 		"constant-discount": "Fixed amount"
 	},
 

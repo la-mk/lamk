@@ -45,7 +45,6 @@ import {
   FullCategory,
 } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
-import { possibleUnits } from '../../shared/utils/enums';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
 
 interface ProductFormModalProps {
@@ -69,7 +68,12 @@ export const ProductFormModal = ({
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
   const [externalState] = hooks.useFormState<Product>(
     product,
-    { soldBy: storeId, unit: 'item', images: [], groups: [] },
+    {
+      soldBy: storeId,
+      unit: sdk.product.ProductUnit.ITEM,
+      images: [],
+      groups: [],
+    },
     [product, storeId],
   );
 
@@ -254,7 +258,7 @@ export const ProductFormModal = ({
               <FormItem label={t('product.unit')} selector='unit'>
                 {(val, _onChange, onComplete) => (
                   <Select value={val} onChange={onComplete}>
-                    {possibleUnits.map(option => {
+                    {Object.values(sdk.product.ProductUnit).map(option => {
                       return (
                         <Option key={option} value={option}>
                           {t(`units.${option}`)}
