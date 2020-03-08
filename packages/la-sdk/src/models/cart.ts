@@ -1,9 +1,9 @@
 import merge from 'lodash/fp/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
-import { OmitServerProperties } from '../utils/utils';
+import { OmitServerProperties } from '../utils';
 import { Product } from './product';
-import { validate, validateSingle } from '../utils/modelUtils';
+import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
 
 export const schema = {

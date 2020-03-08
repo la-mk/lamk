@@ -1,7 +1,7 @@
 import pick from 'lodash/pick';
 import { Application } from '@feathersjs/feathers';
 import { getCrudMethods, SetupSdkOptions } from '../setup';
-import { OmitServerProperties } from '../utils/utils';
+import { OmitServerProperties } from '../utils';
 
 export interface Artifact {
   _id: string;

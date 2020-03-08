@@ -1,4 +1,5 @@
-import './utils/validation';
+// This one has to be loaded first, so the validation library is extended before it's used.
+import * as utils from './utils';
 import { setupClient, SetupSdkOptions, getCrudMethods } from './setup';
 import { getStoreSdk } from './models/store';
 import { getStoreContentsSdk } from './models/storeContents';
@@ -13,7 +14,6 @@ import { getCartSdk } from './models/cart';
 import { getAddressSdk } from './models/address/address';
 import { getProductGroupSdk } from './models/productGroup';
 import { getCampaignSdk } from './models/campaign';
-import * as utils from './utils/modelUtils';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
