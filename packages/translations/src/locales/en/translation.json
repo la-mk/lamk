@@ -41,8 +41,23 @@
 		"signup": "Sign up",
 		"signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
 	},
+	"campaign": {
+		"active": "Active",
+		"addCampaignSuccess": "Successfully added a new campaign",
+		"addingCampaignTip": "Adding campaign...",
+		"campaignDeleted": "Campaign {{id}} successfully deleted",
+		"nameExample": "eg. Summer discount",
+		"updateCampaignSuccess": "Successfully updated {{campaignName}}",
+		"updatingCampaignTip": "Updating product...",
+		"promoted": "Promoted",
+		"promotedTip": "Show a banner to promote the campaign",
+		"reward": "Reward",
+		"rewardExample": "eg. 200 ден",
+		"rewardTip": "The discount is calculated on the cart on the full amount"
+	},
 	"commerce": {
 		"buyer": "Buyer",
+		"campaign_plural": "Campaigns",
 		"delivery": "Delivery",
 		"order_plural": "Orders",
 		"product_plural": "Products",

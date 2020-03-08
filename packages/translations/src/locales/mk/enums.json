@@ -123,6 +123,11 @@
 		"ventilation-other":"Останато"
 	},
 
+	"campaignRewardTypes": {
+		"percent-discount": "Проценти",
+		"constant-discount": "Фиксна вредност"
+	},
+
 	"deliveryMethods": {
     "cargo-pickup": "Да се подигне од Карго",
     "door-to-door": "Достава до дома",

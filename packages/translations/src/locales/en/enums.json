@@ -123,6 +123,11 @@
 		"ventilation-other":"Others"
   },
 
+	"campaignRewardTypes": {
+		"percent-discount": "Percent",
+		"constant-discount": "Fixed amount"
+	},
+
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",

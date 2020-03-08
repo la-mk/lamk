@@ -40,7 +40,21 @@
 		"noUserInformation": "Информациите за корисникот не се најдени. Проверете дали сте логирани.",
 		"signup": "Регистрирај се",
 		"signupClosedBeta": "Моментално сме во бета и регистрирањето е забрането. Доколку сакате пристап во бета, контактирајте не"
-  },
+	},
+	"campaign": {
+		"active": "Активна",
+		"addCampaignSuccess": "Новa кампања успешно додадена",
+		"addingCampaignTip": "Кампањата се додава...",
+		"campaignDeleted": "Кампањата со шифра {{id}} беше успешно избришана",
+		"nameExample": "пр. Летен попуст",
+		"updateCampaignSuccess": "Кампањата {{campaignName}} е успешно обновена",
+		"updatingCampaignTip": "Кампањата се обновува...",
+		"promoted": "Се промовира",
+		"promotedTip": "Дали да се прикаже банер за кампањата",
+		"reward": "Награда",
+		"rewardExample": "пр. 200 ден",
+		"rewardTip": "Попуст пресметан на каса на целосната сума"
+	},
   "cart": {
 		"addedToCart": "Додадено во корпа",
 		"cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
@@ -51,6 +65,7 @@
 	},
 	"commerce": {
 		"buyer": "Купувач",
+		"campaign_plural": "Кампањи",
 		"delivery": "Достава",
 		"order_plural": "Порачки",
 		"product_plural": "Продукти",
