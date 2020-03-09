@@ -32,7 +32,7 @@ export const calculatePrices = (productsWithQuantity: (CartItemWithProduct | Ord
 
   const productsTotal = sum(
     productsWithQuantity.map(
-      ({product, quantity}) => product.calculatedPrice ?? (calculateProductPrice(product)) * (quantity ?? 1)
+      ({product, quantity}) => (product.calculatedPrice ?? calculateProductPrice(product)) * (quantity ?? 1)
     ));
   
   const bestCampaign = getBestCampaign(campaigns, productsTotal);
