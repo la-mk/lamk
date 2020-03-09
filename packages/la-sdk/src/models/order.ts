@@ -1,4 +1,4 @@
-import merge from 'lodash/fp/merge';
+import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
@@ -85,12 +85,14 @@ export const getOrderSdk = (client: Application) => {
     ...crudMethods,
 
     findForStore: (storeId: string, params?: Params) => {
-      const options = merge({ query: { orderedFrom: storeId } }, params);
+      const options = {};
+      merge(options, params, { query: { orderedFrom: storeId } });
       return crudMethods.find(options);
     },
 
     findForUser: (userId: string, params?: Params) => {
-      const options = merge({ query: { orderedBy: userId } }, params);
+      const options = {};
+      merge(options, params, { query: { orderedBy: userId } });
       return crudMethods.find(options);
     },
 

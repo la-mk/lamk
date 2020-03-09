@@ -1,4 +1,4 @@
-import merge from 'lodash/fp/merge';
+import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../../setup';
 import { OmitServerProperties } from '../../utils';
@@ -98,7 +98,8 @@ export const getAddressSdk = (client: Application) => {
     ...crudMethods,
 
     findForUser: (userId: string, params?: Params) => {
-      const options = merge({ query: { addressFor: userId } }, params);
+      const options = {};
+      merge(options, params, { query: { addressFor: userId } });
       return crudMethods.find(options);
     },
 

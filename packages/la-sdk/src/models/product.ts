@@ -1,4 +1,4 @@
-import merge from 'lodash/fp/merge';
+import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
@@ -167,15 +167,14 @@ export const getProductSdk = (client: Application) => {
     findForStore: (storeId: string, params?: Params) => {
       // If the user is searching, hit the search service, otherwise go to the products service directly.
       if (params?.query?.search) {
-        const searchOptions = merge(
-          { query: { storeId, model: 'products', $limit: 20, $skip: 0 } },
-          params,
-        );
+        const searchOptions = {};
+        merge(searchOptions, params, { query: { storeId, model: 'products', $limit: 20, $skip: 0 } } );
 
         return searchCrudMethods.find(searchOptions);
       }
 
-      const options = merge({ query: { soldBy: storeId } }, params);
+      const options = {};
+      merge(options, params, { query: { soldBy: storeId } } );
       return crudMethods.find(options);
     },
 
@@ -195,10 +194,8 @@ export const getProductSdk = (client: Application) => {
             } as ProductSet);
           }
 
-          const options = merge(
-            { query: { soldBy: storeId, $limit: 10, ...queryForSet } },
-            params,
-          );
+          const options = {};
+          merge(options, params, { query: { soldBy: storeId, $limit: 10, ...queryForSet } } );
 
           return crudMethods
             .find(options)

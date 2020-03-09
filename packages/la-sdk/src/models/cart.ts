@@ -1,4 +1,4 @@
-import merge from 'lodash/fp/merge';
+import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
@@ -148,7 +148,8 @@ export const getCartSdk = (client: Application) => {
         productId = item.product._id;
       }
 
-      const options = merge({ query: { 'items.product': productId } }, params);
+      const options = {};
+      merge(options, params, { query: { 'items.product': productId } });
       return crudMethods.patch(
         cartId,
         { $set: { 'items.$.quantity': quantity } },

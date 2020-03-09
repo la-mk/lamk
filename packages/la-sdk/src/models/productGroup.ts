@@ -1,4 +1,4 @@
-import merge from 'lodash/fp/merge';
+import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
@@ -62,7 +62,9 @@ export const getProductGroupSdk = (client: Application) => {
     ...crudMethods,
 
     findForStore: (storeId: string, params?: Params) => {
-      const options = merge({ query: { forStore: storeId } }, params);
+      const options = {};
+      merge(options, params, { query: { forStore: storeId } } );
+
       return crudMethods.find(options);
     },
 
