@@ -30,7 +30,6 @@ import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
-import sum from 'lodash/sum';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -89,17 +88,10 @@ export const OrderDetailsModal = ({
     }
   };
 
-  const subtotal = order
-    ? sum(
-        order.ordered.map(item => item.quantity * item.product.calculatedPrice),
-      )
-    : 0;
-  const shippingCost = order
-    ? order.delivery.freeDeliveryOver < subtotal
-      ? 0
-      : order.delivery.price
-    : 0;
-  const total = subtotal + shippingCost;
+  const prices = sdk.utils.pricing.calculatePrices(
+    order?.ordered ?? [],
+    order?.delivery,
+  );
 
   return (
     <Modal
@@ -157,16 +149,16 @@ export const OrderDetailsModal = ({
             >
               <Flex flexDirection='row' justifyContent='space-between'>
                 <Text strong>{t('finance.subtotal')}</Text>
-                <Text strong>{subtotal} ден</Text>
+                <Text strong>{prices.productsTotal} ден</Text>
               </Flex>
               <Flex mt={2} flexDirection='row' justifyContent='space-between'>
                 <Text strong>{t('finance.shippingCost')}</Text>
-                <Text strong>{shippingCost} ден</Text>
+                <Text strong>{prices.deliveryTotal} ден</Text>
               </Flex>
               <Divider />
               <Flex flexDirection='row' justifyContent='space-between'>
                 <Text strong>{t('finance.total')}</Text>
-                <Text strong>{total} ден</Text>
+                <Text strong>{prices.total} ден</Text>
               </Flex>
             </Card>
             <Card

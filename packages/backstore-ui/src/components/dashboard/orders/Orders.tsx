@@ -35,17 +35,12 @@ const getColumns = (t: T, filters: FilterObject) =>
     {
       title: t('finance.total'),
       dataIndex: 'ordered',
-      render: (orderList: OrderItem[], order: Order) => {
-        const subtotal = sum(
-          order.ordered.map(
-            item => item.quantity * item.product.calculatedPrice,
-          ),
+      render: (_orderList: OrderItem[], order: Order) => {
+        const prices = sdk.utils.pricing.calculatePrices(
+          order.ordered,
+          order.delivery,
         );
-        const shippingCost =
-          order.delivery.freeDeliveryOver < subtotal ? 0 : order.delivery.price;
-        const total = subtotal + shippingCost;
-
-        return <Text>{total} ден</Text>;
+        return <Text>{prices.total} ден</Text>;
       },
     },
     {

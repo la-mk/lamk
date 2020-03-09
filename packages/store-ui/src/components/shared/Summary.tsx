@@ -1,4 +1,3 @@
-import sum from 'lodash/sum';
 import React, { useEffect } from 'react';
 import { Flex, Text, Divider, Button, message } from '@sradevski/blocks-ui';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
@@ -8,6 +7,7 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
 import { useTranslation } from '../../common/i18n';
+import { sdk } from '@sradevski/la-sdk';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];
@@ -34,12 +34,7 @@ export const Summary = ({
     }
   }, [delivery]);
 
-  const subtotal = sum(
-    items.map(item => item.quantity * item.product.calculatedPrice),
-  );
-  const shippingCost =
-    !delivery || delivery.freeDeliveryOver < subtotal ? 0 : delivery.price;
-  const total = subtotal + shippingCost;
+  const prices = sdk.utils.pricing.calculatePrices(items, delivery);
 
   const handleCheckout = () => {
     if (!user) {
@@ -53,16 +48,16 @@ export const Summary = ({
     <>
       <Flex flexDirection='row' justifyContent='space-between'>
         <Text strong>{t('finance.subtotal')}</Text>
-        <Text strong>{subtotal} ден</Text>
+        <Text strong>{prices.productsTotal} ден</Text>
       </Flex>
       <Flex mt={2} flexDirection='row' justifyContent='space-between'>
         <Text strong>{t('finance.shippingCost')}</Text>
-        <Text strong>{shippingCost} ден</Text>
+        <Text strong>{prices.deliveryTotal} ден</Text>
       </Flex>
       <Divider />
       <Flex flexDirection='row' justifyContent='space-between'>
         <Text strong>{t('finance.total')}</Text>
-        <Text strong>{total} ден</Text>
+        <Text strong>{prices.total} ден</Text>
       </Flex>
 
       {onCheckout && (

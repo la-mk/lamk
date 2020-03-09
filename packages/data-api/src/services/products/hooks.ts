@@ -46,7 +46,9 @@ const calculatePrice = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['create', 'patch']);
   // If we are creating the object, we are sure the price field is present.
   if (ctx.method === 'create') {
-    ctx.data.calculatedPrice = ctx.data.price - (ctx.data.discount ?? 0);
+    ctx.data.calculatedPrice = sdk.utils.pricing.calculateProductPrice(
+      ctx.data,
+    );
     if (ctx.data.calculatedPrice <= 0) {
       throw new BadRequest('Product has to have a positive price');
     }
@@ -60,9 +62,12 @@ const calculatePrice = async (ctx: HookContext) => {
 
   // If we are patching, and we only patch either just price or discount, we won't have all info to calculate the final price.
   const product = await ctx.app.services['products'].get(ctx.id);
-  ctx.data.calculatedPrice =
-    (ctx.data.price ?? product.price) -
-    (ctx.data.discount ?? product.discount ?? 0);
+  const price = ctx.data.price ?? product.price;
+  const discount = ctx.data.discount ?? product.discount ?? 0;
+  ctx.data.calculatedPrice = sdk.utils.pricing.calculateProductPrice({
+    price,
+    discount,
+  });
 
   if (ctx.data.calculatedPrice <= 0) {
     throw new BadRequest('Product has to have a positive price');
