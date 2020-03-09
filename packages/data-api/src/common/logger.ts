@@ -1,4 +1,4 @@
-import * as pino from 'pino';
+import pino from 'pino';
 import { merge } from 'lodash';
 
 export interface LoggerConfig {

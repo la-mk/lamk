@@ -1,7 +1,7 @@
 import { Application, original as express } from '@feathersjs/express';
-import * as compress from 'compression';
-import * as helmet from 'helmet';
-import * as cors from 'cors';
+import compress from 'compression';
+import helmet from 'helmet';
+import cors from 'cors';
 
 export const initPreRouteMiddlewares = (app: Application) => {
   //TODO: Handle all of these by a reverse proxy.

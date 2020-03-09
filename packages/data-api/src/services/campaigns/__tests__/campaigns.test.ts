@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import * as Bluebird from 'bluebird';
+import Bluebird from 'bluebird';
 import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { NotAuthenticated, NotFound, BadRequest } from '../../../common/errors';
@@ -174,7 +174,7 @@ describe('"campaigns" service', () => {
   });
 
   it('setting percentage discount to invalid percentage throws', async () => {
-    expect.assertions(2);
+    expect.assertions(1);
     const params = getExternalUserParams(testUser);
     const largerThanHundredPromise = campaigns.patch(
       testCampaign._id,

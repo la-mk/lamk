@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@sradevski/blocks-ui": "0.0.44",
-    "@sradevski/la-sdk": "0.0.38",
+    "@sradevski/la-sdk": "0.0.41",
     "amplitude-js": "^5.9.0",
     "analytics": "^0.3.0",
     "antd": "^3.26.11",

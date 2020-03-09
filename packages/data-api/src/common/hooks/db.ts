@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { HookContext } from '@feathersjs/feathers';
-import * as uuid from 'uuid/v4';
-import { ValidationErrorResponse } from '@sradevski/la-sdk/dist/utils/modelUtils';
+import uuid from 'uuid/v4';
+import { ValidationErrorResponse } from '@sradevski/la-sdk/dist/utils/validation';
 import { BadRequest, UniqueConstraint } from '../errors';
 import { checkContext } from 'feathers-hooks-common';
 

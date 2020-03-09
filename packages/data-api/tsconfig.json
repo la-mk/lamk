@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "ES2019",
     "lib": ["esnext"],
     "module": "commonjs",
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "strict": true,
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
@@ -16,6 +17,7 @@
     "noImplicitAny": true,
     "noUnusedParameters": true,
     "noUnusedLocals": false,
+    "isolatedModules": true,
     "outDir": "dist",
     // This is required for ts-node to find the custom typings.
     "typeRoots": ["./node_modules/@types", "./typings"],

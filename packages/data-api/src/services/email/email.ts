@@ -1,5 +1,5 @@
 import { Application, Service } from '@feathersjs/feathers';
-import * as sendgridClient from '@sendgrid/mail';
+import sendgridClient from '@sendgrid/mail';
 import { hooks } from './hooks';
 import env from '../../common/env';
 import { logger } from '../../common/logger';

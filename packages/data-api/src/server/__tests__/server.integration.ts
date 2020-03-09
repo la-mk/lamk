@@ -1,6 +1,6 @@
 // import * as got from 'got';
 // import * as url from 'url';
-// import env from '../../common/env';
+import env from '../../common/env';
 
 // const port = env().PORT || 3030;
 // const getUrl = (pathname?: string) =>
@@ -14,6 +14,6 @@
 describe('Server', () => {
   it('starts and pings the server', () => {
     // const res: got.Response<any> = await got(getUrl('stores'), { json: true });
-    expect(0).toBe(0);
+    expect(env).not.toBe(5);
   });
 });

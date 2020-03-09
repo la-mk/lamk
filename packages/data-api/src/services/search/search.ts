@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Application, Service, Params } from '@feathersjs/feathers';
 // @ts-ignore
-import * as Typesense from 'typesense';
+import Typesense from 'typesense';
 import { hooks } from './hooks';
 import { productsModel } from './searchModels';
 import env from '../../common/env';
