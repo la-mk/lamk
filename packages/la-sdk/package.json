@@ -5,10 +5,11 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.41",
+  "version": "0.0.42",
   "description": "",
   "license": "ISC",
   "author": "Stevche Radevski <sradevski@live.com>",
+  "main": "dist/index.js",
   "module": "dist/la-sdk.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
