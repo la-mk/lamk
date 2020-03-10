@@ -116,6 +116,12 @@ export const getCampaignSdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
+    findActiveForStore: (storeId: string, params?: Params) => {
+      const options = {};
+      merge(options, params, { query: { forStore: storeId, isActive: true } });
+      return crudMethods.find(options);
+    },
+
     validate: (data: Campaign, ignoreRequired = false) => {
       return validate(schema, data, ignoreRequired);
     },

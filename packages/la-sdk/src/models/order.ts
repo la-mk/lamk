@@ -7,6 +7,7 @@ import { Address, schema as addressSchema } from './address/address';
 import { Delivery, schema as deliverySchema } from './delivery';
 import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
+import { Campaign, schema as campaignSchema } from './campaign';
 
 export enum OrderStatus {
   CANCELLED = 'cancelled',
@@ -39,6 +40,7 @@ export const schema = {
       .positive(),
   }),
   status: v8n().oneOf(Object.values(OrderStatus)),
+  campaigns: v8n().every.schema(campaignSchema),
   delivery: v8n().schema(deliverySchema),
   deliverTo: v8n().schema(addressSchema),
   // createdAt is optional as it is added by server on creation.
@@ -70,6 +72,7 @@ export interface Order {
   orderedBy: string;
   ordered: OrderItem[];
   status: OrderStatus;
+  campaigns: Campaign[];
   delivery: Delivery;
   deliverTo?: Address;
   createdAt: string;
