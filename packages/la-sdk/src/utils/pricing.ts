@@ -42,11 +42,14 @@ export const getApplicableCampaigns = (campaigns: Pick<Campaign, 'reward'>[], pr
   return bestCampaign ? [bestCampaign] : [];
 }
 
-export const calculatePrices = (productsWithQuantity: (CartItemWithProduct | OrderItem)[], delivery?: Pick<Delivery, 'freeDeliveryOver' | 'price'>, campaigns: Pick<Campaign, 'reward'>[] = []) => {
-
-  const productsTotal = calculateProductsTotal(productsWithQuantity)
+export const calculateWithCampaignsTotal = (campaigns: Pick<Campaign, 'reward'>[], productsWithQuantity: (CartItemWithProduct | OrderItem)[], productsTotal: number) => {
   const bestCampaign = getApplicableCampaigns(campaigns, productsWithQuantity)[0];
-  const withCampaignsTotal = bestCampaign ? calculateWithDiscountCampaign(bestCampaign, productsTotal) : productsTotal;
+  return bestCampaign ? calculateWithDiscountCampaign(bestCampaign, productsTotal) : productsTotal;
+}
+
+export const calculatePrices = (productsWithQuantity: (CartItemWithProduct | OrderItem)[], delivery?: Pick<Delivery, 'freeDeliveryOver' | 'price'>, campaigns: Pick<Campaign, 'reward'>[] = []) => {
+  const productsTotal = calculateProductsTotal(productsWithQuantity)
+  const withCampaignsTotal = calculateWithCampaignsTotal(campaigns, productsWithQuantity, productsTotal)
   const deliveryTotal = delivery ? (delivery.freeDeliveryOver < withCampaignsTotal ? 0 : delivery.price) : undefined;
   const total = withCampaignsTotal + (deliveryTotal ?? 0);
 
