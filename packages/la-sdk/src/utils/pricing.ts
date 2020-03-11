@@ -1,4 +1,4 @@
-import {sum, last} from 'lodash';
+import {sum, first} from 'lodash';
 import { Product } from '../models/product';
 import { Delivery } from '../models/delivery';
 import { Campaign, RewardTypes } from '../models/campaign';
@@ -16,7 +16,7 @@ export const calculateProductsTotal = (productsWithQuantity: (CartItemWithProduc
     ));
 }
 
-const calculateWithDiscountCampaign = (campaign: Pick<Campaign, 'reward'>, productsTotal: number) => {
+const calculateWithDiscountCampaign = (campaign: Campaign, productsTotal: number) => {
   switch(campaign.reward.type){
     case RewardTypes.PERCENTAGE_DISCOUNT: {
       return productsTotal - productsTotal * ((campaign.reward.value ?? 0) / 100);
@@ -28,26 +28,26 @@ const calculateWithDiscountCampaign = (campaign: Pick<Campaign, 'reward'>, produ
   }
 }
 
-const getBestCampaign = (campaigns: Pick<Campaign, 'reward'>[], productsTotal: number) => {
-  return last(
+const getBestCampaign = (campaigns: Campaign[], productsTotal: number) => {
+  return first(
     campaigns.sort((a, b) => {
     return calculateWithDiscountCampaign(a, productsTotal) - calculateWithDiscountCampaign(b, productsTotal)
   }));
 }
 
-export const getApplicableCampaigns = (campaigns: Pick<Campaign, 'reward'>[], productsWithQuantity: (CartItemWithProduct | OrderItem)[]) => {
+export const getApplicableCampaigns = (campaigns: Campaign[], productsWithQuantity: (CartItemWithProduct | OrderItem)[]) => {
   // For now, there can only be a single campaign applied to all products, so we just get the one that has the best reward. Price calculation will be much more complex as other types of campaigns will be supported.
   const productsTotal = calculateProductsTotal(productsWithQuantity);
   const bestCampaign = getBestCampaign(campaigns, productsTotal);
   return bestCampaign ? [bestCampaign] : [];
 }
 
-export const calculateWithCampaignsTotal = (campaigns: Pick<Campaign, 'reward'>[], productsWithQuantity: (CartItemWithProduct | OrderItem)[], productsTotal: number) => {
+export const calculateWithCampaignsTotal = (campaigns: Campaign[], productsWithQuantity: (CartItemWithProduct | OrderItem)[], productsTotal: number) => {
   const bestCampaign = getApplicableCampaigns(campaigns, productsWithQuantity)[0];
   return bestCampaign ? calculateWithDiscountCampaign(bestCampaign, productsTotal) : productsTotal;
 }
 
-export const calculatePrices = (productsWithQuantity: (CartItemWithProduct | OrderItem)[], delivery?: Pick<Delivery, 'freeDeliveryOver' | 'price'>, campaigns: Pick<Campaign, 'reward'>[] = []) => {
+export const calculatePrices = (productsWithQuantity: (CartItemWithProduct | OrderItem)[], delivery?: Pick<Delivery, 'freeDeliveryOver' | 'price'>, campaigns: Campaign[] = []) => {
   const productsTotal = calculateProductsTotal(productsWithQuantity)
   const withCampaignsTotal = calculateWithCampaignsTotal(campaigns, productsWithQuantity, productsTotal)
   const deliveryTotal = delivery ? (delivery.freeDeliveryOver < withCampaignsTotal ? 0 : delivery.price) : undefined;
