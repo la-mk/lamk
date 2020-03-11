@@ -91,6 +91,7 @@ export const OrderDetailsModal = ({
   const prices = sdk.utils.pricing.calculatePrices(
     order?.ordered ?? [],
     order?.delivery,
+    order?.campaigns ?? [],
   );
 
   return (
@@ -151,6 +152,14 @@ export const OrderDetailsModal = ({
                 <Text strong>{t('finance.subtotal')}</Text>
                 <Text strong>{prices.productsTotal} ден</Text>
               </Flex>
+              {prices.withCampaignsTotal !== prices.productsTotal && (
+                <Flex mt={2} flexDirection='row' justifyContent='space-between'>
+                  <Text strong>{t('finance.campaignsDiscount')}</Text>
+                  <Text strong type='danger'>
+                    {prices.withCampaignsTotal - prices.productsTotal} ден
+                  </Text>
+                </Flex>
+              )}
               <Flex mt={2} flexDirection='row' justifyContent='space-between'>
                 <Text strong>{t('finance.shippingCost')}</Text>
                 <Text strong>{prices.deliveryTotal} ден</Text>

@@ -7,6 +7,7 @@ import {
   setCurrentUser,
   queryWithCurrentUser,
   allowFields,
+  setNonOwnerQuery,
 } from '../../common/hooks/auth';
 import { HookContext } from '@feathersjs/feathers';
 import { checkContext, alterItems } from 'feathers-hooks-common';
@@ -99,7 +100,10 @@ const validateReward = async (ctx: HookContext) => {
 export const hooks = {
   before: {
     all: [],
-    find: [requireAnyQueryParam(['forStore'])],
+    find: [
+      setNonOwnerQuery(['forStore'], { isActive: true }),
+      requireAnyQueryParam(['forStore']),
+    ],
     get: [],
     create: [
       authenticate('jwt'),

@@ -4,8 +4,8 @@ import { hooks } from './hooks';
 
 export const campaigns = (app: Application) => {
   const paginate = {
-    default: 10,
-    max: 10,
+    default: 50,
+    max: 50,
   };
 
   const mongoDb = app.get('mongoDb');

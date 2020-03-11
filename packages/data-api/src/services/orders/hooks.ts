@@ -6,10 +6,14 @@ import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { validate } from '../../common/hooks/db';
 import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
+import { checkContext } from 'feathers-hooks-common';
+
+// FUTURE: Improve how we do the validation, maybe reassign all fields in the hook instead of checking the validity of each of them.
 
 // We need to check that the order only contains products from the specified store,
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
-const validateOrderedItems = async (ctx: HookContext) => {
+const validateOrderItems = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
   const { orderedFrom, ordered } = ctx.data;
 
   ordered.forEach((orderItem: any) => {
@@ -65,6 +69,74 @@ const validateOrderedItems = async (ctx: HookContext) => {
   });
 };
 
+const validateOrderDelivery = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { delivery, orderedFrom } = ctx.data;
+  const dbDeliveryResults = await ctx.app.services['deliveries'].find({
+    query: { forStore: orderedFrom },
+  });
+
+  if (dbDeliveryResults.total <= 0) {
+    throw new BadRequest(
+      'The store has not specified delivery conditions, try contacting the store',
+    );
+  }
+
+  const dbDelivery = dbDeliveryResults.data[0];
+
+  if (
+    dbDelivery.price !== delivery.price ||
+    dbDelivery.freeDeliveryOver !== delivery.freeDeliveryOver
+  ) {
+    throw new BadRequest(
+      'The delivery price has changed, refresh the page and try again',
+    );
+  }
+};
+
+const validateOrderCampaigns = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { campaigns, ordered, orderedFrom, delivery } = ctx.data;
+
+  if (!campaigns || campaigns.length) {
+    return;
+  }
+
+  const dbCampaignsResult = ctx.app.services['campaigns'].find({
+    query: {
+      forStore: orderedFrom,
+      isActive: true,
+    },
+  });
+
+  if (
+    dbCampaignsResult.total <= 0 ||
+    dbCampaignsResult.total !== campaigns.length
+  ) {
+    throw new BadRequest(
+      'The campaigns applied to the products no longer exist or have changed, refresh the page and try again',
+    );
+  }
+
+  const dbCampaigns = dbCampaignsResult.data;
+  const orderTotal = sdk.utils.pricing.calculatePrices(
+    ordered,
+    delivery,
+    campaigns,
+  ).total;
+  const dbTotal = sdk.utils.pricing.calculatePrices(
+    ordered,
+    delivery,
+    dbCampaigns,
+  ).total;
+
+  if (orderTotal !== dbTotal) {
+    throw new BadRequest(
+      'The campaigns applied to the products no longer exist or have changed, refresh the page and try again',
+    );
+  }
+};
+
 export const hooks = {
   before: {
     all: [],
@@ -82,7 +154,9 @@ export const hooks = {
       setFields({ status: sdk.order.OrderStatus.PENDING }),
       validate(sdk.order.validate),
       // TODO: This validation should be part of the model.
-      validateOrderedItems,
+      validateOrderDelivery,
+      validateOrderCampaigns,
+      validateOrderItems,
     ],
     patch: [
       authenticate('jwt'),

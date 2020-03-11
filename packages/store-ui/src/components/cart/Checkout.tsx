@@ -31,11 +31,14 @@ import { CartWithProducts } from '@sradevski/la-sdk/dist/models/cart';
 import { setAddresses } from '../../state/modules/user/user.module';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
+import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
+import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 
 export const Checkout = () => {
   const [caller, showSpinner] = hooks.useCall();
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
+  const campaigns = useSelector(getCampaigns);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const addresses: Address[] = useSelector(getAddresses);
@@ -73,6 +76,14 @@ export const Checkout = () => {
   }, [caller, user, addresses]);
 
   useEffect(() => {
+    if (!campaigns) {
+      caller(sdk.campaign.findActiveForStore(store._id), fetchedCampaigns => {
+        return setCampaigns(fetchedCampaigns.data);
+      });
+    }
+  }, [caller, campaigns, store._id]);
+
+  useEffect(() => {
     if (!deliverTo && addresses && addresses.length > 0) {
       setDeliverTo(addresses[0]);
     }
@@ -87,20 +98,25 @@ export const Checkout = () => {
   }
 
   const handleOrder = () => {
+    const ordered = cart.items
+      .filter(item => item.fromStore === store._id)
+      .map(item => ({
+        // Groups are required, but we don't pass them to the store as it can be sensitive info.
+        product: { ...item.product, groups: [] },
+        quantity: item.quantity,
+      }));
+
     caller(
       sdk.order.create({
         orderedFrom: store._id,
         orderedBy: user._id,
         status: sdk.order.OrderStatus.PENDING,
+        campaigns: sdk.utils.pricing
+          .getApplicableCampaigns(campaigns, ordered)
+          .map(campaign => ({ ...campaign, isActive: true })),
         delivery,
         deliverTo,
-        ordered: cart.items
-          .filter(item => item.fromStore === store._id)
-          .map(item => ({
-            // Groups are required, but we don't pass them to the store as it can be sensitive info.
-            product: { ...item.product, groups: [] },
-            quantity: item.quantity,
-          })),
+        ordered,
       }),
       (order: Order) => {
         setOrder(order);
@@ -163,6 +179,7 @@ export const Checkout = () => {
               <Summary
                 items={cart.items}
                 delivery={delivery}
+                campaigns={campaigns ?? []}
                 disabled={!deliverTo}
                 buttonTitle={t('actions.orderNow')}
                 onCheckout={handleOrder}

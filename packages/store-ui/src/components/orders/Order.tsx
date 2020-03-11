@@ -85,7 +85,11 @@ export const Order = ({ orderId }: { orderId: string }) => {
 
         <Flex flexWrap='wrap' my={4} justifyContent='center'>
           <Card m={3} width={330} title={t('finance.priceBreakdown')}>
-            <Summary items={order.ordered} delivery={delivery} />
+            <Summary
+              items={order.ordered}
+              delivery={delivery}
+              campaigns={order.campaigns ?? []}
+            />
           </Card>
 
           {order.deliverTo && (

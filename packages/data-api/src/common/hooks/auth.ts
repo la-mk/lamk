@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { HookContext, Query } from '@feathersjs/feathers';
 import { checkContext, unless, keep, isProvider } from 'feathers-hooks-common';
 import { GeneralError } from '../../common/errors';
@@ -57,7 +58,7 @@ export const setCurrentUser = (fields: string[]) => {
 // Requires either the query to have the owner field, or the result. This is so we avoid an additional call to the DB, but it might change in the future.
 export const isOwner = (ownerFields: string[]) => {
   return (ctx: HookContext) => {
-    checkContext(ctx, 'after', ['find', 'get']);
+    checkContext(ctx, null, ['find', 'get']);
 
     const userEntity = ctx.params.user;
     // Not authenticated, so not owner for sure.
@@ -81,5 +82,24 @@ export const allowFields = (ownerFields: string[], fields: string[]) => {
   return unless(
     (...args) => isOwner(ownerFields)(...args) || isProvider('server')(...args),
     keep(...fields),
+  );
+};
+
+// We want to allow the server to access any field, and only limit for non-owners
+export const setNonOwnerQuery = (
+  ownerFields: string[],
+  querySet: { [key: string]: number | string | boolean },
+) => {
+  return unless(
+    (...args) => isOwner(ownerFields)(...args) || isProvider('server')(...args),
+    (ctx: HookContext) => {
+      if (!ctx.params.query) {
+        ctx.params.query = {};
+      }
+
+      Object.entries(querySet).forEach(([key, val]) => {
+        _.set(ctx.params.query as Query, key, val);
+      });
+    },
   );
 };

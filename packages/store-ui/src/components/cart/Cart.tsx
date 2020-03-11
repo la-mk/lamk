@@ -28,6 +28,8 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
 import { getStore } from '../../state/modules/store/store.selector';
 import { Price } from '../shared/Price';
+import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
+import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall();
@@ -35,6 +37,7 @@ export const Cart = () => {
   const store = useSelector(getStore);
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
+  const campaigns = useSelector(getCampaigns);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -49,7 +52,15 @@ export const Cart = () => {
         },
       );
     }
-  }, [caller, user, cart]);
+  }, [caller, user, cart, store._id]);
+
+  useEffect(() => {
+    if (!campaigns) {
+      caller(sdk.campaign.findActiveForStore(store._id), fetchedCampaigns => {
+        return setCampaigns(fetchedCampaigns.data);
+      });
+    }
+  }, [caller, campaigns, store._id]);
 
   if (!cart || !cart.items || cart.items.length <= 0) {
     return <Empty mt={6} description={t('cart.emptyCartDescription')}></Empty>;
@@ -96,6 +107,7 @@ export const Cart = () => {
     dispatch(goTo('/checkout'));
   };
 
+  console.log(campaigns);
   return (
     <Page title={t('pages.myCart')}>
       <Spin spinning={showSpinner}>
@@ -178,6 +190,7 @@ export const Cart = () => {
               <Summary
                 items={cart.items}
                 delivery={delivery}
+                campaigns={campaigns ?? []}
                 buttonTitle={t('actions.toCheckout')}
                 disabled={false}
                 onCheckout={handleCheckout}

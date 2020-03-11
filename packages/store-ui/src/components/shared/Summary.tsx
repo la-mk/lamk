@@ -8,10 +8,12 @@ import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
 import { useTranslation } from '../../common/i18n';
 import { sdk } from '@sradevski/la-sdk';
+import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];
   delivery: Delivery;
+  campaigns: Campaign[];
   buttonTitle?: string;
   disabled?: boolean;
   onCheckout?: () => void;
@@ -20,6 +22,7 @@ interface SummaryProps {
 export const Summary = ({
   items,
   delivery,
+  campaigns,
   buttonTitle,
   disabled,
   onCheckout,
@@ -34,7 +37,7 @@ export const Summary = ({
     }
   }, [delivery]);
 
-  const prices = sdk.utils.pricing.calculatePrices(items, delivery);
+  const prices = sdk.utils.pricing.calculatePrices(items, delivery, campaigns);
 
   const handleCheckout = () => {
     if (!user) {
@@ -50,6 +53,14 @@ export const Summary = ({
         <Text strong>{t('finance.subtotal')}</Text>
         <Text strong>{prices.productsTotal} ден</Text>
       </Flex>
+      {prices.withCampaignsTotal !== prices.productsTotal && (
+        <Flex mt={2} flexDirection='row' justifyContent='space-between'>
+          <Text strong>{t('finance.campaignsDiscount')}</Text>
+          <Text strong type='danger'>
+            {prices.withCampaignsTotal - prices.productsTotal} ден
+          </Text>
+        </Flex>
+      )}
       <Flex mt={2} flexDirection='row' justifyContent='space-between'>
         <Text strong>{t('finance.shippingCost')}</Text>
         <Text strong>{prices.deliveryTotal} ден</Text>
