@@ -3,7 +3,7 @@
     "add": "Додадете",
     "addBanner": "Додадете банер",
     "addLogo": "Додадете лого",
-    "addProductImages": "Додадете слики од продуктот",
+    "addProductImages": "Додадете слики од производот",
     "cancel": "Откажете",
     "continue": "Продолжи",
     "create": "Создадете",
@@ -36,6 +36,9 @@
     "reward": "Награда",
     "updateCampaignSuccess": "Кампањата {{campaignName}} е успешно обновена",
     "updatingCampaignTip": "Кампањата се обновува..."
+  },
+  "campaignBanners": {
+    "allDiscount": "ПРОМОЦИЈА: {{rewardValue}} попуст на сите порачки, пресметано на каса"
   },
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
@@ -169,7 +172,7 @@
     "campaign_plural": "Кампањи",
     "delivery": "Достава",
     "order_plural": "Порачки",
-    "product_plural": "Продукти",
+    "product_plural": "Производи",
     "quantity": "Количина",
     "revenue": "Приход",
     "store": "Продавница"
@@ -240,6 +243,7 @@
     "uppercase": "Полето треба да е со големи букви"
   },
   "finance": {
+    "campaignDiscount": "Промоции",
     "priceBreakdown": "Преглед на вкупна цена",
     "shippingCost": "Цена за достава",
     "subtotal": "Цена на производи",
@@ -249,7 +253,7 @@
     "setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна",
     "setupDeliveryTitle": "За крај, ајде да ги информираме корисниците за достава",
     "setupProductSubtitle": "Истите подесувања можат да се направат и подоцна",
-    "setupProductTitle": "Ајде да додадеме и неколку продукти",
+    "setupProductTitle": "Ајде да додадеме и неколку производи",
     "setupStoreSubtitle": "Истите подесувања можат да се направат и подоцна",
     "setupStoreTitle": "Да започнеме со подесување на продавницата"
   },
@@ -269,26 +273,26 @@
     "shippedDescription": "Испратена по карго"
   },
   "product": {
-    "addProductSuccess": "Нов продукт успешно додаден",
-    "addingProductTip": "Продуктот се додава...",
+    "addProductSuccess": "Нов производ успешно додаден",
+    "addingProductTip": "Производот се додава...",
     "descriptionExample": "пр. Високо квалитетни и лесни патики",
     "discount": "Попуст",
     "groups": "Групи",
-    "groupsTip": "Групите се користат за создавање на логички групи на продукти. Еден производ може да биде дел од максимум 10 групи",
+    "groupsTip": "Групите се користат за создавање на логички групи на производи. Еден производ може да биде дел од максимум 10 групи",
     "nameExample": "пр. Nike Air Max",
     "priceExample": "пр. 500",
-    "productDeleted": "Продуктот со шифра {{id}} беше успешно избришан",
+    "productDeleted": "Производот со шифра {{id}} беше успешно избришан",
     "sku": "Шифра",
     "skuExample": "пр. 42356731",
     "stock": "Залиха",
     "stockExample": "пр. 12",
     "stockTip": "Оставете празно за неограничена залиха",
     "unit": "Мерна единица",
-    "updateProductSuccess": "Продуктот {{productName}} успешно обновен",
-    "updatingProductTip": "Продуктот се обновува..."
+    "updateProductSuccess": "Производот {{productName}} успешно обновен",
+    "updatingProductTip": "Производот се обновува..."
   },
   "sets": {
-    "latest": "Најнови продукти"
+    "latest": "Најнови производи"
   },
   "store": {
     "aboutUs": "За нас",

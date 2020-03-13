@@ -37,6 +37,9 @@
     "updateCampaignSuccess": "Successfully updated {{campaignName}}",
     "updatingCampaignTip": "Updating product..."
   },
+  "campaignBanners": {
+    "allDiscount": "SALE: {{rewardValue}} off on all orders, applied on checkout"
+  },
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
     "percentage-discount": "Percent"
@@ -240,6 +243,7 @@
     "uppercase": "Field should all be uppercase"
   },
   "finance": {
+    "campaignDiscount": "Promotions",
     "priceBreakdown": "Price breakdown",
     "shippingCost": "Shipping cost",
     "subtotal": "Subtotal",
