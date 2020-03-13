@@ -134,6 +134,7 @@
 		"expensiveFirst": "Највисока цена"
 	},
   "finance": {
+		"campaignDiscount": "Промоции",
 		"priceBreakdown": "Преглед на вкупна цена",
 		"shippingCost": "Цена за достава",
 		"subtotal": "Цена на производи",

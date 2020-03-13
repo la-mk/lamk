@@ -134,6 +134,7 @@
 		"expensiveFirst": "Expensive first"
 	},
   "finance": {
+		"campaignDiscount": "Promotions",
 		"priceBreakdown": "Price breakdown",
 		"shippingCost": "Shipping cost",
 		"subtotal": "Subtotal",
