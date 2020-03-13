@@ -123,6 +123,10 @@
 		"ventilation-other":"Others"
   },
 
+	"campaignBanners": {
+		"allDiscount": "SALE: {{rewardValue}} off on all orders, applied on checkout"
+	},
+
 	"campaignRewardTypes": {
 		"percentage-discount": "Percent",
 		"constant-discount": "Fixed amount"

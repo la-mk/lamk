@@ -123,6 +123,10 @@
 		"ventilation-other":"Останато"
 	},
 
+	"campaignBanners": {
+		"allDiscount": "ПРОМОЦИЈА: {{rewardValue}} попуст на сите порачки, пресметано на каса"
+	},
+
 	"campaignRewardTypes": {
 		"percentage-discount": "Проценти",
 		"constant-discount": "Фиксна вредност"
@@ -183,6 +187,6 @@
   },
 
 	"sets": {
-    "latest": "Најнови продукти"
+    "latest": "Најнови производи"
 	}
 }
