@@ -3,7 +3,7 @@ import cart from './modules/cart/cart.persist';
 import user from './modules/user/user.module';
 import ui from './modules/ui/ui.persist';
 import delivery from './modules/delivery/delivery.persist';
-import campaigns from './modules/campaigns/campaigns.persist';
+import campaigns from './modules/campaigns/campaigns.module';
 import categories from './modules/categories/categories.persist';
 import { routerReducer } from 'connected-next-router';
 import { combineReducers } from 'redux';

@@ -28,6 +28,9 @@
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "signup": "Sign up"
   },
+  "campaignBanners": {
+    "allDiscount": "SALE: {{rewardValue}} off on all orders, applied on checkout"
+  },
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
     "percentage-discount": "Percent"
@@ -228,6 +231,7 @@
     "recommended": "Recommended"
   },
   "finance": {
+    "campaignDiscount": "Promotions",
     "priceBreakdown": "Price breakdown",
     "shippingCost": "Shipping cost",
     "subtotal": "Subtotal",
@@ -270,6 +274,7 @@
     "outOfStock": "Out of stock",
     "outOfStockLong": "We are out of stock, come back later",
     "product_plural": "Products",
+    "seeAllProducts": "See all products",
     "seeOtherProducts": "See other products"
   },
   "results": {

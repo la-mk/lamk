@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Menu,
   MenuItem,
@@ -28,7 +28,7 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { logout } from '../../state/modules/auth/auth.module';
 import { getUser } from '../../state/modules/user/user.selector';
-import { toggleAuthModal } from '../../state/modules/ui/ui.module';
+import { toggleAuthModal, setUiLoaded } from '../../state/modules/ui/ui.module';
 import { useTranslation } from '../i18n';
 import { FooterContent } from './FooterContent';
 import { getFiltersFromSearch } from '../filterUtils';
@@ -62,6 +62,11 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
   const cart = useSelector(getCartWithProducts);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  // Fire an event to know that the UI has loaded on the client-side.
+  useEffect(() => {
+    dispatch(setUiLoaded());
+  }, []);
 
   // Not a very clean solution, but it will do for now
   const matches = router.pathname.match(/\/([^/]*)(\/?)/);

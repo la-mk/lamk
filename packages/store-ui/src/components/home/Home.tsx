@@ -13,6 +13,8 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { getCategories } from '../../state/modules/categories/categories.selector';
 import { getFiltersFromSetQuery } from '../../common/filterUtils';
 import { CategoriesMenu } from '../shared/CategoriesMenu';
+import { getPromotedCampaign } from '../../state/modules/campaigns/campaigns.selector';
+import { DiscountCampaign } from '../shared/campaigns/DiscountCampaign';
 
 const Banner = styled(Box)`
   position: relative;
@@ -26,6 +28,8 @@ export const Home = ({
   const { t } = useTranslation();
   const store = useSelector(getStore);
   const categories = useSelector(getCategories);
+  const promotedCampaign = useSelector(getPromotedCampaign);
+
   const [caller, showSpinner] = hooks.useCall();
   const [productSets, setProductSets] = useState<ProductSetType[]>([]);
 
@@ -53,11 +57,12 @@ export const Home = ({
 
   return (
     <>
-      <Box mx='auto'>
+      <Box mx='auto' mb={3}>
         <CategoriesMenu mode='horizontal' />
       </Box>
+      {promotedCampaign && <DiscountCampaign campaign={promotedCampaign} />}
       {landingContent.banner && (
-        <Banner mt={3}>
+        <Banner>
           <Image
             width='100%'
             src={

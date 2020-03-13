@@ -28,6 +28,9 @@
     "noUserInformation": "Информациите за корисникот не се најдени. Проверете дали сте логирани.",
     "signup": "Регистрирај се"
   },
+  "campaignBanners": {
+    "allDiscount": "ПРОМОЦИЈА: {{rewardValue}} попуст на сите порачки, пресметано на каса"
+  },
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
     "percentage-discount": "Проценти"
@@ -38,7 +41,7 @@
     "emptyCartDescription": "Вашата корпа е празна",
     "orderNumber": "Број на порачка: {{orderId}}.",
     "orderSuccess": "Вашата порачка беше успешна!",
-    "productAlreadyInCart": "Продуктот е веќе во корпата"
+    "productAlreadyInCart": "Производот е веќе во корпата"
   },
   "categories": {
     "adhesive": "Лепаци",
@@ -228,6 +231,7 @@
     "recommended": "Препорачани"
   },
   "finance": {
+    "campaignDiscount": "Промоции",
     "priceBreakdown": "Преглед на вкупна цена",
     "shippingCost": "Цена за достава",
     "subtotal": "Цена на производи",
@@ -262,26 +266,27 @@
     "order": "Порачка",
     "order_plural": "Порачки",
     "privacy": "Приватност",
-    "product_plural": "Продукти",
+    "product_plural": "Производи",
     "returnAndRefund": "Замена на производ",
     "termsOfUse": "Услови на употреба"
   },
   "product": {
     "outOfStock": "Нема залиха",
     "outOfStockLong": "Нема залиха, работиме на обновување на залихите",
-    "product_plural": "Продукти",
-    "seeOtherProducts": "Видете други продукти"
+    "product_plural": "Производи",
+    "seeAllProducts": "Видете ги производите",
+    "seeOtherProducts": "Видете други производи"
   },
   "results": {
     "genericError": "Се појави грешка",
     "pageNotFound": "Не е пронајдена",
     "pageNotFoundExplanation": "Страницата што ја баравте не беше пронајдена",
-    "productNotFound": "Продуктот не е пронајден",
+    "productNotFound": "Производот не е пронајден",
     "serverError": "Серверска грешка",
     "serverErrorExplanation": "Се појави грешка при вашето барање, пробајте повторно. Доколку сеуште имате проблем, контактирајте не"
   },
   "sets": {
-    "latest": "Најнови продукти"
+    "latest": "Најнови производи"
   },
   "store": {
     "noAboutusInformation": "Информациите за продавницата не беа пронајдени, обидете се повторно"

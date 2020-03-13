@@ -92,6 +92,7 @@ const setInitialDataInState = async (appCtx: any) => {
 
 const Main = ({ store, children }) => {
   const { t, i18n } = useTranslation();
+
   return (
     <ThemeProvider
       basicLocale={i18n.language === 'mk' ? mk_MK : undefined}

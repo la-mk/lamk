@@ -2,7 +2,7 @@ import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 const initialState = { store: null };
 
-const SET_STORE = 'store/SET_STORE';
+export const SET_STORE = 'store/SET_STORE';
 
 export default function store(state = initialState, action: any) {
   switch (action.type) {
