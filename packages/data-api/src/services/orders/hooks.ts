@@ -135,6 +135,10 @@ const validateOrderCampaigns = async (ctx: HookContext) => {
       'The campaigns applied to the products no longer exist or have changed, refresh the page and try again',
     );
   }
+
+  if (orderTotal < 0) {
+    throw new BadRequest('The order cannot be below 0');
+  }
 };
 
 export const hooks = {

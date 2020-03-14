@@ -33,6 +33,9 @@ interface ProductFormModalProps {
   visible: boolean;
 }
 
+const currencyParser = (value?: string) =>
+  (value ?? '').replace(/[^0-9.]/g, '');
+
 export const CampaignFormModal = ({
   campaign,
   onClose,
@@ -137,48 +140,7 @@ export const CampaignFormModal = ({
                 {formInput({ placeholder: t('campaign.nameExample') })}
               </FormItem>
             </Col>
-
             <Col md={6} span={12}>
-              <FormItem label={t('campaign.active')} selector='isActive'>
-                {(
-                  val: any,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => (
-                  <Checkbox
-                    mr={3}
-                    checked={val}
-                    onChange={e => onComplete(e.target.checked)}
-                  >
-                    {t('campaign.active')}
-                  </Checkbox>
-                )}
-              </FormItem>
-            </Col>
-            <Col md={6} span={12}>
-              <FormItem
-                help={t('campaign.promotedTip')}
-                label={t('campaign.promoted')}
-                selector='isPromoted'
-              >
-                {(
-                  val: any,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => (
-                  <Checkbox
-                    mr={3}
-                    checked={val}
-                    onChange={e => onComplete(e.target.checked)}
-                  >
-                    {t('campaign.promoted')}
-                  </Checkbox>
-                )}
-              </FormItem>
-            </Col>
-          </Row>
-          <Row gutter={24}>
-            <Col md={18} span={24}>
               <FormItem label={t('campaign.reward')} selector='reward.value'>
                 {(
                   val: any,
@@ -197,20 +159,23 @@ export const CampaignFormModal = ({
                       formatter={value => {
                         return value ? `${value} ${suffix}` : '';
                       }}
-                      parser={value => (value || '').replace(/[^0-9.]/g, '')}
+                      parser={currencyParser}
                       width='100%'
                       min={0}
                       max={isPercentage ? 100 : 99999999}
                       decimalSeparator='.'
                       value={val}
                       onChange={onChange}
-                      onBlur={onComplete}
+                      // onBlur doesn't apply parsing to the value
+                      onBlur={val =>
+                        onComplete(parseFloat(currencyParser(val.target.value)))
+                      }
                     />
                   );
                 }}
               </FormItem>
             </Col>
-            <Col md={6} span={24}>
+            <Col md={6} span={12}>
               <FormItem label={t('campaign.reward')} selector='reward.type'>
                 {(
                   val: any,
@@ -229,6 +194,46 @@ export const CampaignFormModal = ({
                     </Select>
                   );
                 }}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row gutter={24}>
+            <Col md={12} span={24}>
+              <FormItem label={t('campaign.active')} selector='isActive'>
+                {(
+                  val: any,
+                  _onChange: (val: any) => void,
+                  onComplete: (val: any) => void,
+                ) => (
+                  <Checkbox
+                    mr={3}
+                    checked={val}
+                    onChange={e => onComplete(e.target.checked)}
+                  >
+                    {t('campaign.active')}
+                  </Checkbox>
+                )}
+              </FormItem>
+            </Col>
+            <Col md={12} span={24}>
+              <FormItem
+                help={t('campaign.promotedTip')}
+                label={t('campaign.promoted')}
+                selector='isPromoted'
+              >
+                {(
+                  val: any,
+                  _onChange: (val: any) => void,
+                  onComplete: (val: any) => void,
+                ) => (
+                  <Checkbox
+                    mr={3}
+                    checked={val}
+                    onChange={e => onComplete(e.target.checked)}
+                  >
+                    {t('campaign.promoted')}
+                  </Checkbox>
+                )}
               </FormItem>
             </Col>
           </Row>

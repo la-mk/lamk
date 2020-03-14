@@ -57,7 +57,7 @@ export const Summary = ({
         <Flex mt={2} flexDirection='row' justifyContent='space-between'>
           <Text strong>{t('finance.campaignDiscount')}</Text>
           <Text strong type='danger'>
-            {prices.withCampaignsTotal - prices.productsTotal} ден
+            {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
           </Text>
         </Flex>
       )}

@@ -66,21 +66,31 @@ export const isOwner = (ownerFields: string[]) => {
       return false;
     }
 
-    const data = ctx.method === 'get' ? ctx.result : ctx.result.data[0];
+    // We can just check from the returned data so we don't have to make a separate request.
+    if (ctx.type === 'after') {
+      const data = ctx.method === 'get' ? ctx.result : ctx.result.data[0];
 
-    // There is no data, so it doesn't matter
-    if (!data) {
-      return false;
+      // There is no data, so it doesn't matter
+      if (!data) {
+        return false;
+      }
+
+      return ownerFields.some(
+        ownerField => data[ownerField] === userEntity._id,
+      );
     }
 
-    return ownerFields.some(ownerField => data[ownerField] === userEntity._id);
+    // We expect owners to query with their ID
+    return ownerFields.some(
+      ownerField => ctx.params?.query?.[ownerField] === userEntity._id,
+    );
   };
 };
 
 // We want to allow the server to access any field, and only limit for non-owners
 export const allowFields = (ownerFields: string[], fields: string[]) => {
   return unless(
-    (...args) => isOwner(ownerFields)(...args) || isProvider('server')(...args),
+    (...args) => isProvider('server')(...args) || isOwner(ownerFields)(...args),
     keep(...fields),
   );
 };
@@ -91,7 +101,7 @@ export const setNonOwnerQuery = (
   querySet: { [key: string]: number | string | boolean },
 ) => {
   return unless(
-    (...args) => isOwner(ownerFields)(...args) || isProvider('server')(...args),
+    (...args) => isProvider('server')(...args) || isOwner(ownerFields)(...args),
     (ctx: HookContext) => {
       if (!ctx.params.query) {
         ctx.params.query = {};

@@ -107,7 +107,6 @@ export const Cart = () => {
     dispatch(goTo('/checkout'));
   };
 
-  console.log(campaigns);
   return (
     <Page title={t('pages.myCart')}>
       <Spin spinning={showSpinner}>
