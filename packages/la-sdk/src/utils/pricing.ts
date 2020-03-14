@@ -5,6 +5,15 @@ import { Campaign, RewardTypes } from '../models/campaign';
 import { OrderItem } from '../models/order';
 import { CartItemWithProduct } from '../models/cart';
 
+const round = (num: number) => {
+  if(!num){
+    return num;
+  }
+
+  // We round to one decimal, for other currencies it might make sense to round to more decimals.
+  return Math.round(num * 10) / 10
+}
+
 export const calculateProductPrice = (product: Pick<Product, 'price' | 'discount'>) => {
   return product.price - (product.discount ?? 0);
 }
@@ -48,10 +57,12 @@ export const calculateWithCampaignsTotal = (campaigns: Campaign[], productsWithQ
 }
 
 export const calculatePrices = (productsWithQuantity: (CartItemWithProduct | OrderItem)[], delivery?: Pick<Delivery, 'freeDeliveryOver' | 'price'>, campaigns: Campaign[] = []) => {
-  const productsTotal = calculateProductsTotal(productsWithQuantity)
-  const withCampaignsTotal = calculateWithCampaignsTotal(campaigns, productsWithQuantity, productsTotal)
-  const deliveryTotal = delivery ? (delivery.freeDeliveryOver < withCampaignsTotal ? 0 : delivery.price) : undefined;
-  const total = withCampaignsTotal + (deliveryTotal ?? 0);
+  const productsTotal = round(calculateProductsTotal(productsWithQuantity))
+  let withCampaignsTotal = round(calculateWithCampaignsTotal(campaigns, productsWithQuantity, productsTotal))
+  // We don't want to allow the withCampaigns value to drop below 0, as it doesn't make any sense.
+  withCampaignsTotal = withCampaignsTotal < 0 ? 0 : withCampaignsTotal;
+  const deliveryTotal = delivery ? round(delivery.freeDeliveryOver < withCampaignsTotal ? 0 : delivery.price) : undefined;
+  const total = round(withCampaignsTotal + (deliveryTotal ?? 0));
 
   return {
     productsTotal,
