@@ -39,6 +39,7 @@ const getColumns = (t: T, filters: FilterObject) =>
         const prices = sdk.utils.pricing.calculatePrices(
           order.ordered,
           order.delivery,
+          order.campaigns,
         );
         return <Text>{prices.total} ден</Text>;
       },

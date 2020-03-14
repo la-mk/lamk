@@ -18,7 +18,8 @@ COPY . .
 RUN rm -f .npmrc
 ENV NODE_ENV production
 RUN npm run build
-RUN npm prune --development
+# TODO: It's somewhat confusing what should and shouldn't be a dev dependency, so let's just keep all of them for now
+# RUN npm prune --development
 
 FROM node:12-slim as prod
 WORKDIR /usr/src/app
