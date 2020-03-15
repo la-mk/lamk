@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Application, Service, Params } from '@feathersjs/feathers';
 import { hooks } from './hooks';
 import { logger } from '../../common/logger';
@@ -32,10 +33,12 @@ const getAnalyticsTypeQuery = (
         engines.mongoDb
           .collection('orders')
           .aggregate([
-            { $match: { orderedFrom: forStore } },
+            {
+              $match: { orderedFrom: forStore },
+            },
             {
               $group: {
-                _id: '$orderedFrom',
+                _id: '$status',
                 revenue: { $sum: '$calculatedTotal' },
               },
             },
@@ -43,10 +46,9 @@ const getAnalyticsTypeQuery = (
           .toArray()
           .then(res => {
             if (res.length <= 0) {
-              return 0;
+              return {};
             }
-
-            return res[0].revenue;
+            return _.mapValues(_.keyBy(res, '_id'), 'revenue');
           });
     }
   }

@@ -11,13 +11,20 @@ export const TopStatistics = () => {
     <Row type='flex' gutter={16} px={[3, 3, 4]} py={2}>
       <Col mt={2} xs={24} lg={8}>
         <StatisticsCard type={sdk.storeAnalytics.AnalyticsTypes.REVENUE}>
-          {val => (
-            <Statistic
-              title={t('commerce.revenue')}
-              suffix={'ден'}
-              value={val}
-            />
-          )}
+          {val => {
+            const total =
+              (val?.[sdk.order.OrderStatus.COMPLETED] ?? 0) +
+              (val?.[sdk.order.OrderStatus.SHIPPED] ?? 0) +
+              (val?.[sdk.order.OrderStatus.PENDING] ?? 0);
+
+            return (
+              <Statistic
+                title={t('commerce.revenue')}
+                suffix={'ден'}
+                value={total}
+              />
+            );
+          }}
         </StatisticsCard>
       </Col>
       <Col mt={2} xs={24} lg={8}>

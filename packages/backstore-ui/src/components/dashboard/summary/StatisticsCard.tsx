@@ -22,6 +22,10 @@ export const StatisticsCard = ({ type, children }: StatisticsCardProps) => {
   const store = useSelector(getStore);
 
   React.useEffect(() => {
+    if (!store?._id) {
+      return;
+    }
+
     caller(
       sdk.storeAnalytics.get(store._id, {
         query: {
