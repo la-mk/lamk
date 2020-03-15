@@ -8,6 +8,7 @@ import { validate } from '../../common/hooks/db';
 import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
 import { checkContext } from 'feathers-hooks-common';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { patchableFields } from '../../common/hooks/filtering';
 
 // FUTURE: Improve how we do the validation, maybe reassign all fields in the hook instead of checking the validity of each of them.
 
@@ -175,9 +176,10 @@ export const hooks = {
       validateOrderCampaigns,
       validateOrderItems,
     ],
+
     patch: [
-      // TODO: List patchable fields, only allow status and few others to be modified.
       authenticate('jwt'),
+      patchableFields(['status', 'modifiedAt']),
       // Only the store can modify an order as things stand now.
       queryWithCurrentUser(['orderedFrom']),
       validate(sdk.order.validate),
