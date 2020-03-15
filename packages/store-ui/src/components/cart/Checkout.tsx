@@ -115,6 +115,8 @@ export const Checkout = () => {
         delivery,
         deliverTo,
         ordered,
+        // This is just to make the typings happy, as it will be calculated server-side.
+        calculatedTotal: 0,
       }),
       (order: Order) => {
         setOrder(order);
