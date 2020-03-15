@@ -1,0 +1,97 @@
+import { Application, Service, Params } from '@feathersjs/feathers';
+import { hooks } from './hooks';
+import { logger } from '../../common/logger';
+import { GeneralError } from '../../common/errors';
+import { sdk } from '@sradevski/la-sdk';
+import { Db } from 'mongodb';
+import { AnalyticsTypes } from '@sradevski/la-sdk/dist/models/storeAnalytics';
+
+interface SearchData {
+  model: string;
+  item: any;
+}
+
+const getAnalyticsTypeQuery = (
+  type: AnalyticsTypes,
+  forStore: string,
+  engines: { mongoDb: Db },
+  // _frequency?: AnalyticsFrequency,
+) => {
+  switch (type) {
+    case sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT: {
+      return () =>
+        engines.mongoDb.collection('products').count({ soldBy: forStore });
+    }
+    case sdk.storeAnalytics.AnalyticsTypes.ORDERS_COUNT: {
+      return () =>
+        engines.mongoDb.collection('orders').count({ orderedFrom: forStore });
+    }
+
+    case sdk.storeAnalytics.AnalyticsTypes.REVENUE: {
+      return () =>
+        engines.mongoDb
+          .collection('orders')
+          .aggregate([
+            { $match: { orderedFrom: forStore } },
+            {
+              $group: {
+                _id: '$orderedFrom',
+                revenue: { $sum: '$calculatedTotal' },
+              },
+            },
+          ])
+          .toArray()
+          .then(res => {
+            if (res.length <= 0) {
+              return 0;
+            }
+
+            return res[0].revenue;
+          });
+    }
+  }
+};
+
+// @ts-ignore
+class StoreAnalyticsService implements Service<any> {
+  // We want to access the database directly, so we can run aggregation queries
+  mongoDb: Db;
+  constructor(options: { mongoDb: Db }) {
+    if (!options?.mongoDb) {
+      throw new Error('Search service: `options.mongoDb` must be provided');
+    }
+
+    this.mongoDb = options.mongoDb;
+  }
+
+  // We want to use get because the response should be a single object for the specific store.
+  // @ts-ignore
+  async get(_id: string, params: Params<any>) {
+    const { type, forStore, frequency } = params.query;
+    const query = getAnalyticsTypeQuery(type, forStore, {
+      mongoDb: this.mongoDb,
+    });
+
+    try {
+      return await query();
+    } catch (err) {
+      logger.error(
+        `Failed to get analytics data for type: ${type}`,
+        err.message,
+      );
+      throw new GeneralError('Failed to get analytics data', {
+        type,
+        frequency,
+      });
+    }
+  }
+}
+
+export const storeAnalytics = (app: Application) => {
+  app.use(
+    '/storeAnalytics',
+    new StoreAnalyticsService({ mongoDb: app.get('mongoDb') }),
+  );
+  const service = app.service('storeAnalytics');
+  service.hooks(hooks);
+};

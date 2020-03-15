@@ -97,7 +97,13 @@ const validateOrderDelivery = async (ctx: HookContext) => {
 
 const validateOrderCampaigns = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['create']);
-  const { campaigns, ordered, orderedFrom, delivery } = ctx.data;
+  const {
+    campaigns,
+    ordered,
+    orderedFrom,
+    delivery,
+    calculatedTotal,
+  } = ctx.data;
 
   if (!campaigns || !campaigns.length) {
     return;
@@ -118,25 +124,32 @@ const validateOrderCampaigns = async (ctx: HookContext) => {
   }
 
   const dbCampaigns = dbCampaignsResult.data;
-  const orderTotal = sdk.utils.pricing.calculatePrices(
-    ordered,
-    delivery,
-    campaigns,
-  ).total;
   const dbTotal = sdk.utils.pricing.calculatePrices(
     ordered,
     delivery,
     dbCampaigns,
   ).total;
 
-  if (orderTotal !== dbTotal) {
+  if (calculatedTotal !== dbTotal) {
     throw new BadRequest(
       'The campaigns applied to the products no longer exist or have changed, refresh the page and try again',
     );
   }
+};
 
-  if (orderTotal < 0) {
-    throw new BadRequest('The order cannot be below 0');
+// We don't allow any patches to price-related fields for an order, so we are sure that the calculatedTotal won't change on patch.
+const calculateTotal = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { ordered, delivery, campaigns } = ctx.data;
+  // If we are creating the object, we are sure the price field is present.
+  ctx.data.calculatedTotal = sdk.utils.pricing.calculatePrices(
+    ordered,
+    delivery,
+    campaigns,
+  ).total;
+
+  if (ctx.data.calculatedTotal <= 0) {
+    throw new BadRequest('Order has to have a positive total');
   }
 };
 
@@ -155,6 +168,7 @@ export const hooks = {
       authenticate('jwt'),
       setCurrentUser(['orderedBy']),
       setFields({ status: sdk.order.OrderStatus.PENDING }),
+      calculateTotal,
       validate(sdk.order.validate),
       // TODO: This validation should be part of the model.
       validateOrderDelivery,
@@ -162,6 +176,7 @@ export const hooks = {
       validateOrderItems,
     ],
     patch: [
+      // TODO: List patchable fields, only allow status and few others to be modified.
       authenticate('jwt'),
       // Only the store can modify an order as things stand now.
       queryWithCurrentUser(['orderedFrom']),

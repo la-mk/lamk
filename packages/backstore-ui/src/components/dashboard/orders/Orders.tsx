@@ -1,4 +1,3 @@
-import sum from 'lodash/sum';
 import React, { useState } from 'react';
 import {
   Flex,
@@ -18,7 +17,7 @@ import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from '@sradevski/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { Order, OrderItem } from '@sradevski/la-sdk/dist/models/order';
+import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { getOrderStatusColor } from '../../shared/utils/enums';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
@@ -34,14 +33,9 @@ const getColumns = (t: T, filters: FilterObject) =>
     },
     {
       title: t('finance.total'),
-      dataIndex: 'ordered',
-      render: (_orderList: OrderItem[], order: Order) => {
-        const prices = sdk.utils.pricing.calculatePrices(
-          order.ordered,
-          order.delivery,
-          order.campaigns,
-        );
-        return <Text>{prices.total} ден</Text>;
+      dataIndex: 'calculatedTotal',
+      render: (calculatedTotal: number) => {
+        return <Text>{calculatedTotal} ден</Text>;
       },
     },
     {
