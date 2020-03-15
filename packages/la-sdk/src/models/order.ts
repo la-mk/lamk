@@ -43,6 +43,12 @@ export const schema = {
   campaigns: v8n().every.schema(campaignSchema),
   delivery: v8n().schema(deliverySchema),
   deliverTo: v8n().schema(addressSchema),
+  // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
+  calculatedTotal: v8n().optional(
+    v8n()
+      .number(false)
+      .positive(),
+  ),
   // createdAt is optional as it is added by server on creation.
   createdAt: v8n().optional(
     v8n()
@@ -75,6 +81,7 @@ export interface Order {
   campaigns: Campaign[];
   delivery: Delivery;
   deliverTo?: Address;
+  calculatedTotal: number;
   createdAt: string;
   modifiedAt: string;
 }
