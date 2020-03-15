@@ -38,5 +38,8 @@ export const getStoreAnalyticsSdk = (client: Application) => {
       return crudMethods.get(storeId, options);
     },
     // We don't need validation yet as create/patch are not allowed.
+
+    AnalyticsTypes,
+    AnalyticsFrequency,
   };
 };
