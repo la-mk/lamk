@@ -76,12 +76,10 @@ export const Checkout = () => {
   }, [caller, user, addresses]);
 
   useEffect(() => {
-    if (!campaigns) {
-      caller(sdk.campaign.findActiveForStore(store._id), fetchedCampaigns => {
-        return setCampaigns(fetchedCampaigns.data);
-      });
-    }
-  }, [caller, campaigns, store._id]);
+    caller(sdk.campaign.findActiveForStore(store._id), fetchedCampaigns => {
+      return setCampaigns(fetchedCampaigns.data);
+    });
+  }, [caller, store._id]);
 
   useEffect(() => {
     if (!deliverTo && addresses && addresses.length > 0) {

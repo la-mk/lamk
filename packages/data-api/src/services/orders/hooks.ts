@@ -7,6 +7,7 @@ import { BadRequest } from '../../common/errors';
 import { validate } from '../../common/hooks/db';
 import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
 import { checkContext } from 'feathers-hooks-common';
+import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 
 // FUTURE: Improve how we do the validation, maybe reassign all fields in the hook instead of checking the validity of each of them.
 
@@ -98,21 +99,19 @@ const validateOrderCampaigns = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['create']);
   const { campaigns, ordered, orderedFrom, delivery } = ctx.data;
 
-  if (!campaigns || campaigns.length) {
+  if (!campaigns || !campaigns.length) {
     return;
   }
 
-  const dbCampaignsResult = ctx.app.services['campaigns'].find({
+  const dbCampaignsResult = await ctx.app.services['campaigns'].find({
     query: {
       forStore: orderedFrom,
       isActive: true,
+      _id: { $in: campaigns.map((campaign: Campaign) => campaign._id) },
     },
   });
 
-  if (
-    dbCampaignsResult.total <= 0 ||
-    dbCampaignsResult.total !== campaigns.length
-  ) {
+  if (dbCampaignsResult.total !== campaigns.length) {
     throw new BadRequest(
       'The campaigns applied to the products no longer exist or have changed, refresh the page and try again',
     );

@@ -55,12 +55,10 @@ export const Cart = () => {
   }, [caller, user, cart, store._id]);
 
   useEffect(() => {
-    if (!campaigns) {
-      caller(sdk.campaign.findActiveForStore(store._id), fetchedCampaigns => {
-        return setCampaigns(fetchedCampaigns.data);
-      });
-    }
-  }, [caller, campaigns, store._id]);
+    caller(sdk.campaign.findActiveForStore(store._id), fetchedCampaigns => {
+      return setCampaigns(fetchedCampaigns.data);
+    });
+  }, [caller, store._id]);
 
   if (!cart || !cart.items || cart.items.length <= 0) {
     return <Empty mt={6} description={t('cart.emptyCartDescription')}></Empty>;
