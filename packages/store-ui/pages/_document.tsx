@@ -83,7 +83,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html prefix='og: http://ogp.me/ns#'>
+      <Html prefix='og: https://ogp.me/ns#'>
         <Head />
         <body>
           <Main />

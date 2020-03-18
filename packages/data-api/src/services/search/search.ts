@@ -239,8 +239,8 @@ export const search = (app: Application) => {
   const client = new Typesense.Client({
     masterNode: {
       host: env().SEARCH_SERVICE_ENDPOINT,
-      port: env().NODE_ENV === 'development' ? '80' : '443',
-      protocol: env().NODE_ENV === 'development' ? 'http' : 'https',
+      port: '443',
+      protocol: 'https',
       apiKey: env().SEARCH_SERVICE_API_KEY,
     },
 

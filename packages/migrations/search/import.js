@@ -6,7 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const prepareSdk = async () => {
   sdk.setupSdk({
     transport: 'rest',
-    apiEndpoint: 'http://api.dev.sradevski.com',
+    apiEndpoint: 'https://api.dev.sradevski.com',
   });
 };
 

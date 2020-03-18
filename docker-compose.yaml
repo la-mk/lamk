@@ -16,7 +16,11 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
       - --entrypoints.web.address=:80
-      - --entrypoints.web-secure.address=:443 
+      - --entrypoints.websecure.address=:443
+
+      # This is just for dev
+      - --providers.file.directory=/configuration/
+      - --providers.file.watch=true
     ports:
        # The Web UI (enabled by --api.insecure=true)
        - "8080:8080"
@@ -24,6 +28,8 @@ services:
        - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/certs:/certs
+      - ./dev/traefik/:/configuration/
     depends_on:
       - data-api
       - store-ui
@@ -40,14 +46,23 @@ services:
     expose: 
       - 9000
     volumes:
-      - ./data:/data
+      - ./volumes/data:/data
     networks:
       - main-network
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.object-store-https.redirectscheme.scheme=https
+
+      - traefik.http.routers.object-store-http.priority=1000
+      - traefik.http.routers.object-store-http.entrypoints=web
+      - traefik.http.routers.object-store-http.rule=Host(`artifacts.dev.sradevski.com`)
+      - traefik.http.routers.object-store-htttp.middlewares=object-store-https
+
       - traefik.http.routers.object-store.priority=1000
       - traefik.http.routers.object-store.rule=Host(`artifacts.dev.sradevski.com`)
       - traefik.http.services.object-store.loadbalancer.server.port=9000
+      - traefik.http.routers.object-store.entrypoints=websecure
+      - traefik.http.routers.object-store.tls=true
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
@@ -59,14 +74,23 @@ services:
     expose:
       - 8108
     volumes:
-      - ./search-data:/data
+      - ./volumes/search-data:/data
     networks:
       - main-network
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.search-https.redirectscheme.scheme=https
+
+      - traefik.http.routers.search-http.priority=1000
+      - traefik.http.routers.search-http.entrypoints=web
+      - traefik.http.routers.search-http.rule=Host(`search.dev.sradevski.com`)
+      - traefik.http.routers.search-http.middlewares=search-https
+
       - traefik.http.routers.search.priority=1000
       - traefik.http.routers.search.rule=Host(`search.dev.sradevski.com`)
       - traefik.http.services.search.loadbalancer.server.port=8108
+      - traefik.http.routers.search.entrypoints=websecure
+      - traefik.http.routers.search.tls=true
     environment:
       TYPESENSE_DATA_DIR: /data
       TYPESENSE_API_KEY: 12345678
@@ -90,9 +114,18 @@ services:
       - 9229:9229 #debug port
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.data-api-https.redirectscheme.scheme=https
+      
+      - traefik.http.routers.data-api-http.priority=1000
+      - traefik.http.routers.data-api-http.entrypoints=web
+      - traefik.http.routers.data-api-http.rule=Host(`api.dev.sradevski.com`)
+      - traefik.http.routers.data-api-http.middlewares=data-api-https
+
       - traefik.http.routers.data-api.priority=1000
       - traefik.http.routers.data-api.rule=Host(`api.dev.sradevski.com`)
       - traefik.http.services.data-api.loadbalancer.server.port=80 
+      - traefik.http.routers.data-api.entrypoints=websecure
+      - traefik.http.routers.data-api.tls=true
     environment: 
       GPR_TOKEN: $GPR_TOKEN
       PORT: 80
@@ -107,13 +140,15 @@ services:
       MAIL_SERVICE_API_KEY: "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"
       SEARCH_SERVICE_API_KEY: "12345678"
       SEARCH_SERVICE_ENDPOINT: "search.dev.sradevski.com"
+      # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.dev.sradevski.com services from within the service it fails.
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
 
   store-ui:
     image: lamk/store-ui-dev
     build: 
       context: ./packages/store-ui
       target: dev
-      args: 
+      args:
         - GPR_TOKEN=$GPR_TOKEN
     container_name: store-ui-dev
     depends_on: 
@@ -127,16 +162,29 @@ services:
       - 80
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.store-ui-https.redirectscheme.scheme=https
+
+      - traefik.http.routers.store-ui-http.priority=1
+      - traefik.http.routers.store-ui-http.entrypoints=web
+      - traefik.http.routers.store-ui-http.rule=HostRegexp(`{subdomain:.+}.dev.sradevski.com`)
+      - traefik.http.routers.store-ui-http.middlewares=store-ui-https
+      - traefik.http.routers.store-ui-http.service=store-ui #never called due to redirect
+
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
-      - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.dev.sradevski.com`, `local-agnesa-test.lamk.tech`)
-      - traefik.http.services.store-ui.loadbalancer.server.port=80 
+      - traefik.http.routers.store-ui.entrypoints=websecure
+      - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.dev.sradevski.com`)
+      - traefik.http.routers.store-ui.service=store-ui
+      - traefik.http.services.store-ui.loadbalancer.server.port=80
+      - traefik.http.routers.store-ui.tls=true
     environment: 
       GPR_TOKEN: $GPR_TOKEN
-      API_ENDPOINT: "http://api.dev.sradevski.com"
+      API_ENDPOINT: "https://api.dev.sradevski.com"
       # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
-      ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com/dev-bucket"
+      ARTIFACTS_ENDPOINT: "https://artifacts.dev.sradevski.com/dev-bucket"
       ANALYTICS_TRACKING_ID: '' 
       PORT: 80
+      # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.dev.sradevski.com services from within the service it fails.
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
 
   backstore-ui:
     image: lamk/backstore-ui-dev
@@ -157,12 +205,21 @@ services:
       - 80
     labels:
       - traefik.enable=true
+      - traefik.http.middlewares.backstore-ui-https.redirectscheme.scheme=https
+
+      - traefik.http.routers.backstore-ui-http.priority=1000
+      - traefik.http.routers.backstore-ui-http.entrypoints=web
+      - traefik.http.routers.backstore-ui-http.rule=Host(`back.dev.sradevski.com`)
+      - traefik.http.routers.backstore-ui-http.middlewares=backstore-ui-https
+
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`back.dev.sradevski.com`)
       - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
+      - traefik.http.routers.backstore-ui.entrypoints=websecure
+      - traefik.http.routers.backstore-ui.tls=true
     environment:
       GPR_TOKEN: $GPR_TOKEN
-      REACT_APP_API_ENDPOINT: "http://api.dev.sradevski.com"
+      REACT_APP_API_ENDPOINT: "https://api.dev.sradevski.com"
       # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
-      REACT_APP_ARTIFACTS_ENDPOINT: "http://artifacts.dev.sradevski.com/dev-bucket"
+      REACT_APP_ARTIFACTS_ENDPOINT: "https://artifacts.dev.sradevski.com/dev-bucket"
       PORT: 80

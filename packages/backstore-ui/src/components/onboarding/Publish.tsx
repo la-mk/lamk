@@ -46,7 +46,7 @@ export const Publish = ({ storeSlug, onDone }: PublishProps) => {
       </PublishSection>
       {/* For this to work, we need to authenticate with the backstore token in the store and not server-render it, but we can leave it for later on.
       <ShopIframe
-        src={`http://${storeSlug}.${env.HOST}`}
+        src={`https://${storeSlug}.${env.HOST}`}
         name='shop-preview'
         // Can hide a spinner after the iframe is loaded
         onLoad={() => null}
