@@ -1,3 +1,4 @@
+import { property, uniq, uniqBy } from 'lodash';
 import v8n from 'v8n';
 import { errors, getError } from './errors';
 
@@ -24,6 +25,12 @@ const extendValidation = () => {
       const tester = new RegExp(`^${regex}$`);
       return tester.test(value);
     },
+    unique: (propertyPath?: string) => (value: any[]) => {
+      const unique = propertyPath
+        ? uniqBy(value, property(propertyPath))
+        : uniq(value);
+      return value.length === unique.length;
+    },
     // We check if the string is a valid ISO date
     datetime: () => (value: string) => {
       const parsed = Date.parse(value);
@@ -39,7 +46,6 @@ const extendValidation = () => {
 
 extendValidation();
 
-
 export const validateSingle = (schema: any, val: any, selector: string) => {
   const validator = schema[selector];
   if (!validator) {
@@ -52,7 +58,7 @@ export const validateSingle = (schema: any, val: any, selector: string) => {
     if (validation[0].rule.name === 'optional') {
       return getError(
         validation[0].cause.rule.name,
-        validation[0].cause.rule.args,
+        validation[0].cause.rule.args
       );
     }
 
@@ -75,7 +81,7 @@ const checkMissingInSchema = (schema: any, data: any) =>
 const checkDataAgainstSchema = (
   schema: any,
   data: any,
-  ignoreRequired: boolean,
+  ignoreRequired: boolean
 ) =>
   Object.keys(schema).reduce((errs: ValidationErrorResponse, entry) => {
     const val = data[entry];
@@ -94,12 +100,12 @@ const checkDataAgainstSchema = (
 export const validate = (
   schema: any,
   data: any = {},
-  ignoreRequired: boolean = false,
+  ignoreRequired: boolean = false
 ) => {
   const failedValidationErrors = checkDataAgainstSchema(
     schema,
     data,
-    ignoreRequired,
+    ignoreRequired
   );
 
   const missingInSchemaErrors = checkMissingInSchema(schema, data);

@@ -118,6 +118,50 @@ describe('Custom validators', () => {
         .test('1994-11-05'),
     ).toBeFalsy();
   });
+
+  test('unique', () => {
+    expect(
+      v8n()
+        .unique()
+        .test([]),
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .unique()
+        .test(['a', 'b', 'c']),
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .unique()
+        .test(['a', 'a', 'b']),
+    ).toBeFalsy();
+
+    expect(
+      v8n()
+        .unique()
+        .test([{a: 'a', b: 'b'}, {a: 'c', b: 'b'}]),
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .unique('a')
+        .test([{a: 'a', b: 'b'}, {a: 'c', b: 'b'}]),
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .unique('b')
+        .test([{a: 'a', b: 'b'}, {a: 'c', b: 'b'}]),
+    ).toBeFalsy();
+
+    expect(
+      v8n()
+        .unique('a.c')
+        .test([{a: {c: 'd'}, b: 'b'}, {a: {c: 'd'}, b: 'b'}]),
+    ).toBeFalsy();
+  });
 });
 
 const sampleSchema = {
