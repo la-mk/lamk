@@ -102,5 +102,8 @@ export const getStorePaymentMethodsSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+
+    PaymentMethodNames,
+    PaymentProcessors,
   };
 };
