@@ -81,6 +81,10 @@ export const errors: {
     name: 'date',
     message: 'Field should be a valid date',
   },
+  unique: {
+    name: 'unique',
+    message: 'Field should have unique values',
+  },
   generic: {
     name: 'generic',
     message: 'Invalid entry',

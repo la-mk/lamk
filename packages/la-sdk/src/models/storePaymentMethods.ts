@@ -47,6 +47,7 @@ export const schema = {
 
   methods: v8n()
     .minLength(1)
+    .unique('name')
     .every.schema(paymentMethodSchema),
 
   // createdAt is optional as it is added by server on creation.
