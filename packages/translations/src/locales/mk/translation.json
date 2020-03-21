@@ -68,7 +68,7 @@
 		"campaign_plural": "Кампањи",
 		"delivery": "Достава",
 		"order_plural": "Порачки",
-		"payment": "Payment",
+		"payment": "Плаќање",
 		"product_plural": "Производи",
 		"quantity": "Количина",
 		"revenue": "Приход",
@@ -179,7 +179,7 @@
 		"clientId": "Шифра на клиентот",
 		"clientIdTip": "Доставена од банката како 'clientId'",
 		"clientKey": "Клуч на клиентот",
-		"clientKeyTip": "Доставена од банката како 'storeKey'",
+		"clientKeyTip": "Доставен од банката како 'storeKey'",
 		"processor": "Банка",
 		"processorMissingTip": "Вашата банка не е во листата? Контактирајте не за поддршка на вашата банка.",
 		"updatingPaymentMethodsTip": "Плаќањата се обновуваат..."

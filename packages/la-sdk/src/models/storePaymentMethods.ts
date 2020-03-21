@@ -7,7 +7,7 @@ import v8n from 'v8n';
 
 export enum PaymentMethodNames {
   CREDIT_CARD = 'creditCard',
-  PAY_ON_DELIVEERY = 'payOnDelivery',
+  PAY_ON_DELIVERY = 'payOnDelivery',
 }
 
 export enum PaymentProcessors {

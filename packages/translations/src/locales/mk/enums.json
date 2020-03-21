@@ -185,7 +185,16 @@
 		"pendingDescription": "Се чека за достава",
 		"shipped": "Испратена",
 		"shippedDescription": "Испратена по карго"
-  },
+	},
+	
+	"paymentMethodNames": {
+		"creditCard": "Кредитна картичка",
+		"payOnDelivery": "Наплата при достава"
+	},
+	
+	"paymentProcessors": {
+		"halkbank": "Халкбанк"
+	},
 
 	"sets": {
     "latest": "Најнови производи"

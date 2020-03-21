@@ -187,6 +187,15 @@
 		"shippedDescription": "Awaiting arrival"
   },
 
+	"paymentMethodNames": {
+		"creditCard": "Credit card",
+		"payOnDelivery": "Pay on delivery"
+	},
+	
+	"paymentProcessors": {
+		"halkbank": "Halkbank"
+	},
+
 	"sets": {
     "latest": "Latest products"
 	}
