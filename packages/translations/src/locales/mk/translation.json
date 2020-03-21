@@ -68,6 +68,7 @@
 		"campaign_plural": "Кампањи",
 		"delivery": "Достава",
 		"order_plural": "Порачки",
+		"payment": "Payment",
 		"product_plural": "Производи",
 		"quantity": "Количина",
 		"revenue": "Приход",
@@ -173,7 +174,16 @@
 		"returnAndRefund": "Замена на производ",
 		"generalRules": "Општи одредби",
 		"termsOfUse": "Услови на употреба"
-  },
+	},
+	"payment": {
+		"clientId": "Шифра на клиентот",
+		"clientIdTip": "Доставена од банката како 'clientId'",
+		"clientKey": "Клуч на клиентот",
+		"clientKeyTip": "Доставена од банката како 'storeKey'",
+		"processor": "Банка",
+		"processorMissingTip": "Вашата банка не е во листата? Контактирајте не за поддршка на вашата банка.",
+		"updatingPaymentMethodsTip": "Плаќањата се обновуваат..."
+	},
   "product": {
 		"addProductSuccess": "Нов производ успешно додаден",
 		"addingProductTip": "Производот се додава...",

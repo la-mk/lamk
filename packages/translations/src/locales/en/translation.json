@@ -60,6 +60,7 @@
 		"campaign_plural": "Campaigns",
 		"delivery": "Delivery",
 		"order_plural": "Orders",
+		"payment": "Payment",
 		"product_plural": "Products",
 		"quantity": "Quantity",
 		"revenue": "Revenue",
@@ -173,7 +174,16 @@
 		"returnAndRefund": "Returns and refunds",
 		"generalRules": "General rules",
 		"termsOfUse": "Terms of use"
-  },
+	},
+	"payment": {
+		"clientId": "Client ID",
+		"clientIdTip": "Provided by your bank as 'clientId'",
+		"clientKey": "Client key",
+		"clientKeyTip": "Provided by your bank as 'storeKey'",
+		"processor": "Bank",
+		"processorMissingTip": "You don't see your bank in the list? Contact us for support.",
+		"updatingPaymentMethodsTip": "Updating payments..."
+	},
   "product": {
 		"addProductSuccess": "Successfully added a new product",
 		"addingProductTip": "Adding product...",
