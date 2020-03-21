@@ -3,25 +3,21 @@ const { authenticate } = feathersAuthentication.hooks;
 import { requireAnyQueryParam } from '../../common/hooks/filtering';
 import { sdk } from '@sradevski/la-sdk';
 import { validate } from '../../common/hooks/db';
-import { setCurrentUser, queryWithCurrentUser } from '../../common/hooks/auth';
+import { queryWithCurrentUser } from '../../common/hooks/auth';
+import { disallow } from 'feathers-hooks-common';
 
 export const hooks = {
   before: {
     all: [],
     find: [requireAnyQueryParam(['forStore'])],
     get: [],
-    create: [
-      authenticate('jwt'),
-      setCurrentUser(['forStore']),
-      // @ts-ignore
-      validate(sdk.storePaymentMethods.validate),
-    ],
+    // We create store payment methods on store creation
+    create: [disallow('external'), validate(sdk.storePaymentMethods.validate)],
     patch: [
       authenticate('jwt'),
       queryWithCurrentUser(['forStore']),
-      // @ts-ignore
       validate(sdk.storePaymentMethods.validate),
     ],
-    remove: [authenticate('jwt'), queryWithCurrentUser(['forStore'])],
+    remove: [disallow('external')],
   },
 };

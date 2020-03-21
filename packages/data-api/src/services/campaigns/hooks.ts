@@ -63,14 +63,6 @@ const validateNumPromotedCampaigns = async (ctx: HookContext) => {
     return;
   }
 
-  console.log({
-    forStore: campaign.forStore ?? ctx.params.query?.forStore,
-    isPromoted: true,
-    // Don't count the current one if it is promoted and isPromoted was passed as part of the patch data, but didnt change
-    ...(ctx.method === 'patch' ? { _id: { $ne: ctx.id } } : {}),
-    $limit: 0,
-  });
-
   // This won't be correct on concurrent requests, but it's not a big deal.
   const campaignsForStore = await ctx.app.services['campaigns'].find({
     query: {

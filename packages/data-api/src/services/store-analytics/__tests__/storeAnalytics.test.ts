@@ -205,6 +205,8 @@ describe('"storeAnalytics" service', () => {
       ...params,
     });
 
-    expect(analytics[sdk.storeAnalytics.AnalyticsTypes.REVENUE]).toBe(420);
+    expect(analytics[sdk.storeAnalytics.AnalyticsTypes.REVENUE].pending).toBe(
+      420,
+    );
   });
 });

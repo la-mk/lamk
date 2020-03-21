@@ -18,6 +18,10 @@ import {
   allowFields,
   isOwner,
 } from '../../common/hooks/auth';
+import {
+  createStorePaymentMethodsIfNotExists,
+  removeStorePaymentMethods,
+} from './serviceHooks/storePaymentMethods';
 
 const allowedFields = [
   '_id',
@@ -74,8 +78,11 @@ export const hooks = {
       ),
       allowFields(['ownedBy'], allowedFields),
     ],
-    create: [createStoreContentsIfNotExists],
+    create: [
+      createStoreContentsIfNotExists,
+      createStorePaymentMethodsIfNotExists,
+    ],
     patch: [],
-    remove: [removeStoreContents],
+    remove: [removeStoreContents, removeStorePaymentMethods],
   },
 };

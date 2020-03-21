@@ -19,9 +19,9 @@ export const Delivery = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (store) {
+    if (storeId) {
       caller<FindResult<DeliveryType>>(
-        sdk.delivery.findForStore(store._id),
+        sdk.delivery.findForStore(storeId),
         deliveries => {
           if (deliveries.total > 0) {
             return setDelivery(deliveries.data[0]);
@@ -29,7 +29,7 @@ export const Delivery = () => {
         },
       );
     }
-  }, [caller, store]);
+  }, [caller, storeId]);
 
   const handleSetupDeliveryDone = (newDelivery?: DeliveryType) => {
     if (!newDelivery || isEqual(delivery, newDelivery)) {

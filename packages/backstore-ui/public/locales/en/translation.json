@@ -172,6 +172,7 @@
     "campaign_plural": "Campaigns",
     "delivery": "Delivery",
     "order_plural": "Orders",
+    "payment": "Payment",
     "product_plural": "Products",
     "quantity": "Quantity",
     "revenue": "Revenue",
@@ -229,8 +230,8 @@
     "length": "Field should have less than {{0}} entries",
     "lessThan": "Field should be less than {{0}}",
     "lowercase": "Field should all be lowercase",
-    "maxLength": "Field should be at most {{0}} characters long",
-    "minLength": "Field should be at least {{0}} characters long",
+    "maxLength": "Field should have at most {{0}} entries",
+    "minLength": "Field should have at least {{0}} entries",
     "missing-in-schema": "Field {{0}} is not in permitted for use",
     "negative": "Field should be a negative value",
     "number": "Field should be a number",
@@ -240,6 +241,7 @@
     "positive": "Field should be a positive value",
     "schema": "Field does not match the expected schema",
     "string": "Field should be a string",
+    "unique": "Field should have unique values",
     "uppercase": "Field should all be uppercase"
   },
   "finance": {
@@ -271,6 +273,22 @@
     "pendingDescription": "Awaiting shipment",
     "shipped": "Shipped",
     "shippedDescription": "Awaiting arrival"
+  },
+  "payment": {
+    "clientId": "Client ID",
+    "clientIdTip": "Provided by your bank as 'clientId'",
+    "clientKey": "Client key",
+    "clientKeyTip": "Provided by your bank as 'storeKey'",
+    "processor": "Bank",
+    "processorMissingTip": "You don't see your bank in the list? Contact us for support.",
+    "updatingPaymentMethodsTip": "Updating payments..."
+  },
+  "paymentMethodNames": {
+    "creditCard": "Credit card",
+    "payOnDelivery": "Pay on delivery"
+  },
+  "paymentProcessors": {
+    "halkbank": "Halkbank"
   },
   "product": {
     "addProductSuccess": "Successfully added a new product",

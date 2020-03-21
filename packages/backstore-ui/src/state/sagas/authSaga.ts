@@ -15,7 +15,9 @@ const authRoutes = ['/login', '/signup'];
 function* afterAuthSaga() {
   try {
     const authInfo = yield call(sdk.authentication.getAuthentication);
-    yield put(setUser(authInfo.user));
+    if (authInfo) {
+      yield put(setUser(authInfo.user));
+    }
     return authInfo;
   } catch (err) {
     console.log(err);

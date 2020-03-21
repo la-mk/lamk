@@ -6,6 +6,7 @@ import { ProductsRouter } from './products/Products.router';
 import { CampaignsRouter } from './campaigns/Campaigns.router';
 import { StoreRouter } from './store/Store.router';
 import { DeliveryRouter } from './delivery/Delivery.router';
+import { PaymentRouter } from './payment/Payment.router';
 import { PreferencesRouter } from './preferences/Preferences.router';
 import { Summary } from './summary/Summary';
 
@@ -19,6 +20,7 @@ export const DashboardRouter = () => {
         <Route path='/dashboard/campaigns' component={CampaignsRouter} />
         <Route path='/dashboard/store' component={StoreRouter} />
         <Route path='/dashboard/delivery' component={DeliveryRouter} />
+        <Route path='/dashboard/payment' component={PaymentRouter} />
         <Route path='/dashboard/preferences' component={PreferencesRouter} />
         <Redirect to='/dashboard/summary' />
       </Switch>

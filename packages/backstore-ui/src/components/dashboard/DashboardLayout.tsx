@@ -62,31 +62,41 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
               <span>{t('common.summary')}</span>
               <Link to='/dashboard/summary' />
             </MenuItem>
+
             <MenuItem key='orders'>
               <Icon type='shopping-cart' />
               <span>{t('commerce.order_plural')}</span>
               <Link to='/dashboard/orders' />
             </MenuItem>
+
             <MenuItem key='products'>
               <Icon type='appstore' />
               <span>{t('commerce.product_plural')}</span>
               <Link to='/dashboard/products' />
-            </MenuItem>
-            <MenuItem key='campaigns'>
-              <Icon type='tag' />
-              <span>{t('commerce.campaign_plural')}</span>
-              <Link to='/dashboard/campaigns' />
-            </MenuItem>
-            <MenuItem key='store'>
-              <Icon type='shop' />
-              <span>{t('commerce.store')}</span>
-              <Link to='/dashboard/store' />
             </MenuItem>
 
             <MenuItem key='delivery'>
               <Icon type='code-sandbox' />
               <span>{t('commerce.delivery')}</span>
               <Link to='/dashboard/delivery' />
+            </MenuItem>
+
+            <MenuItem key='payment'>
+              <Icon type='code-sandbox' />
+              <span>{t('commerce.payment')}</span>
+              <Link to='/dashboard/payment' />
+            </MenuItem>
+
+            <MenuItem key='campaigns'>
+              <Icon type='tag' />
+              <span>{t('commerce.campaign_plural')}</span>
+              <Link to='/dashboard/campaigns' />
+            </MenuItem>
+
+            <MenuItem key='store'>
+              <Icon type='shop' />
+              <span>{t('commerce.store')}</span>
+              <Link to='/dashboard/store' />
             </MenuItem>
 
             <MenuItem key='preferences'>
