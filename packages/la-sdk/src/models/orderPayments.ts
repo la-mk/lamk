@@ -12,14 +12,14 @@ export enum TransactionStatus {
 }
 
 export const paymentTransactionSchema = {
-  transactionStatus: v8n().oneOf(Object.values(TransactionStatus)),
-  transactionMessage: v8n().optional(
+  status: v8n().oneOf(Object.values(TransactionStatus)),
+  message: v8n().optional(
     v8n()
       .string()
       .minLength(2)
       .maxLength(511)
   ),
-  processorTransactionId: v8n().optional(
+  processorId: v8n().optional(
     v8n()
       .string()
       .minLength(2)
@@ -31,6 +31,10 @@ export const paymentTransactionSchema = {
       .minLength(2)
       .maxLength(31)
   ),
+  date: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(63),
 };
 
 export const schema = {
@@ -67,10 +71,11 @@ export const schema = {
 };
 
 export interface PaymentTransaction {
-  transactionStatus: string;
-  transactionMessage?: string;
-  processorTransactionId?: string;
+  status: string;
+  message?: string;
+  processorId?: string;
   userIp?: string;
+  date: string;
 }
 
 export interface OrderPayments {
