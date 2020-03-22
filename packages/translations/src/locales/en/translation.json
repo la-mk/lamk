@@ -17,13 +17,14 @@
 		"remove": "Remove",
 		"save": "Save",
 		"select": "Select",
-    "toCheckout": "To checkout",
+		"toCheckout": "To checkout",
+		"toPayment": "Proceed to payment",
 		"update": "Update",
 		"search": "Search"
   },
   "address": {
 		"addNewAddress": "Add new address",
-		"chooseShippingAddress": "Choose shipping address",
+		"chooseShippingAddress": "Choose a shipping address",
 		"createAddressSuccess": "Address successfully created",
 		"removeAddressSuccess": "Address successfully removed",
 		"shippingAddress": "Shipping address",
@@ -176,6 +177,7 @@
 		"termsOfUse": "Terms of use"
 	},
 	"payment": {
+		"choosePaymentMethod": "Choose a payment method",
 		"clientId": "Client ID",
 		"clientIdTip": "Provided by your bank as 'clientId'",
 		"clientKey": "Client key",

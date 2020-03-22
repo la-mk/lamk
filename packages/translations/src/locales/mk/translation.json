@@ -18,6 +18,7 @@
 		"save": "Зачувајте",
     "select": "Одберете",
 		"toCheckout": "На каса",
+		"toPayment": "Продолжете кон плаќање",
 		"update": "Обновете",
 		"search": "Пребарајте"
   },
@@ -176,6 +177,7 @@
 		"termsOfUse": "Услови на употреба"
 	},
 	"payment": {
+		"choosePaymentMethod": "Одберете начин на плаќање",
 		"clientId": "Шифра на клиентот",
 		"clientIdTip": "Доставена од банката како 'clientId'",
 		"clientKey": "Клуч на клиентот",
