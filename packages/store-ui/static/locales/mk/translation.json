@@ -9,6 +9,7 @@
     "remove": "Отстранете",
     "search": "Пребарајте",
     "toCheckout": "На каса",
+    "toPayment": "Продолжете кон плаќање",
     "update": "Обновете"
   },
   "address": {
@@ -212,8 +213,8 @@
     "length": "Полето треба да е има помалку од {{0}} елементи",
     "lessThan": "Полето треба да е помалку од {{0}}",
     "lowercase": "Полето треба да е со мали букви",
-    "maxLength": "Полето треба е најповеќе {{0}} карактери",
-    "minLength": "Полето треба да е најмалку {{0}} карактери",
+    "maxLength": "Полето треба има најмногу {{0}} внесови",
+    "minLength": "Полето треба да има најмалку {{0}} внесови",
     "missing-in-schema": "Полето {{0}} не е дозволено да се користи",
     "negative": "Полето треба да е негативен број",
     "number": "Полето треба да е број",
@@ -223,6 +224,7 @@
     "positive": "Полето треба да е позитивен број",
     "schema": "Полето не се совпаѓа со предвидената шема",
     "string": "Полето треба да е текст",
+    "unique": "Полето треба има уникатни вредности",
     "uppercase": "Полето треба да е со големи букви"
   },
   "filters": {
@@ -248,8 +250,10 @@
     "cancelledDescription": "Откажана",
     "completed": "Завршена",
     "completedDescription": "Испорачана до купувач",
-    "pending": "Се процесира",
-    "pendingDescription": "Се чека за достава",
+    "pendingPayment": "Плаќање",
+    "pendingPaymentDescription": "Се чека за наплата",
+    "pendingShipment": "Се процесира",
+    "pendingShipmentDescription": "Се чека за достава",
     "shipped": "Испратена",
     "shippedDescription": "Испратена по карго"
   },
@@ -269,6 +273,16 @@
     "product_plural": "Производи",
     "returnAndRefund": "Замена на производ",
     "termsOfUse": "Услови на употреба"
+  },
+  "payment": {
+    "choosePaymentMethod": "Одберете начин на плаќање"
+  },
+  "paymentMethodNames": {
+    "creditCard": "Кредитна картичка",
+    "payOnDelivery": "Наплата при достава"
+  },
+  "paymentProcessors": {
+    "halkbank": "Халкбанк"
   },
   "product": {
     "outOfStock": "Нема залиха",

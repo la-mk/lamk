@@ -1,7 +1,6 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
 import { sdk } from '@sradevski/la-sdk';
-import { setFields } from '../../common/hooks/db';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { validate } from '../../common/hooks/db';
@@ -154,6 +153,16 @@ const calculateTotal = async (ctx: HookContext) => {
   }
 };
 
+const setOrderStatus = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { paymentMethod } = ctx.data;
+  // If we are creating the object, we are sure the price field is present.
+  ctx.data.status =
+    paymentMethod === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+      ? sdk.order.OrderStatus.PENDING_PAYMENT
+      : sdk.order.OrderStatus.PENDING_SHIPMENT;
+};
+
 export const hooks = {
   before: {
     all: [],
@@ -168,7 +177,7 @@ export const hooks = {
     create: [
       authenticate('jwt'),
       setCurrentUser(['orderedBy']),
-      setFields({ status: sdk.order.OrderStatus.PENDING }),
+      setOrderStatus,
       calculateTotal,
       validate(sdk.order.validate),
       // TODO: This validation should be part of the model.

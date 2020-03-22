@@ -269,8 +269,10 @@
     "cancelledDescription": "Откажана",
     "completed": "Завршена",
     "completedDescription": "Испорачана до купувач",
-    "pending": "Се процесира",
-    "pendingDescription": "Се чека за достава",
+    "pendingPayment": "Плаќање",
+    "pendingPaymentDescription": "Се чека за наплата",
+    "pendingShipment": "Се процесира",
+    "pendingShipmentDescription": "Се чека за достава",
     "shipped": "Испратена",
     "shippedDescription": "Испратена по карго"
   },

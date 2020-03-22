@@ -6,7 +6,7 @@ export const getOrderStatusColor = (orderStatus: Order['status']) => {
     case sdk.order.OrderStatus.CANCELLED: {
       return 'red';
     }
-    case sdk.order.OrderStatus.PENDING: {
+    case sdk.order.OrderStatus.PENDING_SHIPMENT: {
       return 'yellow';
     }
     case sdk.order.OrderStatus.SHIPPED: {

@@ -9,11 +9,12 @@
     "remove": "Remove",
     "search": "Search",
     "toCheckout": "To checkout",
+    "toPayment": "Proceed to payment",
     "update": "Update"
   },
   "address": {
     "addNewAddress": "Add new address",
-    "chooseShippingAddress": "Choose shipping address",
+    "chooseShippingAddress": "Choose a shipping address",
     "createAddressSuccess": "Address successfully created",
     "removeAddressSuccess": "Address successfully removed",
     "shippingAddress": "Shipping address",
@@ -212,8 +213,8 @@
     "length": "Field should have less than {{0}} entries",
     "lessThan": "Field should be less than {{0}}",
     "lowercase": "Field should all be lowercase",
-    "maxLength": "Field should be at most {{0}} characters long",
-    "minLength": "Field should be at least {{0}} characters long",
+    "maxLength": "Field should have at most {{0}} entries",
+    "minLength": "Field should have at least {{0}} entries",
     "missing-in-schema": "Field {{0}} is not in permitted for use",
     "negative": "Field should be a negative value",
     "number": "Field should be a number",
@@ -223,6 +224,7 @@
     "positive": "Field should be a positive value",
     "schema": "Field does not match the expected schema",
     "string": "Field should be a string",
+    "unique": "Field should have unique values",
     "uppercase": "Field should all be uppercase"
   },
   "filters": {
@@ -248,8 +250,10 @@
     "cancelledDescription": "Cancelled",
     "completed": "Completed",
     "completedDescription": "All done!",
-    "pending": "Pending",
-    "pendingDescription": "Awaiting shipment",
+    "pendingPayment": "Awaiting payment",
+    "pendingPaymentDescription": "Awaiting payment",
+    "pendingShipment": "Preparing",
+    "pendingShipmentDescription": "Awaiting shipment",
     "shipped": "Shipped",
     "shippedDescription": "Awaiting arrival"
   },
@@ -269,6 +273,16 @@
     "product_plural": "Products",
     "returnAndRefund": "Returns and refunds",
     "termsOfUse": "Terms of use"
+  },
+  "payment": {
+    "choosePaymentMethod": "Choose a payment method"
+  },
+  "paymentMethodNames": {
+    "creditCard": "Credit card",
+    "payOnDelivery": "Pay on delivery"
+  },
+  "paymentProcessors": {
+    "halkbank": "Halkbank"
   },
   "product": {
     "outOfStock": "Out of stock",

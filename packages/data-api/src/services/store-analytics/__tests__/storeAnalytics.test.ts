@@ -119,7 +119,7 @@ describe('"storeAnalytics" service', () => {
       {
         orderedFrom: testStore._id,
         orderedBy: testUser._id,
-        status: sdk.order.OrderStatus.PENDING,
+        status: sdk.order.OrderStatus.PENDING_SHIPMENT,
         ordered: [{ product: testProduct, quantity: 2 }],
         campaigns: [],
         delivery: testDelivery,
@@ -205,8 +205,8 @@ describe('"storeAnalytics" service', () => {
       ...params,
     });
 
-    expect(analytics[sdk.storeAnalytics.AnalyticsTypes.REVENUE].pending).toBe(
-      420,
-    );
+    expect(
+      analytics[sdk.storeAnalytics.AnalyticsTypes.REVENUE].pendingShipment,
+    ).toBe(420);
   });
 });

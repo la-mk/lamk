@@ -15,7 +15,7 @@ export const TopStatistics = () => {
             const total =
               (val?.[sdk.order.OrderStatus.COMPLETED] ?? 0) +
               (val?.[sdk.order.OrderStatus.SHIPPED] ?? 0) +
-              (val?.[sdk.order.OrderStatus.PENDING] ?? 0);
+              (val?.[sdk.order.OrderStatus.PENDING_SHIPMENT] ?? 0);
 
             return (
               <Statistic

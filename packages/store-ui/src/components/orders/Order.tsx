@@ -25,7 +25,7 @@ import { getStore } from '../../state/modules/store/store.selector';
 
 const getStepIndex = (status: OrderType['status']) => {
   switch (status) {
-    case sdk.order.OrderStatus.PENDING:
+    case sdk.order.OrderStatus.PENDING_SHIPMENT:
       return 0;
     case sdk.order.OrderStatus.SHIPPED:
       return 1;
@@ -61,8 +61,8 @@ export const Order = ({ orderId }: { orderId: string }) => {
       <Spin spinning={showSpinner}>
         <Steps size='small' current={stepIndex}>
           <Step
-            title={t('orderStatus.pending')}
-            description={t('orderStatus.pendingDescription')}
+            title={t('orderStatus.pendingShipment')}
+            description={t('orderStatus.pendingShipmentDescription')}
           />
           <Step
             title={t('orderStatus.shipped')}
