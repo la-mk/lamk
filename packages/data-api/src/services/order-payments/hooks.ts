@@ -1,0 +1,231 @@
+import * as _ from 'lodash';
+import { sdk } from '@sradevski/la-sdk';
+import * as crypto from 'crypto';
+import { validate } from '../../common/hooks/db';
+import { disallow, checkContext } from 'feathers-hooks-common';
+import { HookContext } from '@feathersjs/feathers';
+import {
+  StorePaymentMethods,
+  PaymentProcessors,
+} from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { BadRequest } from '../../common/errors';
+import {
+  OrderPayments,
+  PaymentTransaction,
+} from '@sradevski/la-sdk/dist/models/orderPayments';
+import { setOrderStatus } from './serviceHooks/orders';
+
+const getProcessorInfo = async (
+  orderId: string,
+  ordersService: any,
+  storePaymentMethodsService: any,
+) => {
+  const order: Order = await ordersService.get(orderId);
+  const storePaymentMethods: StorePaymentMethods = await storePaymentMethodsService.find(
+    {
+      query: { forStore: order.orderedFrom },
+    },
+  );
+
+  const creditCardMethod = storePaymentMethods?.methods?.find(
+    method =>
+      method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+  );
+
+  if (!creditCardMethod) {
+    throw new BadRequest('The store does not support credit card payments');
+  }
+
+  if (!creditCardMethod.clientKey || !creditCardMethod.processor) {
+    throw new BadRequest(
+      'Credit card payments are misconfigured, contact the store directly',
+    );
+  }
+
+  return creditCardMethod;
+};
+
+const setProcessorInfo = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { oid: orderId } = ctx.data;
+  const processorInfo = await getProcessorInfo(
+    orderId,
+    ctx.app.services['orders'],
+    ctx.app.services['storePaymentMethods'],
+  );
+
+  ctx.data.processorInfo = processorInfo;
+};
+
+const clearProcessorInfo = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  ctx.data.processorInfo = undefined;
+};
+
+const hashValidators: {
+  [key in PaymentProcessors]: (clientKey: string, data: any) => boolean;
+} = {
+  [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: (clientKey, data) => {
+    const {
+      HASHPARAMS: hashParams,
+      HASHPARAMSVAL: hashParamsVal,
+      HASH: hash,
+    } = data;
+    if (!hashParams || !hashParamsVal || !hash) {
+      return false;
+    }
+
+    // We need to also check that hashParamsVal is valid according to the documentation.
+    const params: string[] = hashParams.split(':');
+    const paramsVal = params.map(param => data[param]);
+
+    if (paramsVal !== hashParamsVal) {
+      return false;
+    }
+
+    // The hash that comes from the caller has the secret client key appended, which is the only thing that guarantees the source of the transaction.
+    const localHashData = paramsVal + clientKey;
+    const localHash = crypto
+      .createHash('sha1')
+      .update(localHashData)
+      .digest('base64');
+
+    return hash === localHash;
+  },
+};
+
+const getHalkbankStatus = (data: any) => {
+  // For some reason, the body has an array of two elements, both being the same.
+  const response = data.Response[0];
+  switch (response) {
+    case 'Approved':
+      return sdk.orderPayments.TransactionStatus.APPROVED;
+    case 'Declined':
+      return sdk.orderPayments.TransactionStatus.DECLINED;
+    default:
+      return sdk.orderPayments.TransactionStatus.ERROR;
+  }
+};
+
+const normalizers: {
+  [key in PaymentProcessors]: (data: any) => any;
+} = {
+  [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: (
+    data,
+  ): OrderPayments => {
+    const transaction: PaymentTransaction = {
+      status: getHalkbankStatus(data),
+      message: data.ErrMsg,
+      processorId: data.xid,
+      userIp: data.clientIp,
+      date: new Date(Date.now()).toISOString(),
+    };
+
+    return {
+      _id: data._id,
+      forOrder: data.oid,
+      isSuccessful:
+        transaction.status === sdk.orderPayments.TransactionStatus.APPROVED,
+      transactions: [transaction],
+      createdAt: data.createdAt,
+      modifiedAt: data.modifiedAt,
+    };
+  },
+};
+
+const validatePaymentHash = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { processorInfo } = ctx.data;
+  if (!hashValidators[processorInfo.processor as PaymentProcessors]) {
+    throw new BadRequest('Bank is not supported');
+  }
+
+  const validator =
+    hashValidators[processorInfo.processor as PaymentProcessors];
+
+  if (!validator(processorInfo.clientKey as string, ctx.data)) {
+    throw new BadRequest('The request did not come from the processing bank!');
+  }
+};
+
+const normalizePaymentProcessorData = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { processorInfo } = ctx.data;
+
+  if (!normalizers[processorInfo.processor as PaymentProcessors]) {
+    throw new BadRequest('Bank is not supported');
+  }
+
+  const normalizer = normalizers[processorInfo.processor as PaymentProcessors];
+  ctx.data = normalizer(ctx.data);
+};
+
+const setResultIfExists = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const { forOrder, transactions } = ctx.data;
+  const existingOrderPayments = await ctx.app.services['orderPayments'].find({
+    query: { forOrder },
+  }).data[0];
+
+  // If it doesn't exist, continue with creating it.
+  if (!existingOrderPayments) {
+    return;
+  }
+
+  existingOrderPayments.transactions = [
+    ...existingOrderPayments.transactions,
+    ...transactions,
+  ];
+
+  // By setting result, we skip the `create` DB call.
+  ctx.result = await ctx.app.services['orderPayments'].patch(
+    existingOrderPayments._id,
+    existingOrderPayments,
+  );
+};
+
+const sanitizeResponse = async (ctx: HookContext) => {
+  checkContext(ctx, 'after');
+  ctx.result = {
+    forOrder: ctx.result.forOrder,
+    isSuccessful: ctx.result.isSuccessful,
+    status: (_.last(ctx.result.transaction) as PaymentTransaction).status,
+    message: (_.last(ctx.result.transaction) as PaymentTransaction).message,
+  };
+};
+
+export const hooks = {
+  before: {
+    all: [],
+    find: [disallow('external')],
+    get: [disallow('external')],
+    create: [
+      // This will be used in the subsequent methods
+      setProcessorInfo,
+      // This checks if the request is indeed from the processor and it uses the clientKey from the storePaymentMethods service.
+      validatePaymentHash,
+      normalizePaymentProcessorData,
+      // We need to clear the processor data before we validate and save the actual data model.
+      clearProcessorInfo,
+      setResultIfExists,
+      validate(sdk.orderPayments.validate),
+    ],
+    patch: [
+      // Patch will only be called from inside `create` as external callers cannot know if the payment entry already exists or not
+      disallow('external'),
+      validate(sdk.orderPayments.validate),
+    ],
+    // TODO: Remove when an order is removed.
+    remove: [disallow('external')],
+  },
+
+  after: {
+    all: [sanitizeResponse],
+    find: [],
+    get: [],
+    create: [setOrderStatus],
+    patch: [],
+    remove: [],
+  },
+};
