@@ -45,7 +45,7 @@ export const schema = {
   campaigns: v8n().every.schema(campaignSchema),
   delivery: v8n().schema(deliverySchema),
   deliverTo: v8n().schema(addressSchema),
-  paymentMethod: v8n().oneof(Object.values(PaymentMethodNames)),
+  paymentMethod: v8n().oneOf(Object.values(PaymentMethodNames)),
   // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
   calculatedTotal: v8n().optional(
     v8n()
