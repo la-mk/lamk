@@ -181,8 +181,10 @@
 		"cancelledDescription": "Cancelled",
 		"completed": "Completed",
 		"completedDescription": "All done!",
-		"pending": "Pending",
-		"pendingDescription": "Awaiting shipment",
+		"pendingPayment": "Awaiting payment",
+    "pendingPaymentDescription": "Awaiting payment",
+    "pendingShipment": "Preparing",
+    "pendingShipmentDescription": "Awaiting shipment",
 		"shipped": "Shipped",
 		"shippedDescription": "Awaiting arrival"
   },

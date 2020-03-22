@@ -8,10 +8,12 @@ import { Delivery, schema as deliverySchema } from './delivery';
 import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
 import { Campaign, schema as campaignSchema } from './campaign';
+import { PaymentMethodNames } from './storePaymentMethods';
 
 export enum OrderStatus {
   CANCELLED = 'cancelled',
-  PENDING = 'pending',
+  PENDING_PAYMENT = 'pendingPayment',
+  PENDING_SHIPMENT = 'pendingShipment',
   SHIPPED = 'shipped',
   COMPLETED = 'completed',
 }
@@ -43,6 +45,7 @@ export const schema = {
   campaigns: v8n().every.schema(campaignSchema),
   delivery: v8n().schema(deliverySchema),
   deliverTo: v8n().schema(addressSchema),
+  paymentMethod: v8n().oneof(Object.values(PaymentMethodNames)),
   // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
   calculatedTotal: v8n().optional(
     v8n()
@@ -81,6 +84,7 @@ export interface Order {
   campaigns: Campaign[];
   delivery: Delivery;
   deliverTo?: Address;
+  paymentMethod: PaymentMethodNames,
   calculatedTotal: number;
   createdAt: string;
   modifiedAt: string;
