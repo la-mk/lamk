@@ -16,6 +16,7 @@ import { getProductGroupSdk } from './models/productGroup';
 import { getCampaignSdk } from './models/campaign';
 import { getStoreAnalyticsSdk } from './models/storeAnalytics';
 import { getStorePaymentMethodsSdk } from './models/storePaymentMethods';
+import { getOrderPaymentsSdk } from './models/orderPayments';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
@@ -38,6 +39,7 @@ export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
     campaign: getCampaignSdk(client),
     storeAnalytics: getStoreAnalyticsSdk(client),
     storePaymentMethods: getStorePaymentMethodsSdk(client),
+    orderPayments: getOrderPaymentsSdk(client),
     request: (serviceName: string) => getCrudMethods(client, serviceName),
     utils,
   };

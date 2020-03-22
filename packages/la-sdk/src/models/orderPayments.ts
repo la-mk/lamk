@@ -82,7 +82,7 @@ export interface OrderPayments {
   modifiedAt?: string;
 }
 
-export const getOrderPayments = (client: Application) => {
+export const getOrderPaymentsSdk = (client: Application) => {
   const crudMethods = getCrudMethods<
     OmitServerProperties<OrderPayments>,
     OrderPayments
