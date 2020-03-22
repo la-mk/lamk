@@ -3,10 +3,10 @@ import { sdk } from '@sradevski/la-sdk';
 import * as crypto from 'crypto';
 import { validate } from '../../common/hooks/db';
 import { disallow, checkContext } from 'feathers-hooks-common';
-import { HookContext } from '@feathersjs/feathers';
 import {
   StorePaymentMethods,
   PaymentProcessors,
+  PaymentMethod,
 } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { BadRequest } from '../../common/errors';
@@ -15,6 +15,7 @@ import {
   PaymentTransaction,
 } from '@sradevski/la-sdk/dist/models/orderPayments';
 import { setOrderStatus } from './serviceHooks/orders';
+import { HookContextWithState } from '../../common/types';
 
 const getProcessorInfo = async (
   orderId: string,
@@ -22,11 +23,11 @@ const getProcessorInfo = async (
   storePaymentMethodsService: any,
 ) => {
   const order: Order = await ordersService.get(orderId);
-  const storePaymentMethods: StorePaymentMethods = await storePaymentMethodsService.find(
-    {
+  const storePaymentMethods: StorePaymentMethods = (
+    await storePaymentMethodsService.find({
       query: { forStore: order.orderedFrom },
-    },
-  );
+    })
+  )?.data?.[0];
 
   const creditCardMethod = storePaymentMethods?.methods?.find(
     method =>
@@ -46,7 +47,7 @@ const getProcessorInfo = async (
   return creditCardMethod;
 };
 
-const setProcessorInfo = async (ctx: HookContext) => {
+const setProcessorInfo = async (ctx: HookContextWithState<PaymentMethod>) => {
   checkContext(ctx, 'before', ['create']);
   const { oid: orderId } = ctx.data;
   const processorInfo = await getProcessorInfo(
@@ -55,12 +56,7 @@ const setProcessorInfo = async (ctx: HookContext) => {
     ctx.app.services['storePaymentMethods'],
   );
 
-  ctx.data.processorInfo = processorInfo;
-};
-
-const clearProcessorInfo = async (ctx: HookContext) => {
-  checkContext(ctx, 'before', ['create']);
-  ctx.data.processorInfo = undefined;
+  ctx.contextState = processorInfo;
 };
 
 const hashValidators: {
@@ -78,7 +74,7 @@ const hashValidators: {
 
     // We need to also check that hashParamsVal is valid according to the documentation.
     const params: string[] = hashParams.split(':');
-    const paramsVal = params.map(param => data[param]);
+    const paramsVal = params.map(param => data[param]).join('');
 
     if (paramsVal !== hashParamsVal) {
       return false;
@@ -134,9 +130,11 @@ const normalizers: {
   },
 };
 
-const validatePaymentHash = async (ctx: HookContext) => {
+const validatePaymentHash = async (
+  ctx: HookContextWithState<PaymentMethod>,
+) => {
   checkContext(ctx, 'before', ['create']);
-  const { processorInfo } = ctx.data;
+  const processorInfo = ctx.contextState;
   if (!hashValidators[processorInfo.processor as PaymentProcessors]) {
     throw new BadRequest('Bank is not supported');
   }
@@ -149,9 +147,11 @@ const validatePaymentHash = async (ctx: HookContext) => {
   }
 };
 
-const normalizePaymentProcessorData = async (ctx: HookContext) => {
+const normalizePaymentProcessorData = async (
+  ctx: HookContextWithState<PaymentMethod>,
+) => {
   checkContext(ctx, 'before', ['create']);
-  const { processorInfo } = ctx.data;
+  const processorInfo = ctx.contextState;
 
   if (!normalizers[processorInfo.processor as PaymentProcessors]) {
     throw new BadRequest('Bank is not supported');
@@ -161,12 +161,14 @@ const normalizePaymentProcessorData = async (ctx: HookContext) => {
   ctx.data = normalizer(ctx.data);
 };
 
-const setResultIfExists = async (ctx: HookContext) => {
+const setResultIfExists = async (ctx: HookContextWithState<PaymentMethod>) => {
   checkContext(ctx, 'before', ['create']);
   const { forOrder, transactions } = ctx.data;
-  const existingOrderPayments = await ctx.app.services['orderPayments'].find({
-    query: { forOrder },
-  }).data[0];
+  const existingOrderPayments = (
+    await ctx.app.services['orderPayments'].find({
+      query: { forOrder },
+    })
+  )?.data?.[0];
 
   // If it doesn't exist, continue with creating it.
   if (!existingOrderPayments) {
@@ -185,13 +187,14 @@ const setResultIfExists = async (ctx: HookContext) => {
   );
 };
 
-const sanitizeResponse = async (ctx: HookContext) => {
+const sanitizeResponse = async (ctx: HookContextWithState<PaymentMethod>) => {
   checkContext(ctx, 'after');
   ctx.result = {
     forOrder: ctx.result.forOrder,
     isSuccessful: ctx.result.isSuccessful,
-    status: (_.last(ctx.result.transaction) as PaymentTransaction).status,
-    message: (_.last(ctx.result.transaction) as PaymentTransaction).message,
+    transactions: [
+      _.pick(_.last(ctx.result.transactions), ['status', 'message']),
+    ],
   };
 };
 
@@ -206,8 +209,6 @@ export const hooks = {
       // This checks if the request is indeed from the processor and it uses the clientKey from the storePaymentMethods service.
       validatePaymentHash,
       normalizePaymentProcessorData,
-      // We need to clear the processor data before we validate and save the actual data model.
-      clearProcessorInfo,
       setResultIfExists,
       validate(sdk.orderPayments.validate),
     ],

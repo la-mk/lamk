@@ -31,15 +31,12 @@ import {
   queryWithCurrentUser,
   allowFields,
 } from '../../common/hooks/auth';
-
-export interface HookContextWithState<T> extends HookContext {
-  beforeState?: T;
-}
+import { HookContextWithState } from '../../common/types';
 
 const assignPreviousProduct = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['patch']);
   const product = await ctx.app.services['products'].get(ctx.id);
-  (ctx as HookContextWithState<Product>).beforeState = product;
+  (ctx as HookContextWithState<Product>).contextState = product;
 };
 
 const calculatePrice = async (ctx: HookContext) => {

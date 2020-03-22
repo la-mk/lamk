@@ -3,7 +3,7 @@ import { BadRequest } from '../../../common/errors';
 import { checkContext } from 'feathers-hooks-common';
 import { logger } from '../../../common/logger';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { HookContextWithState } from '../hooks';
+import { HookContextWithState } from '../../../common/types';
 
 const createCategoryPerStoreIfNotExists = async (
   level3: string,
@@ -92,7 +92,7 @@ export const patchCategoriesPerStore = async (
 ) => {
   checkContext(ctx, 'after', ['patch']);
   const product = ctx.result;
-  const previousProduct = ctx.beforeState;
+  const previousProduct = ctx.contextState;
 
   try {
     await removeOrphanedCategoryPerStore(
