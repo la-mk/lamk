@@ -14,6 +14,7 @@ const handle = app.getRequestHandler();
   server.use(nextI18NextMiddleware(NextI18NextInstance));
 
   server.get('*', (req: any, res: any) => handle(req, res));
+  server.post('*', (req: any, res: any) => handle(req, res));
 
   await server.listen(port);
   console.log(`> Ready on port ${port}`); // eslint-disable-line no-console

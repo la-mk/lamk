@@ -4,8 +4,8 @@ import { checkContext } from 'feathers-hooks-common';
 import { logger } from '../../../common/logger';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
-import { HookContextWithState } from '../hooks';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { HookContextWithState } from '../../../common/types';
 
 const createProductGroupsIfNotExist = async (
   groupNames: string[],
@@ -139,7 +139,7 @@ export const patchProductGroups = async (
 ) => {
   checkContext(ctx, 'after', ['patch']);
   const product = ctx.result;
-  const previousProduct = ctx.beforeState;
+  const previousProduct = ctx.contextState;
   const removedGroups = _.difference(
     previousProduct?.groups ?? [],
     product.groups,

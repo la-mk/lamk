@@ -1,10 +1,10 @@
 import React from 'react';
 import { NextPageContext } from 'next';
-import { Head } from '../../src/common/pageComponents/Head';
-import { Order } from '../../src/components/orders/Order';
-import { useTranslation } from '../../src/common/i18n';
+import { Head } from '../../../src/common/pageComponents/Head';
+import { Order } from '../../../src/components/orders/Order';
+import { useTranslation } from '../../../src/common/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { getStore } from '../../src/state/modules/store/store.selector';
+import { getStore } from '../../../src/state/modules/store/store.selector';
 
 const OrderPage = ({
   store,
@@ -29,7 +29,7 @@ OrderPage.getInitialProps = async function(
 ) {
   const state = ctx.store.getState();
   const store = getStore(state);
-  return { store, orderId: ctx.query.pid };
+  return { store, orderId: ctx.query.oid };
 };
 
 export default OrderPage;

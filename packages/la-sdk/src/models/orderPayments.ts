@@ -50,7 +50,8 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(63),
-  transactions: v8n().minLength(1).every.schema(paymentTransactionSchema),
+  // We put a very high upper-limit just to not get spammed here.
+  transactions: v8n().minLength(1).maxLength(100).every.schema(paymentTransactionSchema),
   // Calculated field based on all transactions.
   isSuccessful: v8n().boolean(),
   // createdAt is optional as it is added by server on creation.
@@ -71,7 +72,7 @@ export const schema = {
 };
 
 export interface PaymentTransaction {
-  status: string;
+  status: TransactionStatus;
   message?: string;
   processorId?: string;
   userIp?: string;
