@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { sdk } from '@sradevski/la-sdk';
 import * as crypto from 'crypto';
 import { validate } from '../../common/hooks/db';
-import { disallow, checkContext } from 'feathers-hooks-common';
+import { disallow, checkContext, isProvider } from 'feathers-hooks-common';
 import {
   StorePaymentMethods,
   PaymentProcessors,
@@ -92,9 +92,7 @@ const hashValidators: {
 };
 
 const getHalkbankStatus = (data: any) => {
-  // For some reason, the body has an array of two elements, both being the same.
-  const response = data.Response[0];
-  switch (response) {
+  switch (data.Response) {
     case 'Approved':
       return sdk.orderPayments.TransactionStatus.APPROVED;
     case 'Declined':
@@ -112,7 +110,7 @@ const normalizers: {
   ): OrderPayments => {
     const transaction: PaymentTransaction = {
       status: getHalkbankStatus(data),
-      message: data.ErrMsg,
+      message: data.ErrMsg || undefined,
       processorId: data.xid,
       userIp: data.clientIp,
       date: new Date(Date.now()).toISOString(),
@@ -189,6 +187,11 @@ const setResultIfExists = async (ctx: HookContextWithState<PaymentMethod>) => {
 
 const sanitizeResponse = async (ctx: HookContextWithState<PaymentMethod>) => {
   checkContext(ctx, 'after');
+  // We don't want to sanitize it for server requests.
+  if (isProvider('server')(ctx)) {
+    return;
+  }
+
   ctx.result = {
     forOrder: ctx.result.forOrder,
     isSuccessful: ctx.result.isSuccessful,

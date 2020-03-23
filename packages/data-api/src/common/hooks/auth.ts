@@ -11,7 +11,7 @@ export const queryWithCurrentUser = (fields: string[]) => {
     }
 
     // If it was an internal call then skip this hook
-    if (!ctx.params.provider) {
+    if (isProvider('server')(ctx)) {
       return ctx;
     }
 
