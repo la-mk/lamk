@@ -8,128 +8,82 @@ import { MethodNotAllowed, NotFound } from '../../../common/errors';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
-import { sdk } from '@sradevski/la-sdk';
-
-const userFixture = {
-  email: 'carts@fixture.com',
-  password: 'supersecret',
-};
-
-const user2Fixture = {
-  email: 'carts2@fixture.com',
-  password: 'supersecret',
-};
-
-const storeFixture = {
-  name: 'Test store',
-  slug: 'carts-test',
-  logo: '2345',
-  company: {
-    companyName: 'Test',
-    companyAddress: 'Test',
-    registryNumber: 'Test',
-    taxNumber: 'Test',
-  },
-  contact: {
-    email: 'carts@test.com',
-    phoneNumber: '12345',
-  },
-  isPublished: true,
-};
-
-const categoryFixture: Partial<Category> = {
-  level1: 'some-category',
-  level2: 'some-category',
-  level3: 'some-category',
-};
-
-const productFixture: Partial<Product> = {
-  name: 'Test product',
-  unit: sdk.product.ProductUnit.ITEM,
-  price: 1234,
-  category: 'some-category',
-  images: [] as string[],
-  groups: [] as string[],
-};
+import fixtures from '../../../../tests/fixtures';
 
 describe('"carts" service', () => {
   let feathersApp: Application;
-  let users: Service<User>;
   let carts: Service<Cart>;
-  let stores: Service<Store>;
-  let products: Service<Product>;
-  let testUser: User;
-  let testUser2: User;
-  let testStore: Store;
-  let testProduct: Product;
+  let testUsers: User[];
+  let testStores: Store[];
+  let testProducts: Product[];
 
   beforeAll(async () => {
     feathersApp = await setup();
-    users = feathersApp.service('users');
     carts = feathersApp.service('carts');
-    stores = feathersApp.service('stores');
-    products = feathersApp.service('products');
-    await feathersApp.service('categories').create(categoryFixture);
-    testUser = await users.create(userFixture);
-    testUser2 = await users.create(user2Fixture);
-    testStore = await stores.create(storeFixture, {
+    await fixtures.category(feathersApp, 1);
+    testUsers = await fixtures.user(feathersApp, 2);
+    testStores = await fixtures.store(feathersApp, 1, {
       authenticated: true,
-      user: testUser,
+      user: testUsers[0],
     });
-    testProduct = await products.create(
-      productFixture,
-      getExternalUserParams(testUser),
+    testProducts = await fixtures.product(
+      feathersApp,
+      1,
+      getExternalUserParams(testUsers[0]),
     );
   });
 
   it('create is disallowed for external requests', async () => {
     expect.assertions(1);
-    const params = getExternalUserParams(testUser);
+    const params = getExternalUserParams(testUsers[0]);
     const cartsPromise = carts.create({}, params);
     await expect(cartsPromise).rejects.toThrow(MethodNotAllowed);
   });
 
   it('find returns only users cart', async () => {
-    const params = getExternalUserParams(testUser);
+    const params = getExternalUserParams(testUsers[0]);
     const cart = (await carts.find(params)) as FindResult<Cart>;
     expect(cart.total).toBe(1);
-    expect(cart.data[0]._id).toBe(testUser._id);
+    expect(cart.data[0]._id).toBe(testUsers[0]._id);
   });
 
   it('get throws with notFound when fetching other user cart', async () => {
     expect.assertions(1);
-    const params = getExternalUserParams(testUser);
-    const cartPromise = carts.get(testUser2._id, params);
+    const params = getExternalUserParams(testUsers[0]);
+    const cartPromise = carts.get(testUsers[1]._id, params);
     await expect(cartPromise).rejects.toThrow(NotFound);
   });
 
   it('get returns the user cart', async () => {
-    const params = getExternalUserParams(testUser);
-    const cart = await carts.get(testUser._id, params);
-    expect(cart.forUser).toBe(testUser._id);
+    const params = getExternalUserParams(testUsers[0]);
+    const cart = await carts.get(testUsers[0]._id, params);
+    expect(cart.forUser).toBe(testUsers[0]._id);
   });
 
   it('patch cart adds a product to it', async () => {
-    const params = getExternalUserParams(testUser);
+    const params = getExternalUserParams(testUsers[0]);
     const cart = await carts.patch(
-      testUser._id,
+      testUsers[0]._id,
       {
         items: [
-          { product: testProduct._id, fromStore: testStore._id, quantity: 5 },
+          {
+            product: testProducts[0]._id,
+            fromStore: testStores[0]._id,
+            quantity: 5,
+          },
         ],
       },
       params,
     );
 
-    expect(cart.items[0].product).toBe(testProduct._id);
-    expect(cart.items[0].fromStore).toBe(testStore._id);
+    expect(cart.items[0].product).toBe(testProducts[0]._id);
+    expect(cart.items[0].fromStore).toBe(testStores[0]._id);
   });
 
   it('remove is disallowed for external requests', async () => {
     expect.assertions(1);
-    const params = getExternalUserParams(testUser);
-    const cartPromise = carts.remove(testUser2._id, params);
+    const params = getExternalUserParams(testUsers[0]);
+    const cartPromise = carts.remove(testUsers[1]._id, params);
     await expect(cartPromise).rejects.toThrow(MethodNotAllowed);
   });
 });

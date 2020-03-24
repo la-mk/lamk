@@ -12,63 +12,38 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { sdk } from '@sradevski/la-sdk';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
-
-const userFixture = {
-  email: 'storePaymentMethods@fixture.com',
-  password: 'supersecret',
-};
-
-const storeFixture: Partial<Store> = {
-  name: 'Test storePaymentMethods',
-  slug: 'storePaymentMethods-test',
-  logo: '2345',
-  company: {
-    companyName: 'Test',
-    companyAddress: 'Test',
-    registryNumber: 'Test',
-    taxNumber: 'Test',
-  },
-  contact: {
-    email: 'storePaymentMethods@test.com',
-    phoneNumber: '23456',
-  },
-  isPublished: true,
-};
+import fixtures from '../../../../tests/fixtures';
 
 describe('"storePaymentMethods" service', () => {
   let feathersApp: Application;
-  let users: Service<User>;
   let storePaymentMethods: Service<StorePaymentMethods>;
-  let stores: Service<Store>;
-  let testUser: User;
-  let testStore: Store;
+  let testUsers: User[];
+  let testStores: Store[];
   let testStorePaymentMethods: StorePaymentMethods;
 
   beforeAll(async () => {
     feathersApp = await setup();
-    users = feathersApp.service('users');
     storePaymentMethods = feathersApp.service('storePaymentMethods');
-    stores = feathersApp.service('stores');
-    testUser = await users.create(userFixture);
-    testStore = await stores.create(storeFixture, {
+    testUsers = await fixtures.user(feathersApp, 1);
+    testStores = await fixtures.store(feathersApp, 1, {
       authenticated: true,
-      user: testUser,
+      user: testUsers[0],
     });
 
     // This implicitly tests that the storepayment is created on store creation.
     testStorePaymentMethods = ((await storePaymentMethods.find({
       query: {
-        forStore: testStore._id,
+        forStore: testStores[0]._id,
       },
     })) as FindResult<StorePaymentMethods>).data[0];
   });
 
   it('create and remove are disallowed for external calls', async () => {
     expect.assertions(2);
-    const params = getExternalUserParams(testUser);
+    const params = getExternalUserParams(testUsers[0]);
     const createPromise = storePaymentMethods.create(
       {
-        forStore: testStore._id,
+        forStore: testStores[0]._id,
         methods: [
           { name: sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY },
         ],
@@ -100,7 +75,7 @@ describe('"storePaymentMethods" service', () => {
   });
 
   it('patching with no payment methods fails', async () => {
-    const params = getExternalUserParams(testUser);
+    const params = getExternalUserParams(testUsers[0]);
     const patchPromise = storePaymentMethods.patch(
       testStorePaymentMethods._id,
       { methods: [] },
@@ -111,7 +86,7 @@ describe('"storePaymentMethods" service', () => {
   });
 
   it('patching with non-existent payment methods fails', async () => {
-    const params = getExternalUserParams(testUser);
+    const params = getExternalUserParams(testUsers[0]);
     // @ts-ignore
     const patchPromise = storePaymentMethods.patch(
       testStorePaymentMethods._id,
@@ -123,7 +98,7 @@ describe('"storePaymentMethods" service', () => {
   });
 
   it('patching with non-existent processor methods fails', async () => {
-    const params = getExternalUserParams(testUser);
+    const params = getExternalUserParams(testUsers[0]);
     // @ts-ignore
     const patchPromise = storePaymentMethods.patch(
       testStorePaymentMethods._id,
