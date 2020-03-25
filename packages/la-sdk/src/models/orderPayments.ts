@@ -13,6 +13,7 @@ export enum TransactionStatus {
 
 export const paymentTransactionSchema = {
   status: v8n().oneOf(Object.values(TransactionStatus)),
+  amount: v8n().number().positive(),
   message: v8n().optional(
     v8n()
       .string()
@@ -73,6 +74,7 @@ export const schema = {
 
 export interface PaymentTransaction {
   status: TransactionStatus;
+  amount: number;
   message?: string;
   processorId?: string;
   userIp?: string;
