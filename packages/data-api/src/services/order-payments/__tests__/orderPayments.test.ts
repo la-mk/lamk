@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
-import { MethodNotAllowed } from '../../../common/errors';
+import { MethodNotAllowed, BadRequest } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { getExternalUserParams } from '../../../../tests/utils';
@@ -26,6 +26,28 @@ const getFixturesContent = async (folderName: string) => {
         .then(JSON.parse);
     }),
   );
+};
+
+// The nestpay response fixtures are based on this client ID and key.
+const nestpayProcessor = {
+  name: sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+  processor: sdk.storePaymentMethods.PaymentProcessors.HALKBANK,
+  clientId: '180000063',
+  clientKey: 'SKEY0063',
+};
+
+const normalizeNestpayFixture = (fixture: any, order: any) => {
+  fixture.request.amount = order.calculatedTotal;
+  fixture.request.oid = Array.isArray(fixture.request.oid)
+    ? [order._id, order._id]
+    : order._id;
+  const localHash = nestpay.getHashFromResponse(
+    nestpayProcessor.clientKey,
+    fixture.request,
+  );
+  fixture.request.HASH = localHash?.hash;
+  fixture.request.HASHPARAMSVAL = localHash?.paramsVal;
+  fixture.response.forOrder = order._id;
 };
 
 describe('"orderPayments" service', () => {
@@ -82,6 +104,16 @@ describe('"orderPayments" service', () => {
         },
       ],
     );
+
+    const storePayments = (
+      await feathersApp
+        .service('storePaymentMethods')
+        .find({ query: { forStore: testStores[0]._id } })
+    ).data[0];
+
+    await feathersApp
+      .service('storePaymentMethods')
+      .patch(storePayments._id, { methods: [nestpayProcessor] });
   });
 
   it('find, get, patch and remove are disallowed for external calls', async () => {
@@ -109,39 +141,9 @@ describe('"orderPayments" service', () => {
   });
 
   it('nestpay is handled correctly', async () => {
-    // The nestpay response fixtures are based on this client ID and key.
-    const nestpayProcessor = {
-      name: sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
-      processor: sdk.storePaymentMethods.PaymentProcessors.HALKBANK,
-      clientId: '180000063',
-      clientKey: 'SKEY0063',
-    };
-
     const nestpayFixtures = await getFixturesContent('nestpay');
-
-    const storePayments = (
-      await feathersApp
-        .service('storePaymentMethods')
-        .find({ query: { forStore: testStores[0]._id } })
-    ).data[0];
-
-    await feathersApp
-      .service('storePaymentMethods')
-      .patch(storePayments._id, { methods: [nestpayProcessor] });
-
     const responses = await Bluebird.map(nestpayFixtures, async fixture => {
-      fixture.request.amount = testOrders[0].calculatedTotal;
-      fixture.request.oid = Array.isArray(fixture.request.oid)
-        ? [testOrders[0]._id, testOrders[0]._id]
-        : testOrders[0]._id;
-      const localHash = nestpay.getHashFromResponse(
-        nestpayProcessor.clientKey,
-        fixture.request,
-      );
-      fixture.request.HASH = localHash?.hash;
-      fixture.request.HASHPARAMSVAL = localHash?.paramsVal;
-      fixture.response.forOrder = testOrders[0]._id;
-
+      normalizeNestpayFixture(fixture, testOrders[0]);
       const response = await orderPayments.create(fixture.request, {
         provider: 'rest',
       });
@@ -152,5 +154,17 @@ describe('"orderPayments" service', () => {
     responses.forEach(([fixture, response]) =>
       expect(response).toEqual(fixture.response),
     );
+  });
+
+  it('create throws if order price and transaction amount do not match', async () => {
+    const [fixture] = await getFixturesContent('nestpay');
+    normalizeNestpayFixture(fixture, testOrders[0]);
+    fixture.request.amount = '12345';
+
+    const response = orderPayments.create(fixture.request, {
+      provider: 'rest',
+    });
+
+    await expect(response).rejects.toThrow(BadRequest);
   });
 });

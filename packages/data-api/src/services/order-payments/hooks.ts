@@ -17,7 +17,7 @@ import { setOrderStatus } from './serviceHooks/orders';
 import { HookContextWithState } from '../../common/types';
 import * as nestpay from './nestpay';
 
-const getProcessorInfo = async (
+const getProcessingDetails = async (
   orderId: string,
   ordersService: any,
   storePaymentMethodsService: any,
@@ -44,19 +44,21 @@ const getProcessorInfo = async (
     );
   }
 
-  return creditCardMethod;
+  return { processorInfo: creditCardMethod, order };
 };
 
-const setProcessorInfo = async (ctx: HookContextWithState<PaymentMethod>) => {
+const setProcessingDetails = async (
+  ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
+) => {
   checkContext(ctx, 'before', ['create']);
   const orderId = nestpay.getField('oid', ctx.data);
-  const processorInfo = await getProcessorInfo(
+  const processingDetails = await getProcessingDetails(
     orderId,
     ctx.app.services['orders'],
     ctx.app.services['storePaymentMethods'],
   );
 
-  ctx.contextState = processorInfo;
+  ctx.contextState = processingDetails;
 };
 
 const hashValidators: {
@@ -85,6 +87,7 @@ const normalizers: {
   ): OrderPayments => {
     const transaction: PaymentTransaction = {
       status: getHalkbankStatus(data),
+      amount: parseFloat(nestpay.getField('amount', data)),
       message: nestpay.getField('ErrMsg', data) || null,
       processorId: nestpay.getField('xid', data),
       userIp: nestpay.getField('clientIp', data),
@@ -104,10 +107,10 @@ const normalizers: {
 };
 
 const validatePaymentHash = async (
-  ctx: HookContextWithState<PaymentMethod>,
+  ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
 ) => {
   checkContext(ctx, 'before', ['create']);
-  const processorInfo = ctx.contextState;
+  const { processorInfo } = ctx.contextState;
   if (!hashValidators[processorInfo.processor as PaymentProcessors]) {
     throw new BadRequest('Bank is not supported');
   }
@@ -121,10 +124,10 @@ const validatePaymentHash = async (
 };
 
 const normalizePaymentProcessorData = async (
-  ctx: HookContextWithState<PaymentMethod>,
+  ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
 ) => {
   checkContext(ctx, 'before', ['create']);
-  const processorInfo = ctx.contextState;
+  const { processorInfo } = ctx.contextState;
 
   if (!normalizers[processorInfo.processor as PaymentProcessors]) {
     throw new BadRequest('Bank is not supported');
@@ -134,7 +137,9 @@ const normalizePaymentProcessorData = async (
   ctx.data = normalizer(ctx.data);
 };
 
-const setResultIfExists = async (ctx: HookContextWithState<PaymentMethod>) => {
+const setResultIfExists = async (
+  ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
+) => {
   checkContext(ctx, 'before', ['create']);
   const { forOrder, transactions } = ctx.data;
   const existingOrderPayments = (
@@ -160,7 +165,23 @@ const setResultIfExists = async (ctx: HookContextWithState<PaymentMethod>) => {
   );
 };
 
-const sanitizeResponse = async (ctx: HookContextWithState<PaymentMethod>) => {
+const validateOrderPrice = async (
+  ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
+) => {
+  checkContext(ctx, 'before', 'create');
+  if (
+    ctx.contextState.order.calculatedTotal !==
+    (_.last(ctx.data.transactions) as any).amount
+  ) {
+    throw new BadRequest(
+      "The paid amount doesn't match the order price, please contact us",
+    );
+  }
+};
+
+const sanitizeResponse = async (
+  ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
+) => {
   checkContext(ctx, 'after');
   // We don't want to sanitize it for server requests.
   if (isProvider('server')(ctx)) {
@@ -183,10 +204,11 @@ export const hooks = {
     get: [disallow('external')],
     create: [
       // This will be used in the subsequent methods
-      setProcessorInfo,
+      setProcessingDetails,
       // This checks if the request is indeed from the processor and it uses the clientKey from the storePaymentMethods service.
       validatePaymentHash,
       normalizePaymentProcessorData,
+      validateOrderPrice,
       setResultIfExists,
       validate(sdk.orderPayments.validate),
     ],
