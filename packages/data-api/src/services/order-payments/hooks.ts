@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import { sdk } from '@sradevski/la-sdk';
-import * as crypto from 'crypto';
 import { validate } from '../../common/hooks/db';
 import { disallow, checkContext, isProvider } from 'feathers-hooks-common';
 import {
@@ -16,6 +15,7 @@ import {
 } from '@sradevski/la-sdk/dist/models/orderPayments';
 import { setOrderStatus } from './serviceHooks/orders';
 import { HookContextWithState } from '../../common/types';
+import * as nestpay from './nestpay';
 
 const getProcessorInfo = async (
   orderId: string,
@@ -49,7 +49,7 @@ const getProcessorInfo = async (
 
 const setProcessorInfo = async (ctx: HookContextWithState<PaymentMethod>) => {
   checkContext(ctx, 'before', ['create']);
-  const { oid: orderId } = ctx.data;
+  const orderId = nestpay.getField('oid', ctx.data);
   const processorInfo = await getProcessorInfo(
     orderId,
     ctx.app.services['orders'],
@@ -62,37 +62,12 @@ const setProcessorInfo = async (ctx: HookContextWithState<PaymentMethod>) => {
 const hashValidators: {
   [key in PaymentProcessors]: (clientKey: string, data: any) => boolean;
 } = {
-  [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: (clientKey, data) => {
-    const {
-      HASHPARAMS: hashParams,
-      HASHPARAMSVAL: hashParamsVal,
-      HASH: hash,
-    } = data;
-    if (!hashParams || !hashParamsVal || !hash) {
-      return false;
-    }
-
-    // We need to also check that hashParamsVal is valid according to the documentation.
-    const params: string[] = hashParams.split(':');
-    const paramsVal = params.map(param => data[param]).join('');
-
-    if (paramsVal !== hashParamsVal) {
-      return false;
-    }
-
-    // The hash that comes from the caller has the secret client key appended, which is the only thing that guarantees the source of the transaction.
-    const localHashData = paramsVal + clientKey;
-    const localHash = crypto
-      .createHash('sha1')
-      .update(localHashData)
-      .digest('base64');
-
-    return hash === localHash;
-  },
+  [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: nestpay.hashValidator,
 };
 
 const getHalkbankStatus = (data: any) => {
-  switch (data.Response) {
+  const resp = nestpay.getField('Response', data);
+  switch (resp) {
     case 'Approved':
       return sdk.orderPayments.TransactionStatus.APPROVED;
     case 'Declined':
@@ -110,15 +85,15 @@ const normalizers: {
   ): OrderPayments => {
     const transaction: PaymentTransaction = {
       status: getHalkbankStatus(data),
-      message: data.ErrMsg || undefined,
-      processorId: data.xid,
-      userIp: data.clientIp,
+      message: nestpay.getField('ErrMsg', data) || null,
+      processorId: nestpay.getField('xid', data),
+      userIp: nestpay.getField('clientIp', data),
       date: new Date(Date.now()).toISOString(),
     };
 
     return {
       _id: data._id,
-      forOrder: data.oid,
+      forOrder: nestpay.getField('oid', data),
       isSuccessful:
         transaction.status === sdk.orderPayments.TransactionStatus.APPROVED,
       transactions: [transaction],

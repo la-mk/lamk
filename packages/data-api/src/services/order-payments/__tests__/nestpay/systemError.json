@@ -1,0 +1,65 @@
+{
+  "request": {
+    "clientid": [
+      "180000063",
+      "180000063"
+    ],
+    "oid": [
+      "57dd101f-8e7c-470a-83b4-a04b3e424ba6",
+      "57dd101f-8e7c-470a-83b4-a04b3e424ba6"
+    ],
+    "mdStatus": [
+      "7",
+      "7"
+    ],
+    "mdErrorMsg": [
+      "Грешка во системот",
+      "Грешка во системот"
+    ],
+    "ErrMsg": [
+      "Грешка во системот",
+      "Грешка во системот"
+    ],
+    "Response": [
+      "Error",
+      "Error"
+    ],
+    "ProcReturnCode": [
+      "99",
+      "99"
+    ],
+    "encoding": "ISO-8859-9",
+    "Ecom_Payment_Card_ExpDate_Month": "01",
+    "currency": "807",
+    "refreshtime": "3",
+    "dsId": "2",
+    "callbackCall": "true",
+    "amount": "312",
+    "Ecom_Payment_Card_ExpDate_Year": "20",
+    "storetype": "3d_pay_hosting",
+    "ErrCode": "3D-1005",
+    "failUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "clientIp": "62.162.71.147",
+    "okUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "trantype": "Auth",
+    "lang": "mk",
+    "xid": "yHloakyt1Kek8MyMaK67iQkkrTw=",
+    "HASH": "JEc5ktPdyfp4GSq2j29OaMOJuSg=",
+    "rnd": "Mox7Kx5oumbjzPyjvaFE",
+    "HASHPARAMS": "clientid:oid:rnd:",
+    "HASHPARAMSVAL": "18000006357dd101f-8e7c-470a-83b4-a04b3e424ba6Mox7Kx5oumbjzPyjvaFE",
+    "createdAt": "2020-03-25T19:23:40.596Z",
+    "_id": "a1c9cd26-192c-4ce6-bbfb-54393e578c55"
+  },
+
+  "response": {
+    "forOrder": "c5c4a15a-1cae-439b-af58-23369b6899ca",
+    "isSuccessful": false,
+    "transactions": [
+      {
+        "message": "Грешка во системот",
+        "status": "error"
+      }
+    ]
+  }
+}

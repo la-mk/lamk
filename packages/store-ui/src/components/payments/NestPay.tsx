@@ -12,12 +12,14 @@ export const NestPay = ({ target, data }: any) => {
   const [hash, setHash] = useState('');
   const [randomString] = useState(Date.now().toString());
   const submitButtonRef = useRef(null);
+  // For denars, the value has to be round to .0, .25, .5, .75, or 1, but its easier to just round it up or down.
+  const roundedTotal = Math.round(data.orderTotal);
 
   // The order matters here.
   const hashContent =
     data.clientId +
     data.orderId +
-    data.orderTotal +
+    roundedTotal +
     data.okUrl +
     data.failUrl +
     data.transactionType +
@@ -54,7 +56,7 @@ export const NestPay = ({ target, data }: any) => {
     >
       <input type='hidden' name='clientid' value={data.clientId} />
       <input type='hidden' name='oid' value={data.orderId} />
-      <input type='hidden' name='amount' value={data.orderTotal} />
+      <input type='hidden' name='amount' value={roundedTotal} />
       <input type='hidden' name='currency' value={data.currencyCode} />
       <input type='hidden' name='trantype' value={data.transactionType} />
       <input type='hidden' name='okUrl' value={data.okUrl} />

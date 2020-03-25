@@ -1,0 +1,64 @@
+{
+  "request": {
+    "clientid": [
+      "180000063",
+      "180000063"
+    ],
+    "oid": [
+      "57dd101f-8e7c-470a-83b4-a04b3e424ba6",
+      "57dd101f-8e7c-470a-83b4-a04b3e424ba6"
+    ],
+    "mdStatus": [
+      "7",
+      "7"
+    ],
+    "mdErrorMsg": [
+      "Invalid Gate State",
+      "Invalid Gate State"
+    ],
+    "ErrMsg": [
+      "Invalid Gate State",
+      "Invalid Gate State"
+    ],
+    "Response": [
+      "Error",
+      "Error"
+    ],
+    "ProcReturnCode": [
+      "99",
+      "99"
+    ],
+    "encoding": "ISO-8859-9",
+    "Ecom_Payment_Card_ExpDate_Month": "01",
+    "currency": "807",
+    "refreshtime": "3",
+    "callbackCall": "true",
+    "amount": "312",
+    "Ecom_Payment_Card_ExpDate_Year": "20",
+    "storetype": "3d_pay_hosting",
+    "ErrCode": "3D-1034",
+    "failUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "clientIp": "62.162.71.147",
+    "okUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "trantype": "Auth",
+    "lang": "mk",
+    "xid": "Sf1/DR3dBmTXru7Or8OP5ipJ3os=",
+    "HASH": "BVLBu7IuXAKd4HqEQuz5fV60RpM=",
+    "rnd": "IUJjGn0q9DzPF7cOQ56x",
+    "HASHPARAMS": "clientid:oid:rnd:",
+    "HASHPARAMSVAL": "180000063e9d458f4-3fe9-4372-b65f-dd90a6a6ed4dIUJjGn0q9DzPF7cOQ56x",
+    "createdAt": "2020-03-25T19:38:46.784Z",
+    "_id": "1de6820f-b075-47ea-b04a-0ecb7e6f8cff"
+  },
+
+  "response": {
+    "forOrder": "c5c4a15a-1cae-439b-af58-23369b6899ca",
+    "isSuccessful": false,
+    "transactions": [
+      {
+        "message": "Invalid Gate State",
+        "status": "error"
+      }
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "request": {
+    "TRANID": "",
+    "PAResSyntaxOK": "",
+    "refreshtime": "3",
+    "lang": "mk",
+    "merchantID": "180000063",
+    "maskedCreditCard": "5292 21** **** 3640",
+    "amount": "312",
+    "sID": "2",
+    "ACQBIN": "529221",
+    "Ecom_Payment_Card_ExpDate_Year": "22",
+    "MaskedPan": "529221***3640",
+    "clientIp": "62.162.71.147",
+    "trantype": "Auth",
+    "iReqDetail": "",
+    "okUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "md": "529221:0F7C713F87A0577BBE2BDF29EF28801CD25C0EF12EA0B0F4D2FFCB69AF25C027:4151:##180000063",
+    "ProcReturnCode": "99",
+    "vendorCode": "",
+    "Ecom_Payment_Card_ExpDate_Month": "07",
+    "storetype": "3d_pay_hosting",
+    "iReqCode": "",
+    "Response": "Declined",
+    "mdErrorMsg": "N-status/Not enrolled from Directory Server: https://katmai2.asseco-see.com.tr/mdpayacs3/vereq",
+    "ErrMsg": "Нарачката е веќе платена",
+    "PAResVerified": "",
+    "cavv": "",
+    "digest": "digest",
+    "callbackCall": "true",
+    "failUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "cavvAlgorithm": "",
+    "xid": "p2b0xMLiwxE3iHgw3VORadnju8U=",
+    "encoding": "ISO-8859-9",
+    "currency": "807",
+    "oid": "57dd101f-8e7c-470a-83b4-a04b3e424ba6",
+    "mdStatus": "2",
+    "dsId": "2",
+    "eci": "",
+    "version": "2.0",
+    "clientid": "180000063",
+    "txstatus": "N",
+    "_charset_": "UTF-8",
+    "HASH": "mQW7ydTuoGY7668lMc+QArsyCrs=",
+    "rnd": "+rJNnxzqbXeKY4MaG/QC",
+    "HASHPARAMS": "clientid:oid:AuthCode:ProcReturnCode:Response:mdStatus:cavv:eci:md:rnd:",
+    "HASHPARAMSVAL": "18000006357dd101f-8e7c-470a-83b4-a04b3e424ba699Declined2529221:0F7C713F87A0577BBE2BDF29EF28801CD25C0EF12EA0B0F4D2FFCB69AF25C027:4151:##180000063+rJNnxzqbXeKY4MaG/QC",
+    "countdown": "1",
+    "createdAt": "2020-03-25T19:28:04.276Z",
+    "_id": "652d22f9-8e10-44d9-ab31-1e502109b31b"
+  },
+
+  "response": {
+    "forOrder": "c5c4a15a-1cae-439b-af58-23369b6899ca",
+    "isSuccessful": false,
+    "transactions": [
+      {
+        "message": "Нарачката е веќе платена",
+        "status": "declined"
+      }
+    ]
+  }
+}

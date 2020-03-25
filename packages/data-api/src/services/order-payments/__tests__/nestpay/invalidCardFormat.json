@@ -1,0 +1,49 @@
+{
+  "request": {
+    "oid": "57dd101f-8e7c-470a-83b4-a04b3e424ba6",
+    "Response": "Declined",
+    "EXTRA.TRXDATE": "20200326 00:33:33",
+    "encoding": "ISO-8859-9",
+    "ProcReturnCode": "99",
+    "Ecom_Payment_Card_ExpDate_Month": "01",
+    "currency": "807",
+    "refreshtime": "3",
+    "dsId": "0",
+    "callbackCall": "true",
+    "amount": "312",
+    "payResults.dsId": "0",
+    "HostRefNum": "",
+    "SettleId": "",
+    "Ecom_Payment_Card_ExpDate_Year": "20",
+    "storetype": "3d_pay_hosting",
+    "AuthCode": "",
+    "TransId": "20086AhhI15746",
+    "failUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "clientIp": "62.162.71.147",
+    "ErrMsg": "The credit card number is not in a valid format.",
+    "ReturnOid": "57dd101f-8e7c-470a-83b4-a04b3e424ba6",
+    "clientid": "180000063",
+    "okUrl": "https://agnesa-test.dev.sradevski.com/api/paymentResponse",
+    "trantype": "Auth",
+    "xid": "OJHkWRNtM3BZA1xrU6NN5d0Y4nQ=",
+    "lang": "en",
+    "HASH": "L9d30Tx7zv7uIJ0luHuny2r+sbs=",
+    "rnd": "RDZaGeK/ORmYn0CuerdQ",
+    "HASHPARAMS": "clientid:oid:AuthCode:ProcReturnCode:Response:rnd:",
+    "HASHPARAMSVAL": "180000063e9d458f4-3fe9-4372-b65f-dd90a6a6ed4d99DeclinedRDZaGeK/ORmYn0CuerdQ",
+    "countdown": "1",
+    "createdAt": "2020-03-25T19:36:16.906Z",
+    "_id": "b7f03225-59f9-4bee-a45e-bf1bec7a5649"
+  },
+
+  "response": {
+    "forOrder": "c5c4a15a-1cae-439b-af58-23369b6899ca",
+    "isSuccessful": false,
+    "transactions": [
+      {
+        "message": "The credit card number is not in a valid format.",
+        "status": "declined"
+      }
+    ]
+  }
+}
