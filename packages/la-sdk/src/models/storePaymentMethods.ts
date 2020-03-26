@@ -1,5 +1,5 @@
 import merge from 'lodash/merge';
-import { Application, Params } from '@feathersjs/feathers';
+import { Application, Params, Id } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
@@ -82,6 +82,11 @@ export interface StorePaymentMethods {
   modifiedAt?: string;
 }
 
+export interface HashParts {
+  hash: string;
+  randomString: string;
+}
+
 export const getStorePaymentMethodsSdk = (client: Application) => {
   const crudMethods = getCrudMethods<
     OmitServerProperties<StorePaymentMethods>,
@@ -94,6 +99,17 @@ export const getStorePaymentMethodsSdk = (client: Application) => {
       const options = {};
       merge(options, params, { query: { forStore: storeId } });
       return crudMethods.find(options);
+    },
+
+    // If hashParamsVal and methodName are passed, the result is calculated in a custom hook.
+    getHashParts: (
+      id: Id,
+      hashParamsVal: string,
+      methodName: string
+    ): HashParts => {
+      return crudMethods.get(id, {
+        query: { hashParamsVal, methodName },
+      }) as any;
     },
 
     validate: (data: StorePaymentMethods, ignoreRequired = false) => {
