@@ -17,6 +17,8 @@ import { sdk } from '@sradevski/la-sdk';
 import { getUser } from '../../state/modules/user/user.selector';
 import { FrameMessageExchange } from '../shared/FrameMessageExchange';
 import { Success } from './Success';
+import { getStore } from '../../state/modules/store/store.selector';
+import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 
 interface PaymentProps {
   orderId: string | undefined;
@@ -26,35 +28,42 @@ export const Payment = ({ orderId }: PaymentProps) => {
   const { t } = useTranslation();
   const [isLoadingPayment, setIsLoadingPayment] = useState(true);
   const user = useSelector(getUser);
+  const store = useSelector(getStore);
   const [order, setOrder] = useState<Order | null>(null);
-  const [caller, fetchingOrder] = hooks.useCall();
+  const [caller, showSpinner] = hooks.useCall();
+  const [
+    storePaymentMethods,
+    setStorePaymentMethods,
+  ] = useState<StorePaymentMethods | null>(null);
   const [paymentResponse, setPaymentResponse] = useState(null);
   const isBrowser = typeof window !== 'undefined';
 
   useEffect(() => {
-    if (!user) {
+    if (!user || !store) {
       return;
     }
 
     caller(sdk.order.get(orderId), setOrder);
-  }, [user, caller]);
-
-  if (!order && !fetchingOrder) {
-    return (
-      <div>
-        We cannot find the order you are looking for, make sure you are logged
-        in and try again.
-      </div>
+    caller(sdk.storePaymentMethods.findForStore(store._id), res =>
+      setStorePaymentMethods(res.data[0]),
     );
+  }, [user, store, caller]);
+
+  const processorInfo = storePaymentMethods?.methods.find(
+    method =>
+      method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+  );
+
+  if (!processorInfo && !showSpinner) {
+    return <div>{t('payment.storeNoCardSupport')}</div>;
+  }
+
+  if (!order && !showSpinner) {
+    return <div>{t('order.orderNotFoundTip')}</div>;
   }
 
   if (order && order.status !== sdk.order.OrderStatus.PENDING_PAYMENT) {
-    return (
-      <div>
-        It seems this order is either paid for, or the payment will happen on
-        delivery
-      </div>
-    );
+    return <div>{t('order.orderAlreadyPaid')}</div>;
   }
 
   const frameName = 'paymentFrame';
@@ -72,7 +81,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
 
   return (
     <Page title={t('pages.payment')}>
-      <Spin spinning={fetchingOrder || (isLoadingPayment && !paymentResponse)}>
+      <Spin spinning={showSpinner || (isLoadingPayment && !paymentResponse)}>
         <Flex
           alignItems='center'
           justifyContent='center'
@@ -96,7 +105,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
             <Alert
               mt={3}
               type='error'
-              message={transaction?.message ?? 'An error occured'}
+              message={transaction?.message ?? t('results.genericError')}
             />
           )}
 
@@ -111,10 +120,10 @@ export const Payment = ({ orderId }: PaymentProps) => {
                   setIsLoadingPayment(true);
                 }}
               >
-                Retry
+                {t('actions.retry')}
               </Button>
               <Text mt={2} type='secondary'>
-                You can also retry later from the "Orders" page
+                {t('order.retryFromOrdersTip')}
               </Text>
             </>
           )}
@@ -123,10 +132,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
             <>
               <PaymentForm
                 target={frameName}
-                storePaymentInfo={{
-                  clientId: '180000063',
-                  storeKey: 'SKEY0063',
-                }}
+                storePaymentInfo={processorInfo}
                 order={order}
               />
               {/* Can hide a spinner after the iframe is loaded */}

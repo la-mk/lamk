@@ -3,15 +3,16 @@ import { NestPay } from './NestPay';
 import { useTranslation } from '../../common/i18n';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
+import { PaymentMethod } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 
 //ISO 4217 currency code for Denar
-const DENAR_CURRENCY_ID = '807';
+const DENAR_CURRENCY_ID = 807;
 const TRANSACTION_TYPE = 'Auth';
 
 interface PaymentFormProps {
   target: string;
   order: Order;
-  storePaymentInfo: any;
+  storePaymentInfo: Pick<PaymentMethod, 'clientId' | 'clientKey' | 'processor'>;
 }
 
 export const PaymentForm = ({
@@ -36,11 +37,11 @@ export const PaymentForm = ({
       target={target}
       data={{
         clientId: storePaymentInfo.clientId,
+        clientKey: storePaymentInfo.clientKey,
         orderId: order._id,
-        orderTotal: orderTotal.total.toString(),
+        orderTotal: orderTotal.total,
         currencyCode: DENAR_CURRENCY_ID,
         transactionType: TRANSACTION_TYPE,
-        storeKey: storePaymentInfo.storeKey,
         language: i18n.language,
         // We have to make the request to a sameorigin URL, otherwise it won't display it in the iframe.
         okUrl: paymentCallback,

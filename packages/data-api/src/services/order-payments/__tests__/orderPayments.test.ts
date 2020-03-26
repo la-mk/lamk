@@ -36,7 +36,7 @@ const nestpayProcessor = {
   clientKey: 'SKEY0063',
 };
 
-const normalizeNestpayFixture = (fixture: any, order: any) => {
+const normalizeNestpayFixture = (fixture: any, order: Order) => {
   fixture.request.amount = order.calculatedTotal;
   fixture.request.oid = Array.isArray(fixture.request.oid)
     ? [order._id, order._id]

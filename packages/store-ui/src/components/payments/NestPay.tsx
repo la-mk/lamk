@@ -6,14 +6,33 @@ import env from '../../common/env';
 const TEST_ENDPOINT = 'https://entegrasyon.asseco-see.com.tr/fim/est3Dgate';
 const PROD_ENDPOINT = 'https://epay.halkbank.mk/fim/est3Dgate';
 
+interface NestPayData {
+  clientId: string;
+  clientKey: string;
+  orderId: string;
+  orderTotal: number;
+  currencyCode: number;
+  language: string;
+  okUrl: string;
+  failUrl: string;
+  transactionType: 'Auth';
+}
+
+interface NestPayProps {
+  target: string;
+  data: NestPayData;
+}
+
 // Nestpay is used by Halkbank
-export const NestPay = ({ target, data }: any) => {
+export const NestPay = ({ target, data }: NestPayProps) => {
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [hash, setHash] = useState('');
-  const [randomString] = useState(Date.now().toString());
+  const [randomString] = useState(
+    Date.now().toString() + Math.round(Math.random() * 10000),
+  );
   const submitButtonRef = useRef(null);
   // For denars, the value has to be round to .0, .25, .5, .75, or 1, but its easier to just round it up or down.
-  const roundedTotal = Math.round(data.orderTotal);
+  const roundedTotal = Math.round(data.orderTotal).toString();
 
   // The order matters here.
   const hashContent =
@@ -24,7 +43,7 @@ export const NestPay = ({ target, data }: any) => {
     data.failUrl +
     data.transactionType +
     randomString +
-    data.storeKey;
+    data.clientKey;
 
   useEffect(() => {
     // Subtle is not available in non https environments.
@@ -57,7 +76,11 @@ export const NestPay = ({ target, data }: any) => {
       <input type='hidden' name='clientid' value={data.clientId} />
       <input type='hidden' name='oid' value={data.orderId} />
       <input type='hidden' name='amount' value={roundedTotal} />
-      <input type='hidden' name='currency' value={data.currencyCode} />
+      <input
+        type='hidden'
+        name='currency'
+        value={data.currencyCode.toString()}
+      />
       <input type='hidden' name='trantype' value={data.transactionType} />
       <input type='hidden' name='okUrl' value={data.okUrl} />
       <input type='hidden' name='failUrl' value={data.failUrl} />

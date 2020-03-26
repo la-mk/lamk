@@ -16,18 +16,20 @@ import {
 import { setOrderStatus } from './serviceHooks/orders';
 import { HookContextWithState } from '../../common/types';
 import * as nestpay from './nestpay';
+import { Service } from '@feathersjs/feathers';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 const getProcessingDetails = async (
   orderId: string,
-  ordersService: any,
-  storePaymentMethodsService: any,
+  ordersService: Service<Order>,
+  storePaymentMethodsService: Service<StorePaymentMethods>,
 ) => {
   const order: Order = await ordersService.get(orderId);
-  const storePaymentMethods: StorePaymentMethods = (
-    await storePaymentMethodsService.find({
+  const storePaymentMethods: StorePaymentMethods = ((await storePaymentMethodsService.find(
+    {
       query: { forStore: order.orderedFrom },
-    })
-  )?.data?.[0];
+    },
+  )) as FindResult<StorePaymentMethods>)?.data?.[0];
 
   const creditCardMethod = storePaymentMethods?.methods?.find(
     method =>
@@ -80,11 +82,9 @@ const getHalkbankStatus = (data: any) => {
 };
 
 const normalizers: {
-  [key in PaymentProcessors]: (data: any) => any;
+  [key in PaymentProcessors]: (data: any) => OrderPayments;
 } = {
-  [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: (
-    data,
-  ): OrderPayments => {
+  [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: data => {
     const transaction: PaymentTransaction = {
       status: getHalkbankStatus(data),
       amount: parseFloat(nestpay.getField('amount', data)),
@@ -170,8 +170,8 @@ const validateOrderPrice = async (
 ) => {
   checkContext(ctx, 'before', 'create');
   if (
-    ctx.contextState.order.calculatedTotal !==
-    (_.last(ctx.data.transactions) as any).amount
+    Math.round(ctx.contextState.order.calculatedTotal) !==
+    (_.last(ctx.data.transactions) as PaymentTransaction).amount
   ) {
     throw new BadRequest(
       "The paid amount doesn't match the order price, please contact us",

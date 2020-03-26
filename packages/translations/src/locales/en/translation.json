@@ -15,6 +15,7 @@
 		"orderNow": "Order now",
 		"publish": "Publish",
 		"remove": "Remove",
+		"retry": "Retry",
 		"save": "Save",
 		"select": "Select",
 		"toCheckout": "To checkout",
@@ -151,12 +152,15 @@
 		"setupStoreTitle": "Let's kick things off by creating our store"
   },
   "order": {
+		"orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",
 		"orderDate": "Order date",
 		"orderDeleted": "Order {{id}} successfully deleted",
 		"ordered": "Ordered",
 		"orderId": "Order ID",
 		"orderNotFound_plural": "Orders not found",
 		"orderNotFound": "Order not found",
+		"orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",
+		"retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
 		"seeOrder": "See order"
   },
   "pages": {
@@ -171,6 +175,7 @@
 		"order_plural": "Orders",
 		"product_plural": "Products",
 		"legal": "Legal",
+		"payment": "Payment",
 		"privacy": "Privacy",
 		"returnAndRefund": "Returns and refunds",
 		"generalRules": "General rules",
@@ -184,6 +189,7 @@
 		"clientKeyTip": "Provided by your bank as 'storeKey'",
 		"processor": "Bank",
 		"processorMissingTip": "You don't see your bank in the list? Contact us for support.",
+		"storeNoCardSupport": "The store does not support credit card payments",
 		"updatingPaymentMethodsTip": "Updating payments..."
 	},
   "product": {
