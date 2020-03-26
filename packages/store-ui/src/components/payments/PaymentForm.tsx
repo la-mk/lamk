@@ -12,7 +12,7 @@ const TRANSACTION_TYPE = 'Auth';
 interface PaymentFormProps {
   target: string;
   order: Order;
-  storePaymentInfo: Pick<PaymentMethod, 'clientId' | 'clientKey' | 'processor'>;
+  storePaymentInfo: Pick<PaymentMethod, 'clientId' | 'processor'>;
 }
 
 export const PaymentForm = ({
@@ -37,7 +37,6 @@ export const PaymentForm = ({
       target={target}
       data={{
         clientId: storePaymentInfo.clientId,
-        clientKey: storePaymentInfo.clientKey,
         orderId: order._id,
         orderTotal: orderTotal.total,
         currencyCode: DENAR_CURRENCY_ID,

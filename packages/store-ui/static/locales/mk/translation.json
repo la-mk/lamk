@@ -7,6 +7,7 @@
     "goToCart": "Прегледај корпа",
     "orderNow": "Порачајте сега",
     "remove": "Отстранете",
+    "retry": "Обидете се повторно",
     "search": "Пребарајте",
     "toCheckout": "На каса",
     "toPayment": "Продолжете кон плаќање",
@@ -240,9 +241,12 @@
     "total": "Вкупна цена"
   },
   "order": {
+    "orderAlreadyPaid": "Порачката или е веќе платена, или плаќањето ќе се изврши на достава",
     "orderNotFound": "Порачката не беше пронајдена",
+    "orderNotFoundTip": "Не можевме да ја пронајдиме порачката, проверете дали сте логирани и пробајте повторно",
     "orderNotFound_plural": "Порачките не беа пронајдени",
     "ordered": "Порачано",
+    "retryFromOrdersTip": "Можете да се обидете повторно од страната за вашите порачки",
     "seeOrder": "Видете ја порачката"
   },
   "orderStatus": {
@@ -250,7 +254,7 @@
     "cancelledDescription": "Откажана",
     "completed": "Завршена",
     "completedDescription": "Испорачана до купувач",
-    "pendingPayment": "Плаќање",
+    "pendingPayment": "За плаќање",
     "pendingPaymentDescription": "Се чека за наплата",
     "pendingShipment": "Се процесира",
     "pendingShipmentDescription": "Се чека за достава",
@@ -269,13 +273,15 @@
     "myOrders": "Мои порачки",
     "order": "Порачка",
     "order_plural": "Порачки",
+    "payment": "Наплата",
     "privacy": "Приватност",
     "product_plural": "Производи",
     "returnAndRefund": "Замена на производ",
     "termsOfUse": "Услови на употреба"
   },
   "payment": {
-    "choosePaymentMethod": "Одберете начин на плаќање"
+    "choosePaymentMethod": "Одберете начин на плаќање",
+    "storeNoCardSupport": "Продавницата не поддржува плаќање со платежна картичка"
   },
   "paymentMethodNames": {
     "creditCard": "Кредитна картичка",

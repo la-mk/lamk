@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as stringToArrayBuffer from 'string-to-arraybuffer';
-import * as arrayBufferToString from 'arraybuffer-to-string';
 import env from '../../common/env';
 
 const TEST_ENDPOINT = 'https://entegrasyon.asseco-see.com.tr/fim/est3Dgate';
@@ -8,7 +6,6 @@ const PROD_ENDPOINT = 'https://epay.halkbank.mk/fim/est3Dgate';
 
 interface NestPayData {
   clientId: string;
-  clientKey: string;
   orderId: string;
   orderTotal: number;
   currencyCode: number;
@@ -34,7 +31,7 @@ export const NestPay = ({ target, data }: NestPayProps) => {
   // For denars, the value has to be round to .0, .25, .5, .75, or 1, but its easier to just round it up or down.
   const roundedTotal = Math.round(data.orderTotal).toString();
 
-  // The order matters here.
+  // The order matters here. The clientKey is private, so we need to add that and calculate the hash on the server-side.
   const hashContent =
     data.clientId +
     data.orderId +
@@ -42,18 +39,16 @@ export const NestPay = ({ target, data }: NestPayProps) => {
     data.okUrl +
     data.failUrl +
     data.transactionType +
-    randomString +
-    data.clientKey;
+    randomString;
+
+  // +data.clientKey;
 
   useEffect(() => {
-    // Subtle is not available in non https environments.
-    if (hashContent && crypto?.subtle) {
-      crypto.subtle
-        .digest('SHA-1', stringToArrayBuffer(hashContent))
-        .then(digest => {
-          setHash(arrayBufferToString(digest, 'base64'));
-        });
+    if (!hashContent) {
+      return;
     }
+
+    getHash.then(setHash);
   }, [hashContent]);
 
   useEffect(() => {

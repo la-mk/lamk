@@ -7,6 +7,7 @@
     "goToCart": "Go to Cart",
     "orderNow": "Order now",
     "remove": "Remove",
+    "retry": "Retry",
     "search": "Search",
     "toCheckout": "To checkout",
     "toPayment": "Proceed to payment",
@@ -240,9 +241,12 @@
     "total": "Total"
   },
   "order": {
+    "orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",
     "orderNotFound": "Order not found",
+    "orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",
     "orderNotFound_plural": "Orders not found",
     "ordered": "Ordered",
+    "retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
     "seeOrder": "See order"
   },
   "orderStatus": {
@@ -269,13 +273,15 @@
     "myOrders": "My Orders",
     "order": "Order",
     "order_plural": "Orders",
+    "payment": "Payment",
     "privacy": "Privacy",
     "product_plural": "Products",
     "returnAndRefund": "Returns and refunds",
     "termsOfUse": "Terms of use"
   },
   "payment": {
-    "choosePaymentMethod": "Choose a payment method"
+    "choosePaymentMethod": "Choose a payment method",
+    "storeNoCardSupport": "The store does not support credit card payments"
   },
   "paymentMethodNames": {
     "creditCard": "Credit card",

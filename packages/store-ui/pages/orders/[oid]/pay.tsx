@@ -17,7 +17,7 @@ const OrderPayPage = ({
 
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.orderPay')} />
+      <Head storeName={store && store.name} title={t('pages.payment')} />
       <Payment orderId={orderId} />
     </>
   );
