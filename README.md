@@ -3,9 +3,7 @@
 ## Setup
 
 ### Installing and updating packages
-Until we find a better way, currently if you wish to install a new dependency, or update an existing one, you need to do the following:
-- Run `docker exec <container-name> sh -c "npm install <package-name>"`
-- Run `docker restart <container-name>`
+Both package.json and the source code are watched by `nodemon` and rerun when needed, so all you need to do is run `npm i <package-name>` locally and that package will be updated in the container as well.
 
 ## Environment Variables
 
@@ -22,6 +20,7 @@ In order to be able to run the development environment locally, you need to set 
 ## Docker Cheatsheet
 - To recreate the containers, you can run `docker-compose up --force-recreate --build -d`
 - Run all the containers `docker-compose up -d`
+- Run a script inside a container `docker exec <container-name> sh -c "npm install <package-name>"`
 
 # Production
 

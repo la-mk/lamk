@@ -6,7 +6,7 @@
   "author": "Stevche Radevski <sradevski@live.com>",
   "license": "ISC",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "concurrently \"nodemon --config nodemon.src.json\" \"nodemon --config nodemon.deps.json \"",
     "build": "next build && tsc --project tsconfig.server.json",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@sradevski/blocks-ui": "0.0.44",
-    "@sradevski/la-sdk": "0.0.63",
+    "@sradevski/la-sdk": "0.0.64",
     "amplitude-js": "^5.9.0",
     "analytics": "^0.3.0",
     "antd": "^3.26.11",
@@ -63,6 +63,7 @@
     "@zeit/next-less": "^1.0.1",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",

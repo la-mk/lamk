@@ -48,14 +48,12 @@ export const NestPay = ({ target, data, storePaymentsId }: NestPayProps) => {
       return;
     }
 
-    // @ts-ignore
     sdk.storePaymentMethods
       .getHashParts(
         storePaymentsId,
         hashContent,
         sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
       )
-      // @ts-ignore
       .then(setCalculatedHashParts);
   }, [hashContent, storePaymentsId]);
 

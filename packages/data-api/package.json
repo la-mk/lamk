@@ -12,7 +12,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon",
+    "dev": "concurrently \"nodemon --config nodemon.src.json\" \"nodemon --config nodemon.deps.json \"",
     "test": "jest --ci",
     "test:watch": "jest --watch --coverage -u"
   },
@@ -45,6 +45,7 @@
     "@types/yaml": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
@@ -70,7 +71,7 @@
     "@feathersjs/socket-commons": "^3.1.5",
     "@feathersjs/socketio": "^4.5.1",
     "@sendgrid/mail": "^6.5.3",
-    "@sradevski/la-sdk": "0.0.62",
+    "@sradevski/la-sdk": "0.0.64",
     "@sradevski/nlp": "0.0.1",
     "bluebird": "^3.7.2",
     "compression": "^1.7.4",
