@@ -4,7 +4,7 @@ import { Head } from '../../../src/common/pageComponents/Head';
 import { useTranslation } from '../../../src/common/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { getStore } from '../../../src/state/modules/store/store.selector';
-import { Payment } from '../../../src/components/cart/Payment';
+import { Payment } from '../../../src/components/orders/Payment';
 
 const OrderPayPage = ({
   store,

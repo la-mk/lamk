@@ -106,7 +106,7 @@ export const getStorePaymentMethodsSdk = (client: Application) => {
       id: Id,
       hashParamsVal: string,
       methodName: string
-    ): HashParts => {
+    ): Promise<HashParts> => {
       return crudMethods.get(id, {
         query: { hashParamsVal, methodName },
       }) as any;

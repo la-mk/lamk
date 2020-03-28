@@ -16,7 +16,7 @@ import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
 import { getUser } from '../../state/modules/user/user.selector';
 import { FrameMessageExchange } from '../shared/FrameMessageExchange';
-import { Success } from './Success';
+import { Success } from '../cart/Success';
 import { getStore } from '../../state/modules/store/store.selector';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 
@@ -49,12 +49,12 @@ export const Payment = ({ orderId }: PaymentProps) => {
     );
   }, [user, store, caller]);
 
-  const processorInfo = storePaymentMethods?.methods.find(
+  const cardPaymentInfo = storePaymentMethods?.methods.find(
     method =>
       method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
   );
 
-  if (!processorInfo && !showSpinner) {
+  if (!cardPaymentInfo && !showSpinner) {
     return <div>{t('payment.storeNoCardSupport')}</div>;
   }
 
@@ -128,11 +128,12 @@ export const Payment = ({ orderId }: PaymentProps) => {
             </>
           )}
 
-          {isBrowser && order && !paymentResponse && (
+          {isBrowser && order && storePaymentMethods && !paymentResponse && (
             <>
               <PaymentForm
                 target={frameName}
-                storePaymentInfo={processorInfo}
+                storePaymentsId={storePaymentMethods._id}
+                cardPaymentInfo={cardPaymentInfo}
                 order={order}
               />
               {/* Can hide a spinner after the iframe is loaded */}

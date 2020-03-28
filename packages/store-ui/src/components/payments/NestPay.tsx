@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import env from '../../common/env';
+import { sdk } from '@sradevski/la-sdk';
 
 const TEST_ENDPOINT = 'https://entegrasyon.asseco-see.com.tr/fim/est3Dgate';
 const PROD_ENDPOINT = 'https://epay.halkbank.mk/fim/est3Dgate';
@@ -18,15 +19,17 @@ interface NestPayData {
 interface NestPayProps {
   target: string;
   data: NestPayData;
+  storePaymentsId: string;
 }
 
 // Nestpay is used by Halkbank
-export const NestPay = ({ target, data }: NestPayProps) => {
-  const [hasSubmitted, setHasSubmitted] = React.useState(false);
-  const [hash, setHash] = useState('');
-  const [randomString] = useState(
-    Date.now().toString() + Math.round(Math.random() * 10000),
-  );
+export const NestPay = ({ target, data, storePaymentsId }: NestPayProps) => {
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [calculatedHashParts, setCalculatedHashParts] = useState<{
+    hash: string;
+    randomString: string;
+  } | null>(null);
+
   const submitButtonRef = useRef(null);
   // For denars, the value has to be round to .0, .25, .5, .75, or 1, but its easier to just round it up or down.
   const roundedTotal = Math.round(data.orderTotal).toString();
@@ -38,29 +41,34 @@ export const NestPay = ({ target, data }: NestPayProps) => {
     roundedTotal +
     data.okUrl +
     data.failUrl +
-    data.transactionType +
-    randomString;
-
-  // +data.clientKey;
+    data.transactionType;
 
   useEffect(() => {
-    if (!hashContent) {
+    if (!hashContent || !storePaymentsId) {
       return;
     }
 
-    getHash.then(setHash);
-  }, [hashContent]);
+    // @ts-ignore
+    sdk.storePaymentMethods
+      .getHashParts(
+        storePaymentsId,
+        hashContent,
+        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+      )
+      // @ts-ignore
+      .then(setCalculatedHashParts);
+  }, [hashContent, storePaymentsId]);
 
   useEffect(() => {
     if (hasSubmitted) {
       return;
     }
 
-    if (hash && submitButtonRef.current) {
+    if (calculatedHashParts?.hash && submitButtonRef.current) {
       submitButtonRef.current.click();
       setHasSubmitted(true);
     }
-  }, [submitButtonRef, hash, hasSubmitted]);
+  }, [submitButtonRef, calculatedHashParts, hasSubmitted]);
 
   return (
     <form
@@ -82,11 +90,15 @@ export const NestPay = ({ target, data }: NestPayProps) => {
       {/* If we pass callbackUrl there is an error, it seems you can use it only if the bank allows you too. */}
       {/* <input type='hidden' name='callbackUrl' value={data.callbackUrl} /> */}
       <input type='hidden' name='lang' value={data.language} />
-      <input type='hidden' name='rnd' value={randomString} />
       <input type='hidden' name='refreshtime' value='3' />
       <input type='hidden' name='encoding' value='utf-8' />
       <input type='hidden' name='storetype' value='3d_pay_hosting' />
-      <input type='hidden' name='hash' value={hash} />
+      <input
+        type='hidden'
+        name='rnd'
+        value={calculatedHashParts?.randomString}
+      />
+      <input type='hidden' name='hash' value={calculatedHashParts?.hash} />
 
       <input style={{ display: 'none' }} ref={submitButtonRef} type='submit' />
     </form>

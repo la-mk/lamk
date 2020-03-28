@@ -15,7 +15,7 @@ import {
 } from '@sradevski/la-sdk/dist/models/orderPayments';
 import { setOrderStatus } from './serviceHooks/orders';
 import { HookContextWithState } from '../../common/types';
-import * as nestpay from './nestpay';
+import * as nestpay from '../../common/paymentProcessors/nestpay';
 import { Service } from '@feathersjs/feathers';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 

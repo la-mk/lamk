@@ -6,6 +6,16 @@ export const getField = (fieldName: string, data: any) => {
   return Array.isArray(val) ? val[0] : val;
 };
 
+export const calculateHash = (clientKey: string, paramsVal: string) => {
+  const hashData = paramsVal + clientKey;
+  const hash = crypto
+    .createHash('sha1')
+    .update(hashData)
+    .digest('base64');
+
+  return hash;
+};
+
 export const getHashFromResponse = (clientKey: string, data: any) => {
   const { HASHPARAMS: hashParams } = data;
   if (!hashParams) {
@@ -17,12 +27,7 @@ export const getHashFromResponse = (clientKey: string, data: any) => {
   const paramsVal = params.map(param => getField(param, data)).join('');
 
   // The hash that comes from the caller has the secret client key appended, which is the only thing that guarantees the source of the transaction.
-  const hashData = paramsVal + clientKey;
-  const hash = crypto
-    .createHash('sha1')
-    .update(hashData)
-    .digest('base64');
-
+  const hash = calculateHash(clientKey, paramsVal);
   return { hash, paramsVal };
 };
 

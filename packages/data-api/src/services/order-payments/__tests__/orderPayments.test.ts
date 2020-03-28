@@ -15,7 +15,7 @@ import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
-import * as nestpay from '../nestpay';
+import * as nestpay from '../../../common/paymentProcessors/nestpay';
 
 const getFixturesContent = async (folderName: string) => {
   const folderPath = path.resolve(__dirname, folderName);

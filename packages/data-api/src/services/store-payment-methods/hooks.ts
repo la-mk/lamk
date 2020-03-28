@@ -12,7 +12,52 @@ import {
   checkContext,
 } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
-import { PaymentMethod } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import {
+  PaymentMethod,
+  StorePaymentMethods,
+} from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import { BadRequest } from '../../common/errors';
+import uuid from 'uuid/v4';
+import * as nestpay from '../../common/paymentProcessors/nestpay';
+
+// TODO: Rate-limit this so store keys cannot leak.
+// This is a bit hacky approach to having calculated values but it is the cleanest approach for now.
+const returnHashIfRequested = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', 'get');
+  const id = ctx.id;
+  const { hashParamsVal, methodName } = ctx.params.query ?? {};
+  // If hashParamsVal wasn't passed, it means it is a normal get request.
+  if (!id || !hashParamsVal || !methodName) {
+    return;
+  }
+
+  // This is just so we make sure the storeKey cannot be derived by passing a specific hashParamsval combination
+  if (hashParamsVal.length < 30) {
+    throw new BadRequest(
+      'The passed form fields are invalid, check if your payment call is properly configured',
+    );
+  }
+
+  // Otherwise we need to calculate the hash for the specific payment method and pass it back;
+  const storePaymentMethods: StorePaymentMethods = await ctx.app.services[
+    'storePaymentMethods'
+  ].get(id);
+  const processorInfo = storePaymentMethods?.methods.find(
+    method => method.name === methodName,
+  );
+
+  if (!processorInfo?.clientKey) {
+    throw new BadRequest('The store does not support credit card payments');
+  }
+
+  const randomString = uuid();
+  const hash = nestpay.calculateHash(
+    processorInfo.clientKey,
+    hashParamsVal + randomString,
+  );
+
+  ctx.result = { hash, randomString };
+};
 
 const clearStoreKey = (ctx: HookContext) => {
   checkContext(ctx, 'after');
@@ -25,7 +70,7 @@ export const hooks = {
   before: {
     all: [],
     find: [requireAnyQueryParam(['forStore'])],
-    get: [],
+    get: [returnHashIfRequested],
     // We create store payment methods on store creation
     create: [disallow('external'), validate(sdk.storePaymentMethods.validate)],
     patch: [

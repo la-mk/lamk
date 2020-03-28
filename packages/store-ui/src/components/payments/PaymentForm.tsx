@@ -12,13 +12,15 @@ const TRANSACTION_TYPE = 'Auth';
 interface PaymentFormProps {
   target: string;
   order: Order;
-  storePaymentInfo: Pick<PaymentMethod, 'clientId' | 'processor'>;
+  storePaymentsId: string;
+  cardPaymentInfo: Pick<PaymentMethod, 'clientId' | 'processor'>;
 }
 
 export const PaymentForm = ({
   target,
   order,
-  storePaymentInfo,
+  storePaymentsId,
+  cardPaymentInfo,
 }: PaymentFormProps) => {
   const { i18n } = useTranslation();
   const orderTotal = sdk.utils.pricing.calculatePrices(
@@ -35,8 +37,9 @@ export const PaymentForm = ({
   return (
     <NestPay
       target={target}
+      storePaymentsId={storePaymentsId}
       data={{
-        clientId: storePaymentInfo.clientId,
+        clientId: cardPaymentInfo.clientId,
         orderId: order._id,
         orderTotal: orderTotal.total,
         currencyCode: DENAR_CURRENCY_ID,

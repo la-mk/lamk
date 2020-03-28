@@ -36,6 +36,17 @@ describe('"storePaymentMethods" service', () => {
         forStore: testStores[0]._id,
       },
     })) as FindResult<StorePaymentMethods>).data[0];
+
+    await storePaymentMethods.patch(testStorePaymentMethods._id, {
+      methods: [
+        {
+          name: sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+          clientId: '1234567',
+          clientKey: 'qwerty',
+          processor: sdk.storePaymentMethods.PaymentProcessors.HALKBANK,
+        },
+      ],
+    });
   });
 
   it('create and remove are disallowed for external calls', async () => {
@@ -114,5 +125,70 @@ describe('"storePaymentMethods" service', () => {
     );
 
     await expect(patchPromise).rejects.toThrow(BadRequest);
+  });
+
+  it('getting a hash returns if hashParamsVal and  methodName are passed as query parameters', async () => {
+    const params = getExternalUserParams(testUsers[0]);
+    const hashParts = await storePaymentMethods.get(
+      testStorePaymentMethods._id,
+      {
+        ...params,
+        query: {
+          hashParamsVal:
+            '123456789123456789123456789123456789123456789123456789123456789123456789',
+          methodName: sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+        },
+      },
+    );
+
+    // @ts-ignore
+    expect(hashParts.hash).toBeTruthy();
+    // @ts-ignore
+    expect(hashParts.randomString).toBeTruthy();
+  });
+
+  it('getting a hash returns a different hash even if if hashParamsVal and  methodName are the same', async () => {
+    const params = getExternalUserParams(testUsers[0]);
+    const query = {
+      hashParamsVal:
+        '123456789123456789123456789123456789123456789123456789123456789123456789',
+      methodName: sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+    };
+
+    const hashParts1 = await storePaymentMethods.get(
+      testStorePaymentMethods._id,
+      {
+        ...params,
+        query,
+      },
+    );
+
+    const hashParts2 = await storePaymentMethods.get(
+      testStorePaymentMethods._id,
+      {
+        ...params,
+        query,
+      },
+    );
+
+    // @ts-ignore
+    expect(hashParts1.hash).not.toBe(hashParts2.hash);
+    // @ts-ignore
+    expect(hashParts1.randomString).not.toBe(hashParts2.randomString);
+  });
+
+  it('getting a hash fails if the hashparamsval is less than 30 characters long', async () => {
+    const params = getExternalUserParams(testUsers[0]);
+    const query = {
+      hashParamsVal: '123456',
+      methodName: sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+    };
+
+    const resp = storePaymentMethods.get(testStorePaymentMethods._id, {
+      ...params,
+      query,
+    });
+
+    await expect(resp).rejects.toThrow(BadRequest);
   });
 });
