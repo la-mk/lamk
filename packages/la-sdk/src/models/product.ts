@@ -24,7 +24,7 @@ export const schema = {
       .string()
       .minLength(2)
       .maxLength(63),
-    true,
+    true
   ),
   soldBy: v8n()
     .string()
@@ -42,13 +42,13 @@ export const schema = {
   discount: v8n().optional(
     v8n()
       .number(false)
-      .positive(),
+      .positive()
   ),
   // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
   calculatedPrice: v8n().optional(
     v8n()
       .number(false)
-      .positive(),
+      .positive()
   ),
   images: v8n()
     .maxLength(10)
@@ -64,19 +64,19 @@ export const schema = {
       .string()
       .minLength(2)
       .maxLength(4095),
-    true,
+    true
   ),
   sku: v8n().optional(
     v8n()
       .string()
       .minLength(2)
       .maxLength(511),
-    true,
+    true
   ),
   stock: v8n().optional(
     v8n()
       .number()
-      .not.negative(),
+      .not.negative()
   ),
   groups: v8n()
     .maxLength(10)
@@ -89,14 +89,14 @@ export const schema = {
       .string()
       .minLength(2)
       .maxLength(63),
-    true,
+    true
   ),
   modifiedAt: v8n().optional(
     v8n()
       .string()
       .minLength(2)
       .maxLength(63),
-    true,
+    true
   ),
 };
 
@@ -146,7 +146,7 @@ const getQueryForSet = (productSet: ProductSetTag) => {
     }
 
     default: {
-      return {}
+      return {};
     }
   }
 };
@@ -154,7 +154,7 @@ const getQueryForSet = (productSet: ProductSetTag) => {
 export const getProductSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Product>, Product>(
     client,
-    'products',
+    'products'
   );
 
   const searchCrudMethods = pick(getCrudMethods<any, any>(client, 'search'), [
@@ -167,21 +167,21 @@ export const getProductSdk = (client: Application) => {
     findForStore: (storeId: string, params?: Params) => {
       // If the user is searching, hit the search service, otherwise go to the products service directly.
       if (params?.query?.search) {
-        const searchOptions = {};
-        merge(searchOptions, params, { query: { storeId, model: 'products', $limit: 20, $skip: 0 } } );
+        const searchOptions = { query: { $limit: 20, $skip: 0 } };
+        merge(searchOptions, params, { query: { storeId, model: 'products' } });
 
         return searchCrudMethods.find(searchOptions);
       }
 
       const options = {};
-      merge(options, params, { query: { soldBy: storeId } } );
+      merge(options, params, { query: { soldBy: storeId } });
       return crudMethods.find(options);
     },
 
     getProductSetsForStore: (
       storeId: string,
       productSetTags: ProductSetTag[],
-      params?: Params,
+      params?: Params
     ): Promise<ProductSet[]> => {
       return Promise.all(
         productSetTags.map(setTag => {
@@ -194,8 +194,12 @@ export const getProductSdk = (client: Application) => {
             } as ProductSet);
           }
 
-          const options = {};
-          merge(options, params, { query: { soldBy: storeId, $limit: 10, ...queryForSet } } );
+          const options = {query: { $limit: 10 }};
+          merge(
+            options,
+            params,
+            { query: { soldBy: storeId, ...queryForSet } },
+          );
 
           return crudMethods
             .find(options)
@@ -205,7 +209,7 @@ export const getProductSdk = (client: Application) => {
             .catch(err => {
               return { setTag, error: err, filter: { query: queryForSet } };
             });
-        }),
+        })
       );
     },
 

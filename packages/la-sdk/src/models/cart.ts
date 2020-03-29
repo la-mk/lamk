@@ -81,7 +81,8 @@ export const getCartSdk = (client: Application) => {
     ...crudMethods,
 
     findForUser: (userId: string, params?: Params) => {
-      const options = merge({ query: { forUser: userId } }, params);
+      const options = {}
+      merge(options, params, { query: { forUser: userId } });
       return crudMethods.find(options);
     },
 
