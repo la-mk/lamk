@@ -141,7 +141,12 @@ export const Checkout = () => {
         setOrder(order);
         sdk.cart.patch(user._id, { items: [] });
         dispatch(removeItemsFromCart());
-        dispatch(goTo(`/orders/${order._id}/pay`));
+        if (
+          order.paymentMethod ===
+          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+        ) {
+          dispatch(goTo(`/orders/${order._id}/pay`));
+        }
       },
     );
   };
