@@ -10,8 +10,6 @@ import {
   Badge,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
-import compareAsc from 'date-fns/compareAsc';
-import format from 'date-fns/format';
 import { useSelector } from 'react-redux';
 import { getCampaigns } from '../../../state/modules/campaigns/campaigns.selector';
 import { sdk } from '@sradevski/la-sdk';
@@ -138,10 +136,6 @@ export const Campaigns = () => {
                 : undefined,
             filtering: {
               ...filters.filtering,
-              // ...utils.filter.multipleItemsFilter(
-              //   'status',
-              //   tableFilters.status,
-              // ),
             },
           });
         }}

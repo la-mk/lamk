@@ -119,10 +119,14 @@ export const Products = () => {
   const store: Store | null = useSelector(getStore);
 
   const [caller, showSpinner] = hooks.useCall();
-  const [filters, setFilters] = hooks.useFilter(null, {
-    storage: 'session',
-    storageKey: `${store ? store._id : ''}/productFilters`,
-  });
+  // We set category as undefined so on the first filter change the pagination won't reset (this is what is returned from multipleItemsFilter)
+  const [filters, setFilters] = hooks.useFilter(
+    { filtering: { category: undefined } },
+    {
+      storage: 'session',
+      storageKey: `${store ? store._id : ''}/productFilters`,
+    },
+  );
   const categories = useSelector(getUniqueCategories('level3'));
   const columns = React.useMemo(() => {
     return getColumns(t, store ? store._id : '', categories, filters);

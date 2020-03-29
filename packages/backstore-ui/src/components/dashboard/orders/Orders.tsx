@@ -84,10 +84,13 @@ export const Orders = () => {
   const { t } = useTranslation();
 
   const [caller, showSpinner] = hooks.useCall();
-  const [filters, setFilters] = hooks.useFilter(null, {
-    storage: 'session',
-    storageKey: `${store ? store._id : ''}/orderFilters`,
-  });
+  const [filters, setFilters] = hooks.useFilter(
+    { filtering: { status: undefined } },
+    {
+      storage: 'session',
+      storageKey: `${store ? store._id : ''}/orderFilters`,
+    },
+  );
   const columns = getColumns(t, filters);
 
   React.useEffect(() => {
