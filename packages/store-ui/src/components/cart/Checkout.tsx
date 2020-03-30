@@ -160,18 +160,17 @@ export const Checkout = () => {
           flexDirection={['column', 'row', 'row']}
         >
           <Flex flex={1} flexDirection='column' mr={[0, 3, 3]}>
-            <SelectAddress
-              addresses={addresses}
-              deliverTo={deliverTo}
-              setDeliverTo={setDeliverTo}
-              user={user}
+            <SelectPaymentMethod
+              storePaymentMethods={storePaymentMethods}
+              paymentMethod={paymentMethod}
+              setPaymentMethod={setPaymentMethod}
             />
-
             <Box mt={3}>
-              <SelectPaymentMethod
-                storePaymentMethods={storePaymentMethods}
-                paymentMethod={paymentMethod}
-                setPaymentMethod={setPaymentMethod}
+              <SelectAddress
+                addresses={addresses}
+                deliverTo={deliverTo}
+                setDeliverTo={setDeliverTo}
+                user={user}
               />
             </Box>
           </Flex>
