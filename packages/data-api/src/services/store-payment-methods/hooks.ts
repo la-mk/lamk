@@ -59,9 +59,11 @@ const returnHashIfRequested = async (ctx: HookContext) => {
   ctx.result = { hash, randomString };
 };
 
-const clearStoreKey = (ctx: HookContext) => {
+const clearMethodFields = (ctx: HookContext) => {
   checkContext(ctx, 'after');
   (ctx.result?.data?.[0]?.methods ?? []).forEach((method: PaymentMethod) => {
+    _.unset(method, 'clientUsername');
+    _.unset(method, 'clientPassword');
     _.unset(method, 'clientKey');
   });
 };
@@ -81,21 +83,21 @@ export const hooks = {
     remove: [disallow('external')],
   },
 
-  // clientKey is sensitive information so we want to filter that out.
+  // clientKey, username, and password are sensitive information so we want to filter that out.
   after: {
     all: [],
     find: [
       unless(
         (...args) =>
           isProvider('server')(...args) || isOwner(['forStore'])(...args),
-        clearStoreKey,
+        clearMethodFields,
       ),
     ],
     get: [
       unless(
         (...args) =>
           isProvider('server')(...args) || isOwner(['forStore'])(...args),
-        clearStoreKey,
+        clearMethodFields,
       ),
     ],
     create: [],

@@ -262,6 +262,115 @@ export const Payment = () => {
                 }}
               </FormItem>
             </Row>
+
+            <Row gutter={24}>
+              <FormItem
+                label={t('payment.clientUsername')}
+                help={t('payment.clientUsernameTip')}
+                selector='methods'
+              >
+                {(
+                  _val: PaymentMethod[],
+                  onChange: (val: any) => void,
+                  onComplete: (val: any) => void,
+                  { methods }: StorePaymentMethods,
+                ) => (
+                  <Input
+                    disabled={
+                      !(methods ?? []).some(
+                        method =>
+                          method.name ===
+                            sdk.storePaymentMethods.PaymentMethodNames
+                              .CREDIT_CARD && Boolean(method.processor),
+                      )
+                    }
+                    value={
+                      methods?.find(
+                        method =>
+                          method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames
+                            .CREDIT_CARD,
+                      )?.clientUsername
+                    }
+                    onChange={e => {
+                      onChange(
+                        methods?.map(method =>
+                          method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                            ? { ...method, clientUsername: e.target.value }
+                            : method,
+                        ),
+                      );
+                    }}
+                    onBlur={e => {
+                      onComplete(
+                        methods?.map(method =>
+                          method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                            ? { ...method, clientUsername: e.target.value }
+                            : method,
+                        ),
+                      );
+                    }}
+                  />
+                )}
+              </FormItem>
+            </Row>
+
+            <Row gutter={24}>
+              <FormItem
+                label={t('payment.clientPassword')}
+                help={t('payment.clientPasswordTip')}
+                selector='methods'
+              >
+                {(
+                  _val: PaymentMethod[],
+                  onChange: (val: any) => void,
+                  onComplete: (val: any) => void,
+                  { methods }: StorePaymentMethods,
+                ) => (
+                  <Input
+                    disabled={
+                      !(methods ?? []).some(
+                        method =>
+                          method.name ===
+                            sdk.storePaymentMethods.PaymentMethodNames
+                              .CREDIT_CARD && Boolean(method.processor),
+                      )
+                    }
+                    value={
+                      methods?.find(
+                        method =>
+                          method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames
+                            .CREDIT_CARD,
+                      )?.clientPassword
+                    }
+                    onChange={e => {
+                      onChange(
+                        methods?.map(method =>
+                          method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                            ? { ...method, clientPassword: e.target.value }
+                            : method,
+                        ),
+                      );
+                    }}
+                    onBlur={e => {
+                      onComplete(
+                        methods?.map(method =>
+                          method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                            ? { ...method, clientPassword: e.target.value }
+                            : method,
+                        ),
+                      );
+                    }}
+                  />
+                )}
+              </FormItem>
+            </Row>
+
             <Row gutter={24}>
               <FormItem
                 label={t('payment.clientId')}

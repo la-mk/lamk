@@ -69,24 +69,12 @@ const hashValidators: {
   [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: nestpay.hashValidator,
 };
 
-const getHalkbankStatus = (data: any) => {
-  const resp = nestpay.getField('Response', data);
-  switch (resp) {
-    case 'Approved':
-      return sdk.orderPayments.TransactionStatus.APPROVED;
-    case 'Declined':
-      return sdk.orderPayments.TransactionStatus.DECLINED;
-    default:
-      return sdk.orderPayments.TransactionStatus.ERROR;
-  }
-};
-
 const normalizers: {
   [key in PaymentProcessors]: (data: any) => OrderPayments;
 } = {
   [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: data => {
     const transaction: PaymentTransaction = {
-      status: getHalkbankStatus(data),
+      status: nestpay.getStatus(data),
       amount: parseFloat(nestpay.getField('amount', data)),
       message: nestpay.getField('ErrMsg', data) || null,
       processorId: nestpay.getField('xid', data),

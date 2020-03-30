@@ -18,6 +18,7 @@ import { campaigns } from '../../services/campaigns/campaigns';
 import { storeAnalytics } from '../../services/store-analytics/storeAnalytics';
 import { storePaymentMethods } from '../../services/store-payment-methods/storePaymentMethods';
 import { orderPayments } from '../../services/order-payments/orderPayments';
+import { orderPaymentsQuery } from '../../services/order-payments-query/orderPaymentsQuery';
 
 export const registerServices = (app: Application) => {
   authentication(app);
@@ -39,4 +40,5 @@ export const registerServices = (app: Application) => {
   storeAnalytics(app);
   storePaymentMethods(app);
   orderPayments(app);
+  orderPaymentsQuery(app);
 };
