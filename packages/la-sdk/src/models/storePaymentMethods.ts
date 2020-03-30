@@ -29,6 +29,18 @@ export const paymentMethodSchema = {
       .minLength(2)
       .maxLength(63)
   ),
+  clientUsername: v8n().optional(
+    v8n()
+      .string()
+      .minLength(2)
+      .maxLength(63)
+  ),
+  clientPassword: v8n().optional(
+    v8n()
+      .string()
+      .minLength(2)
+      .maxLength(63)
+  ),
 };
 
 export const schema = {
@@ -72,6 +84,8 @@ export interface PaymentMethod {
   processor?: PaymentProcessors; // The bank name or service that processees the payment, if applicable
   clientId?: string; // Client Id provided by the processor, if applicable
   clientKey?: string; // Key provided by the processor, if applicable
+  clientUsername?: string; // Client username provided by the processor, if applicable
+  clientPassword?: string; // Client password provided by the processor, if applicable
 }
 
 export interface StorePaymentMethods {
