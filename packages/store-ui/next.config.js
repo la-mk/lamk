@@ -13,6 +13,7 @@ const config = {
     // We include these so the required envvar checks don't fail at build time
     API_ENDPOINT: 'mock',
     ARTIFACTS_ENDPOINT: 'mock',
+    NESTPAY_GATEWAY_ENDPOINT: 'mock',
   },
 
   // Using config makes it incompatible with static resource optimization, see https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
@@ -25,6 +26,7 @@ const config = {
     ARTIFACTS_ENDPOINT: process.env.ARTIFACTS_ENDPOINT,
     NODE_ENV: process.env.NODE_ENV,
     ANALYTICS_TRACKING_ID: process.env.ANALYTICS_TRACKING_ID,
+    NESTPAY_GATEWAY_ENDPOINT: process.env.NESTPAY_GATEWAY_ENDPOINT,
   },
 };
 

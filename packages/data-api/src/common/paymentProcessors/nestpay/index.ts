@@ -9,12 +9,7 @@ const xmlBuilder = new xml.Builder({
   xmldec: { version: '1.0', encoding: 'ISO-8859-9' },
 });
 
-export const DEV_PROCESSOR_URL =
-  'https://entegrasyon.asseco-see.com.tr/fim/api';
-export const PROD_PROCESSOR_URL = 'https://epay.halkbank.mk/fim/api';
-
-export const PROCESSOR_URL =
-  env().NODE_ENV === 'production' ? PROD_PROCESSOR_URL : DEV_PROCESSOR_URL;
+export const PROCESSOR_URL = env().NESTPAY_API_ENDPOINT;
 
 // For whatever reason fields in error responses are an array of the duplicated element, so we need a getter to abstract that.
 export const getField = (fieldName: string, data: any) => {

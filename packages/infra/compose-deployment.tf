@@ -50,6 +50,14 @@ variable "agnesa-domain" {
   type = string
 }
 
+variable "nestpay-api-endpoint" {
+  type = string
+}
+
+variable "nestpay-gateway-endpoint" {
+  type = string
+}
+
 ########## DO DATA ##############
 
 data "digitalocean_ssh_key" "droplets-ssh-key" {
@@ -105,6 +113,8 @@ export ANALYTICS_TRACKING_ID=$ANALYTICS_TRACKING_ID;
 export MAIL_SERVICE_API_KEY=$MAIL_SERVICE_API_KEY;
 export SEARCH_SERVICE_API_KEY=$SEARCH_SERVICE_API_KEY;
 export AGNESA_DOMAIN=$AGNESA_DOMAIN;
+export NESTPAY_API_ENDPOINT=$NESTPAY_API_ENDPOINT;
+export NESTPAY_GATEWAY_ENDPOINT=$NESTPAY_GATEWAY_ENDPOINT;
 ENVVARS_TPL
 EOT
 
@@ -117,6 +127,8 @@ EOT
       MAIL_SERVICE_API_KEY = var.mail-service-api-key
       SEARCH_SERVICE_API_KEY = var.search-service-api-key
       AGNESA_DOMAIN = var.agnesa-domain
+      NESTPAY_API_ENDPOINT = var.nestpay-api-endpoint
+      NESTPAY_GATEWAY_ENDPOINT = var.nestpay-gateway-endpoint
     }
   }
 

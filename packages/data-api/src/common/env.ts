@@ -66,6 +66,11 @@ const loadEnv = _.once(() => {
       .get('SEARCH_SERVICE_API_KEY')
       .required()
       .asString(),
+
+    NESTPAY_API_ENDPOINT: envvar
+      .get('NESTPAY_API_ENDPOINT')
+      .required()
+      .asString(),
   };
 });
 

@@ -140,6 +140,7 @@ services:
       MAIL_SERVICE_API_KEY: "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"
       SEARCH_SERVICE_API_KEY: "12345678"
       SEARCH_SERVICE_ENDPOINT: "search.dev.sradevski.com"
+      NESTPAY_API_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/api"
       # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.dev.sradevski.com services from within the service it fails.
       NODE_TLS_REJECT_UNAUTHORIZED: 0
 
@@ -183,6 +184,7 @@ services:
       ARTIFACTS_ENDPOINT: "https://artifacts.dev.sradevski.com/dev-bucket"
       ANALYTICS_TRACKING_ID: '' 
       PORT: 80
+      NESTPAY_GATEWAY_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate"
       # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.dev.sradevski.com services from within the service it fails.
       NODE_TLS_REJECT_UNAUTHORIZED: 0
 

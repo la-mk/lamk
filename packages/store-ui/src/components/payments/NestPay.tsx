@@ -2,9 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import env from '../../common/env';
 import { sdk } from '@sradevski/la-sdk';
 
-const TEST_ENDPOINT = 'https://entegrasyon.asseco-see.com.tr/fim/est3Dgate';
-const PROD_ENDPOINT = 'https://epay.halkbank.mk/fim/est3Dgate';
-
 interface NestPayData {
   clientId: string;
   orderId: string;
@@ -69,11 +66,7 @@ export const NestPay = ({ target, data, storePaymentsId }: NestPayProps) => {
   }, [submitButtonRef, calculatedHashParts, hasSubmitted]);
 
   return (
-    <form
-      method='post'
-      action={env.NODE_ENV === 'production' ? PROD_ENDPOINT : TEST_ENDPOINT}
-      target={target}
-    >
+    <form method='post' action={env.NESTPAY_GATEWAY_ENDPOINT} target={target}>
       <input type='hidden' name='clientid' value={data.clientId} />
       <input type='hidden' name='oid' value={data.orderId} />
       <input type='hidden' name='amount' value={roundedTotal} />

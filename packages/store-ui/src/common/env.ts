@@ -13,6 +13,9 @@ const vars = {
     publicRuntimeConfig.ANALYTICS_TRACKING_ID ||
     process.env.ANALYTICS_TRACKING_ID,
   NODE_ENV: publicRuntimeConfig.NODE_ENV || process.env.NODE_ENV,
+  NESTPAY_GATEWAY_ENDPOINT:
+    publicRuntimeConfig.NESTPAY_GATEWAY_ENDPOINT ||
+    process.env.NESTPAY_GATEWAY_ENDPOINT,
 };
 
 const envvar = from(vars as any);
@@ -34,4 +37,9 @@ export default {
     .get('NODE_ENV')
     .required()
     .asEnum(['development', 'production']),
+
+  NESTPAY_GATEWAY_ENDPOINT: envvar
+    .get('NESTPAY_GATEWAY_ENDPOINT')
+    .required()
+    .asString(),
 };
