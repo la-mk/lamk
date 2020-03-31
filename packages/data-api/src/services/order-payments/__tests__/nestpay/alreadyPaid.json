@@ -56,7 +56,8 @@
     "transactions": [
       {
         "message": "Нарачката е веќе платена",
-        "status": "declined"
+        "status": "declined",
+        "amount": 2468
       }
     ]
   }

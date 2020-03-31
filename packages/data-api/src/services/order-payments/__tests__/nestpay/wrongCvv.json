@@ -70,7 +70,8 @@
     "transactions": [
       {
         "message": "Do not honour",
-        "status": "declined"
+        "status": "declined",
+        "amount": 2468
       }
     ]
   }

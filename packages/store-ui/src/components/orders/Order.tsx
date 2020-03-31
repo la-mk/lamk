@@ -15,6 +15,7 @@ import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { Summary } from '../shared/Summary';
 import { Page } from '../shared/Page';
@@ -22,16 +23,21 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
 import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
+import { goTo } from '../../state/modules/navigation/navigation.actions';
 
-const getStepIndex = (status: OrderType['status']) => {
+const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
+  const startIndex = isCardPayment ? 1 : 0;
+
   switch (status) {
-    case sdk.order.OrderStatus.PENDING_SHIPMENT:
+    case sdk.order.OrderStatus.PENDING_PAYMENT:
       return 0;
+    case sdk.order.OrderStatus.PENDING_SHIPMENT:
+      return startIndex;
     case sdk.order.OrderStatus.SHIPPED:
-      return 1;
+      return startIndex + 1;
     case sdk.order.OrderStatus.COMPLETED:
     case sdk.order.OrderStatus.CANCELLED:
-      return 2;
+      return startIndex + 2;
   }
 };
 
@@ -41,10 +47,9 @@ export const Order = ({ orderId }: { orderId: string }) => {
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [order, setOrder] = useState<OrderType>(null);
-  const status = order && order.status;
-  const stepIndex = status ? getStepIndex(status) : 0;
 
   useEffect(() => {
     if (orderId && user) {
@@ -56,10 +61,30 @@ export const Order = ({ orderId }: { orderId: string }) => {
     return <Empty mt={6} description={t('order.orderNotFound')}></Empty>;
   }
 
+  const handlePayment = () => {
+    dispatch(goTo(`/orders/${order._id}/pay`));
+  };
+
+  const isCardPayment =
+    order.paymentMethod ===
+    sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD;
+
+  const shouldPay =
+    order.status === sdk.order.OrderStatus.PENDING_PAYMENT && isCardPayment;
+
+  const status = order.status;
+  const stepIndex = status ? getStepIndex(status, isCardPayment) : 0;
+
   return (
     <Page title={t('pages.order')}>
       <Spin spinning={showSpinner}>
         <Steps size='small' current={stepIndex}>
+          {isCardPayment && (
+            <Step
+              title={t('orderStatus.pendingPayment')}
+              description={t('orderStatus.pendingPaymentDescription')}
+            />
+          )}
           <Step
             title={t('orderStatus.pendingShipment')}
             description={t('orderStatus.pendingShipmentDescription')}
@@ -89,6 +114,8 @@ export const Order = ({ orderId }: { orderId: string }) => {
               items={order.ordered}
               delivery={delivery}
               campaigns={order.campaigns ?? []}
+              buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
+              onCheckout={shouldPay ? handlePayment : undefined}
             />
           </Card>
 

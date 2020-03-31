@@ -130,7 +130,7 @@ const setResultIfExists = async (
 ) => {
   checkContext(ctx, 'before', ['create']);
   const { forOrder, transactions } = ctx.data;
-  const existingOrderPayments = (
+  const existingOrderPayments: OrderPayments = (
     await ctx.app.services['orderPayments'].find({
       query: { forOrder },
     })
@@ -145,6 +145,11 @@ const setResultIfExists = async (
     ...existingOrderPayments.transactions,
     ...transactions,
   ];
+
+  existingOrderPayments.isSuccessful = existingOrderPayments.transactions.some(
+    transaction =>
+      transaction.status === sdk.orderPayments.TransactionStatus.APPROVED,
+  );
 
   // By setting result, we skip the `create` DB call.
   ctx.result = await ctx.app.services['orderPayments'].patch(
@@ -180,7 +185,7 @@ const sanitizeResponse = async (
     forOrder: ctx.result.forOrder,
     isSuccessful: ctx.result.isSuccessful,
     transactions: [
-      _.pick(_.last(ctx.result.transactions), ['status', 'message']),
+      _.pick(_.last(ctx.result.transactions), ['status', 'message', 'amount']),
     ],
   };
 };

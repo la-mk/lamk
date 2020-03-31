@@ -281,6 +281,8 @@
   },
   "payment": {
     "choosePaymentMethod": "Одберете начин на плаќање",
+    "payAmountTip": "Вкупна цена на порачката е {{amountWithCurrency}}",
+    "paymentDisabled": "Наплатата е оневозможена",
     "storeNoCardSupport": "Продавницата не поддржува плаќање со платежна картичка"
   },
   "paymentMethodNames": {

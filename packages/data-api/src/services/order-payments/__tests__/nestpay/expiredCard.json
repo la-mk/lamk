@@ -70,7 +70,8 @@
     "transactions": [
       {
         "message": "Expired card.",
-        "status": "declined"
+        "status": "declined",
+        "amount": 2468
       }
     ]
   }

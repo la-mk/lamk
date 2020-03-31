@@ -1,19 +1,14 @@
 import { checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
-import * as _ from 'lodash';
 import { sdk } from '@sradevski/la-sdk';
 import { NotFound } from '../../../common/errors';
-import { PaymentTransaction } from '@sradevski/la-sdk/dist/models/orderPayments';
 
 export const setOrderStatus = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['create']);
-  const { forOrder, isSuccessful, transactions } = ctx.result;
-  const lastTransaction: PaymentTransaction | undefined = _.last(transactions);
+  const { forOrder, isSuccessful } = ctx.result;
+  console.log(forOrder, isSuccessful);
 
-  if (
-    !isSuccessful ||
-    lastTransaction?.status !== sdk.orderPayments.TransactionStatus.APPROVED
-  ) {
+  if (!isSuccessful) {
     return;
   }
 

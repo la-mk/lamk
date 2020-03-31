@@ -137,6 +137,9 @@ export const OrderDetailsModal = ({
               <DescriptionItem label={t('order.orderDate')}>
                 {format(new Date(order.createdAt), 'MM/dd/yyyy')}
               </DescriptionItem>
+              <DescriptionItem label={t('payment.paymentMethod')}>
+                {t(`paymentMethodNames.${order.paymentMethod}`)}
+              </DescriptionItem>
             </Descriptions>
           </Flex>
 

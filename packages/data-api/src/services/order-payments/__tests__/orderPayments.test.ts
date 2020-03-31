@@ -16,6 +16,7 @@ import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import * as nestpay from '../../../common/paymentProcessors/nestpay';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 const getFixturesContent = async (folderName: string) => {
   const folderPath = path.resolve(__dirname, folderName);
@@ -142,18 +143,30 @@ describe('"orderPayments" service', () => {
 
   it('nestpay is handled correctly', async () => {
     const nestpayFixtures = await getFixturesContent('nestpay');
-    const responses = await Bluebird.map(nestpayFixtures, async fixture => {
-      normalizeNestpayFixture(fixture, testOrders[0]);
-      const response = await orderPayments.create(fixture.request, {
-        provider: 'rest',
-      });
+    // Concurrency for the same order can make the end result be in inconsistent state, so we limit it. In practice it is very unlikely for concurrent requests to happen, so for now its an acceptible tradeoff.
+    const responses = await Bluebird.map(
+      nestpayFixtures,
+      async fixture => {
+        normalizeNestpayFixture(fixture, testOrders[0]);
+        const response = await orderPayments.create(fixture.request, {
+          provider: 'rest',
+        });
 
-      return [fixture, response];
-    });
+        return [fixture, response];
+      },
+      { concurrency: 1 },
+    );
 
     responses.forEach(([fixture, response]) =>
       expect(response).toEqual(fixture.response),
     );
+
+    // If there is a single successful transaction, then the entire payment should be successful.
+    const orderPayment = ((await orderPayments.find({
+      query: { forOrder: testOrders[0]._id },
+    })) as FindResult<OrderPayments>).data[0];
+
+    expect(orderPayment.isSuccessful).toBeTruthy();
   });
 
   it('create throws if order price and transaction amount do not match', async () => {

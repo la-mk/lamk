@@ -281,6 +281,8 @@
   },
   "payment": {
     "choosePaymentMethod": "Choose a payment method",
+    "payAmountTip": "The order total is {{amountWithCurrency}}",
+    "paymentDisabled": "Payment disabled",
     "storeNoCardSupport": "The store does not support credit card payments"
   },
   "paymentMethodNames": {

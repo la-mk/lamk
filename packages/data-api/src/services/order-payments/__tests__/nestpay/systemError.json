@@ -58,7 +58,8 @@
     "transactions": [
       {
         "message": "Грешка во системот",
-        "status": "error"
+        "status": "error",
+        "amount": 2468
       }
     ]
   }

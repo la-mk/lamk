@@ -11,6 +11,7 @@ import {
   Title,
   Button,
   Text,
+  Result,
 } from '@sradevski/blocks-ui';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
@@ -19,6 +20,7 @@ import { FrameMessageExchange } from '../shared/FrameMessageExchange';
 import { Success } from '../cart/Success';
 import { getStore } from '../../state/modules/store/store.selector';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import Link from 'next/link';
 
 interface PaymentProps {
   orderId: string | undefined;
@@ -63,7 +65,25 @@ export const Payment = ({ orderId }: PaymentProps) => {
   }
 
   if (order && order.status !== sdk.order.OrderStatus.PENDING_PAYMENT) {
-    return <div>{t('order.orderAlreadyPaid')}</div>;
+    return (
+      <Result
+        status='warning'
+        title={t('payment.paymentDisabled')}
+        subTitle={t('order.orderAlreadyPaid')}
+        extra={
+          <Link
+            passHref
+            replace
+            href='/orders/[pid]'
+            as={`/orders/${order._id}`}
+          >
+            <Button mt={2} mx={2} type='primary' key='console'>
+              {t('order.seeOrder')}
+            </Button>
+          </Link>
+        }
+      />
+    );
   }
 
   const frameName = 'paymentFrame';
@@ -81,20 +101,30 @@ export const Payment = ({ orderId }: PaymentProps) => {
 
   return (
     <Page title={t('pages.payment')}>
-      <Spin spinning={showSpinner || (isLoadingPayment && !paymentResponse)}>
+      <Spin
+        spinning={
+          showSpinner || !order || (isLoadingPayment && !paymentResponse)
+        }
+      >
         <Flex
           alignItems='center'
           justifyContent='center'
           flexDirection='column'
         >
-          <Title type='secondary' level={3}>
-            All we need to do is pay now.
-          </Title>
+          {order && (
+            <Title type='secondary' level={3}>
+              {t('payment.payAmountTip', {
+                amountWithCurrency: `${order.calculatedTotal} ден`,
+              })}
+            </Title>
+          )}
           {paymentResponse?.error && (
             <Alert
               mt={3}
               type='error'
-              message={paymentResponse.error?.message ?? 'An error occured'}
+              message={
+                paymentResponse.error?.message ?? t('results.genericError')
+              }
             />
           )}
 

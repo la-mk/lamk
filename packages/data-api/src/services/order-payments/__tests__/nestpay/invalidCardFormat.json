@@ -42,7 +42,8 @@
     "transactions": [
       {
         "message": "The credit card number is not in a valid format.",
-        "status": "declined"
+        "status": "declined",
+        "amount": 2468
       }
     ]
   }

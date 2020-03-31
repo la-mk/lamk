@@ -57,7 +57,8 @@
     "transactions": [
       {
         "message": "Invalid Gate State",
-        "status": "error"
+        "status": "error",
+        "amount": 2468
       }
     ]
   }

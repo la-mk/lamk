@@ -70,7 +70,8 @@
     "transactions": [
       {
         "message": null,
-        "status": "approved"
+        "status": "approved",
+        "amount": 2468
       }
     ]
   }
