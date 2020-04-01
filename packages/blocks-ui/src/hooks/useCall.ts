@@ -13,8 +13,8 @@ export interface Action<T = any> {
 
 type UseCallResult = [Caller, boolean];
 
-export const useCall = (): UseCallResult => {
-  const [isProcessing, setIsProcessing] = useState(false);
+export const useCall = (initialProcessingStatus = false): UseCallResult => {
+  const [isProcessing, setIsProcessing] = useState(initialProcessingStatus);
   const dispatch = useDispatch();
 
   // The callback can optionally return a redux action object which will be dispatched
