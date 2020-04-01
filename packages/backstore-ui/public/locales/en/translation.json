@@ -285,6 +285,7 @@
     "clientPasswordTip": "Provided by your bank as 'API password'",
     "clientUsername": "Client username",
     "clientUsernameTip": "Provided by your bank as 'API username'",
+    "paymentMethod": "Payment method",
     "processor": "Bank",
     "processorMissingTip": "You don't see your bank in the list? Contact us for support.",
     "updatingPaymentMethodsTip": "Updating payments..."

@@ -285,6 +285,7 @@
     "clientPasswordTip": "Доставена од банката како 'API password'",
     "clientUsername": "Корисничко име на клиентот",
     "clientUsernameTip": "Доставено од банката како 'API username'",
+    "paymentMethod": "Начин на плаќање",
     "processor": "Банка",
     "processorMissingTip": "Вашата банка не е во листата? Контактирајте не за поддршка на вашата банка.",
     "updatingPaymentMethodsTip": "Плаќањата се обновуваат..."

@@ -16,7 +16,6 @@ import { ShippingDescription } from '../shared/ShippingDescription';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { Summary } from '../shared/Summary';
 import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
@@ -43,7 +42,6 @@ const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
 
 export const Order = ({ orderId }: { orderId: string }) => {
   const [caller, showSpinner] = hooks.useCall();
-  const delivery = useSelector(getDelivery);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const { t } = useTranslation();
@@ -112,7 +110,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
           <Card m={3} width={330} title={t('finance.priceBreakdown')}>
             <Summary
               items={order.ordered}
-              delivery={delivery}
+              delivery={order.delivery}
               campaigns={order.campaigns ?? []}
               buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
               onCheckout={shouldPay ? handlePayment : undefined}
