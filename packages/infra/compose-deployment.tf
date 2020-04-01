@@ -166,7 +166,7 @@ resource "digitalocean_spaces_bucket" "artifacts" {
     allowed_headers = ["*"]
     allowed_methods = ["GET"]
     allowed_origins = ["*"]
-    max_age_seconds = 7200
+    max_age_seconds = 604800
   }
 }
 
@@ -186,6 +186,7 @@ resource "digitalocean_cdn" "cdn-subdomain" {
   origin = digitalocean_spaces_bucket.artifacts.bucket_domain_name
   custom_domain = var.artifacts-subdomain
   certificate_id = digitalocean_certificate.cdn-cert.id
+  ttl = 604800
 }
 
 ######### PROXY/LOAD BALANCING ###########

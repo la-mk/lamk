@@ -69,6 +69,7 @@ export const Home = ({
               landingContent.banner &&
               sdk.artifact.getUrlForArtifact(landingContent.banner, store._id)
             }
+            unloader={null}
             alt='Banner image'
           />
         </Banner>
