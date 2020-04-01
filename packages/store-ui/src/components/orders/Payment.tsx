@@ -32,7 +32,9 @@ export const Payment = ({ orderId }: PaymentProps) => {
   const user = useSelector(getUser);
   const store = useSelector(getStore);
   const [order, setOrder] = useState<Order | null>(null);
-  const [caller, showSpinner] = hooks.useCall();
+  const [orderCaller, showOrderSpinner] = hooks.useCall(true);
+  const [paymentMethodCaller, showPaymentMethodSpinner] = hooks.useCall(true);
+
   const [
     storePaymentMethods,
     setStorePaymentMethods,
@@ -45,23 +47,42 @@ export const Payment = ({ orderId }: PaymentProps) => {
       return;
     }
 
-    caller(sdk.order.get(orderId), setOrder);
-    caller(sdk.storePaymentMethods.findForStore(store._id), res =>
+    orderCaller(sdk.order.get(orderId), setOrder);
+  }, [user, store, orderCaller]);
+
+  useEffect(() => {
+    if (!store) {
+      return;
+    }
+
+    paymentMethodCaller(sdk.storePaymentMethods.findForStore(store._id), res =>
       setStorePaymentMethods(res.data[0]),
     );
-  }, [user, store, caller]);
+  }, [store, paymentMethodCaller]);
 
   const cardPaymentInfo = storePaymentMethods?.methods.find(
     method =>
       method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
   );
 
-  if (!cardPaymentInfo && !showSpinner) {
-    return <div>{t('payment.storeNoCardSupport')}</div>;
+  if (!cardPaymentInfo && !showPaymentMethodSpinner) {
+    return (
+      <Result
+        status='warning'
+        title={t('payment.paymentDisabled')}
+        subTitle={t('payment.storeNoCardSupport')}
+      />
+    );
   }
 
-  if (!order && !showSpinner) {
-    return <div>{t('order.orderNotFoundTip')}</div>;
+  if (!order && !showOrderSpinner) {
+    return (
+      <Result
+        status='warning'
+        title={t('order.orderNotFound')}
+        subTitle={t('order.orderNotFoundTip')}
+      />
+    );
   }
 
   if (order && order.status !== sdk.order.OrderStatus.PENDING_PAYMENT) {
@@ -103,7 +124,9 @@ export const Payment = ({ orderId }: PaymentProps) => {
     <Page title={t('pages.payment')}>
       <Spin
         spinning={
-          showSpinner || !order || (isLoadingPayment && !paymentResponse)
+          showPaymentMethodSpinner ||
+          showOrderSpinner ||
+          (isLoadingPayment && !paymentResponse)
         }
       >
         <Flex

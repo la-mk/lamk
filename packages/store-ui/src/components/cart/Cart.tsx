@@ -32,7 +32,7 @@ import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 
 export const Cart = () => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = hooks.useCall(true);
   const user = useSelector(getUser);
   const store = useSelector(getStore);
   const cart = useSelector(getCartWithProducts);

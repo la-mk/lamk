@@ -27,7 +27,7 @@ import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentM
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 
 export const Checkout = () => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = hooks.useCall(true);
   const cart = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
   const campaigns = useSelector(getCampaigns);
