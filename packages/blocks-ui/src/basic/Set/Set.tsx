@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import { Button } from '../Button';
 import { system } from '../../system';
 import { Title } from '../Typography';
@@ -104,12 +105,12 @@ function SetBase<T>({
       </SetList>
       <ArrowButton
         onClick={() => handleArrowClick('left')}
-        icon='left'
+        icon={<LeftOutlined/>}
         direction='left'
       />
       <ArrowButton
         onClick={() => handleArrowClick('right')}
-        icon='right'
+        icon={<RightOutlined/>}
         direction='right'
       />
 

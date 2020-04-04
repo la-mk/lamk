@@ -19,7 +19,7 @@ const getVal = (eventOrVal: any) => {
   return eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
 };
 
-const StyledForm = system<FormProps>(AntForm);
+const StyledForm = system<FormProps>(AntForm as any);
 const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
 
 export interface SingleValidationErrorResponse {
@@ -113,8 +113,8 @@ export const Form = ({
     }
   };
 
-  const customSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const customSubmit = () => {
+    // e.preventDefault();
     const submitErrors = validate ? validate(state) : undefined;
     if (!submitErrors) {
       onFormCompleted && onFormCompleted(state);
@@ -135,7 +135,7 @@ export const Form = ({
         getErrorMessage,
       }}
     >
-      <StyledForm onSubmit={customSubmit} {...props} />
+      <StyledForm onFinish={customSubmit} {...props} />
     </Provider>
   );
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Icon } from '../basic/Icon';
+import InboxOutlined from '@ant-design/icons/InboxOutlined';
 
 export const UploadContent = ({
   text,
@@ -11,7 +11,7 @@ export const UploadContent = ({
   return (
     <>
       <p className='ant-upload-drag-icon'>
-        <Icon type='inbox' />
+        <InboxOutlined />
       </p>
       <p className='ant-upload-text'>{text}</p>
       <p className='ant-upload-hint'>{hint}</p>
