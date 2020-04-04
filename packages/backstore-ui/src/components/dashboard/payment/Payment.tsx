@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
   Spin,
-  Col,
   Title,
   Flex,
   message,
   hooks,
   Button,
   Form,
-  Row,
   FormItem,
   Checkbox,
   Option,
   Input,
+  Col,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
@@ -135,349 +134,329 @@ export const Payment = () => {
             onFormCompleted={handlePatchPaymentMethods}
             layout='horizontal'
           >
-            <Row gutter={24}>
-              <FormItem label={' '} selector='methods'>
-                {(
-                  _val: any,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  { methods }: StorePaymentMethods,
-                ) => (
-                  <Checkbox
-                    mr={3}
-                    checked={(methods ?? []).some(
-                      method =>
-                        method.name ===
+            <FormItem label={' '} selector='methods'>
+              {(
+                _val: any,
+                _onChange: (val: any) => void,
+                onComplete: (val: any) => void,
+                { methods }: StorePaymentMethods,
+              ) => (
+                <Checkbox
+                  mr={3}
+                  checked={(methods ?? []).some(
+                    method =>
+                      method.name ===
+                      sdk.storePaymentMethods.PaymentMethodNames
+                        .PAY_ON_DELIVERY,
+                  )}
+                  onChange={e => {
+                    const isChecked = e.target.checked;
+                    onComplete(
+                      getUpdatedMethods(
+                        methods ?? [],
+                        isChecked,
                         sdk.storePaymentMethods.PaymentMethodNames
                           .PAY_ON_DELIVERY,
-                    )}
-                    onChange={e => {
-                      const isChecked = e.target.checked;
-                      onComplete(
-                        getUpdatedMethods(
-                          methods ?? [],
-                          isChecked,
+                      ),
+                    );
+                  }}
+                >
+                  {t(
+                    `paymentMethodNames.${sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY}`,
+                  )}
+                </Checkbox>
+              )}
+            </FormItem>
+
+            <FormItem label={' '} selector='methods'>
+              {(
+                _val: PaymentMethod[] | undefined,
+                _onChange: (val: any) => void,
+                onComplete: (val: any) => void,
+                { methods }: StorePaymentMethods,
+              ) => (
+                <Checkbox
+                  mr={3}
+                  checked={(methods ?? []).some(
+                    method =>
+                      method.name ===
+                      sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+                  )}
+                  onChange={e => {
+                    const isChecked = e.target.checked;
+                    onComplete(
+                      getUpdatedMethods(
+                        methods ?? [],
+                        isChecked,
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+                      ),
+                    );
+                  }}
+                >
+                  {t(
+                    `paymentMethodNames.${sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD}`,
+                  )}
+                </Checkbox>
+              )}
+            </FormItem>
+
+            <FormItem
+              label={t('payment.processor')}
+              help={t('payment.processorMissingTip')}
+              // In order to not show errors/checkmarks here due to the nested nature of the schema, we just don't rely on the selector.
+              selector='methods'
+            >
+              {(
+                _val: PaymentMethod[] | undefined,
+                _onChange: (val: any) => void,
+                onComplete: (val: any) => void,
+                { methods }: StorePaymentMethods,
+              ) => {
+                return (
+                  <Select<PaymentProcessors>
+                    disabled={
+                      !(methods ?? []).some(
+                        method =>
+                          method.name ===
                           sdk.storePaymentMethods.PaymentMethodNames
-                            .PAY_ON_DELIVERY,
+                            .CREDIT_CARD,
+                      )
+                    }
+                    value={
+                      (methods ?? []).find(
+                        method =>
+                          method.processor ===
+                          sdk.storePaymentMethods.PaymentProcessors.HALKBANK,
+                      )?.processor
+                    }
+                    onChange={processor => {
+                      onComplete(
+                        methods?.map(method =>
+                          method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                            ? { ...method, processor }
+                            : method,
                         ),
                       );
                     }}
                   >
-                    {t(
-                      `paymentMethodNames.${sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY}`,
-                    )}
-                  </Checkbox>
-                )}
-              </FormItem>
-            </Row>
+                    {Object.values(
+                      sdk.storePaymentMethods.PaymentProcessors,
+                    ).map(option => {
+                      return (
+                        <Option key={option} value={option}>
+                          {t(`paymentProcessors.${option}`)}
+                        </Option>
+                      );
+                    })}
+                  </Select>
+                );
+              }}
+            </FormItem>
 
-            <Row gutter={24}>
-              <FormItem label={' '} selector='methods'>
-                {(
-                  _val: PaymentMethod[] | undefined,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  { methods }: StorePaymentMethods,
-                ) => (
-                  <Checkbox
-                    mr={3}
-                    checked={(methods ?? []).some(
+            <FormItem
+              label={t('payment.clientUsername')}
+              help={t('payment.clientUsernameTip')}
+              selector='methods'
+            >
+              {(
+                _val: PaymentMethod[],
+                onChange: (val: any) => void,
+                onComplete: (val: any) => void,
+                { methods }: StorePaymentMethods,
+              ) => (
+                <Input
+                  disabled={
+                    !(methods ?? []).some(
+                      method =>
+                        method.name ===
+                          sdk.storePaymentMethods.PaymentMethodNames
+                            .CREDIT_CARD && Boolean(method.processor),
+                    )
+                  }
+                  value={
+                    methods?.find(
                       method =>
                         method.name ===
                         sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
-                    )}
-                    onChange={e => {
-                      const isChecked = e.target.checked;
-                      onComplete(
-                        getUpdatedMethods(
-                          methods ?? [],
-                          isChecked,
-                          sdk.storePaymentMethods.PaymentMethodNames
-                            .CREDIT_CARD,
-                        ),
-                      );
-                    }}
-                  >
-                    {t(
-                      `paymentMethodNames.${sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD}`,
-                    )}
-                  </Checkbox>
-                )}
-              </FormItem>
-            </Row>
+                    )?.clientUsername
+                  }
+                  onChange={e => {
+                    onChange(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientUsername: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                  onBlur={e => {
+                    onComplete(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientUsername: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                />
+              )}
+            </FormItem>
 
-            <Row gutter={24}>
-              <FormItem
-                label={t('payment.processor')}
-                help={t('payment.processorMissingTip')}
-                // In order to not show errors/checkmarks here due to the nested nature of the schema, we just don't rely on the selector.
-                selector='methods'
-              >
-                {(
-                  _val: PaymentMethod[] | undefined,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  { methods }: StorePaymentMethods,
-                ) => {
-                  return (
-                    <Select<PaymentProcessors>
-                      disabled={
-                        !(methods ?? []).some(
-                          method =>
-                            method.name ===
-                            sdk.storePaymentMethods.PaymentMethodNames
-                              .CREDIT_CARD,
-                        )
-                      }
-                      value={
-                        (methods ?? []).find(
-                          method =>
-                            method.processor ===
-                            sdk.storePaymentMethods.PaymentProcessors.HALKBANK,
-                        )?.processor
-                      }
-                      onChange={processor => {
-                        onComplete(
-                          methods?.map(method =>
-                            method.name ===
-                            sdk.storePaymentMethods.PaymentMethodNames
-                              .CREDIT_CARD
-                              ? { ...method, processor }
-                              : method,
-                          ),
-                        );
-                      }}
-                    >
-                      {Object.values(
-                        sdk.storePaymentMethods.PaymentProcessors,
-                      ).map(option => {
-                        return (
-                          <Option key={option} value={option}>
-                            {t(`paymentProcessors.${option}`)}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  );
-                }}
-              </FormItem>
-            </Row>
-
-            <Row gutter={24}>
-              <FormItem
-                label={t('payment.clientUsername')}
-                help={t('payment.clientUsernameTip')}
-                selector='methods'
-              >
-                {(
-                  _val: PaymentMethod[],
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  { methods }: StorePaymentMethods,
-                ) => (
-                  <Input
-                    disabled={
-                      !(methods ?? []).some(
-                        method =>
-                          method.name ===
-                            sdk.storePaymentMethods.PaymentMethodNames
-                              .CREDIT_CARD && Boolean(method.processor),
-                      )
-                    }
-                    value={
-                      methods?.find(
-                        method =>
-                          method.name ===
+            <FormItem
+              label={t('payment.clientPassword')}
+              help={t('payment.clientPasswordTip')}
+              selector='methods'
+            >
+              {(
+                _val: PaymentMethod[],
+                onChange: (val: any) => void,
+                onComplete: (val: any) => void,
+                { methods }: StorePaymentMethods,
+              ) => (
+                <Input
+                  disabled={
+                    !(methods ?? []).some(
+                      method =>
+                        method.name ===
                           sdk.storePaymentMethods.PaymentMethodNames
-                            .CREDIT_CARD,
-                      )?.clientUsername
-                    }
-                    onChange={e => {
-                      onChange(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientUsername: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                    onBlur={e => {
-                      onComplete(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientUsername: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                  />
-                )}
-              </FormItem>
-            </Row>
+                            .CREDIT_CARD && Boolean(method.processor),
+                    )
+                  }
+                  value={
+                    methods?.find(
+                      method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+                    )?.clientPassword
+                  }
+                  onChange={e => {
+                    onChange(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientPassword: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                  onBlur={e => {
+                    onComplete(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientPassword: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                />
+              )}
+            </FormItem>
 
-            <Row gutter={24}>
-              <FormItem
-                label={t('payment.clientPassword')}
-                help={t('payment.clientPasswordTip')}
-                selector='methods'
-              >
-                {(
-                  _val: PaymentMethod[],
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  { methods }: StorePaymentMethods,
-                ) => (
-                  <Input
-                    disabled={
-                      !(methods ?? []).some(
-                        method =>
-                          method.name ===
-                            sdk.storePaymentMethods.PaymentMethodNames
-                              .CREDIT_CARD && Boolean(method.processor),
-                      )
-                    }
-                    value={
-                      methods?.find(
-                        method =>
-                          method.name ===
+            <FormItem
+              label={t('payment.clientId')}
+              help={t('payment.clientIdTip')}
+              selector='methods'
+            >
+              {(
+                _val: PaymentMethod[],
+                onChange: (val: any) => void,
+                onComplete: (val: any) => void,
+                { methods }: StorePaymentMethods,
+              ) => (
+                <Input
+                  disabled={
+                    !(methods ?? []).some(
+                      method =>
+                        method.name ===
                           sdk.storePaymentMethods.PaymentMethodNames
-                            .CREDIT_CARD,
-                      )?.clientPassword
-                    }
-                    onChange={e => {
-                      onChange(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientPassword: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                    onBlur={e => {
-                      onComplete(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientPassword: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                  />
-                )}
-              </FormItem>
-            </Row>
+                            .CREDIT_CARD && Boolean(method.processor),
+                    )
+                  }
+                  value={
+                    methods?.find(
+                      method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+                    )?.clientId
+                  }
+                  onChange={e => {
+                    onChange(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientId: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                  onBlur={e => {
+                    onComplete(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientId: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                />
+              )}
+            </FormItem>
 
-            <Row gutter={24}>
-              <FormItem
-                label={t('payment.clientId')}
-                help={t('payment.clientIdTip')}
-                selector='methods'
-              >
-                {(
-                  _val: PaymentMethod[],
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  { methods }: StorePaymentMethods,
-                ) => (
-                  <Input
-                    disabled={
-                      !(methods ?? []).some(
-                        method =>
-                          method.name ===
-                            sdk.storePaymentMethods.PaymentMethodNames
-                              .CREDIT_CARD && Boolean(method.processor),
-                      )
-                    }
-                    value={
-                      methods?.find(
-                        method =>
-                          method.name ===
+            <FormItem
+              label={t('payment.clientKey')}
+              help={t('payment.clientKeyTip')}
+              selector='methods'
+            >
+              {(
+                _val: PaymentMethod[],
+                onChange: (val: any) => void,
+                onComplete: (val: any) => void,
+                { methods }: StorePaymentMethods,
+              ) => (
+                <Input
+                  disabled={
+                    !(methods ?? []).some(
+                      method =>
+                        method.name ===
                           sdk.storePaymentMethods.PaymentMethodNames
-                            .CREDIT_CARD,
-                      )?.clientId
-                    }
-                    onChange={e => {
-                      onChange(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientId: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                    onBlur={e => {
-                      onComplete(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientId: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                  />
-                )}
-              </FormItem>
-            </Row>
-
-            <Row gutter={24}>
-              <FormItem
-                label={t('payment.clientKey')}
-                help={t('payment.clientKeyTip')}
-                selector='methods'
-              >
-                {(
-                  _val: PaymentMethod[],
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  { methods }: StorePaymentMethods,
-                ) => (
-                  <Input
-                    disabled={
-                      !(methods ?? []).some(
-                        method =>
-                          method.name ===
-                            sdk.storePaymentMethods.PaymentMethodNames
-                              .CREDIT_CARD && Boolean(method.processor),
-                      )
-                    }
-                    value={
-                      methods?.find(
-                        method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames
-                            .CREDIT_CARD,
-                      )?.clientKey
-                    }
-                    onChange={e => {
-                      onChange(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientKey: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                    onBlur={e => {
-                      onComplete(
-                        methods?.map(method =>
-                          method.name ===
-                          sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                            ? { ...method, clientKey: e.target.value }
-                            : method,
-                        ),
-                      );
-                    }}
-                  />
-                )}
-              </FormItem>
-            </Row>
+                            .CREDIT_CARD && Boolean(method.processor),
+                    )
+                  }
+                  value={
+                    methods?.find(
+                      method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+                    )?.clientKey
+                  }
+                  onChange={e => {
+                    onChange(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientKey: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                  onBlur={e => {
+                    onComplete(
+                      methods?.map(method =>
+                        method.name ===
+                        sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                          ? { ...method, clientKey: e.target.value }
+                          : method,
+                      ),
+                    );
+                  }}
+                />
+              )}
+            </FormItem>
 
             <Flex justifyContent='center' alignItems='center'>
               <Button mr={2} type='primary' htmlType='submit' size='large'>

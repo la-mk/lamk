@@ -1,5 +1,6 @@
 import React from 'react';
-import { Badge, Card, Icon } from '@sradevski/blocks-ui';
+import { Badge, Card } from '@sradevski/blocks-ui';
+import { CheckCircleFilled } from '@ant-design/icons';
 import { CardProps } from 'antd/lib/card';
 import { SystemProps } from '@sradevski/blocks-ui/dist/system';
 
@@ -17,11 +18,7 @@ export const SelectableCard = ({
       style={{ backgroundColor: 'white' }}
       count={
         isChecked ? (
-          <Icon
-            style={{ color: '#1890ff', fontSize: 20 }}
-            type='check-circle'
-            theme='filled'
-          />
+          <CheckCircleFilled style={{ color: '#1890ff', fontSize: 20 }} />
         ) : (
           undefined
         )

@@ -58,6 +58,7 @@ export const Orders = () => {
           current: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 10,
           total: orders ? orders.total : 0,
+          showSizeChanger: false,
           onChange: (currentPage, pageSize) =>
             setFilters({ ...filters, pagination: { currentPage, pageSize } }),
         }}
@@ -91,7 +92,6 @@ export const Orders = () => {
             key={order._id}
           >
             <Row
-              type='flex'
               align='top'
               justify='start'
               gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}

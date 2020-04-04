@@ -4,9 +4,9 @@ import {
   Dropdown,
   Menu,
   MenuItem,
-  Icon,
   MenuDivider,
 } from '@sradevski/blocks-ui';
+import { UserOutlined, LogoutOutlined, DownOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../state/modules/auth/auth.module';
 import { useTranslation } from 'react-i18next';
@@ -22,11 +22,11 @@ export const Account = () => {
   const menu = (
     <Menu>
       <MenuItem>
-        <Icon type='user' /> {t('auth.accountSettings')}
+        <UserOutlined /> {t('auth.accountSettings')}
       </MenuItem>
       <MenuDivider />
       <MenuItem onClick={handleLogout}>
-        <Icon type='logout' /> {t('auth.logout')}
+        <LogoutOutlined /> {t('auth.logout')}
       </MenuItem>
     </Menu>
   );
@@ -34,7 +34,7 @@ export const Account = () => {
     <Flex>
       <Dropdown placement='bottomRight' overlay={menu}>
         <span>
-          {t('auth.account')} <Icon type='down' />
+          {t('auth.account')} <DownOutlined />
         </span>
       </Dropdown>
     </Flex>

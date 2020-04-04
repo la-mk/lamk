@@ -13,6 +13,7 @@ import {
   parsers,
   hooks,
 } from '@sradevski/blocks-ui';
+import { MoreOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { UploadChangeParam } from 'antd/es/upload';
@@ -92,7 +93,7 @@ export const AddProductCard = ({
         }
         width={390}
         actions={[
-          <Button type='link' icon='more'>
+          <Button type='link' icon={<MoreOutlined />}>
             {t('common.more')}
           </Button>,
           ...(product
@@ -100,14 +101,14 @@ export const AddProductCard = ({
                 <Button
                   onClick={() => onRemoveProduct(product._id)}
                   type='link'
-                  icon='delete'
+                  icon={<DeleteOutlined />}
                 >
                   {t('actions.delete')}
                 </Button>,
               ]
             : []),
 
-          <Button htmlType='submit' type='link' icon='check'>
+          <Button htmlType='submit' type='link' icon={<CheckOutlined />}>
             {product ? t('actions.update') : t('actions.add')}
           </Button>,
         ]}

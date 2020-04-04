@@ -107,7 +107,7 @@ export const OrderDetailsModal = ({
       {order && (
         <Spin spinning={showSpinner}>
           <Flex mb={3} justifyContent='flex-end'>
-            <Button onClick={handleDeleteOrder} type='danger'>
+            <Button onClick={handleDeleteOrder} danger>
               {t('actions.delete')}
             </Button>
           </Flex>
@@ -119,6 +119,7 @@ export const OrderDetailsModal = ({
               </DescriptionItem>
               <DescriptionItem label={t('common.status')}>
                 <Select
+                  bordered={false}
                   showArrow
                   onChange={handleStatusChanged as any}
                   value={order.status}

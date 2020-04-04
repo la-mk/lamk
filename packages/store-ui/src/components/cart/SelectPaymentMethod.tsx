@@ -1,5 +1,6 @@
 import React from 'react';
-import { Title, Row, Col, Text, Icon, Flex } from '@sradevski/blocks-ui';
+import { Title, Row, Col, Text, Flex } from '@sradevski/blocks-ui';
+import { WalletOutlined, CreditCardOutlined } from '@ant-design/icons';
 import { useTranslation } from '../../common/i18n';
 import {
   StorePaymentMethods,
@@ -21,21 +22,19 @@ export const SelectPaymentMethod = ({
 }: SelectAddressProps) => {
   const { t } = useTranslation();
 
-  const iconsMap: { [key in PaymentMethodNames]: string } = {
-    [sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY]: 'wallet',
-    [sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD]: 'credit-card',
+  const iconsMap: { [key in PaymentMethodNames]: React.ReactNode } = {
+    [sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY]: (
+      <WalletOutlined style={{ fontSize: 42 }} />
+    ),
+    [sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD]: (
+      <CreditCardOutlined style={{ fontSize: 42 }} />
+    ),
   };
 
   return (
     <>
       <Title level={3}>{t('payment.choosePaymentMethod')}</Title>
-      <Row
-        mt={3}
-        type='flex'
-        align='top'
-        justify='start'
-        gutter={{ xs: 16, sm: 32 }}
-      >
+      <Row mt={3} align='top' justify='start' gutter={{ xs: 16, sm: 32 }}>
         {storePaymentMethods?.methods &&
           storePaymentMethods.methods.map(method => {
             return (
@@ -54,10 +53,7 @@ export const SelectPaymentMethod = ({
                     justifyContent='center'
                     flexDirection='column'
                   >
-                    <Icon
-                      style={{ fontSize: 42 }}
-                      type={iconsMap[method.name]}
-                    />
+                    {iconsMap[method.name]}
                     <Text
                       style={{ textAlign: 'center' }}
                       mt={3}

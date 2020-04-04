@@ -28,7 +28,6 @@ export const SelectAddress = ({
       <Title level={3}>{t('address.chooseShippingAddress')}</Title>
       <Row
         mt={3}
-        type='flex'
         align='top'
         justify='start'
         gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}

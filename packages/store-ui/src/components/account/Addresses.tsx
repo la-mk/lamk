@@ -77,7 +77,6 @@ export const Addresses = ({ user }: AddressesProps) => {
   return (
     <Spin spinning={showSpinner}>
       <Row
-        type='flex'
         align='top'
         justify='center'
         gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}

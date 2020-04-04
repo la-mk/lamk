@@ -25,6 +25,7 @@ export const ProductCard = ({
       <a style={{ textDecoration: 'none' }}>
         <Card
           size={cardSize}
+          my={2}
           hoverable
           width={['160px', '240px', '280px']}
           cover={

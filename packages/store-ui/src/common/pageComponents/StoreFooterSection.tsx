@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Image, Text, Icon } from '@sradevski/blocks-ui';
+import { Flex, Image, Text } from '@sradevski/blocks-ui';
+import { PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { sdk } from '@sradevski/la-sdk';
 
@@ -19,20 +20,20 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
 
       {phoneNumber && (
         <Text type='secondary'>
-          <Icon mr={2} type='phone' />
-          {phoneNumber}
+          <PhoneOutlined />
+          <Text ml={2}>{phoneNumber}</Text>
         </Text>
       )}
       {alternatePhoneNumber && (
         <Text type='secondary'>
-          <Icon mr={2} type='phone' />
-          {alternatePhoneNumber}
+          <PhoneOutlined />
+          <Text ml={2}>{alternatePhoneNumber}</Text>
         </Text>
       )}
       {email && (
         <Text type='secondary'>
-          <Icon mr={2} type='mail' />
-          {email}
+          <MailOutlined />
+          <Text ml={2}>{email}</Text>
         </Text>
       )}
     </Flex>

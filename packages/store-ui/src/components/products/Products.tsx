@@ -10,6 +10,7 @@ import {
   Card,
   Divider,
 } from '@sradevski/blocks-ui';
+import { FilterOutlined } from '@ant-design/icons';
 import { ProductCard } from '../ProductCard';
 import { Page } from '../shared/Page';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
@@ -90,7 +91,7 @@ export const Products = ({
             <Button
               size='large'
               type='link'
-              icon='filter'
+              icon={<FilterOutlined />}
               onClick={() => setIsDrawerVisible(true)}
             >
               {t('common.filter_plural')}
@@ -111,6 +112,7 @@ export const Products = ({
             current: filters.pagination ? filters.pagination.currentPage : 1,
             pageSize: filters.pagination ? filters.pagination.pageSize : 20,
             total: products.total,
+            showSizeChanger: false,
             onChange: (currentPage: number, pageSize: number) => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
               setFilters({ ...filters, pagination: { currentPage, pageSize } });

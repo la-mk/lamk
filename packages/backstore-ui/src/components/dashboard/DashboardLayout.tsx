@@ -6,8 +6,16 @@ import {
   Flex,
   Menu,
   MenuItem,
-  Icon,
 } from '@sradevski/blocks-ui';
+import {
+  DashboardOutlined,
+  ShoppingCartOutlined,
+  AppstoreOutlined,
+  CodeSandboxOutlined,
+  TagOutlined,
+  ShopOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
@@ -58,49 +66,49 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
 
           <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
             <MenuItem key='summary'>
-              <Icon type='dashboard' />
+              <DashboardOutlined />
               <span>{t('common.summary')}</span>
               <Link to='/dashboard/summary' />
             </MenuItem>
 
             <MenuItem key='orders'>
-              <Icon type='shopping-cart' />
+              <ShoppingCartOutlined />
               <span>{t('commerce.order_plural')}</span>
               <Link to='/dashboard/orders' />
             </MenuItem>
 
             <MenuItem key='products'>
-              <Icon type='appstore' />
+              <AppstoreOutlined />
               <span>{t('commerce.product_plural')}</span>
               <Link to='/dashboard/products' />
             </MenuItem>
 
             <MenuItem key='delivery'>
-              <Icon type='code-sandbox' />
+              <CodeSandboxOutlined />
               <span>{t('commerce.delivery')}</span>
               <Link to='/dashboard/delivery' />
             </MenuItem>
 
             <MenuItem key='payment'>
-              <Icon type='code-sandbox' />
+              <CodeSandboxOutlined />
               <span>{t('commerce.payment')}</span>
               <Link to='/dashboard/payment' />
             </MenuItem>
 
             <MenuItem key='campaigns'>
-              <Icon type='tag' />
+              <TagOutlined />
               <span>{t('commerce.campaign_plural')}</span>
               <Link to='/dashboard/campaigns' />
             </MenuItem>
 
             <MenuItem key='store'>
-              <Icon type='shop' />
+              <ShopOutlined />
               <span>{t('commerce.store')}</span>
               <Link to='/dashboard/store' />
             </MenuItem>
 
             <MenuItem key='preferences'>
-              <Icon type='setting' />
+              <SettingOutlined />
               <span>{t('common.preferences')}</span>
               <Link to='/dashboard/preferences' />
             </MenuItem>

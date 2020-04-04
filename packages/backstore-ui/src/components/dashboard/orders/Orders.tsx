@@ -127,20 +127,23 @@ export const Orders = () => {
         loading={showSpinner}
         pagination={{
           total: total || 0,
+          showSizeChanger: false,
           current: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 20,
         }}
         onChange={(pagination, tableFilters, sorter) => {
+          const singleSorter = Array.isArray(sorter) ? sorter[0] : sorter;
+
           setFilters({
             pagination: {
               pageSize: pagination.pageSize || 20,
               currentPage: pagination.current || 1,
             },
             sorting:
-              sorter.field && sorter.order
+              singleSorter?.field && singleSorter?.order
                 ? {
-                    field: sorter.field,
-                    order: sorter.order,
+                    field: singleSorter.field as string,
+                    order: singleSorter.order,
                   }
                 : undefined,
             filtering: {

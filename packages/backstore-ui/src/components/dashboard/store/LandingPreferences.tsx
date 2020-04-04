@@ -82,7 +82,7 @@ export const LandingPreferences = () => {
           validate={data => sdk.storeContents.validate(data, true)}
           // TODO: Add single validation when the validation library can handle nested schemas/selectors.
           onFormCompleted={handlePatchBanner}
-          layout='horizontal'
+          layout='vertical'
         >
           <FormItem selector='landing.banner' label={t('store.storeBanner')}>
             {(val, _onChange, onComplete) => (

@@ -152,7 +152,7 @@ export const ProductFormModal = ({
       >
         {product && (
           <Flex mb={3} justifyContent='flex-end'>
-            <Button onClick={handleDeleteProduct} type='danger'>
+            <Button onClick={handleDeleteProduct} danger>
               {t('actions.delete')}
             </Button>
           </Flex>
@@ -167,7 +167,7 @@ export const ProductFormModal = ({
             t(`errors.${errorName}`, context)
           }
           onFormCompleted={product ? handlePatchProduct : handleCreateProduct}
-          layout='horizontal'
+          layout='vertical'
         >
           <Row gutter={24}>
             <Col md={12} span={24}>

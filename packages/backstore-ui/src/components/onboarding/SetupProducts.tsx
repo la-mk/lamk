@@ -41,7 +41,6 @@ export const SetupProducts = ({
         <Text type='secondary'>{t('onboarding.setupProductSubtitle')}</Text>
       </Flex>
       <Row
-        type='flex'
         align='top'
         justify='start'
         gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}

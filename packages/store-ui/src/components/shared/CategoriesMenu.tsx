@@ -1,13 +1,7 @@
 import isString from 'lodash/isString';
 import React, { useCallback } from 'react';
-import {
-  Menu,
-  MenuItem,
-  Text,
-  Button,
-  SubMenu,
-  Icon,
-} from '@sradevski/blocks-ui';
+import { Menu, MenuItem, Text, Button, SubMenu } from '@sradevski/blocks-ui';
+import { DownOutlined } from '@ant-design/icons';
 import {
   getCategories,
   GroupedCategories,
@@ -87,7 +81,7 @@ export const CategoriesMenu = ({
               mode === 'horizontal' ? (
                 <Text>
                   {level1Category.label}
-                  <Icon type='down' ml={2} />
+                  <DownOutlined style={{ marginLeft: 8 }} />
                 </Text>
               ) : (
                 level1Category.label

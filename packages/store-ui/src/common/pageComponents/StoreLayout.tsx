@@ -12,12 +12,20 @@ import {
   Dropdown,
   Avatar,
   Divider,
-  Icon,
   Image,
   Text,
   Search,
   Box,
 } from '@sradevski/blocks-ui';
+import {
+  ShoppingOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+  LogoutOutlined,
+  LoginOutlined,
+  DownOutlined,
+} from '@ant-design/icons';
 import queryString from 'qs';
 import styled from 'styled-components';
 import Link from 'next/link';
@@ -100,7 +108,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
 
   return (
     <>
-      <Layout theme='dark' style={{ backgroundColor: 'white' }}>
+      <Layout theme='light' style={{ backgroundColor: 'white' }}>
         <BorderedHeader height={['128px', '64px', '64px']} px={[2, 3, 4]}>
           <Flex justifyContent='space-between'>
             <Link href='/' passHref>
@@ -125,7 +133,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
               {presetSearch}
             </Box>
             <Menu
-              style={{ borderBottom: 'none' }}
+              style={{ borderBottom: 'none', lineHeight: '46px' }}
               my={1}
               maxWidth='80%'
               mode='horizontal'
@@ -134,7 +142,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
               <MenuItem p={0} key='products'>
                 <Link href='/products' passHref>
                   <Button type='link'>
-                    <Icon style={{ fontSize: 24 }} type='shopping' />
+                    <ShoppingOutlined style={{ margin: 0, fontSize: 24 }} />
                     <Text display={['none', 'none', 'initial']}>
                       {t('pages.product_plural')}
                     </Text>
@@ -144,7 +152,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
               <MenuItem p={0} key='about'>
                 <Link href='/about' passHref>
                   <Button type='link'>
-                    <Icon style={{ fontSize: 24 }} type='shop' />
+                    <ShopOutlined style={{ margin: 0, fontSize: 24 }} />
                     <Text display={['none', 'none', 'initial']}>
                       {t('pages.aboutUs')}
                     </Text>
@@ -159,7 +167,9 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                       offset={[8, 0]}
                       count={cart && cart.items ? cart.items.length : 0}
                     >
-                      <Icon style={{ fontSize: 24 }} type='shopping-cart' />
+                      <ShoppingCartOutlined
+                        style={{ margin: 0, fontSize: 24 }}
+                      />
                     </Badge>
                   </Button>
                 </Link>
@@ -172,14 +182,14 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                       <Menu>
                         <MenuItem key='account'>
                           <Link href='/account' passHref>
-                            <Button type='link' icon='user'>
+                            <Button type='link' icon={<UserOutlined />}>
                               {t('pages.myAccount')}
                             </Button>
                           </Link>
                         </MenuItem>
                         <MenuItem key='orders'>
                           <Link href='/orders' passHref>
-                            <Button type='link' icon='shopping'>
+                            <Button type='link' icon={<ShoppingOutlined />}>
                               {t('pages.myOrders')}
                             </Button>
                           </Link>
@@ -188,7 +198,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                         <MenuItem key='logout'>
                           <Button
                             type='link'
-                            icon='logout'
+                            icon={<LogoutOutlined />}
                             onClick={handleLogout}
                           >
                             {t('auth.logout')}
@@ -200,7 +210,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                         <MenuItem key='login'>
                           <Button
                             type='link'
-                            icon='login'
+                            icon={<LoginOutlined />}
                             onClick={handleLogin}
                           >
                             {t('auth.login')}
@@ -210,10 +220,13 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
                     )
                   }
                 >
-                  <span>
-                    <Avatar mx={2} icon='user' />
-                    <Icon type='down' />
-                  </span>
+                  <a
+                    className='ant-dropdown-link'
+                    onClick={e => e.preventDefault()}
+                  >
+                    <Avatar ml={2} mr={1} icon={<UserOutlined />} />
+                    <DownOutlined style={{ margin: 0 }} />
+                  </a>
                 </Dropdown>
               </MenuItem>
             </Menu>

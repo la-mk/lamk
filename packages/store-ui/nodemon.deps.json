@@ -1,5 +1,5 @@
 {
   "watch": ["package.json"],
   "ext": "json",
-  "exec": "npm install"
+  "exec": "npm install && touch ./src/pages/index.tsx"
 }

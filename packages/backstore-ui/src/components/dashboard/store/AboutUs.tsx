@@ -63,7 +63,7 @@ export const AboutUs = () => {
           validate={data => sdk.storeContents.validate(data, true)}
           // TODO: Add single validation when the validation library can handle nested schemas/selectors.
           onFormCompleted={handlePatchAboutUs}
-          layout='horizontal'
+          layout='vertical'
         >
           <FormItem label={t('store.aboutUs')} selector='aboutUs.description'>
             {formTextArea({

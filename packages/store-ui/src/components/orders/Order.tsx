@@ -127,7 +127,6 @@ export const Order = ({ orderId }: { orderId: string }) => {
           {t('product.product_plural')}
         </Title>
         <Row
-          type='flex'
           align='top'
           justify='start'
           gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}

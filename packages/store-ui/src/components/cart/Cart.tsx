@@ -162,7 +162,6 @@ export const Cart = () => {
                         />
                         <InputNumber
                           width='80px'
-                          size='default'
                           min={1}
                           max={999}
                           value={cartItem.quantity}

@@ -10,6 +10,7 @@ import {
   Option,
   hooks,
 } from '@sradevski/blocks-ui';
+import { DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import { sdk } from '@sradevski/la-sdk';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { useTranslation } from '../../common/i18n';
@@ -75,14 +76,14 @@ export const AddAddressCard = ({
                 <Button
                   onClick={() => onRemoveAddress(address._id)}
                   type='link'
-                  icon='delete'
+                  icon={<DeleteOutlined />}
                 >
                   {t('actions.delete')}
                 </Button>,
               ]
             : []),
 
-          <Button htmlType='submit' type='link' icon='check'>
+          <Button htmlType='submit' type='link' icon={<CheckOutlined />}>
             {address ? t('actions.update') : t('actions.create')}
           </Button>,
         ]}
