@@ -12,10 +12,14 @@ module.exports = withPlugins(
         lessLoaderOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            '@heading-1-size': '34px',
-            '@heading-2-size': '26px',
-            '@heading-3-size': '20px',
-            '@heading-4-size': '16px',
+            'height-base': '42px',
+            'height-lg': '50px',
+            'height-sm': '30px',
+            '@font-size-base': '16px',
+            '@heading-1-size': '40px',
+            '@heading-2-size': '32px',
+            '@heading-3-size': '24px',
+            '@heading-4-size': '20px',
           },
         },
         webpack: (config, { isServer }) => {

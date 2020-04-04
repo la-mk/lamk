@@ -12,8 +12,8 @@
     "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\"]' 'public/locales'"
   },
   "dependencies": {
-    "@sradevski/blocks-ui": "0.0.45",
-    "antd": "^3.26.11",
+    "@sradevski/blocks-ui": "0.0.47",
+    "antd": "^4.1.0",
     "next": "^9.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
