@@ -1,7 +1,17 @@
 import React from 'react';
 import { Flex, Box } from '@sradevski/blocks-ui';
+import { BoxProps } from '@sradevski/blocks-ui/dist/basic/Box';
 
-export const CurvedSection = ({ children, backgroundColor, ...props }) => {
+interface CurvedSectionProps extends BoxProps {
+  children: React.ReactNode;
+  backgroundColor: string;
+}
+
+export const CurvedSection = ({
+  children,
+  backgroundColor,
+  ...props
+}: CurvedSectionProps) => {
   return (
     <Box {...props}>
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>

@@ -15,6 +15,7 @@ module.exports = withPlugins(
             'height-base': '42px',
             'height-lg': '50px',
             'height-sm': '30px',
+            '@form-item-margin-bottom': '32px',
             '@font-size-base': '16px',
             '@heading-1-size': '40px',
             '@heading-2-size': '32px',

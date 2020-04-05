@@ -17,7 +17,7 @@ export const Home = () => {
         And so much more
       </Title>
       <FeatureCards mt={50} />
-      <CurvedSection backgroundColor={'orange'}>
+      <CurvedSection backgroundColor={'#FCF1AE'}>
         <Contact />
       </CurvedSection>
     </Box>

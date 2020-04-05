@@ -6,6 +6,7 @@ import {
   formInput,
   Flex,
   Button,
+  formTextArea,
 } from '@sradevski/blocks-ui';
 
 export const ContactForm = () => {
@@ -24,22 +25,24 @@ export const ContactForm = () => {
           layout='horizontal'
           colon={false}
           onFormCompleted={(data: any) => null}
-          // {...otherProps}
         >
           <FormItem selector='name' label={'Full name'}>
-            {formInput()}
+            {formInput({ placeholder: 'John Doe' })}
           </FormItem>
 
           <FormItem selector='email' label={'Email address'}>
-            {formInput()}
+            {formInput({ placeholder: 'me@example.com' })}
           </FormItem>
 
           <FormItem selector='description' label={'Your business'}>
-            {formInput()}
+            {formTextArea({
+              placeholder: 'Tell us about your business',
+              autoSize: { minRows: 4, maxRows: 8 },
+            })}
           </FormItem>
 
           <Flex justifyContent='center' alignItems='center'>
-            <Button mr={2} type='primary' htmlType='submit' size='large'>
+            <Button mr={2} type='primary' htmlType='submit'>
               Contact us
             </Button>
           </Flex>

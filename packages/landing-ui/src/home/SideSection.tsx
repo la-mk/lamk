@@ -35,7 +35,7 @@ const BarImage = () => {
   );
 };
 
-const Description = ({ side }) => {
+const Description = ({ side }: { side: 'left' | 'right' }) => {
   const outerMargin = [4, 5, 5];
   const innerMargin = [4, 'auto', 'auto'];
   return (
