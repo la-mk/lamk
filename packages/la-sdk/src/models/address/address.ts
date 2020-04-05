@@ -45,13 +45,10 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(255),
-  person: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(511),
-    true,
-  ),
+  person: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(511),
   phoneNumber: v8n()
     .string()
     .minLength(2)
@@ -82,7 +79,7 @@ export interface Address {
   city: string;
   zip: string;
   street: string;
-  person?: string;
+  person: string;
   phoneNumber: string;
   createdAt: string;
   modifiedAt: string;
