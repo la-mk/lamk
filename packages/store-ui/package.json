@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "description": "Store UI",
   "main": "pages/index.ts",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.0.5",
     "@sradevski/blocks-ui": "0.0.47",
-    "@sradevski/la-sdk": "0.0.65",
+    "@sradevski/la-sdk": "0.0.67",
     "amplitude-js": "^5.9.0",
     "analytics": "^0.3.0",
     "antd": "^4.1.0",
