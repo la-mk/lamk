@@ -232,7 +232,10 @@
 		"serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists",
 		"genericError": "Error occured",
 		"genericErrorExplanation": "There was an error with status code {{statusCode}}. Contact us if the issue persists"
-  },
+	},
+	"seoDescriptions" : {
+		"product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now"
+	},
   "store": {
 		"aboutUs": "About us",
 		"aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience...",
