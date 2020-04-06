@@ -17,7 +17,11 @@ const OrderPage = ({
 
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.order')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.order')}
+        description={`${t('pages.order')}, ${store?.name}`}
+      />
       <Order orderId={orderId} />
     </>
   );

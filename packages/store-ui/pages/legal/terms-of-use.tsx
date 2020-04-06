@@ -5,6 +5,7 @@ import { LegalContent } from '../../src/components/legal/LegalContent';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
+import { getTextSnippet } from '../../src/common/utils';
 
 const getTermsOfUse = ({
   storeName,
@@ -94,7 +95,11 @@ const TermsOfUsePage = ({ store }: { store: Store }) => {
 
   return (
     <>
-      <Head storeName={store && store.name} title={title} />
+      <Head
+        storeName={store?.name}
+        title={title}
+        description={getTextSnippet(termsOfUse)}
+      />
       <LegalContent title={title} body={termsOfUse} />
     </>
   );

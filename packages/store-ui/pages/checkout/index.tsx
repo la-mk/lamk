@@ -11,7 +11,11 @@ function CheckoutPage({ store }: { store: Store | undefined }) {
 
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.checkout')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.checkout')}
+        description={`${t('pages.checkout')}, ${store?.name}`}
+      />
       <Checkout />
     </>
   );

@@ -6,6 +6,7 @@ import { NextPageContext } from 'next';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { AboutUs } from '../../src/components/aboutUs/AboutUs';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { getTextSnippet } from '../../src/common/utils';
 
 function AboutPage({
   store,
@@ -17,7 +18,14 @@ function AboutPage({
   const { t } = useTranslation();
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.aboutUs')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.aboutUs')}
+        description={
+          getTextSnippet(aboutUs?.description) ??
+          `${t('pages.aboutUs')}, ${store?.name}`
+        }
+      />
       <AboutUs aboutUs={aboutUs} />
     </>
   );

@@ -8,6 +8,14 @@ import { Empty } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { TFunction } from 'next-i18next';
+
+const getProductSummary = (product: ProductType, t: TFunction) => {
+  const partialDescription = product.description?.slice(0, 100);
+  return `${product.name}
+  ${t('common.price')}: ${product.calculatedPrice}
+  ${partialDescription ?? ''}...`;
+};
 
 const ProductPage = ({
   product,
@@ -22,8 +30,9 @@ const ProductPage = ({
     return (
       <>
         <Head
-          storeName={store && store.name}
+          storeName={store?.name}
           title={t('results.pageNotFound')}
+          description={t('results.productNotFound')}
         />
         <Empty mt={6} description={t('results.productNotFound')} />
       </>
@@ -33,8 +42,9 @@ const ProductPage = ({
   return (
     <>
       <Head
-        storeName={store && store.name}
+        storeName={store?.name}
         title={product.name}
+        description={getProductSummary(product, t)}
         previewImages={product.images.map(imageId =>
           sdk.artifact.getUrlForArtifact(imageId, store._id),
         )}

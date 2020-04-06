@@ -5,6 +5,7 @@ import { LegalContent } from '../../src/components/legal/LegalContent';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
+import { getTextSnippet } from '../../src/common/utils';
 
 const getGeneralRules = ({
   storeName,
@@ -40,7 +41,11 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
 
   return (
     <>
-      <Head storeName={store && store.name} title={title} />
+      <Head
+        storeName={store?.name}
+        title={title}
+        description={getTextSnippet(generalRules)}
+      />
       <LegalContent title={title} body={generalRules} />
     </>
   );

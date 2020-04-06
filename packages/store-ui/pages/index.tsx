@@ -19,7 +19,12 @@ function HomePage({
 
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.home')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.home')}
+        // TODO: Allow stores to set a slogan that we can show here.
+        description={store?.name}
+      />
       <Home landingContent={landingContent} />
     </>
   );

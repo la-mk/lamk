@@ -10,7 +10,11 @@ function OrdersPage({ store }: { store: Store | undefined }) {
 
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.order_plural')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.order_plural')}
+        description={`${t('pages.order_plural')}, ${store?.name}`}
+      />
       <Orders />
     </>
   );

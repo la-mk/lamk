@@ -12,7 +12,10 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
     case 404:
       return (
         <div>
-          <Head title={`404 | ${t('results.pageNotFound')}`} />
+          <Head
+            title={`404 | ${t('results.pageNotFound')}`}
+            description={t('results.pageNotFoundExplanation')}
+          />
           <Result
             status='404'
             title='404'
@@ -28,7 +31,10 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
     case 500:
       return (
         <div>
-          <Head title={`500 | ${t('results.serverError')}`} />
+          <Head
+            title={`500 | ${t('results.serverError')}`}
+            description={t('results.serverErrorExplanation')}
+          />
           <Result
             status='500'
             title='500'
@@ -44,7 +50,10 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
     default:
       return (
         <div>
-          <Head title={`${errorCode} | ${t('results.genericError')}`} />
+          <Head
+            title={`${errorCode} | ${t('results.genericError')}`}
+            description={t('results.genericError')}
+          />
           <Result
             status='error'
             title={errorCode}

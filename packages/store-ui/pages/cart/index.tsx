@@ -10,7 +10,11 @@ function CartPage({ store }: { store: Store | undefined }) {
   const { t } = useTranslation();
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.cart')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.cart')}
+        description={`${t('pages.cart')}, ${store?.name}`}
+      />
       <Cart />
     </>
   );

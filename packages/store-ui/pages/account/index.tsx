@@ -16,9 +16,16 @@ function AccountPage({ store }: { store: Store | undefined }) {
     return <Empty mt={6} description={t('auth.noUserInformation')} />;
   }
 
+  const fullName = `${user.firstName ?? ''} ${user.lastName ?? ''}`;
+  const nameDescription = fullName.length < 3 ? user.email : fullName;
+
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.myAccount')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.myAccount')}
+        description={`${t('pages.myAccount')}, ${nameDescription}`}
+      />
       <Account user={user} />
     </>
   );

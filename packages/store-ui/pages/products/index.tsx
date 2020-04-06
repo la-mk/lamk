@@ -24,7 +24,11 @@ function ProductsPage({
 
   return (
     <>
-      <Head storeName={store && store.name} title={t('pages.product_plural')} />
+      <Head
+        storeName={store?.name}
+        title={t('pages.product_plural')}
+        description={t('seoDescriptions.product_plural')}
+      />
       <Products initialProducts={products} initialFilters={filters} />
     </>
   );

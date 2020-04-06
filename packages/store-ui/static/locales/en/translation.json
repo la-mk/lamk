@@ -307,6 +307,9 @@
     "serverError": "Server error",
     "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
   },
+  "seoDescriptions": {
+    "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now"
+  },
   "sets": {
     "latest": "Latest products"
   },
