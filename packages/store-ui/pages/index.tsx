@@ -29,7 +29,7 @@ HomePage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
   const store = getStore(ctx.store.getState());
   try {
     const res = await Promise.all([
-      sdk.storeContents.getLandingContentForStore(store._id),
+      sdk.storeContents.getLandingContentForStore(store?._id),
       setCategoriesIfNone(ctx),
     ]);
 

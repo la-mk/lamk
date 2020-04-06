@@ -115,7 +115,7 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
               <LineHeightFreeAnchor style={{ display: 'flex' }}>
                 <Image
                   maxHeight='100%'
-                  src={sdk.artifact.getUrlForArtifact(store.logo, store._id)}
+                  src={sdk.artifact.getUrlForArtifact(store.logo, store?._id)}
                   alt='logo'
                 />
               </LineHeightFreeAnchor>
