@@ -1,12 +1,17 @@
+export interface AmplitudeConfig {
+  trackingId: string;
+  eventPrefix: string;
+}
 // Currently it works only in the browser, so we lazily load the sdk inside the initialization method.
-export default function amplitude(pluginConfig: { trackingId?: string } = {}) {
+export default function amplitude(pluginConfig: AmplitudeConfig) {
   let amplitudeSdk: any;
+
   return {
     NAMESPACE: 'amplitude',
     config: pluginConfig,
     loaded: () => Boolean(amplitudeSdk),
-    initialize: ({ config }: any) => {
-      if (!config.trackingId) {
+    initialize: ({ config }: { config: AmplitudeConfig }) => {
+      if (!config?.trackingId) {
         console.error("No amplitude key provided, amplitude won't be used");
         return;
       }
@@ -16,28 +21,45 @@ export default function amplitude(pluginConfig: { trackingId?: string } = {}) {
       }
 
       amplitudeSdk = require('amplitude-js/amplitude');
-      amplitudeSdk.getInstance().init(config.trackingId);
+
+      amplitudeSdk.getInstance().init(config.trackingId, null, {
+        includeUtm: true,
+        includeReferrer: true,
+        includeGclid: true,
+        // It will check for amp_device_id query param and parse it.
+        deviceIdFromUrlParam: true,
+        optOut: false,
+      });
     },
 
     page: ({ payload }) => {
       if (!amplitudeSdk) {
         return;
       }
-      amplitudeSdk.getInstance().logEvent('pageview', payload.properties);
+      amplitudeSdk
+        .getInstance()
+        .logEvent(`${pluginConfig.eventPrefix}: pageview`, payload.properties);
     },
 
     track: ({ payload }) => {
       if (!amplitudeSdk) {
         return;
       }
-      amplitudeSdk.getInstance().logEvent(payload.type, payload);
+      amplitudeSdk
+        .getInstance()
+        .logEvent(
+          `${pluginConfig.eventPrefix}: ${payload.event}`,
+          payload.properties,
+        );
     },
 
     identify: ({ payload }) => {
       if (!amplitudeSdk) {
         return;
       }
-      amplitudeSdk.getInstance().setUserId(payload.userId, payload.traits);
+
+      amplitudeSdk.getInstance().setUserId(payload.userId);
+      amplitudeSdk.getInstance().setUserProperties(payload.traits);
     },
 
     reset: () => {

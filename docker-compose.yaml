@@ -182,7 +182,7 @@ services:
       API_ENDPOINT: "https://api.dev.sradevski.com"
       # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
       ARTIFACTS_ENDPOINT: "https://artifacts.dev.sradevski.com/dev-bucket"
-      ANALYTICS_TRACKING_ID: '' 
+      ANALYTICS_TRACKING_ID: '90f6dff8cd68254f0bcdedcc33ab7a14' 
       PORT: 80
       NESTPAY_GATEWAY_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate"
       # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.dev.sradevski.com services from within the service it fails.

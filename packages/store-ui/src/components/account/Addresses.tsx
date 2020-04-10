@@ -5,11 +5,13 @@ import { sdk } from '@sradevski/la-sdk';
 import { AddAddressCard } from './AddAddressCard';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { pickDiff } from '../../common/utils';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getAddresses } from '../../state/modules/user/user.selector';
 import { setAddresses } from '../../state/modules/user/user.module';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
+import { trackEvent } from '../../state/modules/analytics/analytics.actions';
+import { AnalyticsEvents } from '../../common/analytics';
 
 interface AddressesProps {
   user: User;
@@ -19,6 +21,7 @@ export const Addresses = ({ user }: AddressesProps) => {
   const [shouldResetAddressForm, setShouldResetAddressForm] = useState(false);
   const [caller, showSpinner] = hooks.useCall();
   const addresses = useSelector(getAddresses);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -37,6 +40,14 @@ export const Addresses = ({ user }: AddressesProps) => {
       (address: Address) => {
         message.success(t('address.createAddressSuccess'));
         setShouldResetAddressForm(x => !x);
+
+        dispatch(
+          trackEvent({
+            eventName: AnalyticsEvents.addAddress,
+            numberOfAddresses: addresses.length + 1,
+          }),
+        );
+
         return setAddresses([...addresses, address]);
       },
     );

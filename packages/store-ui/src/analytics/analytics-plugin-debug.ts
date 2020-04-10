@@ -1,4 +1,4 @@
-export default function debug(userConfig) {
+export default function debug() {
   return {
     /* Name is a required field for plugins */
     name: 'debug',
