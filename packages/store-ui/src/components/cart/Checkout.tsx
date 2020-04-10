@@ -25,15 +25,18 @@ import { SelectAddress } from './SelectAddress';
 import { SelectPaymentMethod } from './SelectPaymentMethod';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
+import { trackEvent } from '../../state/modules/analytics/analytics.actions';
+import { AnalyticsEvents } from '../../common/analytics';
 
 export const Checkout = () => {
   const [caller, showSpinner] = hooks.useCall(true);
-  const cart = useSelector(getCartWithProducts);
+  const cart: CartWithProducts = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
   const campaigns = useSelector(getCampaigns);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const addresses: Address[] = useSelector(getAddresses);
+  const [trackedEvent, setTrackedEvent] = useState(false);
   const [
     storePaymentMethods,
     setStorePaymentMethods,
@@ -47,6 +50,29 @@ export const Checkout = () => {
   );
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!cart || !delivery || !campaigns || trackedEvent) {
+      return;
+    }
+
+    const prices = sdk.utils.pricing.calculatePrices(
+      cart.items,
+      delivery,
+      campaigns ?? [],
+    );
+
+    dispatch(
+      trackEvent({
+        eventName: AnalyticsEvents.checkout,
+        numberOfProducts: cart.items.length,
+        totalPrice: prices.total,
+        discount: prices.productsTotal - prices.withCampaignsTotal,
+      }),
+    );
+
+    setTrackedEvent(true);
+  }, [cart, delivery, campaigns, trackedEvent]);
 
   useEffect(() => {
     if (!user || cart) {
@@ -139,6 +165,23 @@ export const Checkout = () => {
       }),
       (order: Order) => {
         setOrder(order);
+
+        const prices = sdk.utils.pricing.calculatePrices(
+          order.ordered,
+          order.delivery,
+          order.campaigns,
+        );
+
+        dispatch(
+          trackEvent({
+            eventName: AnalyticsEvents.order,
+            numberOfProducts: order.ordered.length,
+            paymentMethod: order.paymentMethod,
+            totalPrice: order.calculatedTotal,
+            discount: prices.productsTotal - prices.withCampaignsTotal,
+          }),
+        );
+
         sdk.cart.patch(user._id, { items: [] });
         dispatch(removeItemsFromCart());
         if (

@@ -30,6 +30,8 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { Price } from '../shared/Price';
 import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
+import { trackEvent } from '../../state/modules/analytics/analytics.actions';
+import { AnalyticsEvents } from '../../common/analytics';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall(true);
@@ -40,6 +42,14 @@ export const Cart = () => {
   const campaigns = useSelector(getCampaigns);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    dispatch(
+      trackEvent({
+        eventName: AnalyticsEvents.viewCart,
+      }),
+    );
+  }, []);
 
   useEffect(() => {
     if (user && !cart) {
@@ -69,6 +79,17 @@ export const Cart = () => {
     const handler = cart._id
       ? sdk.cart.removeItemFromCart(cart._id, cartItem)
       : Promise.resolve();
+
+    dispatch(
+      trackEvent({
+        eventName: AnalyticsEvents.removeItemFromCart,
+        productId: cartItem.product._id,
+        category: cartItem.product.category,
+        price: cartItem.product.calculatedPrice,
+        discount: cartItem.product.discount,
+        quantity: cartItem.quantity,
+      }),
+    );
 
     caller<CartType | void>(handler, () =>
       setCartWithProducts({

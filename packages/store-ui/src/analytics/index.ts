@@ -7,9 +7,13 @@ export let analytics: AnalyticsInstance | undefined;
 
 export const initialize = (storeSlug?: string) => {
   const debug = env.NODE_ENV === 'development';
-  const plugins = debug
-    ? [debugPlugin({})]
-    : [amplitudePlugin({ trackingId: env.ANALYTICS_TRACKING_ID })];
+  const plugins = [
+    ...(debug ? [debugPlugin()] : []),
+    amplitudePlugin({
+      eventPrefix: 'store',
+      trackingId: env.ANALYTICS_TRACKING_ID,
+    }),
+  ];
 
   analytics = Analytics({
     app: storeSlug || 'unknown',

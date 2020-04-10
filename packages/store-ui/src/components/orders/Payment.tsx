@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Page } from '../shared/Page';
 import { useTranslation } from '../../common/i18n';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { PaymentForm } from '../payments/PaymentForm';
 import {
   Flex,
@@ -21,6 +21,8 @@ import { Success } from '../cart/Success';
 import { getStore } from '../../state/modules/store/store.selector';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 import Link from 'next/link';
+import { trackEvent } from '../../state/modules/analytics/analytics.actions';
+import { AnalyticsEvents } from '../../common/analytics';
 
 interface PaymentProps {
   orderId: string | undefined;
@@ -31,6 +33,8 @@ export const Payment = ({ orderId }: PaymentProps) => {
   const [isLoadingPayment, setIsLoadingPayment] = useState(true);
   const user = useSelector(getUser);
   const store = useSelector(getStore);
+  const [trackedEvent, setTrackedEvent] = useState(false);
+  const dispatch = useDispatch();
   const [order, setOrder] = useState<Order | null>(null);
   const [orderCaller, showOrderSpinner] = hooks.useCall(true);
   const [paymentMethodCaller, showPaymentMethodSpinner] = hooks.useCall(true);
@@ -41,6 +45,37 @@ export const Payment = ({ orderId }: PaymentProps) => {
   ] = useState<StorePaymentMethods | null>(null);
   const [paymentResponse, setPaymentResponse] = useState(null);
   const isBrowser = typeof window !== 'undefined';
+
+  const transaction = paymentResponse?.data?.transactions?.[0];
+  const transactionStatus = transaction?.status;
+
+  const shouldRetry =
+    !!paymentResponse?.error ||
+    transactionStatus === sdk.orderPayments.TransactionStatus.DECLINED ||
+    transactionStatus === sdk.orderPayments.TransactionStatus.ERROR;
+
+  const cardPaymentInfo = storePaymentMethods?.methods.find(
+    method =>
+      method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+  );
+
+  useEffect(() => {
+    if (!order || !transactionStatus || !cardPaymentInfo || trackedEvent) {
+      return;
+    }
+
+    dispatch(
+      trackEvent({
+        eventName: AnalyticsEvents.pay,
+        orderId: order._id,
+        totalPrice: order.calculatedTotal,
+        status: transactionStatus,
+        processor: cardPaymentInfo.processor,
+      }),
+    );
+
+    setTrackedEvent(true);
+  }, [order, transactionStatus, cardPaymentInfo, trackedEvent]);
 
   useEffect(() => {
     if (!user || !store) {
@@ -59,11 +94,6 @@ export const Payment = ({ orderId }: PaymentProps) => {
       setStorePaymentMethods(res.data[0]),
     );
   }, [store, paymentMethodCaller]);
-
-  const cardPaymentInfo = storePaymentMethods?.methods.find(
-    method =>
-      method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
-  );
 
   if (!cardPaymentInfo && !showPaymentMethodSpinner) {
     return (
@@ -108,13 +138,6 @@ export const Payment = ({ orderId }: PaymentProps) => {
   }
 
   const frameName = 'paymentFrame';
-  const transaction = paymentResponse?.data?.transactions?.[0];
-  const transactionStatus = transaction?.status;
-
-  const shouldRetry =
-    !!paymentResponse?.error ||
-    transactionStatus === sdk.orderPayments.TransactionStatus.DECLINED ||
-    transactionStatus === sdk.orderPayments.TransactionStatus.ERROR;
 
   if (transactionStatus === sdk.orderPayments.TransactionStatus.APPROVED) {
     return <Success order={order} />;

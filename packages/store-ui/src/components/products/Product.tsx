@@ -12,6 +12,7 @@ import {
   Spin,
   Paragraph,
   hooks,
+  utils,
 } from '@sradevski/blocks-ui';
 import {
   Product as ProductType,
@@ -21,7 +22,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { Price } from '../shared/Price';
 import { ProductSet } from '../sets/ProductSet';
 import { Thumbnails } from '../shared/Thumbnails';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Cart } from '@sradevski/la-sdk/dist/models/cart';
 import Link from 'next/link';
 import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
@@ -31,6 +32,8 @@ import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 import { getFiltersFromSetQuery } from '../../common/filterUtils';
+import { trackEvent } from '../../state/modules/analytics/analytics.actions';
+import { AnalyticsEvents, session } from '../../common/analytics';
 
 interface ProductProps {
   product: ProductType;
@@ -41,6 +44,8 @@ export const Product = ({ product }: ProductProps) => {
   const cart = useSelector(getCartWithProducts);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
+  const [trackedEvent, setTrackedEvent] = useState(false);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const outOfStock = product.stock === 0;
 
@@ -54,6 +59,33 @@ export const Product = ({ product }: ProductProps) => {
     cart &&
     cart.items &&
     cart.items.some(item => item.product._id === product._id);
+
+  useEffect(() => {
+    if (!product || trackedEvent) {
+      return;
+    }
+
+    const previousPage = session.getSessionInfo()?.previousPage;
+    const filters = utils.filter.parseFiltersUrl(previousPage ?? '');
+    const searchTerm = filters.searching ?? '';
+    const filterings = Object.keys(filters.filtering ?? {});
+    const onPage = filters.pagination?.currentPage;
+    const pageSize = filters.pagination?.pageSize;
+
+    dispatch(
+      trackEvent({
+        eventName: AnalyticsEvents.viewProduct,
+        productId: product._id,
+        category: product.category,
+        searchTerm,
+        filterings: filterings.length > 0 ? filterings : undefined,
+        onPage,
+        pageSize,
+      }),
+    );
+
+    setTrackedEvent(true);
+  }, [product, trackedEvent]);
 
   useEffect(() => {
     if (!store) {
@@ -82,6 +114,17 @@ export const Product = ({ product }: ProductProps) => {
         quantity,
       });
     }
+
+    dispatch(
+      trackEvent({
+        eventName: AnalyticsEvents.addItemToCart,
+        productId: product._id,
+        category: product.category,
+        price: product.calculatedPrice,
+        discount: product.discount,
+        quantity,
+      }),
+    );
 
     caller(action, () => {
       message.info(t('cart.addedToCart'));
