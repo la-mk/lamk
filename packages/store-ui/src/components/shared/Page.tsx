@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title } from '@sradevski/blocks-ui';
+import { Flex, Title, Box } from '@sradevski/blocks-ui';
 
 interface PageProps {
   title?: string;
@@ -22,7 +22,9 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
           {title}
         </Title>
       )}
-      {children}
+      <Box width={'100%'} mx='auto' maxWidth={maxWidth}>
+        {children}
+      </Box>
     </Flex>
   );
 };

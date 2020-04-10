@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   Title,
+  Image,
   Text,
   Collapse,
   CollapsePanel,
@@ -71,7 +72,11 @@ export const FooterContent = ({ store }: { store: Store }) => {
 
   return (
     <Box>
-      <Flex flexDirection={['column', 'row', 'row']} justifyContent={'center'}>
+      <Flex
+        flexDirection={['column', 'row', 'row']}
+        justifyContent={'center'}
+        alignItems='center'
+      >
         <Box maxWidth={['100%', '25%', '25%']}>
           <StoreFooterSection store={store} />
         </Box>
@@ -106,7 +111,7 @@ export const FooterContent = ({ store }: { store: Store }) => {
             );
           })}
         </Box>
-        <Box mt={[2, 2, 0]} display={['initial', 'none', 'none']}>
+        <Box width='100%' mt={[2, 2, 0]} display={['initial', 'none', 'none']}>
           <Collapse bordered={false} style={{ background: 'transparent' }}>
             {menus.map(menu => {
               return (
@@ -116,6 +121,18 @@ export const FooterContent = ({ store }: { store: Store }) => {
               );
             })}
           </Collapse>
+        </Box>
+        <Box mx={3} mt={3}>
+          <Image
+            width='140px'
+            src={'/static/images/mastercard.svg'}
+            alt='mastercard logo'
+          />
+          <Image
+            width='120px'
+            src={'/static/images/visa.svg'}
+            alt='visa logo'
+          />
         </Box>
       </Flex>
       <Box mt={4}>

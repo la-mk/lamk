@@ -7,15 +7,10 @@ import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
 import { getTextSnippet } from '../../src/common/utils';
 
-const getReturnAndRefundPolicy = ({
-  storeName,
-  companyName,
-  registryNumber,
-  taxNumber,
-  companyAddress,
-}) => {
+const getReturnAndRefundPolicy = ({ storeName }) => {
   return `
 Потрошувачот има право во ${storeName} да го замени или врати производот што има соодветен квалитет, а што не одговара во однос на формата, големината, моделот, бојата, бројот или од други причини, освен во случај на купен производ изготвен по нарачка од потрошувачот врз основа на писмен договор, што е во согласност со член 50 од Законот за заштита на потрошувачите.
+
 Потрошувачот правото за замена односно враќање на производ може да го оствари во рок од 15 дена сметано од денот на подигање т.е. достава на производот.
 
 За остварување на правото за замена односно враќање на производ согласно оваа Одлука важат следните законски услови:
@@ -34,10 +29,6 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
   const title = t('pages.returnAndRefund');
   const returnAndRefundPolicy = getReturnAndRefundPolicy({
     storeName: store.name,
-    companyName: store.company.companyName,
-    registryNumber: store.company.registryNumber,
-    taxNumber: store.company.taxNumber,
-    companyAddress: store.company.companyAddress,
   });
 
   return (

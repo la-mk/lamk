@@ -16,7 +16,7 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
   }
 
   return (
-    <Page title={t('pages.aboutUs')}>
+    <Page maxWidth={1} title={t('pages.aboutUs')}>
       {paragraphs ? (
         paragraphs.map(paragraph => {
           return (
