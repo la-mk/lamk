@@ -1,4 +1,4 @@
-import { CategoryForStore } from '@sradevski/la-sdk/dist/models/category';
+import { StoreCategory } from '@sradevski/la-sdk/dist/models/storeCategory';
 
 const initialState = { categories: null };
 
@@ -14,7 +14,7 @@ export default function categories(state = initialState, action: any) {
   }
 }
 
-export function setCategories(categories: CategoryForStore[]) {
+export function setCategories(categories: StoreCategory[]) {
   return {
     type: SET_CATEGORIES,
     categories,

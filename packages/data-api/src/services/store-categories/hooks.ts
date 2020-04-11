@@ -8,8 +8,8 @@ export const hooks = {
     find: [],
     get: [],
     // We only allow adding or removing categories by hook when adding, modifying, or removing a product
-    create: [disallow('external'), validate(sdk.category.validatePerStore)],
-    patch: [disallow('external'), validate(sdk.category.validatePerStore)],
+    create: [disallow('external'), validate(sdk.storeCategory.validate)],
+    patch: [disallow('external'), validate(sdk.storeCategory.validate)],
     remove: [disallow('external')],
   },
 };

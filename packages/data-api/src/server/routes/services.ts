@@ -9,7 +9,7 @@ import { users } from '../../services/users/users';
 import { carts } from '../../services/carts/carts';
 import { addresses } from '../../services/addresses/addresses';
 import { categories } from '../../services/categories/categories';
-import { categoriesPerStore } from '../../services/categories-per-store/categoriesPerStore';
+import { storeCategories } from '../../services/store-categories/storeCategories';
 import { storeContents } from '../../services/store-contents/storeContents';
 import { email } from '../../services/email/email';
 import { search } from '../../services/search/search';
@@ -31,7 +31,7 @@ export const registerServices = (app: Application) => {
   carts(app);
   addresses(app);
   categories(app);
-  categoriesPerStore(app);
+  storeCategories(app);
   storeContents(app);
   email(app);
   search(app);

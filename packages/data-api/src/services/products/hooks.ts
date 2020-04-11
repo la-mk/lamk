@@ -16,10 +16,10 @@ import {
   removeProductSearch,
 } from './serviceHooks/search';
 import {
-  createCategoriesPerStore,
-  patchCategoriesPerStore,
-  removeCategoriesPerStore,
-} from './serviceHooks/categoriesPerStore';
+  createStoreCategories,
+  patchStoreCategories,
+  removeStoreCategories,
+} from './serviceHooks/storeCategories';
 import {
   removeProductGroups,
   patchProductGroups,
@@ -118,16 +118,8 @@ export const hooks = {
     all: [],
     find: [allowFields(['soldBy'], allowedFields)],
     get: [allowFields(['soldBy'], allowedFields)],
-    create: [
-      createProductSearch,
-      createCategoriesPerStore,
-      createProductGroups,
-    ],
-    patch: [patchProductSearch, patchCategoriesPerStore, patchProductGroups],
-    remove: [
-      removeProductSearch,
-      removeCategoriesPerStore,
-      removeProductGroups,
-    ],
+    create: [createProductSearch, createStoreCategories, createProductGroups],
+    patch: [patchProductSearch, patchStoreCategories, patchProductGroups],
+    remove: [removeProductSearch, removeStoreCategories, removeProductGroups],
   },
 };

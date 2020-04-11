@@ -5,19 +5,19 @@ import { logger } from '../../../common/logger';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { HookContextWithState } from '../../../common/types';
 
-const createCategoryPerStoreIfNotExists = async (
+const createStoreCategoryIfNotExists = async (
   level3: string,
   forStore: string,
   ctx: HookContext,
 ) => {
-  const existingCategoryResult = await ctx.app.services[
-    'categoriesPerStore'
-  ].find({
-    query: {
-      level3,
-      forStore,
+  const existingCategoryResult = await ctx.app.services['storeCategories'].find(
+    {
+      query: {
+        level3,
+        forStore,
+      },
     },
-  });
+  );
 
   if (existingCategoryResult.total > 0) {
     return;
@@ -38,10 +38,10 @@ const createCategoryPerStoreIfNotExists = async (
     forStore,
   };
 
-  await ctx.app.services['categoriesPerStore'].create(storeCategory);
+  await ctx.app.services['storeCategories'].create(storeCategory);
 };
 
-const removeOrphanedCategoryPerStore = async (
+const removeOrphanedStoreCategory = async (
   level3: string | undefined,
   forStore: string,
   ctx: HookContext,
@@ -62,7 +62,7 @@ const removeOrphanedCategoryPerStore = async (
   }
 
   // The category is not in use anymore, so it is safe to remove.
-  await ctx.app.services['categoriesPerStore'].remove(null, {
+  await ctx.app.services['storeCategories'].remove(null, {
     query: {
       level3,
       forStore,
@@ -70,16 +70,12 @@ const removeOrphanedCategoryPerStore = async (
   });
 };
 
-export const createCategoriesPerStore = async (ctx: HookContext) => {
+export const createStoreCategories = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['create', 'patch']);
   const product = ctx.result;
 
   try {
-    await createCategoryPerStoreIfNotExists(
-      product.category,
-      product.soldBy,
-      ctx,
-    );
+    await createStoreCategoryIfNotExists(product.category, product.soldBy, ctx);
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
     logger.error(err);
@@ -87,7 +83,7 @@ export const createCategoriesPerStore = async (ctx: HookContext) => {
 };
 
 // For a patch, even if the category hasn't changed, this will first remove the category, and then add it in an after hook. Fix it when it becomes a problem.
-export const patchCategoriesPerStore = async (
+export const patchStoreCategories = async (
   ctx: HookContextWithState<Product>,
 ) => {
   checkContext(ctx, 'after', ['patch']);
@@ -95,23 +91,19 @@ export const patchCategoriesPerStore = async (
   const previousProduct = ctx.contextState;
 
   try {
-    await removeOrphanedCategoryPerStore(
+    await removeOrphanedStoreCategory(
       previousProduct?.category,
       product.soldBy,
       ctx,
     );
-    await createCategoryPerStoreIfNotExists(
-      product.category,
-      product.soldBy,
-      ctx,
-    );
+    await createStoreCategoryIfNotExists(product.category, product.soldBy, ctx);
   } catch (err) {
     // We don't want to throw at this point, log the error and if needed fix it manually until we get rollbacks.
     logger.error(err);
   }
 };
 
-export const removeCategoriesPerStore = async (ctx: HookContext) => {
+export const removeStoreCategories = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['remove']);
 
   const removedProduct = ctx.result;
@@ -120,7 +112,7 @@ export const removeCategoriesPerStore = async (ctx: HookContext) => {
   }
 
   try {
-    await removeOrphanedCategoryPerStore(
+    await removeOrphanedStoreCategory(
       removedProduct.category,
       removedProduct.soldBy,
       ctx,
