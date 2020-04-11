@@ -6,8 +6,8 @@ import { setUser } from '../modules/user/user.module';
 
 export function* clearSessionSaga() {
   sessionStorage.clear();
-  yield put(setCartWithProducts(null));
   yield put(setUser(null));
+  yield put(setCartWithProducts(null));
 }
 
 export function* watchClearSessionSaga() {

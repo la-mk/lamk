@@ -14,8 +14,12 @@ function* storeLoadedSaga() {
     return;
   }
 
-  const campaigns = yield call(sdk.campaign.findActiveForStore, store._id);
-  yield put(setCampaigns(campaigns.data));
+  try {
+    const campaigns = yield call(sdk.campaign.findActiveForStore, store._id);
+    yield put(setCampaigns(campaigns.data));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // Store should be pre-loaded in state on server-side so it should exist when the UI is loaded on client-side

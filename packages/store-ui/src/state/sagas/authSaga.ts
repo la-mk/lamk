@@ -52,38 +52,39 @@ export function* getAuthenticationSaga() {
 }
 
 export function* handleCartForUserSaga(authInfo: any) {
+  if (!authInfo) {
+    return;
+  }
+
   // If logged in, fetch latest cart state and update redux.
-  if (authInfo) {
-    try {
-      const store = yield select(getStore);
-      const serverCart = yield call(
-        sdk.cart.getCartWithProductsForUser,
-        authInfo.user._id,
-        store._id,
-      );
+  try {
+    const store = yield select(getStore);
+    const serverCart = yield call(
+      sdk.cart.getCartWithProductsForUser,
+      authInfo.user._id,
+      store._id,
+    );
 
-      const localCart = yield select(getCartWithProducts);
+    const localCart = yield select(getCartWithProducts);
 
-      // TODO: localCart or serverCart might be null, handle it
-      const cartItems = unionWith(
-        localCart.items,
-        serverCart.items,
-        (a: any, b: any) => a.product._id === b.product._id,
-      );
+    const cartItems = unionWith(
+      localCart?.items ?? [],
+      serverCart?.items ?? [],
+      (a: any, b: any) => a.product._id === b.product._id,
+    );
 
-      yield call(sdk.cart.patch, serverCart._id, {
-        items: cartItems
-          .filter(item => item.fromStore === store._id)
-          .map((item: CartItemWithProduct) => ({
-            ...item,
-            product: item.product._id,
-          })),
-      });
+    yield call(sdk.cart.patch, serverCart._id, {
+      items: cartItems
+        .filter(item => item.fromStore === store._id)
+        .map((item: CartItemWithProduct) => ({
+          ...item,
+          product: item.product._id,
+        })),
+    });
 
-      yield put(setCartWithProducts({ ...serverCart, items: cartItems }));
-    } catch (err) {
-      console.log(err);
-    }
+    yield put(setCartWithProducts({ ...serverCart, items: cartItems }));
+  } catch (err) {
+    console.log(err);
   }
 }
 
