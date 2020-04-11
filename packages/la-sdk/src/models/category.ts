@@ -1,5 +1,4 @@
-import merge from 'lodash/merge';
-import { Application, Params } from '@feathersjs/feathers';
+import { Application } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
@@ -44,15 +43,6 @@ export const schema = {
   ),
 };
 
-// TODO: Maybe we want to create a separate model for `perStore`.
-export const categoriesPerStoreSchema = {
-  ...schema,
-  forStore: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(63),
-};
-
 export interface Category {
   _id: string;
   level1: string;
@@ -62,43 +52,20 @@ export interface Category {
   modifiedAt: string;
 }
 
-export interface CategoryForStore extends Category {
-  forStore: string;
-}
-
 export const getCategorySdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Category>, Category>(
     client,
     'categories',
   );
 
-  const categoriesPerStoreCrudMethods = getCrudMethods<
-    OmitServerProperties<CategoryForStore>,
-    CategoryForStore
-  >(client, 'categoriesPerStore');
-
   return {
     ...crudMethods,
-
-    findForStore: (storeId: string, params?: Params) => {
-      const options = {};
-      merge(options, params, { query: { forStore: storeId } });
-      return categoriesPerStoreCrudMethods.find(options);
-    },
 
     validate: (data: Category, ignoreRequired = false) => {
       return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
-    },
-
-    // This is for categoriesForStore
-    validatePerStore: (data: Category, ignoreRequired = false) => {
-      return validate(categoriesPerStoreSchema, data, ignoreRequired);
-    },
-    validateSinglePerStore: (val: any, selector: string) => {
-      return validateSingle(categoriesPerStoreSchema, val, selector);
     },
   };
 };

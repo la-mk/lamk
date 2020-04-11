@@ -14,6 +14,7 @@ import { getCartSdk } from './models/cart';
 import { getAddressSdk } from './models/address/address';
 import { getProductGroupSdk } from './models/productGroup';
 import { getCampaignSdk } from './models/campaign';
+import { getStoreCategorySdk } from './models/storeCategory';
 import { getStoreAnalyticsSdk } from './models/storeAnalytics';
 import { getStorePaymentMethodsSdk } from './models/storePaymentMethods';
 import { getOrderPaymentsSdk } from './models/orderPayments';
@@ -37,6 +38,7 @@ export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
     productGroup: getProductGroupSdk(client),
     authentication: getAuthenticationSdk(client),
     campaign: getCampaignSdk(client),
+    storeCategory: getStoreCategorySdk(client),
     storeAnalytics: getStoreAnalyticsSdk(client),
     storePaymentMethods: getStorePaymentMethodsSdk(client),
     orderPayments: getOrderPaymentsSdk(client),
