@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "description": "Store UI",
   "main": "pages/index.ts",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -35,6 +35,7 @@
     "date-fns": "^2.9.0",
     "env-var": "^6.0.1",
     "express": "^4.17.1",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "next": "^9.2.2",
     "next-i18next": "^4.2.0",

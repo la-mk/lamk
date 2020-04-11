@@ -121,7 +121,7 @@ services:
       NESTPAY_API_ENDPOINT: $NESTPAY_API_ENDPOINT
 
   store-ui:
-    image: lamk/store-ui:1.0.41
+    image: lamk/store-ui:1.0.42
     container_name: store-ui
     restart: always
     depends_on: 

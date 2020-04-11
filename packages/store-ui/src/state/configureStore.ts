@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { persistStore } from 'redux-persist';
 import { createRouterMiddleware } from 'connected-next-router';
+import crosstabSync from './reduxPresistCrosstab';
 
 import registerSagas from './rootSaga';
 import registerReducers from './rootReducer';
@@ -40,6 +41,7 @@ function configureDevStore(initialState: any, options: MakeStoreOptions) {
 
   const store = createStore(registerReducers(false), initialState, enhancer);
   persistStore(store);
+  crosstabSync(store, { blacklist: ['ui', 'router'] });
   registerSagas(sagaMiddleware);
 
   return store;

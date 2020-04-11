@@ -1,8 +1,18 @@
 import unionWith from 'lodash/unionWith';
-import { call, takeLeading, takeEvery, put, select } from 'redux-saga/effects';
+import {
+  call,
+  take,
+  takeLeading,
+  takeEvery,
+  put,
+  select,
+  delay,
+} from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-next-router';
 import { sdk } from '@sradevski/la-sdk';
+import jwtDecode from 'jwt-decode';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
+import { SET_UI_LOADED } from '../modules/ui/ui.module';
 import { clearSession, toggleAuthModal } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
 import { setCartWithProducts } from '../modules/cart/cart.module';
@@ -87,6 +97,23 @@ function* authenticationCheckSaga(action: LocationChangeAction) {
   yield afterAuthSaga(authInfo, wasAuthenticated);
 }
 
+function* checkTokenSaga() {
+  while (true) {
+    const authInfo = yield call(sdk.authentication.getAuthentication);
+    if (authInfo) {
+      const tokenData = jwtDecode(authInfo.accessToken);
+      const expirationTimestamp = tokenData.exp;
+      const currentTimestamp = Date.now() / 1000;
+      if (currentTimestamp > expirationTimestamp) {
+        yield call(sdk.authentication.logout);
+        yield put(clearSession());
+      }
+    }
+
+    yield delay(5000);
+  }
+}
+
 export function* logoutSaga() {
   try {
     yield call(sdk.authentication.logout);
@@ -129,8 +156,12 @@ export function* signupSaga(action: any) {
 }
 
 export function* watchAuthenticationCheckSaga() {
-  //TODO: Find a better event to listen to, will do for now
-  yield takeLeading('persist/REHYDRATE', authenticationCheckSaga);
+  yield takeLeading(SET_UI_LOADED, authenticationCheckSaga);
+}
+
+export function* watchTokenValidationSaga() {
+  yield take(SET_UI_LOADED);
+  yield checkTokenSaga();
 }
 
 export function* watchLogoutSaga() {
@@ -147,6 +178,7 @@ export function* watchSignupSaga() {
 
 export default {
   watchAuthenticationCheckSaga,
+  watchTokenValidationSaga,
   watchLogoutSaga,
   watchLoginSaga,
   watchSignupSaga,

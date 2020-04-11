@@ -16,7 +16,7 @@ import { CategoriesMenu } from '../shared/CategoriesMenu';
 import { getPromotedCampaign } from '../../state/modules/campaigns/campaigns.selector';
 import { DiscountCampaign } from '../shared/campaigns/DiscountCampaign';
 
-const Banner = styled(Box)`
+const Banner = styled(Flex)`
   position: relative;
 `;
 
@@ -62,36 +62,38 @@ export const Home = ({
       </Box>
       {promotedCampaign && <DiscountCampaign campaign={promotedCampaign} />}
       {landingContent.banner && (
-        <Banner>
+        <Banner alignItems='center' justifyContent='center'>
           <Image
             width='100%'
             src={
               landingContent.banner &&
               sdk.artifact.getUrlForArtifact(landingContent.banner, store._id)
             }
-            loader={<Spin mx='auto' spinning={true} />}
+            loader={<Spin spinning={true} />}
             unloader={null}
             alt='Banner image'
           />
         </Banner>
       )}
-      <Spin spinning={showSpinner}>
-        <Flex px={[2, 4, 5]} mt={3} flexDirection='column'>
-          {productSets
-            .filter(set => Boolean(set.data))
-            .map(set => (
-              <ProductSet
-                storeId={store._id}
-                allHref={`/products?${queryString.stringify(
-                  getFiltersFromSetQuery(set.filter.query),
-                )}`}
-                key={set.setTag.name + (set.setTag.value || '')}
-                products={set.data}
-                title={t(getTranslationBaseForSet(set.setTag))}
-              />
-            ))}
-        </Flex>
-      </Spin>
+      <Flex px={[2, 4, 5]} mt={3} flexDirection='column'>
+        <Spin spinning={showSpinner}>
+          <>
+            {productSets
+              .filter(set => Boolean(set.data))
+              .map(set => (
+                <ProductSet
+                  storeId={store._id}
+                  allHref={`/products?${queryString.stringify(
+                    getFiltersFromSetQuery(set.filter.query),
+                  )}`}
+                  key={set.setTag.name + (set.setTag.value || '')}
+                  products={set.data}
+                  title={t(getTranslationBaseForSet(set.setTag))}
+                />
+              ))}
+          </>
+        </Spin>
+      </Flex>
     </>
   );
 };
