@@ -77,6 +77,6 @@
     "null-loader": "^3.0.0",
     "prettier": "^1.19.1",
     "ts-node": "^8.6.2",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.3"
   }
 }
