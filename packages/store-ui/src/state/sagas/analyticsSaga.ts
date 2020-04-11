@@ -47,7 +47,9 @@ function* trackEventSaga(action: { type: string; payload: TrackEventPayload }) {
 }
 
 function* logoutSaga() {
+  // Initialize a new session after logging out.
   analytics.reset();
+  session.initializeSession();
 }
 
 function* locationChangeSaga() {
