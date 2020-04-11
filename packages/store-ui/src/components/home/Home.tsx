@@ -69,7 +69,7 @@ export const Home = ({
               landingContent.banner &&
               sdk.artifact.getUrlForArtifact(landingContent.banner, store._id)
             }
-            loader={<Spin spinning={true} />}
+            loader={<Spin mx='auto' spinning={true} />}
             unloader={null}
             alt='Banner image'
           />
