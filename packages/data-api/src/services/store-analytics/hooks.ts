@@ -3,6 +3,8 @@ import { requireAllQueryParams } from '../../common/hooks/filtering';
 import { authenticate } from '@feathersjs/authentication/lib/hooks';
 import { queryWithCurrentUser } from '../../common/hooks/auth';
 import { HookContext } from '@feathersjs/feathers';
+import { validate } from '../../common/hooks/db';
+import { sdk } from '@sradevski/la-sdk';
 
 const convertGetToStandardResponse = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['get']);
@@ -20,8 +22,8 @@ export const hooks = {
       queryWithCurrentUser(['forStore']),
       requireAllQueryParams(['type', 'forStore']),
     ],
-    create: [disallow('external')],
-    patch: [disallow('external')],
+    create: [disallow('external'), validate(sdk.storeAnalytics.validate)],
+    patch: [disallow('external'), validate(sdk.storeAnalytics.validate)],
     remove: [disallow('external')],
   },
 

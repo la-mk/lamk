@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
-import { Application, Service, Params } from '@feathersjs/feathers';
+import { Application, Params } from '@feathersjs/feathers';
+import { Service, MongoDBServiceOptions } from 'feathers-mongodb';
 import { hooks } from './hooks';
 import { logger } from '../../common/logger';
 import { GeneralError } from '../../common/errors';
@@ -54,16 +55,19 @@ const getAnalyticsTypeQuery = (
   }
 };
 
-// @ts-ignore
-class StoreAnalyticsService implements Service<any> {
+class StoreAnalyticsService extends Service {
   // We want to access the database directly, so we can run aggregation queries
   mongoDb: Db;
-  constructor(options: { mongoDb: Db }) {
-    if (!options?.mongoDb) {
+  constructor(
+    analyticsOptions: { mongoDb: Db },
+    adapterOptions: Partial<MongoDBServiceOptions>,
+  ) {
+    if (!analyticsOptions?.mongoDb) {
       throw new Error('Search service: `options.mongoDb` must be provided');
     }
 
-    this.mongoDb = options.mongoDb;
+    super(adapterOptions);
+    this.mongoDb = analyticsOptions.mongoDb;
   }
 
   // We want to use get because the response should be a single object for the specific store.
@@ -90,9 +94,25 @@ class StoreAnalyticsService implements Service<any> {
 }
 
 export const storeAnalytics = (app: Application) => {
+  const paginate = {
+    default: 100,
+    max: 100,
+  };
+
+  const mongoDb = app.get('mongoDb');
+  const options = {
+    paginate,
+    Model: mongoDb.collection('storeContents'),
+    multi: false,
+  };
+
+  const analyticsOptions = {
+    mongoDb: app.get('mongoDb'),
+  };
+
   app.use(
     '/storeAnalytics',
-    new StoreAnalyticsService({ mongoDb: app.get('mongoDb') }),
+    new StoreAnalyticsService(analyticsOptions, options),
   );
   const service = app.service('storeAnalytics');
   service.hooks(hooks);
