@@ -1,12 +1,13 @@
 import Bluebird from 'bluebird';
-import { promises as fs } from 'fs';
-import * as path from 'path';
 import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { MethodNotAllowed, BadRequest } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
 import { User } from '@sradevski/la-sdk/dist/models/user';
-import { getExternalUserParams } from '../../../../tests/utils';
+import {
+  getExternalUserParams,
+  getFixturesContent,
+} from '../../../../tests/utils';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import fixtures from '../../../../tests/fixtures';
 import { OrderPayments } from '@sradevski/la-sdk/dist/models/orderPayments';
@@ -18,16 +19,7 @@ import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import * as nestpay from '../../../common/paymentProcessors/nestpay';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
-const getFixturesContent = async (folderName: string) => {
-  const folderPath = path.resolve(__dirname, folderName);
-  return await fs.readdir(folderPath).then(files =>
-    Bluebird.map(files, file => {
-      return fs
-        .readFile(path.resolve(folderPath, file), 'utf-8')
-        .then(JSON.parse);
-    }),
-  );
-};
+const FIXTURES_DIR = 'src/services/order-payments/__tests__/nestpay';
 
 // The nestpay response fixtures are based on this client ID and key.
 const nestpayProcessor = {
@@ -142,7 +134,7 @@ describe('"orderPayments" service', () => {
   });
 
   it('nestpay is handled correctly', async () => {
-    const nestpayFixtures = await getFixturesContent('nestpay');
+    const nestpayFixtures = await getFixturesContent(FIXTURES_DIR);
     // Concurrency for the same order can make the end result be in inconsistent state, so we limit it. In practice it is very unlikely for concurrent requests to happen, so for now its an acceptible tradeoff.
     const responses = await Bluebird.map(
       nestpayFixtures,
@@ -170,7 +162,7 @@ describe('"orderPayments" service', () => {
   });
 
   it('create throws if order price and transaction amount do not match', async () => {
-    const [fixture] = await getFixturesContent('nestpay');
+    const [fixture] = await getFixturesContent(FIXTURES_DIR);
     normalizeNestpayFixture(fixture, testOrders[0]);
     fixture.request.amount = '12345';
 
