@@ -41,6 +41,10 @@ const extendValidation = () => {
       // We strictly check if the string date passed is in the ISO format toISOString returns.
       return value === new Date(parsed).toISOString();
     },
+    id: () => (value: string) => {
+      // The UUIDs we use are 36 characters length
+      return typeof value === 'string' && value.length === 36;
+    }
   });
 };
 

@@ -8,10 +8,7 @@ import v8n from 'v8n';
 
 export const schema = {
   ...categorySchema,
-  forStore: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(63),
+  forStore: v8n().id(),
 };
 
 export interface StoreCategory extends Category {

@@ -6,43 +6,43 @@ describe('Custom validators', () => {
     expect(
       v8n()
         .oneOf(['a', 'b'])
-        .test('a'),
+        .test('a')
     ).toBeTruthy();
     expect(
       v8n()
         .oneOf(['a', 'b'])
-        .test('b'),
+        .test('b')
     ).toBeTruthy();
     expect(
       v8n()
         .oneOf([1, 2])
-        .test(1),
+        .test(1)
     ).toBeTruthy();
     expect(
       v8n()
         .oneOf([true, false])
-        .test(true),
+        .test(true)
     ).toBeTruthy();
 
     expect(
       v8n()
         .oneOf(['a', 'b'])
-        .test('c'),
+        .test('c')
     ).toBeFalsy();
     expect(
       v8n()
         .oneOf([])
-        .test('a'),
+        .test('a')
     ).toBeFalsy();
     expect(
       v8n()
         .oneOf([])
-        .test('a'),
+        .test('a')
     ).toBeFalsy();
     expect(
       v8n()
         .oneOf([1, 2])
-        .test('a'),
+        .test('a')
     ).toBeFalsy();
   });
 
@@ -51,13 +51,13 @@ describe('Custom validators', () => {
     expect(
       v8n()
         .email()
-        .test('some@email.com'),
+        .test('some@email.com')
     ).toBeTruthy();
 
     expect(
       v8n()
         .email()
-        .test('somenotemail'),
+        .test('somenotemail')
     ).toBeFalsy();
   });
 
@@ -66,56 +66,56 @@ describe('Custom validators', () => {
     expect(
       v8n()
         .datetime()
-        .test('2020-01-12T11:03:14.071Z'),
+        .test('2020-01-12T11:03:14.071Z')
     ).toBeTruthy();
 
     // Valid leap year
     expect(
       v8n()
         .datetime()
-        .test('2020-02-29T11:03:14.071Z'),
+        .test('2020-02-29T11:03:14.071Z')
     ).toBeTruthy();
 
     // Invalid leap year
     expect(
       v8n()
         .datetime()
-        .test('2020-02-30T11:03:14.071Z'),
+        .test('2020-02-30T11:03:14.071Z')
     ).toBeFalsy();
 
     // Invalid time
     expect(
       v8n()
         .datetime()
-        .test('2020-02-30T11:63:14.071Z'),
+        .test('2020-02-30T11:63:14.071Z')
     ).toBeFalsy();
 
     // Invalid date
     expect(
       v8n()
         .datetime()
-        .test('2020-02230T11:63:14.071Z'),
+        .test('2020-02230T11:63:14.071Z')
     ).toBeFalsy();
 
     // No timezone
     expect(
       v8n()
         .datetime()
-        .test('2020-01-12T11:03:14.071'),
+        .test('2020-01-12T11:03:14.071')
     ).toBeFalsy();
 
     // Valid date but in a different ISO format
     expect(
       v8n()
         .datetime()
-        .test('1994-11-05T08:15:30-05:00'),
+        .test('1994-11-05T08:15:30-05:00')
     ).toBeFalsy();
 
     // Invalid date-only format
     expect(
       v8n()
         .datetime()
-        .test('1994-11-05'),
+        .test('1994-11-05')
     ).toBeFalsy();
   });
 
@@ -123,44 +123,67 @@ describe('Custom validators', () => {
     expect(
       v8n()
         .unique()
-        .test([]),
+        .test([])
     ).toBeTruthy();
 
     expect(
       v8n()
         .unique()
-        .test(['a', 'b', 'c']),
+        .test(['a', 'b', 'c'])
     ).toBeTruthy();
 
     expect(
       v8n()
         .unique()
-        .test(['a', 'a', 'b']),
+        .test(['a', 'a', 'b'])
     ).toBeFalsy();
 
     expect(
       v8n()
         .unique()
-        .test([{a: 'a', b: 'b'}, {a: 'c', b: 'b'}]),
+        .test([
+          { a: 'a', b: 'b' },
+          { a: 'c', b: 'b' },
+        ])
     ).toBeTruthy();
 
     expect(
       v8n()
         .unique('a')
-        .test([{a: 'a', b: 'b'}, {a: 'c', b: 'b'}]),
+        .test([
+          { a: 'a', b: 'b' },
+          { a: 'c', b: 'b' },
+        ])
     ).toBeTruthy();
 
     expect(
       v8n()
         .unique('b')
-        .test([{a: 'a', b: 'b'}, {a: 'c', b: 'b'}]),
+        .test([
+          { a: 'a', b: 'b' },
+          { a: 'c', b: 'b' },
+        ])
     ).toBeFalsy();
 
     expect(
       v8n()
         .unique('a.c')
-        .test([{a: {c: 'd'}, b: 'b'}, {a: {c: 'd'}, b: 'b'}]),
+        .test([
+          { a: { c: 'd' }, b: 'b' },
+          { a: { c: 'd' }, b: 'b' },
+        ])
     ).toBeFalsy();
+  });
+
+  test('id', () => {
+    expect(v8n().id().test('')).toBeFalsy();
+    expect(v8n().id().test(null)).toBeFalsy();
+    expect(v8n().id().test(12345)).toBeFalsy();
+    expect(v8n().id().test({})).toBeFalsy();
+    expect(v8n().id().test([])).toBeFalsy();
+    expect(v8n().id().test('hey')).toBeFalsy();
+    expect(v8n().id().test('0b480e2a-b30c-4548-8cbc-882b9d48e2fe-somemore')).toBeFalsy();
+    expect(v8n().id().test('0b480e2a-b30c-4548-8cbc-882b9d48e2fe')).toBeTruthy();
   });
 });
 
@@ -175,7 +198,7 @@ const sampleSchema = {
     v8n()
       .string()
       .maxLength(255),
-    true,
+    true
   ),
   numberOfOffices: v8n().between(1, 50),
   addresses: v8n().optional(
@@ -186,7 +209,7 @@ const sampleSchema = {
       apartment: v8n()
         .string()
         .maxLength(63),
-    }),
+    })
   ),
   // Here min and max applies to the array length
   employeeNames: v8n()
@@ -226,7 +249,7 @@ describe('Validation utility', () => {
 
   test('Should pass when an optional field is passed a trimmed string', () => {
     expect(
-      validation.validate(sampleSchema, { ...sampleData, region: '  ' }),
+      validation.validate(sampleSchema, { ...sampleData, region: '  ' })
     ).toBe(null);
   });
 
@@ -236,7 +259,7 @@ describe('Validation utility', () => {
 
   test('Should return an error when required should be ignored and a required property has invalid value', () => {
     expect(
-      validation.validate(sampleSchema, { country: 123 }, true),
+      validation.validate(sampleSchema, { country: 123 }, true)
     ).toHaveProperty('country');
     expect(
       validation.validate(sampleSchema, { country: 123 }, true)?.country.name
@@ -245,22 +268,24 @@ describe('Validation utility', () => {
 
   test('Should return an error if at least one required property is not passed', () => {
     expect(
-      validation.validate(sampleSchema, { ...sampleData, name: undefined }),
+      validation.validate(sampleSchema, { ...sampleData, name: undefined })
     ).toHaveProperty('name');
   });
 
   test('Should return an error per invalid field', () => {
-    expect(Object.keys(validation.validate(sampleSchema, {}) || {})).toHaveLength(5);
+    expect(
+      Object.keys(validation.validate(sampleSchema, {}) || {})
+    ).toHaveLength(5);
     expect(validation.validate(sampleSchema, {})).toHaveProperty('name');
     expect(validation.validate(sampleSchema, {})).toHaveProperty('country');
     expect(validation.validate(sampleSchema, {})).toHaveProperty(
-      'numberOfOffices',
+      'numberOfOffices'
     );
     expect(validation.validate(sampleSchema, {})).toHaveProperty(
-      'phoneNumbers',
+      'phoneNumbers'
     );
     expect(validation.validate(sampleSchema, {})).toHaveProperty(
-      'employeeNames',
+      'employeeNames'
     );
   });
 
@@ -269,7 +294,7 @@ describe('Validation utility', () => {
       validation.validate(sampleSchema, {
         ...sampleData,
         addresses: [{ street: 'No apartment' }],
-      }),
+      })
     ).toHaveProperty('addresses');
   });
 
@@ -278,14 +303,14 @@ describe('Validation utility', () => {
       validation.validate(sampleSchema, {
         ...sampleData,
         nonexistentField: 1,
-      }),
+      })
     ).toHaveProperty('nonexistentField');
   });
 
   test('Should return the true validation error on an optional field', () => {
     expect(
       validation.validate(sampleSchema, { ...sampleData, region: 123 })?.region
-        .name,
+        .name
     ).toBe('string');
   });
 
