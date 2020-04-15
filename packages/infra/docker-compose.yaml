@@ -81,7 +81,7 @@ services:
       TYPESENSE_API_KEY: $SEARCH_SERVICE_API_KEY
 
   data-api:
-    image: lamk/data-api:1.0.40
+    image: lamk/data-api:1.0.41
     container_name: data-api
     restart: always
     networks:
@@ -121,7 +121,7 @@ services:
       NESTPAY_API_ENDPOINT: $NESTPAY_API_ENDPOINT
 
   store-ui:
-    image: lamk/store-ui:1.0.45
+    image: lamk/store-ui:1.0.46
     container_name: store-ui
     restart: always
     depends_on: 
@@ -186,7 +186,7 @@ services:
 
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.34
+    image: lamk/backstore-ui:1.0.35
     container_name: backstore-ui
     restart: always
     depends_on: 
