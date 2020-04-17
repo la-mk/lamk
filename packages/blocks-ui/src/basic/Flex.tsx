@@ -39,5 +39,5 @@ export const Flex = system<FlexProps>(
 
     display: flex !important;
   ` as any,
-  ['bg']
+  ['color']
 );
