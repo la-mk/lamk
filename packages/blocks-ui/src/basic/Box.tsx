@@ -20,4 +20,4 @@ export const Box = system<BoxProps>(styled.div`
   box-sizing: border-box;
   ${flex};
   ${alignSelf};
-  ${order};` as any);
+  ${order};` as any, ['bg']);

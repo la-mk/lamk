@@ -5,7 +5,7 @@ import 'antd/es/card/style/index.less';
 import { system } from '../system';
 import styled from 'styled-components';
 
-export const Card = styled(system<CardProps>(AntCard))`
+export const Card = styled(system<CardProps>(AntCard, ['bg']))`
   & li {
     box-sizing: border-box;
   }

@@ -13,6 +13,6 @@ declare type TitleProps = Omit<
   'strong'
 >;
 
-export const Text = system<TextProps>(AntTypography.Text as any);
-export const Paragraph = system<BlockProps>(AntTypography.Paragraph as any);
-export const Title = system<TitleProps>(AntTypography.Title as any);
+export const Text = system<TextProps>(AntTypography.Text as any, ['color']);
+export const Paragraph = system<BlockProps>(AntTypography.Paragraph as any, ['color']);
+export const Title = system<TitleProps>(AntTypography.Title as any, ['color']);

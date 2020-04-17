@@ -2,6 +2,9 @@ import {
   space,
   width,
   height,
+  color,
+  backgroundColor,
+  display,
   maxWidth,
   maxHeight,
   minWidth,
@@ -13,8 +16,9 @@ import {
   MaxHeightProps,
   MinWidthProps,
   MinHeightProps,
-  display,
   DisplayProps,
+  ColorProps,
+  BackgroundColorProps,
 } from 'styled-system';
 import styled from 'styled-components';
 
@@ -26,9 +30,12 @@ export interface SystemProps
     MaxHeightProps,
     MinWidthProps,
     MinHeightProps,
-    DisplayProps {}
+    DisplayProps,
+    ColorProps, 
+    BackgroundColorProps {}
 
-export const system = function<T>(Component: React.ComponentClass<T>) {
+
+export const system = function<T>(Component: React.ComponentClass<T>, additionalProps?: string[]) {
   // Use multiple & to increase specificity over the Ant components.
   return styled(Component)<SystemProps>`
     && {
@@ -40,6 +47,8 @@ export const system = function<T>(Component: React.ComponentClass<T>) {
       ${maxWidth}
       ${maxHeight}
       ${display}
+      ${additionalProps?.includes('color') ? color : undefined}
+      ${additionalProps?.includes('bg') ? backgroundColor : undefined}
     }
   `;
 };
