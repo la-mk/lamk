@@ -2,7 +2,7 @@ import {
   space,
   width,
   height,
-  color,
+  textColor,
   backgroundColor,
   display,
   maxWidth,
@@ -17,8 +17,8 @@ import {
   MinWidthProps,
   MinHeightProps,
   DisplayProps,
-  ColorProps,
   BackgroundColorProps,
+  TextColorProps,
 } from 'styled-system';
 import styled from 'styled-components';
 
@@ -31,7 +31,7 @@ export interface SystemProps
     MinWidthProps,
     MinHeightProps,
     DisplayProps,
-    ColorProps, 
+    TextColorProps, 
     BackgroundColorProps {}
 
 
@@ -47,7 +47,7 @@ export const system = function<T>(Component: React.ComponentClass<T>, additional
       ${maxWidth}
       ${maxHeight}
       ${display}
-      ${additionalProps?.includes('color') ? color : undefined}
+      ${additionalProps?.includes('color') ? textColor : undefined}
       ${additionalProps?.includes('bg') ? backgroundColor : undefined}
     }
   `;
