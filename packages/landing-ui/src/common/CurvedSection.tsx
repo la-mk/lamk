@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box } from '@sradevski/blocks-ui';
+import { Box } from '@sradevski/blocks-ui';
 import { BoxProps } from '@sradevski/blocks-ui/dist/basic/Box';
 
 interface CurvedSectionProps extends BoxProps {
@@ -29,14 +29,9 @@ export const CurvedSection = ({
           />
         </svg>
       )}
-      <Flex
-        p={5}
-        alignItems='center'
-        justifyContent='center'
-        style={{ backgroundColor }}
-      >
+      <Box p={5} style={{ backgroundColor }}>
         {children}
-      </Flex>
+      </Box>
       {direction === 'down' && (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
           <path

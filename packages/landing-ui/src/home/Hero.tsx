@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Title, Button, Text } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
-import { CurvedSection } from './CurvedSection';
+import { CurvedSection } from '../common/CurvedSection';
 import { HeroIllustration } from './hero-illustration';
 
 export const Hero = withTheme(({ theme }) => {
@@ -34,6 +34,7 @@ export const Hero = withTheme(({ theme }) => {
             Watch demo
           </Button>
         </Flex>
+
         <HeroIllustration />
       </Flex>
     </CurvedSection>

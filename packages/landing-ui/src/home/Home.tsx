@@ -5,7 +5,7 @@ import { Box } from '@sradevski/blocks-ui';
 import { StepCards } from './StepCards';
 import { MainPoints } from './MainPoints';
 import { FocusCard } from './FocusCard';
-import { ContactUsFooter } from './ContactUsFooter';
+import { ContactUsFooter } from '../common/ContactUsFooter';
 
 export const Home = () => {
   return (

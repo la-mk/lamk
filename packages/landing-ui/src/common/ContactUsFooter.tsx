@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTheme } from 'styled-components';
 import { CurvedSection } from './CurvedSection';
-import { ContactForm } from '../common/ContactForm';
+import { ContactForm } from './ContactForm';
 import { Title, Flex, Image, Box } from '@sradevski/blocks-ui';
 
 export const ContactUsFooter = withTheme(({ theme }) => {
