@@ -12,15 +12,17 @@ module.exports = withPlugins(
         lessLoaderOptions: {
           javascriptEnabled: true,
           modifyVars: {
+            '@primary-color': '#F6376D',
             'height-base': '42px',
             'height-lg': '50px',
             'height-sm': '30px',
+            '@card-padding-base': '36px',
             '@form-item-margin-bottom': '32px',
             '@font-size-base': '16px',
-            '@heading-1-size': '40px',
-            '@heading-2-size': '32px',
-            '@heading-3-size': '24px',
-            '@heading-4-size': '20px',
+            '@heading-1-size': '60px',
+            '@heading-2-size': '44px',
+            '@heading-3-size': '32px',
+            '@heading-4-size': '24px',
           },
         },
         webpack: (config, { isServer }) => {
