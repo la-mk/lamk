@@ -19,6 +19,8 @@ import {
   ColorProps,
   fontSize,
   FontSizeProps,
+  textAlign,
+  TextAlignProps,
 } from 'styled-system';
 import styled from 'styled-components';
 
@@ -32,6 +34,7 @@ export interface SystemProps
     MinHeightProps,
     DisplayProps,
     ColorProps, 
+    TextAlignProps,
     FontSizeProps {}
 
 
@@ -48,6 +51,7 @@ export const system = function<T>(Component: React.ComponentClass<T>, additional
       ${maxHeight}
       ${display}
       ${additionalProps?.includes('color') ? color : undefined}
+      ${additionalProps?.includes('textAlign') ? textAlign : undefined}
       ${additionalProps?.includes('fontSize') ? fontSize : undefined}
     }
   `;
