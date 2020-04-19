@@ -52,7 +52,7 @@ export const LandingLayout = withTheme(
                     <Button type='link'>Дома</Button>
                   </Link>
                 </MenuItem>
-                <MenuItem p={0} key='how-it-works'>
+                {/* <MenuItem p={0} key='how-it-works'>
                   <Link href='/how-it-works' passHref>
                     <Button type='link'>Како функционира</Button>
                   </Link>
@@ -66,7 +66,7 @@ export const LandingLayout = withTheme(
                   <Link href='/contact' passHref>
                     <Button type='link'>Контакт</Button>
                   </Link>
-                </MenuItem>
+                </MenuItem> */}
               </Menu>
             </Flex>
           </Header>

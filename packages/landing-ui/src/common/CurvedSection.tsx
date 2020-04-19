@@ -29,7 +29,7 @@ export const CurvedSection = ({
           />
         </svg>
       )}
-      <Box p={5} style={{ backgroundColor }}>
+      <Box py={5} px={[3, 4, 5]} style={{ backgroundColor }}>
         {children}
       </Box>
       {direction === 'down' && (

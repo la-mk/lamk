@@ -12,7 +12,7 @@ import {
 export const ContactForm = () => {
   return (
     <>
-      <Col width={['100%', '80%', '60%']}>
+      <Col width={['100%', '80%', '60%']} style={{ zIndex: 3 }}>
         <Form
           labelCol={{
             xs: { span: 24 },

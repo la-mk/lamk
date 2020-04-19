@@ -5,8 +5,9 @@ export const GeneratedStoreExample = () => {
   return (
     <Flex
       mt={100}
-      maxWidth={820}
+      maxWidth={980}
       mx='auto'
+      px={3}
       alignItems='center'
       justifyContent='center'
       flexDirection='column'

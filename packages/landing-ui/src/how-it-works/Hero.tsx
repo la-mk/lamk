@@ -19,7 +19,7 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
       size='large'
       onClick={() => setShowVideo(true)}
     >
-      Watch the video
+      Watch video
     </Button>,
     <Button ml={2} size='large'>
       See demo shop
@@ -37,10 +37,16 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
         flexDirection={['column', 'row', 'row']}
       >
         <Box mr={[0, 3, 3]} maxWidth={600}>
-          <Title color='primary' level={1} mb={2} fontSize={[6, 6, 7]}>
+          <Title
+            color='primary'
+            level={1}
+            mb={2}
+            textAlign={['center', 'start', 'start']}
+            fontSize={[6, 6, 7]}
+          >
             How <Text color='secondary'>It Works</Text>
           </Title>
-          <Paragraph>
+          <Paragraph textAlign={['center', 'start', 'start']}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
             voluptatibus optio tempora vero, odio velit earum fugiat eveniet
             assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos
