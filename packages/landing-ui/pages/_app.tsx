@@ -13,7 +13,7 @@ class MyApp extends App<any> {
     return (
       <>
         <NextHead>
-          <link rel='shortcut icon' href={'path/to/url'} />
+          <link rel='shortcut icon' href={'/icon.png'} />
         </NextHead>
 
         <ThemeProvider theme={themeOverride} basicLocale={mk_MK}>

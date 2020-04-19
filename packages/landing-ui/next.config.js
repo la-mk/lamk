@@ -13,6 +13,8 @@ module.exports = withPlugins(
           javascriptEnabled: true,
           modifyVars: {
             '@primary-color': '#F6376D',
+            '@text-color': '#263135',
+            '@text-color-secondary': '#687C94',
             'height-base': '42px',
             'height-lg': '50px',
             'height-sm': '30px',

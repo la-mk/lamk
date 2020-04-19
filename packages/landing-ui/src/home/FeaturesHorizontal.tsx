@@ -15,7 +15,12 @@ const Feature = ({ icon, text, ...props }) => {
       <Box height={90}>
         <Image src={icon} />
       </Box>
-      <Text height={60} textAlign='center' color='secondary'>
+      <Text
+        height={60}
+        fontSize={[2, 2, 3]}
+        textAlign='center'
+        color='secondary'
+      >
         {text}
       </Text>
     </Flex>
