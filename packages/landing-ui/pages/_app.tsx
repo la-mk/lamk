@@ -3,7 +3,7 @@ import App from 'next/app';
 import { default as NextHead } from 'next/head';
 import { Provider as ThemeProvider, hooks, theme } from '@sradevski/blocks-ui';
 import { theme as themeOverride } from '../src/common/theme';
-import { LandingLayout } from '../src/LandingLayout';
+import { LandingLayout } from '../src/layout/LandingLayout';
 import 'antd/dist/antd.less';
 import mk_MK from 'antd/lib/locale/mk_MK';
 
