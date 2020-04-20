@@ -21,7 +21,14 @@ export const GeneratedStoreExample = () => {
         commodi sapiente maiores, nobis sunt illo! Amet nobis dolores assumenda
         vero.
       </Text>
-      <Image src='/products-list-illustration.svg' />
+      <Image
+        display={['none', 'block', 'block']}
+        src='/products-list-illustration.svg'
+      />
+      <Image
+        display={['block', 'none', 'none']}
+        src='/products-list-mobile.svg'
+      />
     </Flex>
   );
 };

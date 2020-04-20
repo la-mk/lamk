@@ -35,7 +35,9 @@ export const FocusCard = ({ icon, title, description, ...props }: any) => {
             {description}
           </Text>
         </Box>
-        <Button size='large'>Start now</Button>
+        <Button size='large' onClick={() => null}>
+          Start now
+        </Button>
 
         <Box style={{ position: 'absolute', bottom: -60, right: -40 }}>
           <Image src='/radiating-dots.svg' />

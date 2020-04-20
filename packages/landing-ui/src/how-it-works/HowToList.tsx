@@ -315,8 +315,8 @@ export const HowToList = () => {
           </Step>
           <Step title={'Product groups'}>
             <StepEntry>Green Cacti</StepEntry>
-            <StepEntry>Spiky Cacti</StepEntry>
-            <StepEntry>Baby Cacti</StepEntry>
+            <StepEntry mt={2}>Spiky Cacti</StepEntry>
+            <StepEntry mt={2}>Baby Cacti</StepEntry>
           </Step>
           <Step title={'Reward'}>
             <StepEntry>30 %</StepEntry>

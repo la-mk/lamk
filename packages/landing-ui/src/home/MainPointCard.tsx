@@ -41,9 +41,7 @@ const Description = ({
       <Title textAlign={['center', 'start', 'start']} level={3}>
         {title}
       </Title>
-      <Text textAlign={['center', 'start', 'start']} color='secondary'>
-        {description}
-      </Text>
+      <Text textAlign={['center', 'start', 'start']}>{description}</Text>
     </Flex>
   );
 };

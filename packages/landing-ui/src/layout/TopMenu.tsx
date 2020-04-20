@@ -15,36 +15,38 @@ export const TopMenu = ({ theme }) => {
       style={{
         border: 'none',
         backgroundColor: theme.colors.lightBackground,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%',
       }}
       mode={mode}
       selectedKeys={selectedKeys}
     >
-      <MenuItem p={0} key='home'>
+      <MenuItem p={0} key='home' mb={11} mx={[0, 1, 2]}>
         <Link href='/' passHref>
           <Button type='link'>Дома</Button>
         </Link>
       </MenuItem>
-      <MenuItem p={0} key='how-it-works'>
+      <MenuItem p={0} key='how-it-works' mb={11} mx={[0, 1, 2]}>
         <Link href='/how-it-works' passHref>
           <Button type='link'>Како функционира</Button>
         </Link>
       </MenuItem>
-      <MenuItem p={0} key='faq'>
+      <MenuItem p={0} key='faq' mb={11} mx={[0, 1, 2]}>
         <Link href='/faq' passHref>
           <Button type='link'>ЧПП</Button>
         </Link>
       </MenuItem>
-      <MenuItem p={0} key='contact'>
+      <MenuItem p={0} key='contact' mb={11} mx={[0, 1, 2]}>
         <Link href='/contact' passHref>
           <Button type='link'>Контакт</Button>
         </Link>
       </MenuItem>
 
-      <MenuItem p={0} key='start-now' style={{ border: 'none' }}>
+      <MenuItem
+        p={0}
+        key='start-now'
+        style={{ border: 'none' }}
+        mb={11}
+        mx={[0, 1, 2]}
+      >
         <Link href='/' passHref>
           <Button style={{ color: 'white' }} type='primary'>
             Почнете сега

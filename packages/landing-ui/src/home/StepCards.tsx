@@ -9,7 +9,7 @@ const StepCard = ({ icon, title, subtitle, ...props }) => {
         <Title textAlign='center' level={4} fontSize={[3, 4, 4]}>
           {title}
         </Title>
-        <Text color='secondary' fontSize={[2, 18, 18]} textAlign='center'>
+        <Text fontSize={[2, 18, 18]} textAlign='center'>
           {subtitle}
         </Text>
       </Flex>

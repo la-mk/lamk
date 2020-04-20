@@ -23,7 +23,7 @@ export const Hero = withTheme(({ theme }) => {
             In 5 minutes
           </Text>
         </Title>
-        <Text fontSize={20} textAlign={'center'} color='secondary'>
+        <Text fontSize={20} textAlign={'center'}>
           The easiest way to build an online shop
         </Text>
         <Flex mt={5}>

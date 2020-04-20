@@ -23,6 +23,7 @@ interface StoreLayoutProps {
 
 // This makes sure the anchor is as high as its content
 const LineHeightFreeAnchor = styled.a`
+  display: flex;
   line-height: 0;
   height: 56px;
   min-width: 56px;
@@ -47,8 +48,13 @@ export const LandingLayout = withTheme(
           >
             <Flex justifyContent='space-between'>
               <Link href='/' passHref>
-                <LineHeightFreeAnchor style={{ display: 'flex' }}>
-                  <Image maxHeight='100%' src={'/logo-full.svg'} alt='logo' />
+                <LineHeightFreeAnchor>
+                  <Image
+                    maxHeight='100%'
+                    my={1}
+                    src={'/logo-full.svg'}
+                    alt='logo'
+                  />
                 </LineHeightFreeAnchor>
               </Link>
               {!isMenuCollapsed && <TopMenu theme={theme} />}
@@ -69,9 +75,10 @@ export const LandingLayout = withTheme(
           <Content style={{ backgroundColor: 'white' }}>{children}</Content>
           <Footer
             style={{ zIndex: 1, backgroundColor: theme.colors.darkBackground }}
-            textAlign='center'
           >
-            <Text color='white'>La.mk © 2020</Text>
+            <Text textAlign='center' color='white'>
+              La.mk © 2020
+            </Text>
           </Footer>
         </Layout>
 
@@ -84,7 +91,7 @@ export const LandingLayout = withTheme(
           title='Menu'
           placement='right'
           onClose={() => setIsDrawerVisible(false)}
-          visible={isDrawerVisible}
+          visible={isMenuCollapsed && isDrawerVisible}
         >
           <TopMenu theme={theme} />
         </Drawer>
