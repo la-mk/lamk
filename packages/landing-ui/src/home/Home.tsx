@@ -11,8 +11,11 @@ export const Home = () => {
   return (
     <Box>
       <Hero />
+
       <StepCards />
+
       <FeaturesHorizontal mt={[80, 100, 120]} />
+
       <MainPoints />
 
       <FocusCard
