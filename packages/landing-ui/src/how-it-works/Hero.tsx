@@ -46,7 +46,7 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
           >
             How <Text color='secondary'>It Works</Text>
           </Title>
-          <Paragraph textAlign={['center', 'start', 'start']}>
+          <Paragraph mt={4} textAlign={['center', 'start', 'start']}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
             voluptatibus optio tempora vero, odio velit earum fugiat eveniet
             assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos
