@@ -7,6 +7,9 @@ import './index.css';
 import './config/i18n';
 import { FullScreenSpinner } from './components/shared/components/FullScreenSpinner';
 
+// Remove spinner in index.html shown while loading script resources
+document.getElementById('loading-spinner')?.remove();
+
 ReactDOM.render(
   <Suspense fallback={<FullScreenSpinner />}>
     <App />
