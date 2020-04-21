@@ -19,6 +19,7 @@ import { storeAnalytics } from '../../services/store-analytics/storeAnalytics';
 import { storePaymentMethods } from '../../services/store-payment-methods/storePaymentMethods';
 import { orderPayments } from '../../services/order-payments/orderPayments';
 import { orderPaymentsQuery } from '../../services/order-payments-query/orderPaymentsQuery';
+import { contactUs } from '../../services/contact-us/contactUs';
 
 export const registerServices = (app: Application) => {
   authentication(app);
@@ -41,4 +42,5 @@ export const registerServices = (app: Application) => {
   storePaymentMethods(app);
   orderPayments(app);
   orderPaymentsQuery(app);
+  contactUs(app);
 };
