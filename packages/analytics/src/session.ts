@@ -1,4 +1,4 @@
-import { differenceInMinutes } from 'utils';
+import { differenceInMinutes } from './utils';
 
 const SESSION_DURATION_MIN = 30;
 const SESSION_STORAGE_NAME = 'sessionInfo';
