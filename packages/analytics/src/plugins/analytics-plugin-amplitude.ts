@@ -20,7 +20,7 @@ export default function amplitude(pluginConfig: AmplitudeConfig) {
         return;
       }
 
-      amplitudeSdk = require('amplitude-js/amplitude');
+      amplitudeSdk = require('amplitude-js');
 
       amplitudeSdk.getInstance().init(config.trackingId, null, {
         includeUtm: true,

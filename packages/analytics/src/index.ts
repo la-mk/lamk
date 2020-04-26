@@ -1,7 +1,7 @@
 import Analytics from 'analytics';
 import amplitudePlugin from './plugins/analytics-plugin-amplitude';
 import debugPlugin from './plugins/analytics-plugin-debug';
-export {session, SessionInfo} from './session';
+export { session, SessionInfo } from './session';
 
 export enum AnalyticsEvents {
   openStore = 'open store',
@@ -24,8 +24,15 @@ export interface AnalyticsOptions {
   eventPrefix: string;
 }
 
+// This is only exported as commonJS library (`module` is not in package.json) because lazy loading amplitude
+// See https://github.com/amplitude/Amplitude-JavaScript/issues/138, 
 
-export const getAnalyticsClient = ({debug, app, trackingId, eventPrefix}: AnalyticsOptions): AnalyticsClient => {
+export const getAnalyticsClient = ({
+  debug,
+  app,
+  trackingId,
+  eventPrefix,
+}: AnalyticsOptions): AnalyticsClient => {
   const plugins = [
     ...(debug ? [debugPlugin()] : []),
     amplitudePlugin({
@@ -40,4 +47,4 @@ export const getAnalyticsClient = ({debug, app, trackingId, eventPrefix}: Analyt
     version: '1',
     plugins,
   });
-}
+};
