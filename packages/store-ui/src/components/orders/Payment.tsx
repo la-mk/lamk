@@ -22,7 +22,7 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 import Link from 'next/link';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '../../common/analytics';
+import { AnalyticsEvents } from '@sradevski/analytics';
 
 interface PaymentProps {
   orderId: string | undefined;

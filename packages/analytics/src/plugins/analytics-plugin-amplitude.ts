@@ -20,6 +20,8 @@ export default function amplitude(pluginConfig: AmplitudeConfig) {
         return;
       }
 
+      // We have to lazy-load amplitude as it doesn't support running in node.
+      // See https://github.com/amplitude/Amplitude-JavaScript/issues/138,
       amplitudeSdk = require('amplitude-js');
 
       amplitudeSdk.getInstance().init(config.trackingId, null, {

@@ -31,7 +31,7 @@ import { Price } from '../shared/Price';
 import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '../../common/analytics';
+import { AnalyticsEvents } from '@sradevski/analytics';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall(true);

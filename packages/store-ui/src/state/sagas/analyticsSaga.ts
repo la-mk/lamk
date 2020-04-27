@@ -1,6 +1,6 @@
 import { omit } from 'lodash';
 import { takeEvery, takeLatest, select } from 'redux-saga/effects';
-import { analytics } from '../../analytics/';
+import { analytics } from '../../common/analytics';
 import { LOGOUT } from '../modules/auth/auth.module';
 import { SET_USER } from '../modules/user/user.module';
 import { SET_UI_LOADED } from '../modules/ui/ui.module';
@@ -9,9 +9,8 @@ import {
   TRACK_EVENT,
   TrackEventPayload,
 } from '../modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '../../common/analytics';
 import { LOCATION_CHANGE } from '../modules/navigation/navigation.actions';
-import { session } from '../../common/analytics';
+import { session, AnalyticsEvents } from '@sradevski/analytics';
 
 function* storeLoadedSaga() {
   // If the site is loaded from scratch multiple times within a session, don't log anymore.

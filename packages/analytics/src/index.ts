@@ -24,9 +24,6 @@ export interface AnalyticsOptions {
   eventPrefix: string;
 }
 
-// This is only exported as commonJS library (`module` is not in package.json) because lazy loading amplitude
-// See https://github.com/amplitude/Amplitude-JavaScript/issues/138, 
-
 export const getAnalyticsClient = ({
   debug,
   app,

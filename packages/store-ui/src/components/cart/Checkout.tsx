@@ -26,7 +26,7 @@ import { SelectPaymentMethod } from './SelectPaymentMethod';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '../../common/analytics';
+import { AnalyticsEvents } from '@sradevski/analytics';
 
 export const Checkout = () => {
   const [caller, showSpinner] = hooks.useCall(true);

@@ -33,7 +33,7 @@ import { Page } from '../shared/Page';
 import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 import { getFiltersFromSetQuery } from '../../common/filterUtils';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents, session } from '../../common/analytics';
+import { session, AnalyticsEvents } from '@sradevski/analytics';
 
 interface ProductProps {
   product: ProductType;

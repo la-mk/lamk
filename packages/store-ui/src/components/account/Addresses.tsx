@@ -11,7 +11,7 @@ import { setAddresses } from '../../state/modules/user/user.module';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '../../common/analytics';
+import { AnalyticsEvents } from '@sradevski/analytics';
 
 interface AddressesProps {
   user: User;
