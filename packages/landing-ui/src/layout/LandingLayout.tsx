@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Layout,
   Content,
@@ -15,6 +15,9 @@ import { MenuOutlined } from '@ant-design/icons';
 import styled, { withTheme } from 'styled-components';
 import Link from 'next/link';
 import { TopMenu } from './TopMenu';
+import { trackInitialLoad, track } from '../common/analytics';
+import { Router } from 'next/router';
+import { session, AnalyticsEvents } from '@sradevski/analytics';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -34,6 +37,34 @@ export const LandingLayout = withTheme(
   ({ theme, children }: StoreLayoutProps) => {
     const isMenuCollapsed = hooks.useBreakpoint([true, false, false]);
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+
+    // Fire an event to know that the UI has loaded on the client-side.
+    useEffect(() => {
+      trackInitialLoad();
+      const onRouteChange = () => {
+        const sessionInfo = session.getSessionInfo();
+        if (!sessionInfo) {
+          return;
+        }
+
+        // Reset the time on every navigation.
+        sessionInfo.startTimestamp = Date.now();
+        sessionInfo.previousPage = document.location.href;
+        sessionInfo.pageVisits += 1;
+        session.setSessionInfo(sessionInfo);
+      };
+
+      const onTrackPageView = () => {
+        track(AnalyticsEvents.pageView);
+      };
+
+      Router.events.on('beforeHistoryChange', onRouteChange);
+      Router.events.on('routeChangeComplete', onTrackPageView);
+      return () => {
+        Router.events.off('beforeHistoryChange', onRouteChange);
+        Router.events.off('routeChangeComplete', onTrackPageView);
+      };
+    }, []);
 
     return (
       <>

@@ -11,6 +11,8 @@ import {
   message,
   Box,
 } from '@sradevski/blocks-ui';
+import { track } from './analytics';
+import { AnalyticsEvents } from '@sradevski/analytics';
 
 interface ContactUs {
   email: string;
@@ -58,6 +60,9 @@ export const ContactForm = () => {
 
   const handleSubmit = (data: ContactUs) => {
     setIsSubmitting(true);
+    track(AnalyticsEvents.submitContactUs, {
+      email: data.email,
+    });
 
     fetch('https://api.la.mk/contactUs', {
       method: 'POST',

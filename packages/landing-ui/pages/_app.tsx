@@ -6,9 +6,15 @@ import { theme as themeOverride } from '../src/common/theme';
 import { LandingLayout } from '../src/layout/LandingLayout';
 import 'antd/dist/antd.less';
 import mk_MK from 'antd/lib/locale/mk_MK';
+import { initializeAnalytics } from '../src/common/analytics';
 
 class MyApp extends App<any> {
   render() {
+    // Initialize analytics and only in the browser for now.
+    if (process.browser) {
+      initializeAnalytics();
+    }
+
     const { Component, pageProps } = this.props;
     return (
       <>

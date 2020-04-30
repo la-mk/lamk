@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Flex } from '@sradevski/blocks-ui';
+import { track } from './analytics';
+import { AnalyticsEvents } from '@sradevski/analytics';
 
 interface VideoProps {
   mp4?: string;
@@ -8,6 +10,10 @@ interface VideoProps {
 }
 
 export const Video = ({ mp4, webm, height }: VideoProps) => {
+  useEffect(() => {
+    track(AnalyticsEvents.openVideo, { source: webm ?? mp4 });
+  }, []);
+
   return (
     <>
       {(mp4 || webm) && (

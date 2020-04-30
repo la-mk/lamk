@@ -24,9 +24,9 @@ export const HumanLaptopPlant = () => {
       <path
         d='M34.0761 216C35.026 217.761 35.6592 219.683 36.1342 221.764C37.0841 225.767 37.2424 229.77 36.6092 233.774C33.6011 237.937 24.4187 240.979 23.6271 241.78C22.6772 242.58 22.2022 245.783 26.7934 244.822C31.3847 243.861 45 240.979 45 240.979V238.897L44.8417 233.934L44.6833 218.082C43.8918 217.761 42.9419 217.441 41.992 217.121C39.6172 216.32 36.9258 216 34.0761 216Z'
         stroke='#222222'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M36.5356 235C32.8827 238.688 24.4146 241.301 23.5843 241.916C22.7541 242.53 22.09 245.758 26.9052 244.835C31.7204 243.913 46 241.147 46 241.147L45.8339 236.229C42.3471 236.998 39.3583 236.998 36.5356 235Z'
@@ -39,9 +39,9 @@ export const HumanLaptopPlant = () => {
       <path
         d='M22.7415 209C23.5574 210.771 24.3732 212.864 24.8627 214.796C25.8417 218.822 26.0048 222.847 25.189 226.872C21.9257 231.058 12.6253 233.957 11.6463 234.762C10.6673 235.567 10.1778 238.787 14.9096 237.821C19.6414 236.855 33.8368 234.118 33.8368 234.118V232.025V227.033L34 211.093C33.1842 210.771 32.2052 210.449 31.2262 210.127C28.4523 209.322 25.6785 209 22.7415 209Z'
         stroke='#222222'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M24.012 228C20.5429 231.59 12.3434 234.243 11.5549 234.867C10.7665 235.492 10.1358 238.769 14.7086 237.833C19.2815 236.896 33 234.243 33 234.243V229.249C29.5309 230.185 26.6926 230.029 24.012 228Z'
@@ -70,9 +70,9 @@ export const HumanLaptopPlant = () => {
       <path
         d='M91.732 61.6653C91.4073 59.8609 91.4074 57.8925 91.5697 56.0882C92.706 52.6435 101.796 51.1672 106.828 51.0032C111.698 50.8391 112.348 57.0724 111.861 59.0408C111.374 62.8135 111.374 66.5862 111.536 70.359C111.698 72.6554 115.757 75.608 115.757 75.608C115.757 75.608 109.75 85.9421 103.42 87.9104C102.933 84.4658 101.634 78.7246 100.66 75.28C97.2511 76.4282 94.9786 74.7879 94.4916 73.6396C93.6799 71.3432 93.0306 68.8827 92.706 66.5862M93.6799 199.945C93.5176 210.771 96.1149 221.433 101.309 230.783L93.6799 199.945ZM63 229.962C98.3874 230.126 133.937 232.751 169 238L63 229.962Z'
         stroke='#222222'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M114.984 54.1288C114.984 54.1288 115.464 48.1006 111.146 48.4264C106.828 48.7523 109.387 44.842 105.228 45.005C101.07 45.1679 92.9139 50.3815 88.9156 49.7298C85.5571 48.9152 82.1986 47.9376 79 46.6342C79 46.6342 84.4376 60.32 96.2724 56.0839C108.107 51.8479 102.83 53.3142 102.83 53.3142C102.83 53.3142 99.7908 55.4322 101.39 57.7132C102.989 59.9942 102.67 64.5561 102.67 64.5561L104.429 64.3932C104.429 64.3932 105.069 58.3649 106.988 58.8537C108.907 59.3425 111.146 60.8088 110.186 62.7639C109.706 63.7415 109.227 64.882 108.747 66.0224L112.425 67L114.984 54.1288Z'
@@ -81,16 +81,16 @@ export const HumanLaptopPlant = () => {
       <path
         d='M98.5 66C99.8807 66 101 64.6569 101 63C101 61.3431 99.8807 60 98.5 60C97.1193 60 96 61.3431 96 63C96 64.6569 97.1193 66 98.5 66Z'
         stroke='#222222'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M90.5 67C91.8807 67 93 65.8807 93 64.5C93 63.1193 91.8807 62 90.5 62C89.1193 62 88 63.1193 88 64.5C88 65.8807 89.1193 67 90.5 67Z'
         stroke='#222222'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M93 64C93.3158 63.0614 93.7895 62.4356 94.421 62.1227C94.8947 61.8099 95.5263 62.1227 96 62.7485'
@@ -99,16 +99,16 @@ export const HumanLaptopPlant = () => {
       <path
         d='M93 64C93.3158 63.0614 93.7895 62.4356 94.421 62.1227C94.8947 61.8099 95.5263 62.1227 96 62.7485'
         stroke='black'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M101 62L105 61'
         stroke='#222222'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M77.4984 154.833L77 157L96.9345 151.167C97.5989 151 97.9312 150.333 97.9312 149.667V148.833C98.0973 148.167 97.9312 147.667 97.7651 147L77.4984 154.833Z'
@@ -129,9 +129,9 @@ export const HumanLaptopPlant = () => {
       <path
         d='M98 144.345C94.2032 144.02 90.5715 144.345 86.9397 145.484C83.9683 146.46 78.8509 148.738 78.1906 147.762C77.8605 147.436 78.0255 146.623 78.1906 145.972C78.5208 144.996 78.8509 144.183 79.5112 143.369C80.8318 140.929 83.1429 139.139 85.9493 138.488C87.1048 138.488 88.2604 138.488 89.4159 138.813C91.3969 138.976 93.3778 138.651 95.1937 138'
         stroke='#222222'
-        stroke-width='1.03'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.03'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M115.654 94.4268C115.985 97.3836 119.452 120.381 119.452 120.381L118.131 123.995C114.994 124.816 110.537 126.131 105.419 128.102C93.697 132.537 92.7065 134.837 92.2112 135.987C91.3857 139.765 93.0367 143.707 96.1735 145.843C99.4754 148.142 103.438 146.828 115.324 143.543C133.65 138.286 133.65 138.286 134.31 137.794C147.352 127.445 138.107 100.998 133.485 86.8705C131.669 81.2854 123.744 78 123.744 78C120.112 78.4928 115.159 89.9916 115.654 94.4268Z'
@@ -378,63 +378,63 @@ export const HumanLaptopPlant = () => {
         d='M175.332 157.998C176.475 154.882 176.149 151.438 174.352 148.651C172.718 145.863 169.614 143.895 166.511 143.567C164.714 146.519 164.714 150.619 166.511 153.57C168.308 156.522 171.738 158.49 175.168 158.326'
         fill='#687C94'
       />
-      <circle cx='166.5' cy='26.5' r='7.5' stroke='#F6376D' stroke-width='2' />
-      <circle cx='116.5' cy='8.5' r='7.5' stroke='#B3C6E4' stroke-width='2' />
+      <circle cx='166.5' cy='26.5' r='7.5' stroke='#F6376D' strokeWidth='2' />
+      <circle cx='116.5' cy='8.5' r='7.5' stroke='#B3C6E4' strokeWidth='2' />
       <path
         d='M189.5 54.6562V59.9688'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M181 62.0938H187.375'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M189.5 64.2188V70.5938'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M191.625 62.0938H198'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M135.167 31V34.9792'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M128.8 36.5708H133.575'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M135.167 38.1625V42.9375'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M136.758 36.5708H141.533'
         stroke='#687C94'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   );
