@@ -20,6 +20,8 @@ export enum AnalyticsEvents {
   openDemoStore = 'open demo store',
   clickStartNow = 'click start now',
   submitContactUs = 'submit contact us',
+
+  pageView = 'page view',
 }
 
 export type AnalyticsClient = ReturnType<typeof Analytics>;
