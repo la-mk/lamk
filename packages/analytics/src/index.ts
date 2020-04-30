@@ -14,6 +14,12 @@ export enum AnalyticsEvents {
   checkout = 'checkout',
   order = 'order',
   pay = 'pay',
+
+  openMarketingSite = 'open marketing site',
+  openVideo = 'open video',
+  openDemoStore = 'open demo store',
+  clickStartNow = 'click start now',
+  submitContactUs = 'submit contact us',
 }
 
 export type AnalyticsClient = ReturnType<typeof Analytics>;
