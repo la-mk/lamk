@@ -7,6 +7,7 @@ import { LandingLayout } from '../src/layout/LandingLayout';
 import 'antd/dist/antd.less';
 import mk_MK from 'antd/lib/locale/mk_MK';
 import { initializeAnalytics } from '../src/common/analytics';
+import { appWithTranslation } from '../src/common/i18n';
 
 class MyApp extends App<any> {
   render() {
@@ -36,4 +37,4 @@ class MyApp extends App<any> {
   }
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

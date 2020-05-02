@@ -5,6 +5,7 @@ import { Hero } from './Hero';
 import { HowToList } from './HowToList';
 import { GeneratedStoreExample } from './GeneratedStoreExample';
 import { ContactUsFooter } from '../common/ContactUsFooter';
+import { useTranslation } from '../common/i18n';
 
 const RadiatingCircles = () => {
   return (
@@ -41,6 +42,7 @@ const RadiatingCircles = () => {
 
 export const HowItWorks = () => {
   const [showVideo, setShowVideo] = React.useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -53,10 +55,10 @@ export const HowItWorks = () => {
 
       <Flex alignItems='center' justifyContent='center' my={80}>
         <Button mr={2} type='primary' size='large' width={140}>
-          Start now
+          {t('actions.startNow')}
         </Button>
         <Button ml={2} width={140} size='large'>
-          Watch demo
+          {t('actions.watchDemo')}
         </Button>
       </Flex>
 

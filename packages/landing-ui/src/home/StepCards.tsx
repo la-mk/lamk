@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex, Card, Image, Title, Text } from '@sradevski/blocks-ui';
+import { useTranslation } from '../common/i18n';
 
 const StepCard = ({ icon, title, subtitle, ...props }) => {
   return (
@@ -18,6 +19,7 @@ const StepCard = ({ icon, title, subtitle, ...props }) => {
 };
 
 export const StepCards = () => {
+  const { t } = useTranslation();
   return (
     <Flex
       mt={[-40, -120, -200]}
@@ -28,21 +30,20 @@ export const StepCards = () => {
       <StepCard
         mr={[0, 0, 5]}
         icon='/pencil-create.svg'
-        title='Create your store'
-        subtitle="Sign up, tell us your store name, add your logo, 
-        and you're ready to go"
+        title={t('landing.stepCreateStore')}
+        subtitle={t('landing.stepCreateStoreDetails')}
       />
       <StepCard
         my={[4, 4, 0]}
         icon='/product-box.svg'
-        title='Add your products'
-        subtitle='We have no limits, so add as many as you want'
+        title={t('landing.stepAddProducts')}
+        subtitle={t('landing.stepAddProductsDetails')}
       />
       <StepCard
         ml={[0, 0, 5]}
         icon='/start-rocket.svg'
-        title='Start selling'
-        subtitle='Add your preferred delivery and payment methods, and start selling'
+        title={t('landing.stepStartSelling')}
+        subtitle={t('landing.stepStartSellingDetails')}
       />
     </Flex>
   );

@@ -1,11 +1,21 @@
 import React from 'react';
-import { Menu, MenuItem, Button, hooks } from '@sradevski/blocks-ui';
+import {
+  Menu,
+  MenuItem,
+  Button,
+  hooks,
+  Dropdown,
+  Text,
+} from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { GlobalOutlined } from '@ant-design/icons';
+import { useTranslation } from '../common/i18n';
 
 export const TopMenu = ({ theme }) => {
-  const mode = hooks.useBreakpoint(['vertical', 'horizontal', 'horizontal']);
+  const mode = hooks.useBreakpoint(['vertical', 'vertical', 'horizontal']);
   const router = useRouter();
+  const { t, i18n } = useTranslation();
   // Not a very clean solution, but it will do for now
   const matches = router.pathname.match(/\/([^/]*)(\/?)/);
   const selectedKeys = matches && !!matches[1] ? [matches[1]] : ['home'];
@@ -21,7 +31,7 @@ export const TopMenu = ({ theme }) => {
     >
       <MenuItem p={0} key='home' mb={11} mx={[0, 1, 2]}>
         <Link href='/' passHref>
-          <Button type='link'>Дома</Button>
+          <Button type='link'>{t('actions.add')}</Button>
         </Link>
       </MenuItem>
       <MenuItem p={0} key='how-it-works' mb={11} mx={[0, 1, 2]}>
@@ -40,6 +50,34 @@ export const TopMenu = ({ theme }) => {
         </Link>
       </MenuItem>
 
+      <MenuItem p={0} key='language' mb={11} mx={[0, 1, 2]}>
+        <Dropdown
+          placement='bottomLeft'
+          overlay={
+            <Menu
+              selectedKeys={[i18n.language]}
+              onClick={({ key }) => {
+                i18n.changeLanguage(key);
+              }}
+            >
+              <MenuItem key='mk'>
+                <Text>Македонски</Text>
+              </MenuItem>
+              <MenuItem key='en'>
+                <Text>English</Text>
+              </MenuItem>
+            </Menu>
+          }
+        >
+          <Button width='100%' display='block' type='link'>
+            <Text>
+              <GlobalOutlined style={{ marginRight: 0 }} />{' '}
+              {i18n.language.toUpperCase()}
+            </Text>
+          </Button>
+        </Dropdown>
+      </MenuItem>
+
       <MenuItem
         p={0}
         key='start-now'
@@ -48,7 +86,7 @@ export const TopMenu = ({ theme }) => {
         mx={[0, 1, 2]}
       >
         <Link href='/' passHref>
-          <Button style={{ color: 'white' }} type='primary'>
+          <Button mx={[2, 0, 0]} style={{ color: 'white' }} type='primary'>
             Почнете сега
           </Button>
         </Link>

@@ -3,8 +3,11 @@ import { Flex, Title, Button, Text } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { CurvedSection } from '../common/CurvedSection';
 import { HeroIllustration } from './hero-illustration';
+import { useTranslation } from '../common/i18n';
 
 export const Hero = withTheme(({ theme }) => {
+  const { t } = useTranslation();
+
   return (
     <CurvedSection
       direction='down'
@@ -24,14 +27,14 @@ export const Hero = withTheme(({ theme }) => {
           </Text>
         </Title>
         <Text fontSize={20} textAlign={'center'}>
-          The easiest way to build an online shop
+          {t('company.subTagline')}
         </Text>
         <Flex mt={5}>
           <Button width={140} mr={2} type='primary' size='large'>
-            Start now
+            {t('actions.startNow')}
           </Button>
           <Button width={140} type='ghost' ml={2} size='large'>
-            Watch demo
+            {t('actions.watchDemo')}
           </Button>
         </Flex>
 

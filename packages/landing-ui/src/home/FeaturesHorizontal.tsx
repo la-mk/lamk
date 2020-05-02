@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex, Image, Text, Box } from '@sradevski/blocks-ui';
+import { useTranslation } from '../common/i18n';
 
 const Feature = ({ icon, text, ...props }) => {
   return (
@@ -28,9 +29,11 @@ const Feature = ({ icon, text, ...props }) => {
 };
 
 export const FeaturesHorizontal = (props) => {
+  const { t } = useTranslation();
+
   return (
     <Flex
-      {...props}
+      mt={[80, 100, 120]}
       px={1}
       style={{ overflowY: 'auto' }}
       flexDirection={'row'}
@@ -41,23 +44,26 @@ export const FeaturesHorizontal = (props) => {
         mr={[2, 3, 4]}
         ml='auto'
         icon='/feature-domain.svg'
-        text='Personal domain for your shop'
+        text={t('landing.featureFreeDomain')}
       />
       <Feature
         icon='/feature-unlimited.svg'
-        text='Unlimited products and storage'
+        text={t('landing.featureUnlimitedProductsStorage')}
       />
-      <Feature icon='/feature-creditcard.svg' text='Credit card payments' />
+      <Feature
+        icon='/feature-creditcard.svg'
+        text={t('landing.featureCreditCardPayments')}
+      />
       <Feature
         icon='/feature-campaigns.svg'
-        text='Flexible discount campaigns'
+        text={t('landing.featureDiscountCampaigns')}
       />
       <Feature
         mx={undefined}
         ml={[2, 3, 4]}
         mr='auto'
         icon='/feature-analytics.svg'
-        text='Usage and sales analytics'
+        text={t('landing.featureAnalytics')}
       />
     </Flex>
   );

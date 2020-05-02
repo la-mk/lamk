@@ -9,6 +9,7 @@ import {
   Paragraph,
 } from '@sradevski/blocks-ui';
 import styled from 'styled-components';
+import { useTranslation } from '../common/i18n';
 
 const HowToOrderedList = styled.ol`
   list-style: none;
@@ -141,27 +142,29 @@ const HowToItem = ({ title, description, children }) => {
 };
 
 export const HowToList = () => {
+  const { t } = useTranslation();
+
   return (
     <Box mx={'auto'} px={[3, 5, 6]} maxWidth={1280}>
       <HowToOrderedList>
         <HowToItem
-          title='Create a store'
-          description={
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque atque dicta quibusdam dignissimos culpa ullam dolore iusto maxime eius ducimus. Soluta distinctio, ipsum ullam fugiat quas reprehenderit perspiciatis adipisci vel.'
-          }
+          title={t('howItWorks.listCreateStore')}
+          description={t('howItWorks.listCreateStoreDetails')}
         >
-          <Step title={'Store name'}>
-            <StepEntry>Cactus shop</StepEntry>
+          <Step title={t('howItWorks.storeName')}>
+            <StepEntry>{t('howItWorks.sampleStoreName')}</StepEntry>
           </Step>
-          <Step title={'Store URL'}>
+
+          <Step title={t('howItWorks.storeUrl')}>
             <StepEntry>
-              cactus
+              {t('howItWorks.sampleStoreUrl')}
               <Text strong color='primary'>
                 .la.mk
               </Text>
             </StepEntry>
           </Step>
-          <Step title={'Store logo'}>
+
+          <Step title={t('howItWorks.storeLogo')}>
             <StepEntry>
               <Image src='/cactus-logo.svg' />
             </StepEntry>
@@ -173,34 +176,34 @@ export const HowToList = () => {
               size='small'
               width='100%'
             >
-              Create
+              {t('actions.create')}
             </Button>
           </Step>
-          <Step title={'Success'}>
+          <Step title={t('common.success')}>
             <StepSuccess />
           </Step>
         </HowToItem>
 
         <HowToItem
-          title='Add products to your store'
-          description={
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque atque dicta quibusdam dignissimos culpa ullam dolore iusto maxime eius ducimus. Soluta distinctio, ipsum ullam fugiat quas reprehenderit perspiciatis adipisci vel.'
-          }
+          title={t('howItWorks.listAddProducts')}
+          description={t('howItWorks.listAddProductsDetails')}
         >
-          <Step title={'Product name'}>
-            <StepEntry>Cactus shop</StepEntry>
+          <Step title={t('howItWorks.productName')}>
+            <StepEntry>{t('howItWorks.sampleProductName')}</StepEntry>
           </Step>
-          <Step title={'Product image'}>
+          <Step title={t('howItWorks.productImage')}>
             <StepEntry>
               <Image src='/cactus-1.svg' />
             </StepEntry>
           </Step>
-          <Step title={'Product description'}>
+          <Step title={t('howItWorks.productDescription')}>
             <StepEntry>
-              <Text textAlign='center'>Happy green cactus</Text>
+              <Text textAlign='center'>
+                {t('howItWorks.sampleProductDescription')}
+              </Text>
             </StepEntry>
           </Step>
-          <Step title={'Product price'}>
+          <Step title={t('howItWorks.productPrice')}>
             <StepEntry>400 MKD</StepEntry>
             <Button
               style={{ fontSize: 14 }}
@@ -209,30 +212,32 @@ export const HowToList = () => {
               size='small'
               width='100%'
             >
-              Add to store
+              {t('actions.addToStore')}
             </Button>
           </Step>
         </HowToItem>
 
         <HowToItem
-          title='Specify your delivery and payment preferences'
-          description={
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque atque dicta quibusdam dignissimos culpa ullam dolore iusto maxime eius ducimus. Soluta distinctio, ipsum ullam fugiat quas reprehenderit perspiciatis adipisci vel.'
-          }
+          title={t('howItWorks.listDeliveryPaymentPreferences')}
+          description={t('howItWorks.listDeliveryPaymentPreferencesDetails')}
         >
-          <Step title={'Delivery method'}>
+          <Step title={t('howItWorks.deliveryMethod')}>
             <StepEntry>
-              <Text textAlign='center'>Door to door delivery</Text>
+              <Text textAlign='center'>
+                {t('howItWorks.sampleDeliveryMethod')}
+              </Text>
             </StepEntry>
           </Step>
-          <Step title={'Delivery fee'}>
+          <Step title={t('howItWorks.deliveryFee')}>
             <StepEntry>100 MKD</StepEntry>
             <Box mt={3}>
-              <Text type='secondary'>Free over:</Text>
+              <Text type='secondary'>
+                {t('howItWorks.sampleFreeOverDelivery')}:
+              </Text>
               <StepEntry>1200 MKD</StepEntry>
             </Box>
           </Step>
-          <Step title={'Payment options'}>
+          <Step title={t('howItWorks.paymentOptions')}>
             <Flex
               width='100%'
               mb={2}
@@ -240,11 +245,11 @@ export const HowToList = () => {
               justifyContent='center'
             >
               <Image mr={2} src='/checkbox.svg' />
-              <StepEntry>Credit card</StepEntry>
+              <StepEntry>{t('howItWorks.samplePaymentCreditCard')}</StepEntry>
             </Flex>
             <Flex width='100%' alignItems='center' justifyContent='center'>
               <Image mr={2} src='/checkbox.svg' />
-              <StepEntry>On delivery</StepEntry>
+              <StepEntry>{t('howItWorks.samplePaymentOnDelivery')}</StepEntry>
             </Flex>
 
             <Button
@@ -254,45 +259,47 @@ export const HowToList = () => {
               size='small'
               width='100%'
             >
-              Start selling
+              Start
             </Button>
           </Step>
-          <Step title={'Success'}>
+          <Step title={t('common.success')}>
             <StepSuccess />
           </Step>
         </HowToItem>
 
         <HowToItem
-          title='Manage orders'
-          description={
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque atque dicta quibusdam dignissimos culpa ullam dolore iusto maxime eius ducimus. Soluta distinctio, ipsum ullam fugiat quas reprehenderit perspiciatis adipisci vel.'
-          }
+          title={t('howItWorks.listOrders')}
+          description={t('howItWorks.listOrdersDetails')}
         >
-          <Step title={'My orders'}>
+          <Step title={t('howItWorks.myOrders')}>
             <StepEntry>
               <ColorCircle color='#F6376D' />
-              <Text ml={2}>1 New Order</Text>
+              <Text ml={2}>1 {t('howItWorks.sampleNewOrder')}</Text>
             </StepEntry>
             <StepEntry mt={2}>
               <ColorCircle color='#27AE60' />
-              <Text ml={2}>2 Complete</Text>
+              <Text ml={2}>2 {t('howItWorks.sampleCompletedOrder')}</Text>
             </StepEntry>
             <StepEntry mt={2}>
               <ColorCircle color='#F1C40F' />
-              <Text ml={2}>1 Preparing</Text>
+              <Text ml={2}>1 {t('howItWorks.samplePreparingOrder')}</Text>
             </StepEntry>
           </Step>
-          <Step title={'Order details'}>
-            <StepEntry>1 Green Cactus</StepEntry>
-            <StepEntry mt={2}>2 Happy Cacti</StepEntry>
+          <Step title={t('howItWorks.orderDetails')}>
+            <StepEntry>1 {t('howItWorks.sampleProductName')}</StepEntry>
+            <StepEntry mt={2}>
+              2 {t('howItWorks.sampleProductName2_plural')}
+            </StepEntry>
           </Step>
-          <Step title={'Buyer details'}>
-            <StepEntry>Kara Snow</StepEntry>
-            <StepEntry mt={2}>57 Theatre St.</StepEntry>
-            <StepEntry mt={2}>Skopje, MK</StepEntry>
+          <Step title={t('howItWorks.buyerDetails')}>
+            <StepEntry>{t('howItWorks.sampleAddressRecepient')}</StepEntry>
+            <StepEntry mt={2}>{t('howItWorks.sampleAddressStreet')}</StepEntry>
+            <StepEntry mt={2}>
+              {t('howItWorks.sampleAddressCityCountry')}
+            </StepEntry>
           </Step>
 
-          <Step title={'Send order'}>
+          <Step title={t('howItWorks.sendOrder')}>
             <Flex
               width='100%'
               height='100%'
@@ -305,30 +312,30 @@ export const HowToList = () => {
         </HowToItem>
 
         <HowToItem
-          title='Create discount campaigns, and more...'
-          description={
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque atque dicta quibusdam dignissimos culpa ullam dolore iusto maxime eius ducimus. Soluta distinctio, ipsum ullam fugiat quas reprehenderit perspiciatis adipisci vel.'
-          }
+          title={t('howItWorks.listDiscountCampaigns')}
+          description={t('howItWorks.listDiscountCampaignsDetails')}
         >
-          <Step title={'Campaign name'}>
-            <StepEntry>Summer sale</StepEntry>
+          <Step title={t('howItWorks.campaignName')}>
+            <StepEntry>{t('howItWorks.sampleCampaignName')}</StepEntry>
           </Step>
-          <Step title={'Product groups'}>
-            <StepEntry>Green Cacti</StepEntry>
-            <StepEntry mt={2}>Spiky Cacti</StepEntry>
-            <StepEntry mt={2}>Baby Cacti</StepEntry>
+          <Step title={t('howItWorks.productGroups')}>
+            <StepEntry>{t('howItWorks.sampleProductGroup')}</StepEntry>
+            <StepEntry mt={2}>{t('howItWorks.sampleProductGroup2')}</StepEntry>
+            <StepEntry mt={2}>{t('howItWorks.sampleProductGroup3')}</StepEntry>
           </Step>
-          <Step title={'Reward'}>
+          <Step title={t('howItWorks.campaignReward')}>
             <StepEntry>30 %</StepEntry>
           </Step>
-          <Step title={'Promote'}>
+          <Step title={t('howItWorks.campaignPromote')}>
             <Flex>
               <Image mr={2} src='/checkbox.svg' />
               <StepEntry>
                 <Box width='100%'>
-                  <Text display='block'>promote</Text>
+                  <Text display='block'>
+                    {t('actions.promote').toLowerCase()}
+                  </Text>
                   <Text display='block' fontSize={10}>
-                    show banner
+                    {t('actions.showBanner').toLowerCase()}
                   </Text>
                 </Box>
               </StepEntry>
@@ -341,7 +348,7 @@ export const HowToList = () => {
               size='small'
               width='100%'
             >
-              Activate
+              {t('actions.activate')}
             </Button>
           </Step>
         </HowToItem>

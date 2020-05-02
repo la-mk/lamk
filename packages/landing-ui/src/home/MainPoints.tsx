@@ -1,7 +1,9 @@
 import React from 'react';
 import { MainPointCard } from './MainPointCard';
+import { useTranslation } from '../common/i18n';
 
 export const MainPoints = () => {
+  const { t } = useTranslation();
   return (
     <>
       <MainPointCard
@@ -9,10 +11,9 @@ export const MainPoints = () => {
         mt={[50, 70, 100]}
         image='/responsive-store-girl.svg'
         overflow='top'
-        title='World-class store, without the hustle'
-        description='Your job is to manage your products, and we will take care of the rest. 
-        Blazing fast, SEO optimized, and user-friendly website within a click away. We take care of the complexity of making your store run 24x7, 
-        all you need to do is sell.'
+        // title=''
+        title={t('landing.corePointsStore')}
+        description={t('landing.corePointsStoreDetails')}
       />
 
       <MainPointCard
@@ -20,8 +21,8 @@ export const MainPoints = () => {
         mt={[50, 70, 100]}
         image='/admin-panel-guy.svg'
         overflow='both'
-        title='Admin panel for the modern age'
-        description='Manage your products, orders, campaigns and more from a single place. See how your store is doing with the built-in analytics.'
+        title={t('landing.corePointsAdmin')}
+        description={t('landing.corePointsAdminDetails')}
       />
       <MainPointCard
         side='right'

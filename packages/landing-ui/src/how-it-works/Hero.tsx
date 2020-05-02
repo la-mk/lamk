@@ -10,8 +10,11 @@ import {
 } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { CurvedSection } from '../common/CurvedSection';
+import { useTranslation } from '../common/i18n';
 
 export const Hero = withTheme(({ theme, setShowVideo }) => {
+  const { t } = useTranslation();
+
   const heroButtons = [
     <Button
       mr={2}
@@ -19,10 +22,10 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
       size='large'
       onClick={() => setShowVideo(true)}
     >
-      Watch video
+      {t('actions.watchDemo')}
     </Button>,
     <Button ml={2} size='large'>
-      See demo shop
+      {t('actions.seeDemoShop')}
     </Button>,
   ];
 
@@ -47,10 +50,7 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
             How <Text color='secondary'>It Works</Text>
           </Title>
           <Paragraph mt={4} textAlign={['center', 'start', 'start']}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            voluptatibus optio tempora vero, odio velit earum fugiat eveniet
-            assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos
-            natus, voluptatem maiores.
+            {t('howItWorks.heroExplanation')}
           </Paragraph>
           <Box display={['none', 'flex', 'flex']} mt={5}>
             <Flex>{heroButtons}</Flex>

@@ -35,7 +35,7 @@ const LineHeightFreeAnchor = styled.a`
 
 export const LandingLayout = withTheme(
   ({ theme, children }: StoreLayoutProps) => {
-    const isMenuCollapsed = hooks.useBreakpoint([true, false, false]);
+    const isMenuCollapsed = hooks.useBreakpoint([true, true, false]);
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
     // Fire an event to know that the UI has loaded on the client-side.

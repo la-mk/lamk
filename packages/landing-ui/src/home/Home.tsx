@@ -4,27 +4,17 @@ import { FeaturesHorizontal } from './FeaturesHorizontal';
 import { Box } from '@sradevski/blocks-ui';
 import { StepCards } from './StepCards';
 import { MainPoints } from './MainPoints';
-import { FocusCard } from './FocusCard';
 import { ContactUsFooter } from '../common/ContactUsFooter';
+import { WarmingUpCard } from './WarmingUpCard';
 
 export const Home = () => {
   return (
     <Box>
       <Hero />
-
       <StepCards />
-
-      <FeaturesHorizontal mt={[80, 100, 120]} />
-
+      <FeaturesHorizontal />
       <MainPoints />
-
-      <FocusCard
-        mt={[80, 100, 120]}
-        icon={'/warming-up-icon.svg'}
-        title='We are warming up'
-        description='Blaadsd asd asd asd asd sdsdsad asd asd as sdsdsad asd asd as sdsdsad asd asd as'
-      />
-
+      <WarmingUpCard />
       <ContactUsFooter />
     </Box>
   );
