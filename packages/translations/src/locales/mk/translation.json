@@ -29,7 +29,7 @@
 		"toCheckout": "На каса",
 		"toPayment": "Продолжете кон плаќање",
 		"update": "Обновете",
-		"watchDemo": "Гледај демо"
+		"watchDemo": "Види видео"
   },
   "address": {
 		"addNewAddress": "Додадете нова адреса",
@@ -122,14 +122,14 @@
 		"status": "Статус",
 		"street": "Улица",
 		"streetExample": "пр. Солунска 25",
-		"success": "Операцијата беше успешна",
+		"success": "Успешна операција!",
 		"summary": "Преглед",
 		"unknown": "Непознато",
 		"zipcode": "Поштенски код",
 		"seeAll": "Види ги сите"
 	},
 	"company": {
-    "subTagline": "Најлесниот начин да направите онлајн продавница."
+    "subTagline": "Најлесниот начин да направите онлајн продавница"
   },
   "countries": {
     "mk": "Македонија"
@@ -208,21 +208,22 @@
 	},
 	"landing": {
     "corePointsAdmin": "Админ панел за модерната доба",
-    "corePointsAdminDetails": "Менаџирајте ги вашите производи, порачки, кампањи и повеќе од едно место. Имајте преглед на вашите порачки, приходи и повеќе преку врадените аналитики.",
-    "corePointsStore": "Продавница од светска класа, без многу работа.",
-    "corePointsStoreDetails": "Вашата работа е да ги менаџирате вашите продукти, а ние ќе се погрижиме за се останато. Супер брза, SEO оптимизирана, и лесна за користење онлајн продавница со само неколку клика. Ние се грижиме за техничките комплексности за вашата страна да биде достапна 24/7, се што вие треба да правите е да продавате.",
-    "featureAnalytics": "Аналитики за продажба и користење",
-    "featureDiscountCampaigns": "Флексибилни попуст кампањи",
-    "featureFreeDomain": "Персонален домеин за вашата продавница",
+    "corePointsAdminDetails": "Менаџирајте ги вашите производи, порачки, кампањи и повеќе од едно место. Имајте преглед на вашите порачки, приходи и повеќе преку врадените аналитики",
+    "corePointsStore": "Продавница од светска класа, без многу работа",
+    "corePointsStoreDetails": "Вашата работа е да ги менаџирате вашите продукти, а ние ќе се погрижиме за се останато. Супер брза, SEO оптимизирана, и лесна за користење онлајн продавница со само неколку клика. Ние се грижиме за техничките комплексности за вашата страна да биде достапна 24/7, се што вие треба да правите е да продавате",
+		"featureAnalytics": "Аналитики за посета и продажба",
+		"featureCreditCardPayments": "Плаќање со платежни картички",
+    "featureDiscountCampaigns": "Флексибилни кампањи",
+    "featureFreeDomain": "Персонален домен за продавницата",
     "featureUnlimitedProductsStorage": "Неограничен број на производи",
     "stepAddProducts": "Додадете ги вашите производи",
     "stepAddProductsDetails": "Ние немаме органичувања, додадете колку производи што сакате",
     "stepCreateStore": "Направете ја вашата продавница",
-    "stepCreateStoreDetails": "Регистрирајте се, внесете го името на вашата продавница, вашето лого, и спреми сте за да продавате",
+    "stepCreateStoreDetails": "Регистрирајте се, внесете го името и логото на вашата продавница, и спреми сте за да продавате",
     "stepStartSelling": "Почнете со продавање",
-    "stepStartSellingDetails": "Одберете опции за достава и наплажање, и започнете со продажба.",
+    "stepStartSellingDetails": "Одберете опции за достава и наплажање, и започнете со продажба",
     "warmingUp": "Само се загреваме",
-    "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam."
+    "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam"
   },
 	"onboarding": {
 		"setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна",
