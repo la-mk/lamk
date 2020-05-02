@@ -207,15 +207,19 @@
     "storeUrl": "Линк на продавница"
 	},
 	"landing": {
+		"contactUsPage": "Контакт",
     "corePointsAdmin": "Админ панел за модерната доба",
     "corePointsAdminDetails": "Менаџирајте ги вашите производи, порачки, кампањи и повеќе од едно место. Имајте преглед на вашите порачки, приходи и повеќе преку врадените аналитики",
     "corePointsStore": "Продавница од светска класа, без многу работа",
-    "corePointsStoreDetails": "Вашата работа е да ги менаџирате вашите продукти, а ние ќе се погрижиме за се останато. Супер брза, SEO оптимизирана, и лесна за користење онлајн продавница со само неколку клика. Ние се грижиме за техничките комплексности за вашата страна да биде достапна 24/7, се што вие треба да правите е да продавате",
+		"corePointsStoreDetails": "Вашата работа е да ги менаџирате вашите продукти, а ние ќе се погрижиме за се останато. Супер брза, SEO оптимизирана, и лесна за користење онлајн продавница со само неколку клика. Ние се грижиме за техничките комплексности за вашата страна да биде достапна 24/7, се што вие треба да правите е да продавате",
+		"faqPage": "ЧПП",
 		"featureAnalytics": "Аналитики за посета и продажба",
 		"featureCreditCardPayments": "Плаќање со платежни картички",
     "featureDiscountCampaigns": "Флексибилни кампањи",
     "featureFreeDomain": "Персонален домен за продавницата",
-    "featureUnlimitedProductsStorage": "Неограничен број на производи",
+		"featureUnlimitedProductsStorage": "Неограничен број на производи",
+		"homePage": "Дома",
+		"howItWorksPage": "Како функционира",
     "stepAddProducts": "Додадете ги вашите производи",
     "stepAddProductsDetails": "Ние немаме органичувања, додадете колку производи што сакате",
     "stepCreateStore": "Направете ја вашата продавница",
@@ -224,7 +228,13 @@
     "stepStartSellingDetails": "Одберете опции за достава и наплажање, и започнете со продажба",
     "warmingUp": "Само се загреваме",
     "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam"
-  },
+	},
+	"landingFaq": {
+		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+	},
+	"landingContact": {
+		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+	},
 	"onboarding": {
 		"setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна",
 		"setupDeliveryTitle": "За крај, ајде да ги информираме корисниците за достава",
