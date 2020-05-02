@@ -53,6 +53,7 @@ export { formInput, formTextArea, parsers } from './compound/FormHelpers';
 export { LoginForm } from './compound/LoginForm';
 export { SignupForm } from './compound/SignupForm';
 export { UploadContent } from './compound/UploadContent';
+export {HeadElements} from './compound/HeadElements'
 
 export { message } from './static/message';
 
