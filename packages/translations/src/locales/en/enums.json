@@ -148,11 +148,11 @@
 		"kg": "kilogram",
 		"g": "gram"
 	},
-  
+
 	"errors": {
 		"between": "Field should be between {{0}} and {{1}}",
 		"boolean": "Field should be either true or false",
-		"datetime": "Field should be a valid date",
+		"date": "Field should be a valid date",
 		"generic": "Invalid entry",
 		"greaterThan": "Field should be more than {{0}}",
 		"integer": "Field should be an integer",
