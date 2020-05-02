@@ -5,6 +5,7 @@ export interface HeadElementsProps {
   description: string;
   siteName?: string;
   previewImages?: string[];
+  HeadComponent: React.FunctionComponent;
 }
 
 // Check opengraph for more details on the og: tags.
@@ -13,9 +14,10 @@ export const HeadElements = ({
   title,
   description,
   previewImages,
+  HeadComponent
 }: HeadElementsProps) => {
   return (
-    <>
+    <HeadComponent>
       <title key='title'>{siteName ? `${title} | ${siteName}` : title}</title>
       <meta property='og:title' content={title} />
       <meta name='twitter:title' content={title} />
@@ -35,6 +37,6 @@ export const HeadElements = ({
         name='viewport'
         content='initial-scale=1.0, width=device-width'
       />
-    </>
+    </HeadComponent>
   );
 };
