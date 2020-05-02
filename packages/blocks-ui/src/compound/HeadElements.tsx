@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface HeadElementsProps {
+export interface HeadElementsProps {
   title: string;
   description: string;
   siteName?: string;
