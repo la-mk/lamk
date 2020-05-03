@@ -12,7 +12,13 @@ import { useRouter } from 'next/router';
 import { GlobalOutlined } from '@ant-design/icons';
 import { useTranslation } from '../common/i18n';
 
-export const TopMenu = ({ theme }) => {
+export const TopMenu = ({
+  closeDrawer,
+  theme,
+}: {
+  theme: any;
+  closeDrawer?: () => void;
+}) => {
   const mode = hooks.useBreakpoint(['vertical', 'vertical', 'horizontal']);
   const router = useRouter();
   const { t, i18n } = useTranslation();
@@ -28,6 +34,7 @@ export const TopMenu = ({ theme }) => {
       }}
       mode={mode}
       selectedKeys={selectedKeys}
+      onClick={closeDrawer}
     >
       <MenuItem p={0} key='home' mb={11} mx={[0, 1, 2]}>
         <Link href='/' passHref>

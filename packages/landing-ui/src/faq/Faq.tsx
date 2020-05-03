@@ -10,6 +10,8 @@ import {
 } from '@sradevski/blocks-ui';
 import { CurvedSection } from '../common/CurvedSection';
 import { withTheme } from 'styled-components';
+import { TFunction } from 'next-i18next';
+import { useTranslation } from '../common/i18n';
 
 interface FaqItem {
   question: string;
@@ -21,35 +23,38 @@ interface FaqGroup {
   items: FaqItem[];
 }
 
-const pricingItems: FaqItem[] = [
-  { question: 'How much does it cost?', answer: "It's completely free!" },
+const getPricingItems = (t: TFunction): FaqItem[] => [
   {
-    question: 'Do I need to sign a contract?',
-    answer:
-      'There are no contracts or obligations, you can stop using the platform whenever you want.',
+    question: t('landingFaq.pricingQuestionHowMuch'),
+    answer: t('landingFaq.pricingAnswerHowMuch'),
+  },
+  {
+    question: t('landingFaq.pricingQuestionSignContract'),
+    answer: t('landingFaq.pricingAnswerSignContract'),
   },
 ];
 
-const paymentItems: FaqItem[] = [
+const getPaymentItems = (t: TFunction): FaqItem[] => [
   {
-    question: 'What payment methods can I use?',
-    answer:
-      "Currently we support payment on delivery and credit card payments. If we currently don't support your bank, we can work together and add support for it within 1-2 weeks",
+    question: t('landingFaq.paymentsQuestionSupportedMethods'),
+    answer: t('landingFaq.paymentsAnswerSupportedMethods'),
   },
 ];
 
-const faqGroups: FaqGroup[] = [
+const getFaqGroups = (t: TFunction): FaqGroup[] => [
   {
-    title: 'Pricing',
-    items: pricingItems,
+    title: t('landingFaq.pricingGroupTitle'),
+    items: getPricingItems(t),
   },
   {
-    title: 'Payments',
-    items: paymentItems,
+    title: t('landingFaq.paymentsGroupTitle'),
+    items: getPaymentItems(t),
   },
 ];
 
 export const Faq = withTheme(({ theme }) => {
+  const { t } = useTranslation();
+
   return (
     <Box>
       <CurvedSection
@@ -74,25 +79,16 @@ export const Faq = withTheme(({ theme }) => {
             </Title>
 
             <Paragraph mt={4} textAlign={['center', 'start', 'start']}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              voluptatibus optio tempora vero, odio velit earum fugiat eveniet
-              assumenda ullam ab reprehenderit illo eum dolores omnis
-              dignissimos natus, voluptatem maiores.
+              {t('landingFaq.heroExplanation')}
             </Paragraph>
           </Box>
         </Flex>
       </CurvedSection>
 
       <Box maxWidth={960} mx={'auto'} px={[3, 4, 4]} mb={5}>
-        <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa harum
-          animi dolores et fuga aliquam incidunt natus quaerat, minima mollitia?
-          Adipisci, suscipit odit reprehenderit repellat minus laudantium error
-          velit illum.
-        </Paragraph>
-
+        <Paragraph>{t('landingFaq.additionalExplanation')}</Paragraph>
         <Box width='100%'>
-          {faqGroups.map((group) => {
+          {getFaqGroups(t).map((group) => {
             return (
               <Box key={group.title} mt={4}>
                 <Title mb={3} level={3}>

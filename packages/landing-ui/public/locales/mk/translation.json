@@ -265,7 +265,16 @@
     "thanksForContactDetails": "Ќе се обидеме да стапиме во контакт што е можно побрзо."
   },
   "landingFaq": {
-    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
+    "additionalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+    "paymentsAnswerSupportedMethods": "Моментално поддржуваме плаќање со платежни картички, и наплата при достава. Доколку моментално немаме поддршка за вашата банка, можеме да ја додадеме истата во рок од 1 недела.",
+    "paymentsGroupTitle": "Наплата",
+    "paymentsQuestionSupportedMethods": "Кои методи на наплата можам да ги користам",
+    "pricingAnswerHowMuch": "Нашата услуга е целосно бесплатна!",
+    "pricingAnswerSignContract": "Нема договори и обврски, можете да престанете со користенње на платформата во секој момент.",
+    "pricingGroupTitle": "Ценовник",
+    "pricingQuestionHowMuch": "Која е цената за отворање и управување на продавница?",
+    "pricingQuestionSignContract": "Дали треба да потпишам договор?"
   },
   "orderStatus": {
     "cancelled": "Откажана",

@@ -124,7 +124,10 @@ export const LandingLayout = withTheme(
           onClose={() => setIsDrawerVisible(false)}
           visible={isMenuCollapsed && isDrawerVisible}
         >
-          <TopMenu theme={theme} />
+          <TopMenu
+            closeDrawer={() => setIsDrawerVisible(false)}
+            theme={theme}
+          />
         </Drawer>
       </>
     );
