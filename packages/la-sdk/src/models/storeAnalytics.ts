@@ -7,8 +7,11 @@ import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 
 export enum AnalyticsTypes {
-  PRODUCTS_COUNT = 'productsCount',
-  ORDERS_COUNT = 'ordersCount',
+  TOTAL_PRODUCT_COUNT = 'totalProductCount',
+  TOTAL_ORDER_COUNT = 'totalOrderCount',
+  TOTAL_REVENUE = 'totalRevenue',
+
+  ORDER_COUNT="orderCount",
   REVENUE = 'revenue',
 }
 
@@ -25,7 +28,8 @@ export const schema = {
   forStore: v8n().id(),
   frequency: v8n().oneOf(Object.values(AnalyticsFrequency)),
   type: v8n().oneOf(Object.values(AnalyticsTypes)),
-  value: v8n().number(false),
+  // The value can be any, either a number or an object with numbers.
+  value: v8n().not.null(),
   timestamp: v8n().datetime(),
 };
 
@@ -37,8 +41,8 @@ export interface StoreAnalyticsEntry extends DefaultSchema {
   forStore: string;
   frequency: AnalyticsFrequency;
   type: AnalyticsTypes;
-  // We can add a `key` field if the value applies to some specific ID (like product or order), but it's not needed for now
-  value: number;
+  // The value can be a number of an object, depending on the type.
+  value: any;
   timestamp: string;
 }
 
