@@ -87,7 +87,7 @@ export const ContactForm = () => {
 
   return (
     <>
-      <Col width={['100%', '80%', '60%']} style={{ zIndex: 3 }}>
+      <Col width={['100%', '90%', '80%']} mx='auto' style={{ zIndex: 3 }}>
         {hasSubmitted && (
           <Box bg='lightBackground' style={{ borderRadius: 12 }}>
             <Result

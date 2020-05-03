@@ -17,6 +17,8 @@ export const ContactUsFooter = withTheme(({ theme }) => {
     >
       <Flex
         width='100%'
+        mx='auto'
+        px={[2, 0, 0]}
         flexDirection='column'
         alignItems='center'
         justifyContent='center'

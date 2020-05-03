@@ -22,7 +22,7 @@ module.exports = withPlugins(
             '@text-color': '#727782',
             '@heading-color': '#263135',
             '@text-color-secondary': '#687C94',
-            '@input-bg': '#DEEAF8',
+            '@input-bg': '#F6F8FC',
             '@border-radius-base': '8px',
             'height-base': '42px',
             'height-lg': '50px',
