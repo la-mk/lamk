@@ -22,7 +22,7 @@ function AccountPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={t('pages.myAccount')}
         description={`${t('pages.myAccount')}, ${nameDescription}`}
       />

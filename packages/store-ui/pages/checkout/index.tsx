@@ -12,7 +12,7 @@ function CheckoutPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={t('pages.checkout')}
         description={`${t('pages.checkout')}, ${store?.name}`}
       />

@@ -11,7 +11,7 @@ function OrdersPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={t('pages.order_plural')}
         description={`${t('pages.order_plural')}, ${store?.name}`}
       />

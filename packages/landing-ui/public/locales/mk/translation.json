@@ -1,9 +1,9 @@
 {
   "actions": {
     "activate": "Активирај",
-    "add": "Додадете",
     "addToStore": "Додај",
     "create": "Создадете",
+    "goBack": "Одете назад",
     "promote": "Промовирај",
     "seeDemoShop": "Види демо продавница",
     "showBanner": "Покажи банер",
@@ -230,15 +230,19 @@
     "storeUrl": "Линк на продавница"
   },
   "landing": {
+    "contactUsPage": "Контакт",
     "corePointsAdmin": "Админ панел за модерната доба",
     "corePointsAdminDetails": "Менаџирајте ги вашите производи, порачки, кампањи и повеќе од едно место. Имајте преглед на вашите порачки, приходи и повеќе преку врадените аналитики",
     "corePointsStore": "Продавница од светска класа, без многу работа",
     "corePointsStoreDetails": "Вашата работа е да ги менаџирате вашите продукти, а ние ќе се погрижиме за се останато. Супер брза, SEO оптимизирана, и лесна за користење онлајн продавница со само неколку клика. Ние се грижиме за техничките комплексности за вашата страна да биде достапна 24/7, се што вие треба да правите е да продавате",
+    "faqPage": "ЧПП",
     "featureAnalytics": "Аналитики за посета и продажба",
     "featureCreditCardPayments": "Плаќање со платежни картички",
     "featureDiscountCampaigns": "Флексибилни кампањи",
     "featureFreeDomain": "Персонален домен за продавницата",
     "featureUnlimitedProductsStorage": "Неограничен број на производи",
+    "homePage": "Дома",
+    "howItWorksPage": "Како функционира",
     "stepAddProducts": "Додадете ги вашите производи",
     "stepAddProductsDetails": "Ние немаме органичувања, додадете колку производи што сакате",
     "stepCreateStore": "Направете ја вашата продавница",
@@ -247,6 +251,12 @@
     "stepStartSellingDetails": "Одберете опции за достава и наплажање, и започнете со продажба",
     "warmingUp": "Само се загреваме",
     "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam"
+  },
+  "landingContact": {
+    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
+  },
+  "landingFaq": {
+    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
   },
   "orderStatus": {
     "cancelled": "Откажана",
@@ -270,7 +280,9 @@
   "results": {
     "genericError": "Се појави грешка",
     "pageNotFound": "Не е пронајдена",
-    "serverError": "Серверска грешка"
+    "pageNotFoundExplanation": "Страницата што ја баравте не беше пронајдена",
+    "serverError": "Серверска грешка",
+    "serverErrorExplanation": "Се појави грешка при вашето барање, пробајте повторно. Доколку сеуште имате проблем, контактирајте не"
   },
   "sets": {
     "latest": "Најнови производи"

@@ -1,9 +1,9 @@
 {
   "actions": {
     "activate": "Activate",
-    "add": "Add",
     "addToStore": "Add to store",
     "create": "Create",
+    "goBack": "Go back",
     "promote": "Promote",
     "seeDemoShop": "See demo shop",
     "showBanner": "Show banner",
@@ -230,15 +230,19 @@
     "storeUrl": "Store URL"
   },
   "landing": {
+    "contactUsPage": "Contact us",
     "corePointsAdmin": "Admin panel for the modern age",
     "corePointsAdminDetails": "Manage your products, orders, campaigns and more from a single place. See how your store is doing with the built-in analytics",
     "corePointsStore": "World-class store, without the hustle",
     "corePointsStoreDetails": "Your job is to manage your products, and we will take care of the rest. Blazing fast, SEO optimized, and user-friendly website within a click away. We take care of the complexity of making your store run 24x7, all you need to do is sell",
+    "faqPage": "FAQ",
     "featureAnalytics": "Usage and sales analytics",
     "featureCreditCardPayments": "Credit card payments",
     "featureDiscountCampaigns": "Flexible discount campaigns",
     "featureFreeDomain": "Personal domain for your shop",
     "featureUnlimitedProductsStorage": "Unlimited products and storage",
+    "homePage": "Home",
+    "howItWorksPage": "How it works",
     "stepAddProducts": "Add your products",
     "stepAddProductsDetails": "We have no limits, so add as many as you want",
     "stepCreateStore": "Create your store",
@@ -247,6 +251,12 @@
     "stepStartSellingDetails": "Add your preferred delivery and payment methods, and start selling",
     "warmingUp": "We are just warming up",
     "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam."
+  },
+  "landingContact": {
+    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
+  },
+  "landingFaq": {
+    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
   },
   "orderStatus": {
     "cancelled": "Cancelled",
@@ -270,7 +280,9 @@
   "results": {
     "genericError": "Error occured",
     "pageNotFound": "Not found",
-    "serverError": "Server error"
+    "pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
+    "serverError": "Server error",
+    "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
   },
   "sets": {
     "latest": "Latest products"

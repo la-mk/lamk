@@ -18,7 +18,7 @@ const OrderPage = ({
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={t('pages.order')}
         description={`${t('pages.order')}, ${store?.name}`}
       />

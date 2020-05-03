@@ -20,7 +20,7 @@ function HomePage({
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={t('pages.home')}
         // TODO: Allow stores to set a slogan that we can show here.
         description={store?.name}

@@ -1,8 +1,17 @@
 import { Home } from '../src/home/Home';
+import { Head } from '../src/common/Head';
+import { useTranslation } from '../src/common/i18n';
 
 function HomePage() {
+  const { t } = useTranslation();
+
   return (
     <>
+      <Head
+        siteName='la.mk'
+        title={t('landing.homePage')}
+        description={t('company.subTagline')}
+      />
       <Home />
     </>
   );

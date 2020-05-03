@@ -94,7 +94,7 @@ export const Faq = withTheme(({ theme }) => {
         <Box width='100%'>
           {faqGroups.map((group) => {
             return (
-              <Box mt={4}>
+              <Box key={group.title} mt={4}>
                 <Title mb={3} level={3}>
                   {group.title}
                 </Title>

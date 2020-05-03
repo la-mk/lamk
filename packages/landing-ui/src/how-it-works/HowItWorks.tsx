@@ -11,10 +11,12 @@ const RadiatingCircles = () => {
   return (
     <>
       <Image
+        key='dot1'
         style={{ position: 'absolute', left: 0, top: '5%' }}
         src='/radiating-dots-colored.svg'
       />
       <Image
+        key='dot2'
         style={{
           position: 'absolute',
           right: 0,
@@ -24,10 +26,12 @@ const RadiatingCircles = () => {
         src='/radiating-dots-colored.svg'
       />
       <Image
+        key='dot3'
         style={{ position: 'absolute', left: 0, top: '40%' }}
         src='/radiating-dots-colored.svg'
       />
       <Image
+        key='dot4'
         style={{
           position: 'absolute',
           right: 0,

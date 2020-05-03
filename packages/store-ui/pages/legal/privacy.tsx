@@ -56,7 +56,7 @@ const PrivacyPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={title}
         description={getTextSnippet(privacyPolicy)}
       />

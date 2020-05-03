@@ -31,22 +31,22 @@ export const TopMenu = ({ theme }) => {
     >
       <MenuItem p={0} key='home' mb={11} mx={[0, 1, 2]}>
         <Link href='/' passHref>
-          <Button type='link'>{t('actions.add')}</Button>
+          <Button type='link'>{t('landing.homePage')}</Button>
         </Link>
       </MenuItem>
       <MenuItem p={0} key='how-it-works' mb={11} mx={[0, 1, 2]}>
         <Link href='/how-it-works' passHref>
-          <Button type='link'>Како функционира</Button>
+          <Button type='link'>{t('landing.howItWorksPage')}</Button>
         </Link>
       </MenuItem>
       <MenuItem p={0} key='faq' mb={11} mx={[0, 1, 2]}>
         <Link href='/faq' passHref>
-          <Button type='link'>ЧПП</Button>
+          <Button type='link'>{t('landing.faqPage')}</Button>
         </Link>
       </MenuItem>
       <MenuItem p={0} key='contact' mb={11} mx={[0, 1, 2]}>
         <Link href='/contact' passHref>
-          <Button type='link'>Контакт</Button>
+          <Button type='link'>{t('landing.contactUsPage')}</Button>
         </Link>
       </MenuItem>
 
@@ -87,7 +87,7 @@ export const TopMenu = ({ theme }) => {
       >
         <Link href='/' passHref>
           <Button mx={[2, 0, 0]} style={{ color: 'white' }} type='primary'>
-            Почнете сега
+            {t('actions.startNow')}
           </Button>
         </Link>
       </MenuItem>

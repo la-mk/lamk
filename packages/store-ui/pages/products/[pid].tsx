@@ -30,7 +30,7 @@ const ProductPage = ({
     return (
       <>
         <Head
-          storeName={store?.name}
+          siteName={store?.name}
           title={t('results.pageNotFound')}
           description={t('results.productNotFound')}
         />
@@ -42,7 +42,7 @@ const ProductPage = ({
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={product.name}
         description={getProductSummary(product, t)}
         previewImages={product.images.map(imageId =>

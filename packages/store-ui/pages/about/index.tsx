@@ -19,7 +19,7 @@ function AboutPage({
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={t('pages.aboutUs')}
         description={
           getTextSnippet(aboutUs?.description) ??

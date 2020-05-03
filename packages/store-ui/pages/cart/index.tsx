@@ -11,7 +11,7 @@ function CartPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        storeName={store?.name}
+        siteName={store?.name}
         title={t('pages.cart')}
         description={`${t('pages.cart')}, ${store?.name}`}
       />

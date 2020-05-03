@@ -1,22 +1,28 @@
 import React from 'react';
-// import { Head } from '../src/common/pageComponents/Head';
 import { Result, Button } from '@sradevski/blocks-ui';
 import Link from 'next/link';
+import { useTranslation } from '../src/common/i18n';
+import { Head } from '../src/common/Head';
 
 const ErrorPage = ({ errorCode }: { errorCode: number }) => {
+  const { t } = useTranslation();
+
   switch (errorCode) {
     case 200:
     case 404:
       return (
         <div>
-          {/* <Head title={`404 | ${t('results.pageNotFound')}`} /> */}
+          <Head
+            title={`404 | ${t('results.pageNotFound')}`}
+            description={t('results.pageNotFoundExplanation')}
+          />
           <Result
             status='404'
             title='404'
-            subTitle={''}
+            subTitle={t('results.pageNotFoundExplanation')}
             extra={
               <Link href='/' passHref>
-                <Button type='link'>Go back</Button>
+                <Button type='link'>{t('actions.goBack')}</Button>
               </Link>
             }
           />
@@ -25,14 +31,17 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
     case 500:
       return (
         <div>
-          {/* <Head title={`500 | ${t('results.serverError')}`} /> */}
+          <Head
+            title={`500 | ${t('results.serverError')}`}
+            description={t('results.serverErrorExplanation')}
+          />
           <Result
             status='500'
             title='500'
-            subTitle={''}
+            subTitle={t('results.serverErrorExplanation')}
             extra={
               <Link href='/' passHref>
-                <Button type='link'>Go back</Button>
+                <Button type='link'>{t('actions.goBack')}</Button>
               </Link>
             }
           />
@@ -41,14 +50,17 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
     default:
       return (
         <div>
-          {/* <Head title={`${errorCode} | ${t('results.genericError')}`} /> */}
+          <Head
+            title={`${errorCode} | ${t('results.genericError')}`}
+            description={t('results.genericError')}
+          />
           <Result
             status='error'
             title={errorCode}
-            subTitle={''}
+            subTitle={t('results.genericError', { statusCode: errorCode })}
             extra={
               <Link href='/' passHref>
-                <Button type='link'>Go back</Button>
+                <Button type='link'>{t('actions.goBack')}</Button>
               </Link>
             }
           />
