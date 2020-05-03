@@ -8,6 +8,7 @@
 		"addToCart": "Add to Cart",
     "addToStore": "Add to store",
 		"cancel": "Cancel",
+		"contactUs": "Contact us",
 		"continue": "Continue",
     "create": "Create",
 		"delete": "Delete",
@@ -99,13 +100,15 @@
 		"description": "Description",
 		"details": "Details",
 		"email": "Email address",
+		"filter_plural": "Filters",
 		"firstName": "First name",
+		"fullName": "Full name",
 		"id": "ID",
 		"image_plural": "Images",
 		"interface": "Interface",
 		"items": "Items",
-		"filter_plural": "Filters",
 		"lastName": "Last name",
+		"message": "Message",
 		"more": "More",
 		"name": "Name",
 		"ok": "OK",
@@ -233,7 +236,12 @@
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
 	},
 	"landingContact": {
-		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
+		"emailExample": "me@example.com",
+		"fullNameExample": "John Doe",
+		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+    "thanksForContact": "Thanks for contacting us!",
+		"thanksForContactDetails": "We will get back to you as soon as possible",
+		"messageExplanation": "Tell us more about your business or question"
 	},
 	"onboarding": {
 		"setupDeliverySubtitle": "Don't worry, you can modify things later as well.",

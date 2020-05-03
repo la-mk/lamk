@@ -8,6 +8,7 @@
 		"addToCart": "Стави во корпа",
 		"addToStore": "Додај",
 		"cancel": "Откажете",
+		"contactUs": "Контактирајте нѐ",
     "continue": "Продолжи",
 		"create": "Создадете",
 		"delete": "Избришете",
@@ -99,13 +100,15 @@
 		"description": "Опис",
 		"details": "Детали",
 		"email": "Емаил адреса",
+		"filter_plural": "Филтри",
 		"firstName": "Име",
+		"fullName": "Име и презиме",
 		"id": "Шифра",
 		"image_plural": "Слики",
 		"interface": "Интерфејс",
 		"items": "Парчиња",
-		"filter_plural": "Филтри",
 		"lastName": "Презиме",
+		"message": "Порака",
 		"more": "Повеќе",
 		"name": "Име",
 		"ok": "OK",
@@ -233,7 +236,12 @@
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
 	},
 	"landingContact": {
-		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
+		"emailExample": "me@example.com",
+		"fullNameExample": "Миле Милевски",
+		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+    "thanksForContact": "Ви благодариме што не контактиравте",
+    "thanksForContactDetails": "Ќе се обидеме да стапиме во контакт што е можно побрзо.",
+    "messageExplanation": "Кажете ни повеќе за вашиот бизнис или прашање"
 	},
 	"onboarding": {
 		"setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна",
