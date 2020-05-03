@@ -2,6 +2,7 @@
   "actions": {
     "activate": "Activate",
     "addToStore": "Add to store",
+    "contactUs": "Contact us",
     "create": "Create",
     "goBack": "Go back",
     "promote": "Promote",
@@ -141,6 +142,9 @@
     "worksuit": "Worksuits"
   },
   "common": {
+    "email": "Email address",
+    "fullName": "Full name",
+    "message": "Message",
     "success": "Success!"
   },
   "company": {
@@ -253,7 +257,12 @@
     "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam."
   },
   "landingContact": {
-    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
+    "emailExample": "me@example.com",
+    "fullNameExample": "John Doe",
+    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+    "messageExplanation": "Tell us more about your business or question",
+    "thanksForContact": "Thanks for contacting us!",
+    "thanksForContactDetails": "We will get back to you as soon as possible"
   },
   "landingFaq": {
     "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."

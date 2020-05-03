@@ -3,8 +3,11 @@ import { withTheme } from 'styled-components';
 import { CurvedSection } from './CurvedSection';
 import { ContactForm } from './ContactForm';
 import { Title, Flex, Image, Box } from '@sradevski/blocks-ui';
+import { useTranslation } from './i18n';
 
 export const ContactUsFooter = withTheme(({ theme }) => {
+  const { t } = useTranslation();
+
   return (
     <CurvedSection
       style={{ position: 'relative' }}
@@ -19,7 +22,7 @@ export const ContactUsFooter = withTheme(({ theme }) => {
         justifyContent='center'
         style={{ zIndex: 2 }}
       >
-        <Title level={3}>Contact Us</Title>
+        <Title level={3}>{t('landing.contactUsPage')}</Title>
         <ContactForm />
       </Flex>
       <Box

@@ -2,10 +2,11 @@
   "actions": {
     "activate": "Активирај",
     "addToStore": "Додај",
+    "contactUs": "Контактирајте нѐ",
     "create": "Создадете",
     "goBack": "Одете назад",
     "promote": "Промовирај",
-    "seeDemoShop": "Види демо продавница",
+    "seeDemoShop": "Демо продавница",
     "showBanner": "Покажи банер",
     "startNow": "Почни сега",
     "watchDemo": "Види видео"
@@ -141,6 +142,9 @@
     "worksuit": "Комбилизони"
   },
   "common": {
+    "email": "Емаил адреса",
+    "fullName": "Име и презиме",
+    "message": "Порака",
     "success": "Успешна операција!"
   },
   "company": {
@@ -253,7 +257,12 @@
     "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam"
   },
   "landingContact": {
-    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."
+    "emailExample": "me@example.com",
+    "fullNameExample": "Миле Милевски",
+    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+    "messageExplanation": "Кажете ни повеќе за вашиот бизнис или прашање",
+    "thanksForContact": "Ви благодариме што не контактиравте",
+    "thanksForContactDetails": "Ќе се обидеме да стапиме во контакт што е можно побрзо."
   },
   "landingFaq": {
     "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores."

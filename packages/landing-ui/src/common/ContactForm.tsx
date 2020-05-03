@@ -13,6 +13,7 @@ import {
 } from '@sradevski/blocks-ui';
 import { track } from './analytics';
 import { AnalyticsEvents } from '@sradevski/analytics';
+import { useTranslation } from './i18n';
 
 interface ContactUs {
   email: string;
@@ -57,6 +58,7 @@ const validator = ({ email, name, message }: ContactUs) => {
 export const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const { t } = useTranslation();
 
   const handleSubmit = (data: ContactUs) => {
     setIsSubmitting(true);
@@ -90,8 +92,8 @@ export const ContactForm = () => {
           <Box bg='lightBackground' style={{ borderRadius: 12 }}>
             <Result
               status='success'
-              title={'Thanks for contacting us!'}
-              subTitle={'We will get back to you as soon as possible'}
+              title={t('landingContact.thanksForContact')}
+              subTitle={t('landingContact.thanksForContactDetails')}
             />
           </Box>
         )}
@@ -114,17 +116,17 @@ export const ContactForm = () => {
               validator({ [selector]: val } as any)[selector]
             }
           >
-            <FormItem selector='name' label={'Full name'}>
-              {formInput({ placeholder: 'John Doe' })}
+            <FormItem selector='name' label={t('common.fullName')}>
+              {formInput({ placeholder: t('landingContact.fullNameExample') })}
             </FormItem>
 
-            <FormItem selector='email' label={'Email address'}>
-              {formInput({ placeholder: 'me@example.com' })}
+            <FormItem selector='email' label={t('common.email')}>
+              {formInput({ placeholder: t('landingContact.emailExample') })}
             </FormItem>
 
-            <FormItem selector='message' label={'Your business'}>
+            <FormItem selector='message' label={t('common.message')}>
               {formTextArea({
-                placeholder: 'Tell us about your business',
+                placeholder: t('landingContact.messageExplanation'),
                 autoSize: { minRows: 4, maxRows: 8 },
               })}
             </FormItem>
@@ -136,7 +138,7 @@ export const ContactForm = () => {
                 type='primary'
                 htmlType='submit'
               >
-                Contact us
+                {t('actions.contactUs')}
               </Button>
             </Flex>
           </Form>
