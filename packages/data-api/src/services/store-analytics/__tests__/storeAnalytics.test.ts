@@ -73,12 +73,12 @@ describe('"storeAnalytics" service', () => {
     const res = await storeAnalytics.get('', {
       query: {
         forStore: testStores[0]._id,
-        type: sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT,
+        type: sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT,
       },
       ...params,
     });
 
-    expect(res[sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT]).toBe(1);
+    expect(res[sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT]).toBe(1);
   });
 
   it('get returns for owner even if fetching other store analytics', async () => {
@@ -86,11 +86,11 @@ describe('"storeAnalytics" service', () => {
     const res = await storeAnalytics.get('', {
       query: {
         forStore: testStores[1]._id,
-        type: sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT,
+        type: sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT,
       },
       ...params,
     });
-    expect(res[sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT]).toBe(1);
+    expect(res[sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT]).toBe(1);
   });
 
   it('throws if nonexistent type is passed', async () => {
@@ -113,12 +113,14 @@ describe('"storeAnalytics" service', () => {
     const analytics = await storeAnalytics.get('', {
       query: {
         forStore: testStores[0]._id,
-        type: sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT,
+        type: sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT,
       },
       ...params,
     });
 
-    expect(analytics[sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT]).toBe(1);
+    expect(
+      analytics[sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT],
+    ).toBe(1);
   });
 
   it('get returns the expected order count for store', async () => {
@@ -126,12 +128,14 @@ describe('"storeAnalytics" service', () => {
     const analytics = await storeAnalytics.get('', {
       query: {
         forStore: testStores[0]._id,
-        type: sdk.storeAnalytics.AnalyticsTypes.ORDERS_COUNT,
+        type: sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT,
       },
       ...params,
     });
 
-    expect(analytics[sdk.storeAnalytics.AnalyticsTypes.ORDERS_COUNT]).toBe(1);
+    expect(analytics[sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT]).toBe(
+      1,
+    );
   });
 
   it('get returns the expected revenue for store', async () => {
@@ -139,7 +143,7 @@ describe('"storeAnalytics" service', () => {
     const analytics = await storeAnalytics.get('', {
       query: {
         forStore: testStores[0]._id,
-        type: sdk.storeAnalytics.AnalyticsTypes.REVENUE,
+        type: sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE,
       },
       ...params,
     });
@@ -151,7 +155,8 @@ describe('"storeAnalytics" service', () => {
     );
 
     expect(
-      analytics[sdk.storeAnalytics.AnalyticsTypes.REVENUE].pendingShipment,
+      analytics[sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE]
+        .pendingShipment,
     ).toBe(price.total);
   });
 });

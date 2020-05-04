@@ -17,6 +17,7 @@ import { registerServices } from './routes/services';
 import { registerAppHooks } from './hooks';
 import { registerChannels } from './channels/channels';
 import { initMongoClient } from './mongo';
+import { initScheduler } from '../scheduler';
 
 import env from '../common/env';
 
@@ -47,6 +48,8 @@ export default async () => {
 
   initPostRouteMiddlewares(app);
   initErrorHandlingMiddlewares(app);
+
+  initScheduler(app);
 
   return app;
 };

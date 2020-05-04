@@ -38,6 +38,10 @@ variable "analytics-tracking-id" {
   type = string
 }
 
+variable "analytics-secret-key" {
+  type = string
+}
+
 variable "mail-service-api-key" {
   type = string
 }
@@ -110,6 +114,7 @@ export SPACES_SECRET_ACCESS_KEY=$SPACES_SECRET_ACCESS_KEY;
 export MONGODB_CONNECTION_STRING=$MONGODB_CONNECTION_STRING;
 export JWT_SECRET=$JWT_SECRET;
 export ANALYTICS_TRACKING_ID=$ANALYTICS_TRACKING_ID;
+export ANALYTICS_SECRET_KEY=$ANALYTICS_SECRET_KEY;
 export MAIL_SERVICE_API_KEY=$MAIL_SERVICE_API_KEY;
 export SEARCH_SERVICE_API_KEY=$SEARCH_SERVICE_API_KEY;
 export AGNESA_DOMAIN=$AGNESA_DOMAIN;
@@ -124,6 +129,7 @@ EOT
       STORAGE_BUCKET_NAME = var.artifacts-name
       JWT_SECRET = var.jwt-secret
       ANALYTICS_TRACKING_ID = var.analytics-tracking-id
+      ANALYTICS_SECRET_KEY = var.analytics-secret-key
       MAIL_SERVICE_API_KEY = var.mail-service-api-key
       SEARCH_SERVICE_API_KEY = var.search-service-api-key
       AGNESA_DOMAIN = var.agnesa-domain

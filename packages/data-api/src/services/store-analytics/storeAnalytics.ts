@@ -6,30 +6,30 @@ import { logger } from '../../common/logger';
 import { GeneralError } from '../../common/errors';
 import { sdk } from '@sradevski/la-sdk';
 import { Db } from 'mongodb';
-import { AnalyticsTypes } from '@sradevski/la-sdk/dist/models/storeAnalytics';
-
-interface SearchData {
-  model: string;
-  item: any;
-}
+import {
+  AnalyticsTypes,
+  AnalyticsFrequency,
+  StoreAnalytics,
+} from '@sradevski/la-sdk/dist/models/storeAnalytics';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 const getAnalyticsTypeQuery = (
   type: AnalyticsTypes,
   forStore: string,
-  engines: { mongoDb: Db },
-  // _frequency?: AnalyticsFrequency,
+  engines: { mongoDb: Db; analyticsModel: Pick<Service, 'get' | 'find'> },
+  frequency: AnalyticsFrequency = sdk.storeAnalytics.AnalyticsFrequency.DAILY,
 ) => {
   switch (type) {
-    case sdk.storeAnalytics.AnalyticsTypes.PRODUCTS_COUNT: {
+    case sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT: {
       return () =>
         engines.mongoDb.collection('products').count({ soldBy: forStore });
     }
-    case sdk.storeAnalytics.AnalyticsTypes.ORDERS_COUNT: {
+    case sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT: {
       return () =>
         engines.mongoDb.collection('orders').count({ orderedFrom: forStore });
     }
 
-    case sdk.storeAnalytics.AnalyticsTypes.REVENUE: {
+    case sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE: {
       return () =>
         engines.mongoDb
           .collection('orders')
@@ -47,10 +47,16 @@ const getAnalyticsTypeQuery = (
           .toArray()
           .then(res => {
             if (res.length <= 0) {
-              return {};
+              return { revenue: {} };
             }
             return _.mapValues(_.keyBy(res, '_id'), 'revenue');
           });
+    }
+    default: {
+      return async () =>
+        ((await engines.analyticsModel.find({
+          query: { forStore, type, frequency },
+        })) as FindResult<StoreAnalytics>).data;
     }
   }
 };
@@ -63,7 +69,9 @@ class StoreAnalyticsService extends Service {
     adapterOptions: Partial<MongoDBServiceOptions>,
   ) {
     if (!analyticsOptions?.mongoDb) {
-      throw new Error('Search service: `options.mongoDb` must be provided');
+      throw new Error(
+        'Store analytics service: `options.mongoDb` must be provided',
+      );
     }
 
     super(adapterOptions);
@@ -76,10 +84,14 @@ class StoreAnalyticsService extends Service {
     const { type, forStore, frequency } = params.query;
     const query = getAnalyticsTypeQuery(type, forStore, {
       mongoDb: this.mongoDb,
+      analyticsModel: {
+        get: (...args) => super.get(...args),
+        find: (...args) => super.find(...args),
+      },
     });
 
     try {
-      return await query();
+      return await query?.();
     } catch (err) {
       logger.error(
         `Failed to get analytics data for type: ${type}`,
@@ -102,7 +114,7 @@ export const storeAnalytics = (app: Application) => {
   const mongoDb = app.get('mongoDb');
   const options = {
     paginate,
-    Model: mongoDb.collection('storeContents'),
+    Model: mongoDb.collection('storeAnalytics'),
     multi: false,
   };
 
