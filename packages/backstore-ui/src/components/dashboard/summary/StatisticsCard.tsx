@@ -1,6 +1,5 @@
 import React from 'react';
-import { hooks, Spin, Card } from '@sradevski/blocks-ui';
-import { useTranslation } from 'react-i18next';
+import { hooks, Spin, Card, Title } from '@sradevski/blocks-ui';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import {
@@ -10,19 +9,24 @@ import {
 import { sdk } from '@sradevski/la-sdk';
 
 interface StatisticsCardProps {
-  type: AnalyticsTypes;
+  title?: string;
+  type?: AnalyticsTypes;
   frequency?: AnalyticsFrequency;
   children: (resp: any) => React.ReactNode;
 }
 
-export const StatisticsCard = ({ type, children }: StatisticsCardProps) => {
-  const { t } = useTranslation();
+export const StatisticsCard = ({
+  title,
+  type,
+  frequency,
+  children,
+}: StatisticsCardProps) => {
   const [caller, showSpinner] = hooks.useCall();
   const [result, setResult] = React.useState();
   const store = useSelector(getStore);
 
   React.useEffect(() => {
-    if (!store?._id) {
+    if (!store?._id || !type) {
       return;
     }
 
@@ -31,6 +35,7 @@ export const StatisticsCard = ({ type, children }: StatisticsCardProps) => {
         query: {
           forStore: store._id,
           type,
+          frequency,
         },
       }),
       res => {
@@ -39,11 +44,14 @@ export const StatisticsCard = ({ type, children }: StatisticsCardProps) => {
         }
       },
     );
-  }, []);
+  }, [store, type]);
 
   return (
     <Spin spinning={showSpinner}>
-      <Card>{children(result)}</Card>
+      <Card>
+        {!!title && <Title level={4}>{title}</Title>}
+        {children(result)}
+      </Card>
     </Spin>
   );
 };
