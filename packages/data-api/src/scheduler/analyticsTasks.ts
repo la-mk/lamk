@@ -5,6 +5,7 @@ import Bluebird from 'bluebird';
 import { startOfDay, endOfDay } from 'date-fns';
 import { sdk } from '@sradevski/la-sdk';
 import { StoreAnalyticsEntry } from '@sradevski/la-sdk/dist/models/storeAnalytics';
+import { logger } from '../common/logger';
 
 const getDailyRevenueForStore = (db: Db, storeId: string, forDate: Date) => {
   const fromDatetime = startOfDay(forDate).toISOString();
@@ -119,28 +120,36 @@ const getEntriesForStores = async <T extends any>(
 
 export const dailyOrderCountTask = async (app: Application, forDate: Date) => {
   const db: Db = app.get('mongoDb');
-  const storeIds = await getStoreIds(db);
+  try {
+    const storeIds = await getStoreIds(db);
 
-  const storesOrderCount = await getEntriesForStores(storeIds, storeId =>
-    getDailyOrderCountForStore(db, storeId, forDate),
-  );
+    const storesOrderCount = await getEntriesForStores(storeIds, storeId =>
+      getDailyOrderCountForStore(db, storeId, forDate),
+    );
 
-  return createAnalyticsEntries(app, storesOrderCount, startOfDay(forDate), {
-    frequency: sdk.storeAnalytics.AnalyticsFrequency.DAILY,
-    type: sdk.storeAnalytics.AnalyticsTypes.ORDER_COUNT,
-  });
+    return createAnalyticsEntries(app, storesOrderCount, startOfDay(forDate), {
+      frequency: sdk.storeAnalytics.AnalyticsFrequency.DAILY,
+      type: sdk.storeAnalytics.AnalyticsTypes.ORDER_COUNT,
+    });
+  } catch (err) {
+    logger.error(err.message);
+  }
 };
 
 export const dailyRevenueTask = async (app: Application, forDate: Date) => {
   const db: Db = app.get('mongoDb');
-  const storeIds = await getStoreIds(db);
+  try {
+    const storeIds = await getStoreIds(db);
 
-  const storesRevenue = await getEntriesForStores(storeIds, storeId =>
-    getDailyRevenueForStore(db, storeId, forDate),
-  );
+    const storesRevenue = await getEntriesForStores(storeIds, storeId =>
+      getDailyRevenueForStore(db, storeId, forDate),
+    );
 
-  return createAnalyticsEntries(app, storesRevenue, startOfDay(forDate), {
-    frequency: sdk.storeAnalytics.AnalyticsFrequency.DAILY,
-    type: sdk.storeAnalytics.AnalyticsTypes.REVENUE,
-  });
+    return createAnalyticsEntries(app, storesRevenue, startOfDay(forDate), {
+      frequency: sdk.storeAnalytics.AnalyticsFrequency.DAILY,
+      type: sdk.storeAnalytics.AnalyticsTypes.REVENUE,
+    });
+  } catch (err) {
+    logger.error(err.message);
+  }
 };

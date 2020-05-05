@@ -19,7 +19,7 @@ export const TopStatistics = () => {
 
             return (
               <Statistic
-                title={t('commerce.revenue')}
+                title={t('analytics.lifetimeRevenue')}
                 suffix={'ден'}
                 value={total}
               />
@@ -31,16 +31,16 @@ export const TopStatistics = () => {
         <StatisticsCard
           type={sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT}
         >
-          {val => (
-            <Statistic title={t('commerce.product_plural')} value={val} />
-          )}
+          {val => <Statistic title={t('analytics.productCount')} value={val} />}
         </StatisticsCard>
       </Col>
       <Col mt={2} xs={24} lg={8}>
         <StatisticsCard
           type={sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT}
         >
-          {val => <Statistic title={t('commerce.order_plural')} value={val} />}
+          {val => (
+            <Statistic title={t('analytics.lifetimeOrderCount')} value={val} />
+          )}
         </StatisticsCard>
       </Col>
     </Row>
