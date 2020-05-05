@@ -1,4 +1,11 @@
 {
+	"analyticsFrequency": {
+		"hourly": "Часовен",
+		"daily": "Дневен",
+		"weekly": "Неделен",
+		"Monthly": "Месечен"
+	},
+
 	"categories": {
 		"construction": "Градежништво",
 		"construction-material": "Градежни материјали",

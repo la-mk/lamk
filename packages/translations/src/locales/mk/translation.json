@@ -39,7 +39,14 @@
 		"removeAddressSuccess": "Адресата беше успешно отстранета",
 		"shippingAddress": "Адреса за достава",
 		"updateAddressSuccess": "Адресата беше успешно обновена"
-  },
+	},
+	"analytics": {
+		"lifetimeRevenue": "Вкупен приход",
+		"lifetimeOrderCount": "Вкупно порачки",
+		"orderCount": "Број на порачки",
+		"productCount": "Број на производи",
+		"revenue": "Приход"
+	},
   "auth": {
 		"account": "Сметка",
 		"accountSettings": "Поставки за сметка",

@@ -1,4 +1,11 @@
 {
+	"analyticsFrequency": {
+		"hourly": "Hourly",
+		"daily": "Daily",
+		"weekly": "Weekly",
+		"Monthly": "Monthly"
+	},
+
 	"categories": {
 		"construction": "Construction",
 		"construction-material": "Construction materials",

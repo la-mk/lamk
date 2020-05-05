@@ -39,7 +39,14 @@
 		"removeAddressSuccess": "Address successfully removed",
 		"shippingAddress": "Shipping address",
 		"updateAddressSuccess": "Address successfully updated"
-  },
+	},
+	"analytics": {
+		"lifetimeRevenue": "Lifetime revenue",
+		"lifetimeOrderCount": "Lifetime order count",
+		"orderCount": "Number of orders",
+		"productCount": "Number of products",
+		"revenue": "Revenue"
+	},
   "auth": {
 		"account": "Account",
 		"accountSettings": "Account settings",
