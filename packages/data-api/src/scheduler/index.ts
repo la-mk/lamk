@@ -1,7 +1,11 @@
 // TODO: Move the scheduler to a separate service, using a separate DB
 import Agenda from 'agenda';
 import { Application } from '@feathersjs/express';
-import { dailyOrderCountTask, dailyRevenueTask } from './analyticsTasks';
+import {
+  dailyOrderCountTask,
+  dailyRevenueTask,
+  dailyStoreVisitTask,
+} from './analyticsTasks';
 import { subDays } from 'date-fns';
 
 const everyDayAfterMidnight = '30 0 * * *';
@@ -9,6 +13,7 @@ const everyDayAfterMidnight = '30 0 * * *';
 enum AnalyticsTasks {
   DAILY_REVENUE_PER_STORE = 'daily revenue per store',
   DAILY_ORDERS_PER_STORE = 'daily orders per store',
+  DAILY_VISITS_PER_STORE = 'daily visits per store',
 }
 
 const defineAnalyticsTasks = (agenda: Agenda, app: Application) => {
@@ -29,6 +34,15 @@ const defineAnalyticsTasks = (agenda: Agenda, app: Application) => {
       return dailyRevenueTask(app, yesterday);
     },
   );
+
+  agenda.define(
+    AnalyticsTasks.DAILY_VISITS_PER_STORE,
+    { concurrency: 1 },
+    () => {
+      const yesterday = subDays(Date.now(), 1);
+      return dailyStoreVisitTask(app, yesterday);
+    },
+  );
 };
 
 const scheduleAnalyticsTasks = async (agenda: Agenda) => {
@@ -39,6 +53,11 @@ const scheduleAnalyticsTasks = async (agenda: Agenda) => {
   await agenda.every(
     everyDayAfterMidnight,
     AnalyticsTasks.DAILY_REVENUE_PER_STORE,
+  );
+
+  await agenda.every(
+    everyDayAfterMidnight,
+    AnalyticsTasks.DAILY_VISITS_PER_STORE,
   );
 };
 

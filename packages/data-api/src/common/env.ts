@@ -71,6 +71,15 @@ const loadEnv = _.once(() => {
       .get('NESTPAY_API_ENDPOINT')
       .required()
       .asString(),
+
+    ANALYTICS_TRACKING_ID: envvar
+      .get('ANALYTICS_TRACKING_ID')
+      .required()
+      .asString(),
+    ANALYTICS_SECRET_KEY: envvar
+      .get('ANALYTICS_SECRET_KEY')
+      .required()
+      .asString(),
   };
 });
 

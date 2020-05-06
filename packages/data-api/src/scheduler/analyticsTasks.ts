@@ -6,6 +6,7 @@ import { startOfDay, endOfDay } from 'date-fns';
 import { sdk } from '@sradevski/la-sdk';
 import { StoreAnalyticsEntry } from '@sradevski/la-sdk/dist/models/storeAnalytics';
 import { logger } from '../common/logger';
+import { getStoreVisits } from './amplitude';
 
 const getDailyRevenueForStore = (db: Db, storeId: string, forDate: Date) => {
   const fromDatetime = startOfDay(forDate).toISOString();
@@ -148,6 +149,27 @@ export const dailyRevenueTask = async (app: Application, forDate: Date) => {
     return createAnalyticsEntries(app, storesRevenue, startOfDay(forDate), {
       frequency: sdk.storeAnalytics.AnalyticsFrequency.DAILY,
       type: sdk.storeAnalytics.AnalyticsTypes.REVENUE,
+    });
+  } catch (err) {
+    logger.error(err.message);
+  }
+};
+
+export const dailyStoreVisitTask = async (app: Application, forDate: Date) => {
+  const db: Db = app.get('mongoDb');
+  try {
+    const storeIds = await getStoreIds(db);
+
+    const visitCount = await getStoreVisits(
+      storeIds,
+      sdk.storeAnalytics.AnalyticsFrequency.DAILY,
+      forDate,
+      forDate,
+    );
+
+    return createAnalyticsEntries(app, visitCount, startOfDay(forDate), {
+      frequency: sdk.storeAnalytics.AnalyticsFrequency.DAILY,
+      type: sdk.storeAnalytics.AnalyticsTypes.VISIT_COUNT,
     });
   } catch (err) {
     logger.error(err.message);

@@ -1,0 +1,57 @@
+{
+  "amplitudeResponse": {
+    "data": {
+      "series": [
+        [
+          0,
+          0,
+          9,
+          5,
+          2
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "seriesCollapsed": [
+        [
+          {
+            "setId": "",
+            "value": 16
+          }
+        ],
+        [
+          {
+            "setId": "",
+            "value": 1
+          }
+        ]
+      ],
+      "xValues": [
+        "2020-04-08",
+        "2020-04-09",
+        "2020-04-10",
+        "2020-04-11",
+        "2020-04-12"
+      ],
+      "seriesLabels": [
+        [
+          0,
+          "326478a3-a764-4261-83b9-36e7d8a8c9e5"
+        ],
+        [
+          0,
+          "(none)"
+        ]
+      ],
+      "seriesIntervals": {}
+    }
+  },
+  "expectedResponse": {
+    "res": []
+  }
+}
