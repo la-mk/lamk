@@ -45,7 +45,8 @@
 		"lifetimeOrderCount": "Вкупно порачки",
 		"orderCount": "Број на порачки",
 		"productCount": "Број на производи",
-		"revenue": "Приход"
+		"revenue": "Приход",
+		"visitCount": "Број на посети"
 	},
   "auth": {
 		"account": "Сметка",

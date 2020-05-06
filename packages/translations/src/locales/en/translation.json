@@ -45,7 +45,8 @@
 		"lifetimeOrderCount": "Lifetime order count",
 		"orderCount": "Number of orders",
 		"productCount": "Number of products",
-		"revenue": "Revenue"
+		"revenue": "Revenue",
+		"visitCount": "Visit count"
 	},
   "auth": {
 		"account": "Account",
