@@ -13,6 +13,8 @@ export enum AnalyticsTypes {
 
   ORDER_COUNT="orderCount",
   REVENUE = 'revenue',
+
+  VISIT_COUNT="visitCount"
 }
 
 export enum AnalyticsFrequency {
