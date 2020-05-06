@@ -20,7 +20,8 @@
     "lifetimeRevenue": "Lifetime revenue",
     "orderCount": "Number of orders",
     "productCount": "Number of products",
-    "revenue": "Revenue"
+    "revenue": "Revenue",
+    "visitCount": "Visit count"
   },
   "analyticsFrequency": {
     "Monthly": "Monthly",

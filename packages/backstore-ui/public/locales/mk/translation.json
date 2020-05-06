@@ -20,7 +20,8 @@
     "lifetimeRevenue": "Вкупен приход",
     "orderCount": "Број на порачки",
     "productCount": "Број на производи",
-    "revenue": "Приход"
+    "revenue": "Приход",
+    "visitCount": "Број на посети"
   },
   "analyticsFrequency": {
     "Monthly": "Месечен",

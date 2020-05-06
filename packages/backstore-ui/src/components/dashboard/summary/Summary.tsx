@@ -2,7 +2,8 @@ import React from 'react';
 import { TopStatistics } from './TopStatistics';
 import { Revenue } from './Revenue';
 import { Orders } from './Orders';
-import { Row, Col, Title } from '@sradevski/blocks-ui';
+import { Row, Col } from '@sradevski/blocks-ui';
+import { Visits } from './Visits';
 
 export const Summary = () => {
   return (
@@ -14,6 +15,11 @@ export const Summary = () => {
         </Col>
         <Col mt={2} xs={24} xl={12}>
           <Orders />
+        </Col>
+      </Row>
+      <Row gutter={16} px={[3, 3, 4]} py={2}>
+        <Col mt={2} xs={24} xl={24}>
+          <Visits />
         </Col>
       </Row>
     </>
