@@ -146,7 +146,7 @@ export const Product = ({ product }: ProductProps) => {
             justifyContent='flex-start'
             flexDirection='column'
           >
-            <Image maxHeight='280px' src={selectedImage} />
+            <Image alt={product.name} maxHeight='280px' src={selectedImage} />
             <Box mt={3} maxWidth={['100%', '100%', '80%']}>
               <Thumbnails
                 images={product.images.map(imageId =>

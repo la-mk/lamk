@@ -14,7 +14,7 @@ export const Thumbnails = ({
 }: ThumbnailsProps) => {
   return (
     <Flex flexDirection='row' flexWrap='wrap' justifyContent='center'>
-      {images.map(imageUrl => {
+      {images.map((imageUrl, index) => {
         return (
           <Flex
             key={imageUrl}
@@ -30,6 +30,7 @@ export const Thumbnails = ({
             m={2}
           >
             <Image
+              alt={`product-thumbnail-${index}`}
               maxHeight='62px'
               maxWidth='62px'
               style={{ cursor: 'pointer' }}
