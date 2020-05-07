@@ -21,6 +21,12 @@
     "shippingAddress": "Shipping address",
     "updateAddressSuccess": "Address successfully updated"
   },
+  "analyticsFrequency": {
+    "Monthly": "Monthly",
+    "daily": "Daily",
+    "hourly": "Hourly",
+    "weekly": "Weekly"
+  },
   "auth": {
     "accountUpdateSuccess": "Account successfully updated",
     "alreadyHaveAccount": "Already have account?",
@@ -205,7 +211,7 @@
   "errors": {
     "between": "Field should be between {{0}} and {{1}}",
     "boolean": "Field should be either true or false",
-    "datetime": "Field should be a valid date",
+    "date": "Field should be a valid date",
     "email": "Field should be a valid email address",
     "generic": "Invalid entry",
     "greaterThan": "Field should be more than {{0}}",
@@ -308,7 +314,8 @@
     "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
   },
   "seoDescriptions": {
-    "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now"
+    "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",
+    "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
   },
   "sets": {
     "latest": "Latest products"

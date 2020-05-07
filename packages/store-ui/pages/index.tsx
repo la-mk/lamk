@@ -22,8 +22,7 @@ function HomePage({
       <Head
         siteName={store?.name}
         title={t('pages.home')}
-        // TODO: Allow stores to set a slogan that we can show here.
-        description={store?.name}
+        description={`${store?.name} - ${t('seoDescriptions.storeGeneric')}`}
       />
       <Home landingContent={landingContent} />
     </>

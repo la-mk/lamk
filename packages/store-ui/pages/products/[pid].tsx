@@ -11,7 +11,7 @@ import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { TFunction } from 'next-i18next';
 
 const getProductSummary = (product: ProductType, t: TFunction) => {
-  const partialDescription = product.description?.slice(0, 100);
+  const partialDescription = product.description?.slice(0, 130);
   return `${product.name}
   ${t('common.price')}: ${product.calculatedPrice}
   ${partialDescription ?? ''}...`;
