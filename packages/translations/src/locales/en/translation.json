@@ -350,7 +350,8 @@
 		"genericErrorExplanation": "There was an error with status code {{statusCode}}. Contact us if the issue persists"
 	},
 	"seoDescriptions" : {
-		"product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now"
+		"product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",
+		"storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
 	},
   "store": {
 		"aboutUs": "About us",
