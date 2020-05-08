@@ -19,22 +19,31 @@ export default function configureStore(
 }
 
 function configureProdStore(initialState: any, options: MakeStoreOptions) {
-  return configureDevStore(initialState, options);
+  return configure(initialState, options, compose);
 }
 
 function configureDevStore(initialState: any, options: MakeStoreOptions) {
+  return configure(
+    initialState,
+    options,
+
+    options.isServer
+      ? compose
+      : (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose,
+  );
+}
+
+function configure(
+  initialState: any,
+  options: MakeStoreOptions,
+  composeEnhancers: typeof compose,
+) {
   if (options.isServer) {
     return createStore(registerReducers(true), initialState);
   }
 
   const sagaMiddleware = createSagaMiddleware();
   const routerMiddleware = createRouterMiddleware();
-  const composeEnhancers =
-    // @ts-ignore
-    window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      : compose;
-
   const enhancer = composeEnhancers(
     applyMiddleware(sagaMiddleware, routerMiddleware),
   );

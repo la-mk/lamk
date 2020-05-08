@@ -14,14 +14,17 @@ export default function configureStore(env?: string) {
 }
 
 function configureProdStore() {
-  return configureDevStore();
+  return configure(compose);
 }
 
 function configureDevStore() {
+  return configure(
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose,
+  );
+}
+
+function configure(composeEnhancers: typeof compose) {
   const sagaMiddleware = createSagaMiddleware();
-  const composeEnhancers =
-    // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const enhancer = composeEnhancers(
     applyMiddleware(sagaMiddleware, routerMiddleware(history)),
   );
