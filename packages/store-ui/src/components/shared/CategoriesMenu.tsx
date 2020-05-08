@@ -67,7 +67,6 @@ export const CategoriesMenu = ({
       mode={mode}
       multiple
       width={mode === 'horizontal' ? '100%' : '280px'}
-      height='100%'
       style={{ border: 'none' }}
       selectedKeys={selectedKeys}
       onSelect={onSelect}

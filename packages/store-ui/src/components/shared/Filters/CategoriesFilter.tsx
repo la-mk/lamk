@@ -3,6 +3,8 @@ import React from 'react';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { CategoriesMenu, CategoriesMenuProps } from '../CategoriesMenu';
 import { utils } from '@sradevski/blocks-ui';
+import { FiltersTitle } from './FiltersTitle';
+import { useTranslation } from '../../../common/i18n';
 
 const parseCategoryFilter = (filtering: FilterObject['filtering']) => {
   if (!filtering || !filtering.category) {
@@ -27,6 +29,7 @@ export const CategoriesFilter = ({
   onChange,
   mode,
 }: CategoriesFilterProps) => {
+  const { t } = useTranslation();
   const selectedCategories = parseCategoryFilter(filters.filtering);
 
   const handleSelectedCategoriesChange = ({
@@ -44,10 +47,16 @@ export const CategoriesFilter = ({
   };
 
   return (
-    <CategoriesMenu
-      mode={mode}
-      selectedKeys={selectedCategories}
-      onSelect={handleSelectedCategoriesChange}
-    />
+    <>
+      <FiltersTitle
+        title={t('common.category_plural')}
+        onReset={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
+      />
+      <CategoriesMenu
+        mode={mode}
+        selectedKeys={selectedCategories}
+        onSelect={handleSelectedCategoriesChange}
+      />
+    </>
   );
 };

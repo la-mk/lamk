@@ -3,6 +3,7 @@ import React from 'react';
 import { Flex, Select, Option } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { FiltersTitle } from './FiltersTitle';
 
 interface SortFilterProps {
   filters: FilterObject;
@@ -45,26 +46,32 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
   const sortValue = getSortValue(filters.sorting);
 
   return (
-    <Flex p={3} flexDirection='column'>
-      <Select
-        value={sortValue}
-        onChange={value =>
-          onChange({
-            ...filters,
-            sorting: getSortFromValue(value as SortValues),
-          })
-        }
-      >
-        <Option key={'recommended'} value={'recommended'}>
-          {t('filters.recommended')}
-        </Option>
-        <Option key={'cheap'} value={'cheap'}>
-          {t('filters.cheapestFirst')}
-        </Option>
-        <Option key={'expensive'} value={'expensive'}>
-          {t('filters.expensiveFirst')}
-        </Option>
-      </Select>
-    </Flex>
+    <>
+      <FiltersTitle
+        title={t('common.sort')}
+        onReset={() => onChange({ ...filters, sorting: undefined })}
+      />
+      <Flex p={3} flexDirection='column'>
+        <Select
+          value={sortValue}
+          onChange={value =>
+            onChange({
+              ...filters,
+              sorting: getSortFromValue(value as SortValues),
+            })
+          }
+        >
+          <Option key={'recommended'} value={'recommended'}>
+            {t('filters.recommended')}
+          </Option>
+          <Option key={'cheap'} value={'cheap'}>
+            {t('filters.cheapestFirst')}
+          </Option>
+          <Option key={'expensive'} value={'expensive'}>
+            {t('filters.expensiveFirst')}
+          </Option>
+        </Select>
+      </Flex>
+    </>
   );
 };

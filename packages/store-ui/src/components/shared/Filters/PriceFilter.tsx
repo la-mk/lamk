@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { InputNumber, Slider, Flex, Text, utils } from '@sradevski/blocks-ui';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { isString } from 'util';
+import { FiltersTitle } from './FiltersTitle';
+import { useTranslation } from '../../../common/i18n';
 
 const parsePriceFilter = (
   filtering: FilterObject['filtering'],
@@ -43,6 +45,7 @@ interface PriceFilter {
 }
 
 export const PriceFilter = ({ filters, min, max, onChange }: PriceFilter) => {
+  const { t } = useTranslation();
   const [from, to] = parsePriceFilter(filters.filtering, min, max);
   const [range, setRange] = useState<[number, number]>([from, to]);
   const [start, end] = range;
@@ -51,45 +54,54 @@ export const PriceFilter = ({ filters, min, max, onChange }: PriceFilter) => {
     setRange([from, to]);
   }, [from, to]);
 
-  const handleChangeDone = () => {
+  const handleChangeDone = (f, t) => {
     onChange({
       ...filters,
       filtering: {
         ...(filters.filtering || {}),
-        ...utils.filter.rangeFilter('calculatedPrice', start, end, min, max),
+        ...utils.filter.rangeFilter('calculatedPrice', f, t, min, max),
       },
     });
   };
 
   return (
-    <Flex flexDirection='column'>
-      <Flex alignItems='center' justifyContent='center'>
-        <InputNumber
-          onChange={val => val <= end && setRange([val, end])}
-          onBlur={handleChangeDone}
-          value={start}
-        />
-        <Text mx={2}>~</Text>
-        <InputNumber
-          onChange={val => val >= start && setRange([start, val])}
-          onBlur={handleChangeDone}
+    <>
+      <FiltersTitle
+        title={t('common.price')}
+        onReset={() => {
+          setRange([min, max]);
+          handleChangeDone(min, max);
+        }}
+      />
+      <Flex flexDirection='column'>
+        <Flex mt={2} alignItems='center' justifyContent='center'>
+          <InputNumber
+            onChange={val => val <= end && setRange([val, end])}
+            onBlur={() => handleChangeDone(start, end)}
+            value={start}
+          />
+          <Text mx={2}>~</Text>
+          <InputNumber
+            onChange={val => val >= start && setRange([start, val])}
+            onBlur={() => handleChangeDone(start, end)}
+            max={max}
+            value={end}
+            formatter={value =>
+              value === max.toString() ? `${value}+` : value.toString()
+            }
+            parser={value => value.replace('+', '')}
+          />
+        </Flex>
+        <Slider
+          onChange={setRange as any}
+          onAfterChange={() => handleChangeDone(start, end)}
+          range
+          min={min}
           max={max}
-          value={end}
-          formatter={value =>
-            value === max.toString() ? `${value}+` : value.toString()
-          }
-          parser={value => value.replace('+', '')}
+          value={range}
+          mt={4}
         />
       </Flex>
-      <Slider
-        onChange={setRange as any}
-        onAfterChange={handleChangeDone}
-        range
-        min={min}
-        max={max}
-        value={range}
-        mt={4}
-      />
-    </Flex>
+    </>
   );
 };

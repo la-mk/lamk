@@ -62,7 +62,7 @@ export const Products = ({
       }
     >
       <Flex flexDirection={['column', 'column', 'row']}>
-        <Card mr={2} display={['none', 'none', 'initial']}>
+        <Card mr={2} height='100%' display={['none', 'none', 'initial']}>
           <ProductsSidemenu
             filters={filters || initialFilters}
             setFilters={setFilters}
@@ -76,10 +76,12 @@ export const Products = ({
           closable
           placement='left'
         >
-          <ProductsSidemenu
-            filters={filters || initialFilters}
-            setFilters={setFilters}
-          />
+          <Box pt={3}>
+            <ProductsSidemenu
+              filters={filters || initialFilters}
+              setFilters={setFilters}
+            />
+          </Box>
         </Drawer>
 
         <Box mb={2} display={['initial', 'initial', 'none']}>
