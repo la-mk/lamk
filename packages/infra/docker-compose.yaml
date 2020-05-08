@@ -203,16 +203,16 @@ services:
       
       - traefik.http.routers.backstore-ui-http.priority=1000
       - traefik.http.routers.backstore-ui-http.entrypoints=web
-      - traefik.http.routers.backstore-ui-http.rule=Host(`back.${SYSTEM_TLD}`)
+      - traefik.http.routers.backstore-ui-http.rule=Host(`admin.${SYSTEM_TLD}`)
       - traefik.http.routers.backstore-ui-http.middlewares=backstore-ui-https
 
       - traefik.http.routers.backstore-ui.priority=1000
-      - traefik.http.routers.backstore-ui.rule=Host(`back.${SYSTEM_TLD}`)
+      - traefik.http.routers.backstore-ui.rule=Host(`admin.${SYSTEM_TLD}`)
       - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
       - traefik.http.routers.backstore-ui.entrypoints=websecure
       - traefik.http.routers.backstore-ui.tls=true
       # - traefik.http.routers.backstore-ui.tls.certresolver=cert-resolve
-      # - traefik.http.routers.backstore-ui.tls.domains[0].main=back.${SYSTEM_TLD}
+      # - traefik.http.routers.backstore-ui.tls.domains[0].main=admin.${SYSTEM_TLD}
     environment: 
       REACT_APP_API_ENDPOINT: https://api.${SYSTEM_TLD}
       REACT_APP_ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
