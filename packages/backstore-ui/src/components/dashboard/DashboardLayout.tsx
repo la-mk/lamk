@@ -6,6 +6,10 @@ import {
   Flex,
   Menu,
   MenuItem,
+  Dropdown,
+  Text,
+  Button,
+  Box,
 } from '@sradevski/blocks-ui';
 import {
   DashboardOutlined,
@@ -15,6 +19,7 @@ import {
   TagOutlined,
   ShopOutlined,
   SettingOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
@@ -44,9 +49,23 @@ const TopMenuContainer = styled(Flex)`
   color: white;
 `;
 
+const TopMenu = ({ i18n }: any) => {
+  return (
+    <TopMenuContainer
+      py={4}
+      px={3}
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+    >
+      <Account />
+    </TopMenuContainer>
+  );
+};
+
 const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Not a very clean solution, but it will do for now
   const matches = location.pathname.match(/\/dashboard\/(\w*)(\/?)/);
@@ -60,9 +79,7 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
           collapsed={isSidebarCollapsed}
           onCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
-          <TopMenuContainer py={4} px={3}>
-            <Account />
-          </TopMenuContainer>
+          <TopMenu i18n={i18n} />
 
           <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
             <MenuItem key='summary'>
@@ -107,10 +124,41 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
               <Link to='/dashboard/store' />
             </MenuItem>
 
+            {/* 
             <MenuItem key='preferences'>
               <SettingOutlined />
               <span>{t('common.preferences')}</span>
               <Link to='/dashboard/preferences' />
+            </MenuItem> */}
+            <MenuItem key='language'>
+              <Dropdown
+                placement='bottomLeft'
+                overlay={
+                  <Menu
+                    selectedKeys={[i18n.language]}
+                    onClick={({ key }) => {
+                      i18n.changeLanguage(key);
+                    }}
+                  >
+                    <MenuItem key='mk'>
+                      <Text>Македонски</Text>
+                    </MenuItem>
+                    <MenuItem key='en'>
+                      <Text>English</Text>
+                    </MenuItem>
+                  </Menu>
+                }
+              >
+                <Button
+                  p={0}
+                  display='block'
+                  type='link'
+                  style={{ color: 'inherit' }}
+                >
+                  <GlobalOutlined style={{ marginRight: 0 }} />{' '}
+                  {i18n.language.toUpperCase()}
+                </Button>
+              </Dropdown>
             </MenuItem>
           </Menu>
         </FixedSider>
