@@ -34,7 +34,13 @@ export const TopMenu = ({
       }}
       mode={mode}
       selectedKeys={selectedKeys}
-      onClick={closeDrawer}
+      onClick={({ key }) => {
+        if (key === 'language') {
+          return;
+        }
+
+        closeDrawer();
+      }}
     >
       <MenuItem p={0} key='home' mb={11} mx={[0, 1, 2]}>
         <Link href='/' passHref>
