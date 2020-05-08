@@ -123,7 +123,7 @@ services:
       ANALYTICS_SECRET_KEY: $ANALYTICS_SECRET_KEY
 
   store-ui:
-    image: lamk/store-ui:1.0.47
+    image: lamk/store-ui:1.0.48
     container_name: store-ui
     restart: always
     depends_on: 
@@ -188,7 +188,7 @@ services:
 
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.37
+    image: lamk/backstore-ui:1.0.38
     container_name: backstore-ui
     restart: always
     depends_on: 
