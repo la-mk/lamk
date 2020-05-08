@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/translations"
   },
-  "version": "0.0.45",
+  "version": "0.0.46",
   "license": "ISC",
   "author": "Stevche Radevski",
   "main": "dist/index.js",
