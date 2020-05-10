@@ -29,6 +29,7 @@ export const SetupProducts = ({
   onRemoveProduct,
 }: SetupProductsProps) => {
   const { t } = useTranslation();
+
   return (
     <>
       <Flex mb={6} alignItems='center' flexDirection='column'>

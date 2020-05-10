@@ -11,6 +11,9 @@ const vars = {
   ARTIFACTS_ENDPOINT:
     // @ts-ignore
     process.env.REACT_APP_ARTIFACTS_ENDPOINT || window._env.ARTIFACTS_ENDPOINT,
+  ENABLE_SIGNUP:
+    // @ts-ignore
+    process.env.REACT_APP_ENABLE_SIGNUP || window._env.ENABLE_SIGNUP,
 };
 
 const envvar = from(vars as any);
@@ -31,4 +34,9 @@ export default {
     .get('ARTIFACTS_ENDPOINT')
     .required()
     .asString(),
+
+  ENABLE_SIGNUP: envvar
+    .get('ENABLE_SIGNUP')
+    .required()
+    .asBool(),
 };

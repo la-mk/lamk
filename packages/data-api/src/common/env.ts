@@ -76,10 +76,16 @@ const loadEnv = _.once(() => {
       .get('ANALYTICS_TRACKING_ID')
       .required()
       .asString(),
+
     ANALYTICS_SECRET_KEY: envvar
       .get('ANALYTICS_SECRET_KEY')
       .required()
       .asString(),
+
+    ENABLE_SIGNUP: envvar
+      .get('ENABLE_SIGNUP')
+      .required()
+      .asBool(),
   };
 });
 

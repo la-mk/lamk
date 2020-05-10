@@ -22,6 +22,7 @@ import {
   createStorePaymentMethodsIfNotExists,
   removeStorePaymentMethods,
 } from './serviceHooks/storePaymentMethods';
+import loadEnv from '../../common/env';
 
 const allowedFields = [
   '_id',
@@ -41,8 +42,9 @@ export const hooks = {
     find: [requireAnyQueryParam(['ownedBy', 'slug', 'customDomain'])],
     get: [],
     create: [
+      ...(loadEnv().ENABLE_SIGNUP ? [] : [disallow('external')]),
       // We currently don't allow registrations while we are in alpha.
-      disallow('external'),
+      // disallow('external'),
       authenticate('jwt'),
       // For a start, we want to have 1:1 mapping between user and store and use the same ID to simplify usage.
       setCurrentUser(['_id', 'ownedBy']),

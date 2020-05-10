@@ -121,6 +121,7 @@ services:
       NESTPAY_API_ENDPOINT: $NESTPAY_API_ENDPOINT
       ANALYTICS_TRACKING_ID: $ANALYTICS_TRACKING_ID
       ANALYTICS_SECRET_KEY: $ANALYTICS_SECRET_KEY
+      ENABLE_SIGNUP: "false"
 
   store-ui:
     image: lamk/store-ui:1.0.48
@@ -216,4 +217,5 @@ services:
     environment: 
       REACT_APP_API_ENDPOINT: https://api.${SYSTEM_TLD}
       REACT_APP_ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
+      REACT_APP_ENABLE_SIGNUP: "false"
       PORT: 80

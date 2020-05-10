@@ -85,7 +85,10 @@ export const Orders = () => {
 
   const [caller, showSpinner] = hooks.useCall();
   const [filters, setFilters] = hooks.useFilter(
-    { filtering: { status: undefined } },
+    {
+      filtering: { status: undefined },
+      sorting: { field: 'createdAt', order: 'descend' },
+    },
     {
       storage: 'session',
       storageKey: `${store ? store._id : ''}/orderFilters`,

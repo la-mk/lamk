@@ -30,10 +30,18 @@ export const Orders = () => {
   const store = useSelector(getStore);
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
-  const [filters, setFilters] = hooks.useFilter(null, {
-    storage: 'url',
-    router: Router,
-  });
+  const [filters, setFilters] = hooks.useFilter(
+    {
+      sorting: {
+        field: 'createdAt',
+        order: 'descend',
+      },
+    },
+    {
+      storage: 'url',
+      router: Router,
+    },
+  );
 
   React.useEffect(() => {
     if (!user) {
@@ -41,7 +49,11 @@ export const Orders = () => {
     }
 
     caller(
-      sdk.order.findForUser(user._id, utils.filter.filtersAsQuery(filters)),
+      sdk.order.findForUserFromStore(
+        user._id,
+        store._id,
+        utils.filter.filtersAsQuery(filters),
+      ),
       setOrders,
     );
   }, [user, filters]);
