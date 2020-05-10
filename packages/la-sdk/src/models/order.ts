@@ -80,6 +80,12 @@ export const getOrderSdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
+    findForUserFromStore: (userId: string, storeId: string, params?: Params) => {
+      const options = {};
+      merge(options, params, { query: { orderedBy: userId, orderedFrom: storeId } });
+      return crudMethods.find(options);
+    },
+
     setStatus: (orderId: string, status: Order['status'], params?: Params) => {
       return crudMethods.patch(orderId, { status }, params);
     },
