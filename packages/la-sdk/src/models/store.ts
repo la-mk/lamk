@@ -24,7 +24,7 @@ export const schema = {
       .maxLength(1023),
     true,
   ),
-  company: v8n().schema({
+  company: v8n().optional(v8n().schema({
     companyName: v8n()
       .string()
       .minLength(2)
@@ -41,8 +41,8 @@ export const schema = {
       .string()
       .minLength(2)
       .maxLength(127),
-  }),
-  contact: v8n().schema({
+  })),
+  contact: v8n().optional(v8n().schema({
     email: v8n()
       .string()
       .minLength(4)
@@ -58,7 +58,7 @@ export const schema = {
         .maxLength(63),
       true,
     ),
-  }),
+  })),
   logo: v8n()
     .string()
     .minLength(2)
@@ -71,13 +71,13 @@ export interface Store extends DefaultSchema {
   name: string;
   slug: string;
   customDomain?: string;
-  company: {
+  company?: {
     companyName: string;
     companyAddress: string;
     registryNumber: string;
     taxNumber: string;
   };
-  contact: {
+  contact?: {
     email: string;
     phoneNumber: string;
     alternatePhoneNumber?: string;
