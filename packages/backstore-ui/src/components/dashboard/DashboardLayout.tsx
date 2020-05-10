@@ -9,7 +9,6 @@ import {
   Dropdown,
   Text,
   Button,
-  Box,
 } from '@sradevski/blocks-ui';
 import {
   DashboardOutlined,
@@ -18,8 +17,9 @@ import {
   CodeSandboxOutlined,
   TagOutlined,
   ShopOutlined,
-  SettingOutlined,
+  // SettingOutlined,
   GlobalOutlined,
+  BankOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
@@ -107,7 +107,7 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
             </MenuItem>
 
             <MenuItem key='payment'>
-              <CodeSandboxOutlined />
+              <BankOutlined />
               <span>{t('commerce.payment')}</span>
               <Link to='/dashboard/payment' />
             </MenuItem>
