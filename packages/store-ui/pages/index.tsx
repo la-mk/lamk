@@ -22,7 +22,10 @@ function HomePage({
       <Head
         siteName={store?.name}
         title={t('pages.home')}
-        description={`${store?.name} - ${t('seoDescriptions.storeGeneric')}`}
+        description={
+          store?.slogan ??
+          `${store?.name} - ${t('seoDescriptions.storeGeneric')}`
+        }
       />
       <Home landingContent={landingContent} />
     </>

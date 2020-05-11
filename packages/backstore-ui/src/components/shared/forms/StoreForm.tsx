@@ -19,6 +19,7 @@ import { UploadChangeParam } from 'antd/lib/upload';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { useTranslation } from 'react-i18next';
 import { User } from '@sradevski/la-sdk/dist/models/user';
+import { ColorPicker } from '../components/ColorPicker';
 
 interface StoreFormProps {
   store: Store | null;
@@ -34,7 +35,11 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
 
   useEffect(() => {
     if (!store) {
-      setExternalState({ ownedBy: userId, isPublished: false });
+      setExternalState({
+        ownedBy: userId,
+        isPublished: false,
+        color: '#7859d1',
+      });
     } else {
       setExternalState(store);
     }
@@ -66,6 +71,16 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
 
       <FormItem selector='slug' label={t('store.storeUrl')}>
         {formInput({ addonAfter: '.la.mk' })}
+      </FormItem>
+
+      <FormItem selector='slogan' label={t('store.slogan')}>
+        {formInput({ placeholder: t('store.sloganExample') })}
+      </FormItem>
+
+      <FormItem selector='color' label={t('store.brandColor')}>
+        {(val, _onChange, onComplete) => (
+          <ColorPicker value={val} onChange={onComplete} />
+        )}
       </FormItem>
 
       <FormItem selector='logo' label={t('store.storeLogo')}>
