@@ -162,6 +162,8 @@
 		"date": "Field should be a valid date",
 		"generic": "Invalid entry",
 		"greaterThan": "Field should be more than {{0}}",
+		"hexColor": "Field should be a valid hex color",
+		"id": "Field should be a valid id",
 		"integer": "Field should be an integer",
 		"invalid-schema-selector": "Invalid schema selector passed",
 		"length": "Field should have less than {{0}} entries",
