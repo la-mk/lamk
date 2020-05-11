@@ -185,6 +185,20 @@ describe('Custom validators', () => {
     expect(v8n().id().test('0b480e2a-b30c-4548-8cbc-882b9d48e2fe-somemore')).toBeFalsy();
     expect(v8n().id().test('0b480e2a-b30c-4548-8cbc-882b9d48e2fe')).toBeTruthy();
   });
+
+  test('hexColor', () => {
+    expect(v8n().hexColor().test('')).toBeFalsy();
+    expect(v8n().hexColor().test(null)).toBeFalsy();
+    expect(v8n().hexColor().test(12345)).toBeFalsy();
+    expect(v8n().hexColor().test('#123')).toBeFalsy();
+    expect(v8n().hexColor().test('#hhy')).toBeFalsy();
+    expect(v8n().hexColor().test('#abc')).toBeFalsy();
+    expect(v8n().hexColor().test('#123456')).toBeTruthy();
+    expect(v8n().hexColor().test('#abcdef')).toBeTruthy();
+    expect(v8n().hexColor().test('#aaaaaa')).toBeTruthy();
+    expect(v8n().hexColor().test('#000000')).toBeTruthy();
+    expect(v8n().hexColor().test('#ffffff')).toBeTruthy();
+  });
 });
 
 const sampleSchema = {

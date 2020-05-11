@@ -17,7 +17,7 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(511),
-  color: v8n().string().minLength(2).maxLength(31),
+  color: v8n().hexColor(),
   slogan: v8n().optional(v8n().string().minLength(2).maxLength(255)),
   customDomain: v8n().optional(
     v8n()

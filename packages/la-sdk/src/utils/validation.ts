@@ -14,6 +14,8 @@ export interface ValidationErrorResponse {
 
 type Primitive = string | boolean | number;
 
+const hexRegex = /^#[0-9A-F]{6}$/i;
+
 const extendValidation = () => {
   v8n.extend({
     oneOf: (expected: Array<Primitive>) => (value: Primitive) =>
@@ -44,6 +46,10 @@ const extendValidation = () => {
     id: () => (value: string) => {
       // The UUIDs we use are 36 characters length
       return typeof value === 'string' && value.length === 36;
+    },
+    
+    hexColor: () => (value:string) => {
+      return hexRegex.test(value);
     }
   });
 };

@@ -85,6 +85,14 @@ export const errors: {
     name: 'unique',
     message: 'Field should have unique values',
   },
+  id: {
+    name: 'id',
+    message: 'Field should be a valid id'
+  },
+  hexColor: {
+    name: 'hexColor',
+    message: 'Field should be a valid hex color'
+  },
   generic: {
     name: 'generic',
     message: 'Invalid entry',
