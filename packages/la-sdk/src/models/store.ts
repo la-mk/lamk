@@ -17,6 +17,8 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(511),
+  color: v8n().string().minLength(2).maxLength(31),
+  slogan: v8n().optional(v8n().string().minLength(2).maxLength(255)),
   customDomain: v8n().optional(
     v8n()
       .string()
@@ -70,6 +72,8 @@ export interface Store extends DefaultSchema {
   ownedBy: string;
   name: string;
   slug: string;
+  color: string;
+  slogan?: string;
   customDomain?: string;
   company?: {
     companyName: string;
