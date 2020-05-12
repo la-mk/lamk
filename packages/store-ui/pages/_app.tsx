@@ -23,6 +23,7 @@ import 'antd/dist/antd.less';
 import mk_MK from 'antd/lib/locale/mk_MK';
 import { I18n } from 'next-i18next';
 import { initializeAnalytics } from '../src/common/analytics';
+import { BrandColorWrapper } from '../src/common/antdOverride/BrandColorWrapper';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
@@ -94,14 +95,6 @@ const setInitialDataInState = async (appCtx: any) => {
 const Main = ({ store, brandColor, children }) => {
   const { t, i18n } = useTranslation();
 
-  /* TODO: This is a hacky way of overriding the theme, and it's due to antd limitations. Find a better alternative to antd. */
-  /* This renders a color picker, but we only want to use it so we can override the pass the primary color */
-  useEffect(() => {
-    if (brandColor) {
-      changeAntdTheme(getThemeColor(brandColor));
-    }
-  }, [brandColor]);
-
   return (
     <ThemeProvider
       basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
@@ -112,12 +105,16 @@ const Main = ({ store, brandColor, children }) => {
           <hooks.BreakpointProvider
             breakpoints={theme.breakpoints.map(x => parseInt(x))}
           >
-            <StoreLayout>
-              <>
-                {children}
-                <AuthModal />
-              </>
-            </StoreLayout>
+            {brandColor && (
+              <BrandColorWrapper brandColor={brandColor}>
+                <StoreLayout>
+                  <>
+                    {children}
+                    <AuthModal />
+                  </>
+                </StoreLayout>
+              </BrandColorWrapper>
+            )}
           </hooks.BreakpointProvider>
         </ConnectedRouter>
       </ReduxProvider>
