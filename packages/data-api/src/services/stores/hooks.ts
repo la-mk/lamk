@@ -30,6 +30,8 @@ const allowedFields = [
   'slug',
   'customDomain',
   'logo',
+  'color',
+  'slogan',
   'isPublished',
   'ownedBy',
   'contact',

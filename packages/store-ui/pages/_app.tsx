@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import App from 'next/app';
 import { default as NextHead } from 'next/head';
 import {
@@ -6,12 +6,11 @@ import {
   Empty,
   hooks,
   theme,
-  Box,
 } from '@sradevski/blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
-import DynamicAntdTheme from 'dynamic-antd-theme';
+import { getThemeColor, changeAntdTheme } from 'dynamic-antd-theme';
 import configureStore from '../src/state/configureStore';
 import { StoreLayout } from '../src/common/pageComponents/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
@@ -94,6 +93,15 @@ const setInitialDataInState = async (appCtx: any) => {
 
 const Main = ({ store, brandColor, children }) => {
   const { t, i18n } = useTranslation();
+
+  /* TODO: This is a hacky way of overriding the theme, and it's due to antd limitations. Find a better alternative to antd. */
+  /* This renders a color picker, but we only want to use it so we can override the pass the primary color */
+  useEffect(() => {
+    if (brandColor) {
+      changeAntdTheme(getThemeColor(brandColor));
+    }
+  }, [brandColor]);
+
   return (
     <ThemeProvider
       basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
@@ -104,20 +112,12 @@ const Main = ({ store, brandColor, children }) => {
           <hooks.BreakpointProvider
             breakpoints={theme.breakpoints.map(x => parseInt(x))}
           >
-            <>
-              {/* TODO: This is a hacky way of overriding the theme, and it's due to antd limitations. Find a better alternative to antd. */}
-              {/* This renders a color picker, but we only want to use it so we can override the pass the primary color */}
-              <Box display='none'>
-                <DynamicAntdTheme primaryColor={brandColor} />
-              </Box>
-
-              <StoreLayout>
-                <>
-                  {children}
-                  <AuthModal />
-                </>
-              </StoreLayout>
-            </>
+            <StoreLayout>
+              <>
+                {children}
+                <AuthModal />
+              </>
+            </StoreLayout>
           </hooks.BreakpointProvider>
         </ConnectedRouter>
       </ReduxProvider>
@@ -140,7 +140,7 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
   }
 
   render() {
-    const { Component, pageProps, store, i18nServerInstance } = this.props;
+    const { Component, pageProps, store } = this.props;
     const laStore = getStore(store.getState());
 
     // Initialize analytics and only in the browser for now.
@@ -175,6 +175,7 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
             />
           </NextHead>
         )}
+
         <Main store={store} brandColor={laStore?.color}>
           {laStore ? (
             <Component {...pageProps} />
