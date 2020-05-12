@@ -10,7 +10,6 @@ import {
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
-import { getThemeColor, changeAntdTheme } from 'dynamic-antd-theme';
 import configureStore from '../src/state/configureStore';
 import { StoreLayout } from '../src/common/pageComponents/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
@@ -97,6 +96,11 @@ const Main = ({ store, brandColor, children }) => {
 
   return (
     <ThemeProvider
+      theme={{
+        colors: {
+          primary: brandColor,
+        },
+      }}
       basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
       compoundLocale={getCompoundLocale(t)}
     >
@@ -105,16 +109,14 @@ const Main = ({ store, brandColor, children }) => {
           <hooks.BreakpointProvider
             breakpoints={theme.breakpoints.map(x => parseInt(x))}
           >
-            {brandColor && (
-              <BrandColorWrapper brandColor={brandColor}>
-                <StoreLayout>
-                  <>
-                    {children}
-                    <AuthModal />
-                  </>
-                </StoreLayout>
-              </BrandColorWrapper>
-            )}
+            {brandColor && <BrandColorWrapper brandColor={brandColor} />}
+
+            <StoreLayout>
+              <>
+                {children}
+                <AuthModal />
+              </>
+            </StoreLayout>
           </hooks.BreakpointProvider>
         </ConnectedRouter>
       </ReduxProvider>

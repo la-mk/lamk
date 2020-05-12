@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import { getHoverColor, getActiveColor, getShadowColor } from './utils';
 
 // This has been copied from https://github.com/luffyZh/dynamic-antd-theme/blob/master/src/theme.js and I only took the bits we needed and added it as a styled component so there is no style flash on load.
 /* TODO: This is a hacky way of overriding the theme, and it's due to antd limitations. Find a better alternative to antd. */
-const StyleHolder = styled.div<{
+const StyleHolder = createGlobalStyle<{
   color: string;
   hoverColor: string;
   activeColor: string;
@@ -113,6 +113,7 @@ const StyleHolder = styled.div<{
     border-color: ${props => props.activeColor};
   }
   .ant-btn-primary {
+    color: #fff;
     background-color: ${props => props.color};
     border-color: ${props => props.color};
   }
@@ -843,7 +844,7 @@ const StyleHolder = styled.div<{
     border-color: ${props => props.color};
   }
   .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon {
-    color: ${props => props.color};
+    color: #fff;
   }
   .ant-steps-item-process
     .ant-steps-item-icon
@@ -1116,14 +1117,7 @@ const StyleHolder = styled.div<{
   }
 `;
 
-export const BrandColorWrapper = ({
-  brandColor,
-  children,
-  ...props
-}: {
-  brandColor: string;
-  children: React.ReactNode;
-}) => {
+export const BrandColorWrapper = ({ brandColor }: { brandColor: string }) => {
   if (!brandColor) {
     return null;
   }
@@ -1138,9 +1132,6 @@ export const BrandColorWrapper = ({
       hoverColor={hoverColor}
       activeColor={activeColor}
       shadowColor={shadowColor}
-      {...props}
-    >
-      {children}
-    </StyleHolder>
+    />
   );
 };
