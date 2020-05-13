@@ -4,13 +4,13 @@ import { useTranslation } from '../common/i18n';
 
 const StepCard = ({ icon, title, subtitle, ...props }) => {
   return (
-    <Card {...props} bg={'quaternary'} width={[260, 300, 320]} height={330}>
+    <Card {...props} bg={'tertiary'} width={[260, 300, 320]} height={330}>
       <Flex justifyContent='center' alignItems='center' flexDirection='column'>
         <Image m={3} src={icon} />
-        <Title textAlign='center' level={4} fontSize={[3, 4, 4]}>
+        <Title textAlign='center' level={4} fontSize={[2, 3, 3]}>
           {title}
         </Title>
-        <Text fontSize={[2, 18, 18]} textAlign='center'>
+        <Text fontSize={[1, 2, 2]} textAlign='center'>
           {subtitle}
         </Text>
       </Flex>

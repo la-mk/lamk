@@ -1,13 +1,25 @@
 export const theme = {
+  fontSizes: [14, 16, 20, 24, 32, 44, 60],
   colors: {
     primary: '#F6376D',
     secondary: '#687C94',
-    tertiary: '#B3C6E4',
-    quaternary: '#DEEAF8',
-    heading: '#263135',
-    text: '#727782',
-    mutedText: '#687C94',
-    lightBackground: '#F6F8FC',
-    darkBackground: '#263135',
+    tertiary: '#DEEAF8',
+
+    heading: {
+      light: '#ffffff',
+      dark: '#263135',
+    },
+    text: {
+      light: '#ffffff',
+      dark: '#727782',
+    },
+    mutedText: {
+      light: '#ffffff',
+      dark: '#687C94',
+    },
+    background: {
+      light: '#F6F8FC',
+      dark: '#263135',
+    },
   },
 };

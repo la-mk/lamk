@@ -77,7 +77,7 @@ export const MainPointCard = ({
       mx='auto'
       width={['100%', '90%', '80%', '80%']}
       maxWidth={1280}
-      bg='lightBackground'
+      bg='background.light'
       {...props}
     >
       <Flex

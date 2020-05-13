@@ -30,7 +30,7 @@ export const TopMenu = ({
     <Menu
       style={{
         border: 'none',
-        backgroundColor: theme.colors.lightBackground,
+        backgroundColor: theme.colors.background.light,
       }}
       mode={mode}
       selectedKeys={selectedKeys}
@@ -38,8 +38,7 @@ export const TopMenu = ({
         if (key === 'language') {
           return;
         }
-
-        closeDrawer();
+        closeDrawer?.();
       }}
     >
       <MenuItem p={0} key='home' mb={11} mx={[0, 1, 2]}>

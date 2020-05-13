@@ -64,7 +64,7 @@ const Step = ({ title, children }) => {
     <Box
       style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', zIndex: 1 }}
       width='160px'
-      bg='lightBackground'
+      bg='background.light'
     >
       <Flex bg='tertiary' p={1} alignItems='center' justifyContent='center'>
         <Text>{title}</Text>

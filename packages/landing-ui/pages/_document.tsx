@@ -27,16 +27,16 @@ html {
   body {
     height: 100%;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-  }
+  /* @font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/noto-sans-v9-latin-regular.woff2'); 
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  } */
 `;
 
 // The custom document is required to setup styled components for SSR.
@@ -75,7 +75,18 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html prefix='og: https://ogp.me/ns#'>
-        <Head />
+        <Head>
+          {/* <link
+            as='font'
+            crossOrigin='anonymous'
+            href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap'
+            rel='preload'
+          /> */}
+          <link
+            href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=fallback'
+            rel='stylesheet'
+          ></link>
+        </Head>
         <body>
           <Main />
           <NextScript />

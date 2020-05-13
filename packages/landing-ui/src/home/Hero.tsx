@@ -11,7 +11,7 @@ export const Hero = withTheme(({ theme }) => {
   return (
     <CurvedSection
       direction='down'
-      backgroundColor={theme.colors.lightBackground}
+      backgroundColor={theme.colors.background.light}
     >
       <Flex
         flexDirection='column'
@@ -20,13 +20,13 @@ export const Hero = withTheme(({ theme }) => {
         width='100%'
         mt={[4, 4, 5]}
       >
-        <Title color='primary' level={1} mb={2} fontSize={[6, 7, 8]}>
+        <Title color='primary' level={1} mb={2} fontSize={[5, 6, 6]}>
           Online shop
           <Text display='block' color='secondary'>
             In 5 minutes
           </Text>
         </Title>
-        <Text fontSize={20} textAlign={'center'}>
+        <Text fontSize={2} textAlign={'center'}>
           {t('company.subTagline')}
         </Text>
         <Flex mt={5}>

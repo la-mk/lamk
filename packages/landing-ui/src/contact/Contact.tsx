@@ -9,7 +9,7 @@ export const Contact = withTheme(({ theme }) => {
     <Box>
       <CurvedSection
         direction='down'
-        backgroundColor={theme.colors.lightBackground}
+        backgroundColor={theme.colors.background.light}
       >
         <Flex
           alignItems='center'
@@ -23,7 +23,7 @@ export const Contact = withTheme(({ theme }) => {
               level={1}
               mb={2}
               textAlign={'center'}
-              fontSize={[6, 6, 7]}
+              fontSize={[5, 5, 6]}
             >
               Contact <Text color='secondary'>Us</Text>
             </Title>

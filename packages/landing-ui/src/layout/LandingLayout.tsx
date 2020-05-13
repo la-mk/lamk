@@ -72,7 +72,7 @@ export const LandingLayout = withTheme(
           <Header
             px={[2, 4, 5]}
             style={{
-              backgroundColor: theme.colors.lightBackground,
+              backgroundColor: theme.colors.background.light,
               boxShadow: '0px -1px 10px rgba(179, 198, 228, 0.7)',
               zIndex: 3,
             }}
@@ -105,7 +105,7 @@ export const LandingLayout = withTheme(
           </Header>
           <Content style={{ backgroundColor: 'white' }}>{children}</Content>
           <Footer
-            style={{ zIndex: 1, backgroundColor: theme.colors.darkBackground }}
+            style={{ zIndex: 1, backgroundColor: theme.colors.background.dark }}
           >
             <Text textAlign='center' color='white'>
               La.mk © 2020
@@ -116,9 +116,9 @@ export const LandingLayout = withTheme(
         <Drawer
           bodyStyle={{
             padding: '12px 0',
-            backgroundColor: theme.colors.lightBackground,
+            backgroundColor: theme.colors.background.light,
           }}
-          headerStyle={{ backgroundColor: theme.colors.lightBackground }}
+          headerStyle={{ backgroundColor: theme.colors.background.light }}
           title='Menu'
           placement='right'
           onClose={() => setIsDrawerVisible(false)}

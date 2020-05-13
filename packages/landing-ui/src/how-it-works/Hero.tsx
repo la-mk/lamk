@@ -32,7 +32,7 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
   return (
     <CurvedSection
       direction='down'
-      backgroundColor={theme.colors.lightBackground}
+      backgroundColor={theme.colors.background.light}
     >
       <Flex
         alignItems='center'
@@ -45,7 +45,7 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
             level={1}
             mb={2}
             textAlign={['center', 'start', 'start']}
-            fontSize={[6, 6, 7]}
+            fontSize={[5, 6, 6]}
           >
             How <Text color='secondary'>It Works</Text>
           </Title>

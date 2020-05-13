@@ -89,7 +89,7 @@ export const ContactForm = () => {
     <>
       <Col width={['100%', '90%', '80%']} mx='auto' style={{ zIndex: 3 }}>
         {hasSubmitted && (
-          <Box bg='lightBackground' style={{ borderRadius: 12 }}>
+          <Box bg='background.light' style={{ borderRadius: 12 }}>
             <Result
               status='success'
               title={t('landingContact.thanksForContact')}

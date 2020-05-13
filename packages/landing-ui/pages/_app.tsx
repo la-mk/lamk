@@ -38,3 +38,9 @@ class MyApp extends App<any> {
 }
 
 export default appWithTranslation(MyApp);
+
+// See https://github.com/GoogleChrome/web-vitals-extension and https://nextjs.org/blog/next-9-4#integrated-web-vitals-reporting
+export function reportWebVitals(metric) {
+  //TODO: These metrics can be sent to our analytics
+  console.log(metric);
+}

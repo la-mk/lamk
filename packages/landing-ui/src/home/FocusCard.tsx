@@ -31,7 +31,7 @@ export const FocusCard = ({ icon, title, description, ...props }: any) => {
           <Title mt={2} color='white' level={4}>
             {title}
           </Title>
-          <Text color='white' fontSize={18}>
+          <Text color='white' fontSize={1}>
             {description}
           </Text>
         </Box>

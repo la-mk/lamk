@@ -13,7 +13,7 @@ export const ContactUsFooter = withTheme(({ theme }) => {
       style={{ position: 'relative' }}
       mt={[80, 100, 120]}
       direction='up'
-      backgroundColor={theme.colors.tertiary}
+      backgroundColor={'#B3C6E4'}
     >
       <Flex
         width='100%'
