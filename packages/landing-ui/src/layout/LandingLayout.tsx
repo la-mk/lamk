@@ -18,10 +18,11 @@ import { TopMenu } from './TopMenu';
 import { trackInitialLoad, track } from '../common/analytics';
 import { Router } from 'next/router';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
+import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
-  theme: any;
+  theme: BlocksTheme;
 }
 
 // This makes sure the anchor is as high as its content

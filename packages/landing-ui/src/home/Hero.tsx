@@ -20,13 +20,13 @@ export const Hero = withTheme(({ theme }) => {
         width='100%'
         mt={[4, 4, 5]}
       >
-        <Title color='primary' level={1} mb={2} fontSize={[5, 6, 6]}>
+        <Title color='primary' level={1} mb={2} fontSize={[6, 7, 7]}>
           Online shop
           <Text display='block' color='secondary'>
             In 5 minutes
           </Text>
         </Title>
-        <Text fontSize={2} textAlign={'center'}>
+        <Text fontSize={[2, 3, 3]} textAlign={'center'}>
           {t('company.subTagline')}
         </Text>
         <Flex mt={5}>

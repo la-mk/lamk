@@ -11,12 +11,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { GlobalOutlined } from '@ant-design/icons';
 import { useTranslation } from '../common/i18n';
+import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
 export const TopMenu = ({
   closeDrawer,
   theme,
 }: {
-  theme: any;
+  theme: BlocksTheme;
   closeDrawer?: () => void;
 }) => {
   const mode = hooks.useBreakpoint(['vertical', 'vertical', 'horizontal']);

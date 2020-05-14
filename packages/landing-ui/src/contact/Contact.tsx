@@ -23,7 +23,7 @@ export const Contact = withTheme(({ theme }) => {
               level={1}
               mb={2}
               textAlign={'center'}
-              fontSize={[5, 5, 6]}
+              fontSize={[6, 6, 7]}
             >
               Contact <Text color='secondary'>Us</Text>
             </Title>

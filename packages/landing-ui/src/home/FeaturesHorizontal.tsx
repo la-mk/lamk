@@ -18,7 +18,7 @@ const Feature = ({ icon, text, ...props }) => {
       </Box>
       <Text
         height={60}
-        fontSize={[1, 1, 2]}
+        fontSize={[1, 1, 3]}
         textAlign='center'
         color='secondary'
       >

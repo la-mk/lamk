@@ -21,9 +21,9 @@ module.exports = withPlugins(
             '@font-family': `
               'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
             `,
+            '@typography-title-font-weight': 500,
             '@primary-color': '#F6376D',
             '@text-color': '#727782',
-            '@typography-title-font-weight': 500,
             '@heading-color': '#263135',
             '@text-color-secondary': '#687C94',
             '@input-bg': '#F6F8FC',

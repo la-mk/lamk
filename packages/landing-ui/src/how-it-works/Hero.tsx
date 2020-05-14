@@ -45,7 +45,7 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
             level={1}
             mb={2}
             textAlign={['center', 'start', 'start']}
-            fontSize={[5, 6, 6]}
+            fontSize={[6, 6, 7]}
           >
             How <Text color='secondary'>It Works</Text>
           </Title>

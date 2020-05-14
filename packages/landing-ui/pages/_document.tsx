@@ -76,12 +76,6 @@ export default class MyDocument extends Document {
     return (
       <Html prefix='og: https://ogp.me/ns#'>
         <Head>
-          {/* <link
-            as='font'
-            crossOrigin='anonymous'
-            href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap'
-            rel='preload'
-          /> */}
           <link
             href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=fallback'
             rel='stylesheet'

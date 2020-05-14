@@ -5,7 +5,7 @@ import { ContactForm } from './ContactForm';
 import { Title, Flex, Image, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from './i18n';
 
-export const ContactUsFooter = withTheme(({ theme }) => {
+export const ContactUsFooter = () => {
   const { t } = useTranslation();
 
   return (
@@ -44,4 +44,4 @@ export const ContactUsFooter = withTheme(({ theme }) => {
       </Box>
     </CurvedSection>
   );
-});
+};
