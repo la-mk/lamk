@@ -6,6 +6,7 @@ export const NextI18NextInstance = new NextI18Next({
   lng: 'mk',
   defaultLanguage: 'mk',
   otherLanguages: ['en'],
+  localePath: 'public/locales',
 });
 
 /* Optionally, export class methods as named exports */

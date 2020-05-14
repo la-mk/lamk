@@ -125,14 +125,10 @@ export const FooterContent = ({ store }: { store: Store }) => {
         <Box mx={3} mt={3}>
           <Image
             width='140px'
-            src={'/static/images/mastercard.svg'}
+            src={'/images/mastercard.svg'}
             alt='mastercard logo'
           />
-          <Image
-            width='120px'
-            src={'/static/images/visa.svg'}
-            alt='visa logo'
-          />
+          <Image width='120px' src={'/images/visa.svg'} alt='visa logo' />
         </Box>
       </Flex>
       <Box mt={4}>
