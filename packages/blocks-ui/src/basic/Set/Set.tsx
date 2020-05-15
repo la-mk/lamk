@@ -4,7 +4,7 @@ import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import { Button } from '../Button';
 import { system } from '../../system';
 import { Flex } from '../Flex';
-import { Box, BoxProps } from 'basic/Box';
+import {Box, BoxProps} from '../Box';
 
 export type ArrowDirection = 'left' | 'right';
 interface SetProps<T> extends Omit<BoxProps, 'ref'> {
@@ -85,7 +85,7 @@ function SetBase<T>({
   };
 
   return (
-    <SetContainer {...props}>
+    <SetContainer px={5} {...props}>
       <SetList ref={setListRef}>
         {items.map(item => {
           return (
