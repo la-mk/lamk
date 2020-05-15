@@ -84,6 +84,7 @@ const allowedFields = [
   'soldBy',
   'sku',
   'stock',
+  'createdAt',
 ];
 
 const numberFieldsSet = new Set(['price', 'discount', 'calculatedPrice']);
