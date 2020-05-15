@@ -322,9 +322,11 @@
 		"addingProductTip": "Производот се додава...",
 		"descriptionExample": "пр. Високо квалитетни и лесни патики",
 		"discount": "Попуст",
+		"discounted": "{{percentage}}% Попуст",
 		"groups": "Групи",
 		"groupsTip": "Групите се користат за создавање на логички групи на производи. Еден производ може да биде дел од максимум 10 групи",
 		"nameExample": "пр. Nike Air Max",
+		"new": "Ново",
 		"priceExample": "пр. 500",
 		"productDeleted": "Производот со шифра {{id}} беше успешно избришан",
 		"product_plural": "Производи",
@@ -338,7 +340,7 @@
 		"stockTip": "Оставете празно за неограничена залиха",
 		"updateProductSuccess": "Производот {{productName}} успешно обновен",
 		"updatingProductTip": "Производот се обновува...",
-		"outOfStock": "Нема залиха",
+		"outOfStock": "Распродадено",
 		"outOfStockLong": "Нема залиха, работиме на обновување на залихите"
   },
   "results": {

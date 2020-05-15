@@ -131,7 +131,8 @@
   },
 
 	"campaignBanners": {
-		"allDiscount": "SALE: {{rewardValue}} off on all orders, applied on checkout"
+		"allDiscountTitle": "{{rewardValue}} off on all orders",
+		"allDiscountSubtitle": "All discounts are calculated on checkout"
 	},
 
 	"campaignRewardTypes": {
@@ -208,6 +209,8 @@
 	},
 
 	"sets": {
-    "latest": "Latest products"
+		"latest": "Latest products",
+		"selectedCategories": "Picked categories",
+		"selectedCategoriesExplanation": "Categories picked just for you"
 	}
 }

@@ -3,24 +3,22 @@ import styled from 'styled-components';
 import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import { Button } from '../Button';
 import { system } from '../../system';
-import { Title } from '../Typography';
 import { Flex } from '../Flex';
+import { Box, BoxProps } from 'basic/Box';
 
 export type ArrowDirection = 'left' | 'right';
-interface SetProps<T> {
+interface SetProps<T> extends Omit<BoxProps, 'ref'> {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   itemKey: string;
-  title?: string;
   gutter?: number | string | (number | string)[];
   footer?: React.ReactNode;
 }
 
-const SetContainer = styled.div`
+const SetContainer = styled(Box)`
   width: 100%;
   box-sizing: border-box;
   position: relative;
-  padding: ${props => props.theme.space[3]}px ${props => props.theme.space[5]}px;
 `;
 
 const ArrowButton = styled(Button)<{ direction: ArrowDirection }>`
@@ -62,9 +60,8 @@ function SetBase<T>({
   items,
   renderItem,
   itemKey,
-  title,
   gutter,
-  footer,
+  ...props
 }: SetProps<T>) {
   const setListRef = useRef<HTMLUListElement>(null);
   const handleArrowClick = (direction: ArrowDirection) => {
@@ -88,12 +85,7 @@ function SetBase<T>({
   };
 
   return (
-    <SetContainer>
-      {title && (
-        <Title mb={3} level={3}>
-          {title}
-        </Title>
-      )}
+    <SetContainer {...props}>
       <SetList ref={setListRef}>
         {items.map(item => {
           return (
@@ -104,17 +96,17 @@ function SetBase<T>({
         })}
       </SetList>
       <ArrowButton
+        type="primary"
         onClick={() => handleArrowClick('left')}
         icon={<LeftOutlined/>}
         direction='left'
       />
       <ArrowButton
+        type="primary"
         onClick={() => handleArrowClick('right')}
         icon={<RightOutlined/>}
         direction='right'
       />
-
-      {footer}
     </SetContainer>
   );
 }

@@ -131,7 +131,8 @@
 	},
 
 	"campaignBanners": {
-		"allDiscount": "ПРОМОЦИЈА: {{rewardValue}} попуст на сите порачки, пресметано на каса"
+		"allDiscountTitle": "{{rewardValue}} попуст на сите порачки",
+		"allDiscountSubtitle": "Сите попусти се пресметуваат на каса"
 	},
 
 	"campaignRewardTypes": {
@@ -208,6 +209,8 @@
 	},
 
 	"sets": {
-    "latest": "Најнови производи"
+		"latest": "Најнови производи",
+		"selectedCategories": "Одбрани категории",
+		"selectedCategoriesExplanation": "Категории одбрани само за вас"
 	}
 }
