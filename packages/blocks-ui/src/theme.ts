@@ -24,6 +24,7 @@ const theme = {
       dark: '#263135',
     },
   },
+  radius: [4, 6],
   space: [0, 4, 8, 16, 32, 48, 64],
   breakpoints: ['788px', '1128px', '1440px'],
   sizes: ['788px', '1096px', '1440px'],
