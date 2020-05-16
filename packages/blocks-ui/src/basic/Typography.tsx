@@ -1,9 +1,11 @@
+import React from 'react';
 import { Typography as AntTypography } from 'antd';
 import { BlockProps } from 'antd/es/typography/Base';
 import { TextProps } from 'antd/es/typography/Text';
 import 'antd/es/typography/style/index.less';
 
-import { system } from '../system';
+import { system, SystemProps } from '../system';
+import { ParagraphProps } from 'antd/lib/typography/Paragraph';
 
 // @ts-ignore
 declare type TitleProps = Omit<
@@ -13,6 +15,53 @@ declare type TitleProps = Omit<
   'strong'
 >;
 
-export const Text = system<TextProps>(AntTypography.Text as any, ['color', 'textAlign', 'fontSize']);
-export const Paragraph = system<BlockProps>(AntTypography.Paragraph as any, ['color', 'textAlign', 'fontSize']);
-export const Title = system<TitleProps>(AntTypography.Title as any, ['color', 'textAlign', 'fontSize']);
+const getTitleFontSize = (level: TitleProps['level']) => {
+  switch (level) {
+    case 1:
+      return 7;
+    case 2:
+      return 6;
+    case 3:
+      return 5;
+    case 4:
+      return 4;
+    default:
+      return 7;
+  }
+};
+
+export const BaseText = system<TextProps>(AntTypography.Text as any, [
+  'color',
+  'textAlign',
+  'fontSize',
+]);
+
+export const BaseParagraph = system<BlockProps>(
+  AntTypography.Paragraph as any,
+  ['color', 'textAlign', 'fontSize']
+);
+
+const BaseTitle = system<TitleProps>(AntTypography.Title as any, [
+  'color',
+  'textAlign',
+  'fontSize',
+]);
+
+export const Text = (props: TextProps & SystemProps) => {
+  return <BaseText color="text.dark" fontSize={1} {...props} />;
+};
+
+export const Paragraph = (props: ParagraphProps & SystemProps) => {
+  return <BaseParagraph color="text.dark" fontSize={1} {...props} />;
+};
+
+export const Title = ({ style, ...props }: TitleProps & SystemProps) => {
+  return (
+    <BaseTitle
+      color="text.dark"
+      fontSize={getTitleFontSize(props.level)}
+      style={{ fontWeight: 400, ...style }}
+      {...props}
+    />
+  );
+};
