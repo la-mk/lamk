@@ -115,7 +115,7 @@ const ProductImage = ({
       height={
         emphasized ? ['220px', '280px', '360px'] : ['120px', '140px', '180px']
       }
-      width={horizontal ? ['160px', '240px', '280px'] : undefined}
+      minWidth={horizontal ? ['120px', '140px', '180px'] : undefined}
       justifyContent='center'
       alignItems='center'
       style={{ position: 'relative' }}
