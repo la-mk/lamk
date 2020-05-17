@@ -11,7 +11,7 @@ import {
   Divider,
 } from '@sradevski/blocks-ui';
 import { FilterOutlined } from '@ant-design/icons';
-import { ProductCard } from '../ProductCard';
+import { ProductCard } from '../shared/ProductCard';
 import { Page } from '../shared/Page';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { useTranslation } from '../../common/i18n';
@@ -106,7 +106,7 @@ export const Products = ({
           rowKey='_id'
           items={products.data}
           renderItem={(item: any) => (
-            <Box mx={[1, 2, 2]} mb={[2, 3, 3]}>
+            <Box mx={[1, 2, 2]} mb={'auto'}>
               <ProductCard product={item} storeId={store._id} />
             </Box>
           )}

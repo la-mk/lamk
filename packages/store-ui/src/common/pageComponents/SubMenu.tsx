@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Flex,
-  Text,
-  Menu,
-  MenuItem,
-  Button,
-  Dropdown,
-} from '@sradevski/blocks-ui';
+import { Flex, Text, Menu, MenuItem, Dropdown } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import Link from 'next/link';
 import { DownOutlined } from '@ant-design/icons';

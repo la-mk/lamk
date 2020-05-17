@@ -180,7 +180,7 @@ export const Product = ({ product }: ProductProps) => {
             </Paragraph>
             <Box mt={[3, 4, 4]}>
               {outOfStock && (
-                <Text type='danger'>{t('product.outOfStockLong')}</Text>
+                <Text color='danger'>{t('product.outOfStockLong')}</Text>
               )}
 
               <Flex mt={[2, 3, 3]} flexDirection='row' alignItems='center'>
@@ -224,7 +224,7 @@ export const Product = ({ product }: ProductProps) => {
             </Box>
           </Flex>
         </Flex>
-        <Flex mt={6}>
+        <Box mt={6}>
           {productSets
             .filter(set => Boolean(set.data))
             .map(set => (
@@ -236,9 +236,10 @@ export const Product = ({ product }: ProductProps) => {
                 key={set.setTag.name + (set.setTag.value || '')}
                 products={set.data}
                 title={t(getTranslationBaseForSet(set.setTag))}
+                subtitle='The best products of the week'
               />
             ))}
-        </Flex>
+        </Box>
       </Spin>
     </Page>
   );

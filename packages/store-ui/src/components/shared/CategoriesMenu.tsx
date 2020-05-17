@@ -74,19 +74,7 @@ export const CategoriesMenu = ({
     >
       {groupedCategories.map(level1Category => {
         return (
-          <SubMenu
-            key={level1Category.value}
-            title={
-              mode === 'horizontal' ? (
-                <Text>
-                  {level1Category.label}
-                  <DownOutlined style={{ marginLeft: 8 }} />
-                </Text>
-              ) : (
-                level1Category.label
-              )
-            }
-          >
+          <SubMenu key={level1Category.value} title={level1Category.label}>
             {level1Category.children.map(level2Category => {
               return (
                 <SubMenu

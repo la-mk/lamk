@@ -1,38 +1,57 @@
 import React from 'react';
-import { Text, Button, Flex } from '@sradevski/blocks-ui';
+import { Text, Flex } from '@sradevski/blocks-ui';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { sdk } from '@sradevski/la-sdk';
-import { useDispatch } from 'react-redux';
-import { goTo } from '../../../state/modules/navigation/navigation.actions';
 import { useTranslation } from '../../../common/i18n';
+import { withTheme } from 'styled-components';
+import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
 interface DiscoutCampaignProps {
   campaign: Campaign;
+  theme: BlocksTheme;
 }
 
-export const DiscountCampaign = ({ campaign }: DiscoutCampaignProps) => {
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
+export const DiscountCampaign = withTheme(
+  ({ campaign, theme }: DiscoutCampaignProps) => {
+    const { t } = useTranslation();
 
-  const rewardValueText =
-    campaign.reward.type === sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT
-      ? `${campaign.reward.value}%`
-      : `${campaign.reward.value} ден`;
+    const rewardValueText =
+      campaign.reward.type === sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT
+        ? `${campaign.reward.value}%`
+        : `${campaign.reward.value} ден`;
 
-  return (
-    <Flex
-      width='100%'
-      p={3}
-      style={{ backgroundColor: '#ebebeb' }}
-      alignItems='center'
-      justifyContent='center'
-    >
-      <Text style={{ textAlign: 'center' }}>
-        {t('campaignBanners.allDiscount', { rewardValue: rewardValueText })}.
-        <Button type='link' onClick={() => dispatch(goTo('/products'))}>
-          {t('product.seeAllProducts')}
-        </Button>
-      </Text>
-    </Flex>
-  );
-};
+    return (
+      <Flex
+        width='100%'
+        minHeight={250}
+        bg='background.light'
+        alignItems='center'
+        justifyContent='center'
+      >
+        <Flex
+          width={'80%'}
+          alignItems='center'
+          justifyContent='center'
+          flexDirection='column'
+          bg='background.dark'
+          style={{ borderRadius: theme.radius[0] }}
+          p={3}
+        >
+          <Text
+            mb={2}
+            fontSize={[3, 3, 4]}
+            color='text.light'
+            textAlign='center'
+          >
+            {t('campaignBanners.allDiscountTitle', {
+              rewardValue: rewardValueText,
+            })}
+          </Text>
+          <Text fontSize={[0, 0, 1]} color='mutedText.light' textAlign='center'>
+            {t('campaignBanners.allDiscountSubtitle')}
+          </Text>
+        </Flex>
+      </Flex>
+    );
+  },
+);
