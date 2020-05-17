@@ -187,7 +187,7 @@ export const ProductCard = ({
           my={2}
           width={
             horizontal && !emphasized
-              ? ['320px', '480px', '600px']
+              ? ['320px', '460px', '560px']
               : emphasized
               ? ['260px', '360px', '440px']
               : ['160px', '240px', '280px']
