@@ -64,7 +64,7 @@ export const LoginForm = ({
         </Form>
       </Col>
       <Divider />
-      <Text type='secondary'>{localization.noAccount || 'No account?'}</Text>
+      <Text color='mutedText.dark'>{localization.noAccount || 'No account?'}</Text>
       <Button type='link' onClick={onSignupNowClick}>
         {localization.signup || 'Sign up'}
       </Button>

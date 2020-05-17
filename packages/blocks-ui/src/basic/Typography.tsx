@@ -47,15 +47,16 @@ const BaseTitle = system<TitleProps>(AntTypography.Title as any, [
   'fontSize',
 ]);
 
-export const Text = (props: TextProps & SystemProps) => {
+// Omit type, use `color` instead.
+export const Text = (props: Omit<TextProps, "type"> & SystemProps) => {
   return <BaseText color="text.dark" fontSize={1} {...props} />;
 };
 
-export const Paragraph = (props: ParagraphProps & SystemProps) => {
+export const Paragraph = (props: Omit<ParagraphProps, "type"> & SystemProps) => {
   return <BaseParagraph color="text.dark" fontSize={1} {...props} />;
 };
 
-export const Title = ({ style, ...props }: TitleProps & SystemProps) => {
+export const Title = ({ style, ...props }: Omit<TitleProps, "type"> & SystemProps) => {
   return (
     <BaseTitle
       color="text.dark"

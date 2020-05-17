@@ -6,6 +6,8 @@ const theme = {
     primary: '#F6376D',
     secondary: '#687C94',
     tertiary: '#DEEAF8',
+    
+    danger: '#FF3838',
 
     heading: {
       light: '#ffffff',
@@ -28,6 +30,7 @@ const theme = {
   space: [0, 4, 8, 16, 32, 48, 64, 96],
   breakpoints: ['788px', '1128px', '1440px'],
   sizes: ['788px', '1096px', '1440px'],
+  lineHeight: 1.5,
 };
 
 export default theme;

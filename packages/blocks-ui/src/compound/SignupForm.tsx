@@ -63,7 +63,7 @@ export const SignupForm = ({
         </Form>
       </Col>
       <Divider />
-      <Text type='secondary'>
+      <Text color="mutedText.dark">
         {localization.alreadyHaveAccount || 'Already have an account?'}
       </Text>
       <Button type='link' onClick={onLoginNowClick}>

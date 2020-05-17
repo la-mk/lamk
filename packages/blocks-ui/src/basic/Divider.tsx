@@ -4,4 +4,4 @@ import 'antd/es/divider/style/index.less';
 
 import { system } from '../system';
 
-export const Divider = system<DividerProps>(AntDivider as any);
+export const Divider = system<DividerProps>(AntDivider as any, ['color']);
