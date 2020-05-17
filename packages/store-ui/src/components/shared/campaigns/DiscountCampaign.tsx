@@ -34,7 +34,7 @@ export const DiscountCampaign = withTheme(
           justifyContent='center'
           flexDirection='column'
           bg='background.dark'
-          style={{ borderRadius: theme.radius[0] }}
+          borderRadius={0}
           p={3}
         >
           <Text

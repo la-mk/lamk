@@ -66,13 +66,7 @@ const ProductDescription = ({
 }) => {
   return (
     <Box>
-      <Title
-        mb={2}
-        level={3}
-        fontSize={[1, 2, 2]}
-        style={{ fontWeight: 'normal' }}
-        ellipsis={{ rows: 2 }}
-      >
+      <Title mb={2} level={3} fontSize={[1, 2, 2]} ellipsis={{ rows: 2 }}>
         {product.name}
       </Title>
 

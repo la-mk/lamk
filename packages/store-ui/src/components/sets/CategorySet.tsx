@@ -35,9 +35,9 @@ export const CategorySet = withTheme(
                       height={280}
                       minWidth={320}
                       maxWidth={420}
+                      borderRadius={0}
                       style={{
                         position: 'relative',
-                        borderRadius: theme.radius[0],
                       }}
                       url={sdk.artifact.getUrlForArtifact(
                         category.level2,
@@ -49,12 +49,12 @@ export const CategorySet = withTheme(
                         alignItems='center'
                         justifyContent='center'
                         bg='background.dark'
+                        borderRadius={0}
                         style={{
                           position: 'absolute',
                           bottom: 16,
                           left: 16,
                           right: 16,
-                          borderRadius: theme.radius[0],
                         }}
                       >
                         <Text

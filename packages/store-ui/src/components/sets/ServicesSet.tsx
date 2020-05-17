@@ -29,9 +29,7 @@ export const ServicesSet = withTheme(
               my={[4, 4, 0]}
               mx={[2, 3, 4]}
               bg='background.dark'
-              style={{
-                borderRadius: theme.radius[0],
-              }}
+              borderRadius={0}
               alignItems='center'
               justifyContent='center'
             >
