@@ -25,7 +25,7 @@ export const Tag = styled(system<TagProps>(AntTag))`
       ? props.theme.fontSizes[1] * props.theme.lineHeight
       : props.theme.fontSizes[3] * props.theme.lineHeight}px;
   font-size: ${props => props.theme.fontSizes[props.compact ? 0 : 1]}px;
-  border-radius: ${props => props.theme.radius[0]}px;
+  border-radius: ${props => props.theme.radii[0]}px;
 `;
 
 export const CheckableTag = styled(
@@ -37,5 +37,5 @@ export const CheckableTag = styled(
       ? props.theme.fontSizes[1] * props.theme.lineHeight
       : props.theme.fontSizes[3] * props.theme.lineHeight}px;
   font-size: ${props => props.theme.fontSizes[props.compact ? 0 : 1]}px;
-  border-radius: ${props => props.theme.radius[0]}px;
+  border-radius: ${props => props.theme.radii[0]}px;
 `;
