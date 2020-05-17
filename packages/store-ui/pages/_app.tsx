@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import App from 'next/app';
 import { default as NextHead } from 'next/head';
 import {
@@ -23,6 +23,7 @@ import mk_MK from 'antd/lib/locale/mk_MK';
 import { I18n } from 'next-i18next';
 import { initializeAnalytics } from '../src/common/analytics';
 import { BrandColorWrapper } from '../src/common/antdOverride/BrandColorWrapper';
+import { getTheme } from '../src/common/theme';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
@@ -96,11 +97,7 @@ const Main = ({ store, brandColor, children }) => {
 
   return (
     <ThemeProvider
-      theme={{
-        colors: {
-          primary: brandColor,
-        },
-      }}
+      theme={getTheme(brandColor)}
       basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
       compoundLocale={getCompoundLocale(t)}
     >

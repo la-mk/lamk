@@ -38,7 +38,8 @@
     "signup": "Sign up"
   },
   "campaignBanners": {
-    "allDiscount": "SALE: {{rewardValue}} off on all orders, applied on checkout"
+    "allDiscountSubtitle": "All discounts are calculated on checkout",
+    "allDiscountTitle": "{{rewardValue}} off on all orders"
   },
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
@@ -182,6 +183,7 @@
     "addressee": "Addressee",
     "category_plural": "Categories",
     "city": "City",
+    "contactDetails": "Contact details",
     "country": "Country",
     "details": "Details",
     "email": "Email address",
@@ -190,6 +192,7 @@
     "items": "Items",
     "lastName": "Last name",
     "name": "Name",
+    "ourCompany": "Our company",
     "password": "Password",
     "personalInfo": "Personal info",
     "phoneNumber": "Phone number",
@@ -302,10 +305,11 @@
     "halkbank": "Halkbank"
   },
   "product": {
-    "outOfStock": "Out of stock",
+    "discounted": "{{percentage}}% Off",
+    "new": "New",
+    "outOfStock": "Sold out",
     "outOfStockLong": "We are out of stock, come back later",
     "product_plural": "Products",
-    "seeAllProducts": "See all products",
     "seeOtherProducts": "See other products"
   },
   "results": {
@@ -321,7 +325,9 @@
     "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
   },
   "sets": {
-    "latest": "Latest products"
+    "latest": "Latest products",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
   },
   "store": {
     "noAboutusInformation": "Couldn't fetch the information about the store, try again later"

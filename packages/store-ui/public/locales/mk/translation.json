@@ -38,7 +38,8 @@
     "signup": "Регистрирај се"
   },
   "campaignBanners": {
-    "allDiscount": "ПРОМОЦИЈА: {{rewardValue}} попуст на сите порачки, пресметано на каса"
+    "allDiscountSubtitle": "Сите попусти се пресметуваат на каса",
+    "allDiscountTitle": "{{rewardValue}} попуст на сите порачки"
   },
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
@@ -182,6 +183,7 @@
     "addressee": "Примател",
     "category_plural": "Категории",
     "city": "Град",
+    "contactDetails": "Контакт информации",
     "country": "Држава",
     "details": "Детали",
     "email": "Емаил адреса",
@@ -190,6 +192,7 @@
     "items": "Парчиња",
     "lastName": "Презиме",
     "name": "Име",
+    "ourCompany": "Нашата компанија",
     "password": "Лозинка",
     "personalInfo": "Лични податоци",
     "phoneNumber": "Телефонски број",
@@ -302,10 +305,11 @@
     "halkbank": "Халкбанк"
   },
   "product": {
-    "outOfStock": "Нема залиха",
+    "discounted": "{{percentage}}% Попуст",
+    "new": "Ново",
+    "outOfStock": "Распродадено",
     "outOfStockLong": "Нема залиха, работиме на обновување на залихите",
     "product_plural": "Производи",
-    "seeAllProducts": "Видете ги производите",
     "seeOtherProducts": "Видете други производи"
   },
   "results": {
@@ -321,7 +325,9 @@
     "storeGeneric": "Најлесен начин да купувате онлајн во Македонија, од удобноста на вашиот дом. Онлајн шопингот никогаш не бил полесен. Купете сега."
   },
   "sets": {
-    "latest": "Најнови производи"
+    "latest": "Најнови производи",
+    "selectedCategories": "Одбрани категории",
+    "selectedCategoriesExplanation": "Категории одбрани само за вас"
   },
   "store": {
     "noAboutusInformation": "Информациите за продавницата не беа пронајдени, обидете се повторно"

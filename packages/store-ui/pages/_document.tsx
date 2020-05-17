@@ -21,6 +21,11 @@ html {
     font-size: inherit;
   }
 
+  /* This is used by Text strong */
+  strong {
+    font-weight: 500 !important;
+  }
+
   .ant-card-actions > li > span a,
   .ant-card-actions > li > span i {
     width: initial;
@@ -29,15 +34,8 @@ html {
   body {
     height: 100%;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
 `;
 
@@ -84,7 +82,12 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html prefix='og: https://ogp.me/ns#'>
-        <Head />
+        <Head>
+          <link
+            href='https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=fallback'
+            rel='stylesheet'
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

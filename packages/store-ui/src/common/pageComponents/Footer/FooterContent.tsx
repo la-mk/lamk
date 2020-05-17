@@ -186,7 +186,7 @@ export const FooterContent = withTheme(
 
         <Divider
           display={['none', 'none', 'block']}
-          style={{ background: theme.colors.background.light }}
+          bg='background.light'
           height='1px'
           mb={3}
           mt={6}

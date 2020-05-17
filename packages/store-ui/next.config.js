@@ -38,10 +38,9 @@ module.exports = withPlugins(
         lessLoaderOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            '@heading-1-size': '34px',
-            '@heading-2-size': '26px',
-            '@heading-3-size': '20px',
-            '@heading-4-size': '16px',
+            '@font-family': `
+            'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
+            `
           },
         },
         webpack: (config, { isServer }) => {
