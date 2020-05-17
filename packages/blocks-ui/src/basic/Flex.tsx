@@ -13,6 +13,8 @@ import {
   flexDirection,
   alignItems,
   justifyContent,
+  borderRadius,
+  BorderRadiusProps,
 } from 'styled-system';
 import { system } from '../system';
 
@@ -25,7 +27,8 @@ export interface FlexProps
     FlexWrapProps,
     FlexDirectionProps,
     AlignItemsProps,
-    JustifyContentProps {}
+    JustifyContentProps, 
+    BorderRadiusProps {}
 
 export const Flex = system<FlexProps>(
   styled.div`
@@ -36,6 +39,7 @@ export const Flex = system<FlexProps>(
     ${flexDirection};
     ${alignItems};
     ${justifyContent};
+    ${borderRadius}
 
     display: flex !important;
   ` as any,

@@ -6,6 +6,8 @@ import {
   FlexProps as StyledFlexProps,
   AlignSelfProps,
   OrderProps,
+  borderRadius,
+  BorderRadiusProps,
 } from 'styled-system';
 import { system } from '../system';
 
@@ -14,10 +16,13 @@ export interface BoxProps
     React.RefAttributes<HTMLDivElement>,
     OrderProps,
     AlignSelfProps,
-    StyledFlexProps {}
+    StyledFlexProps, 
+    BorderRadiusProps {}
 
 export const Box = system<BoxProps>(styled.div`
   box-sizing: border-box;
   ${flex};
   ${alignSelf};
-  ${order};` as any, ['color']);
+  ${order};
+  ${borderRadius}
+  ` as any, ['color']);

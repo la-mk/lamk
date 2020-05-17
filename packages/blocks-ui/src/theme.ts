@@ -3,16 +3,12 @@
 const theme = {
   fontSizes: [14, 16, 18, 20, 24, 32, 44, 60],
   colors: {
-    primary: '#F6376D',
+    primary: '#EF4351',
     secondary: '#687C94',
     tertiary: '#DEEAF8',
     
     danger: '#FF3838',
 
-    heading: {
-      light: '#ffffff',
-      dark: '#263135',
-    },
     text: {
       light: '#FAF8F0',
       dark: '#727782',
@@ -26,7 +22,7 @@ const theme = {
       dark: '#263135',
     },
   },
-  radius: [4, 6],
+  radii: [4, 6],
   space: [0, 4, 8, 16, 32, 48, 64, 96],
   breakpoints: ['788px', '1128px', '1440px'],
   sizes: ['788px', '1096px', '1440px'],
