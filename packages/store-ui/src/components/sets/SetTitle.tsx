@@ -1,0 +1,28 @@
+import React from 'react';
+import { Title, Text, Flex } from '@sradevski/blocks-ui';
+
+export const SetTitle = ({
+  emphasized,
+  title,
+  subtitle,
+}: {
+  emphasized?: boolean;
+  title: string;
+  subtitle: string;
+}) => {
+  return (
+    <Flex
+      mb={4}
+      alignItems='center'
+      justifyContent='center'
+      flexDirection='column'
+    >
+      <Title mb={1} level={2} fontSize={emphasized ? [5, 5, 6] : [3, 3, 4]}>
+        {title.toUpperCase()}
+      </Title>
+      <Text fontSize={[2, 2, 3]} color='mutedText.dark'>
+        {subtitle}
+      </Text>
+    </Flex>
+  );
+};

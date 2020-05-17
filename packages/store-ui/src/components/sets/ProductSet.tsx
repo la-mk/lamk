@@ -1,39 +1,38 @@
 import React from 'react';
-import { ProductCard } from '../ProductCard';
+import { ProductCard } from '../shared/ProductCard';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { Set, Button } from '@sradevski/blocks-ui';
-import Link from 'next/link';
+import { Set } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
+import { SetTitle } from './SetTitle';
+import { SeeAllLink } from './SeeAllLink';
+
+interface ProductSetProps {
+  products: Product[];
+  allHref: any;
+  title: string;
+  subtitle: string;
+  storeId: string;
+}
 
 export const ProductSet = ({
   products,
   allHref,
   title,
+  subtitle,
   storeId,
-}: {
-  products: Product[];
-  allHref: any;
-  title: string;
-  storeId: string;
-}) => {
+}: ProductSetProps) => {
   const { t } = useTranslation();
   return (
     <>
+      <SetTitle title={title} subtitle={subtitle} />
       <Set
-        title={title}
         itemKey={'_id'}
         items={products}
         renderItem={(product: Product) => (
           <ProductCard key={product._id} product={product} storeId={storeId} />
         )}
-        footer={
-          <Link href={allHref} passHref>
-            <Button type='link' mt={2}>
-              {t('common.seeAll')}
-            </Button>
-          </Link>
-        }
       />
+      <SeeAllLink allHref={allHref} t={t} />
     </>
   );
 };
