@@ -1,21 +1,26 @@
 import React from 'react';
-import {
-  Card,
-  Flex,
-  Image,
-  Title,
-  Text,
-  Button,
-  Box,
-} from '@sradevski/blocks-ui';
+import { Flex, Image, Title, Text, Button, Box } from '@sradevski/blocks-ui';
 
-export const FocusCard = ({ icon, title, description, ...props }: any) => {
+interface FocusCardProps extends Omit<typeof Box, 'ref'> {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export const FocusCard = ({
+  icon,
+  title,
+  description,
+  ...props
+}: FocusCardProps) => {
   return (
-    <Card
+    <Box
       {...props}
       bg={'primary'}
       width={['90%', '75%', '65%', '65%']}
       maxWidth={920}
+      borderRadius={0}
+      p={4}
       mx='auto'
     >
       <Flex
@@ -43,6 +48,6 @@ export const FocusCard = ({ icon, title, description, ...props }: any) => {
           <Image src='/radiating-dots.svg' />
         </Box>
       </Flex>
-    </Card>
+    </Box>
   );
 };

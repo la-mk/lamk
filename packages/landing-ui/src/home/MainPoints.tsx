@@ -11,7 +11,6 @@ export const MainPoints = () => {
         mt={[50, 70, 100]}
         image='/responsive-store-girl.svg'
         overflow='top'
-        // title=''
         title={t('landing.corePointsStore')}
         description={t('landing.corePointsStoreDetails')}
       />

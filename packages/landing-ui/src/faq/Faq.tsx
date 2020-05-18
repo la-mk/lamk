@@ -73,9 +73,12 @@ export const Faq = withTheme(({ theme }) => {
               level={1}
               mb={2}
               textAlign={'center'}
-              fontSize={[6, 6, 7]}
+              fontSize={[6, 7, 7]}
             >
-              Frequently <Text color='secondary'>Asked Questions</Text>
+              Frequently{' '}
+              <Text fontSize={[6, 7, 7]} color='secondary'>
+                Asked Questions
+              </Text>
             </Title>
 
             <Paragraph mt={4} textAlign={['center', 'start', 'start']}>

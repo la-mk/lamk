@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@sradevski/analytics": "0.0.7",
-    "@sradevski/blocks-ui": "0.0.57",
+    "@sradevski/blocks-ui": "0.0.64",
     "antd": "^4.1.0",
     "env-var": "^6.1.1",
     "next": "^9.4.0",

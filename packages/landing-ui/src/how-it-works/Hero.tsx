@@ -1,33 +1,12 @@
 import React from 'react';
-import {
-  Box,
-  Paragraph,
-  Title,
-  Image,
-  Flex,
-  Text,
-  Button,
-} from '@sradevski/blocks-ui';
+import { Box, Paragraph, Title, Image, Flex, Text } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { CurvedSection } from '../common/CurvedSection';
 import { useTranslation } from '../common/i18n';
+import { HeroButtons } from '../common/HeroButtons';
 
-export const Hero = withTheme(({ theme, setShowVideo }) => {
+export const Hero = withTheme(({ theme }) => {
   const { t } = useTranslation();
-
-  const heroButtons = [
-    <Button
-      mr={2}
-      type='primary'
-      size='large'
-      onClick={() => setShowVideo(true)}
-    >
-      {t('actions.watchDemo')}
-    </Button>,
-    <Button ml={2} size='large'>
-      {t('actions.seeDemoShop')}
-    </Button>,
-  ];
 
   return (
     <CurvedSection
@@ -45,15 +24,18 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
             level={1}
             mb={2}
             textAlign={['center', 'start', 'start']}
-            fontSize={[6, 6, 7]}
+            fontSize={[6, 7, 7]}
           >
-            How <Text color='secondary'>It Works</Text>
+            How{' '}
+            <Text fontSize={[6, 7, 7]} color='secondary'>
+              It Works
+            </Text>
           </Title>
           <Paragraph mt={4} textAlign={['center', 'start', 'start']}>
             {t('howItWorks.heroExplanation')}
           </Paragraph>
           <Box display={['none', 'flex', 'flex']} mt={5}>
-            <Flex>{heroButtons}</Flex>
+            <HeroButtons />
           </Box>
         </Box>
         <Image
@@ -64,9 +46,7 @@ export const Hero = withTheme(({ theme, setShowVideo }) => {
         />
 
         <Box display={['block', 'none', 'none']} mt={5}>
-          <Flex alignItems='center' justifyContent='center'>
-            {heroButtons}
-          </Flex>
+          <HeroButtons alignItems='center' justifyContent='center' />
         </Box>
       </Flex>
     </CurvedSection>

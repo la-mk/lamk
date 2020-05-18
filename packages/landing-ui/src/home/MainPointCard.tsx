@@ -1,7 +1,5 @@
 import React from 'react';
-import { Flex, Image, Title, Text, Card } from '@sradevski/blocks-ui';
-import { CardProps } from 'antd/lib/card';
-import { SystemProps } from '@sradevski/blocks-ui/dist/system';
+import { Flex, Image, Title, Text, Card, Box } from '@sradevski/blocks-ui';
 
 const BarImage = ({ src, overflow }) => {
   const margins = {
@@ -12,7 +10,13 @@ const BarImage = ({ src, overflow }) => {
   };
 
   return (
-    <Image src={src} width={[320, 350, 500]} height={'100%'} {...margins} />
+    <Image
+      src={src}
+      maxWidth={[320, 350, 500]}
+      width={[320, '50%', '40%']}
+      height={'100%'}
+      {...margins}
+    />
   );
 };
 
@@ -34,7 +38,7 @@ const Description = ({
       justifyContent='center'
       maxWidth={['100%', 400, 500]}
       p={[1, 3, 4]}
-      mb={[3, 0, 0]}
+      my={[4, 0, 0]}
       ml={side === 'left' ? innerMargin : outerMargin}
       mr={side === 'left' ? outerMargin : innerMargin}
     >
@@ -46,7 +50,7 @@ const Description = ({
   );
 };
 
-export interface MainPointCardProps extends CardProps, SystemProps {
+export interface MainPointCardProps extends Omit<typeof Box, 'ref'> {
   side: 'left' | 'right';
   overflow: 'top' | 'bottom' | 'both';
   image: string;
@@ -61,7 +65,7 @@ export const MainPointCard = ({
   title,
   description,
   ...props
-}: any) => {
+}: MainPointCardProps) => {
   const children = [
     <BarImage key='image' src={image} overflow={overflow} />,
     <Description
@@ -73,11 +77,13 @@ export const MainPointCard = ({
   ];
 
   return (
-    <Card
+    <Box
+      p={[3, 4, 4]}
       mx='auto'
-      width={['100%', '90%', '80%', '80%']}
+      width={['100%', '94%', '90%']}
       maxWidth={1280}
       bg='background.light'
+      borderRadius={1}
       {...props}
     >
       <Flex
@@ -89,6 +95,6 @@ export const MainPointCard = ({
       >
         {(side === 'left' ? children : children.reverse()).map((x) => x)}
       </Flex>
-    </Card>
+    </Box>
   );
 };

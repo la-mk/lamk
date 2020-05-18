@@ -5,9 +5,9 @@ import { useTranslation } from '../common/i18n';
 const Feature = ({ icon, text, ...props }) => {
   return (
     <Flex
-      mx={[2, 3, 4]}
-      width={[140, 160, 180]}
-      minWidth={[140, 160, 180]}
+      mx={[2, 3, 3]}
+      width={180}
+      minWidth={180}
       flexDirection='column'
       alignItems='center'
       justifyContent='center'
@@ -18,7 +18,7 @@ const Feature = ({ icon, text, ...props }) => {
       </Box>
       <Text
         height={60}
-        fontSize={[1, 1, 3]}
+        fontSize={[1, 1, 2]}
         textAlign='center'
         color='secondary'
       >

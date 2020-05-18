@@ -19,25 +19,13 @@ module.exports = withPlugins(
           javascriptEnabled: true,
           modifyVars: {
             '@font-family': `
-              'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
+              'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
             `,
-            '@typography-title-font-weight': 500,
-            '@primary-color': '#F6376D',
-            '@text-color': '#727782',
-            '@heading-color': '#263135',
-            '@text-color-secondary': '#687C94',
             '@input-bg': '#F6F8FC',
-            '@border-radius-base': '8px',
             'height-base': '42px',
             'height-lg': '50px',
             'height-sm': '30px',
-            '@card-padding-base': '36px',
             '@form-item-margin-bottom': '32px',
-            '@font-size-base': '16px',
-            '@heading-1-size': '60px',
-            '@heading-2-size': '44px',
-            '@heading-3-size': '32px',
-            '@heading-4-size': '24px',
           },
         },
         webpack: (config, { isServer }) => {

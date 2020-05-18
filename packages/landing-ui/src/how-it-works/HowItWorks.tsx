@@ -50,7 +50,7 @@ export const HowItWorks = () => {
 
   return (
     <>
-      <Hero setShowVideo={setShowVideo} />
+      <Hero />
       <Box style={{ position: 'relative' }}>
         <RadiatingCircles />
         <HowToList />

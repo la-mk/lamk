@@ -23,9 +23,12 @@ export const Contact = withTheme(({ theme }) => {
               level={1}
               mb={2}
               textAlign={'center'}
-              fontSize={[6, 6, 7]}
+              fontSize={[6, 7, 7]}
             >
-              Contact <Text color='secondary'>Us</Text>
+              Contact{' '}
+              <Text fontSize={[6, 7, 7]} color='secondary'>
+                Us
+              </Text>
             </Title>
 
             <Paragraph mt={4} textAlign={['center', 'start', 'start']}>

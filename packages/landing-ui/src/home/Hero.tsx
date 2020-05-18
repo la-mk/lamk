@@ -4,6 +4,7 @@ import { withTheme } from 'styled-components';
 import { CurvedSection } from '../common/CurvedSection';
 import { HeroIllustration } from './hero-illustration';
 import { useTranslation } from '../common/i18n';
+import { HeroButtons } from '../common/HeroButtons';
 
 export const Hero = withTheme(({ theme }) => {
   const { t } = useTranslation();
@@ -22,22 +23,14 @@ export const Hero = withTheme(({ theme }) => {
       >
         <Title color='primary' level={1} mb={2} fontSize={[6, 7, 7]}>
           Online shop
-          <Text display='block' color='secondary'>
+          <Text display='block' fontSize={[6, 7, 7]} color='secondary'>
             In 5 minutes
           </Text>
         </Title>
         <Text fontSize={[2, 3, 3]} textAlign={'center'}>
           {t('company.subTagline')}
         </Text>
-        <Flex mt={5}>
-          <Button width={140} mr={2} type='primary' size='large'>
-            {t('actions.startNow')}
-          </Button>
-          <Button width={140} type='ghost' ml={2} size='large'>
-            {t('actions.watchDemo')}
-          </Button>
-        </Flex>
-
+        <HeroButtons mt={5} />
         <HeroIllustration />
       </Flex>
     </CurvedSection>

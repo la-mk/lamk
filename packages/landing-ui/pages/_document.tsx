@@ -30,13 +30,6 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  /* @font-face {
-    font-family: 'Noto Sans';
-    src: url('/fonts/noto-sans-v9-latin-regular.woff2'); 
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-  } */
 `;
 
 // The custom document is required to setup styled components for SSR.
@@ -77,9 +70,9 @@ export default class MyDocument extends Document {
       <Html prefix='og: https://ogp.me/ns#'>
         <Head>
           <link
-            href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=fallback'
+            href='https://fonts.googleapis.com/css2?family=Ubuntu&display=fallback'
             rel='stylesheet'
-          ></link>
+          />
         </Head>
         <body>
           <Main />

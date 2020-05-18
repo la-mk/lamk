@@ -35,11 +35,11 @@ const HowToOrderedList = styled.ol`
     line-height: 0.8;
     margin-right: 16px;
 
-    @media screen and (max-width: 1128px) {
+    @media screen and (max-width: ${(props) => props.theme.breakpoints[1]}) {
       font-size: 90px;
     }
 
-    @media screen and (max-width: 788px) {
+    @media screen and (max-width: ${(props) => props.theme.breakpoints[0]}) {
       font-size: 60px;
     }
   }
@@ -63,13 +63,20 @@ const Step = ({ title, children }) => {
   return (
     <Box
       style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', zIndex: 1 }}
-      width='160px'
+      width='180px'
       bg='background.light'
+      borderRadius={0}
     >
-      <Flex bg='tertiary' p={1} alignItems='center' justifyContent='center'>
+      <Flex
+        bg='tertiary'
+        p={1}
+        py={2}
+        alignItems='center'
+        justifyContent='center'
+      >
         <Text>{title}</Text>
       </Flex>
-      <Box height='150px' p={3}>
+      <Box height='160px' p={3}>
         {children}
       </Box>
     </Box>
@@ -82,7 +89,6 @@ const StepEntry = ({ children, ...props }) => {
       width='100%'
       flexDirection='row'
       alignItems='center'
-      justifyContent='center'
       p={1}
       bg='white'
       {...props}
@@ -108,8 +114,8 @@ const StepSuccess = () => {
 const HowToItem = ({ title, description, children }) => {
   return (
     <li>
-      <Box width='85%' maxWidth={860} style={{ zIndex: 2 }}>
-        <Title mb={4} level={4}>
+      <Box width='85%' maxWidth={960} style={{ zIndex: 2 }}>
+        <Title mb={4} level={3}>
           {title}
         </Title>
         <Paragraph ml={['-60px', 0, 0]} px={3}>
@@ -117,19 +123,19 @@ const HowToItem = ({ title, description, children }) => {
         </Paragraph>
         <Box ml={['-60px', 0, 0]} py={2} mt={5} style={{ overflowX: 'auto' }}>
           <Flex
-            minWidth='860px'
+            minWidth={960}
             px={3}
             justifyContent='space-between'
             style={{ position: 'relative' }}
           >
             <Image
+              my={2}
+              width='90%'
               style={{
                 position: 'absolute',
                 left: 30,
                 top: '40%',
                 zIndex: 0,
-                margin: '0 8px',
-                width: '90%',
               }}
               src='/steps-connector.svg'
             />
@@ -152,12 +158,18 @@ export const HowToList = () => {
           description={t('howItWorks.listCreateStoreDetails')}
         >
           <Step title={t('howItWorks.storeName')}>
-            <StepEntry>{t('howItWorks.sampleStoreName')}</StepEntry>
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleStoreName')}
+              </Text>
+            </StepEntry>
           </Step>
 
           <Step title={t('howItWorks.storeUrl')}>
             <StepEntry>
-              {t('howItWorks.sampleStoreUrl')}
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleStoreUrl')}
+              </Text>
               <Text strong color='primary'>
                 .la.mk
               </Text>
@@ -169,13 +181,7 @@ export const HowToList = () => {
               <Image src='/cactus-logo.svg' />
             </StepEntry>
 
-            <Button
-              style={{ fontSize: 14 }}
-              type='primary'
-              mt={4}
-              size='small'
-              width='100%'
-            >
+            <Button type='primary' mt={4} size='small' width='100%'>
               {t('actions.create')}
             </Button>
           </Step>
@@ -189,7 +195,11 @@ export const HowToList = () => {
           description={t('howItWorks.listAddProductsDetails')}
         >
           <Step title={t('howItWorks.productName')}>
-            <StepEntry>{t('howItWorks.sampleProductName')}</StepEntry>
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleProductName')}
+              </Text>
+            </StepEntry>
           </Step>
           <Step title={t('howItWorks.productImage')}>
             <StepEntry>
@@ -198,20 +208,18 @@ export const HowToList = () => {
           </Step>
           <Step title={t('howItWorks.productDescription')}>
             <StepEntry>
-              <Text textAlign='center'>
+              <Text color='mutedText.dark' textAlign='center'>
                 {t('howItWorks.sampleProductDescription')}
               </Text>
             </StepEntry>
           </Step>
           <Step title={t('howItWorks.productPrice')}>
-            <StepEntry>400 MKD</StepEntry>
-            <Button
-              style={{ fontSize: 14 }}
-              type='primary'
-              mt={5}
-              size='small'
-              width='100%'
-            >
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                400 MKD
+              </Text>
+            </StepEntry>
+            <Button type='primary' mt={5} size='small' width='100%'>
               {t('actions.addToStore')}
             </Button>
           </Step>
@@ -223,18 +231,26 @@ export const HowToList = () => {
         >
           <Step title={t('howItWorks.deliveryMethod')}>
             <StepEntry>
-              <Text textAlign='center'>
+              <Text color='mutedText.dark' textAlign='center'>
                 {t('howItWorks.sampleDeliveryMethod')}
               </Text>
             </StepEntry>
           </Step>
           <Step title={t('howItWorks.deliveryFee')}>
-            <StepEntry>100 MKD</StepEntry>
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                100 MKD
+              </Text>
+            </StepEntry>
             <Box mt={3}>
-              <Text type='secondary'>
+              <Text color='text.dark'>
                 {t('howItWorks.sampleFreeOverDelivery')}:
               </Text>
-              <StepEntry>1200 MKD</StepEntry>
+              <StepEntry>
+                <Text color='mutedText.dark' textAlign='center'>
+                  1200 MKD
+                </Text>
+              </StepEntry>
             </Box>
           </Step>
           <Step title={t('howItWorks.paymentOptions')}>
@@ -245,11 +261,19 @@ export const HowToList = () => {
               justifyContent='center'
             >
               <Image mr={2} src='/checkbox.svg' />
-              <StepEntry>{t('howItWorks.samplePaymentCreditCard')}</StepEntry>
+              <StepEntry>
+                <Text color='mutedText.dark' textAlign='center'>
+                  {t('howItWorks.samplePaymentCreditCard')}
+                </Text>
+              </StepEntry>
             </Flex>
             <Flex width='100%' alignItems='center' justifyContent='center'>
               <Image mr={2} src='/checkbox.svg' />
-              <StepEntry>{t('howItWorks.samplePaymentOnDelivery')}</StepEntry>
+              <StepEntry>
+                <Text color='mutedText.dark' textAlign='center'>
+                  {t('howItWorks.samplePaymentOnDelivery')}
+                </Text>
+              </StepEntry>
             </Flex>
 
             <Button
@@ -274,28 +298,50 @@ export const HowToList = () => {
           <Step title={t('howItWorks.myOrders')}>
             <StepEntry>
               <ColorCircle color='#F6376D' />
-              <Text ml={2}>1 {t('howItWorks.sampleNewOrder')}</Text>
+              <Text color='mutedText.dark' ml={2}>
+                1 {t('howItWorks.sampleNewOrder')}
+              </Text>
             </StepEntry>
             <StepEntry mt={2}>
               <ColorCircle color='#27AE60' />
-              <Text ml={2}>2 {t('howItWorks.sampleCompletedOrder')}</Text>
+              <Text color='mutedText.dark' ml={2}>
+                2 {t('howItWorks.sampleCompletedOrder')}
+              </Text>
             </StepEntry>
             <StepEntry mt={2}>
               <ColorCircle color='#F1C40F' />
-              <Text ml={2}>1 {t('howItWorks.samplePreparingOrder')}</Text>
+              <Text color='mutedText.dark' ml={2}>
+                1 {t('howItWorks.samplePreparingOrder')}
+              </Text>
             </StepEntry>
           </Step>
           <Step title={t('howItWorks.orderDetails')}>
-            <StepEntry>1 {t('howItWorks.sampleProductName')}</StepEntry>
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                1 {t('howItWorks.sampleProductName')}
+              </Text>
+            </StepEntry>
             <StepEntry mt={2}>
-              2 {t('howItWorks.sampleProductName2_plural')}
+              <Text color='mutedText.dark' textAlign='center'>
+                2 {t('howItWorks.sampleProductName2_plural')}
+              </Text>
             </StepEntry>
           </Step>
           <Step title={t('howItWorks.buyerDetails')}>
-            <StepEntry>{t('howItWorks.sampleAddressRecepient')}</StepEntry>
-            <StepEntry mt={2}>{t('howItWorks.sampleAddressStreet')}</StepEntry>
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleAddressRecepient')}
+              </Text>
+            </StepEntry>
             <StepEntry mt={2}>
-              {t('howItWorks.sampleAddressCityCountry')}
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleAddressStreet')}
+              </Text>
+            </StepEntry>
+            <StepEntry mt={2}>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleAddressCityCountry')}
+              </Text>
             </StepEntry>
           </Step>
 
@@ -316,25 +362,50 @@ export const HowToList = () => {
           description={t('howItWorks.listDiscountCampaignsDetails')}
         >
           <Step title={t('howItWorks.campaignName')}>
-            <StepEntry>{t('howItWorks.sampleCampaignName')}</StepEntry>
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleCampaignName')}
+              </Text>
+            </StepEntry>
           </Step>
           <Step title={t('howItWorks.productGroups')}>
-            <StepEntry>{t('howItWorks.sampleProductGroup')}</StepEntry>
-            <StepEntry mt={2}>{t('howItWorks.sampleProductGroup2')}</StepEntry>
-            <StepEntry mt={2}>{t('howItWorks.sampleProductGroup3')}</StepEntry>
+            <StepEntry>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleProductGroup')}
+              </Text>
+            </StepEntry>
+            <StepEntry mt={2}>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleProductGroup2')}
+              </Text>
+            </StepEntry>
+            <StepEntry mt={2}>
+              <Text color='mutedText.dark' textAlign='center'>
+                {t('howItWorks.sampleProductGroup3')}
+              </Text>
+            </StepEntry>
           </Step>
           <Step title={t('howItWorks.campaignReward')}>
-            <StepEntry>30 %</StepEntry>
+            <StepEntry>
+              <Text width='100%' color='mutedText.dark' textAlign='center'>
+                30%
+              </Text>
+            </StepEntry>
           </Step>
           <Step title={t('howItWorks.campaignPromote')}>
             <Flex>
               <Image mr={2} src='/checkbox.svg' />
               <StepEntry>
                 <Box width='100%'>
-                  <Text display='block'>
+                  <Text textAlign='center' display='block'>
                     {t('actions.promote').toLowerCase()}
                   </Text>
-                  <Text display='block' fontSize={10}>
+                  <Text
+                    display='block'
+                    fontSize={0}
+                    color='mutedText.dark'
+                    textAlign='center'
+                  >
                     {t('actions.showBanner').toLowerCase()}
                   </Text>
                 </Box>

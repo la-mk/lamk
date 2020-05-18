@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box } from '@sradevski/blocks-ui';
-import { BoxProps } from '@sradevski/blocks-ui/dist/basic/Box';
 
-interface CurvedSectionProps extends BoxProps {
+interface CurvedSectionProps extends Omit<typeof Box, 'ref'> {
   children: React.ReactNode;
   backgroundColor: string;
   direction: 'up' | 'down';
@@ -13,7 +12,7 @@ export const CurvedSection = ({
   backgroundColor,
   direction,
   ...props
-}: any) => {
+}: CurvedSectionProps) => {
   return (
     <Box {...props}>
       {direction === 'up' && (

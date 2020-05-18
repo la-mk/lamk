@@ -24,7 +24,9 @@ export const ContactUsFooter = () => {
         justifyContent='center'
         style={{ zIndex: 2 }}
       >
-        <Title level={3}>{t('landing.contactUsPage')}</Title>
+        <Title level={3} fontSize={[5, 6, 6]} mb={[3, 4, 4]}>
+          {t('landing.contactUsPage')}
+        </Title>
         <ContactForm />
       </Flex>
       <Box
