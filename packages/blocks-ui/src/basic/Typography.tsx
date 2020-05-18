@@ -59,7 +59,7 @@ export const Paragraph = (props: Omit<ParagraphProps, "type"> & SystemProps) => 
 export const Title = ({ style, ...props }: Omit<TitleProps, "type"> & SystemProps) => {
   return (
     <BaseTitle
-      color="text.dark"
+      color="heading.dark"
       fontSize={getTitleFontSize(props.level)}
       style={{ fontWeight: 400, ...style }}
       {...props}
