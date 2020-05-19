@@ -3,7 +3,7 @@ import Img, { ImgProps } from 'react-image';
 import { system } from '../../system';
 import styled from 'styled-components';
 
-interface ImageProps extends ImgProps {
+export interface ImageProps extends ImgProps {
   maxWidth?: string | number;
   maxHeight?: string | number;
 }

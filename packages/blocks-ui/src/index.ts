@@ -54,6 +54,8 @@ export { LoginForm } from './compound/LoginForm';
 export { SignupForm } from './compound/SignupForm';
 export { UploadContent } from './compound/UploadContent';
 export {HeadElements} from './compound/HeadElements'
+export {FooterContent} from './compound/FooterContent'
+export {PoweredBy} from './compound/PoweredBy'
 
 export { message } from './static/message';
 
