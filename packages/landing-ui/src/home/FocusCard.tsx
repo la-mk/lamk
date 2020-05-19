@@ -33,10 +33,10 @@ export const FocusCard = ({
       >
         <Box mb={[5, 0, 0]} mr={[0, 4, 4]} maxWidth={350}>
           <Image src={icon} />
-          <Title mt={2} color='white' level={4}>
+          <Title mt={2} color='text.light' level={4}>
             {title}
           </Title>
-          <Text color='white' fontSize={1}>
+          <Text color='text.light' fontSize={1}>
             {description}
           </Text>
         </Box>

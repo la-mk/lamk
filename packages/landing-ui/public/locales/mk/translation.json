@@ -11,8 +11,15 @@
     "startNow": "Почни сега",
     "watchDemo": "Види видео"
   },
+  "analyticsFrequency": {
+    "Monthly": "Месечен",
+    "daily": "Дневен",
+    "hourly": "Часовен",
+    "weekly": "Неделен"
+  },
   "campaignBanners": {
-    "allDiscount": "ПРОМОЦИЈА: {{rewardValue}} попуст на сите порачки, пресметано на каса"
+    "allDiscountSubtitle": "Сите попусти се пресметуваат на каса",
+    "allDiscountTitle": "{{rewardValue}} попуст на сите порачки"
   },
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
@@ -162,6 +169,8 @@
     "email": "Полето треба да е валидна емаил адреса",
     "generic": "Невалиден внес",
     "greaterThan": "Полето треба да е повеќе од {{0}}",
+    "hexColor": "Полето треба да е валидна шифра за боја",
+    "id": "Полето треба да е валидна шифра",
     "integer": "Полето треба да е цел број",
     "invalid-schema-selector": "Невалиден селектор за шема",
     "length": "Полето треба да е има помалку од {{0}} елементи",
@@ -217,7 +226,7 @@
     "sampleDeliveryMethod": "Достава до врата",
     "sampleFreeOverDelivery": "Бесплатно над",
     "sampleNewOrder": "Нова порачка",
-    "samplePaymentCreditCard": "Платежна картичка",
+    "samplePaymentCreditCard": "Картичка",
     "samplePaymentOnDelivery": "При достава",
     "samplePreparingOrder": "Се подготвува",
     "sampleProductDescription": "Среќен зелен кактус",
@@ -239,6 +248,8 @@
     "corePointsAdminDetails": "Менаџирајте ги вашите производи, порачки, кампањи и повеќе од едно место. Имајте преглед на вашите порачки, приходи и повеќе преку врадените аналитики",
     "corePointsStore": "Продавница од светска класа, без многу работа",
     "corePointsStoreDetails": "Вашата работа е да ги менаџирате вашите продукти, а ние ќе се погрижиме за се останато. Супер брза, SEO оптимизирана, и лесна за користење онлајн продавница со само неколку клика. Ние се грижиме за техничките комплексности за вашата страна да биде достапна 24/7, се што вие треба да правите е да продавате",
+    "corePointsSupport": "Тука сме да ви помогнеме",
+    "corePointsSupportDetails": "Тука сме да ви помогнеме со што ви треба. Без разлика дали имате проблеми со платформата, или имате функционалност без која не можете да функционирате, тука сме да ви помогнеме. Пишете ни преку вградениот чат и ќе ви помогнеме да успеете",
     "faqPage": "ЧПП",
     "featureAnalytics": "Аналитики за посета и продажба",
     "featureCreditCardPayments": "Плаќање со платежни картички",
@@ -252,9 +263,9 @@
     "stepCreateStore": "Направете ја вашата продавница",
     "stepCreateStoreDetails": "Регистрирајте се, внесете го името и логото на вашата продавница, и спреми сте за да продавате",
     "stepStartSelling": "Почнете со продавање",
-    "stepStartSellingDetails": "Одберете опции за достава и наплажање, и започнете со продажба",
+    "stepStartSellingDetails": "Одберете опции за достава и наплаќање, и започнете со продажба",
     "warmingUp": "Само се загреваме",
-    "warmingUpDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam"
+    "warmingUpDetails": "Сето ова е само почеток. Постојано се подобруваме, и имаме големи планови да ја направиме најдобрата платформа во регионот. Придружете нѝ се"
   },
   "landingContact": {
     "emailExample": "me@example.com",
@@ -303,7 +314,9 @@
     "serverErrorExplanation": "Се појави грешка при вашето барање, пробајте повторно. Доколку сеуште имате проблем, контактирајте не"
   },
   "sets": {
-    "latest": "Најнови производи"
+    "latest": "Најнови производи",
+    "selectedCategories": "Одбрани категории",
+    "selectedCategoriesExplanation": "Категории одбрани само за вас"
   },
   "units": {
     "cm": "центиметар",

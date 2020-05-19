@@ -12,8 +12,8 @@ const BarImage = ({ src, overflow }) => {
   return (
     <Image
       src={src}
-      maxWidth={[320, 350, 500]}
-      width={[320, '50%', '40%']}
+      maxWidth={[300, 350, 500]}
+      width={[300, '50%', '40%']}
       height={'100%'}
       {...margins}
     />

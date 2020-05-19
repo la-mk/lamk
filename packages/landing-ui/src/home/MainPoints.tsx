@@ -28,8 +28,8 @@ export const MainPoints = () => {
         mt={[50, 80, 160]}
         image='/warming-up-people.svg'
         overflow='top'
-        title='We are just warming up'
-        description='We are building the best platform around, and we want to do it together. '
+        title={t('landing.corePointsSupport')}
+        description={t('landing.corePointsSupportDetails')}
       />
     </>
   );
