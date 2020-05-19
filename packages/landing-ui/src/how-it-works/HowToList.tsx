@@ -10,6 +10,7 @@ import {
 } from '@sradevski/blocks-ui';
 import styled from 'styled-components';
 import { useTranslation } from '../common/i18n';
+import { Card } from '../common/Card';
 
 const HowToOrderedList = styled.ol`
   list-style: none;
@@ -61,25 +62,20 @@ const ColorCircle = ({ color }) => {
 
 const Step = ({ title, children }) => {
   return (
-    <Box
-      style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', zIndex: 1 }}
-      width='180px'
-      bg='background.light'
-      borderRadius={0}
-    >
+    <Card width='180px' bg='background.light'>
       <Flex
-        bg='tertiary'
+        bg='secondary'
         p={1}
         py={2}
         alignItems='center'
         justifyContent='center'
       >
-        <Text>{title}</Text>
+        <Text color='text.light'>{title}</Text>
       </Flex>
       <Box height='160px' p={3}>
         {children}
       </Box>
-    </Box>
+    </Card>
   );
 };
 
@@ -297,7 +293,7 @@ export const HowToList = () => {
         >
           <Step title={t('howItWorks.myOrders')}>
             <StepEntry>
-              <ColorCircle color='#F6376D' />
+              <ColorCircle color='#EF4351' />
               <Text color='mutedText.dark' ml={2}>
                 1 {t('howItWorks.sampleNewOrder')}
               </Text>

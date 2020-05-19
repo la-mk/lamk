@@ -5,7 +5,7 @@ import { ContactForm } from './ContactForm';
 import { Title, Flex, Image, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from './i18n';
 
-export const ContactUsFooter = () => {
+export const ContactUsFooter = withTheme(({ theme }) => {
   const { t } = useTranslation();
 
   return (
@@ -13,7 +13,7 @@ export const ContactUsFooter = () => {
       style={{ position: 'relative' }}
       mt={[80, 100, 120]}
       direction='up'
-      backgroundColor={'#B3C6E4'}
+      backgroundColor={theme.colors.background.light}
     >
       <Flex
         width='100%'
@@ -35,9 +35,6 @@ export const ContactUsFooter = () => {
       >
         <Image height={[150, 240, 240]} src='/paper-airplane-trail.svg' />
       </Box>
-      <Box style={{ position: 'absolute', right: 0, bottom: 20 }}>
-        <Image height={450} src='/contact-form-spill.svg' />
-      </Box>
       <Box
         display={['none', 'block', 'block']}
         style={{ position: 'absolute', left: 0, bottom: -10 }}
@@ -46,4 +43,4 @@ export const ContactUsFooter = () => {
       </Box>
     </CurvedSection>
   );
-};
+});

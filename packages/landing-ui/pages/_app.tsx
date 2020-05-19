@@ -22,21 +22,7 @@ class MyApp extends App<any> {
           <link rel='shortcut icon' href={'/icon.png'} />
         </NextHead>
 
-        <ThemeProvider
-          theme={{
-            colors: {
-              primary: '#EF4351',
-              secondary: '#07074F',
-              tertiary: '#DEEAF8',
-
-              text: {
-                light: '#ffffff',
-                dark: '#07074F',
-              },
-            },
-          }}
-          basicLocale={mk_MK}
-        >
+        <ThemeProvider basicLocale={mk_MK}>
           <hooks.BreakpointProvider
             breakpoints={theme.breakpoints.map((x) => parseInt(x))}
           >
