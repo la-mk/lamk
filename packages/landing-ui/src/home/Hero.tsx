@@ -21,9 +21,9 @@ export const Hero = withTheme(({ theme }) => {
         width='100%'
         mt={[4, 4, 5]}
       >
-        <Title color='primary' level={1} mb={2} fontSize={[6, 7, 7]}>
+        <Title color='secondary' level={1} mb={2} fontSize={[6, 7, 7]}>
           Online shop
-          <Text display='block' fontSize={[6, 7, 7]} color='secondary'>
+          <Text display='block' fontSize={[6, 7, 7]} color='primary'>
             In 5 minutes
           </Text>
         </Title>

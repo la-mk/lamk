@@ -19,14 +19,14 @@ export const Contact = withTheme(({ theme }) => {
         >
           <Box maxWidth={600}>
             <Title
-              color='primary'
+              color='secondary'
               level={1}
               mb={2}
               textAlign={'center'}
               fontSize={[6, 7, 7]}
             >
               Contact{' '}
-              <Text fontSize={[6, 7, 7]} color='secondary'>
+              <Text fontSize={[6, 7, 7]} color='primary'>
                 Us
               </Text>
             </Title>

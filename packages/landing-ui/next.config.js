@@ -21,6 +21,9 @@ module.exports = withPlugins(
             '@font-family': `
               'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
             `,
+            '@primary-color': '#EF4351',
+            '@btn-default-border': '#EF4351',
+            '@border-radius-base': '6px',
             'height-base': '42px',
             'height-lg': '50px',
             'height-sm': '30px',

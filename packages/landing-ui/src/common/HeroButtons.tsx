@@ -2,16 +2,21 @@ import React from 'react';
 import { Flex, Button } from '@sradevski/blocks-ui';
 import { useTranslation } from './i18n';
 
-export const HeroButtons = (props: typeof Flex) => {
+export const HeroButtons = ({
+  noDemo,
+  ...props
+}: typeof Flex & { noDemo?: boolean }) => {
   const { t } = useTranslation();
   return (
-    <Flex {...props}>
+    <Flex {...props} style={{ zIndex: 1 }}>
       <Button mr={2} type='primary' size='large'>
         {t('actions.startNow')}
       </Button>
-      <Button ml={2} size='large'>
-        {t('actions.seeDemoShop')}
-      </Button>
+      {!noDemo && (
+        <Button ml={2} size='large'>
+          {t('actions.seeDemoShop')}
+        </Button>
+      )}
     </Flex>
   );
 };

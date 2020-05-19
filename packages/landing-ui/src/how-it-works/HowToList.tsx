@@ -121,6 +121,7 @@ const HowToItem = ({ title, description, children }) => {
           <Flex
             minWidth={960}
             px={3}
+            bg='#fff'
             justifyContent='space-between'
             style={{ position: 'relative' }}
           >

@@ -20,14 +20,14 @@ export const Hero = withTheme(({ theme }) => {
       >
         <Box mr={[0, 3, 3]} maxWidth={600}>
           <Title
-            color='primary'
+            color='secondary'
             level={1}
             mb={2}
             textAlign={['center', 'start', 'start']}
             fontSize={[6, 7, 7]}
           >
             How{' '}
-            <Text fontSize={[6, 7, 7]} color='secondary'>
+            <Text fontSize={[6, 7, 7]} color='primary'>
               It Works
             </Text>
           </Title>
