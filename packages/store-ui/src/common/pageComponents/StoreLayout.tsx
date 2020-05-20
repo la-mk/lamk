@@ -66,7 +66,7 @@ export const StoreLayout = withTheme(
 
     // Not a very clean solution, but it will do for now
     const matches = router.pathname.match(/\/([^/]*)(\/?)/);
-    const selectedKeys = matches && matches.length > 1 ? [matches[1]] : [];
+    const selectedKey = matches && matches.length > 1 ? matches[1] : undefined;
 
     const handleLogout = () => {
       dispatch(logout());
@@ -124,7 +124,7 @@ export const StoreLayout = withTheme(
                 {presetSearch}
               </Box>
               <TopMenu
-                selectedKeys={selectedKeys}
+                selectedKey={selectedKey}
                 user={user}
                 cart={cart}
                 handleLogin={handleLogin}

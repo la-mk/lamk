@@ -1,24 +1,37 @@
 import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
-import queryString from 'qs';
 import { ProductSet } from '../sets/ProductSet';
-import styled from 'styled-components';
-import { Flex, Spin, Image, hooks, Box } from '@sradevski/blocks-ui';
-import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import { Flex, Spin, hooks, Box } from '@sradevski/blocks-ui';
+import { useTranslation } from '../../common/i18n';
 import { ProductSet as ProductSetType } from '@sradevski/la-sdk/dist/models/product';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getCategories } from '../../state/modules/categories/categories.selector';
-import { getFiltersFromSetQuery } from '../../common/filterUtils';
-import { CategoriesMenu } from '../shared/CategoriesMenu';
 import { getPromotedCampaign } from '../../state/modules/campaigns/campaigns.selector';
 import { DiscountCampaign } from '../shared/campaigns/DiscountCampaign';
+import { CategorySet } from '../sets/CategorySet';
+import { ProductGrid } from '../sets/ProductGrid';
+import { ServicesSet } from '../sets/ServicesSet';
+import { ProductTrio } from '../sets/ProductTrio';
+import { Banner } from './Banner';
 
-const Banner = styled(Flex)`
-  position: relative;
-`;
+const isValidPresentation = (
+  set: ProductSetType,
+  type: 'trio' | 'vertical-grid' | 'horizontal-grid' | 'scroll-set',
+) => {
+  switch (type) {
+    case 'trio': {
+      return set.data.length >= 3;
+    }
+    case 'vertical-grid':
+    case 'horizontal-grid':
+    case 'scroll-set': {
+      return true;
+    }
+  }
+};
 
 export const Home = ({
   landingContent = {},
@@ -55,41 +68,88 @@ export const Home = ({
     );
   }, [store, categories]);
 
+  const sampleCategories = sampleSize(categories, 3);
+
   return (
     <>
-      <Box mx='auto' mb={3}>
-        <CategoriesMenu mode='horizontal' />
-      </Box>
-      {promotedCampaign && <DiscountCampaign campaign={promotedCampaign} />}
-      {landingContent.banner && (
-        <Banner alignItems='center' justifyContent='center'>
-          <Image
-            width='100%'
-            src={
-              landingContent.banner &&
-              sdk.artifact.getUrlForArtifact(landingContent.banner, store._id)
-            }
-            loader={<Spin spinning={true} />}
-            unloader={null}
-            alt='Banner image'
-          />
-        </Banner>
-      )}
-      <Flex px={[2, 4, 5]} mt={3} flexDirection='column'>
+      <Banner banner={landingContent.banner} storeId={store._id} />
+
+      <Flex mt={7} flexDirection='column'>
+        {sampleCategories.length > 1 && (
+          <Box px={[2, 4, 5]} mb={7}>
+            <CategorySet
+              categories={sampleCategories}
+              title={t('sets.selectedCategories')}
+              subtitle={t('sets.selectedCategoriesExplanation')}
+            />
+          </Box>
+        )}
+
         <Spin spinning={showSpinner}>
           <>
             {productSets
               .filter(set => Boolean(set.data))
-              .map(set => (
-                <ProductSet
-                  storeId={store._id}
-                  allHref={`/products?${queryString.stringify(
-                    getFiltersFromSetQuery(set.filter.query),
-                  )}`}
+              .map((set, index) => (
+                <React.Fragment
                   key={set.setTag.name + (set.setTag.value || '')}
-                  products={set.data}
-                  title={t(getTranslationBaseForSet(set.setTag))}
-                />
+                >
+                  <Box px={[2, 4, 5]} mb={7}>
+                    {index % 4 === 0 && (
+                      <ProductSet set={set} storeId={store._id} />
+                    )}
+
+                    {index % 4 === 1 && (
+                      <ProductGrid set={set} storeId={store._id} />
+                    )}
+
+                    {index % 4 === 2 &&
+                      (set.data.length > 2 ? (
+                        <ProductTrio set={set} storeId={store._id} />
+                      ) : (
+                        <ProductGrid
+                          set={set}
+                          horizontal={true}
+                          storeId={store._id}
+                        />
+                      ))}
+
+                    {index % 4 === 3 && (
+                      <ProductGrid
+                        set={set}
+                        horizontal={true}
+                        storeId={store._id}
+                      />
+                    )}
+                  </Box>
+
+                  {index === 0 && promotedCampaign && (
+                    <Box mb={7}>
+                      <DiscountCampaign campaign={promotedCampaign} />
+                    </Box>
+                  )}
+
+                  {index === 2 && (
+                    <Box mb={7}>
+                      <ServicesSet
+                        services={[
+                          {
+                            title: 'Free shipping',
+                            subtitle: 'Free shipping over 100$',
+                          },
+                          {
+                            title: 'Secure payments',
+                            subtitle: 'Pay securely without a worry',
+                          },
+                          {
+                            title: 'Return policy',
+                            subtitle:
+                              'Return your products if you are not satisfied',
+                          },
+                        ]}
+                      />
+                    </Box>
+                  )}
+                </React.Fragment>
               ))}
           </>
         </Spin>

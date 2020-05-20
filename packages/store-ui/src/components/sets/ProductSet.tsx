@@ -1,27 +1,27 @@
 import React from 'react';
 import { ProductCard } from '../shared/ProductCard';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import {
+  Product,
+  ProductSet as ProductSetType,
+} from '@sradevski/la-sdk/dist/models/product';
 import { Set } from '@sradevski/blocks-ui';
-import { useTranslation } from '../../common/i18n';
+import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';
+import { getSetHref } from '../../common/filterUtils';
 
 interface ProductSetProps {
-  products: Product[];
-  allHref: any;
-  title: string;
-  subtitle: string;
+  set: ProductSetType;
   storeId: string;
 }
 
-export const ProductSet = ({
-  products,
-  allHref,
-  title,
-  subtitle,
-  storeId,
-}: ProductSetProps) => {
+export const ProductSet = ({ set, storeId }: ProductSetProps) => {
   const { t } = useTranslation();
+  const allHref = getSetHref(set);
+  const products = set.data;
+  const title = t(getTranslationBaseForSet(set.setTag));
+  const subtitle = 'Best picks of the week';
+
   return (
     <>
       <SetTitle title={title} subtitle={subtitle} />

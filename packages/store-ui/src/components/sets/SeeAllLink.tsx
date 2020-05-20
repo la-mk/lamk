@@ -11,7 +11,7 @@ export const SeeAllLink = ({
   allHref: string;
 }) => {
   return (
-    <Flex mt={4} alignItems='center' justifyContent='center'>
+    <Flex mt={3} alignItems='center' justifyContent='center'>
       <Link href={allHref} passHref>
         <Button size='large' type='primary'>
           {t('common.seeAll')}

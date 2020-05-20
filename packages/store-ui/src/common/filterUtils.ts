@@ -1,6 +1,8 @@
 import isNil from 'lodash/isNil';
 import Router from 'next/router';
+import queryString from 'qs';
 import { FilterRouter } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
 
 export const getFiltersFromSetQuery = (query: { [key: string]: any }) => {
   if (query.$sort) {
@@ -26,3 +28,8 @@ export const filterRouter = {
     return () => Router.events.off('routeChangeComplete', cb);
   },
 } as FilterRouter;
+
+export const getSetHref = (set: ProductSet) =>
+  `/products?${queryString.stringify(
+    getFiltersFromSetQuery(set.filter.query),
+  )}`;

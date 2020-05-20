@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Flex,
   Menu,
   MenuItem,
   Badge,
@@ -19,122 +20,128 @@ import {
 import Link from 'next/link';
 import { withTheme } from 'styled-components';
 import { useTranslation } from '../i18n';
-
-const ICON_SIZE = 24;
+import { HoverableLink } from '../../components/shared/HoverableLink';
 
 export const TopMenu = withTheme(
-  ({ selectedKeys, cart, user, handleLogout, handleLogin, theme }) => {
+  ({ selectedKey, cart, user, handleLogout, handleLogin, theme }) => {
     const { t } = useTranslation();
 
     return (
       <>
-        <Menu
-          style={{ borderBottom: 'none', lineHeight: '46px' }}
-          my={1}
-          maxWidth='80%'
-          mode='horizontal'
-          selectedKeys={selectedKeys}
-        >
-          <MenuItem p={0} mx={[1, 1, 2]} key='products'>
-            <Link href='/products' passHref>
-              <Button type='link'>
-                <ShoppingOutlined style={{ margin: 0, fontSize: ICON_SIZE }} />
-                <Text
-                  fontSize={1}
-                  color='mutedText.dark'
-                  display={['none', 'none', 'initial']}
-                >
-                  {t('pages.product_plural')}
-                </Text>
-              </Button>
-            </Link>
-          </MenuItem>
+        <Flex alignItems='center' justifyContent='center'>
+          <HoverableLink href='/products'>
+            <Flex alignItems='center' justifyContent='center' mx={3}>
+              <Text
+                color={selectedKey === 'products' ? 'primary' : 'text.dark'}
+                fontSize={4}
+              >
+                <ShoppingOutlined />
+              </Text>
+              <Text
+                color={
+                  selectedKey === 'products' ? 'primary' : 'mutedText.dark'
+                }
+                ml={2}
+                fontSize={0}
+                display={['none', 'none', 'initial']}
+              >
+                {t('pages.product_plural')}
+              </Text>
+            </Flex>
+          </HoverableLink>
 
-          <MenuItem p={0} mx={[1, 1, 2]} key='about'>
-            <Link href='/about' passHref>
-              <Button type='link'>
-                <ShopOutlined style={{ margin: 0, fontSize: ICON_SIZE }} />
-                <Text
-                  fontSize={1}
-                  color='mutedText.dark'
-                  display={['none', 'none', 'initial']}
-                >
-                  {t('pages.aboutUs')}
-                </Text>
-              </Button>
-            </Link>
-          </MenuItem>
+          <HoverableLink href='/about'>
+            <Flex alignItems='center' justifyContent='center' mx={3}>
+              <Text
+                color={selectedKey === 'about' ? 'primary' : 'text.dark'}
+                fontSize={4}
+              >
+                <ShopOutlined />
+              </Text>
+              <Text
+                color={selectedKey === 'about' ? 'primary' : 'mutedText.dark'}
+                ml={2}
+                fontSize={0}
+                display={['none', 'none', 'initial']}
+              >
+                {t('pages.aboutUs')}
+              </Text>
+            </Flex>
+          </HoverableLink>
 
-          <MenuItem p={0} mx={[1, 1, 2]} key='cart'>
-            <Link href='/cart' passHref>
-              <Button mr={2} type='link'>
-                <Badge
-                  style={{ backgroundColor: theme.colors.primary }}
-                  showZero
-                  offset={[2, 2]}
-                  count={cart && cart.items ? cart.items.length : 0}
+          <HoverableLink href='/cart'>
+            <Flex alignItems='center' justifyContent='center' mx={3}>
+              <Badge
+                style={{ backgroundColor: theme.colors.primary }}
+                showZero
+                offset={[2, 2]}
+                count={cart && cart.items ? cart.items.length : 0}
+              >
+                <Text
+                  color={selectedKey === 'cart' ? 'primary' : 'text.dark'}
+                  fontSize={4}
                 >
-                  <ShoppingCartOutlined
-                    style={{ margin: 0, fontSize: ICON_SIZE }}
-                  />
-                </Badge>
-              </Button>
-            </Link>
-          </MenuItem>
-          <MenuItem p={0} mx={[1, 1, 2]} key='preferences'>
-            <Dropdown
-              trigger={['click']}
-              placement='bottomLeft'
-              overlay={
-                user ? (
-                  <Menu>
-                    <MenuItem key='account'>
-                      <Link href='/account' passHref>
-                        <Button type='link' icon={<UserOutlined />}>
-                          {t('pages.myAccount')}
-                        </Button>
-                      </Link>
-                    </MenuItem>
-                    <MenuItem key='orders'>
-                      <Link href='/orders' passHref>
-                        <Button type='link' icon={<ShoppingOutlined />}>
-                          {t('pages.myOrders')}
-                        </Button>
-                      </Link>
-                    </MenuItem>
-                    <Divider mt={2} mb={0} />
-                    <MenuItem key='logout'>
-                      <Button
-                        type='link'
-                        icon={<LogoutOutlined />}
-                        onClick={handleLogout}
-                      >
-                        {t('auth.logout')}
+                  <ShoppingCartOutlined />
+                </Text>
+              </Badge>
+            </Flex>
+          </HoverableLink>
+
+          <Dropdown
+            trigger={['click']}
+            placement='bottomLeft'
+            overlay={
+              user ? (
+                <Menu>
+                  <MenuItem key='account'>
+                    <Link href='/account' passHref>
+                      <Button type='link' icon={<UserOutlined />}>
+                        {t('pages.myAccount')}
                       </Button>
-                    </MenuItem>
-                  </Menu>
-                ) : (
-                  <Menu>
-                    <MenuItem key='login'>
-                      <Button
-                        type='link'
-                        icon={<LoginOutlined />}
-                        onClick={handleLogin}
-                      >
-                        {t('auth.login')}
+                    </Link>
+                  </MenuItem>
+                  <MenuItem key='orders'>
+                    <Link href='/orders' passHref>
+                      <Button type='link' icon={<ShoppingOutlined />}>
+                        {t('pages.myOrders')}
                       </Button>
-                    </MenuItem>
-                  </Menu>
-                )
-              }
-            >
+                    </Link>
+                  </MenuItem>
+                  <Divider mt={2} mb={0} />
+                  <MenuItem key='logout'>
+                    <Button
+                      type='link'
+                      icon={<LogoutOutlined />}
+                      onClick={handleLogout}
+                    >
+                      {t('auth.logout')}
+                    </Button>
+                  </MenuItem>
+                </Menu>
+              ) : (
+                <Menu>
+                  <MenuItem key='login'>
+                    <Button
+                      type='link'
+                      icon={<LoginOutlined />}
+                      onClick={handleLogin}
+                    >
+                      {t('auth.login')}
+                    </Button>
+                  </MenuItem>
+                </Menu>
+              )
+            }
+          >
+            <Flex>
               <Button
+                mx={3}
                 type='primary'
                 icon={<UserOutlined style={{ margin: 0 }} />}
               />
-            </Dropdown>
-          </MenuItem>
-        </Menu>
+            </Flex>
+          </Dropdown>
+        </Flex>
       </>
     );
   },

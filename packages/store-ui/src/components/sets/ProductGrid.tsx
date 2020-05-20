@@ -1,26 +1,28 @@
 import React from 'react';
 import { FlexGrid, Box, hooks } from '@sradevski/blocks-ui';
 import { ProductCard } from '../shared/ProductCard';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
+import { SeeAllLink } from './SeeAllLink';
+import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import { getSetHref } from '../../common/filterUtils';
 
 interface ProductGridProps {
-  products: Product[];
+  set: ProductSet;
   storeId: string;
-  title: string;
-  subtitle: string;
   horizontal?: boolean;
 }
 
-export const ProductGrid = ({
-  products,
-  storeId,
-  title,
-  subtitle,
-  horizontal,
-}: ProductGridProps) => {
+export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
+  const { t } = useTranslation();
   const productCount = hooks.useBreakpoint([6, 6, 8]);
   const productCountHorizontal = hooks.useBreakpoint([3, 4, 6]);
+
+  const allHref = getSetHref(set);
+  const products = set.data;
+  const title = t(getTranslationBaseForSet(set.setTag));
+  const subtitle = 'Best picks of the week';
+
   const productsToShow = products.slice(
     0,
     horizontal ? productCountHorizontal : productCount,
@@ -43,6 +45,7 @@ export const ProductGrid = ({
           </Box>
         )}
       />
+      <SeeAllLink allHref={allHref} t={t} />
     </>
   );
 };

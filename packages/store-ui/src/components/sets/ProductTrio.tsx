@@ -1,23 +1,26 @@
 import React from 'react';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product, ProductSet } from '@sradevski/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
 import { Flex, hooks, Box } from '@sradevski/blocks-ui';
 import { ProductCard } from '../shared/ProductCard';
+import { SeeAllLink } from './SeeAllLink';
+import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import { getSetHref } from '../../common/filterUtils';
 
 interface ProductSetProps {
-  products: Product[];
-  title: string;
-  subtitle: string;
+  set: ProductSet;
   storeId: string;
 }
 
-export const DetailedProductSet = ({
-  products,
-  title,
-  subtitle,
-  storeId,
-}: ProductSetProps) => {
+export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
+  const { t } = useTranslation();
   const areCardsHorizontal = hooks.useBreakpoint([false, false, true]);
+
+  const allHref = getSetHref(set);
+  const products = set.data;
+  const title = t(getTranslationBaseForSet(set.setTag));
+  const subtitle = 'Best picks of the week';
+
   const focusProduct = products[0];
   const productOne = products[1];
   const productTwo = products[2];
@@ -63,6 +66,7 @@ export const DetailedProductSet = ({
           </Box>
         </Flex>
       </Flex>
+      <SeeAllLink allHref={allHref} t={t} />
     </>
   );
 };

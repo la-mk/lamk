@@ -35,23 +35,13 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
           </Link>
         </MenuItem>
 
-        <MenuItem
-          style={{ borderBottom: 0 }}
-          p={0}
-          mx={[3, 4, 5]}
-          key='products'
-        >
+        <MenuItem style={{ borderBottom: 0 }} p={0} mx={[3, 4, 5]} key='sales'>
           <Link href='/products' passHref>
             <Text color='text.light'>New Arrivals</Text>
           </Link>
         </MenuItem>
 
-        <MenuItem
-          style={{ borderBottom: 0 }}
-          p={0}
-          mx={[3, 4, 5]}
-          key='products'
-        >
+        <MenuItem style={{ borderBottom: 0 }} p={0} mx={[3, 4, 5]} key='else'>
           <Dropdown
             trigger={['click', 'hover']}
             placement='bottomLeft'

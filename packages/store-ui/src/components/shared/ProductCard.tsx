@@ -15,6 +15,7 @@ import { Price } from './Price';
 import { useTranslation } from '../../common/i18n';
 import { differenceInDays } from 'date-fns';
 import { TFunction } from 'next-i18next';
+import { HoverableLink } from './HoverableLink';
 
 const NUM_DAYS_CONSIDER_AS_NEW = 10;
 
@@ -173,35 +174,33 @@ export const ProductCard = ({
   const { t } = useTranslation();
 
   return (
-    <Link href='/products/[pid]' as={`/products/${product._id}`}>
-      <a style={{ textDecoration: 'none' }}>
-        <Flex
-          flexDirection={horizontal ? 'row' : 'column'}
-          p={[2, 3, 3]}
-          my={2}
-          width={
-            horizontal && !emphasized
-              ? ['320px', '460px', '560px']
-              : emphasized
-              ? ['260px', '360px', '440px']
-              : ['160px', '240px', '280px']
-          }
-        >
-          <ProductImage
-            t={t}
-            storeId={storeId}
-            product={product}
-            emphasized={emphasized}
-            horizontal={horizontal}
-          />
+    <HoverableLink href='/products/[pid]' as={`/products/${product._id}`}>
+      <Flex
+        flexDirection={horizontal ? 'row' : 'column'}
+        p={[2, 3, 3]}
+        my={2}
+        width={
+          horizontal && !emphasized
+            ? ['320px', '460px', '560px']
+            : emphasized
+            ? ['260px', '360px', '440px']
+            : ['160px', '240px', '280px']
+        }
+      >
+        <ProductImage
+          t={t}
+          storeId={storeId}
+          product={product}
+          emphasized={emphasized}
+          horizontal={horizontal}
+        />
 
-          <ProductDescription
-            product={product}
-            detailed={detailed}
-            emphasized={emphasized}
-          />
-        </Flex>
-      </a>
-    </Link>
+        <ProductDescription
+          product={product}
+          detailed={detailed}
+          emphasized={emphasized}
+        />
+      </Flex>
+    </HoverableLink>
   );
 };
