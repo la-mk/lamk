@@ -32,6 +32,7 @@ import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall(true);
@@ -42,6 +43,11 @@ export const Cart = () => {
   const campaigns = useSelector(getCampaigns);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/cart', title: t('pages.myCart') },
+  ]);
 
   useEffect(() => {
     dispatch(
@@ -127,7 +133,7 @@ export const Cart = () => {
   };
 
   return (
-    <Page title={t('pages.myCart')}>
+    <Page>
       <Spin spinning={showSpinner}>
         <Flex width='100%' flexDirection={['column', 'column', 'row']}>
           <Flex flex={2} mr={[0, 0, 3]}>

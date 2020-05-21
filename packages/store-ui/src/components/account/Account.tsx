@@ -18,6 +18,7 @@ import { pickDiff } from '../../common/utils';
 import { Addresses } from './Addresses';
 import { Page } from '../shared/Page';
 import { useTranslation } from '../../common/i18n';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 interface AccountProps {
   user: User;
@@ -28,6 +29,11 @@ export const Account = ({ user }: AccountProps) => {
   const [tab, setTab] = useState('personal');
   const { t } = useTranslation();
 
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/account', title: t('pages.myAccount') },
+  ]);
+
   const handlePatchAccount = (updatedUser: User) => {
     const updatedFields = pickDiff(user, updatedUser);
     caller(sdk.user.patch(user._id, updatedFields), (user: User) => {
@@ -37,7 +43,7 @@ export const Account = ({ user }: AccountProps) => {
   };
 
   return (
-    <Page title={t('pages.myAccount')}>
+    <Page>
       <Tabs animated={false} activeKey={tab} onChange={setTab}>
         <TabPane pt={4} tab={t('common.personalInfo')} key='personal'>
           <Spin spinning={showSpinner}>

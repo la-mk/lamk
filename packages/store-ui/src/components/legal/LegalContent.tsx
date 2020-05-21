@@ -5,7 +5,9 @@ import { Page } from '../shared/Page';
 export const LegalContent = ({ title, body }) => {
   return (
     <Page maxWidth={1} title={title}>
-      <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{body}</Paragraph>
+      <Paragraph textAlign='center' style={{ whiteSpace: 'pre-wrap' }}>
+        {body}
+      </Paragraph>
     </Page>
   );
 };

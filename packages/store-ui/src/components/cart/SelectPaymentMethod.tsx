@@ -54,11 +54,7 @@ export const SelectPaymentMethod = ({
                     flexDirection='column'
                   >
                     {iconsMap[method.name]}
-                    <Text
-                      style={{ textAlign: 'center' }}
-                      mt={3}
-                      type='secondary'
-                    >
+                    <Text textAlign='center' mt={3} color='mutedText.dark'>
                       {t(`paymentMethodNames.${method.name}`)}
                     </Text>
                   </Flex>

@@ -23,6 +23,7 @@ import { useTranslation } from '../../common/i18n';
 import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
 import Router from 'next/router';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 export const Orders = () => {
   const [orders, setOrders] = useState<FindResult<Order> | null>(null);
@@ -42,6 +43,11 @@ export const Orders = () => {
       router: Router,
     },
   );
+
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/orders', title: t('pages.order_plural') },
+  ]);
 
   React.useEffect(() => {
     if (!user) {
@@ -63,7 +69,7 @@ export const Orders = () => {
   }
 
   return (
-    <Page title={t('pages.order_plural')}>
+    <Page>
       <List<Order>
         style={{ width: '100%' }}
         pagination={{

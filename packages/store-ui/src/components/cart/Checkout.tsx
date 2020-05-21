@@ -27,6 +27,7 @@ import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentM
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 export const Checkout = () => {
   const [caller, showSpinner] = hooks.useCall(true);
@@ -50,6 +51,11 @@ export const Checkout = () => {
   );
 
   const { t } = useTranslation();
+
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/checkout', title: t('pages.checkout') },
+  ]);
 
   useEffect(() => {
     if (!cart || !delivery || !campaigns || trackedEvent) {
@@ -195,7 +201,7 @@ export const Checkout = () => {
   };
 
   return (
-    <Page title={t('pages.checkout')}>
+    <Page>
       <Spin spinning={showSpinner}>
         <Flex
           width='100%'

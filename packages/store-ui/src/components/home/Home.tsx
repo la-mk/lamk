@@ -17,6 +17,7 @@ import { ServicesSet } from '../sets/ServicesSet';
 import { ProductTrio } from '../sets/ProductTrio';
 import { Banner } from './Banner';
 import { ProductDuo } from '../sets/ProductDuo';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 const isValidPresentation = (
   set: ProductSetType,
@@ -46,6 +47,8 @@ export const Home = ({
 
   const [caller, showSpinner] = hooks.useCall();
   const [productSets, setProductSets] = useState<ProductSetType[]>([]);
+
+  useBreadcrumb([{ url: '/', title: t('pages.home') }]);
 
   useEffect(() => {
     if (!store || !categories) {

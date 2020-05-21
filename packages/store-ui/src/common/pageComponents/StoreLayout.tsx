@@ -26,6 +26,7 @@ import { getFiltersFromSearch } from '../filterUtils';
 import { TopMenu } from './TopMenu';
 import { SubMenu } from './SubMenu';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { Breadcrumbs } from './Breadcrumbs';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -143,6 +144,7 @@ export const StoreLayout = withTheme(
           </BorderedHeader>
           <StyledContent minHeight='calc(100vh - 64px - 65px)'>
             <SubMenu height={64} />
+            <Breadcrumbs minHeight={56} />
             <Flex flexDirection='column'>{children}</Flex>
           </StyledContent>
           <Footer

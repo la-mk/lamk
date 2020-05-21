@@ -18,7 +18,7 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
       mt={title ? 0 : 5}
     >
       {title && (
-        <Title mt={3} mb={4} level={1}>
+        <Title mx='auto' mt={3} mb={4} fontSize={[5, 6, 6]} level={1}>
           {title}
         </Title>
       )}

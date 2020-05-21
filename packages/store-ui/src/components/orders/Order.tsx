@@ -23,6 +23,7 @@ import { useTranslation } from '../../common/i18n';
 import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
   const startIndex = isCardPayment ? 1 : 0;
@@ -49,6 +50,16 @@ export const Order = ({ orderId }: { orderId: string }) => {
 
   const [order, setOrder] = useState<OrderType>(null);
 
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/orders', title: t('pages.order_plural') },
+    {
+      urlPattern: '/orders/[oid]',
+      url: `/orders/${orderId}`,
+      title: `${t('pages.order')} - ${sdk.utils.getShortId(orderId)}`,
+    },
+  ]);
+
   useEffect(() => {
     if (orderId && user) {
       caller(sdk.order.get(orderId), setOrder);
@@ -74,7 +85,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
   const stepIndex = status ? getStepIndex(status, isCardPayment) : 0;
 
   return (
-    <Page title={t('pages.order')}>
+    <Page>
       <Spin spinning={showSpinner}>
         <Steps size='small' current={stepIndex}>
           {isCardPayment && (

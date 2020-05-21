@@ -23,6 +23,7 @@ import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentM
 import Link from 'next/link';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 interface PaymentProps {
   orderId: string | undefined;
@@ -58,6 +59,21 @@ export const Payment = ({ orderId }: PaymentProps) => {
     method =>
       method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
   );
+
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/orders', title: t('pages.order_plural') },
+    {
+      urlPattern: '/orders/[oid]',
+      url: `/orders/${orderId}`,
+      title: t('pages.order'),
+    },
+    {
+      urlPattern: '/orders/[oid]/pay',
+      url: `/orders/${orderId}/pay`,
+      title: t('pages.payment'),
+    },
+  ]);
 
   useEffect(() => {
     if (!order || !transactionStatus || !cardPaymentInfo || trackedEvent) {
@@ -144,7 +160,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
   }
 
   return (
-    <Page title={t('pages.payment')}>
+    <Page>
       <Spin
         spinning={
           showPaymentMethodSpinner ||
@@ -158,7 +174,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
           flexDirection='column'
         >
           {order && (
-            <Title type='secondary' level={3}>
+            <Title level={3}>
               {t('payment.payAmountTip', {
                 amountWithCurrency: `${order.calculatedTotal} ден`,
               })}
@@ -198,7 +214,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
               >
                 {t('actions.retry')}
               </Button>
-              <Text mt={2} type='secondary'>
+              <Text mt={2} color='mutedText.dark'>
                 {t('order.retryFromOrdersTip')}
               </Text>
             </>

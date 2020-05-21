@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import queryString from 'qs';
 import {
   Flex,
   Image,
@@ -28,22 +27,42 @@ import Link from 'next/link';
 import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getStore } from '../../state/modules/store/store.selector';
+import { getPreviousPage } from '../../state/modules/ui/ui.selector';
 import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
-import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
-import { getFiltersFromSetQuery } from '../../common/filterUtils';
+import { useTranslation } from '../../common/i18n';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 interface ProductProps {
   product: ProductType;
 }
+
+const getProductsHref = (href: string) => {
+  if (!href) {
+    return '/products';
+  }
+
+  const url = new URL(href);
+
+  if (
+    url.pathname.startsWith('/products') &&
+    url.pathname.split('/').length <= 2
+  ) {
+    return url.pathname + url.search;
+  }
+
+  return '/products';
+};
 
 export const Product = ({ product }: ProductProps) => {
   const [caller, showSpinner] = hooks.useCall();
   const cart = useSelector(getCartWithProducts);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
+  const previousPage = useSelector<string | undefined>(getPreviousPage);
+
   const [trackedEvent, setTrackedEvent] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -59,6 +78,19 @@ export const Product = ({ product }: ProductProps) => {
     cart &&
     cart.items &&
     cart.items.some(item => item.product._id === product._id);
+
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    {
+      url: getProductsHref(previousPage),
+      title: t('pages.product_plural'),
+    },
+    {
+      urlPattern: '/products/[pid]',
+      url: `/products/${product._id}`,
+      title: product.name.slice(0, 40),
+    },
+  ]);
 
   useEffect(() => {
     if (!product || trackedEvent) {
@@ -200,7 +232,7 @@ export const Product = ({ product }: ProductProps) => {
                 )}
                 {isProductInCart ? (
                   <>
-                    <Text type='secondary'>
+                    <Text color='mutedText.dark'>
                       {t('cart.productAlreadyInCart')}
                     </Text>
                     <Link passHref href='/cart'>
@@ -229,14 +261,9 @@ export const Product = ({ product }: ProductProps) => {
             .filter(set => Boolean(set.data))
             .map(set => (
               <ProductSet
+                set={set}
                 storeId={store._id}
-                allHref={`/products?${queryString.stringify(
-                  getFiltersFromSetQuery(set.filter.query),
-                )}`}
                 key={set.setTag.name + (set.setTag.value || '')}
-                products={set.data}
-                title={t(getTranslationBaseForSet(set.setTag))}
-                subtitle='The best products of the week'
               />
             ))}
         </Box>

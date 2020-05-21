@@ -22,6 +22,7 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { ProductsSidemenu } from './ProductsSidemenu';
 import { filterRouter } from '../../common/filterUtils';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 interface ProductsProps {
   initialProducts: FindResult<Product>;
@@ -42,6 +43,11 @@ export const Products = ({
     router: filterRouter,
   });
 
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/products', title: t('pages.product_plural') },
+  ]);
+
   React.useEffect(() => {
     if (!store || !store._id) {
       return;
@@ -54,13 +60,7 @@ export const Products = ({
   }, [store, filters]);
 
   return (
-    <Page
-      title={
-        filters.searching
-          ? `${t('pages.product_plural')} - '${filters.searching}'`
-          : t('pages.product_plural')
-      }
-    >
+    <Page>
       <Flex flexDirection={['column', 'column', 'row']}>
         <Card mr={2} height='100%' display={['none', 'none', 'initial']}>
           <ProductsSidemenu
