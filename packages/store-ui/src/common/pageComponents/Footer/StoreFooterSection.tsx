@@ -17,7 +17,7 @@ const ContactEntry = ({
   }
 
   return (
-    <Text my={1} color='primary' type='secondary'>
+    <Text my={1} color='primary'>
       {icon}
       <Text fontSize={0} color='text.light' ml={4}>
         {value}
@@ -44,7 +44,7 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
         />
       </Box>
 
-      <Title mb={3} color='text.light' level={4} fontSize={1}>
+      <Title mb={3} color='heading.light' level={4} fontSize={1}>
         {t('common.contactDetails').toUpperCase()}
       </Title>
 

@@ -27,7 +27,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.0.5",
     "@sradevski/analytics": "0.0.7",
-    "@sradevski/blocks-ui": "0.0.66",
+    "@sradevski/blocks-ui": "0.0.67",
     "@sradevski/la-sdk": "0.0.78",
     "antd": "^4.1.0",
     "bezier-easing": "^2.1.0",

@@ -16,6 +16,7 @@ import { ProductGrid } from '../sets/ProductGrid';
 import { ServicesSet } from '../sets/ServicesSet';
 import { ProductTrio } from '../sets/ProductTrio';
 import { Banner } from './Banner';
+import { ProductDuo } from '../sets/ProductDuo';
 
 const isValidPresentation = (
   set: ProductSetType,
@@ -88,37 +89,43 @@ export const Home = ({
         <Spin spinning={showSpinner}>
           <>
             {productSets
-              .filter(set => Boolean(set.data))
+              .filter(set => Boolean(set.data) && set.data.length > 0)
               .map((set, index) => (
                 <React.Fragment
                   key={set.setTag.name + (set.setTag.value || '')}
                 >
                   <Box px={[2, 4, 5]} mb={7}>
-                    {index % 4 === 0 && (
-                      <ProductSet set={set} storeId={store._id} />
-                    )}
+                    {set.data.length <= 2 ? (
+                      <ProductDuo set={set} storeId={store._id} />
+                    ) : (
+                      <>
+                        {index % 4 === 0 && (
+                          <ProductSet set={set} storeId={store._id} />
+                        )}
 
-                    {index % 4 === 1 && (
-                      <ProductGrid set={set} storeId={store._id} />
-                    )}
+                        {index % 4 === 1 && (
+                          <ProductGrid set={set} storeId={store._id} />
+                        )}
 
-                    {index % 4 === 2 &&
-                      (set.data.length > 2 ? (
-                        <ProductTrio set={set} storeId={store._id} />
-                      ) : (
-                        <ProductGrid
-                          set={set}
-                          horizontal={true}
-                          storeId={store._id}
-                        />
-                      ))}
+                        {index % 4 === 2 &&
+                          (set.data.length > 2 ? (
+                            <ProductTrio set={set} storeId={store._id} />
+                          ) : (
+                            <ProductGrid
+                              set={set}
+                              horizontal={true}
+                              storeId={store._id}
+                            />
+                          ))}
 
-                    {index % 4 === 3 && (
-                      <ProductGrid
-                        set={set}
-                        horizontal={true}
-                        storeId={store._id}
-                      />
+                        {index % 4 === 3 && (
+                          <ProductGrid
+                            set={set}
+                            horizontal={true}
+                            storeId={store._id}
+                          />
+                        )}
+                      </>
                     )}
                   </Box>
 

@@ -6,6 +6,10 @@ export const getTheme = (brandColor: string) => {
         light: '#EFF4FB',
         dark: '#043353',
       },
+      heading: {
+        dark: '#043353',
+        light: '#F8F8F8',
+      },
       text: {
         dark: '#043353',
         light: '#F8F8F8',
