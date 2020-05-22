@@ -324,11 +324,13 @@
   "product": {
 		"addProductSuccess": "Successfully added a new product",
 		"addingProductTip": "Adding product...",
+		"availability": "Availability",
 		"descriptionExample": "eg. High quality sneakers",
 		"discount": "Discount",
 		"discounted": "{{percentage}}% Off",
 		"groups": "Groups",
 		"groupsTip": "Groups are used to logically group products. You can have up to 10 groups per product",
+		"inStock": "In stock",
 		"nameExample": "eg. Nike Air Max",
 		"new": "New",
 		"priceExample": "eg. 500",
@@ -344,8 +346,7 @@
 		"skuExample": "eg. 42356731",
 		"updateProductSuccess": "Successfully updated {{productName}}",
 		"updatingProductTip": "Updating product...",
-		"outOfStock": "Sold out",
-		"outOfStockLong": "We are out of stock, come back later"
+		"outOfStock": "Sold out"
   },
   "results": {
 		"productNotFound": "Product not found",

@@ -324,11 +324,13 @@
   "product": {
 		"addProductSuccess": "Нов производ успешно додаден",
 		"addingProductTip": "Производот се додава...",
+		"availability": "Достапност",
 		"descriptionExample": "пр. Високо квалитетни и лесни патики",
 		"discount": "Попуст",
 		"discounted": "{{percentage}}% Попуст",
 		"groups": "Групи",
 		"groupsTip": "Групите се користат за создавање на логички групи на производи. Еден производ може да биде дел од максимум 10 групи",
+		"inStock": "Има залиха",
 		"nameExample": "пр. Nike Air Max",
 		"new": "Ново",
 		"priceExample": "пр. 500",
@@ -344,8 +346,7 @@
 		"stockTip": "Оставете празно за неограничена залиха",
 		"updateProductSuccess": "Производот {{productName}} успешно обновен",
 		"updatingProductTip": "Производот се обновува...",
-		"outOfStock": "Распродадено",
-		"outOfStockLong": "Нема залиха, работиме на обновување на залихите"
+		"outOfStock": "Распродадено"
   },
   "results": {
 		"productNotFound": "Производот не е пронајден",
