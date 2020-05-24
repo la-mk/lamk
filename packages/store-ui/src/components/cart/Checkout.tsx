@@ -232,6 +232,8 @@ export const Checkout = () => {
             my={[4, 0, 0]}
           >
             <Summary
+              showProductsSummary
+              storeId={store._id}
               items={cart.items}
               delivery={delivery}
               campaigns={campaigns ?? []}

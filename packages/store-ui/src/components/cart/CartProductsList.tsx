@@ -2,55 +2,20 @@ import React from 'react';
 import {
   Flex,
   List,
-  Image,
   Text,
   Button,
   InputNumber,
   Table,
-  Title,
   Box,
   Divider,
 } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
 import { Price } from '../shared/Price';
 import { useTranslation } from '../../common/i18n';
 import { TFunction } from 'next-i18next';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { CloseOutlined } from '@ant-design/icons';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-
-const ProductImageWithTitle = ({
-  product,
-  storeId,
-}: {
-  product: Product;
-  storeId: string;
-}) => {
-  return (
-    <Flex minWidth={200} alignItems='center' justifyContent='flex-start'>
-      <Image
-        maxWidth={80}
-        minWidth={40}
-        alt={product.name}
-        src={
-          sdk.artifact.getUrlForArtifact(product.images[0], storeId) ||
-          undefined
-        }
-      />
-      <Title
-        mr={0}
-        ml={4}
-        my={0}
-        level={2}
-        fontSize={[1, 2, 2]}
-        ellipsis={{ rows: 2 }}
-      >
-        {product.name}
-      </Title>
-    </Flex>
-  );
-};
+import { ProductImageWithTitle } from '../shared/ProductImageWithTitle';
 
 const getColumns = (
   t: TFunction,

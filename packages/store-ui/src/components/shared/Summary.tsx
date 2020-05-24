@@ -17,13 +17,16 @@ import { useTranslation } from '../../common/i18n';
 import { sdk } from '@sradevski/la-sdk';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { CustomCard } from './components/CustomCard';
+import { SummaryProductList } from './SummaryProductList';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];
   delivery: Delivery;
   campaigns: Campaign[];
+  storeId?: string;
   buttonTitle?: string;
   disabled?: boolean;
+  showProductsSummary?: boolean;
   onCheckout?: () => void;
 }
 
@@ -31,8 +34,10 @@ export const Summary = ({
   items,
   delivery,
   campaigns,
+  storeId,
   buttonTitle,
   disabled,
+  showProductsSummary,
   onCheckout,
   ...props
 }: SummaryProps & React.ComponentProps<typeof Box>) => {
@@ -65,6 +70,12 @@ export const Summary = ({
       width='100%'
       {...props}
     >
+      {showProductsSummary && (
+        <>
+          <SummaryProductList items={items} storeId={storeId} />
+          <Divider bg='mutedText.light' />
+        </>
+      )}
       <Flex flexDirection='row' justifyContent='space-between'>
         <Text>{t('finance.subtotal')}</Text>
         <Text strong>{prices.productsTotal} ден</Text>
