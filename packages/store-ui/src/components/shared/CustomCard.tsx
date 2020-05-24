@@ -18,18 +18,18 @@ export const CustomCard = ({
     <Card bg='background.light' {...props}>
       <Flex
         bg='background.dark'
-        py={2}
-        px={3}
+        py={[2, 3, 3]}
+        px={[3, 4, 4]}
         alignItems='center'
         justifyContent='space-between'
       >
         <Title color='heading.light' m={0} fontSize={2} level={3}>
           {title}
         </Title>
-        {headerAction}
+        {!!headerAction && headerAction}
       </Flex>
 
-      <Box p={3}>{children}</Box>
+      <Box p={4}>{children}</Box>
     </Card>
   );
 };

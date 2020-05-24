@@ -6,7 +6,6 @@
     "goBack": "Go back",
     "goToCart": "Go to Cart",
     "orderNow": "Order now",
-    "remove": "Remove",
     "reset": "Reset",
     "retry": "Retry",
     "search": "Search",
@@ -177,7 +176,10 @@
     "worksuit": "Worksuits"
   },
   "commerce": {
-    "delivery": "Delivery"
+    "delivery": "Delivery",
+    "product": "Product",
+    "product_plural": "Products",
+    "quantity": "Quantity"
   },
   "common": {
     "address": "Address",
@@ -313,7 +315,6 @@
     "inStock": "In stock",
     "new": "New",
     "outOfStock": "Sold out",
-    "product_plural": "Products",
     "seeOtherProducts": "See other products"
   },
   "results": {

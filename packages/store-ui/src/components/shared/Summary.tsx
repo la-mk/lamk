@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
-import { Flex, Text, Divider, Button, message } from '@sradevski/blocks-ui';
+import {
+  Flex,
+  Text,
+  Divider,
+  Button,
+  message,
+  Box,
+} from '@sradevski/blocks-ui';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { useSelector, useDispatch } from 'react-redux';
@@ -50,24 +57,32 @@ export const Summary = ({
   return (
     <>
       <Flex flexDirection='row' justifyContent='space-between'>
-        <Text strong>{t('finance.subtotal')}</Text>
+        <Text>{t('finance.subtotal')}</Text>
         <Text strong>{prices.productsTotal} ден</Text>
       </Flex>
       {prices.withCampaignsTotal !== prices.productsTotal && (
-        <Flex mt={2} flexDirection='row' justifyContent='space-between'>
-          <Text strong>{t('finance.campaignDiscount')}</Text>
+        <Flex mt={3} flexDirection='row' justifyContent='space-between'>
+          <Text>{t('finance.campaignDiscount')}</Text>
           <Text strong color='danger'>
             {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
           </Text>
         </Flex>
       )}
-      <Flex mt={2} flexDirection='row' justifyContent='space-between'>
-        <Text strong>{t('finance.shippingCost')}</Text>
+      <Flex mt={3} flexDirection='row' justifyContent='space-between'>
+        <Text>{t('finance.shippingCost')}</Text>
         <Text strong>{prices.deliveryTotal} ден</Text>
       </Flex>
-      <Divider />
+      {prices.deliveryTotal !== 0 && (
+        <Box mt={3}>
+          <Text fontSize={0} color='mutedText.dark'>
+            Add {delivery.freeDeliveryOver - prices.withCampaignsTotal} ден more
+            and get FREE SHIPPING!
+          </Text>
+        </Box>
+      )}
+      <Divider bg='mutedText.light' />
       <Flex flexDirection='row' justifyContent='space-between'>
-        <Text strong>{t('finance.total')}</Text>
+        <Text>{t('finance.total')}</Text>
         <Text strong>{prices.total} ден</Text>
       </Flex>
 

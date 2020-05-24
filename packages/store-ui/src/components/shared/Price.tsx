@@ -6,6 +6,7 @@ interface PriceProps {
   basePrice: number;
   currency: string;
   emphasized?: boolean;
+  vertical?: boolean;
 }
 
 export const Price = ({
@@ -13,11 +14,12 @@ export const Price = ({
   calculatedPrice,
   currency,
   emphasized,
+  vertical,
 }: PriceProps) => {
   const discounted = basePrice !== calculatedPrice;
 
   return (
-    <Flex flexWrap='wrap'>
+    <Flex flexDirection={vertical ? 'column' : 'row'} flexWrap='wrap'>
       <Text
         fontSize={emphasized ? [2, 3, 3] : [1, 2, 2]}
         color={discounted ? 'danger' : 'mutedText.dark'}

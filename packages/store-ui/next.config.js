@@ -40,7 +40,8 @@ module.exports = withPlugins(
           modifyVars: {
             '@font-family': `
             'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
-            `
+            `,
+            '@table-header-bg': '#ffffff',
           },
         },
         webpack: (config, { isServer }) => {

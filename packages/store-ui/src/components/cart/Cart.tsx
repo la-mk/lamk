@@ -1,16 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Flex,
-  List,
-  Image,
-  Text,
-  Button,
-  InputNumber,
-  Card,
-  Empty,
-  Spin,
-  hooks,
-} from '@sradevski/blocks-ui';
+import { Flex, Card, Empty, Spin, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Summary } from '../shared/Summary';
 import {
@@ -27,12 +16,13 @@ import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
 import { getStore } from '../../state/modules/store/store.selector';
-import { Price } from '../shared/Price';
 import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { CartProductsList } from './CartProductsList';
+import { CustomCard } from '../shared/CustomCard';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall(true);
@@ -137,79 +127,26 @@ export const Cart = () => {
       <Spin spinning={showSpinner}>
         <Flex width='100%' flexDirection={['column', 'column', 'row']}>
           <Flex flex={2} mr={[0, 0, 3]}>
-            <List style={{ width: '100%' }}>
-              {cart.items.map(cartItem => (
-                <List.Item key={cartItem.product._id}>
-                  <Flex>
-                    <Flex
-                      width='180px'
-                      justifyContent='center'
-                      alignItems='center'
-                    >
-                      <Image
-                        maxHeight='90px'
-                        alt={cartItem.product.name}
-                        src={sdk.artifact.getUrlForArtifact(
-                          cartItem.product.images[0],
-                          store._id,
-                        )}
-                      />
-                    </Flex>
-                    <Flex
-                      ml={[3, 4, 4]}
-                      maxWidth='80%'
-                      alignItems='flex-start'
-                      flexDirection='row'
-                    >
-                      <Flex
-                        flex={1}
-                        flexDirection='column'
-                        justifyContent='space-between'
-                        alignItems='flex-start'
-                      >
-                        <Text strong>{cartItem.product.name}</Text>
-                        <Button
-                          onClick={() => handleRemove(cartItem)}
-                          pl={0}
-                          type='link'
-                        >
-                          {t('actions.remove')}
-                        </Button>
-                      </Flex>
-                      <Flex
-                        flex={1}
-                        flexDirection='row'
-                        justifyContent='space-between'
-                        alignItems='center'
-                      >
-                        <Price
-                          calculatedPrice={cartItem.product.calculatedPrice}
-                          basePrice={cartItem.product.price}
-                          currency='ден'
-                        />
-                        <InputNumber
-                          width='80px'
-                          min={1}
-                          max={999}
-                          value={cartItem.quantity}
-                          onChange={value =>
-                            handleChangeItemQuantity(cartItem, value)
-                          }
-                          mx={2}
-                        />
-                        <Text strong>
-                          {cartItem.quantity * cartItem.product.calculatedPrice}{' '}
-                          ден
-                        </Text>
-                      </Flex>
-                    </Flex>
-                  </Flex>
-                </List.Item>
-              ))}
-            </List>
+            <CartProductsList
+              cartItems={cart.items}
+              storeId={store._id}
+              handleRemove={handleRemove}
+              handleChangeItemQuantity={handleChangeItemQuantity}
+            />
           </Flex>
-          <Flex flex={1} ml={[0, 0, 3]} mt={[4, 4, 0]}>
-            <Card title={t('common.summary')} px={3} width='100%'>
+          <Flex
+            alignItems='center'
+            justifyContent='center'
+            flex={1}
+            ml={[0, 0, 3]}
+            mt={[4, 4, 0]}
+          >
+            <CustomCard
+              maxWidth={420}
+              minWidth={320}
+              title={t('common.summary')}
+              width='100%'
+            >
               <Summary
                 items={cart.items}
                 delivery={delivery}
@@ -218,7 +155,7 @@ export const Cart = () => {
                 disabled={false}
                 onCheckout={handleCheckout}
               />
-            </Card>
+            </CustomCard>
           </Flex>
         </Flex>
       </Spin>

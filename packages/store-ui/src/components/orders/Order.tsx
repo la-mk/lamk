@@ -135,7 +135,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
           )}
         </Flex>
         <Title mb={3} level={3}>
-          {t('product.product_plural')}
+          {t('commerce.product_plural')}
         </Title>
         <Row
           align='top'

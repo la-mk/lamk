@@ -13,6 +13,15 @@ html {
     margin-right: 0 !important;
   }
 
+  .ant-table-cell {
+    font-weight: 400 !important;
+    text-align: left !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    border: none !important;
+  }
+
   input {
     line-height: inherit;
     font: inherit;

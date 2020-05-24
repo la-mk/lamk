@@ -14,7 +14,7 @@ export const getTheme = (brandColor: string) => {
         light: '#F8F8F8',
       },
       text: {
-        dark: '#687C94',
+        dark: '#57677A',
         light: '#F8F8F8',
       },
       mutedText: {

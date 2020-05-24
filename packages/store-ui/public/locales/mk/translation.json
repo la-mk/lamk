@@ -6,7 +6,6 @@
     "goBack": "Одете назад",
     "goToCart": "Прегледај корпа",
     "orderNow": "Порачајте сега",
-    "remove": "Отстранете",
     "reset": "Ресетирај",
     "retry": "Обидете се повторно",
     "search": "Пребарајте",
@@ -177,7 +176,10 @@
     "worksuit": "Комбилизони"
   },
   "commerce": {
-    "delivery": "Достава"
+    "delivery": "Достава",
+    "product": "Производ",
+    "product_plural": "Производи",
+    "quantity": "Количина"
   },
   "common": {
     "address": "Адреса",
@@ -313,7 +315,6 @@
     "inStock": "Има залиха",
     "new": "Ново",
     "outOfStock": "Распродадено",
-    "product_plural": "Производи",
     "seeOtherProducts": "Видете други производи"
   },
   "results": {
