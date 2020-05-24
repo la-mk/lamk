@@ -23,7 +23,7 @@ import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
-import { CustomCard } from '../shared/CustomCard';
+import { CustomCard } from '../shared/components/CustomCard';
 
 const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
   const startIndex = isCardPayment ? 1 : 0;

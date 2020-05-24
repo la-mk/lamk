@@ -5,7 +5,7 @@ import { CategoriesMenu, CategoriesMenuProps } from '../CategoriesMenu';
 import { utils, Box, Button, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import styled from 'styled-components';
-import { CustomCard } from '../CustomCard';
+import { CustomCard } from '../components/CustomCard';
 import { ReloadOutlined } from '@ant-design/icons';
 
 const parseCategoryFilter = (filtering: FilterObject['filtering']) => {

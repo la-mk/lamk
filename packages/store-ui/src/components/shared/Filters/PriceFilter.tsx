@@ -5,7 +5,7 @@ import { InputNumber, Flex, Text, utils, Button } from '@sradevski/blocks-ui';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { isString } from 'util';
 import { useTranslation } from '../../../common/i18n';
-import { CustomCard } from '../CustomCard';
+import { CustomCard } from '../components/CustomCard';
 import { ReloadOutlined } from '@ant-design/icons';
 
 const parsePriceFilter = (

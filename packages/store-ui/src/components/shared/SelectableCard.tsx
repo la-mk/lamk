@@ -4,7 +4,7 @@ import { CheckCircleFilled } from '@ant-design/icons';
 import { CardProps } from 'antd/lib/card';
 import { SystemProps } from '@sradevski/blocks-ui/dist/system';
 import { withTheme } from 'styled-components';
-import { CustomCard } from './CustomCard';
+import { CustomCard } from './components/CustomCard';
 
 interface SelectableCardProps extends CardProps, Omit<SystemProps, 'color'> {
   isChecked: boolean;

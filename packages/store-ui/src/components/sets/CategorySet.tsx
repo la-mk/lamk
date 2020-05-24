@@ -6,8 +6,8 @@ import { SetTitle } from './SetTitle';
 import { withTheme } from 'styled-components';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import { sdk } from '@sradevski/la-sdk';
-import { ImageBackgroundBox } from '../shared/ImageBackgroundBox';
-import { HoverableLink } from '../shared/HoverableLink';
+import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
+import { HoverableLink } from '../shared/components/HoverableLink';
 
 interface CategorySetProps {
   categories: Category[];

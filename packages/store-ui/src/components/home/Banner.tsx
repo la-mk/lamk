@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackgroundBox } from '../shared/ImageBackgroundBox';
+import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
 import { sdk } from '@sradevski/la-sdk';
 import { Button, Flex, Title } from '@sradevski/blocks-ui';
 

@@ -6,7 +6,7 @@ import { Price } from './Price';
 import { useTranslation } from '../../common/i18n';
 
 import { TFunction } from 'next-i18next';
-import { HoverableLink } from './HoverableLink';
+import { HoverableLink } from './components/HoverableLink';
 import { ProductTags } from './ProductTags';
 
 const ProductDescription = ({

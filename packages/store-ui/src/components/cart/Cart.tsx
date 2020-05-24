@@ -22,7 +22,7 @@ import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { CartProductsList } from './CartProductsList';
-import { CustomCard } from '../shared/CustomCard';
+import { CustomCard } from '../shared/components/CustomCard';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall(true);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Tabs, TabPane, Paragraph, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { BorderlessTabs } from '../shared/BorderlessTabs';
+import { BorderlessTabs } from '../shared/components/BorderlessTabs';
 
 export const ProductDetails = ({ product }: { product: Product }) => {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Box } from '@sradevski/blocks-ui';
 import { useSelector } from 'react-redux';
-import { HoverableLink } from '../../components/shared/HoverableLink';
+import { HoverableLink } from '../../components/shared/components/HoverableLink';
 import { BreadcrumbEntry } from '../../state/modules/ui/ui.module';
 import { getBreadcrumbs } from '../../state/modules/ui/ui.selector';
 

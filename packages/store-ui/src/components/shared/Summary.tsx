@@ -16,7 +16,7 @@ import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
 import { useTranslation } from '../../common/i18n';
 import { sdk } from '@sradevski/la-sdk';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
-import { CustomCard } from './CustomCard';
+import { CustomCard } from './components/CustomCard';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];

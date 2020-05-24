@@ -20,7 +20,7 @@ import {
 import Link from 'next/link';
 import { withTheme } from 'styled-components';
 import { useTranslation } from '../i18n';
-import { HoverableLink } from '../../components/shared/HoverableLink';
+import { HoverableLink } from '../../components/shared/components/HoverableLink';
 
 export const TopMenu = withTheme(
   ({ selectedKey, cart, user, handleLogout, handleLogin, theme }) => {
