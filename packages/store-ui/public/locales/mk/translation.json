@@ -176,6 +176,9 @@
     "work-shoes": "Обувки",
     "worksuit": "Комбилизони"
   },
+  "commerce": {
+    "delivery": "Достава"
+  },
   "common": {
     "address": "Адреса",
     "addressExample": "пр. Домашна адреса",
@@ -185,6 +188,7 @@
     "city": "Град",
     "contactDetails": "Контакт информации",
     "country": "Држава",
+    "description": "Опис",
     "details": "Детали",
     "email": "Емаил адреса",
     "filter_plural": "Филтри",
@@ -198,7 +202,6 @@
     "phoneNumber": "Телефонски број",
     "price": "Цена",
     "seeAll": "Види ги сите",
-    "sort": "Подредување",
     "street": "Улица",
     "streetExample": "пр. Солунска 25",
     "summary": "Преглед",
@@ -305,10 +308,11 @@
     "halkbank": "Халкбанк"
   },
   "product": {
+    "availability": "Достапност",
     "discounted": "{{percentage}}% Попуст",
+    "inStock": "Има залиха",
     "new": "Ново",
     "outOfStock": "Распродадено",
-    "outOfStockLong": "Нема залиха, работиме на обновување на залихите",
     "product_plural": "Производи",
     "seeOtherProducts": "Видете други производи"
   },

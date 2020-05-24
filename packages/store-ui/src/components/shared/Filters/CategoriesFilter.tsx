@@ -2,9 +2,11 @@ import isString from 'lodash/isString';
 import React from 'react';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { CategoriesMenu, CategoriesMenuProps } from '../CategoriesMenu';
-import { utils } from '@sradevski/blocks-ui';
-import { FiltersTitle } from './FiltersTitle';
+import { utils, Box, Button, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
+import styled from 'styled-components';
+import { CustomCard } from '../CustomCard';
+import { ReloadOutlined } from '@ant-design/icons';
 
 const parseCategoryFilter = (filtering: FilterObject['filtering']) => {
   if (!filtering || !filtering.category) {
@@ -24,11 +26,18 @@ interface CategoriesFilterProps {
   mode: CategoriesMenuProps['mode'];
 }
 
+const ColoredMenuContainer = styled(Box)`
+  & .ant-menu {
+    background-color: ${props => props.theme.colors.background.light};
+  }
+`;
+
 export const CategoriesFilter = ({
   filters,
   onChange,
   mode,
-}: CategoriesFilterProps) => {
+  ...props
+}: CategoriesFilterProps & React.ComponentProps<typeof CustomCard>) => {
   const { t } = useTranslation();
   const selectedCategories = parseCategoryFilter(filters.filtering);
 
@@ -47,16 +56,29 @@ export const CategoriesFilter = ({
   };
 
   return (
-    <>
-      <FiltersTitle
-        title={t('common.category_plural')}
-        onReset={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
-      />
-      <CategoriesMenu
-        mode={mode}
-        selectedKeys={selectedCategories}
-        onSelect={handleSelectedCategoriesChange}
-      />
-    </>
+    <CustomCard
+      {...props}
+      title={t('common.category_plural')}
+      headerAction={
+        <Button
+          p={0}
+          type='link'
+          onClick={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
+        >
+          <Text fontSize={0} color='mutedText.light'>
+            <ReloadOutlined style={{ marginRight: 8 }} />
+            {t('actions.reset')}
+          </Text>
+        </Button>
+      }
+    >
+      <ColoredMenuContainer>
+        <CategoriesMenu
+          mode={mode}
+          selectedKeys={selectedCategories}
+          onSelect={handleSelectedCategoriesChange}
+        />
+      </ColoredMenuContainer>
+    </CustomCard>
   );
 };

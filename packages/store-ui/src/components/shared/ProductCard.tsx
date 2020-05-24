@@ -1,59 +1,13 @@
 import React from 'react';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import {
-  Title,
-  Flex,
-  Image,
-  Box,
-  Tag,
-  Paragraph,
-  hooks,
-} from '@sradevski/blocks-ui';
-import Link from 'next/link';
+import { Title, Flex, Image, Box, Paragraph } from '@sradevski/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../common/i18n';
-import { differenceInDays } from 'date-fns';
+
 import { TFunction } from 'next-i18next';
 import { HoverableLink } from './HoverableLink';
-
-const NUM_DAYS_CONSIDER_AS_NEW = 10;
-
-const Tags = ({ t, product }: { t: TFunction; product: Product }) => {
-  const compact = hooks.useBreakpoint([true, false, false]);
-
-  const discountPercentage = Math.round(
-    ((product.discount ?? 0) / product.price) * 100,
-  );
-  const isNew =
-    differenceInDays(new Date(product.createdAt), Date.now()) >
-    NUM_DAYS_CONSIDER_AS_NEW;
-  const isSoldOut = product.stock === 0;
-
-  return (
-    <Flex
-      flexDirection='column'
-      alignItems='flex-end'
-      style={{ position: 'absolute', right: 0, top: 12 }}
-    >
-      {isSoldOut && (
-        <Tag minWidth='70px' compact={compact} mb={2} color='#043353'>
-          {t('product.outOfStock')}
-        </Tag>
-      )}
-      {!isSoldOut && isNew && (
-        <Tag minWidth='70px' compact={compact} mb={2} color='#D9E93C'>
-          {t('product.new')}
-        </Tag>
-      )}
-      {!isSoldOut && discountPercentage > 0 && (
-        <Tag minWidth='70px' compact={compact} mb={2} color='#FF3838'>
-          {t('product.discounted', { percentage: discountPercentage })}
-        </Tag>
-      )}
-    </Flex>
-  );
-};
+import { ProductTags } from './ProductTags';
 
 const ProductDescription = ({
   product,
@@ -118,7 +72,7 @@ const ProductImage = ({
       mb={horizontal ? 0 : 4}
       mr={horizontal ? 3 : 0}
     >
-      <Tags t={t} product={product} />
+      <ProductTags t={t} product={product} />
       {/* <ActionsOverlay /> */}
 
       <Image

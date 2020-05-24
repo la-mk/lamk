@@ -53,7 +53,7 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.50",
+    "@sradevski/translations": "0.0.52",
     "@types/express": "^4.17.2",
     "@types/next-redux-wrapper": "^3.0.0",
     "@types/node": "^12.12.7",

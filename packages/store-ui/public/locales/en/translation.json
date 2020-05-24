@@ -176,6 +176,9 @@
     "work-shoes": "Shoes",
     "worksuit": "Worksuits"
   },
+  "commerce": {
+    "delivery": "Delivery"
+  },
   "common": {
     "address": "Address",
     "addressExample": "eg. Home Address",
@@ -185,6 +188,7 @@
     "city": "City",
     "contactDetails": "Contact details",
     "country": "Country",
+    "description": "Description",
     "details": "Details",
     "email": "Email address",
     "filter_plural": "Filters",
@@ -198,7 +202,6 @@
     "phoneNumber": "Phone number",
     "price": "Price",
     "seeAll": "See all",
-    "sort": "Sort",
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
@@ -305,10 +308,11 @@
     "halkbank": "Halkbank"
   },
   "product": {
+    "availability": "Availability",
     "discounted": "{{percentage}}% Off",
+    "inStock": "In stock",
     "new": "New",
     "outOfStock": "Sold out",
-    "outOfStockLong": "We are out of stock, come back later",
     "product_plural": "Products",
     "seeOtherProducts": "See other products"
   },

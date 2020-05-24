@@ -9,7 +9,6 @@ import {
   Box,
   message,
   Spin,
-  Paragraph,
   hooks,
   utils,
 } from '@sradevski/blocks-ui';
@@ -34,6 +33,8 @@ import { useTranslation } from '../../common/i18n';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { ProductDetails } from './ProductDetails';
+import { ProductTags } from '../shared/ProductTags';
 
 interface ProductProps {
   product: ProductType;
@@ -178,7 +179,10 @@ export const Product = ({ product }: ProductProps) => {
             justifyContent='flex-start'
             flexDirection='column'
           >
-            <Image alt={product.name} maxHeight='280px' src={selectedImage} />
+            <Box height={280} minWidth={180} style={{ position: 'relative' }}>
+              <Image alt={product.name} height='100%' src={selectedImage} />
+              <ProductTags product={product} t={t} />
+            </Box>
             <Box mt={3} maxWidth={['100%', '100%', '80%']}>
               <Thumbnails
                 images={product.images.map(imageId =>
@@ -196,67 +200,72 @@ export const Product = ({ product }: ProductProps) => {
             flexDirection='column'
           >
             <Title
-              style={{ textAlign: 'center' }}
-              level={2}
+              textAlign='center'
+              level={1}
+              fontSize={4}
               ellipsis={{ rows: 2 }}
             >
               {product.name}
             </Title>
             <Price
+              emphasized
               calculatedPrice={product.calculatedPrice}
               basePrice={product.price}
               currency={'ден'}
             />
-            <Paragraph style={{ whiteSpace: 'pre-wrap' }} mt={4}>
-              {product.description}
-            </Paragraph>
-            <Box mt={[3, 4, 4]}>
-              {outOfStock && (
-                <Text color='danger'>{t('product.outOfStockLong')}</Text>
-              )}
+            <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
+              <Text>{t('product.availability')}:</Text>
+              <Text ml={2} color={outOfStock ? 'danger' : 'success'}>
+                {outOfStock ? t('product.outOfStock') : t('product.inStock')}
+              </Text>
+            </Flex>
 
-              <Flex mt={[2, 3, 3]} flexDirection='row' alignItems='center'>
-                {!isProductInCart && (
-                  <>
-                    <InputNumber
-                      disabled={outOfStock}
-                      width='68px'
-                      size='large'
-                      min={1}
-                      max={product.stock || 999}
-                      value={quantity}
-                      onChange={setQuantity}
-                      mr={2}
-                    />
-                  </>
-                )}
-                {isProductInCart ? (
-                  <>
-                    <Text color='mutedText.dark'>
-                      {t('cart.productAlreadyInCart')}
-                    </Text>
-                    <Link passHref href='/cart'>
-                      <Button type='primary' size='large' ml={2}>
-                        {t('actions.goToCart')}
-                      </Button>
-                    </Link>
-                  </>
-                ) : (
-                  <Button
+            <Flex mt={[3, 4, 4]} flexDirection='row' alignItems='center'>
+              {!isProductInCart && (
+                <>
+                  <InputNumber
                     disabled={outOfStock}
-                    onClick={handleAddToCart}
-                    ml={2}
+                    width='68px'
                     size='large'
-                    type='primary'
-                  >
-                    {t('actions.addToCart')}
-                  </Button>
-                )}
-              </Flex>
+                    min={1}
+                    max={product.stock || 999}
+                    value={quantity}
+                    onChange={setQuantity}
+                    mr={2}
+                  />
+                </>
+              )}
+              {isProductInCart ? (
+                <>
+                  <Text color='mutedText.dark'>
+                    {t('cart.productAlreadyInCart')}
+                  </Text>
+                  <Link passHref href='/cart'>
+                    <Button type='primary' size='large' ml={2}>
+                      {t('actions.goToCart')}
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Button
+                  disabled={outOfStock}
+                  onClick={handleAddToCart}
+                  ml={2}
+                  width={200}
+                  size='large'
+                  type='primary'
+                >
+                  {t('actions.addToCart')}
+                </Button>
+              )}
+            </Flex>
+
+            <Box mx={[3, 0, 0]} mt={4}>
+              <ProductDetails product={product} />
             </Box>
           </Flex>
         </Flex>
-        <Box mt={6}>
+        <Box my={6}>
           {productSets
             .filter(set => Boolean(set.data))
             .map(set => (

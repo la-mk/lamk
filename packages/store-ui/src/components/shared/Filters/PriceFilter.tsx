@@ -1,11 +1,12 @@
 import isNumber from 'lodash/isNumber';
 import toNumber from 'lodash/toNumber';
 import React, { useState, useEffect } from 'react';
-import { InputNumber, Slider, Flex, Text, utils } from '@sradevski/blocks-ui';
+import { InputNumber, Flex, Text, utils, Button } from '@sradevski/blocks-ui';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { isString } from 'util';
-import { FiltersTitle } from './FiltersTitle';
 import { useTranslation } from '../../../common/i18n';
+import { CustomCard } from '../CustomCard';
+import { ReloadOutlined } from '@ant-design/icons';
 
 const parsePriceFilter = (
   filtering: FilterObject['filtering'],
@@ -44,7 +45,40 @@ interface PriceFilter {
   onChange: (filters: FilterObject) => void;
 }
 
-export const PriceFilter = ({ filters, min, max, onChange }: PriceFilter) => {
+const PredefinedRanges = ({ min, max, start, end, onRangeSelected }) => {
+  return (
+    <Flex flexDirection='column' alignItems='flex-start'>
+      <Button onClick={() => onRangeSelected([min, 100])} type='link'>
+        <Text color={start === min && end === 100 ? 'primary' : 'text.dark'}>
+          {'< 100 ден'}
+        </Text>
+      </Button>
+      <Button onClick={() => onRangeSelected([100, 1000])} type='link'>
+        <Text color={start === 100 && end === 1000 ? 'primary' : 'text.dark'}>
+          100 ден - 1000 ден
+        </Text>
+      </Button>
+      <Button onClick={() => onRangeSelected([1000, 5000])} type='link'>
+        <Text color={start === 1000 && end === 5000 ? 'primary' : 'text.dark'}>
+          1000 ден - 5000 ден
+        </Text>
+      </Button>
+      <Button onClick={() => onRangeSelected([5000, max])} type='link'>
+        <Text color={start === 5000 && end === max ? 'primary' : 'text.dark'}>
+          {'> 5000 ден'}
+        </Text>
+      </Button>
+    </Flex>
+  );
+};
+
+export const PriceFilter = ({
+  filters,
+  min,
+  max,
+  onChange,
+  ...props
+}: PriceFilter & React.ComponentProps<typeof CustomCard>) => {
   const { t } = useTranslation();
   const [from, to] = parsePriceFilter(filters.filtering, min, max);
   const [range, setRange] = useState<[number, number]>([from, to]);
@@ -65,43 +99,54 @@ export const PriceFilter = ({ filters, min, max, onChange }: PriceFilter) => {
   };
 
   return (
-    <>
-      <FiltersTitle
-        title={t('common.price')}
-        onReset={() => {
-          setRange([min, max]);
-          handleChangeDone(min, max);
+    <CustomCard
+      {...props}
+      title={t('common.price')}
+      headerAction={
+        <Button
+          p={0}
+          type='link'
+          onClick={() => {
+            setRange([min, max]);
+            handleChangeDone(min, max);
+          }}
+        >
+          <Text fontSize={0} color='mutedText.light'>
+            <ReloadOutlined style={{ marginRight: 8 }} />
+            {t('actions.reset')}
+          </Text>
+        </Button>
+      }
+    >
+      <PredefinedRanges
+        min={min}
+        max={max}
+        start={start}
+        end={end}
+        onRangeSelected={range => {
+          setRange(range);
+          handleChangeDone(range[0], range[1]);
         }}
       />
-      <Flex flexDirection='column'>
-        <Flex mt={2} alignItems='center' justifyContent='center'>
-          <InputNumber
-            onChange={val => val <= end && setRange([val, end])}
-            onBlur={() => handleChangeDone(start, end)}
-            value={start}
-          />
-          <Text mx={2}>~</Text>
-          <InputNumber
-            onChange={val => val >= start && setRange([start, val])}
-            onBlur={() => handleChangeDone(start, end)}
-            max={max}
-            value={end}
-            formatter={value =>
-              value === max.toString() ? `${value}+` : value.toString()
-            }
-            parser={value => value.replace('+', '')}
-          />
-        </Flex>
-        <Slider
-          onChange={setRange as any}
-          onAfterChange={() => handleChangeDone(start, end)}
-          range
-          min={min}
+
+      <Flex mt={2} alignItems='center'>
+        <InputNumber
+          onChange={val => val <= end && setRange([val, end])}
+          onBlur={() => handleChangeDone(start, end)}
+          value={start}
+        />
+        <Text mx={2}>~</Text>
+        <InputNumber
+          onChange={val => val >= start && setRange([start, val])}
+          onBlur={() => handleChangeDone(start, end)}
           max={max}
-          value={range}
-          mt={4}
+          value={end}
+          formatter={value =>
+            value === max.toString() ? `${value}+` : value.toString()
+          }
+          parser={value => value.replace('+', '')}
         />
       </Flex>
-    </>
+    </CustomCard>
   );
 };

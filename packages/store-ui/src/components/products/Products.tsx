@@ -7,7 +7,6 @@ import {
   Box,
   Drawer,
   Button,
-  Card,
   Divider,
 } from '@sradevski/blocks-ui';
 import { FilterOutlined } from '@ant-design/icons';
@@ -23,6 +22,7 @@ import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { ProductsSidemenu } from './ProductsSidemenu';
 import { filterRouter } from '../../common/filterUtils';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { SortFilter } from '../shared/Filters/SortFilter';
 
 interface ProductsProps {
   initialProducts: FindResult<Product>;
@@ -62,12 +62,13 @@ export const Products = ({
   return (
     <Page>
       <Flex flexDirection={['column', 'column', 'row']}>
-        <Card mr={2} height='100%' display={['none', 'none', 'initial']}>
-          <ProductsSidemenu
-            filters={filters || initialFilters}
-            setFilters={setFilters}
-          />
-        </Card>
+        <ProductsSidemenu
+          height='100%'
+          display={['none', 'none', 'initial']}
+          mr={2}
+          filters={filters || initialFilters}
+          setFilters={setFilters}
+        />
         {/* The drawer is always visible, but the button to toggle it is only visible on mobile. The only time this is somewhat of an issue is when opening the modal, and then resizing the window, but even then the experience is pretty good. */}
         <Drawer
           width={320}
@@ -76,12 +77,11 @@ export const Products = ({
           closable
           placement='left'
         >
-          <Box pt={3}>
-            <ProductsSidemenu
-              filters={filters || initialFilters}
-              setFilters={setFilters}
-            />
-          </Box>
+          <ProductsSidemenu
+            pt={3}
+            filters={filters || initialFilters}
+            setFilters={setFilters}
+          />
         </Drawer>
 
         <Box mb={2} display={['initial', 'initial', 'none']}>
@@ -101,26 +101,44 @@ export const Products = ({
             <Divider />
           </Flex>
         </Box>
-        <FlexGrid
-          loading={showSpinner}
-          rowKey='_id'
-          items={products.data}
-          renderItem={(item: any) => (
-            <Box mx={[1, 2, 2]} mb={'auto'}>
-              <ProductCard product={item} storeId={store._id} />
-            </Box>
-          )}
-          pagination={{
-            current: filters.pagination ? filters.pagination.currentPage : 1,
-            pageSize: filters.pagination ? filters.pagination.pageSize : 20,
-            total: products.total,
-            showSizeChanger: false,
-            onChange: (currentPage: number, pageSize: number) => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              setFilters({ ...filters, pagination: { currentPage, pageSize } });
-            },
-          }}
-        />
+
+        <Flex
+          width='100%'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='flex-start'
+        >
+          <Box mb={6}>
+            <SortFilter
+              filters={filters || initialFilters}
+              onChange={setFilters}
+            />
+          </Box>
+
+          <FlexGrid
+            loading={showSpinner}
+            rowKey='_id'
+            items={products.data}
+            renderItem={(item: any) => (
+              <Box mx={[1, 2, 2]} mb={'auto'}>
+                <ProductCard product={item} storeId={store._id} />
+              </Box>
+            )}
+            pagination={{
+              current: filters.pagination ? filters.pagination.currentPage : 1,
+              pageSize: filters.pagination ? filters.pagination.pageSize : 20,
+              total: products.total,
+              showSizeChanger: false,
+              onChange: (currentPage: number, pageSize: number) => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setFilters({
+                  ...filters,
+                  pagination: { currentPage, pageSize },
+                });
+              },
+            }}
+          />
+        </Flex>
       </Flex>
     </Page>
   );

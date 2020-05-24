@@ -19,22 +19,6 @@ import { Banner } from './Banner';
 import { ProductDuo } from '../sets/ProductDuo';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
-const isValidPresentation = (
-  set: ProductSetType,
-  type: 'trio' | 'vertical-grid' | 'horizontal-grid' | 'scroll-set',
-) => {
-  switch (type) {
-    case 'trio': {
-      return set.data.length >= 3;
-    }
-    case 'vertical-grid':
-    case 'horizontal-grid':
-    case 'scroll-set': {
-      return true;
-    }
-  }
-};
-
 export const Home = ({
   landingContent = {},
 }: {
