@@ -335,6 +335,7 @@
 		"new": "Ново",
 		"priceExample": "пр. 500",
 		"productDeleted": "Производот со шифра {{id}} беше успешно избришан",
+		"product": "Производ",
 		"product_plural": "Производи",
 		"seeAllProducts": "Видете ги производите",
 		"seeOtherProducts": "Видете други производи",
