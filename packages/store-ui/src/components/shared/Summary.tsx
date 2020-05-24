@@ -16,6 +16,7 @@ import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
 import { useTranslation } from '../../common/i18n';
 import { sdk } from '@sradevski/la-sdk';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { CustomCard } from './CustomCard';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];
@@ -33,7 +34,8 @@ export const Summary = ({
   buttonTitle,
   disabled,
   onCheckout,
-}: SummaryProps) => {
+  ...props
+}: SummaryProps & React.ComponentProps<typeof Box>) => {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -55,7 +57,14 @@ export const Summary = ({
   };
 
   return (
-    <>
+    <CustomCard
+      height='fit-content'
+      maxWidth={420}
+      minWidth={320}
+      title={t('common.summary')}
+      width='100%'
+      {...props}
+    >
       <Flex flexDirection='row' justifyContent='space-between'>
         <Text>{t('finance.subtotal')}</Text>
         <Text strong>{prices.productsTotal} ден</Text>
@@ -100,6 +109,6 @@ export const Summary = ({
           </Button>
         </Flex>
       )}
-    </>
+    </CustomCard>
   );
 };

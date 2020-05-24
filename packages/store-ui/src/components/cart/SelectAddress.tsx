@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Title, Row, Button, Col } from '@sradevski/blocks-ui';
+import { Title, Row, Button, Col, Flex, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { AddressesModal } from '../account/AddressesModal';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { SelectableCard } from '../shared/SelectableCard';
+import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 interface SelectAddressProps {
   user: User;
@@ -25,35 +26,60 @@ export const SelectAddress = ({
 
   return (
     <>
-      <Title level={3}>{t('address.chooseShippingAddress')}</Title>
-      <Row
-        mt={3}
-        align='top'
-        justify='start'
-        gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
-      >
+      <Flex alignItems='center' justifyContent='space-between'>
+        <Title level={3} fontSize={3} color='text.dark'>
+          {t('address.chooseShippingAddress')}
+        </Title>
+        <Button
+          type='link'
+          onClick={() => setAddressModalVisible(true)}
+          icon={<PlusOutlined />}
+        >
+          {t('address.addNewAddress')}
+        </Button>
+      </Flex>
+
+      <Flex mt={3} flexDirection='column'>
         {addresses &&
           addresses.map(address => {
+            const isChecked = deliverTo && deliverTo._id === address._id;
             return (
-              <Col key={address._id} mb={4}>
-                <SelectableCard
-                  isChecked={deliverTo && deliverTo._id === address._id}
-                  hoverable={true}
-                  onClick={() => setDeliverTo(address)}
-                  width={320}
-                  title={address.name}
-                >
-                  <ShippingDescription address={address} />
-                </SelectableCard>
-              </Col>
+              <SelectableCard
+                key={address._id}
+                isChecked={isChecked}
+                onClick={() => setDeliverTo(address)}
+                width='100%'
+                mb={3}
+              >
+                <ShippingDescription
+                  inverse={isChecked}
+                  address={address}
+                  actions={
+                    <Flex>
+                      <Button type='link'>
+                        <Text
+                          fontSize={2}
+                          color={isChecked ? 'heading.light' : 'heading.dark'}
+                        >
+                          <EditOutlined />
+                        </Text>
+                      </Button>
+
+                      <Button type='link'>
+                        <Text
+                          fontSize={2}
+                          color={isChecked ? 'heading.light' : 'heading.dark'}
+                        >
+                          <DeleteOutlined />
+                        </Text>
+                      </Button>
+                    </Flex>
+                  }
+                />
+              </SelectableCard>
             );
           })}
-        <Col key={'new'} mb={4}>
-          <Button size='large' onClick={() => setAddressModalVisible(true)}>
-            {t('address.addNewAddress')}
-          </Button>
-        </Col>
-      </Row>
+      </Flex>
       <AddressesModal
         user={user}
         visible={addressModalVisible}

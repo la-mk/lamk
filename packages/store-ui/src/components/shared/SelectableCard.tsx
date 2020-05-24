@@ -4,6 +4,7 @@ import { CheckCircleFilled } from '@ant-design/icons';
 import { CardProps } from 'antd/lib/card';
 import { SystemProps } from '@sradevski/blocks-ui/dist/system';
 import { withTheme } from 'styled-components';
+import { CustomCard } from './CustomCard';
 
 interface SelectableCardProps extends CardProps, Omit<SystemProps, 'color'> {
   isChecked: boolean;
@@ -14,31 +15,25 @@ export const SelectableCard = withTheme(
   ({ isChecked, children, theme, ...props }: SelectableCardProps) => {
     return (
       <Badge
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: 'transparent' }}
         count={
           isChecked ? (
             <CheckCircleFilled
-              style={{ color: theme.colors.primary, fontSize: 20 }}
+              style={{
+                color: theme.colors.primary,
+                fontSize: 20,
+              }}
             />
-          ) : (
-            undefined
-          )
+          ) : undefined
         }
       >
-        <Card
-          style={
-            isChecked
-              ? {
-                  border: `2px solid ${theme.colors.primary}`,
-                  transition: 'border 200ms',
-                }
-              : { transition: 'border 200ms' }
-          }
-          hoverable={true}
+        <CustomCard
+          inverse={isChecked}
+          style={{ cursor: 'pointer' }}
           {...props}
         >
           {children}
-        </Card>
+        </CustomCard>
       </Badge>
     );
   },

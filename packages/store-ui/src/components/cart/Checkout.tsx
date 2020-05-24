@@ -208,7 +208,7 @@ export const Checkout = () => {
           justifyContent='space-between'
           flexDirection={['column', 'row', 'row']}
         >
-          <Flex flex={1} flexDirection='column' mr={[0, 3, 3]}>
+          <Flex maxWidth={960} flex={1} flexDirection='column' mr={[0, 3, 3]}>
             <SelectPaymentMethod
               storePaymentMethods={storePaymentMethods}
               paymentMethod={paymentMethod}
@@ -223,27 +223,27 @@ export const Checkout = () => {
               />
             </Box>
           </Flex>
-          <Flex maxWidth={[0, 500, 500]} flex={1} ml={[0, 3, 3]} my={[4, 0, 0]}>
-            <Card
-              height='fit-content'
-              title={t('common.summary')}
-              px={3}
-              width='100%'
-            >
-              <Summary
-                items={cart.items}
-                delivery={delivery}
-                campaigns={campaigns ?? []}
-                disabled={!deliverTo}
-                buttonTitle={
-                  paymentMethod ===
-                  sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
-                    ? t('actions.toPayment')
-                    : t('actions.orderNow')
-                }
-                onCheckout={handleOrder}
-              />
-            </Card>
+          <Flex
+            alignItems='flex-start'
+            justifyContent='center'
+            maxWidth={[0, 460, 460]}
+            flex={1}
+            ml={[0, 3, 3]}
+            my={[4, 0, 0]}
+          >
+            <Summary
+              items={cart.items}
+              delivery={delivery}
+              campaigns={campaigns ?? []}
+              disabled={!deliverTo}
+              buttonTitle={
+                paymentMethod ===
+                sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
+                  ? t('actions.toPayment')
+                  : t('actions.orderNow')
+              }
+              onCheckout={handleOrder}
+            />
           </Flex>
         </Flex>
       </Spin>

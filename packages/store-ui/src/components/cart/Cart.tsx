@@ -141,21 +141,14 @@ export const Cart = () => {
             ml={[0, 0, 3]}
             mt={[4, 4, 0]}
           >
-            <CustomCard
-              maxWidth={420}
-              minWidth={320}
-              title={t('common.summary')}
-              width='100%'
-            >
-              <Summary
-                items={cart.items}
-                delivery={delivery}
-                campaigns={campaigns ?? []}
-                buttonTitle={t('actions.toCheckout')}
-                disabled={false}
-                onCheckout={handleCheckout}
-              />
-            </CustomCard>
+            <Summary
+              items={cart.items}
+              delivery={delivery}
+              campaigns={campaigns ?? []}
+              buttonTitle={t('actions.toCheckout')}
+              disabled={false}
+              onCheckout={handleCheckout}
+            />
           </Flex>
         </Flex>
       </Spin>

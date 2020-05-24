@@ -4,7 +4,6 @@ import {
   Flex,
   Steps,
   Step,
-  Card,
   Row,
   Col,
   Empty,
@@ -24,6 +23,7 @@ import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { CustomCard } from '../shared/CustomCard';
 
 const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
   const startIndex = isCardPayment ? 1 : 0;
@@ -118,20 +118,25 @@ export const Order = ({ orderId }: { orderId: string }) => {
         </Steps>
 
         <Flex flexWrap='wrap' my={4} justifyContent='center'>
-          <Card m={3} width={330} title={t('finance.priceBreakdown')}>
-            <Summary
-              items={order.ordered}
-              delivery={order.delivery}
-              campaigns={order.campaigns ?? []}
-              buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
-              onCheckout={shouldPay ? handlePayment : undefined}
-            />
-          </Card>
+          <Summary
+            m={3}
+            items={order.ordered}
+            delivery={order.delivery}
+            campaigns={order.campaigns ?? []}
+            buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
+            onCheckout={shouldPay ? handlePayment : undefined}
+            title={t('finance.priceBreakdown')}
+          />
 
           {order.deliverTo && (
-            <Card m={3} width={330} title={t('address.shippingAddress')}>
+            <CustomCard
+              maxWidth={420}
+              minWidth={320}
+              m={3}
+              title={t('address.shippingAddress')}
+            >
               <ShippingDescription address={order.deliverTo} />
-            </Card>
+            </CustomCard>
           )}
         </Flex>
         <Title mb={3} level={3}>
