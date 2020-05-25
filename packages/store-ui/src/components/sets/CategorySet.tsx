@@ -3,74 +3,77 @@ import { Flex, Box, Text } from '@sradevski/blocks-ui';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { useTranslation } from '../../common/i18n';
 import { SetTitle } from './SetTitle';
-import { withTheme } from 'styled-components';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import { sdk } from '@sradevski/la-sdk';
 import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
 import { HoverableLink } from '../shared/components/HoverableLink';
+import { getLevel2CategoryHref } from '../../common/filterUtils';
 
 interface CategorySetProps {
   categories: Category[];
+  categoriesToShow: string[];
   title: string;
   subtitle: string;
-  theme: BlocksTheme;
 }
 
-export const CategorySet = withTheme(
-  ({ categories, title, subtitle, theme }: CategorySetProps) => {
-    const { t } = useTranslation();
-    const categoriesToShow = categories.slice(0, 3);
+export const CategorySet = ({
+  categories,
+  categoriesToShow,
+  title,
+  subtitle,
+}: CategorySetProps) => {
+  const { t } = useTranslation();
 
-    return (
-      <>
-        <SetTitle emphasized title={title} subtitle={subtitle} />
+  return (
+    <>
+      <SetTitle emphasized title={title} subtitle={subtitle} />
 
-        <Flex alignItems='center' justifyContent='center' flexWrap='wrap'>
-          {categoriesToShow.map(category => {
-            return (
-              <Box key={category.level3} my={4} mx={[2, 3, 4]}>
-                <HoverableLink href={'/product'}>
-                  <ImageBackgroundBox
-                    height={280}
-                    minWidth={320}
-                    maxWidth={420}
+      <Flex alignItems='center' justifyContent='center' flexWrap='wrap'>
+        {categoriesToShow.map(categoryName => {
+          return (
+            <Box key={categoryName} my={4} mx={[2, 3, 4]}>
+              <HoverableLink
+                href={getLevel2CategoryHref(categoryName, categories)}
+              >
+                <ImageBackgroundBox
+                  height={280}
+                  minWidth={320}
+                  maxWidth={420}
+                  borderRadius={0}
+                  style={{
+                    position: 'relative',
+                  }}
+                  url={sdk.artifact.getUrlForArtifact(
+                    categoryName,
+                    'categories',
+                  )}
+                >
+                  <Flex
+                    p={[2, 2, 3]}
+                    alignItems='center'
+                    justifyContent='center'
+                    bg='background.dark'
                     borderRadius={0}
                     style={{
-                      position: 'relative',
+                      position: 'absolute',
+                      bottom: 16,
+                      left: 16,
+                      right: 16,
                     }}
-                    url={sdk.artifact.getUrlForArtifact(
-                      category.level2,
-                      'categories',
-                    )}
                   >
-                    <Flex
-                      p={[2, 2, 3]}
-                      alignItems='center'
-                      justifyContent='center'
-                      bg='background.dark'
-                      borderRadius={0}
-                      style={{
-                        position: 'absolute',
-                        bottom: 16,
-                        left: 16,
-                        right: 16,
-                      }}
+                    <Text
+                      fontSize={0}
+                      color='text.light'
+                      style={{ letterSpacing: '2px' }}
                     >
-                      <Text
-                        fontSize={0}
-                        color='text.light'
-                        style={{ letterSpacing: '2px' }}
-                      >
-                        {t(`categories.${category.level2}`).toUpperCase()}
-                      </Text>
-                    </Flex>
-                  </ImageBackgroundBox>
-                </HoverableLink>
-              </Box>
-            );
-          })}
-        </Flex>
-      </>
-    );
-  },
-);
+                      {t(`categories.${categoryName}`).toUpperCase()}
+                    </Text>
+                  </Flex>
+                </ImageBackgroundBox>
+              </HoverableLink>
+            </Box>
+          );
+        })}
+      </Flex>
+    </>
+  );
+};

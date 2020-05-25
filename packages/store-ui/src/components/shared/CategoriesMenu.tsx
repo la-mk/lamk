@@ -1,7 +1,5 @@
-import isString from 'lodash/isString';
 import React, { useCallback } from 'react';
 import { Menu, MenuItem, Text, Button, SubMenu } from '@sradevski/blocks-ui';
-import { DownOutlined } from '@ant-design/icons';
 import {
   getCategories,
   GroupedCategories,
@@ -10,17 +8,9 @@ import {
 import { useSelector } from 'react-redux';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
-import queryString from 'qs';
 import { MenuProps } from 'antd/es/menu';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
-
-const getQueryString = (categories: string | string[]) => {
-  if (isString(categories)) {
-    return queryString.stringify({ f: { category: categories } });
-  }
-
-  return queryString.stringify({ f: { category: { $in: categories } } });
-};
+import { getQueryForCategories } from '../../common/filterUtils';
 
 export interface CategoriesMenuProps {
   mode: MenuProps['mode'];
@@ -95,7 +85,7 @@ export const CategoriesMenu = ({
                         {!onSelect && (
                           <Link
                             key={level3Category.value}
-                            href={`/products?${getQueryString([
+                            href={`/products?${getQueryForCategories([
                               level3Category.value,
                             ])}`}
                           >

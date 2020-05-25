@@ -18,6 +18,7 @@ import { ProductTrio } from '../sets/ProductTrio';
 import { Banner } from './Banner';
 import { ProductDuo } from '../sets/ProductDuo';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { Category } from '@sradevski/la-sdk/dist/models/category';
 
 export const Home = ({
   landingContent = {},
@@ -26,18 +27,27 @@ export const Home = ({
 }) => {
   const { t } = useTranslation();
   const store = useSelector(getStore);
-  const categories = useSelector(getCategories);
+  const categories: Category[] = useSelector(getCategories);
   const promotedCampaign = useSelector(getPromotedCampaign);
 
   const [caller, showSpinner] = hooks.useCall();
   const [productSets, setProductSets] = useState<ProductSetType[]>([]);
+  const [categoriesForSet, setCategoriesForSet] = useState<string[]>([]);
 
   useBreadcrumb([{ url: '/', title: t('pages.home') }]);
 
   useEffect(() => {
-    if (!store || !categories) {
+    if (!store || !categories?.length) {
       return;
     }
+
+    setCategoriesForSet(
+      sampleSize(
+        Array.from(new Set(categories.map(category => category.level2))),
+        3,
+      ),
+    );
+
     let categorySetTags = [];
 
     if (categories.length) {
@@ -55,19 +65,18 @@ export const Home = ({
       ]),
       setProductSets,
     );
-  }, [store, categories]);
-
-  const sampleCategories = sampleSize(categories, 3);
+  }, [store, categories?.length]);
 
   return (
     <>
       <Banner banner={landingContent.banner} storeId={store._id} />
 
       <Flex mt={7} flexDirection='column'>
-        {sampleCategories.length > 1 && (
+        {categoriesForSet.length > 1 && (
           <Box px={[2, 4, 5]} mb={7}>
             <CategorySet
-              categories={sampleCategories}
+              categoriesToShow={categoriesForSet}
+              categories={categories}
               title={t('sets.selectedCategories')}
               subtitle={t('sets.selectedCategoriesExplanation')}
             />
