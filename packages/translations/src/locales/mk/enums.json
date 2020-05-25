@@ -209,8 +209,11 @@
 	},
 
 	"sets": {
+		"categoryExplanation": "Категории кои ќе ви се допаднат",
 		"discounted": "Производи на попуст",
+		"discountedExplanation": "Производи по најдобри цени",
 		"latest": "Најнови производи",
+		"latestExplanation": "Производи кои штотоку ги добивме",
 		"selectedCategories": "Одбрани категории",
 		"selectedCategoriesExplanation": "Категории одбрани само за вас"
 	}
