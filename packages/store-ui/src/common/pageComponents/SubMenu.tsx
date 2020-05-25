@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components';
 import { DownOutlined } from '@ant-design/icons';
 import { CategoriesMenu } from '../../components/shared/CategoriesMenu';
 import { HoverableLink } from '../../components/shared/components/HoverableLink';
-import { useTranslation, getTranslationBaseForSet } from '../i18n';
+import { useTranslation, getTitleForSet } from '../i18n';
 import { sdk } from '@sradevski/la-sdk';
 import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
 import { getSetHref } from '../filterUtils';
@@ -52,7 +52,7 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
         return (
           <HoverableLink key={set.setTag.name} href={getSetHref(set)}>
             <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
-              {t(getTranslationBaseForSet({ name: set.setTag.name }))}
+              {t(getTitleForSet({ name: set.setTag.name }))}
             </Text>
           </HoverableLink>
         );

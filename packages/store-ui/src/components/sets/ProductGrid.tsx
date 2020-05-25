@@ -4,7 +4,11 @@ import { ProductCard } from '../shared/product/ProductCard';
 import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';
-import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import {
+  useTranslation,
+  getTitleForSet,
+  getSubtitleForSet,
+} from '../../common/i18n';
 import { getSetHref } from '../../common/filterUtils';
 
 interface ProductGridProps {
@@ -20,8 +24,8 @@ export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
 
   const allHref = getSetHref(set);
   const products = set.data;
-  const title = t(getTranslationBaseForSet(set.setTag));
-  const subtitle = 'Best picks of the week';
+  const title = t(getTitleForSet(set.setTag));
+  const subtitle = t(getSubtitleForSet(set.setTag));
 
   const productsToShow = products.slice(
     0,

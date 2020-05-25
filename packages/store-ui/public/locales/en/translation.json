@@ -332,8 +332,11 @@
     "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
   },
   "sets": {
+    "categoryExplanation": "Categories you might like",
     "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
     "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
     "selectedCategories": "Picked categories",
     "selectedCategoriesExplanation": "Categories picked just for you"
   },

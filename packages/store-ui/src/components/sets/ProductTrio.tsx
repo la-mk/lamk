@@ -4,7 +4,11 @@ import { SetTitle } from './SetTitle';
 import { Flex, hooks, Box } from '@sradevski/blocks-ui';
 import { ProductCard } from '../shared/product/ProductCard';
 import { SeeAllLink } from './SeeAllLink';
-import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import {
+  useTranslation,
+  getTitleForSet,
+  getSubtitleForSet,
+} from '../../common/i18n';
 import { getSetHref } from '../../common/filterUtils';
 
 interface ProductSetProps {
@@ -18,8 +22,8 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
 
   const allHref = getSetHref(set);
   const products = set.data;
-  const title = t(getTranslationBaseForSet(set.setTag));
-  const subtitle = 'Best picks of the week';
+  const title = t(getTitleForSet(set.setTag));
+  const subtitle = t(getSubtitleForSet(set.setTag));
 
   const focusProduct = products[0];
   const productOne = products[1];

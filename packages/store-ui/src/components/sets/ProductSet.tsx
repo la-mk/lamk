@@ -5,7 +5,11 @@ import {
   ProductSet as ProductSetType,
 } from '@sradevski/la-sdk/dist/models/product';
 import { Set } from '@sradevski/blocks-ui';
-import { useTranslation, getTranslationBaseForSet } from '../../common/i18n';
+import {
+  useTranslation,
+  getTitleForSet,
+  getSubtitleForSet,
+} from '../../common/i18n';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';
 import { getSetHref } from '../../common/filterUtils';
@@ -19,8 +23,8 @@ export const ProductSet = ({ set, storeId }: ProductSetProps) => {
   const { t } = useTranslation();
   const allHref = getSetHref(set);
   const products = set.data;
-  const title = t(getTranslationBaseForSet(set.setTag));
-  const subtitle = 'Best picks of the week';
+  const title = t(getTitleForSet(set.setTag));
+  const subtitle = t(getSubtitleForSet(set.setTag));
 
   return (
     <>

@@ -16,11 +16,20 @@ export const {
   withTranslation,
 } = NextI18NextInstance;
 
-export const getTranslationBaseForSet = (setTag: ProductSetTag) => {
+export const getTitleForSet = (setTag: ProductSetTag) => {
   switch (setTag.name) {
     case 'category':
       return `categories.${setTag.value}`;
     default:
       return `sets.${setTag.name}`;
+  }
+};
+
+export const getSubtitleForSet = (setTag: ProductSetTag) => {
+  switch (setTag.name) {
+    case 'category':
+      return `sets.categoryExplanation`;
+    default:
+      return `sets.${setTag.name}Explanation`;
   }
 };
