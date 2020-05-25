@@ -17,10 +17,15 @@ export const SetTitle = ({
       justifyContent='center'
       flexDirection='column'
     >
-      <Title mb={1} level={2} fontSize={emphasized ? [5, 5, 6] : [3, 3, 4]}>
+      <Title
+        textAlign='center'
+        mb={1}
+        level={2}
+        fontSize={emphasized ? [5, 5, 6] : [3, 3, 4]}
+      >
         {title.toUpperCase()}
       </Title>
-      <Text fontSize={[2, 2, 3]} color='mutedText.dark'>
+      <Text textAlign='center' fontSize={[2, 2, 3]} color='mutedText.dark'>
         {subtitle}
       </Text>
     </Flex>

@@ -3,7 +3,7 @@ import { Flex, Title, Box } from '@sradevski/blocks-ui';
 
 interface PageProps {
   title?: string;
-  maxWidth: number | string;
+  maxWidth?: number | string;
   children: React.ReactNode;
 }
 

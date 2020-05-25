@@ -1,61 +1,44 @@
 import React from 'react';
-import { Flex, Text, Menu, MenuItem, Dropdown } from '@sradevski/blocks-ui';
+import { Flex, Text, Dropdown } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
-import Link from 'next/link';
 import { DownOutlined } from '@ant-design/icons';
 import { CategoriesMenu } from '../../components/shared/CategoriesMenu';
+import { HoverableLink } from '../../components/shared/components/HoverableLink';
+import { useTranslation, getTranslationBaseForSet } from '../i18n';
 
 export const SubMenu = withTheme(({ theme, ...otherProps }) => {
+  const { t } = useTranslation();
   return (
     <Flex
       {...otherProps}
       width='100%'
-      style={{ backgroundColor: theme.colors.background.dark }}
+      bg='background.dark'
       flexDirection='row'
       alignItems='center'
       justifyContent='flex-start'
+      px={[3, 4, 5]}
+      style={{ overflowX: 'scroll' }}
     >
-      <Menu
-        px={[2, 3, 4]}
-        style={{
-          borderBottom: 'none',
-          lineHeight: '46px',
-          background: 'transparent',
-        }}
-        mode='horizontal'
+      <Dropdown
+        trigger={['click', 'hover']}
+        placement='bottomLeft'
+        overlay={<CategoriesMenu mode='horizontal' />}
       >
-        <MenuItem
-          style={{ borderBottom: 0 }}
-          p={0}
-          mx={[3, 4, 5]}
-          key='products'
-        >
-          <Link href='/products' passHref>
-            <Text color='text.light'>Sale Items</Text>
-          </Link>
-        </MenuItem>
+        <a style={{ textDecoration: 'none' }}>
+          <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
+            {t('common.category_plural')}
+            <DownOutlined
+              style={{ margin: 0, marginLeft: 8, fontSize: '0.8em' }}
+            />
+          </Text>
+        </a>
+      </Dropdown>
 
-        <MenuItem style={{ borderBottom: 0 }} p={0} mx={[3, 4, 5]} key='sales'>
-          <Link href='/products' passHref>
-            <Text color='text.light'>New Arrivals</Text>
-          </Link>
-        </MenuItem>
-
-        <MenuItem style={{ borderBottom: 0 }} p={0} mx={[3, 4, 5]} key='else'>
-          <Dropdown
-            trigger={['click', 'hover']}
-            placement='bottomLeft'
-            overlay={<CategoriesMenu mode='horizontal' />}
-          >
-            <Text color='text.light'>
-              Categories
-              <DownOutlined
-                style={{ margin: 0, marginLeft: 8, fontSize: '0.8em' }}
-              />
-            </Text>
-          </Dropdown>
-        </MenuItem>
-      </Menu>
+      <HoverableLink href='/products'>
+        <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
+          {t(getTranslationBaseForSet({ name: 'latest' }))}
+        </Text>
+      </HoverableLink>
     </Flex>
   );
 });
