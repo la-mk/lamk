@@ -182,7 +182,6 @@
     "quantity": "Quantity"
   },
   "common": {
-    "address": "Address",
     "addressExample": "eg. Home Address",
     "address_plural": "Addresses",
     "addressee": "Addressee",
@@ -257,6 +256,9 @@
     "subtotal": "Subtotal",
     "total": "Total"
   },
+  "legal": {
+    "legalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores"
+  },
   "order": {
     "orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",
     "orderNotFound": "Order not found",
@@ -330,6 +332,7 @@
     "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
   },
   "sets": {
+    "discounted": "Products on sale",
     "latest": "Latest products",
     "selectedCategories": "Picked categories",
     "selectedCategoriesExplanation": "Categories picked just for you"

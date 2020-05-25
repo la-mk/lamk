@@ -5,9 +5,23 @@ import { DownOutlined } from '@ant-design/icons';
 import { CategoriesMenu } from '../../components/shared/CategoriesMenu';
 import { HoverableLink } from '../../components/shared/components/HoverableLink';
 import { useTranslation, getTranslationBaseForSet } from '../i18n';
+import { sdk } from '@sradevski/la-sdk';
+import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
+import { getSetHref } from '../filterUtils';
 
 export const SubMenu = withTheme(({ theme, ...otherProps }) => {
   const { t } = useTranslation();
+  const sets: ProductSet[] = [
+    {
+      setTag: { name: 'latest' },
+      filter: { query: sdk.product.getQueryForSet({ name: 'latest' }) },
+    },
+    {
+      setTag: { name: 'discounted' },
+      filter: { query: sdk.product.getQueryForSet({ name: 'discounted' }) },
+    },
+  ];
+
   return (
     <Flex
       {...otherProps}
@@ -17,7 +31,7 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
       alignItems='center'
       justifyContent='flex-start'
       px={[3, 4, 5]}
-      style={{ overflowX: 'scroll' }}
+      style={{ overflowX: 'auto' }}
     >
       <Dropdown
         trigger={['click', 'hover']}
@@ -34,11 +48,15 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
         </a>
       </Dropdown>
 
-      <HoverableLink href='/products'>
-        <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
-          {t(getTranslationBaseForSet({ name: 'latest' }))}
-        </Text>
-      </HoverableLink>
+      {sets.map(set => {
+        return (
+          <HoverableLink key={set.setTag.name} href={getSetHref(set)}>
+            <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
+              {t(getTranslationBaseForSet({ name: set.setTag.name }))}
+            </Text>
+          </HoverableLink>
+        );
+      })}
     </Flex>
   );
 });

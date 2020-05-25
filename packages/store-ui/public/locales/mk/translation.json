@@ -182,7 +182,6 @@
     "quantity": "Количина"
   },
   "common": {
-    "address": "Адреса",
     "addressExample": "пр. Домашна адреса",
     "address_plural": "Адреси",
     "addressee": "Примател",
@@ -257,6 +256,9 @@
     "subtotal": "Цена на производи",
     "total": "Вкупна цена"
   },
+  "legal": {
+    "legalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores"
+  },
   "order": {
     "orderAlreadyPaid": "Порачката или е веќе платена, или плаќањето ќе се изврши на достава",
     "orderNotFound": "Порачката не беше пронајдена",
@@ -330,6 +332,7 @@
     "storeGeneric": "Најлесен начин да купувате онлајн во Македонија, од удобноста на вашиот дом. Онлајн шопингот никогаш не бил полесен. Купете сега."
   },
   "sets": {
+    "discounted": "Производи на попуст",
     "latest": "Најнови производи",
     "selectedCategories": "Одбрани категории",
     "selectedCategoriesExplanation": "Категории одбрани само за вас"

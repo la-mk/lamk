@@ -50,6 +50,7 @@ export const Home = ({
     caller(
       sdk.product.getProductSetsForStore(store._id, [
         { name: 'latest' },
+        { name: 'discounted' },
         ...categorySetTags,
       ]),
       setProductSets,

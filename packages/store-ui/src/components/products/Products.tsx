@@ -38,6 +38,8 @@ export const Products = ({
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [products, setProducts] = useState(initialProducts);
   const [caller, showSpinner] = hooks.useCall();
+
+  // TODO: There is no clear way to reset filters that are not part of the sidemenu as of now, nor filters that don't apply when searching.
   const [filters, setFilters] = hooks.useFilter(initialFilters, {
     storage: 'url',
     router: filterRouter,
