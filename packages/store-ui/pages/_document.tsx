@@ -5,9 +5,9 @@ import { NextPageContext } from 'next';
 import env from '../src/common/env';
 
 const GlobalStyle = createGlobalStyle`
-html {
-  height: 100%;
-}
+  html {
+    height: 100%;
+  }
 
   .ant-menu i {
     margin-right: 0 !important;

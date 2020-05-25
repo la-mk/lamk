@@ -78,21 +78,27 @@ export const StoreLayout = withTheme(
     };
 
     const presetSearch = (
-      <Search
-        size='large'
-        allowClear
-        onSearch={val => {
-          // Preserve the existing query parameters
-          const productsUrl = `/products?${queryString.stringify({
-            ...router.query,
-            ...getFiltersFromSearch(val),
-          })}`;
+      <Flex
+        height={56}
+        width='100%'
+        alignItems='center'
+        justifyContent='center'
+      >
+        <Search
+          allowClear
+          onSearch={val => {
+            // Preserve the existing query parameters
+            const productsUrl = `/products?${queryString.stringify({
+              ...router.query,
+              ...getFiltersFromSearch(val),
+            })}`;
 
-          router.push(productsUrl);
-        }}
-        placeholder={t('actions.search')}
-        enterButton
-      />
+            router.push(productsUrl);
+          }}
+          placeholder={t('actions.search')}
+          enterButton
+        />
+      </Flex>
     );
 
     return (
@@ -117,9 +123,7 @@ export const StoreLayout = withTheme(
                 flex={1}
                 minWidth='300px'
                 maxWidth='800px'
-                pt={2}
                 mx={[2, 3, 4]}
-                height='56px'
                 my={1}
               >
                 {presetSearch}
@@ -132,13 +136,7 @@ export const StoreLayout = withTheme(
                 handleLogout={handleLogout}
               />
             </Flex>
-            <Box
-              display={['block', 'none', 'none']}
-              pt={2}
-              mx={[2, 3, 4]}
-              height='56px'
-              my={1}
-            >
+            <Box display={['block', 'none', 'none']} mx={[2, 3, 4]} my={1}>
               {presetSearch}
             </Box>
           </BorderedHeader>

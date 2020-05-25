@@ -1,5 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, withTheme } from 'styled-components';
 import { getHoverColor, getActiveColor, getShadowColor } from './utils';
+import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
 // This has been copied from https://github.com/luffyZh/dynamic-antd-theme/blob/master/src/theme.js and I only took the bits we needed and added it as a styled component so there is no style flash on load.
 /* TODO: This is a hacky way of overriding the theme, and it's due to antd limitations. Find a better alternative to antd. */
@@ -8,6 +9,7 @@ const StyleHolder = createGlobalStyle<{
   hoverColor: string;
   activeColor: string;
   shadowColor: string;
+  dangerColor: string;
 }>`
   a {
     color: ${props => props.color};
@@ -131,8 +133,8 @@ const StyleHolder = createGlobalStyle<{
   .ant-btn-danger:hover,
   .ant-btn-danger:focus {
     color: #fff;
-    background-color: #ff7875;
-    border-color: #ff7875;
+    background-color: ${props => props.dangerColor};
+    border-color: ${props => props.dangerColor};
   }
   .ant-btn-group .ant-btn-primary:not(:first-child):not(:last-child) {
     border-right-color: ${props => props.hoverColor};
@@ -1117,21 +1119,25 @@ const StyleHolder = createGlobalStyle<{
   }
 `;
 
-export const BrandColorWrapper = ({ brandColor }: { brandColor: string }) => {
-  if (!brandColor) {
-    return null;
-  }
-  const color = brandColor;
-  const hoverColor = getHoverColor(brandColor);
-  const activeColor = getActiveColor(brandColor);
-  const shadowColor = getShadowColor(brandColor);
+export const BrandColorWrapper = withTheme(
+  ({ theme, brandColor }: { theme: BlocksTheme; brandColor: string }) => {
+    if (!brandColor) {
+      return null;
+    }
+    const color = brandColor;
+    const hoverColor = getHoverColor(brandColor);
+    const activeColor = getActiveColor(brandColor);
+    const shadowColor = getShadowColor(brandColor);
+    const dangerColor = theme.colors.danger;
 
-  return (
-    <StyleHolder
-      color={color}
-      hoverColor={hoverColor}
-      activeColor={activeColor}
-      shadowColor={shadowColor}
-    />
-  );
-};
+    return (
+      <StyleHolder
+        color={color}
+        hoverColor={hoverColor}
+        activeColor={activeColor}
+        shadowColor={shadowColor}
+        dangerColor={dangerColor}
+      />
+    );
+  },
+);
