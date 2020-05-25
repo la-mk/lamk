@@ -110,6 +110,14 @@ const getQueryForSet = (productSet: ProductSetTag) => {
         category: productSet.value,
       };
 
+    case 'discounted': {
+      return {
+        discount: {
+          $gt: 0
+        }
+      }
+    }
+
     case 'latest': {
       return {
         $sort: {
@@ -185,6 +193,8 @@ export const getProductSdk = (client: Application) => {
         })
       );
     },
+
+    getQueryForSet,
 
     validate: (data: Product, ignoreRequired = false) => {
       return validate(schema, data, ignoreRequired);
