@@ -10,7 +10,7 @@ import {
   Divider,
 } from '@sradevski/blocks-ui';
 import { FilterOutlined } from '@ant-design/icons';
-import { ProductCard } from '../shared/ProductCard';
+import { ProductCard } from '../shared/product/ProductCard';
 import { Page } from '../shared/Page';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { useTranslation } from '../../common/i18n';

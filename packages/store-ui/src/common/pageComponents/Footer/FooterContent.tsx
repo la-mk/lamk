@@ -9,7 +9,6 @@ import Link from 'next/link';
 import { useTranslation } from '../../i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { StoreFooterSection } from './StoreFooterSection';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import { SubFooter } from './SubFooter';
 import { Menu } from '@sradevski/blocks-ui/dist/compound/FooterContent';
 
@@ -38,9 +37,8 @@ const getMenus = (t: any): Menu[] => [
     ],
   },
   {
-    // TODO: Add a index page for /legal
     text: t('pages.legal'),
-    // link: '/legal',
+    link: '/legal',
     submenus: [
       {
         link: '/legal/general-rules',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, Text, Card, Image } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from '../../common/i18n';
-import { Price } from '../shared/Price';
+import { Price } from '../shared/product/Price';
 
 export const OrderProductCard = ({
   orderItem,

@@ -4,18 +4,18 @@ import {
   List,
   Text,
   Button,
-  InputNumber,
   Table,
   Box,
   Divider,
 } from '@sradevski/blocks-ui';
-import { Price } from '../shared/Price';
+import { Price } from '../shared/product/Price';
 import { useTranslation } from '../../common/i18n';
 import { TFunction } from 'next-i18next';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
-import { CloseOutlined } from '@ant-design/icons';
-import { ProductImageWithTitle } from '../shared/ProductImageWithTitle';
+import { DeleteOutlined } from '@ant-design/icons';
+import { ProductImageWithTitle } from '../shared/product/ProductImageWithTitle';
+import { Quantity } from '../shared/product/Quantity';
 
 const getColumns = (
   t: TFunction,
@@ -64,11 +64,9 @@ const getColumns = (
       width: 150,
       key: 'quantity',
       render: (val, cartItem) => (
-        <InputNumber
-          min={1}
-          max={999}
-          value={cartItem.quantity}
-          onChange={value => handleChangeItemQuantity(cartItem, value)}
+        <Quantity
+          cartItem={cartItem}
+          handleChangeItemQuantity={handleChangeItemQuantity}
         />
       ),
     },
@@ -91,7 +89,7 @@ const getColumns = (
       width: 30,
       render: (val, cartItem) => (
         <Button type='link' onClick={() => handleRemove(cartItem)}>
-          <CloseOutlined />
+          <DeleteOutlined />
         </Button>
       ),
     },
@@ -121,7 +119,7 @@ export const CartProductsList = ({
               >
                 <Box style={{ position: 'absolute', top: 0, right: 0 }}>
                   <Button type='link' onClick={() => handleRemove(cartItem)}>
-                    <CloseOutlined />
+                    <DeleteOutlined />
                   </Button>
                 </Box>
                 <ProductImageWithTitle
@@ -135,15 +133,11 @@ export const CartProductsList = ({
                     basePrice={cartItem.product.price}
                     currency='ден'
                   />
-                  <InputNumber
-                    width='80px'
-                    min={1}
-                    max={999}
-                    value={cartItem.quantity}
-                    onChange={value =>
-                      handleChangeItemQuantity(cartItem, value)
-                    }
+
+                  <Quantity
                     mx={2}
+                    cartItem={cartItem}
+                    handleChangeItemQuantity={handleChangeItemQuantity}
                   />
                 </Flex>
                 <Box mt={2}>

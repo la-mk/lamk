@@ -98,7 +98,7 @@ const TermsOfUsePage = ({ store }: { store: Store }) => {
         title={title}
         description={getTextSnippet(termsOfUse)}
       />
-      <LegalContent title={title} body={termsOfUse} />
+      <LegalContent url='/legal/terms-of-use' title={title} body={termsOfUse} />
     </>
   );
 };

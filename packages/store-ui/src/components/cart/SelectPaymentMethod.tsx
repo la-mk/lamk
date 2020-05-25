@@ -44,8 +44,8 @@ export const SelectPaymentMethod = ({
                 <SelectableCard
                   isChecked={isChecked}
                   onClick={() => setPaymentMethod(method.name)}
-                  minWidth={[320, 360, 420]}
-                  maxWidth={520}
+                  minWidth={[320, 360, 360]}
+                  maxWidth={480}
                   width={`${100 / storePaymentMethods.methods.length}%`}
                 >
                   <Flex

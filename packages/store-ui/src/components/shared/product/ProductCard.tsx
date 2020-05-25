@@ -3,10 +3,10 @@ import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { Title, Flex, Image, Box, Paragraph } from '@sradevski/blocks-ui';
 import { Price } from './Price';
-import { useTranslation } from '../../common/i18n';
+import { useTranslation } from '../../../common/i18n';
 
 import { TFunction } from 'next-i18next';
-import { HoverableLink } from './components/HoverableLink';
+import { HoverableLink } from '../components/HoverableLink';
 import { ProductTags } from './ProductTags';
 
 const ProductDescription = ({

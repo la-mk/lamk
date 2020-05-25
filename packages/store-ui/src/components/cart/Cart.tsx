@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Card, Empty, Spin, hooks } from '@sradevski/blocks-ui';
+import { Flex, Empty, Spin, hooks, Button } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Summary } from '../shared/Summary';
 import {
@@ -22,7 +22,7 @@ import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { CartProductsList } from './CartProductsList';
-import { CustomCard } from '../shared/components/CustomCard';
+import { ManagedSets } from '../sets/ManagedSets';
 
 export const Cart = () => {
   const [caller, showSpinner] = hooks.useCall(true);
@@ -72,9 +72,10 @@ export const Cart = () => {
 
   const handleRemove = (cartItem: CartItemWithProduct) => {
     // If it's not authenticated, the cart comes from local storage, so we don't update the server
-    const handler = cart._id
-      ? sdk.cart.removeItemFromCart(cart._id, cartItem)
-      : Promise.resolve();
+    const handler =
+      user && cart._id
+        ? sdk.cart.removeItemFromCart(cart._id, cartItem)
+        : Promise.resolve();
 
     dispatch(
       trackEvent({
@@ -101,9 +102,10 @@ export const Cart = () => {
     cartItem: CartItemWithProduct,
     quantity: number,
   ) => {
-    const handler = cart._id
-      ? sdk.cart.changeQuantityForCartItem(cart._id, cartItem, quantity)
-      : Promise.resolve();
+    const handler =
+      user && cart._id
+        ? sdk.cart.changeQuantityForCartItem(cart._id, cartItem, quantity)
+        : Promise.resolve();
 
     caller<CartType | void>(handler, () =>
       setCartWithProducts({
@@ -126,7 +128,7 @@ export const Cart = () => {
     <Page>
       <Spin spinning={showSpinner}>
         <Flex width='100%' flexDirection={['column', 'column', 'row']}>
-          <Flex flex={2} mr={[0, 0, 3]}>
+          <Flex flexDirection='column' flex={2} mr={[0, 0, 3]}>
             <CartProductsList
               cartItems={cart.items}
               storeId={store._id}
@@ -152,6 +154,8 @@ export const Cart = () => {
           </Flex>
         </Flex>
       </Spin>
+
+      <ManagedSets mt={7} storeId={store._id} setTags={[{ name: 'latest' }]} />
     </Page>
   );
 };

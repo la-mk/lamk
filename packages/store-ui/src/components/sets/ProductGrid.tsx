@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlexGrid, Box, hooks } from '@sradevski/blocks-ui';
-import { ProductCard } from '../shared/ProductCard';
+import { ProductCard } from '../shared/product/ProductCard';
 import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';

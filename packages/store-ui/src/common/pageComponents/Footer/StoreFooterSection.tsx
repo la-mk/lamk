@@ -48,9 +48,13 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
         {t('common.contactDetails').toUpperCase()}
       </Title>
 
-      <ContactEntry icon={<PhoneFilled />} value={phoneNumber} />
-      <ContactEntry icon={<PhoneFilled />} value={alternatePhoneNumber} />
-      <ContactEntry icon={<MailFilled />} value={email} />
+      {phoneNumber && (
+        <ContactEntry icon={<PhoneFilled />} value={phoneNumber} />
+      )}
+      {alternatePhoneNumber && (
+        <ContactEntry icon={<PhoneFilled />} value={alternatePhoneNumber} />
+      )}
+      {email && <ContactEntry icon={<MailFilled />} value={email} />}
     </Flex>
   );
 };

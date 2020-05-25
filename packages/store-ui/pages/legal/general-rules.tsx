@@ -46,7 +46,11 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
         title={title}
         description={getTextSnippet(generalRules)}
       />
-      <LegalContent title={title} body={generalRules} />
+      <LegalContent
+        url='/legal/general-rules'
+        title={title}
+        body={generalRules}
+      />
     </>
   );
 };

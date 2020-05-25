@@ -60,7 +60,7 @@ const PrivacyPage = ({ store }: { store: Store }) => {
         title={title}
         description={getTextSnippet(privacyPolicy)}
       />
-      <LegalContent title={title} body={privacyPolicy} />
+      <LegalContent url='/legal/privacy' title={title} body={privacyPolicy} />
     </>
   );
 };

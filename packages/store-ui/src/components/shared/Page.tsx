@@ -3,7 +3,7 @@ import { Flex, Title, Box } from '@sradevski/blocks-ui';
 
 interface PageProps {
   title?: string;
-  maxWidth?: 0 | 1 | 2;
+  maxWidth: number | string;
   children: React.ReactNode;
 }
 
@@ -13,16 +13,17 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
       flexDirection='column'
       justifyContent='flex-start'
       width='100%'
-      maxWidth={1920}
+      maxWidth={maxWidth ?? 1920}
       px={[2, 4, 5]}
       mt={title ? 0 : 5}
+      mx='auto'
     >
       {title && (
-        <Title mx='auto' mt={3} mb={4} fontSize={[5, 6, 6]} level={1}>
+        <Title mx='auto' my={4} fontSize={[5, 6, 6]} level={1}>
           {title}
         </Title>
       )}
-      <Box width={'100%'} mx='auto' maxWidth={maxWidth}>
+      <Box width={'100%'} mx='auto'>
         {children}
       </Box>
     </Flex>

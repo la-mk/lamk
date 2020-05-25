@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '@sradevski/blocks-ui';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
-import { ProductImageWithTitle } from './ProductImageWithTitle';
+import { ProductImageWithTitle } from './product/ProductImageWithTitle';
 import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
 
 export const SummaryProductList = ({

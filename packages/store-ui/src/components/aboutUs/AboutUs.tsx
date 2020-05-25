@@ -16,15 +16,13 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
     { url: '/about', title: t('pages.aboutUs') },
   ]);
 
-  React.useEffect(() => {}, []);
-
   let paragraphs;
   if (aboutUs && aboutUs.description) {
     paragraphs = aboutUs.description.split(/\n/);
   }
 
   return (
-    <Page maxWidth={1} title={t('pages.aboutUs')}>
+    <Page maxWidth={1280} title={t('pages.aboutUs')}>
       {paragraphs ? (
         paragraphs.map(paragraph => {
           return (

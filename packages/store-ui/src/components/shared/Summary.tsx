@@ -103,7 +103,9 @@ export const Summary = ({
       <Divider bg='mutedText.light' />
       <Flex flexDirection='row' justifyContent='space-between'>
         <Text>{t('finance.total')}</Text>
-        <Text strong>{prices.total} ден</Text>
+        <Text strong color='primary'>
+          {prices.total} ден
+        </Text>
       </Flex>
 
       {onCheckout && (

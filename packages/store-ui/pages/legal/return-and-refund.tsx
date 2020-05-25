@@ -38,7 +38,11 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
         title={title}
         description={getTextSnippet(returnAndRefundPolicy)}
       />
-      <LegalContent title={title} body={returnAndRefundPolicy} />
+      <LegalContent
+        url='/legal/return-and-refund'
+        title={title}
+        body={returnAndRefundPolicy}
+      />
     </>
   );
 };

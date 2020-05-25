@@ -12,12 +12,9 @@ import {
   hooks,
   utils,
 } from '@sradevski/blocks-ui';
-import {
-  Product as ProductType,
-  ProductSet as ProductSetType,
-} from '@sradevski/la-sdk/dist/models/product';
+import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { Price } from '../shared/Price';
+import { Price } from '../shared/product/Price';
 import { ProductSet } from '../sets/ProductSet';
 import { Thumbnails } from '../shared/Thumbnails';
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,7 +31,8 @@ import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { ProductDetails } from './ProductDetails';
-import { ProductTags } from '../shared/ProductTags';
+import { ProductTags } from '../shared/product/ProductTags';
+import { ManagedSets } from '../sets/ManagedSets';
 
 interface ProductProps {
   product: ProductType;
@@ -69,7 +67,6 @@ export const Product = ({ product }: ProductProps) => {
   const { t } = useTranslation();
   const outOfStock = product.stock === 0;
 
-  const [productSets, setProductSets] = useState<ProductSetType[]>([]);
   const [selectedImage, setSelectedImage] = useState(
     sdk.artifact.getUrlForArtifact(product.images[0], store._id),
   );
@@ -119,17 +116,6 @@ export const Product = ({ product }: ProductProps) => {
 
     setTrackedEvent(true);
   }, [product, trackedEvent]);
-
-  useEffect(() => {
-    if (!store) {
-      return;
-    }
-
-    caller(
-      sdk.product.getProductSetsForStore(store._id, [{ name: 'latest' }]),
-      setProductSets,
-    );
-  }, [store]);
 
   useEffect(() => {
     setSelectedImage(
@@ -265,18 +251,18 @@ export const Product = ({ product }: ProductProps) => {
             </Box>
           </Flex>
         </Flex>
-        <Box my={6}>
-          {productSets
-            .filter(set => Boolean(set.data))
-            .map(set => (
-              <ProductSet
-                set={set}
-                storeId={store._id}
-                key={set.setTag.name + (set.setTag.value || '')}
-              />
-            ))}
-        </Box>
       </Spin>
+
+      <ManagedSets
+        mt={7}
+        storeId={store._id}
+        setTags={[
+          {
+            name: 'category',
+            value: product.category,
+          },
+        ]}
+      />
     </Page>
   );
 };
