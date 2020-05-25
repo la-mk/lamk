@@ -209,6 +209,7 @@
 	},
 
 	"sets": {
+		"discounted": "Products on sale",
 		"latest": "Latest products",
 		"selectedCategories": "Picked categories",
 		"selectedCategoriesExplanation": "Categories picked just for you"

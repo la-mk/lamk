@@ -209,6 +209,7 @@
 	},
 
 	"sets": {
+		"discounted": "Производи на попуст",
 		"latest": "Најнови производи",
 		"selectedCategories": "Одбрани категории",
 		"selectedCategoriesExplanation": "Категории одбрани само за вас"

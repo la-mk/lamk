@@ -266,6 +266,9 @@
 		"thanksForContactDetails": "We will get back to you as soon as possible",
 		"messageExplanation": "Tell us more about your business or question"
 	},
+	"legal": {
+		"legalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores"
+	},
 	"onboarding": {
 		"setupDeliverySubtitle": "Don't worry, you can modify things later as well.",
 		"setupDeliveryTitle": "Finally, let's tell users about our delivery",

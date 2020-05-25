@@ -266,6 +266,9 @@
     "thanksForContactDetails": "Ќе се обидеме да стапиме во контакт што е можно побрзо.",
     "messageExplanation": "Кажете ни повеќе за вашиот бизнис или прашање"
 	},
+	"legal": {
+		"legalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores"
+	},
 	"onboarding": {
 		"setupDeliverySubtitle": "Истите подесувања можат да се направат и подоцна",
 		"setupDeliveryTitle": "За крај, ајде да ги информираме корисниците за достава",
