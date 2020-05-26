@@ -7,6 +7,7 @@ import {
   dailyStoreVisitTask,
 } from './analyticsTasks';
 import { subDays } from 'date-fns';
+import { logger } from '../common/logger';
 
 const everyDayAfterMidnight = '30 0 * * *';
 
@@ -62,10 +63,13 @@ const scheduleAnalyticsTasks = async (agenda: Agenda) => {
 };
 
 export const initScheduler = async (app: Application) => {
+  logger.info('Initializing scheduler...');
   const agenda = new Agenda({
     mongo: app.get('mongoDb'),
     db: { collection: 'schedulerJobs' },
   }).name('analytics-agenda');
+
+  app.set('scheduler', agenda);
 
   defineAnalyticsTasks(agenda, app);
 

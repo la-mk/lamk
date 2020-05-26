@@ -72,6 +72,7 @@
     "@feathersjs/feathers": "^4.5.1",
     "@feathersjs/socket-commons": "^3.1.5",
     "@feathersjs/socketio": "^4.5.1",
+    "@godaddy/terminus": "^4.4.1",
     "@sendgrid/mail": "^6.5.3",
     "@sradevski/la-sdk": "0.0.78",
     "@sradevski/nlp": "0.0.1",

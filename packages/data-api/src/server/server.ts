@@ -49,7 +49,7 @@ export default async () => {
   initPostRouteMiddlewares(app);
   initErrorHandlingMiddlewares(app);
 
-  initScheduler(app);
+  await initScheduler(app);
 
   return app;
 };
