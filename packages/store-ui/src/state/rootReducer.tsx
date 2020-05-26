@@ -1,10 +1,10 @@
-import store from './modules/store/store.persist';
+import store from './modules/store/store.module';
 import cart from './modules/cart/cart.persist';
 import user from './modules/user/user.module';
 import ui from './modules/ui/ui.module';
-import delivery from './modules/delivery/delivery.persist';
+import delivery from './modules/delivery/delivery.module';
 import campaigns from './modules/campaigns/campaigns.module';
-import categories from './modules/categories/categories.persist';
+import categories from './modules/categories/categories.module';
 import { routerReducer } from 'connected-next-router';
 import { combineReducers } from 'redux';
 

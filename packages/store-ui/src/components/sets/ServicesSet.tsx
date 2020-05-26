@@ -33,9 +33,12 @@ export const ServicesSet = ({ services }: ServicesSetProps) => {
             borderRadius={0}
             alignItems='center'
             justifyContent='center'
+            px={[3, 4, 4]}
           >
-            {!!service.icon && service.icon}
-            <Flex px={5} py={4} flexDirection='column'>
+            <Text mr={2} color='text.light'>
+              {!!service.icon && service.icon}
+            </Text>
+            <Flex ml={2} py={4} flexDirection='column'>
               <Text fontSize={[3, 3, 4]} color='text.light'>
                 {service.title}
               </Text>
