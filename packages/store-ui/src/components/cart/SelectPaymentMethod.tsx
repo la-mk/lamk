@@ -78,7 +78,7 @@ export const SelectPaymentMethod = ({
                         fontSize={[0, 1, 1]}
                         color={isChecked ? 'heading.light' : 'heading.dark'}
                       >
-                        Blah some explanation
+                        {t(`paymentMethodNames.${method.name}Explanation`)}
                       </Text>
                     </Flex>
                   </Flex>
