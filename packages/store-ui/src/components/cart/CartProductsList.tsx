@@ -105,19 +105,24 @@ export const CartProductsList = ({
   return (
     <Flex width='100%' flexDirection='column'>
       <Box display={['block', 'none', 'none']}>
-        <List style={{ width: '100%' }}>
+        <Flex
+          alignItems='center'
+          justifyContent='center'
+          flexDirection='column'
+        >
           {cartItems.map(cartItem => (
-            <List.Item
-              style={{ justifyContent: 'center' }}
-              key={cartItem.product._id}
-            >
+            <>
+              <Divider mt={0} />
+
               <Flex
+                key={cartItem.product._id}
                 minWidth={320}
                 px={3}
+                mb={5}
                 flexDirection='column'
                 style={{ position: 'relative' }}
               >
-                <Box style={{ position: 'absolute', top: 0, right: 0 }}>
+                <Box style={{ position: 'absolute', top: -20, right: 0 }}>
                   <Button type='link' onClick={() => handleRemove(cartItem)}>
                     <DeleteOutlined />
                   </Button>
@@ -147,9 +152,11 @@ export const CartProductsList = ({
                   </Text>
                 </Box>
               </Flex>
-            </List.Item>
+            </>
           ))}
-        </List>
+        </Flex>
+
+        <Divider mt={0} />
       </Box>
 
       <Box display={['none', 'block', 'block']}>
