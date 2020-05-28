@@ -52,7 +52,8 @@
     "updatingCampaignTip": "Кампањата се обновува..."
   },
   "campaignBanners": {
-    "allDiscount": "ПРОМОЦИЈА: {{rewardValue}} попуст на сите порачки, пресметано на каса"
+    "allDiscountSubtitle": "Сите попусти се пресметуваат на каса",
+    "allDiscountTitle": "{{rewardValue}} попуст на сите порачки"
   },
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
@@ -307,7 +308,9 @@
   },
   "paymentMethodNames": {
     "creditCard": "Кредитна картичка",
-    "payOnDelivery": "Наплата при достава"
+    "creditCardExplanation": "Безбедно и брзо плаќање",
+    "payOnDelivery": "Наплата при достава",
+    "payOnDeliveryExplanation": "Платете во готово"
   },
   "paymentProcessors": {
     "halkbank": "Халкбанк"
@@ -332,7 +335,13 @@
     "updatingProductTip": "Производот се обновува..."
   },
   "sets": {
-    "latest": "Најнови производи"
+    "categoryExplanation": "Категории кои ќе ви се допаднат",
+    "discounted": "Производи на попуст",
+    "discountedExplanation": "Производи по најдобри цени",
+    "latest": "Најнови производи",
+    "latestExplanation": "Производи кои штотоку ги добивме",
+    "selectedCategories": "Одбрани категории",
+    "selectedCategoriesExplanation": "Категории одбрани само за вас"
   },
   "store": {
     "aboutUs": "За нас",

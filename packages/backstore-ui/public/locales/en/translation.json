@@ -52,7 +52,8 @@
     "updatingCampaignTip": "Updating product..."
   },
   "campaignBanners": {
-    "allDiscount": "SALE: {{rewardValue}} off on all orders, applied on checkout"
+    "allDiscountSubtitle": "All discounts are calculated on checkout",
+    "allDiscountTitle": "{{rewardValue}} off on all orders"
   },
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
@@ -307,7 +308,9 @@
   },
   "paymentMethodNames": {
     "creditCard": "Credit card",
-    "payOnDelivery": "Pay on delivery"
+    "creditCardExplanation": "Secure and easy payment",
+    "payOnDelivery": "Pay on delivery",
+    "payOnDeliveryExplanation": "Pay in cash"
   },
   "paymentProcessors": {
     "halkbank": "Halkbank"
@@ -332,7 +335,13 @@
     "updatingProductTip": "Updating product..."
   },
   "sets": {
-    "latest": "Latest products"
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
   },
   "store": {
     "aboutUs": "About us",
