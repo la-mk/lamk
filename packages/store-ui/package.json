@@ -25,11 +25,11 @@
     ]
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.5",
+    "@ant-design/icons": "^4.1.0",
     "@sradevski/analytics": "0.0.7",
     "@sradevski/blocks-ui": "0.0.67",
     "@sradevski/la-sdk": "0.0.79",
-    "antd": "^4.1.0",
+    "antd": "^4.2.5",
     "bezier-easing": "^2.1.0",
     "connected-next-router": "^1.0.2",
     "date-fns": "^2.9.0",
@@ -37,12 +37,12 @@
     "express": "^4.17.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
-    "next": "^9.4.2",
-    "next-i18next": "^4.2.0",
+    "next": "^9.4.4",
+    "next-i18next": "^4.4.2",
     "next-redux-wrapper": "^5.0.0",
     "qs": "^6.9.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
@@ -58,9 +58,9 @@
     "@types/next-redux-wrapper": "^3.0.0",
     "@types/node": "^12.12.7",
     "@types/qs": "^6.9.1",
-    "@types/react": "^16.9.22",
+    "@types/react": "^16.9.35",
     "@types/styled-components": "^5.0.0",
-    "@types/styled-system": "^5.1.7",
+    "@types/styled-system": "^5.1.9",
     "@typescript-eslint/parser": "^2.20.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "@zeit/next-less": "^1.0.1",
@@ -79,6 +79,6 @@
     "null-loader": "^3.0.0",
     "prettier": "^2.0.5",
     "ts-node": "^8.6.2",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   }
 }

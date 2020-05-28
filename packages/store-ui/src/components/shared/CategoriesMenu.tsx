@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { MenuProps } from 'antd/es/menu';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { getQueryForCategories } from '../../common/filterUtils';
+import { CheckOutlined } from '@ant-design/icons';
 
 export interface CategoriesMenuProps {
   mode: MenuProps['mode'];
@@ -72,14 +73,29 @@ export const CategoriesMenu = ({
                   title={level2Category.label}
                 >
                   {level2Category.children.map(level3Category => {
+                    const isSelected =
+                      selectedKeys &&
+                      selectedKeys.includes(level3Category.value);
+
                     return (
                       <MenuItem
                         key={level3Category.value}
                         title={level3Category.label}
                       >
+                        {/* Compensate for the checkmark by moving the button to the left */}
                         {onSelect && (
-                          <Button type='link'>
-                            <Text>{level3Category.label}</Text>
+                          <Button ml={-20} type='link'>
+                            <Text
+                              fontSize={0}
+                              color={isSelected ? 'primary' : 'text.dark'}
+                            >
+                              <CheckOutlined
+                                style={{
+                                  color: isSelected ? 'inherit' : 'transparent',
+                                }}
+                              />
+                              {level3Category.label}
+                            </Text>
                           </Button>
                         )}
                         {!onSelect && (
@@ -90,7 +106,7 @@ export const CategoriesMenu = ({
                             ])}`}
                           >
                             <Button type='link'>
-                              <Text>{level3Category.label}</Text>
+                              <Text fontSize={0}>{level3Category.label}</Text>
                             </Button>
                           </Link>
                         )}

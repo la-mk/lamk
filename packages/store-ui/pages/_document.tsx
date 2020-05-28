@@ -22,8 +22,13 @@ const GlobalStyle = createGlobalStyle`
     border: none !important;
   }
 
-  .ant-tabs-tabpane:focus {
-    outline: none;
+  .ant-menu-item-selected {
+    background-color: transparent !important;
+    
+  }
+
+  .ant-menu-item::after {
+    border: 0 !important;
   }
 
   input {

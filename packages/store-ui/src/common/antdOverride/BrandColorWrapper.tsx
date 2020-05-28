@@ -279,16 +279,16 @@ const StyleHolder = createGlobalStyle<{
       ${props => props.color}
     );
   }
+  .ant-menu-inline .ant-menu-submenu-selected,
+  .ant-menu-vertical .ant-menu-submenu-selected > a,
+  .ant-menu-vertical-left .ant-menu-submenu-selected > a,
+  .ant-menu-vertical-right .ant-menu-submenu-selected > a,
   .ant-menu-vertical .ant-menu-submenu-selected,
   .ant-menu-vertical-left .ant-menu-submenu-selected,
   .ant-menu-vertical-right .ant-menu-submenu-selected {
     color: ${props => props.color};
   }
-  .ant-menu-vertical .ant-menu-submenu-selected > a,
-  .ant-menu-vertical-left .ant-menu-submenu-selected > a,
-  .ant-menu-vertical-right .ant-menu-submenu-selected > a {
-    color: ${props => props.color};
-  }
+
   .ant-menu-horizontal > .ant-menu-item:hover,
   .ant-menu-horizontal > .ant-menu-submenu:hover,
   .ant-menu-horizontal > .ant-menu-item-active,
