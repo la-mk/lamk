@@ -201,7 +201,9 @@
 
 	"paymentMethodNames": {
 		"creditCard": "Credit card",
-		"payOnDelivery": "Pay on delivery"
+		"creditCardExplanation": "Secure and easy payment",
+		"payOnDelivery": "Pay on delivery",
+		"payOnDeliveryExplanation": "Pay in cash"
 	},
 	
 	"paymentProcessors": {
