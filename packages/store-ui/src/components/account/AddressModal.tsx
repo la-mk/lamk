@@ -1,20 +1,31 @@
 import React from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { Modal } from '@sradevski/blocks-ui';
-import { Addresses } from './Addresses';
 import { useTranslation } from '../../common/i18n';
+import { AddressForm } from './AddressForm';
+import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 
 interface AddressesModalProps {
   user: User;
+  address?: Address;
   visible: boolean;
   onClose: () => void;
+  onAddAddress: (address: Address) => void;
+  onPatchAddress: (address: Address) => void;
 }
-export const AddressesModal = ({
+export const AddressModal = ({
   user,
+  address,
   visible,
   onClose,
+  onAddAddress,
+  onPatchAddress,
 }: AddressesModalProps) => {
   const { t } = useTranslation();
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Modal
@@ -26,7 +37,12 @@ export const AddressesModal = ({
       onCancel={onClose}
       title={t('common.address_plural')}
     >
-      <Addresses user={user} />
+      <AddressForm
+        userId={user?._id}
+        address={address}
+        onAddAddress={onAddAddress}
+        onPatchAddress={onPatchAddress}
+      />
     </Modal>
   );
 };

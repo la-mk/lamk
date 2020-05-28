@@ -15,7 +15,6 @@ import {
 import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { Price } from '../shared/product/Price';
-import { ProductSet } from '../sets/ProductSet';
 import { Thumbnails } from '../shared/Thumbnails';
 import { useSelector, useDispatch } from 'react-redux';
 import { Cart } from '@sradevski/la-sdk/dist/models/cart';
@@ -33,6 +32,8 @@ import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { ProductDetails } from './ProductDetails';
 import { ProductTags } from '../shared/product/ProductTags';
 import { ManagedSets } from '../sets/ManagedSets';
+import { getDelivery } from '../../state/modules/delivery/delivery.selector';
+import { setDelivery } from '../../state/modules/delivery/delivery.module';
 
 interface ProductProps {
   product: ProductType;
@@ -60,6 +61,8 @@ export const Product = ({ product }: ProductProps) => {
   const cart = useSelector(getCartWithProducts);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
+  const delivery = useSelector(getDelivery);
+
   const previousPage = useSelector<string | undefined>(getPreviousPage);
 
   const [trackedEvent, setTrackedEvent] = useState(false);
@@ -89,6 +92,14 @@ export const Product = ({ product }: ProductProps) => {
       title: product.name.slice(0, 40),
     },
   ]);
+
+  useEffect(() => {
+    if (!delivery) {
+      caller(sdk.delivery.findForStore(store._id), deliveries => {
+        return setDelivery(deliveries.data[0] ?? null);
+      });
+    }
+  }, [delivery, store._id]);
 
   useEffect(() => {
     if (!product || trackedEvent) {
@@ -247,7 +258,7 @@ export const Product = ({ product }: ProductProps) => {
             </Flex>
 
             <Box mx={[3, 0, 0]} mt={4}>
-              <ProductDetails product={product} />
+              <ProductDetails product={product} delivery={delivery} />
             </Box>
           </Flex>
         </Flex>

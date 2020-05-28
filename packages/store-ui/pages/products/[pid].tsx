@@ -54,10 +54,11 @@ const ProductPage = ({
   );
 };
 
-ProductPage.getInitialProps = async function(
+ProductPage.getInitialProps = async function (
   ctx: NextPageContext & { store: any },
 ) {
   const store = getStore(ctx.store.getState());
+
   if (ctx.query.pid) {
     const product = await sdk.product
       .get(ctx.query.pid as string)

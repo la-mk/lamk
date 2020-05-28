@@ -3,7 +3,7 @@ import { Flex, Text } from '@sradevski/blocks-ui';
 
 interface ServicesSetProps {
   services: Array<{
-    icon?: string;
+    icon?: React.ReactElement;
     title: string;
     subtitle: string;
   }>;

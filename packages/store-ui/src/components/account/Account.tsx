@@ -27,6 +27,7 @@ interface AccountProps {
 export const Account = ({ user }: AccountProps) => {
   const [caller, showSpinner] = hooks.useCall();
   const [tab, setTab] = useState('personal');
+  const [showAddAddressModal, setShowAddAddressModal] = useState(false);
   const { t } = useTranslation();
 
   useBreadcrumb([
@@ -87,7 +88,16 @@ export const Account = ({ user }: AccountProps) => {
           </Spin>
         </TabPane>
         <TabPane pt={4} tab={t('common.address_plural')} key='addresses'>
-          <Addresses user={user} />
+          <Flex mb={4} alignItems='center' justifyContent='center'>
+            <Button type='primary' onClick={() => setShowAddAddressModal(true)}>
+              {t('address.addNewAddress')}
+            </Button>
+          </Flex>
+          <Addresses
+            user={user}
+            showAddModal={showAddAddressModal}
+            setShowAddModal={setShowAddAddressModal}
+          />
         </TabPane>
       </Tabs>
     </Page>

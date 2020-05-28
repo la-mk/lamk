@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Card, Empty, Spin, hooks, Box } from '@sradevski/blocks-ui';
+import { Flex, Empty, Spin, hooks, Box } from '@sradevski/blocks-ui';
 import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
@@ -216,7 +216,6 @@ export const Checkout = () => {
             />
             <Box mt={3}>
               <SelectAddress
-                addresses={addresses}
                 deliverTo={deliverTo}
                 setDeliverTo={setDeliverTo}
                 user={user}

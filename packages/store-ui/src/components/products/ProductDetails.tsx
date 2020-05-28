@@ -3,8 +3,15 @@ import { Tabs, TabPane, Paragraph, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { BorderlessTabs } from '../shared/components/BorderlessTabs';
+import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 
-export const ProductDetails = ({ product }: { product: Product }) => {
+export const ProductDetails = ({
+  product,
+  delivery,
+}: {
+  product: Product;
+  delivery: Delivery;
+}) => {
   const { t } = useTranslation();
   const [tab, setTab] = useState('description');
 
@@ -41,7 +48,9 @@ export const ProductDetails = ({ product }: { product: Product }) => {
         key='delivery'
       >
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-          Delivered in 1-2 days
+          {`Get it delivered to your home for ${delivery?.price} ден.
+
+          All orders over ${delivery?.freeDeliveryOver} are free of charge!`}
         </Paragraph>
       </TabPane>
     </BorderlessTabs>

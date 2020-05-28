@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Row, Col, message, Spin, hooks } from '@sradevski/blocks-ui';
+import { message, Spin, hooks, Flex, Button, Text } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
-import { AddAddressCard } from './AddAddressCard';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { pickDiff } from '../../common/utils';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,14 +11,29 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
+import { SelectableCard } from '../shared/SelectableCard';
+import { CustomCard } from '../shared/components/CustomCard';
+import { ShippingDescription } from '../shared/ShippingDescription';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { AddressModal } from './AddressModal';
 
 interface AddressesProps {
   user: User;
+  showAddModal: boolean;
+  setShowAddModal: (show: boolean) => void;
+  onSelected?: (address: Address) => void;
+  selectedAddress?: Address;
 }
 
-export const Addresses = ({ user }: AddressesProps) => {
-  const [shouldResetAddressForm, setShouldResetAddressForm] = useState(false);
+export const Addresses = ({
+  user,
+  showAddModal,
+  setShowAddModal,
+  onSelected,
+  selectedAddress,
+}: AddressesProps) => {
   const [caller, showSpinner] = hooks.useCall();
+  const [addressToEdit, setAddressToEdit] = useState<Address | undefined>();
   const addresses = useSelector(getAddresses);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -39,7 +53,7 @@ export const Addresses = ({ user }: AddressesProps) => {
       sdk.address.create({ addressFor: user._id, ...address }),
       (address: Address) => {
         message.success(t('address.createAddressSuccess'));
-        setShouldResetAddressForm(x => !x);
+        setShowAddModal(false);
 
         dispatch(
           trackEvent({
@@ -68,6 +82,8 @@ export const Addresses = ({ user }: AddressesProps) => {
       sdk.address.patch(patchedAddress._id, updatedFields),
       (address: Address) => {
         message.success(t('address.updateAddressSuccess'));
+        setShowAddModal(false);
+        setAddressToEdit(undefined);
         return setAddresses([
           ...addresses.filter(address => address._id !== patchedAddress._id),
           address,
@@ -85,40 +101,79 @@ export const Addresses = ({ user }: AddressesProps) => {
     });
   };
 
-  return (
-    <Spin spinning={showSpinner}>
-      <Row
-        align='top'
-        justify='center'
-        gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
-      >
-        {addresses &&
-          addresses.map(address => {
-            return (
-              <Col key={address._id} mb={4}>
-                <AddAddressCard
-                  userId={user._id}
-                  address={address}
-                  resetAddressForm={false}
-                  onAddAddress={handleAddAddress}
-                  onPatchAddress={handlePatchAddress}
-                  onRemoveAddress={handleRemoveAddress}
-                />
-              </Col>
-            );
-          })}
+  const CardForAddress = onSelected ? SelectableCard : CustomCard;
 
-        <Col mb={4}>
-          <AddAddressCard
-            userId={user._id}
-            address={undefined}
-            resetAddressForm={shouldResetAddressForm}
-            onAddAddress={handleAddAddress}
-            onPatchAddress={handlePatchAddress}
-            onRemoveAddress={handleRemoveAddress}
-          />
-        </Col>
-      </Row>
-    </Spin>
+  return (
+    <>
+      <Spin spinning={showSpinner}>
+        <Flex flexDirection='column'>
+          {addresses &&
+            addresses.map(address => {
+              const isChecked =
+                selectedAddress && selectedAddress._id === address._id;
+              return (
+                <CardForAddress
+                  key={address._id}
+                  isChecked={isChecked}
+                  onClick={onSelected ? () => onSelected(address) : undefined}
+                  width='100%'
+                  mb={3}
+                >
+                  <ShippingDescription
+                    inverse={isChecked}
+                    address={address}
+                    actions={
+                      <Flex>
+                        <Button
+                          onClick={e => {
+                            e.stopPropagation();
+                            setAddressToEdit(address);
+                            setShowAddModal(true);
+                          }}
+                          type='link'
+                        >
+                          <Text
+                            fontSize={2}
+                            color={isChecked ? 'heading.light' : 'heading.dark'}
+                          >
+                            <EditOutlined />
+                          </Text>
+                        </Button>
+
+                        <Button
+                          onClick={e => {
+                            e.stopPropagation();
+                            handleRemoveAddress(address._id);
+                          }}
+                          type='link'
+                        >
+                          <Text
+                            fontSize={2}
+                            color={isChecked ? 'heading.light' : 'heading.dark'}
+                          >
+                            <DeleteOutlined />
+                          </Text>
+                        </Button>
+                      </Flex>
+                    }
+                  />
+                </CardForAddress>
+              );
+            })}
+        </Flex>
+      </Spin>
+
+      <AddressModal
+        user={user}
+        address={addressToEdit}
+        visible={showAddModal}
+        onAddAddress={handleAddAddress}
+        onPatchAddress={handlePatchAddress}
+        onClose={() => {
+          setShowAddModal(false);
+          setAddressToEdit(undefined);
+        }}
+      />
+    </>
   );
 };

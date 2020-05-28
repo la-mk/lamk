@@ -22,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
     border: none !important;
   }
 
+  .ant-tabs-tabpane:focus {
+    outline: none;
+  }
+
   input {
     line-height: inherit;
     font: inherit;
