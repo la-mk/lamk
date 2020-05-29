@@ -43,7 +43,7 @@ export const CategorySet = ({
                     position: 'relative',
                   }}
                   url={sdk.artifact.getUrlForArtifact(
-                    categoryName,
+                    `${categoryName}.jpg`,
                     'categories',
                   )}
                 >

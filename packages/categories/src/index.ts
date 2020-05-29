@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import util from 'util';
 import csvtojson from 'csvtojson';
 import Bluebird from 'bluebird';
 import { setupSdk, sdk } from '@sradevski/la-sdk';
@@ -31,7 +30,7 @@ export const importCategories = async (
 
       if (categoryExists.total > 0) {
         console.log(
-          'Product already exists: ',
+          'Category already exists: ',
           category.level1,
           category.level2,
           category.level3
@@ -59,31 +58,48 @@ const flatlist = (categories: Array<Category>) => {
   return Array.from(new Set(list));
 };
 
-const promisifiedReadFile = util.promisify(fs.readFile);
-
 const loadDataFromPath = (dataPath: string) => {
-  return promisifiedReadFile(path.normalize(dataPath), { encoding: 'utf8' });
+  return fs.promises.readFile(path.normalize(dataPath), { encoding: 'utf8' });
 };
 
-const main = async ([action, dataPath]: string[]) => {
+const loadImagesFromPath = (imageDir: string) => {
+  return fs.promises.readdir(path.normalize(imageDir));
+}
+
+const main = async ([action, dataPath, imagesPath]: string[]) => {
   const categoriesData = await loadDataFromPath(dataPath);
-  const categoriesAsJson = await csvtojson({ noheader: false }).fromString(
+  const categoriesAsJson: Category[] = await csvtojson({ noheader: false }).fromString(
     categoriesData
   );
-  switch (action) {
-    case 'import':
-      return importCategories(categoriesAsJson).then(categories =>
-        console.log(
-          `Imported ${
-            categories.filter(x => Object.keys(x).length > 0).length
-          } out of ${categories.length} categories`
-        )
-      );
 
-    case 'flatlist':
+  switch (action) {
+    case 'import': {
+      const categories = await importCategories(categoriesAsJson)
+      
+      console.log(
+        `Imported ${
+          categories.filter(x => Object.keys(x).length > 0).length
+        } out of ${categories.length} categories`
+      )
+      return;
+    }
+
+    case 'flatlist': {
       const list = flatlist(categoriesAsJson);
       process.stdout.write(list.join('\n'));
       return;
+    }
+
+    case 'imgcompare': {
+      const level2Categories = Array.from(new Set(categoriesAsJson.map(category => category.level2)));
+      const images = (await loadImagesFromPath(imagesPath)).map(img => img.split('.')[0]);
+      console.log("Categories for which there are no images: \n")
+      process.stdout.write(level2Categories.filter(x => !images.includes(x)).join('\n'));
+
+      console.log("\n\nImages for which there are no categories: \n")
+      process.stdout.write(images.filter(x => !level2Categories.includes(x)).join('\n'));
+      return;
+    }
 
     default:
       throw new Error('Action not specified.');
