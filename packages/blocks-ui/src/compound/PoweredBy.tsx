@@ -1,5 +1,7 @@
 import React from 'react';
-import { Image, Flex, Text } from '../';
+import { Flex } from '../basic/Flex';
+import { Image } from '../basic/Image/Image';
+import { Text } from '../basic/Typography';
 
 export const PoweredBy = ({ inverse, logoUrl }: { inverse?: boolean, logoUrl: string; }) => {
   return (

@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  CollapsePanel,
-  Collapse,
-  Box,
-  Flex,
-  Button,
-  Text,
-  Title,
-} from '../..';
+import { CollapsePanel, Collapse } from '../../basic/Collapse';
+import { Text, Title } from '../../basic/Typography';
+import { Button } from '../../basic/Button';
+import { Flex } from '../../basic/Flex';
+import { Box } from '../../basic/Box';
 import styled from 'styled-components';
 
 export interface Menu {
@@ -65,7 +61,13 @@ const CollapsePanelContainer = styled(Box)`
   }
 `;
 
-export const FooterContent = ({ menus, Link }: { menus: Menu[]; Link: any }) => {
+export const FooterContent = ({
+  menus,
+  Link,
+}: {
+  menus: Menu[];
+  Link: any;
+}) => {
   return (
     <>
       <Box mt={[3, 0, 0]} display={['none', 'none', 'flex']}>
