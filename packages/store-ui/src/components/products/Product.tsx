@@ -227,7 +227,7 @@ export const Product = ({ product }: ProductProps) => {
                     min={1}
                     max={product.stock || 999}
                     value={quantity}
-                    onChange={setQuantity}
+                    onChange={(val: number) => setQuantity(val)}
                     mr={2}
                   />
                 </>

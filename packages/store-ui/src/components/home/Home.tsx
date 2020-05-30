@@ -70,7 +70,7 @@ export const Home = ({
 
   return (
     <>
-      <Banner banner={landingContent.banner} storeId={store._id} />
+      <Banner banner={landingContent.banner} store={store} />
 
       <Flex mt={7} flexDirection='column'>
         {categoriesForSet.length > 1 && (

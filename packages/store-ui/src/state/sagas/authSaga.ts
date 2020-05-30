@@ -8,7 +8,6 @@ import {
   select,
   delay,
 } from 'redux-saga/effects';
-import { LocationChangeAction } from 'connected-next-router';
 import { sdk } from '@sradevski/la-sdk';
 import jwtDecode from 'jwt-decode';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
@@ -20,6 +19,7 @@ import { getCartWithProducts } from '../modules/cart/cart.selector';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { message } from 'antd';
 import { getStore } from '../modules/store/store.selector';
+import { LocationChangeAction } from 'connected-next-router/actions';
 
 function* afterAuthSaga(authInfo: any, wasAuthenticated: boolean = false) {
   yield put(toggleAuthModal(false));

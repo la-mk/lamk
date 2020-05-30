@@ -75,7 +75,7 @@ export const CategoriesMenu = ({
                   {level2Category.children.map(level3Category => {
                     const isSelected =
                       selectedKeys &&
-                      selectedKeys.includes(level3Category.value);
+                      selectedKeys.includes(level3Category.value as string);
 
                     return (
                       <MenuItem
@@ -102,7 +102,7 @@ export const CategoriesMenu = ({
                           <Link
                             key={level3Category.value}
                             href={`/products?${getQueryForCategories([
-                              level3Category.value,
+                              level3Category.value as string,
                             ])}`}
                           >
                             <Button type='link'>
