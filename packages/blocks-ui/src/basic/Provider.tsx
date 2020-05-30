@@ -9,8 +9,8 @@ interface LocalizationContext {
   password?: string;
   login?: string;
   signup?: string;
-  noAccount?: string;
-  alreadyHaveAccount?: string;
+  or?: string;
+  authSameAccount?: string;
 }
 
 export const LocalizationContext = React.createContext<LocalizationContext>({});

@@ -31,7 +31,7 @@ const FlexGridBase = <T extends any>({
           alignItems='center'
           flexWrap='wrap'
           flexDirection='row'
-          mb={2}
+          mb={4}
         >
           {items.map((entry: any) => {
             return <React.Fragment key={entry[rowKey]}>{renderItem(entry)}</React.Fragment>;

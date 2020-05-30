@@ -41,7 +41,7 @@ export const Flex = system<FlexProps>(
     ${justifyContent};
     ${borderRadius}
 
-    display: flex !important;
+    display: flex;
   ` as any,
   ['color']
 );

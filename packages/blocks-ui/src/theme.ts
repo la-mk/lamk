@@ -7,6 +7,7 @@ const theme = {
     secondary: '#07074F',
     
     danger: '#FF3838',
+    success: '#5CB85C',
 
     heading: {
       light: '#FFFFFF',

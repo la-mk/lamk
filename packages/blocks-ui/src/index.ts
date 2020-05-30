@@ -51,8 +51,8 @@ export { Text, Title, Paragraph } from './basic/Typography';
 export { Upload, UploadDragger } from './basic/Upload';
 
 export { formInput, formTextArea, parsers } from './compound/FormHelpers';
-export { LoginForm } from './compound/LoginForm';
-export { SignupForm } from './compound/SignupForm';
+export { LoginForm } from './compound/forms/LoginForm';
+export { SignupForm } from './compound/forms/SignupForm';
 export { UploadContent } from './compound/UploadContent';
 export {HeadElements} from './compound/HeadElements'
 export {FooterContent} from './compound/FooterContent'
