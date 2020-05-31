@@ -49,8 +49,8 @@
     "addedToCart": "Додадено во корпа",
     "cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
     "emptyCartDescription": "Вашата корпа е празна",
-    "orderNumber": "Број на порачка: {{orderId}}.",
-    "orderSuccess": "Вашата порачка беше успешна!",
+    "orderSuccess": "Вашата порачка беше успешна",
+    "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\"",
     "productAlreadyInCart": "Производот е веќе во корпата"
   },
   "categories": {
@@ -213,6 +213,10 @@
   "countries": {
     "mk": "Македонија"
   },
+  "delivery": {
+    "productDeliveryCost": "Достава до вашиот дом за {{deliveryPrice}}",
+    "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од Карго",
     "door-to-door": "Достава до дома",
@@ -321,7 +325,7 @@
     "inStock": "Има залиха",
     "new": "Ново",
     "outOfStock": "Распродадено",
-    "seeOtherProducts": "Видете други производи"
+    "seeOtherProducts": "Продолжете со купување"
   },
   "results": {
     "genericError": "Се појави грешка",
@@ -334,6 +338,14 @@
   "seoDescriptions": {
     "product_plural": "Купувајте онлајн производи од нашиот асортиман. Најбрз и најлесен начин за купување онлајн во Македонија. Нудиме висок квалитет, по најповолни цени. Придружете ни се сега.",
     "storeGeneric": "Најлесен начин да купувате онлајн во Македонија, од удобноста на вашиот дом. Онлајн шопингот никогаш не бил полесен. Купете сега."
+  },
+  "services": {
+    "freeDelivery": "Бесплатна достава",
+    "freeDeliveryExplanation": "Бесплатна достава над {{freeDeliveryPrice}}",
+    "returnPolicy": "Замена на производ",
+    "returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни",
+    "securePayments": "Безбедно плаќање",
+    "securePaymentsExplanation": "Брзи и лесни начини на плаќање"
   },
   "sets": {
     "categoryExplanation": "Категории кои ќе ви се допаднат",

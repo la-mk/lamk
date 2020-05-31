@@ -1,6 +1,8 @@
 import React from 'react';
 import { Flex, Text } from '@sradevski/blocks-ui';
 import { DeliveryTruck } from '../shared/icons/DeliveryTruck';
+import { TFunction } from 'next-i18next';
+import { useTranslation } from '../../common/i18n';
 
 interface Service {
   icon?: React.ReactElement;
@@ -8,23 +10,26 @@ interface Service {
   subtitle: string;
 }
 
-const services: Service[] = [
+const getServices = (t: TFunction, freeDeliveryPrice: number) => [
   {
-    title: 'Free shipping',
-    subtitle: 'Free shipping over 100$',
+    title: t('services.freeDelivery'),
+    subtitle: `${t('services.freeDeliveryExplanation', {
+      freeDeliveryPrice,
+    })} ден`,
     icon: <DeliveryTruck />,
   },
   {
-    title: 'Secure payments',
-    subtitle: 'Pay securely without a worry',
+    title: t('services.securePayments'),
+    subtitle: t('services.securePaymentsExplanation'),
   },
   {
-    title: 'Return policy',
-    subtitle: 'Return your products if you are not satisfied',
+    title: t('services.returnPolicy'),
+    subtitle: t('services.returnPolicyExplanation'),
   },
 ];
 
 export const ServicesSet = () => {
+  const { t } = useTranslation();
   return (
     <Flex
       py={[1, 2, 3]}
@@ -32,7 +37,7 @@ export const ServicesSet = () => {
       justifyContent='center'
       flexWrap='wrap'
     >
-      {services.map(service => {
+      {getServices(t, 1200).map(service => {
         return (
           <Flex
             key={service.title}
@@ -40,7 +45,7 @@ export const ServicesSet = () => {
             minWidth={320}
             maxWidth={420}
             height={160}
-            my={[4, 4, 0]}
+            my={[3, 3, 2]}
             mx={[2, 3, 4]}
             bg='background.dark'
             borderRadius={0}

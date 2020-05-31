@@ -15,6 +15,9 @@ export const ProductDetails = ({
   const { t } = useTranslation();
   const [tab, setTab] = useState('description');
 
+  const deliveryPrice = delivery?.price;
+  const freeDeliveryPrice = delivery?.freeDeliveryOver;
+
   return (
     <BorderlessTabs animated={false} activeKey={tab} onChange={setTab}>
       <TabPane
@@ -48,8 +51,16 @@ export const ProductDetails = ({
         key='delivery'
       >
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-          {`Get it delivered to your home for ${delivery?.price} ден.
-All orders over ${delivery?.freeDeliveryOver} ден are free of charge!`}
+          {t('delivery.productDeliveryCost', {
+            deliveryPrice,
+          })}{' '}
+          ден
+        </Paragraph>
+
+        <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+          {t('delivery.productFreeDeliveryExplanation', {
+            freeDeliveryPrice: `${freeDeliveryPrice} ден`,
+          })}
         </Paragraph>
       </TabPane>
     </BorderlessTabs>

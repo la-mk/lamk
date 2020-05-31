@@ -49,8 +49,8 @@
     "addedToCart": "Added to cart",
     "cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
     "emptyCartDescription": "You have no items in the cart",
-    "orderNumber": "Order number: {{orderId}}.",
-    "orderSuccess": "Your order was successful!",
+    "orderSuccess": "Your order has been placed",
+    "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
     "productAlreadyInCart": "Product already in cart"
   },
   "categories": {
@@ -213,6 +213,10 @@
   "countries": {
     "mk": "Macedonia"
   },
+  "delivery": {
+    "productDeliveryCost": "Get it delivered to your home for {{deliveryPrice}}",
+    "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",
@@ -268,7 +272,7 @@
     "orderNotFound_plural": "Orders not found",
     "ordered": "Ordered",
     "retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
-    "seeOrder": "See order"
+    "seeOrder": "See order status"
   },
   "orderStatus": {
     "cancelled": "Cancelled",
@@ -321,7 +325,7 @@
     "inStock": "In stock",
     "new": "New",
     "outOfStock": "Sold out",
-    "seeOtherProducts": "See other products"
+    "seeOtherProducts": "Continue shopping"
   },
   "results": {
     "genericError": "Error occured",
@@ -334,6 +338,14 @@
   "seoDescriptions": {
     "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",
     "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
+  },
+  "services": {
+    "freeDelivery": "Free delivery",
+    "freeDeliveryExplanation": "Free delivery over {{freeDeliveryPrice}}",
+    "returnPolicy": "Return policy",
+    "returnPolicyExplanation": "Return what you don't like, risk free",
+    "securePayments": "Secure payments",
+    "securePaymentsExplanation": "Fast and easy ways to pay"
   },
   "sets": {
     "categoryExplanation": "Categories you might like",

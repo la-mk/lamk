@@ -34,25 +34,23 @@ export const Success = withTheme(
         />
 
         <Title textAlign='center' mt={4} level={2} fontSize={4}>
-          Your Order Has Been Placed {/* t('cart.orderSuccess') */}
+          {t('cart.orderSuccess')}
         </Title>
         <Text textAlign='center' fontSize={0}>
-          {/*{t('cart.orderNumber', { orderId: order._id })}*/}
-          Your payment is complete. Please check the delivery status at Order
-          Tracking page
+          {t('cart.orderSuccessExplanation')}
         </Text>
 
         <Link passHref replace href='/products'>
           <Button size='large' mt={4} width='100%' type='primary'>
-            Continue shopping {/*{t('product.seeOtherProducts')}*/}
+            {t('product.seeOtherProducts')}
           </Button>
         </Link>
 
-        {/* <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}> */}
-        <Button size='large' mt={3} width='100%'>
-          See order status {/*{t('order.seeOrder')}*/}
-        </Button>
-        {/* </Link> */}
+        <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
+          <Button size='large' mt={3} width='100%'>
+            {t('order.seeOrder')}
+          </Button>
+        </Link>
       </Flex>
     );
   },
