@@ -1,6 +1,7 @@
 {
   "actions": {
     "addToCart": "Add to Cart",
+    "cancel": "Cancel",
     "create": "Create",
     "delete": "Delete",
     "goBack": "Go back",

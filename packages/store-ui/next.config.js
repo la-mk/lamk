@@ -45,6 +45,8 @@ module.exports = withPlugins(
             '@height-base': '36px',
             '@height-lg': '46px',
             '@height-sm': '24px',
+            '@form-item-margin-bottom': '12px',
+            '@select-single-item-height-lg': '46px',
             '@border-radius-base': '6px',
             '@form-vertical-label-padding': '0',
           },

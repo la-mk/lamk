@@ -10,7 +10,6 @@ import {
   hooks,
   Flex,
 } from '@sradevski/blocks-ui';
-import { CheckOutlined } from '@ant-design/icons';
 import { sdk } from '@sradevski/la-sdk';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { useTranslation } from '../../common/i18n';
@@ -37,15 +36,14 @@ export const AddressForm = ({
 
   return (
     <Form
+      width='100%'
       labelCol={{
         xs: { span: 24 },
-        md: { span: 6 },
       }}
       wrapperCol={{
         xs: { span: 24 },
-        md: { span: 12 },
       }}
-      layout='horizontal'
+      layout='vertical'
       colon={false}
       validate={data => {
         return sdk.address.validate(data, Boolean(address));
@@ -58,11 +56,11 @@ export const AddressForm = ({
       }
     >
       <FormItem label={t('common.name')} selector='name'>
-        {formInput({ placeholder: t('common.addressExample') })}
+        {formInput({ size: 'large', placeholder: t('common.addressExample') })}
       </FormItem>
       <FormItem selector='country' label={t('common.country')}>
         {(val, _onChange, onComplete) => (
-          <Select value={val} onChange={onComplete}>
+          <Select size={'large'} value={val} onChange={onComplete}>
             <Option key={'MK'} value={'MK'}>
               {t('countries.mk')}
             </Option>
@@ -70,10 +68,10 @@ export const AddressForm = ({
         )}
       </FormItem>
       <FormItem selector='city' label={t('common.city')}>
-        {formInput()}
+        {formInput({ size: 'large' })}
       </FormItem>
       <FormItem selector='zip' label={t('common.zipcode')}>
-        {formInput()}
+        {formInput({ size: 'large' })}
       </FormItem>
       <FormItem selector='street' label={t('common.street')}>
         {formTextArea({
@@ -82,15 +80,20 @@ export const AddressForm = ({
         })}
       </FormItem>
       <FormItem selector='person' label={t('common.addressee')}>
-        {formInput()}
+        {formInput({ size: 'large' })}
       </FormItem>
       <FormItem mb={0} selector='phoneNumber' label={t('common.phoneNumber')}>
-        {formInput()}
+        {formInput({ size: 'large' })}
       </FormItem>
 
       <Flex mt={4} justifyContent='center' alignItems='center'>
-        <Button htmlType='submit' type='primary'>
+        <Button width='100%' size={'large'} htmlType='submit' type='primary'>
           {address ? t('actions.update') : t('actions.create')}
+        </Button>
+      </Flex>
+      <Flex mt={3} justifyContent='center' alignItems='center'>
+        <Button width='100%' size={'large'}>
+          {t('actions.cancel')}
         </Button>
       </Flex>
     </Form>

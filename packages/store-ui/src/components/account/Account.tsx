@@ -48,43 +48,60 @@ export const Account = ({ user }: AccountProps) => {
       <Tabs animated={false} activeKey={tab} onChange={setTab}>
         <TabPane pt={4} tab={t('common.personalInfo')} key='personal'>
           <Spin spinning={showSpinner}>
-            <Form
-              labelCol={{
-                xs: { span: 24 },
-                md: { span: 6 },
-              }}
-              wrapperCol={{
-                xs: { span: 24 },
-                md: { span: 12 },
-              }}
-              layout='horizontal'
-              colon={false}
-              onFormCompleted={handlePatchAccount}
-              externalState={user}
-              validate={data => sdk.user.validate(data, true)}
-              validateSingle={sdk.user.validateSingle}
-              getErrorMessage={(errorName, context) =>
-                t(`errors.${errorName}`, context)
-              }
+            <Flex
+              alignItems='center'
+              justifyContent='center'
+              flexDirection='column'
+              width={'100%'}
+              maxWidth={600}
+              minWidth={200}
+              mx='auto'
             >
-              <FormItem selector='firstName' label={t('common.firstName')}>
-                {formInput()}
-              </FormItem>
+              <Form
+                width='100%'
+                labelCol={{
+                  xs: { span: 24 },
+                }}
+                wrapperCol={{
+                  xs: { span: 24 },
+                }}
+                layout='vertical'
+                colon={false}
+                onFormCompleted={handlePatchAccount}
+                externalState={user}
+                validate={data => sdk.user.validate(data, true)}
+                validateSingle={sdk.user.validateSingle}
+                getErrorMessage={(errorName, context) =>
+                  t(`errors.${errorName}`, context)
+                }
+              >
+                <FormItem selector='firstName' label={t('common.firstName')}>
+                  {formInput({ size: 'large' })}
+                </FormItem>
 
-              <FormItem selector='lastName' label={t('common.lastName')}>
-                {formInput()}
-              </FormItem>
+                <FormItem selector='lastName' label={t('common.lastName')}>
+                  {formInput({ size: 'large' })}
+                </FormItem>
 
-              <FormItem selector='phoneNumber' label={t('common.phoneNumber')}>
-                {formInput()}
-              </FormItem>
+                <FormItem
+                  selector='phoneNumber'
+                  label={t('common.phoneNumber')}
+                >
+                  {formInput({ size: 'large' })}
+                </FormItem>
 
-              <Flex justifyContent='center' alignItems='center'>
-                <Button mr={2} type='primary' htmlType='submit' size='large'>
-                  {t('actions.update')}
-                </Button>
-              </Flex>
-            </Form>
+                <Flex mt={4} justifyContent='center' alignItems='center'>
+                  <Button
+                    width='100%'
+                    type='primary'
+                    htmlType='submit'
+                    size='large'
+                  >
+                    {t('actions.update')}
+                  </Button>
+                </Flex>
+              </Form>
+            </Flex>
           </Spin>
         </TabPane>
         <TabPane pt={4} tab={t('common.address_plural')} key='addresses'>
