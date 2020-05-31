@@ -91,8 +91,8 @@
 		"addedToCart": "Added to cart",
 		"cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
 		"emptyCartDescription": "You have no items in the cart",
-		"orderNumber": "Order number: {{orderId}}.",
-		"orderSuccess": "Your order was successful!",
+		"orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
+		"orderSuccess": "Your order has been placed",
 		"productAlreadyInCart": "Product already in cart"
 	},
   "common": {
@@ -156,7 +156,9 @@
 		"freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
 		"overPrice": "Over price",
 		"priceExplanation": "This can be the average delivery cost.",
-		"updatingDeliveryTip": "Updating delivery..."
+		"updatingDeliveryTip": "Updating delivery...",
+		"productDeliveryCost": "Get it delivered to your home for {{deliveryPrice}}",
+		"productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
 	},
 	"filters": {
 		"recommended": "Recommended",
@@ -288,7 +290,7 @@
 		"orderNotFound": "Order not found",
 		"orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",
 		"retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
-		"seeOrder": "See order"
+		"seeOrder": "See order status"
   },
   "pages": {
     "aboutUs": "About Us",
@@ -341,7 +343,7 @@
 		"priceExample": "eg. 500",
 		"productDeleted": "Product {{id}} successfully deleted",
 		"seeAllProducts": "See all products",
-		"seeOtherProducts": "See other products",
+		"seeOtherProducts": "Continue shopping",
 		"sku": "Inventory code",
 		"stock": "Stock",
 		"unit": "Unit",
@@ -364,6 +366,14 @@
 	"seoDescriptions" : {
 		"product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",
 		"storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
+	},
+	"services": {
+		"freeDelivery": "Free delivery",
+		"freeDeliveryExplanation": "Free delivery over {{freeDeliveryPrice}}",
+		"securePayments": "Secure payments",
+		"securePaymentsExplanation": "Fast and easy ways to pay",
+		"returnPolicy": "Return policy",
+		"returnPolicyExplanation": "Return what you don't like, risk free"
 	},
   "store": {
 		"aboutUs": "About us",

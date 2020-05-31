@@ -80,8 +80,8 @@
 		"addedToCart": "Додадено во корпа",
 		"cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
 		"emptyCartDescription": "Вашата корпа е празна",
-		"orderNumber": "Број на порачка: {{orderId}}.",
-		"orderSuccess": "Вашата порачка беше успешна!",
+		"orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\"",
+		"orderSuccess": "Вашата порачка беше успешна",
 		"productAlreadyInCart": "Производот е веќе во корпата"
 	},
 	"commerce": {
@@ -157,7 +157,9 @@
 		"freeDeliveryExplanation": "Над која вредност доставата е бесплатна?",
 		"overPrice": "Над вредност од",
 		"priceExplanation": "Најчесто вредноста претставува просечна цена за достава",
-		"updatingDeliveryTip": "Доставата се обновува..."
+		"updatingDeliveryTip": "Доставата се обновува...",
+		"productDeliveryCost": "Достава до вашиот дом за {{deliveryPrice}}",
+		"productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава"
 	},
 	"filters": {
 		"recommended": "Препорачани",
@@ -342,7 +344,7 @@
 		"priceExample": "пр. 500",
 		"productDeleted": "Производот со шифра {{id}} беше успешно избришан",
 		"seeAllProducts": "Видете ги производите",
-		"seeOtherProducts": "Видете други производи",
+		"seeOtherProducts": "Продолжете со купување",
 		"sku": "Шифра",
 		"skuExample": "пр. 42356731",
 		"stock": "Залиха",
@@ -365,6 +367,14 @@
 	"seoDescriptions" : {
 		"product_plural": "Купувајте онлајн производи од нашиот асортиман. Најбрз и најлесен начин за купување онлајн во Македонија. Нудиме висок квалитет, по најповолни цени. Придружете ни се сега.",
 		"storeGeneric": "Најлесен начин да купувате онлајн во Македонија, од удобноста на вашиот дом. Онлајн шопингот никогаш не бил полесен. Купете сега."
+	},
+	"services": {
+		"freeDelivery": "Бесплатна достава",
+		"freeDeliveryExplanation": "Бесплатна достава над {{freeDeliveryPrice}}",
+		"securePayments": "Безбедно плаќање",
+		"securePaymentsExplanation": "Брзи и лесни начини на плаќање",
+		"returnPolicy": "Замена на производ",
+		"returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни"
 	},
   "store": {
 		"aboutUs": "За нас",
