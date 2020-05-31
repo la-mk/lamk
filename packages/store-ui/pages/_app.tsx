@@ -31,8 +31,8 @@ const getCompoundLocale = (t: (key: string) => string) => {
     password: t('common.password'),
     signup: t('auth.signup'),
     login: t('auth.login'),
-    noAccount: t('auth.noAccount'),
-    alreadyHaveAccount: t('auth.alreadyHaveAccount'),
+    or: t('common.or'),
+    authSameAccount: t('auth.authSameAccount'),
   };
 };
 

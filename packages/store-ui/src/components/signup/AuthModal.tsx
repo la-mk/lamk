@@ -5,6 +5,7 @@ import {
   Title,
   LoginForm,
   SignupForm,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { shouldShowAuthModal } from '../../state/modules/ui/ui.selector';
@@ -15,6 +16,8 @@ import { useTranslation } from '../../common/i18n';
 
 export const AuthModal = () => {
   const [method, setMethod] = React.useState<'login' | 'signup'>('login');
+  const modalWidth = hooks.useBreakpoint(['100%', '80%', '60%']);
+
   const visible = useSelector(shouldShowAuthModal);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -29,19 +32,23 @@ export const AuthModal = () => {
 
   return (
     <Modal
-      width='80%'
+      width={modalWidth}
       centered
       destroyOnClose
       visible={visible}
       footer={null}
       onCancel={() => dispatch(toggleAuthModal(false))}
     >
-      {method === 'login' && (
-        <Flex width='100%' flexDirection='column' alignItems='center'>
-          <Title mb={6} level={1}>
-            {t('auth.login')}
-          </Title>
+      <Flex
+        pt={4}
+        pb={5}
+        width='100%'
+        flexDirection='column'
+        alignItems='center'
+      >
+        {method === 'login' && (
           <LoginForm
+            logoUrl='/images/lamk-logo/horizontal.svg'
             login={handleLogin}
             onSignupNowClick={() => setMethod('signup')}
             validate={data => sdk.user.validate(data as any, true) as any}
@@ -50,14 +57,10 @@ export const AuthModal = () => {
               t(`errors.${errorName}`, context)
             }
           />
-        </Flex>
-      )}
-      {method === 'signup' && (
-        <Flex width='100%' flexDirection='column' alignItems='center'>
-          <Title mb={6} level={1}>
-            {t('auth.signup')}
-          </Title>
+        )}
+        {method === 'signup' && (
           <SignupForm
+            logoUrl='/images/lamk-logo/horizontal.svg'
             signup={handleSignup}
             onLoginNowClick={() => setMethod('login')}
             validate={data => sdk.user.validate(data as any, true)}
@@ -66,8 +69,8 @@ export const AuthModal = () => {
               t(`errors.${errorName}`, context)
             }
           />
-        </Flex>
-      )}
+        )}
+      </Flex>
     </Modal>
   );
 };

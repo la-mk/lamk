@@ -85,6 +85,7 @@ export const StoreLayout = withTheme(
         justifyContent='center'
       >
         <Search
+          size='large'
           allowClear
           onSearch={val => {
             // Preserve the existing query parameters

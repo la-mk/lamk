@@ -42,6 +42,11 @@ module.exports = withPlugins(
             'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
             `,
             '@table-header-bg': '#ffffff',
+            '@height-base': '36px',
+            '@height-lg': '46px',
+            '@height-sm': '24px',
+            '@border-radius-base': '6px',
+            '@form-vertical-label-padding': '0',
           },
         },
         webpack: (config, { isServer }) => {

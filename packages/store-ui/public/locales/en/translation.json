@@ -9,6 +9,7 @@
     "reset": "Reset",
     "retry": "Retry",
     "search": "Search",
+    "shopNow": "Shop now",
     "toCheckout": "To checkout",
     "toPayment": "Proceed to payment",
     "update": "Update"
@@ -29,10 +30,9 @@
   },
   "auth": {
     "accountUpdateSuccess": "Account successfully updated",
-    "alreadyHaveAccount": "Already have account?",
+    "authSameAccount": "You can use the same account on every store that is",
     "login": "Log in",
     "logout": "Log out",
-    "noAccount": "No account?",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "signup": "Sign up"
   },
@@ -197,6 +197,7 @@
     "items": "Items",
     "lastName": "Last name",
     "name": "Name",
+    "or": "or",
     "ourCompany": "Our company",
     "password": "Password",
     "personalInfo": "Personal info",

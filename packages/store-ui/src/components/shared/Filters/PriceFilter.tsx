@@ -131,13 +131,13 @@ export const PriceFilter = ({
 
       <Flex mt={2} alignItems='center'>
         <InputNumber
-          onChange={val => val <= end && setRange([val, end])}
+          onChange={(val: number) => val <= end && setRange([val, end])}
           onBlur={() => handleChangeDone(start, end)}
           value={start}
         />
         <Text mx={2}>~</Text>
         <InputNumber
-          onChange={val => val >= start && setRange([start, val])}
+          onChange={(val: number) => val >= start && setRange([start, val])}
           onBlur={() => handleChangeDone(start, end)}
           max={max}
           value={end}
