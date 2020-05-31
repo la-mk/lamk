@@ -31,9 +31,9 @@ export const AuthFormBase = ({
       alignItems="center"
       justifyContent="center"
       flexDirection="column"
-      width={['80%', '60%', '40%']}
+      width={'100%'}
       maxWidth={600}
-      minWidth={300}
+      minWidth={200}
       mx="auto"
     >
       <Title level={2} mb={3} fontSize={4}>
