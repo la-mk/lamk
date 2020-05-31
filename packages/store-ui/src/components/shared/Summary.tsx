@@ -73,7 +73,7 @@ export const Summary = ({
       {showProductsSummary && (
         <>
           <SummaryProductList items={items} storeId={storeId} />
-          <Divider bg='mutedText.light' />
+          <Divider height={'2px'} bg='mutedText.light' />
         </>
       )}
       <Flex flexDirection='row' justifyContent='space-between'>
@@ -100,7 +100,7 @@ export const Summary = ({
           </Text>
         </Box>
       )}
-      <Divider bg='mutedText.light' />
+      <Divider height={'2px'} bg='mutedText.light' />
       <Flex flexDirection='row' justifyContent='space-between'>
         <Text>{t('finance.total')}</Text>
         <Text strong color='primary' fontSize={[2, 3, 3]}>

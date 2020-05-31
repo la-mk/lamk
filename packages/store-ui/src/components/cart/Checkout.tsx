@@ -138,7 +138,7 @@ export const Checkout = () => {
     order.paymentMethod ===
       sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY
   ) {
-    return <Success order={order} />;
+    return <Success mt={[5, 6, 6]} order={order} />;
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {

@@ -156,7 +156,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
   const frameName = 'paymentFrame';
 
   if (transactionStatus === sdk.orderPayments.TransactionStatus.APPROVED) {
-    return <Success order={order} />;
+    return <Success mt={[5, 6, 6]} order={order} />;
   }
 
   return (
