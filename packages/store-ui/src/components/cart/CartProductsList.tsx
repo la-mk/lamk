@@ -48,6 +48,7 @@ const getColumns = (
       width: 150,
       render: (val, cartItem) => (
         <Price
+          size='small'
           vertical
           calculatedPrice={cartItem.product.calculatedPrice}
           basePrice={cartItem.product.price}
@@ -79,7 +80,7 @@ const getColumns = (
       key: 'total',
       width: 150,
       render: (val, cartItem) => (
-        <Text strong fontSize={2} color='primary'>
+        <Text strong fontSize={1} color='primary'>
           {cartItem.quantity * cartItem.product.calculatedPrice} ден
         </Text>
       ),
@@ -117,6 +118,8 @@ export const CartProductsList = ({
               <Flex
                 key={cartItem.product._id}
                 minWidth={320}
+                maxWidth={520}
+                width='100%'
                 px={3}
                 mb={5}
                 flexDirection='column'
@@ -134,6 +137,7 @@ export const CartProductsList = ({
 
                 <Flex mt={4} alignItems='center' justifyContent='space-between'>
                   <Price
+                    size='small'
                     calculatedPrice={cartItem.product.calculatedPrice}
                     basePrice={cartItem.product.price}
                     currency='ден'
@@ -147,7 +151,7 @@ export const CartProductsList = ({
                 </Flex>
                 <Box mt={2}>
                   <Text>Total:</Text>
-                  <Text ml={2} color='primary'>
+                  <Text ml={2} color='primary' strong>
                     {cartItem.product.calculatedPrice * cartItem.quantity} ден
                   </Text>
                 </Box>

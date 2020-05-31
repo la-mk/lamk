@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, TabPane, Paragraph, Text } from '@sradevski/blocks-ui';
+import { TabPane, Paragraph, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { BorderlessTabs } from '../shared/components/BorderlessTabs';
@@ -31,7 +31,7 @@ export const ProductDetails = ({
         key='description'
       >
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-          {product.description}
+          {product.description.trim()}
         </Paragraph>
       </TabPane>
       <TabPane
@@ -49,8 +49,7 @@ export const ProductDetails = ({
       >
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
           {`Get it delivered to your home for ${delivery?.price} ден.
-
-          All orders over ${delivery?.freeDeliveryOver} are free of charge!`}
+All orders over ${delivery?.freeDeliveryOver} ден are free of charge!`}
         </Paragraph>
       </TabPane>
     </BorderlessTabs>

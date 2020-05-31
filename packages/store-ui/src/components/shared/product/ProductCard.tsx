@@ -37,7 +37,7 @@ const ProductDescription = ({
       )}
 
       <Price
-        emphasized={emphasized}
+        size={emphasized ? 'large' : 'default'}
         calculatedPrice={product.calculatedPrice}
         basePrice={product.price}
         currency={'ден'}

@@ -19,7 +19,6 @@ import { Banner } from './Banner';
 import { ProductDuo } from '../sets/ProductDuo';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
-import { DeliveryTruck } from '../shared/icons/DeliveryTruck';
 
 export const Home = ({
   landingContent = {},
@@ -135,24 +134,7 @@ export const Home = ({
 
                   {index === 2 && (
                     <Box mb={7}>
-                      <ServicesSet
-                        services={[
-                          {
-                            title: 'Free shipping',
-                            subtitle: 'Free shipping over 100$',
-                            icon: <DeliveryTruck />,
-                          },
-                          {
-                            title: 'Secure payments',
-                            subtitle: 'Pay securely without a worry',
-                          },
-                          {
-                            title: 'Return policy',
-                            subtitle:
-                              'Return your products if you are not satisfied',
-                          },
-                        ]}
-                      />
+                      <ServicesSet />
                     </Box>
                   )}
                 </React.Fragment>

@@ -5,7 +5,7 @@ interface PriceProps {
   calculatedPrice: number;
   basePrice: number;
   currency: string;
-  emphasized?: boolean;
+  size?: 'small' | 'default' | 'large';
   vertical?: boolean;
 }
 
@@ -13,28 +13,26 @@ export const Price = ({
   basePrice,
   calculatedPrice,
   currency,
-  emphasized,
+  size,
   vertical,
 }: PriceProps) => {
   const discounted = basePrice !== calculatedPrice;
+  const fontSize =
+    size === 'small' ? 1 : size === 'large' ? [3, 4, 4] : [1, 2, 2];
 
   return (
     <Flex flexDirection={vertical ? 'column' : 'row'} flexWrap='wrap'>
       <Text
-        fontSize={emphasized ? [2, 3, 3] : [1, 2, 2]}
+        fontSize={fontSize}
         color={discounted ? 'danger' : 'mutedText.dark'}
-        mr={discounted ? [2, 2, 3] : undefined}
+        mr={discounted ? fontSize : undefined}
         strong
       >
         {calculatedPrice} {currency}
       </Text>
 
       {discounted && (
-        <Text
-          delete
-          color={'mutedText.light'}
-          fontSize={emphasized ? [2, 3, 3] : [1, 2, 2]}
-        >
+        <Text delete color={'mutedText.light'} fontSize={fontSize}>
           {basePrice} {currency}
         </Text>
       )}

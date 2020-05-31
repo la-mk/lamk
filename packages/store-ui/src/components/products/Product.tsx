@@ -34,6 +34,7 @@ import { ProductTags } from '../shared/product/ProductTags';
 import { ManagedSets } from '../sets/ManagedSets';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
+import { ServicesSet } from '../sets/ServicesSet';
 
 interface ProductProps {
   product: ProductType;
@@ -205,7 +206,7 @@ export const Product = ({ product }: ProductProps) => {
               {product.name}
             </Title>
             <Price
-              emphasized
+              size='large'
               calculatedPrice={product.calculatedPrice}
               basePrice={product.price}
               currency={'ден'}
@@ -265,15 +266,20 @@ export const Product = ({ product }: ProductProps) => {
       </Spin>
 
       <ManagedSets
-        mt={7}
+        mt={[6, 7, 7]}
         storeId={store._id}
         setTags={[
           {
             name: 'category',
             value: product.category,
           },
+          { name: 'discounted' },
         ]}
       />
+
+      <Box mt={[6, 7, 7]}>
+        <ServicesSet />
+      </Box>
     </Page>
   );
 };

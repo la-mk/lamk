@@ -1,17 +1,30 @@
 import React from 'react';
 import { Flex, Text } from '@sradevski/blocks-ui';
+import { DeliveryTruck } from '../shared/icons/DeliveryTruck';
 
-interface ServicesSetProps {
-  services: Array<{
-    icon?: React.ReactElement;
-    title: string;
-    subtitle: string;
-  }>;
+interface Service {
+  icon?: React.ReactElement;
+  title: string;
+  subtitle: string;
 }
 
-export const ServicesSet = ({ services }: ServicesSetProps) => {
-  const servicesToShow = services.slice(0, 3);
+const services: Service[] = [
+  {
+    title: 'Free shipping',
+    subtitle: 'Free shipping over 100$',
+    icon: <DeliveryTruck />,
+  },
+  {
+    title: 'Secure payments',
+    subtitle: 'Pay securely without a worry',
+  },
+  {
+    title: 'Return policy',
+    subtitle: 'Return your products if you are not satisfied',
+  },
+];
 
+export const ServicesSet = () => {
   return (
     <Flex
       py={[1, 2, 3]}
@@ -19,7 +32,7 @@ export const ServicesSet = ({ services }: ServicesSetProps) => {
       justifyContent='center'
       flexWrap='wrap'
     >
-      {servicesToShow.map(service => {
+      {services.map(service => {
         return (
           <Flex
             key={service.title}
