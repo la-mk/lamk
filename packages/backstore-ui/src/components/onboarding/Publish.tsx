@@ -13,13 +13,6 @@ import { useTranslation } from 'react-i18next';
 //   width: 100vw;
 // `;
 
-const PublishSection = styled(Flex)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 80px;
-`;
-
 interface PublishProps {
   onDone: (shouldPublish: boolean) => void;
   storeSlug: string;
@@ -30,10 +23,16 @@ export const Publish = ({ storeSlug, onDone }: PublishProps) => {
 
   return (
     <Flex flexDirection='column' alignItems='center'>
-      <PublishSection
+      <Flex
+        height={80}
         flexDirection='row'
         width='100%'
-        style={{ backgroundColor: 'lightgray' }}
+        style={{
+          backgroundColor: 'lightgray',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+        }}
         justifyContent='center'
         alignItems='center'
       >
@@ -43,7 +42,7 @@ export const Publish = ({ storeSlug, onDone }: PublishProps) => {
         <Button onClick={() => onDone(false)} size='large' m={3}>
           {t('actions.goToDashboard')}
         </Button>
-      </PublishSection>
+      </Flex>
       {/* For this to work, we need to authenticate with the backstore token in the store and not server-render it, but we can leave it for later on.
       <ShopIframe
         src={`https://${storeSlug}.${env.HOST}`}
