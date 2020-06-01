@@ -40,6 +40,9 @@
 		"createAddressSuccess": "Address successfully created",
 		"removeAddressSuccess": "Address successfully removed",
 		"shippingAddress": "Shipping address",
+		"noAddress": "You don't have any address saved",
+		"noAddressExplanation": "Please add a delivery address",
+		"addAddressExplanation": "This is the address where the products will be delivered",
 		"updateAddressSuccess": "Address successfully updated"
 	},
 	"analytics": {
@@ -154,6 +157,7 @@
 		"deliveryMethod": "Delivery method",
 		"freeDelivery": "Free delivery",
 		"freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
+		"addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
 		"overPrice": "Over price",
 		"priceExplanation": "This can be the average delivery cost.",
 		"updatingDeliveryTip": "Updating delivery...",
