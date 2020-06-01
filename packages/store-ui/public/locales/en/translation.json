@@ -16,9 +16,12 @@
     "update": "Update"
   },
   "address": {
+    "addAddressExplanation": "This is the address where the products will be delivered",
     "addNewAddress": "Add new address",
     "chooseShippingAddress": "Choose a shipping address",
     "createAddressSuccess": "Address successfully created",
+    "noAddress": "You don't have any address saved",
+    "noAddressExplanation": "Please add a delivery address",
     "removeAddressSuccess": "Address successfully removed",
     "shippingAddress": "Shipping address",
     "updateAddressSuccess": "Address successfully updated"
@@ -214,6 +217,7 @@
     "mk": "Macedonia"
   },
   "delivery": {
+    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
     "productDeliveryCost": "Get it delivered to your home for {{deliveryPrice}}",
     "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
   },

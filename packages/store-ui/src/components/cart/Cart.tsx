@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Empty, Spin, hooks, Button } from '@sradevski/blocks-ui';
+import { Flex, Empty, Spin, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Summary } from '../shared/Summary';
 import {
@@ -144,6 +144,7 @@ export const Cart = () => {
             mt={[4, 4, 0]}
           >
             <Summary
+              showContinueShopping
               items={cart.items}
               delivery={delivery}
               campaigns={campaigns ?? []}

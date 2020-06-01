@@ -16,9 +16,12 @@
     "update": "Обновете"
   },
   "address": {
+    "addAddressExplanation": "Адресата се користи за достава на производите",
     "addNewAddress": "Додадете нова адреса",
     "chooseShippingAddress": "Одберете адреса за достава",
     "createAddressSuccess": "Нова адреса успешно создадена",
+    "noAddress": "Немате зачувани адреси",
+    "noAddressExplanation": "Додадете адреса за достава",
     "removeAddressSuccess": "Адресата беше успешно отстранета",
     "shippingAddress": "Адреса за достава",
     "updateAddressSuccess": "Адресата беше успешно обновена"
@@ -214,6 +217,7 @@
     "mk": "Македонија"
   },
   "delivery": {
+    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
     "productDeliveryCost": "Достава до вашиот дом за {{deliveryPrice}}",
     "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава"
   },

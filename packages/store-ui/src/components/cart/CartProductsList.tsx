@@ -135,23 +135,29 @@ export const CartProductsList = ({
                   storeId={storeId}
                 />
 
-                <Flex mt={4} alignItems='center' justifyContent='space-between'>
-                  <Price
-                    size='small'
-                    calculatedPrice={cartItem.product.calculatedPrice}
-                    basePrice={cartItem.product.price}
-                    currency='ден'
-                  />
+                <Flex mt={4} justifyContent='space-between'>
+                  <Flex justifyContent='center'>
+                    <Text mr={2}>Price:</Text>
+                    <Price
+                      vertical
+                      size='small'
+                      calculatedPrice={cartItem.product.calculatedPrice}
+                      basePrice={cartItem.product.price}
+                      currency='ден'
+                    />
+                  </Flex>
 
-                  <Quantity
-                    mx={2}
-                    cartItem={cartItem}
-                    handleChangeItemQuantity={handleChangeItemQuantity}
-                  />
+                  <Box>
+                    <Quantity
+                      mx={2}
+                      cartItem={cartItem}
+                      handleChangeItemQuantity={handleChangeItemQuantity}
+                    />
+                  </Box>
                 </Flex>
                 <Box mt={2}>
-                  <Text>Total:</Text>
-                  <Text ml={2} color='primary' strong>
+                  <Text mr={2}>Total:</Text>
+                  <Text color='primary' strong>
                     {cartItem.product.calculatedPrice * cartItem.quantity} ден
                   </Text>
                 </Box>

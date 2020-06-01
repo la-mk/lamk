@@ -214,7 +214,8 @@ export const Checkout = () => {
               paymentMethod={paymentMethod}
               setPaymentMethod={setPaymentMethod}
             />
-            <Box mt={3}>
+            {/* We set a specific max width so visually it matches the payment methods */}
+            <Box maxWidth={752} mt={3}>
               <SelectAddress
                 deliverTo={deliverTo}
                 setDeliverTo={setDeliverTo}

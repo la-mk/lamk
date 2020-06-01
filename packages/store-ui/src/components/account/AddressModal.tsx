@@ -52,7 +52,7 @@ export const AddressModal = ({
           {t('common.address_plural')}
         </Title>
         <Text textAlign='center' fontSize={0}>
-          Hey there this is an explanation
+          {t('address.addAddressExplanation')}
         </Text>
 
         <AddressForm

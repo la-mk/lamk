@@ -19,7 +19,7 @@ const DescriptionEntry = ({
   return (
     <Flex alignItems='center' {...props}>
       <Text color={inverse ? 'text.light' : 'text.dark'}>{title}</Text>
-      <Text ml={2} color={inverse ? 'text.light' : 'text.dark'}>
+      <Text ml={2} color={inverse ? 'mutedText.light' : 'mutedText.dark'}>
         {item}
       </Text>
     </Flex>

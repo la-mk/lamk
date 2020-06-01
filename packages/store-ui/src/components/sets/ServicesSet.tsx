@@ -1,8 +1,16 @@
-import React from 'react';
-import { Flex, Text } from '@sradevski/blocks-ui';
+import React, { useEffect } from 'react';
+import { Flex, Text, hooks } from '@sradevski/blocks-ui';
+import { useSelector } from 'react-redux';
 import { DeliveryTruck } from '../shared/icons/DeliveryTruck';
+import { SecurePayment } from '../shared/icons/SecurePayment';
+import { ReturnPolicy } from '../shared/icons/ReturnPolicy';
 import { TFunction } from 'next-i18next';
 import { useTranslation } from '../../common/i18n';
+import { getDelivery } from '../../state/modules/delivery/delivery.selector';
+import { getStore } from '../../state/modules/store/store.selector';
+import { sdk } from '@sradevski/la-sdk';
+import { setDelivery } from '../../state/modules/delivery/delivery.module';
+import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 
 interface Service {
   icon?: React.ReactElement;
@@ -10,7 +18,7 @@ interface Service {
   subtitle: string;
 }
 
-const getServices = (t: TFunction, freeDeliveryPrice: number) => [
+const getServices = (t: TFunction, freeDeliveryPrice: number): Service[] => [
   {
     title: t('services.freeDelivery'),
     subtitle: `${t('services.freeDeliveryExplanation', {
@@ -21,15 +29,29 @@ const getServices = (t: TFunction, freeDeliveryPrice: number) => [
   {
     title: t('services.securePayments'),
     subtitle: t('services.securePaymentsExplanation'),
+    icon: <SecurePayment />,
   },
   {
     title: t('services.returnPolicy'),
     subtitle: t('services.returnPolicyExplanation'),
+    icon: <ReturnPolicy />,
   },
 ];
 
 export const ServicesSet = () => {
   const { t } = useTranslation();
+  const [caller] = hooks.useCall(true);
+  const delivery: Delivery = useSelector(getDelivery);
+  const store = useSelector(getStore);
+
+  useEffect(() => {
+    if (!delivery) {
+      caller(sdk.delivery.findForStore(store._id), deliveries => {
+        return setDelivery(deliveries.data[0] ?? null);
+      });
+    }
+  }, [delivery, store._id]);
+
   return (
     <Flex
       py={[1, 2, 3]}
@@ -37,7 +59,7 @@ export const ServicesSet = () => {
       justifyContent='center'
       flexWrap='wrap'
     >
-      {getServices(t, 1200).map(service => {
+      {getServices(t, delivery?.freeDeliveryOver).map(service => {
         return (
           <Flex
             key={service.title}
@@ -53,7 +75,7 @@ export const ServicesSet = () => {
             justifyContent='center'
             px={[3, 4, 4]}
           >
-            <Text mr={2} color='text.light'>
+            <Text style={{ lineHeight: 1 }} mr={3} color='text.light'>
               {!!service.icon && service.icon}
             </Text>
             <Flex ml={2} py={4} flexDirection='column'>

@@ -174,7 +174,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
           flexDirection='column'
         >
           {order && (
-            <Title level={3}>
+            <Title level={3} fontSize={4}>
               {t('payment.payAmountTip', {
                 amountWithCurrency: `${order.calculatedTotal} ден`,
               })}

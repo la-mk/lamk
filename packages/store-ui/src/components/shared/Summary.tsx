@@ -18,6 +18,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { CustomCard } from './components/CustomCard';
 import { SummaryProductList } from './SummaryProductList';
+import Link from 'next/link';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];
@@ -28,6 +29,7 @@ interface SummaryProps {
   disabled?: boolean;
   showProductsSummary?: boolean;
   onCheckout?: () => void;
+  showContinueShopping?: boolean;
 }
 
 export const Summary = ({
@@ -39,6 +41,7 @@ export const Summary = ({
   disabled,
   showProductsSummary,
   onCheckout,
+  showContinueShopping,
   ...props
 }: SummaryProps & React.ComponentProps<typeof Box>) => {
   const user = useSelector(getUser);
@@ -95,8 +98,11 @@ export const Summary = ({
       {prices.deliveryTotal !== 0 && (
         <Box mt={3}>
           <Text fontSize={0} color='mutedText.dark'>
-            Add {delivery.freeDeliveryOver - prices.withCampaignsTotal} ден more
-            and get FREE SHIPPING!
+            {t('delivery.addToGetFreeDelivery', {
+              priceUntilFreeDelivery: `${
+                delivery.freeDeliveryOver - prices.withCampaignsTotal
+              } ден`,
+            })}
           </Text>
         </Box>
       )}
@@ -109,18 +115,23 @@ export const Summary = ({
       </Flex>
 
       {onCheckout && (
-        <Flex justifyContent='center' alignItems='center'>
-          <Button
-            disabled={disabled}
-            onClick={handleCheckout}
-            width='100%'
-            size='large'
-            mt={4}
-            type={'primary'}
-          >
-            {buttonTitle}
+        <Button
+          disabled={disabled}
+          onClick={handleCheckout}
+          width='100%'
+          size='large'
+          mt={4}
+          type={'primary'}
+        >
+          {buttonTitle}
+        </Button>
+      )}
+      {showContinueShopping && (
+        <Link href='/products' passHref>
+          <Button type='ghost' width='100%' size='large' mt={3}>
+            {t('product.seeOtherProducts')}
           </Button>
-        </Flex>
+        </Link>
       )}
     </CustomCard>
   );
