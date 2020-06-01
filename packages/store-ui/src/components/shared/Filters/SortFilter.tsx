@@ -1,8 +1,9 @@
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { RadioGroup, RadioButton } from '@sradevski/blocks-ui';
+import { RadioGroup, RadioButton, hooks } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 interface SortFilterProps {
   filters: FilterObject;
@@ -41,6 +42,7 @@ const getSortFromValue = (value: SortValues): FilterObject['sorting'] => {
 };
 
 export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
+  const isMobile = hooks.useBreakpoint([true, false, false]);
   const { t } = useTranslation();
   const sortValue = getSortValue(filters.sorting);
 
@@ -59,10 +61,24 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
           {t('filters.recommended')}
         </RadioButton>
         <RadioButton key={'cheap'} value={'cheap'}>
-          {t('filters.cheapestFirst')}
+          {isMobile ? (
+            <>
+              <DownOutlined style={{ marginRight: 8 }} />
+              {t('common.price')}
+            </>
+          ) : (
+            t('filters.cheapestFirst')
+          )}
         </RadioButton>
         <RadioButton key={'expensive'} value={'expensive'}>
-          {t('filters.expensiveFirst')}
+          {isMobile ? (
+            <>
+              <UpOutlined style={{ marginRight: 8 }} />
+              {t('common.price')}
+            </>
+          ) : (
+            t('filters.expensiveFirst')
+          )}
         </RadioButton>
       </RadioGroup>
     </>

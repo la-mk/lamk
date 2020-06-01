@@ -23,11 +23,11 @@ export const AuthModal = () => {
   const { t } = useTranslation();
 
   const handleLogin = (data: any) => {
-    dispatch(login(data, 'local'));
+    dispatch(login({ ...data, email: data.email?.toLowerCase() }, 'local'));
   };
 
   const handleSignup = (data: any) => {
-    dispatch(signup(data, 'local'));
+    dispatch(signup({ ...data, email: data.email?.toLowerCase() }, 'local'));
   };
 
   return (

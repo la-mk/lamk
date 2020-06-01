@@ -23,6 +23,7 @@ export const ProductImageWithTitle = ({
       <Flex maxWidth={60} minWidth={60}>
         <Image
           width='100%'
+          maxHeight={90}
           alt={product.name}
           src={
             sdk.artifact.getUrlForArtifact(product.images[0], storeId) ||
