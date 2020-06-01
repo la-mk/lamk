@@ -127,7 +127,7 @@ export const OrderDetailsModal = ({
                   {Object.values(sdk.order.OrderStatus).map(status => {
                     return (
                       <Option key={status} value={status}>
-                        <Tag color={getOrderStatusColor(status)}>
+                        <Tag compact color={getOrderStatusColor(status)}>
                           {t(`orderStatus.${status}`)}
                         </Tag>
                       </Option>
@@ -159,7 +159,7 @@ export const OrderDetailsModal = ({
               {prices.withCampaignsTotal !== prices.productsTotal && (
                 <Flex mt={2} flexDirection='row' justifyContent='space-between'>
                   <Text strong>{t('finance.campaignDiscount')}</Text>
-                  <Text strong type='danger'>
+                  <Text strong color='danger'>
                     {(prices.withCampaignsTotal - prices.productsTotal).toFixed(
                       1,
                     )}{' '}

@@ -1,18 +1,6 @@
 import React from 'react';
-import {
-  Flex,
-  Dropdown,
-  Menu,
-  MenuItem,
-  MenuDivider,
-  Avatar,
-} from '@sradevski/blocks-ui';
-import {
-  UserOutlined,
-  LogoutOutlined,
-  DownOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+import { Flex, Dropdown, Menu, MenuItem, Avatar } from '@sradevski/blocks-ui';
+import { UserOutlined, LogoutOutlined, DownOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../state/modules/auth/auth.module';
 import { useTranslation } from 'react-i18next';

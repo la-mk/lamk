@@ -70,7 +70,7 @@ const getColumns = (
           : undefined,
       sorter: (a, b) => a.calculatedPrice - b.calculatedPrice,
       render: (val, record) => (
-        <Text type={record.discount ? 'danger' : undefined}>{val}</Text>
+        <Text color={record.discount ? 'danger' : 'text.dark'}>{val}</Text>
       ),
     },
     {
@@ -99,7 +99,9 @@ const getColumns = (
         return (
           <Flex flexWrap={'wrap'}>
             {groups.map(group => (
-              <Tag m={1}>{group}</Tag>
+              <Tag compact m={1}>
+                {group}
+              </Tag>
             ))}
           </Flex>
         );
@@ -130,7 +132,7 @@ export const Products = () => {
   const categories = useSelector(getUniqueCategories('level3'));
   const columns = React.useMemo(() => {
     return getColumns(t, store ? store._id : '', categories, filters);
-  }, [store, categories, filters]);
+  }, [store, categories, filters, t]);
 
   React.useEffect(() => {
     if (!store) {
@@ -144,7 +146,7 @@ export const Products = () => {
         return setProducts(res.data);
       },
     );
-  }, [store, filters]);
+  }, [store, filters, caller]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} py={2}>

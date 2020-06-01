@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title, Text, Button, SignupForm } from '@sradevski/blocks-ui';
+import { Flex, Text, Button, SignupForm } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useDispatch } from 'react-redux';
 import { signup, Credentials } from '../../state/modules/auth/auth.module';
@@ -16,11 +16,8 @@ export const Signup = () => {
 
   return (
     <Flex flexDirection='column' alignItems='center' p={3}>
-      <Title mt={6} level={1}>
-        {t('auth.signup')}
-      </Title>
       {!env.ENABLE_SIGNUP && (
-        <Text mb={6} type='secondary'>
+        <Text mb={6} color='secondary'>
           {t('auth.signupClosedBeta')}
         </Text>
       )}
@@ -32,8 +29,9 @@ export const Signup = () => {
 
       {env.ENABLE_SIGNUP && (
         <SignupForm
+          // logoUrl='/images/lamk-logo/horizontal.svg'
           signup={handleSignup}
-          validate={data => sdk.user.validate(data, true)}
+          validate={(data: Credentials) => sdk.user.validate(data as any, true)}
           validateSingle={sdk.user.validateSingle}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)

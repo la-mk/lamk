@@ -57,7 +57,7 @@ const getColumns = (t: T, filters: FilterObject) =>
         ),
       render: status => {
         return (
-          <Tag color={getOrderStatusColor(status)}>
+          <Tag compact color={getOrderStatusColor(status)}>
             {t(`orderStatus.${status}`)}
           </Tag>
         );
@@ -108,7 +108,7 @@ export const Orders = () => {
         return setOrders(res.data);
       },
     );
-  }, [store, filters]);
+  }, [store, filters, caller]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} py={2}>

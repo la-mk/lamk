@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title, LoginForm } from '@sradevski/blocks-ui';
+import { Flex, LoginForm } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useDispatch } from 'react-redux';
 import { login, Credentials } from '../../state/modules/auth/auth.module';
@@ -16,12 +16,10 @@ export const Login = () => {
 
   return (
     <Flex width='100%' flexDirection='column' alignItems='center' p={3}>
-      <Title mt={6} level={1}>
-        {t('auth.login')}
-      </Title>
       <LoginForm
+        // logoUrl='/images/lamk-logo/horizontal.svg'
         login={handleLogin}
-        validate={data => sdk.user.validate(data, true)}
+        validate={(data: Credentials) => sdk.user.validate(data as any, true)}
         validateSingle={sdk.user.validateSingle}
         getErrorMessage={(errorName, context) =>
           t(`errors.${errorName}`, context)

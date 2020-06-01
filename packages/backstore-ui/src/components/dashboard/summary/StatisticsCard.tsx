@@ -58,7 +58,7 @@ export const StatisticsCard = ({
         }
       },
     );
-  }, [store, type, frequency]);
+  }, [store, type, frequency, caller]);
 
   return (
     <Spin spinning={showSpinner}>

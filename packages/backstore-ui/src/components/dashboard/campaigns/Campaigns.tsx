@@ -19,9 +19,8 @@ import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { CampaignFormModal } from './CampaignFormModal';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
-const getColumns = (t: T, filters: FilterObject) =>
+const getColumns = (t: T) =>
   [
     {
       title: t('common.id'),
@@ -71,7 +70,7 @@ export const Campaigns = () => {
     storage: 'session',
     storageKey: `${store ? store._id : ''}/campaignFilters`,
   });
-  const columns = getColumns(t, filters);
+  const columns = getColumns(t);
 
   React.useEffect(() => {
     if (!store) {
@@ -88,7 +87,7 @@ export const Campaigns = () => {
         return setCampaigns(res.data);
       },
     );
-  }, [store, filters]);
+  }, [store, filters, caller]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} py={2}>

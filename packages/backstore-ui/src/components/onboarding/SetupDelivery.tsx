@@ -22,7 +22,7 @@ export const SetupDelivery = ({
     <Col>
       <Flex mb={6} alignItems='center' flexDirection='column'>
         <Title level={3}>{t('onboarding.setupDeliveryTitle')}</Title>
-        <Text type='secondary'>{t('onboarding.setupDeliverySubtitle')}</Text>
+        <Text color='secondary'>{t('onboarding.setupDeliverySubtitle')}</Text>
       </Flex>
       <DeliveryForm storeId={storeId} delivery={delivery} onDone={onDone} />
     </Col>

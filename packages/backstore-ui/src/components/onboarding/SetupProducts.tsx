@@ -39,7 +39,7 @@ export const SetupProducts = ({
             {t('actions.continue')}
           </Button>
         </Title>
-        <Text type='secondary'>{t('onboarding.setupProductSubtitle')}</Text>
+        <Text color='secondary'>{t('onboarding.setupProductSubtitle')}</Text>
       </Flex>
       <Row
         align='top'

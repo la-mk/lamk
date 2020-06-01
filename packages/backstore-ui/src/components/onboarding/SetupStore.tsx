@@ -17,7 +17,7 @@ export const SetupStore = ({ onDone, store, userId }: SetupStoreProps) => {
     <Col>
       <Flex mb={6} alignItems='center' flexDirection='column'>
         <Title level={3}>{t('onboarding.setupStoreTitle')}</Title>
-        <Text type='secondary'>{t('onboarding.setupStoreSubtitle')}</Text>
+        <Text color='secondary'>{t('onboarding.setupStoreSubtitle')}</Text>
       </Flex>
       <StoreForm store={store} userId={userId} onDone={onDone} />
     </Col>
