@@ -208,7 +208,6 @@
     "phoneNumber": "Телефонски број",
     "price": "Цена",
     "seeAll": "Види ги сите",
-    "sort": "Подредување",
     "street": "Улица",
     "streetExample": "пр. Солунска 25",
     "summary": "Преглед",
@@ -268,7 +267,7 @@
     "total": "Вкупна цена"
   },
   "legal": {
-    "legalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores"
+    "legalExplanation": "Активно работиме со цел да сме во согласност со сите регулативи и закони. Ги преземаме сите безбедносни мерки за заштита на вашите податоци, и собираме минимален број на податоци со цел да ви понудиме подобро корисничко искуство"
   },
   "order": {
     "orderAlreadyPaid": "Порачката или е веќе платена, или плаќањето ќе се изврши на достава",

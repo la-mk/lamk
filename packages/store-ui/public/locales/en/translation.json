@@ -208,7 +208,6 @@
     "phoneNumber": "Phone number",
     "price": "Price",
     "seeAll": "See all",
-    "sort": "Sort",
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
@@ -268,7 +267,7 @@
     "total": "Total"
   },
   "legal": {
-    "legalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores"
+    "legalExplanation": "We make sure to be compliant with all regulations and laws. We have taken all security measures and limit the amount of data we collect to the bare minimum while still providing a smooth user experience"
   },
   "order": {
     "orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",

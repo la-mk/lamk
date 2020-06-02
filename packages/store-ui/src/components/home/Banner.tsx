@@ -4,6 +4,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { Button, Flex, Title } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { useTranslation } from '../../common/i18n';
+import Link from 'next/link';
 
 export const Banner = ({
   banner,
@@ -42,10 +43,11 @@ export const Banner = ({
           <Title textAlign='center' level={1} fontSize={[5, 6, 6]}>
             {store.slogan}
           </Title>
-
-          <Button size='large' type='primary'>
-            {t('actions.shopNow')}
-          </Button>
+          <Link href='/products' passHref>
+            <Button size='large' type='primary'>
+              {t('actions.shopNow')}
+            </Button>
+          </Link>
         </Flex>
       )}
     </ImageBackgroundBox>
