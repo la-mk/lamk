@@ -19,7 +19,7 @@ const getMenus = (t: any): Menu[] => [
 
     submenus: [
       {
-        link: '/about-us',
+        link: '/about',
         text: t('pages.aboutUs'),
       },
       {
