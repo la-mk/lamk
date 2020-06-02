@@ -5,12 +5,41 @@ import { queryWithCurrentUser } from '../../common/hooks/auth';
 import { HookContext } from '@feathersjs/feathers';
 import { validate } from '../../common/hooks/db';
 import { sdk } from '@sradevski/la-sdk';
+import { AnalyticsFrequency } from '@sradevski/la-sdk/dist/models/storeAnalytics';
 
 const convertGetToStandardResponse = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['get']);
   const { result, params } = ctx;
   const type = params.query?.type ?? 'unknown';
   ctx.result = { [type]: result };
+};
+
+const limitQuery = (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['get']);
+  if (!ctx.params.query) {
+    ctx.params.query = {};
+  }
+
+  ctx.params.query.$sort = { timestamp: -1 };
+  const frequency: AnalyticsFrequency | undefined = ctx.params.query.frequency;
+  switch (frequency) {
+    case sdk.storeAnalytics.AnalyticsFrequency.MONTHLY: {
+      ctx.params.query.$limit = 13;
+      return;
+    }
+    case sdk.storeAnalytics.AnalyticsFrequency.WEEKLY: {
+      ctx.params.query.$limit = 13;
+      return;
+    }
+    case sdk.storeAnalytics.AnalyticsFrequency.DAILY: {
+      ctx.params.query.$limit = 32;
+      return;
+    }
+    case sdk.storeAnalytics.AnalyticsFrequency.HOURLY: {
+      ctx.params.query.$limit = 25;
+      return;
+    }
+  }
 };
 
 export const hooks = {
@@ -21,6 +50,7 @@ export const hooks = {
       authenticate('jwt'),
       queryWithCurrentUser(['forStore']),
       requireAllQueryParams(['type', 'forStore']),
+      limitQuery,
     ],
     create: [disallow('external'), validate(sdk.storeAnalytics.validate)],
     patch: [disallow('external'), validate(sdk.storeAnalytics.validate)],

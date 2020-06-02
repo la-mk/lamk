@@ -14,19 +14,25 @@ import {
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 
 const getAnalyticsTypeQuery = (
-  type: AnalyticsTypes,
-  forStore: string,
   engines: { mongoDb: Db; analyticsModel: Pick<Service, 'get' | 'find'> },
-  frequency: AnalyticsFrequency = sdk.storeAnalytics.AnalyticsFrequency.DAILY,
+  query: {
+    type: AnalyticsTypes;
+    forStore: string;
+    frequency?: AnalyticsFrequency;
+  },
 ) => {
-  switch (type) {
+  switch (query.type) {
     case sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT: {
       return () =>
-        engines.mongoDb.collection('products').count({ soldBy: forStore });
+        engines.mongoDb
+          .collection('products')
+          .count({ soldBy: query.forStore });
     }
     case sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT: {
       return () =>
-        engines.mongoDb.collection('orders').count({ orderedFrom: forStore });
+        engines.mongoDb
+          .collection('orders')
+          .count({ orderedFrom: query.forStore });
     }
 
     case sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE: {
@@ -35,7 +41,7 @@ const getAnalyticsTypeQuery = (
           .collection('orders')
           .aggregate([
             {
-              $match: { orderedFrom: forStore },
+              $match: { orderedFrom: query.forStore },
             },
             {
               $group: {
@@ -55,7 +61,10 @@ const getAnalyticsTypeQuery = (
     default: {
       return async () =>
         ((await engines.analyticsModel.find({
-          query: { forStore, type, frequency },
+          query: {
+            frequency: sdk.storeAnalytics.AnalyticsFrequency.DAILY,
+            ...query,
+          },
         })) as FindResult<StoreAnalytics>).data;
     }
   }
@@ -81,15 +90,17 @@ class StoreAnalyticsService extends Service {
   // We want to use get because the response should be a single object for the specific store.
   // @ts-ignore
   async get(_id: string, params: Params<any>) {
-    const { type, forStore, frequency } = params.query;
-    const query = getAnalyticsTypeQuery(type, forStore, {
-      mongoDb: this.mongoDb,
-      analyticsModel: {
-        get: (...args) => super.get(...args),
-        find: (...args) => super.find(...args),
+    const { type, frequency } = params.query;
+    const query = getAnalyticsTypeQuery(
+      {
+        mongoDb: this.mongoDb,
+        analyticsModel: {
+          get: (...args) => super.get(...args),
+          find: (...args) => super.find(...args),
+        },
       },
-    });
-
+      params.query,
+    );
     try {
       return await query?.();
     } catch (err) {
