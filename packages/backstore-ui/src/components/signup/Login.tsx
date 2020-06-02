@@ -11,7 +11,7 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const handleLogin = (data: Credentials) => {
-    dispatch(login(data, 'local'));
+    dispatch(login({ ...data, email: data.email?.toLowerCase() }, 'local'));
   };
 
   return (

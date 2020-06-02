@@ -166,10 +166,9 @@ export const CampaignFormModal = ({
                       decimalSeparator='.'
                       value={val}
                       onChange={onChange}
-                      // onBlur doesn't apply parsing to the value
-                      onBlur={val =>
-                        onComplete(parseFloat(currencyParser(val.target.value)))
-                      }
+                      onBlur={() => {
+                        onComplete(val);
+                      }}
                     />
                   );
                 }}

@@ -11,7 +11,7 @@ export const Signup = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleSignup = (data: Credentials) => {
-    dispatch(signup(data, 'local'));
+    dispatch(signup({ ...data, email: data.email?.toLowerCase() }, 'local'));
   };
 
   return (

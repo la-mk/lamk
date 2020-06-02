@@ -219,7 +219,7 @@ export const ProductFormModal = ({
                       decimalSeparator='.'
                       value={val}
                       onChange={onChange}
-                      onBlur={onComplete}
+                      onBlur={() => onComplete(val)}
                     />
                   );
                 }}
@@ -248,7 +248,7 @@ export const ProductFormModal = ({
                       decimalSeparator='.'
                       value={val}
                       onChange={onChange}
-                      onBlur={onComplete}
+                      onBlur={() => onComplete(val)}
                     />
                   );
                 }}
@@ -290,7 +290,7 @@ export const ProductFormModal = ({
                       max={999999}
                       value={val}
                       onChange={onChange}
-                      onBlur={onComplete}
+                      onBlur={() => onComplete(val)}
                       placeholder={t('product.stockExample')}
                     />
                   );
