@@ -30,6 +30,7 @@ import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
+import { InvoiceDownloadLink } from '../pdfs/invoice/InvoiceDownloadLink';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -147,6 +148,23 @@ export const OrderDetailsModal = ({
           <Flex flexDirection={['column', 'column', 'row']}>
             {/* TODO: This is copy-pasted from Store, together with the data calculation. Unify in one component*/}
             <Card
+              extra={[
+                <InvoiceDownloadLink
+                  order={order}
+                  store={store}
+                  pricesSummary={sdk.utils.pricing.calculatePrices(
+                    order.ordered,
+                    order.delivery,
+                    order.campaigns,
+                  )}
+                  logoUrl={sdk.artifact.getUrlForArtifact(
+                    store.logo,
+                    store._id,
+                  )}
+                >
+                  {t('actions.downloadInvoice')}
+                </InvoiceDownloadLink>,
+              ]}
               title={t('finance.priceBreakdown')}
               mr={[0, 0, 2]}
               mt={[3, 3, 0]}
