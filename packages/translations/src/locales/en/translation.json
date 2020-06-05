@@ -12,6 +12,7 @@
 		"continue": "Continue",
     "create": "Create",
 		"delete": "Delete",
+		"downloadInvoice": "Download invoice",
 		"goToDashboard": "Go to dashboard",
 		"goToCart": "Go to Cart",
 		"goBack": "Go back",
