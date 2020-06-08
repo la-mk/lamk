@@ -17,8 +17,7 @@ import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from '@sradevski/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { getOrderStatusColor } from '../../shared/utils/enums';
+import { Order, OrderStatus } from '@sradevski/la-sdk/dist/models/order';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
@@ -55,9 +54,9 @@ const getColumns = (t: T, filters: FilterObject) =>
         t(`orderStatus.${a.status}`).localeCompare(
           t(`orderStatus.${b.status}`),
         ),
-      render: status => {
+      render: (status: OrderStatus) => {
         return (
-          <Tag compact color={getOrderStatusColor(status)}>
+          <Tag compact color={sdk.order.orderStatusColor[status]}>
             {t(`orderStatus.${status}`)}
           </Tag>
         );
