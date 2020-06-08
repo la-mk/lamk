@@ -27,7 +27,6 @@ const ProductDescription = ({
 
       {detailed && (
         <Paragraph
-          fontSize={0}
           color='mutedText.dark'
           style={{ whiteSpace: 'pre-wrap' }}
           ellipsis={{ rows: 3 }}
