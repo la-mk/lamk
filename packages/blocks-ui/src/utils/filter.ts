@@ -49,7 +49,7 @@ export const rangeFilter = (
   const normalizedFrom = from ?? 0;
   const normalizedTo = to ?? 0;
 
-  if (normalizedFrom >= normalizedTo) {
+  if (to != null && normalizedFrom >= normalizedTo) {
     return { [fieldName]: normalizedFrom };
   }
 
