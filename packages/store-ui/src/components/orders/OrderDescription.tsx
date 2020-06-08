@@ -8,7 +8,7 @@ import { OrderProductsList } from '../shared/product/OrderProductsList';
 import { formatDistanceToNow } from 'date-fns';
 import { mk, enUS } from 'date-fns/locale';
 
-export const OrderDescription = ({ order, storeId }) => {
+export const OrderDescription = ({ order, storeId, hideDetailsButton }) => {
   const { t, i18n } = useTranslation();
 
   return (
@@ -41,11 +41,13 @@ export const OrderDescription = ({ order, storeId }) => {
             {t(`orderStatus.${order.status}`)}
           </Text>
         </Flex>
-        <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
-          <Button type='link'>
-            <EyeFilled /> {t('common.details')}
-          </Button>
-        </Link>
+        {!hideDetailsButton && (
+          <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
+            <Button type='link'>
+              <EyeFilled /> {t('common.details')}
+            </Button>
+          </Link>
+        )}
       </Flex>
 
       <OrderProductsList

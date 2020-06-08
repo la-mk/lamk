@@ -117,7 +117,11 @@ export const Order = ({ orderId }: { orderId: string }) => {
         >
           <Flex maxWidth={960} flex={1} flexDirection='column' mr={[0, 0, 3]}>
             <CustomCard mb={3}>
-              <OrderDescription order={order} storeId={store._id} />
+              <OrderDescription
+                hideDetailsButton
+                order={order}
+                storeId={store._id}
+              />
             </CustomCard>
             {order.deliverTo && (
               <CustomCard minWidth={320} mt={3}>
