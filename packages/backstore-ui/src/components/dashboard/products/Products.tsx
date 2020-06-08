@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import React, { useState } from 'react';
 import {
   Tooltip,
@@ -28,6 +29,31 @@ import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { getUniqueCategories } from '../../../state/modules/categories/categories.selector';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 
+const searchSupportedFields = [
+  'name',
+  'sku',
+  'soldBy',
+  'description',
+  'calculatedPrice',
+  'category',
+  'createdAt',
+];
+
+const normalizeFilters = (filters: FilterObject) => {
+  if (filters.searching) {
+    filters.filtering = pick(filters.filtering, searchSupportedFields);
+    filters.sorting = searchSupportedFields.includes(
+      filters.sorting?.field ?? '',
+    )
+      ? filters.sorting
+      : undefined;
+
+    return filters;
+  }
+
+  return filters;
+};
+
 const getColumns = (
   t: T,
   storeId: string,
@@ -43,6 +69,7 @@ const getColumns = (
       render: (_text, product) => {
         return (
           <Image
+            minHeight='60px'
             height='60px'
             alt={product.name}
             src={
@@ -64,6 +91,16 @@ const getColumns = (
     {
       title: t('common.price'),
       dataIndex: 'calculatedPrice',
+      filters: [
+        {
+          text: t('product.discount'),
+          value: 'discounted',
+        },
+      ],
+      filteredValue: filters.filtering.discount ? ['discounted'] : undefined,
+      filterMultiple: false,
+      onFilter: (value, record) =>
+        value === 'discounted' ? (record.discount ?? 0) > 0 : true,
       sortOrder:
         filters.sorting?.field === 'calculatedPrice'
           ? filters.sorting?.order
@@ -72,6 +109,25 @@ const getColumns = (
       render: (val, record) => (
         <Text color={record.discount ? 'danger' : 'text.dark'}>{val}</Text>
       ),
+    },
+    {
+      title: t('product.stock'),
+      dataIndex: 'stock',
+      filters: [
+        {
+          text: t('product.outOfStock'),
+          value: 0,
+        },
+      ],
+      filteredValue: filters.filtering.stock
+        ? [filters.filtering.stock]
+        : undefined,
+      filterMultiple: false,
+      onFilter: (value, record) => record.stock === value,
+      sortOrder:
+        filters.sorting?.field === 'stock' ? filters.sorting?.order : undefined,
+      sorter: (a, b) => (a.stock ?? 0) - (b.stock ?? 0),
+      render: val => <Text>{val}</Text>,
     },
     {
       title: t('common.category'),
@@ -181,10 +237,14 @@ export const Products = () => {
         <Search
           size='large'
           allowClear
-          placeholder={t('actions.search')}
+          placeholder={`${t('actions.search')}: ${t(
+            'common.name',
+          ).toLowerCase()}, ${t('product.sku').toLowerCase()}, ${t(
+            'common.description',
+          ).toLowerCase()}`}
           defaultValue={filters.searching}
           onSearch={value => {
-            setFilters({ ...filters, searching: value });
+            setFilters(normalizeFilters({ ...filters, searching: value }));
           }}
           enterButton
         />
@@ -203,27 +263,40 @@ export const Products = () => {
         onChange={(pagination, tableFilters, sorter) => {
           const singleSorter = Array.isArray(sorter) ? sorter[0] : sorter;
 
-          setFilters({
-            pagination: {
-              pageSize: pagination.pageSize || 20,
-              currentPage: pagination.current || 1,
-            },
-            sorting:
-              singleSorter?.field && singleSorter?.order
-                ? {
-                    field: singleSorter.field as string,
-                    order: singleSorter.order,
-                  }
-                : undefined,
-            filtering: {
-              ...filters.filtering,
-              ...utils.filter.multipleItemsFilter(
-                'category',
-                tableFilters.category,
-              ),
-            },
-            searching: filters.searching,
-          });
+          setFilters(
+            normalizeFilters({
+              pagination: {
+                pageSize: pagination.pageSize || 20,
+                currentPage: pagination.current || 1,
+              },
+              sorting:
+                singleSorter?.field && singleSorter?.order
+                  ? {
+                      field: singleSorter.field as string,
+                      order: singleSorter.order,
+                    }
+                  : undefined,
+              filtering: {
+                ...filters.filtering,
+                ...utils.filter.singleItemFilter(
+                  'stock',
+                  tableFilters.stock?.[0],
+                ),
+                ...utils.filter.rangeFilter(
+                  'discount',
+                  tableFilters.calculatedPrice?.[0] === 'discounted' ? 1 : null,
+                  null,
+                  0,
+                  Infinity,
+                ),
+                ...utils.filter.multipleItemsFilter(
+                  'category',
+                  tableFilters.category,
+                ),
+              },
+              searching: filters.searching,
+            }),
+          );
         }}
         rowKey='_id'
         onRow={product => ({

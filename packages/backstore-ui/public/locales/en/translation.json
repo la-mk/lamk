@@ -324,6 +324,7 @@
     "groups": "Groups",
     "groupsTip": "Groups are used to logically group products. You can have up to 10 groups per product",
     "nameExample": "eg. Nike Air Max",
+    "outOfStock": "Sold out",
     "priceExample": "eg. 500",
     "productDeleted": "Product {{id}} successfully deleted",
     "sku": "Inventory code",

@@ -87,7 +87,12 @@ const allowedFields = [
   'createdAt',
 ];
 
-const numberFieldsSet = new Set(['price', 'discount', 'calculatedPrice']);
+const numberFieldsSet = new Set([
+  'price',
+  'discount',
+  'calculatedPrice',
+  'stock',
+]);
 
 export const hooks = {
   before: {
