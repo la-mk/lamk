@@ -19,7 +19,7 @@ export const getTheme = (brandColor: string) => {
       },
       mutedText: {
         light: '#D3DDE6',
-        dark: '#96A4B6',
+        dark: '#8e9cad',
       },
     },
   };

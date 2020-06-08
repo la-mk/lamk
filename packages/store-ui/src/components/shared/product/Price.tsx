@@ -24,7 +24,7 @@ export const Price = ({
     <Flex flexDirection={vertical ? 'column' : 'row'} flexWrap='wrap'>
       <Text
         fontSize={fontSize}
-        color={discounted ? 'danger' : 'mutedText.dark'}
+        color={discounted ? 'danger' : 'text.dark'}
         mr={discounted ? fontSize : undefined}
         strong
       >

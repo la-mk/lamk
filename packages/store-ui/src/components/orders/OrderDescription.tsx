@@ -6,9 +6,10 @@ import Link from 'next/link';
 import { EyeFilled } from '@ant-design/icons';
 import { OrderProductsList } from '../shared/product/OrderProductsList';
 import { formatDistanceToNow } from 'date-fns';
+import { mk, enUS } from 'date-fns/locale';
 
 export const OrderDescription = ({ order, storeId }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <>
@@ -60,6 +61,8 @@ export const OrderDescription = ({ order, storeId }) => {
         <Text ml={2} fontSize={[0, 1, 1]} color='mutedText.dark'>
           {t('order.ordered')}{' '}
           {formatDistanceToNow(new Date(order.createdAt), {
+            // TODO: Handle locales better
+            locale: i18n.language === 'mk' ? mk : enUS,
             addSuffix: true,
           })}
         </Text>
