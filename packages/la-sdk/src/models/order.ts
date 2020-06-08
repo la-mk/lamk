@@ -19,6 +19,15 @@ export enum OrderStatus {
   COMPLETED = 'completed',
 }
 
+export const orderStatusColor: {[key in OrderStatus] : string} = {
+  [OrderStatus.CANCELLED]:'#FF3838',
+  [OrderStatus.PENDING_PAYMENT]: '#FA8231',
+  [OrderStatus.PENDING_SHIPMENT]: '#FBC531',
+  [OrderStatus.SHIPPED]: '#9C88FF',
+  [OrderStatus.COMPLETED]: '#4CD137',
+};
+
+
 export const schema = {
   ...defaultSchemaEntries,
   orderedFrom: v8n().id(),
@@ -98,5 +107,6 @@ export const getOrderSdk = (client: Application) => {
     },
 
     OrderStatus,
+    orderStatusColor,
   };
 };
