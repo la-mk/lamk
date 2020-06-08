@@ -46,19 +46,16 @@ export const rangeFilter = (
     return { [fieldName]: undefined };
   }
 
-  const normalizedFrom = from ?? 0;
-  const normalizedTo = to ?? 0;
-
-  if (to != null && normalizedFrom >= normalizedTo) {
-    return { [fieldName]: normalizedFrom };
+  if (to && from && from >= to) {
+    return { [fieldName]: from };
   }
 
-  if (normalizedFrom > minValue) {
-    query.$gte = normalizedFrom;
+  if (from && from > minValue) {
+    query.$gte = from;
   }
 
-  if (normalizedTo < maxValue) {
-    query.$lte = normalizedTo;
+  if (to && to < maxValue) {
+    query.$lte = to;
   }
 
   return { [fieldName]: query };
