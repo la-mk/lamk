@@ -42,20 +42,23 @@ export const rangeFilter = (
   maxValue: number
 ) => {
   let query: { $gte?: number; $lte?: number } = {};
-  if (from === null || from === undefined || to === null || to === undefined) {
+  if (from == null && to == null) {
     return { [fieldName]: undefined };
   }
 
-  if (from === to || from > to) {
-    return { [fieldName]: from };
+  const normalizedFrom = from ?? 0;
+  const normalizedTo = to ?? 0;
+
+  if (normalizedFrom >= normalizedTo) {
+    return { [fieldName]: normalizedFrom };
   }
 
-  if (from > minValue) {
-    query.$gte = from;
+  if (normalizedFrom > minValue) {
+    query.$gte = normalizedFrom;
   }
 
-  if (to < maxValue) {
-    query.$lte = to;
+  if (normalizedTo < maxValue) {
+    query.$lte = normalizedTo;
   }
 
   return { [fieldName]: query };
