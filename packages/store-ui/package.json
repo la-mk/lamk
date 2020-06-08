@@ -28,7 +28,7 @@
     "@ant-design/icons": "^4.2.1",
     "@sradevski/analytics": "0.0.7",
     "@sradevski/blocks-ui": "0.0.71",
-    "@sradevski/la-sdk": "0.0.79",
+    "@sradevski/la-sdk": "0.0.81",
     "antd": "^4.2.5",
     "bezier-easing": "^2.1.0",
     "connected-next-router": "^3.0.1",
@@ -79,6 +79,6 @@
     "null-loader": "^3.0.0",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   }
 }

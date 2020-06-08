@@ -20,7 +20,7 @@ function OrdersPage({ store }: { store: Store | undefined }) {
   );
 }
 
-OrdersPage.getInitialProps = async function(
+OrdersPage.getInitialProps = async function (
   ctx: NextPageContext & { store: any },
 ) {
   const state = ctx.store.getState();

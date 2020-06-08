@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Title,
-  Flex,
-  Steps,
-  Step,
-  Row,
-  Col,
-  Empty,
-  Spin,
-  hooks,
-} from '@sradevski/blocks-ui';
+import { Flex, Steps, Step, Empty, Spin, hooks } from '@sradevski/blocks-ui';
 import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { sdk } from '@sradevski/la-sdk';
@@ -19,11 +9,12 @@ import { Summary } from '../shared/Summary';
 import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
 import { useTranslation } from '../../common/i18n';
-import { OrderProductCard } from './OrderProductCard';
 import { getStore } from '../../state/modules/store/store.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { CustomCard } from '../shared/components/CustomCard';
+import { OrderDescription } from './OrderDescription';
+import { ManagedSets } from '../sets/ManagedSets';
 
 const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
   const startIndex = isCardPayment ? 1 : 0;
@@ -117,48 +108,48 @@ export const Order = ({ orderId }: { orderId: string }) => {
           )}
         </Steps>
 
-        <Flex flexWrap='wrap' my={4} justifyContent='center'>
-          <Summary
-            m={3}
-            items={order.ordered}
-            delivery={order.delivery}
-            campaigns={order.campaigns ?? []}
-            buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
-            onCheckout={shouldPay ? handlePayment : undefined}
-            title={t('finance.priceBreakdown')}
-          />
-
-          {order.deliverTo && (
-            <CustomCard
-              maxWidth={420}
-              minWidth={320}
-              m={3}
-              title={t('address.shippingAddress')}
-            >
-              <ShippingDescription address={order.deliverTo} />
-            </CustomCard>
-          )}
-        </Flex>
-        <Title mb={3} level={3}>
-          {t('commerce.product_plural')}
-        </Title>
-        <Row
-          align='top'
-          justify='start'
-          gutter={{ xs: 16, sm: 24, md: 32, lg: 64 }}
+        <Flex
+          mt={4}
+          width='100%'
+          justifyContent='space-between'
+          alignItems={['center', 'center', 'flex-start']}
+          flexDirection={['column-reverse', 'column-reverse', 'row']}
         >
-          {order.ordered.map(orderItem => {
-            return (
-              <Col
-                width={['100%', '330px', '330px']}
-                key={orderItem.product._id}
-                mb={4}
-              >
-                <OrderProductCard orderItem={orderItem} storeId={store._id} />
-              </Col>
-            );
-          })}
-        </Row>
+          <Flex maxWidth={960} flex={1} flexDirection='column' mr={[0, 0, 3]}>
+            <CustomCard mb={3}>
+              <OrderDescription order={order} storeId={store._id} />
+            </CustomCard>
+            {order.deliverTo && (
+              <CustomCard minWidth={320} mt={3}>
+                <ShippingDescription address={order.deliverTo} />
+              </CustomCard>
+            )}
+          </Flex>
+          <Flex
+            alignItems='flex-start'
+            justifyContent='center'
+            maxWidth={[0, 0, 460]}
+            flex={1}
+            ml={[0, 0, 3]}
+            my={[4, 4, 0]}
+          >
+            <Summary
+              hideFreeShipping
+              items={order.ordered}
+              delivery={order.delivery}
+              campaigns={order.campaigns ?? []}
+              buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
+              onCheckout={shouldPay ? handlePayment : undefined}
+              title={t('finance.priceBreakdown')}
+            />
+          </Flex>
+        </Flex>
+
+        <ManagedSets
+          mt={7}
+          storeId={store._id}
+          setTags={[{ name: 'discounted' }]}
+        />
       </Spin>
     </Page>
   );

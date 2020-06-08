@@ -28,7 +28,7 @@ const OrderPage = ({
 };
 
 // This is a route that requires a registered user, so there is no data we can pre-fetch on the server.
-OrderPage.getInitialProps = async function(
+OrderPage.getInitialProps = async function (
   ctx: NextPageContext & { store: any },
 ) {
   const state = ctx.store.getState();

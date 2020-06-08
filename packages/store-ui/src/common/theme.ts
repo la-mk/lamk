@@ -6,7 +6,7 @@ export const getTheme = (brandColor: string) => {
       success: '#5CB85C',
 
       background: {
-        light: '#EFF4FB',
+        light: '#F5F8FD',
         dark: '#043353',
       },
       heading: {
@@ -14,11 +14,12 @@ export const getTheme = (brandColor: string) => {
         light: '#F8F8F8',
       },
       text: {
-        dark: '#57677A',
+        dark: '#505F65',
         light: '#F8F8F8',
       },
       mutedText: {
         light: '#D3DDE6',
+        dark: '#96A4B6',
       },
     },
   };

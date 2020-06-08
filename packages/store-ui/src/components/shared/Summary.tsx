@@ -30,6 +30,7 @@ interface SummaryProps {
   showProductsSummary?: boolean;
   onCheckout?: () => void;
   showContinueShopping?: boolean;
+  hideFreeShipping?: boolean;
 }
 
 export const Summary = ({
@@ -42,6 +43,7 @@ export const Summary = ({
   showProductsSummary,
   onCheckout,
   showContinueShopping,
+  hideFreeShipping,
   ...props
 }: SummaryProps & React.ComponentProps<typeof Box>) => {
   const user = useSelector(getUser);
@@ -95,7 +97,7 @@ export const Summary = ({
         <Text>{t('finance.shippingCost')}</Text>
         <Text strong>{prices.deliveryTotal} ден</Text>
       </Flex>
-      {prices.deliveryTotal !== 0 && (
+      {prices.deliveryTotal !== 0 && !hideFreeShipping && (
         <Box mt={3}>
           <Text fontSize={0} color='mutedText.dark'>
             {t('delivery.addToGetFreeDelivery', {

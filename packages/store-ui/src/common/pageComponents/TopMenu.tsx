@@ -38,9 +38,7 @@ export const TopMenu = withTheme(
                 <ShoppingOutlined />
               </Text>
               <Text
-                color={
-                  selectedKey === 'products' ? 'primary' : 'mutedText.dark'
-                }
+                color={selectedKey === 'products' ? 'primary' : 'text.dark'}
                 ml={2}
                 fontSize={0}
                 display={['none', 'none', 'initial']}
@@ -59,7 +57,7 @@ export const TopMenu = withTheme(
                 <ShopOutlined />
               </Text>
               <Text
-                color={selectedKey === 'about' ? 'primary' : 'mutedText.dark'}
+                color={selectedKey === 'about' ? 'primary' : 'text.dark'}
                 ml={2}
                 fontSize={0}
                 display={['none', 'none', 'initial']}

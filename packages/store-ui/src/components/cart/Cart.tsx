@@ -21,7 +21,7 @@ import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
-import { CartProductsList } from './CartProductsList';
+import { OrderProductsList } from '../shared/product/OrderProductsList';
 import { ManagedSets } from '../sets/ManagedSets';
 
 export const Cart = () => {
@@ -129,8 +129,8 @@ export const Cart = () => {
       <Spin spinning={showSpinner}>
         <Flex width='100%' flexDirection={['column', 'column', 'row']}>
           <Flex flexDirection='column' flex={2} mr={[0, 0, 3]}>
-            <CartProductsList
-              cartItems={cart.items}
+            <OrderProductsList
+              items={cart.items}
               storeId={store._id}
               handleRemove={handleRemove}
               handleChangeItemQuantity={handleChangeItemQuantity}
