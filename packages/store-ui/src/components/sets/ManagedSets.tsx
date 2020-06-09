@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import React, { useState, useEffect } from 'react';
 import {
   ProductSet as ProductSetType,

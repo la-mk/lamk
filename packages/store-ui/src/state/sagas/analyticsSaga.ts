@@ -1,4 +1,4 @@
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { takeEvery, takeLatest, select } from 'redux-saga/effects';
 import { analytics } from '../../common/analytics';
 import { LOGOUT } from '../modules/auth/auth.module';

@@ -7,8 +7,17 @@ import { EyeFilled } from '@ant-design/icons';
 import { OrderProductsList } from '../shared/product/OrderProductsList';
 import { formatDistanceToNow } from 'date-fns';
 import { mk, enUS } from 'date-fns/locale';
+import { Order } from '@sradevski/la-sdk/dist/models/order';
 
-export const OrderDescription = ({ order, storeId, hideDetailsButton }) => {
+export const OrderDescription = ({
+  order,
+  storeId,
+  hideDetailsButton,
+}: {
+  order: Order;
+  storeId: string;
+  hideDetailsButton?: boolean;
+}) => {
   const { t, i18n } = useTranslation();
 
   return (
