@@ -33,6 +33,7 @@ import {
   addProduct,
   patchProduct,
   removeProduct,
+  setGroups,
 } from '../../../state/modules/products/products.module';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setCategories } from '../../../state/modules/categories/categories.module';
@@ -46,6 +47,7 @@ import {
 } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
+import { getGroups } from '../../../state/modules/products/products.selector';
 
 interface ProductFormModalProps {
   product: Product | undefined;
@@ -61,7 +63,7 @@ export const ProductFormModal = ({
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
   const [groupsCaller, groupsLoading] = hooks.useCall();
-  const [groups, setGroups] = useState<string[] | undefined>();
+  const groups: string[] = useSelector(getGroups);
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;
   const [categories, groupedCategories] = useCategories(t);
@@ -324,17 +326,15 @@ export const ProductFormModal = ({
                       groupsLoading ? <Spin size='small' /> : null
                     }
                   >
-                    {groups && !groupsLoading
-                      ? groups
-                          .filter(x => !val || !val.includes(x))
-                          .map(option => {
-                            return (
-                              <Option key={option} value={option}>
-                                {option}
-                              </Option>
-                            );
-                          })
-                      : null}
+                    {groups
+                      .filter(x => !val || !val.includes(x))
+                      .map(option => {
+                        return (
+                          <Option key={option} value={option}>
+                            {option}
+                          </Option>
+                        );
+                      })}
                   </Select>
                 )}
               </FormItem>

@@ -1,11 +1,16 @@
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 
-const initialState: { products: Product[] } = { products: [] };
+const initialState: { products: Product[]; groups: string[] } = {
+  products: [],
+  groups: [],
+};
 
 const SET_PRODUCTS = 'products/SET_PRODUCTS';
 const ADD_PRODUCT = 'products/ADD_PRODUCT';
 const PATCH_PRODUCT = 'products/PATCH_PRODUCT';
 const REMOVE_PRODUCT = 'products/REMOVE_PRODUCT';
+
+const SET_GROUPS = 'products/SET_GROUPS';
 
 export default function products(state = initialState, action: any) {
   switch (action.type) {
@@ -41,6 +46,12 @@ export default function products(state = initialState, action: any) {
         ),
       };
     }
+    case SET_GROUPS: {
+      return {
+        ...state,
+        groups: action.groups,
+      };
+    }
     default:
       return state;
   }
@@ -71,5 +82,12 @@ export function removeProduct(id: string) {
   return {
     type: REMOVE_PRODUCT,
     id,
+  };
+}
+
+export function setGroups(groups: string[]) {
+  return {
+    type: SET_GROUPS,
+    groups,
   };
 }

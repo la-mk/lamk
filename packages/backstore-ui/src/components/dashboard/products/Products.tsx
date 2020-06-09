@@ -18,16 +18,24 @@ import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { ProductFormModal } from './ProductFormModal';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { getProducts } from '../../../state/modules/products/products.selector';
+import {
+  getProducts,
+  getGroups,
+} from '../../../state/modules/products/products.selector';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { setProducts } from '../../../state/modules/products/products.module';
+import {
+  setProducts,
+  setGroups,
+} from '../../../state/modules/products/products.module';
 import { useTranslation } from 'react-i18next';
 import { T } from '../../../config/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { getUniqueCategories } from '../../../state/modules/categories/categories.selector';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
 
 const searchSupportedFields = [
   'name',
@@ -58,6 +66,7 @@ const getColumns = (
   t: T,
   storeId: string,
   categories: Category[] | null,
+  groups: string[],
   filters: FilterObject,
 ) =>
   [
@@ -147,6 +156,16 @@ const getColumns = (
     {
       title: t('product.groups'),
       dataIndex: 'groups',
+      filters: groups
+        ? groups.map(group => ({
+            text: group,
+            value: group,
+          }))
+        : [],
+      filteredValue:
+        filters.filtering?.groups?.$in ??
+        (filters.filtering?.groups ? [filters.filtering?.groups] : []),
+      onFilter: (value, record) => record.groups.includes(value as string),
       render: (groups: Product['groups']) => {
         if (!groups || !groups.length) {
           return null;
@@ -173,10 +192,13 @@ export const Products = () => {
   const [total, setTotal] = useState<number | undefined>();
   const { t } = useTranslation();
 
+  const groups: string[] = useSelector(getGroups);
   const products: Product[] = useSelector(getProducts);
   const store: Store | null = useSelector(getStore);
 
   const [caller, showSpinner] = hooks.useCall();
+  const [groupsCaller] = hooks.useCall();
+
   // We set category as undefined so on the first filter change the pagination won't reset (this is what is returned from multipleItemsFilter)
   const [filters, setFilters] = hooks.useFilter(
     { filtering: { category: undefined } },
@@ -187,8 +209,8 @@ export const Products = () => {
   );
   const categories = useSelector(getUniqueCategories('level3'));
   const columns = React.useMemo(() => {
-    return getColumns(t, store ? store._id : '', categories, filters);
-  }, [store, categories, filters, t]);
+    return getColumns(t, store ? store._id : '', categories, groups, filters);
+  }, [store, categories, groups, filters, t]);
 
   React.useEffect(() => {
     if (!store) {
@@ -203,6 +225,17 @@ export const Products = () => {
       },
     );
   }, [store, filters, caller]);
+
+  React.useEffect(() => {
+    if (!store?._id) {
+      return;
+    }
+
+    groupsCaller<FindResult<ProductGroup>>(
+      sdk.productGroup.findForStore(store._id),
+      productGroups => setGroups(productGroups.data.map(x => x.groupName)),
+    );
+  }, [store?._id]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
@@ -292,6 +325,10 @@ export const Products = () => {
                 ...utils.filter.multipleItemsFilter(
                   'category',
                   tableFilters.category,
+                ),
+                ...utils.filter.multipleItemsFilter(
+                  'groups',
+                  tableFilters.groups,
                 ),
               },
               searching: filters.searching,
