@@ -149,9 +149,11 @@
     "worksuit": "Worksuits"
   },
   "common": {
+    "contactDetails": "Contact details",
     "email": "Email address",
     "fullName": "Full name",
     "message": "Message",
+    "ourCompany": "Our company",
     "success": "Success!"
   },
   "company": {
@@ -298,6 +300,13 @@
     "pendingShipmentDescription": "Awaiting shipment",
     "shipped": "Shipped",
     "shippedDescription": "Awaiting arrival"
+  },
+  "pages": {
+    "generalRules": "General rules",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "returnAndRefund": "Returns and refunds",
+    "termsOfUse": "Terms of use"
   },
   "paymentMethodNames": {
     "creditCard": "Credit card",

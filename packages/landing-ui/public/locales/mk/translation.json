@@ -149,9 +149,11 @@
     "worksuit": "Комбилизони"
   },
   "common": {
+    "contactDetails": "Контакт информации",
     "email": "Емаил адреса",
     "fullName": "Име и презиме",
     "message": "Порака",
+    "ourCompany": "Нашата компанија",
     "success": "Успешна операција!"
   },
   "company": {
@@ -298,6 +300,13 @@
     "pendingShipmentDescription": "Се чека за достава",
     "shipped": "Испратена",
     "shippedDescription": "Испратена по карго"
+  },
+  "pages": {
+    "generalRules": "Општи одредби",
+    "legal": "Правни",
+    "privacy": "Приватност",
+    "returnAndRefund": "Замена на производ",
+    "termsOfUse": "Услови на употреба"
   },
   "paymentMethodNames": {
     "creditCard": "Кредитна картичка",

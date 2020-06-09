@@ -13,6 +13,7 @@
     "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\"]' 'public/locales'"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.1",
     "@sradevski/analytics": "0.0.7",
     "@sradevski/blocks-ui": "0.0.75",
     "antd": "^4.1.0",

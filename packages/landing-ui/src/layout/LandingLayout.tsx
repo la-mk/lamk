@@ -19,6 +19,7 @@ import { trackInitialLoad, track } from '../common/analytics';
 import { Router } from 'next/router';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { FooterContent } from './FooterContent';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -105,12 +106,15 @@ export const LandingLayout = withTheme(
             </Flex>
           </Header>
           <Content style={{ backgroundColor: 'white' }}>{children}</Content>
+
           <Footer
-            style={{ zIndex: 1, backgroundColor: theme.colors.background.dark }}
+            style={{
+              textAlign: 'center',
+              zIndex: 1,
+              backgroundColor: theme.colors.background.dark,
+            }}
           >
-            <Text textAlign='center' color='white'>
-              La.mk © 2020
-            </Text>
+            <FooterContent />
           </Footer>
         </Layout>
 
