@@ -40,7 +40,7 @@ export const FocusCard = ({
             {description}
           </Text>
         </Box>
-        <Button size='large' onClick={() => null}>
+        <Button style={{ zIndex: 2 }} size='large' href='https://admin.la.mk'>
           Start now
         </Button>
 

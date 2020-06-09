@@ -31,7 +31,11 @@ export const Hero = withTheme(({ theme }) => {
               It Works
             </Text>
           </Title>
-          <Paragraph mt={4} textAlign={['center', 'start', 'start']}>
+          <Paragraph
+            mt={4}
+            fontSize={[2, 3, 3]}
+            textAlign={['center', 'start', 'start']}
+          >
             {t('howItWorks.heroExplanation')}
           </Paragraph>
           <Box display={['none', 'flex', 'flex']} mt={5}>

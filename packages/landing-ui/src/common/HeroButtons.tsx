@@ -9,11 +9,11 @@ export const HeroButtons = ({
   const { t } = useTranslation();
   return (
     <Flex {...props} style={{ zIndex: 1 }}>
-      <Button mr={2} type='primary' size='large'>
+      <Button mr={2} type='primary' size='large' href='https://admin.la.mk'>
         {t('actions.startNow')}
       </Button>
       {!noDemo && (
-        <Button ml={2} size='large'>
+        <Button ml={2} size='large' target='_blank' href='https://demo.la.mk'>
           {t('actions.seeDemoShop')}
         </Button>
       )}

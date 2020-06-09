@@ -6,6 +6,7 @@ import { HowToList } from './HowToList';
 import { GeneratedStoreExample } from './GeneratedStoreExample';
 import { ContactUsFooter } from '../common/ContactUsFooter';
 import { useTranslation } from '../common/i18n';
+import { HeroButtons } from '../common/HeroButtons';
 
 const RadiatingCircles = () => {
   return (
@@ -56,14 +57,8 @@ export const HowItWorks = () => {
         <HowToList />
       </Box>
       <GeneratedStoreExample />
-
-      <Flex alignItems='center' justifyContent='center' my={80}>
-        <Button mr={2} type='primary' size='large' width={140}>
-          {t('actions.startNow')}
-        </Button>
-        <Button ml={2} width={140} size='large'>
-          {t('actions.watchDemo')}
-        </Button>
+      <Flex my={80} alignItems='center' justifyContent='center'>
+        <HeroButtons />
       </Flex>
 
       <ContactUsFooter />

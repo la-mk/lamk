@@ -27,7 +27,8 @@ module.exports = withPlugins(
             'height-base': '42px',
             'height-lg': '50px',
             'height-sm': '30px',
-            '@form-item-margin-bottom': '32px',
+            '@form-item-margin-bottom': '16px',
+            '@form-vertical-label-padding': '0',
           },
         },
         webpack: (config, { isServer }) => {

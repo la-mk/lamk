@@ -6,10 +6,10 @@
     "create": "Создадете",
     "goBack": "Одете назад",
     "promote": "Промовирај",
+    "save": "Зачувајте",
     "seeDemoShop": "Демо продавница",
     "showBanner": "Покажи банер",
-    "startNow": "Почни сега",
-    "watchDemo": "Види видео"
+    "startNow": "Почни сега"
   },
   "analyticsFrequency": {
     "Monthly": "Месечен",

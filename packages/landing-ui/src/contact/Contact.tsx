@@ -31,7 +31,11 @@ export const Contact = withTheme(({ theme }) => {
               </Text>
             </Title>
 
-            <Paragraph mt={4} textAlign={['center', 'start', 'start']}>
+            <Paragraph
+              mt={4}
+              fontSize={[2, 3, 3]}
+              textAlign={['center', 'start', 'start']}
+            >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
               voluptatibus optio tempora vero, odio velit earum fugiat eveniet
               assumenda ullam ab reprehenderit illo eum dolores omnis

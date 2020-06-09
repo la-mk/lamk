@@ -81,7 +81,11 @@ export const Faq = withTheme(({ theme }) => {
               </Text>
             </Title>
 
-            <Paragraph mt={4} textAlign={['center', 'start', 'start']}>
+            <Paragraph
+              mt={4}
+              fontSize={[2, 3, 3]}
+              textAlign={['center', 'start', 'start']}
+            >
               {t('landingFaq.heroExplanation')}
             </Paragraph>
           </Box>

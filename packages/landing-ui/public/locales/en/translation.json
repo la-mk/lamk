@@ -6,10 +6,10 @@
     "create": "Create",
     "goBack": "Go back",
     "promote": "Promote",
+    "save": "Save",
     "seeDemoShop": "See demo shop",
     "showBanner": "Show banner",
-    "startNow": "Start now",
-    "watchDemo": "Watch demo"
+    "startNow": "Start now"
   },
   "analyticsFrequency": {
     "Monthly": "Monthly",

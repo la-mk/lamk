@@ -12,6 +12,14 @@ import styled from 'styled-components';
 import { useTranslation } from '../common/i18n';
 import { Card } from '../common/Card';
 
+const FakeButton = styled(Box)`
+  border-radius: ${(props) => props.theme.radii[0]}px;
+  background-color: ${(props) => props.theme.colors.primary};
+  padding: 4px;
+  color: white;
+  text-align: center;
+`;
+
 const HowToOrderedList = styled.ol`
   list-style: none;
   counter-reset: my-awesome-counter;
@@ -85,6 +93,7 @@ const StepEntry = ({ children, ...props }) => {
       width='100%'
       flexDirection='row'
       alignItems='center'
+      justifyContent='center'
       p={1}
       bg='white'
       {...props}
@@ -178,9 +187,9 @@ export const HowToList = () => {
               <Image src='/cactus-logo.svg' />
             </StepEntry>
 
-            <Button type='primary' mt={4} size='small' width='100%'>
+            <FakeButton mt={4} width='100%'>
               {t('actions.create')}
-            </Button>
+            </FakeButton>
           </Step>
           <Step title={t('common.success')}>
             <StepSuccess />
@@ -216,9 +225,9 @@ export const HowToList = () => {
                 400 MKD
               </Text>
             </StepEntry>
-            <Button type='primary' mt={5} size='small' width='100%'>
+            <FakeButton mt={5} width='100%'>
               {t('actions.addToStore')}
-            </Button>
+            </FakeButton>
           </Step>
         </HowToItem>
 
@@ -273,15 +282,9 @@ export const HowToList = () => {
               </StepEntry>
             </Flex>
 
-            <Button
-              style={{ fontSize: 14 }}
-              type='primary'
-              mt={3}
-              size='small'
-              width='100%'
-            >
-              Start
-            </Button>
+            <FakeButton mt={3} width='100%'>
+              {t('actions.save')}
+            </FakeButton>
           </Step>
           <Step title={t('common.success')}>
             <StepSuccess />
@@ -293,19 +296,19 @@ export const HowToList = () => {
           description={t('howItWorks.listOrdersDetails')}
         >
           <Step title={t('howItWorks.myOrders')}>
-            <StepEntry>
+            <StepEntry justifyContent='flex-start'>
               <ColorCircle color='#EF4351' />
               <Text color='mutedText.dark' ml={2}>
                 1 {t('howItWorks.sampleNewOrder')}
               </Text>
             </StepEntry>
-            <StepEntry mt={2}>
+            <StepEntry justifyContent='flex-start' mt={2}>
               <ColorCircle color='#27AE60' />
               <Text color='mutedText.dark' ml={2}>
                 2 {t('howItWorks.sampleCompletedOrder')}
               </Text>
             </StepEntry>
-            <StepEntry mt={2}>
+            <StepEntry justifyContent='flex-start' mt={2}>
               <ColorCircle color='#F1C40F' />
               <Text color='mutedText.dark' ml={2}>
                 1 {t('howItWorks.samplePreparingOrder')}
@@ -313,12 +316,12 @@ export const HowToList = () => {
             </StepEntry>
           </Step>
           <Step title={t('howItWorks.orderDetails')}>
-            <StepEntry>
+            <StepEntry justifyContent='flex-start'>
               <Text color='mutedText.dark' textAlign='center'>
                 1 {t('howItWorks.sampleProductName')}
               </Text>
             </StepEntry>
-            <StepEntry mt={2}>
+            <StepEntry justifyContent='flex-start' mt={2}>
               <Text color='mutedText.dark' textAlign='center'>
                 2 {t('howItWorks.sampleProductName2_plural')}
               </Text>
@@ -409,15 +412,9 @@ export const HowToList = () => {
               </StepEntry>
             </Flex>
 
-            <Button
-              style={{ fontSize: 14 }}
-              type='primary'
-              mt={4}
-              size='small'
-              width='100%'
-            >
+            <FakeButton mt={4} width='100%'>
               {t('actions.activate')}
-            </Button>
+            </FakeButton>
           </Step>
         </HowToItem>
       </HowToOrderedList>

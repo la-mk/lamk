@@ -87,7 +87,7 @@ export const ContactForm = () => {
 
   return (
     <>
-      <Col width={['100%', '90%', '80%']} mx='auto' style={{ zIndex: 3 }}>
+      <Col width={['90%', '60%', '40%']} mx='auto' style={{ zIndex: 3 }}>
         {hasSubmitted && (
           <Box bg='background.light' style={{ borderRadius: 12 }}>
             <Result
@@ -102,13 +102,11 @@ export const ContactForm = () => {
           <Form
             labelCol={{
               xs: { span: 24 },
-              md: { span: 6 },
             }}
             wrapperCol={{
               xs: { span: 24 },
-              md: { span: 12 },
             }}
-            layout='horizontal'
+            layout='vertical'
             colon={false}
             onFormCompleted={handleSubmit}
             validate={validator}
