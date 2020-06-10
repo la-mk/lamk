@@ -6,7 +6,7 @@ import { SetupProducts } from './SetupProducts';
 import { SetupDelivery } from './SetupDelivery';
 
 import { Step, Flex, Spin, hooks } from '@sradevski/blocks-ui';
-import { Publish } from './Publish';
+// import { Publish } from './Publish';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
@@ -120,6 +120,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
   const handleSetupDeliveryDone = (newDelivery?: Delivery) => {
     if (!newDelivery || isEqual(delivery, newDelivery)) {
+      handlePublishDone(true);
       return setStep(3);
     }
 
@@ -128,7 +129,8 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       : sdk.delivery.create(newDelivery);
 
     caller<Delivery>(handler, delivery => {
-      setStep(3);
+      handlePublishDone(true);
+      // setStep(3);
       return setDelivery(delivery);
     });
   };
@@ -192,9 +194,9 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             )}
           </Flex>
         )}
-        {step === 3 && store && (
+        {/* {step === 3 && store && (
           <Publish storeSlug={store.slug} onDone={handlePublishDone} />
-        )}
+        )} */}
         {isFinished && <Redirect push to='/dashboard' />}
       </Flex>
     </Spin>

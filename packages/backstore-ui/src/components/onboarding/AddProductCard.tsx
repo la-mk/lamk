@@ -11,7 +11,6 @@ import {
   formInput,
   formTextArea,
   parsers,
-  hooks,
 } from '@sradevski/blocks-ui';
 import { MoreOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
@@ -25,7 +24,6 @@ import {
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { GroupedCategories } from '../../state/modules/categories/categories.selector';
 import { useTranslation } from 'react-i18next';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { useFullCategory, FullCategory } from '../shared/hooks/useFullCategory';
 import { cascaderFilter } from '../shared/utils/form';
 import { useSelector } from 'react-redux';
@@ -33,17 +31,15 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { ProductFormModal } from '../dashboard/products/ProductFormModal';
 
 interface AddProductCardProps {
-  storeId: Store['_id'] | undefined;
-  product?: Product;
+  product: Product;
   categories: Category[] | null;
   groupedCategories: GroupedCategories | null;
-  onAddProduct: (product: Product) => void;
+  onAddProduct?: (product: Product) => void;
   onPatchProduct: (product: Product) => void;
   onRemoveProduct: (id: string) => void;
 }
 
 export const AddProductCard = ({
-  storeId,
   product,
   categories,
   groupedCategories,
@@ -55,16 +51,6 @@ export const AddProductCard = ({
   const [fullCategory, setFullCategory] = useFullCategory(categories, product);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const store = useSelector(getStore);
-  const [externalState] = hooks.useFormState<Product>(
-    product,
-    {
-      soldBy: storeId,
-      unit: sdk.product.ProductUnit.ITEM,
-      images: [],
-      groups: [],
-    },
-    [product, storeId],
-  );
 
   if (!store) {
     return null;
@@ -79,8 +65,8 @@ export const AddProductCard = ({
         getErrorMessage={(errorName, context) =>
           t(`errors.${errorName}`, context)
         }
-        externalState={externalState}
-        onFormCompleted={product ? onPatchProduct : onAddProduct}
+        externalState={product}
+        onFormCompleted={onAddProduct ?? onPatchProduct}
       >
         <Card
           title={
@@ -124,7 +110,7 @@ export const AddProductCard = ({
               : []),
 
             <Button htmlType='submit' type='link' icon={<CheckOutlined />}>
-              {product ? t('actions.update') : t('actions.add')}
+              {onAddProduct ? t('actions.add') : t('actions.update')}
             </Button>,
           ]}
         >
@@ -161,7 +147,7 @@ export const AddProductCard = ({
                   )
                 }
                 defaultFileList={getDefaultFileList(
-                  product ? product.images : [],
+                  product.images ?? [],
                   store._id,
                 )}
                 name='product-images'

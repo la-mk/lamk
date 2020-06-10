@@ -6,6 +6,7 @@ import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { GroupedCategories } from '../../state/modules/categories/categories.selector';
 import { useTranslation } from 'react-i18next';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { sdk } from '@sradevski/la-sdk';
 
 interface SetupProductsProps {
   storeId: Store['_id'] | undefined;
@@ -29,6 +30,26 @@ export const SetupProducts = ({
   onRemoveProduct,
 }: SetupProductsProps) => {
   const { t } = useTranslation();
+  const [editedProduct, setEditedProduct] = React.useState<
+    Partial<Product> | undefined
+  >({
+    soldBy: storeId,
+    unit: sdk.product.ProductUnit.ITEM,
+    images: [],
+    groups: [],
+  });
+
+  // This is a messy way of recreating the "AddProductCard" component when we add a product.
+  React.useEffect(() => {
+    if (!editedProduct) {
+      setEditedProduct({
+        soldBy: storeId,
+        unit: sdk.product.ProductUnit.ITEM,
+        images: [],
+        groups: [],
+      });
+    }
+  }, [editedProduct, setEditedProduct]);
 
   return (
     <>
@@ -50,11 +71,9 @@ export const SetupProducts = ({
           return (
             <Col key={product._id} mb={4}>
               <AddProductCard
-                storeId={storeId}
                 product={product}
                 categories={categories}
                 groupedCategories={groupedCategories}
-                onAddProduct={onAddProduct}
                 onPatchProduct={onPatchProduct}
                 onRemoveProduct={onRemoveProduct}
               />
@@ -63,15 +82,19 @@ export const SetupProducts = ({
         })}
 
         <Col mb={4}>
-          <AddProductCard
-            storeId={storeId}
-            product={undefined}
-            categories={categories}
-            groupedCategories={groupedCategories}
-            onAddProduct={onAddProduct}
-            onPatchProduct={onPatchProduct}
-            onRemoveProduct={onRemoveProduct}
-          />
+          {editedProduct && (
+            <AddProductCard
+              product={editedProduct as Product}
+              categories={categories}
+              groupedCategories={groupedCategories}
+              onAddProduct={product => {
+                setEditedProduct(undefined);
+                onAddProduct(product);
+              }}
+              onPatchProduct={onPatchProduct}
+              onRemoveProduct={onRemoveProduct}
+            />
+          )}
         </Col>
       </Row>
     </>

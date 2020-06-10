@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import React, { createRef, useEffect, useRef } from 'react';
 import iro from '@jaames/iro';
 import { Flex, Input, Box } from '@sradevski/blocks-ui';
@@ -47,17 +48,23 @@ export const ColorPicker = ({ value, onChange }: ColorInputProps) => {
       ],
       layoutDirection: 'horizontal',
     });
+  }, [el.current]);
 
-    const handler = ({ hexString }: { hexString: string }) => {
+  useEffect(() => {
+    if (!colorPicker.current) {
+      return;
+    }
+
+    const handler = debounce(({ hexString }: { hexString: string }) => {
       onChange(hexString);
-    };
+    }, 50);
 
     // @ts-ignore
     colorPicker.current.on(['color:init', 'color:change'], handler);
     return () =>
       // @ts-ignore
       colorPicker.current.off(['color:init', 'color:change'], handler);
-  }, []);
+  }, [onChange]);
 
   useEffect(() => {
     if (
