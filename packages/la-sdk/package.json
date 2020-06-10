@@ -24,14 +24,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsdx lint --fix"
     }
-  },
-  "lint-staged": {
-    "./**/*.{js,mjs,jsx,ts,tsx}": [
-      "tsdx lint --fix",
-      "git add"
-    ]
   },
   "prettier": {
     "printWidth": 80,
