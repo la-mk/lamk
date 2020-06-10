@@ -8,6 +8,7 @@ import {
   UploadContent,
   Flex,
   Button,
+  hooks,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import {
@@ -28,22 +29,12 @@ interface StoreFormProps {
 }
 
 export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
-  const [externalState, setExternalState] = useState<Partial<Store> | null>(
-    store,
-  );
   const { t } = useTranslation();
-
-  useEffect(() => {
-    if (!store) {
-      setExternalState({
-        ownedBy: userId,
-        isPublished: false,
-        color: '#7859d1',
-      });
-    } else {
-      setExternalState(store);
-    }
-  }, [store, userId]);
+  const [externalState] = hooks.useFormState<Partial<Store>>(
+    store,
+    { ownedBy: userId, isPublished: false, color: '#7859d1' },
+    [store],
+  );
 
   return (
     <Form

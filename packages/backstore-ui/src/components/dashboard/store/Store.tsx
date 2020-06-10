@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin, hooks } from '@sradevski/blocks-ui';
+import { Spin, hooks, message } from '@sradevski/blocks-ui';
 
 import { sdk } from '@sradevski/la-sdk';
 import { Store as StoreType } from '@sradevski/la-sdk/dist/models/store';
@@ -23,7 +23,10 @@ export const Store = () => {
       return;
     }
 
-    caller<StoreType>(sdk.store.patch(newStore._id, newStore), setStore);
+    caller<StoreType>(sdk.store.patch(newStore._id, newStore), res => {
+      message.success(t('common.success'));
+      return setStore(res);
+    });
   };
 
   return (

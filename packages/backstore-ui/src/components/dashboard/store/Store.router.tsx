@@ -6,6 +6,7 @@ import { TabPane } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import { AboutUs } from './AboutUs';
 import { LandingPreferences } from './LandingPreferences';
+import { Company } from './Company';
 
 export const StoreRouter = () => {
   const { t } = useTranslation();
@@ -21,6 +22,9 @@ export const StoreRouter = () => {
           >
             <TabPane tab={t('common.basic')} key='basic'>
               <Store />
+            </TabPane>
+            <TabPane tab={t('common.company')} key='company'>
+              <Company />
             </TabPane>
             <TabPane tab={t('store.aboutUs')} key='about-us'>
               <AboutUs />
