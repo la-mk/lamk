@@ -4,4 +4,4 @@ import 'antd/es/cascader/style/index.less';
 
 import { system } from '../system';
 
-export const Cascader = system<CascaderProps>(AntCascader as any);
+export const Cascader = system<CascaderProps>(AntCascader);

@@ -27,7 +27,7 @@ export interface FlexProps
     FlexWrapProps,
     FlexDirectionProps,
     AlignItemsProps,
-    JustifyContentProps, 
+    JustifyContentProps,
     BorderRadiusProps {}
 
 export const Flex = system<FlexProps>(
@@ -42,6 +42,6 @@ export const Flex = system<FlexProps>(
     ${borderRadius}
 
     display: flex;
-  ` as any,
+  `,
   ['color']
 );

@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import {LeftOutlined, RightOutlined} from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button } from '../Button';
 import { system } from '../../system';
 import { Flex } from '../Flex';
-import {Box, BoxProps} from '../Box';
+import { Box, BoxProps } from '../Box';
 
 export type ArrowDirection = 'left' | 'right';
 interface SetProps<T> extends Omit<BoxProps, 'ref'> {
@@ -98,17 +98,17 @@ function SetBase<T>({
       <ArrowButton
         type="ghost"
         onClick={() => handleArrowClick('left')}
-        icon={<LeftOutlined/>}
-        direction='left'
+        icon={<LeftOutlined />}
+        direction="left"
       />
       <ArrowButton
         type="ghost"
         onClick={() => handleArrowClick('right')}
-        icon={<RightOutlined/>}
-        direction='right'
+        icon={<RightOutlined />}
+        direction="right"
       />
     </SetContainer>
   );
 }
 
-export const Set = system<SetProps<any>>(SetBase as any);
+export const Set = system<SetProps<any>>(SetBase);

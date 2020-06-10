@@ -14,28 +14,28 @@ export const HeadElements = ({
   title,
   description,
   previewImages,
-  HeadComponent
+  HeadComponent,
 }: HeadElementsProps) => {
   return (
     <HeadComponent>
-      <title key='title'>{siteName ? `${title} | ${siteName}` : title}</title>
-      <meta property='og:title' content={title} />
-      <meta name='twitter:title' content={title} />
+      <title key="title">{siteName ? `${title} | ${siteName}` : title}</title>
+      <meta property="og:title" content={title} />
+      <meta name="twitter:title" content={title} />
 
-      <meta key='description' name='description' content={description} />
-      <meta property='og:description' content={description} />
-      <meta name='twitter:description' content={description} />
+      <meta key="description" name="description" content={description} />
+      <meta property="og:description" content={description} />
+      <meta name="twitter:description" content={description} />
 
       {previewImages &&
         previewImages.map(image => (
-          <meta key={image} property='og:image' content={image} />
+          <meta key={image} property="og:image" content={image} />
         ))}
 
-      <meta charSet='utf-8' />
+      <meta charSet="utf-8" />
       <meta
-        key='viewport'
-        name='viewport'
-        content='initial-scale=1.0, width=device-width'
+        key="viewport"
+        name="viewport"
+        content="initial-scale=1.0, width=device-width"
       />
     </HeadComponent>
   );

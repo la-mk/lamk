@@ -4,7 +4,5 @@ import 'antd/es/collapse/style/index.less';
 
 import { system } from '../system';
 
-export const Collapse = system<CollapseProps>(AntCollapse as any);
-export const CollapsePanel = system<CollapsePanelProps>(
-  AntCollapse.Panel as any,
-);
+export const Collapse = system<CollapseProps>(AntCollapse);
+export const CollapsePanel = system<CollapsePanelProps>(AntCollapse.Panel);

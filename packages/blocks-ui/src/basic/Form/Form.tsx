@@ -4,11 +4,13 @@ import { Form as AntForm } from 'antd';
 import { FormProps, FormItemProps } from 'antd/es/form';
 import 'antd/es/form/style/index.less';
 import get from 'lodash/get';
-import { clone, set } from 'lodash';
+import set from 'lodash/set';
+import cloneDeep from 'lodash/cloneDeep';
 import { system, SystemProps } from '../../system';
 
+// This is not very performant, but it'll do for now.
 const setIn = (obj = {}, value: any, path: string) => {
-  const cloned = clone(obj);
+  const cloned = cloneDeep(obj);
   set(cloned, path, value);
 
   return cloned;
@@ -19,8 +21,8 @@ const getVal = (eventOrVal: any) => {
   return eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
 };
 
-const StyledForm = system<FormProps>(AntForm as any);
-const StyledFormItem = system<FormItemProps>(AntForm.Item as any);
+const StyledForm = system<FormProps>(AntForm);
+const StyledFormItem = system<FormItemProps>(AntForm.Item);
 
 export interface SingleValidationErrorResponse {
   name: string;
@@ -39,11 +41,11 @@ export interface FormHandlers {
   validate?: (form: any) => ValidationErrorResponse | undefined | null;
   validateSingle?: (
     val: any,
-    selector: string,
+    selector: string
   ) => SingleValidationErrorResponse | undefined | null;
   getErrorMessage?: (
     errorName: string,
-    context: { [key: string]: any },
+    context: { [key: string]: any }
   ) => string | undefined | null;
   externalState?: any;
 }
@@ -145,7 +147,7 @@ interface FormItemContextProps {
     currentVal: any,
     onChange: (val: any) => void,
     onComplete: (val: any) => void,
-    state: any,
+    state: any
   ) => React.ReactNode;
   selector: string;
   parser?: (val: any) => any;
@@ -186,7 +188,7 @@ export const FormItem = ({
                 context.inputChangeHandler(parser(getVal(val)), selector),
               (val: any) =>
                 context.inputCompleteHandler(parser(getVal(val)), selector),
-              context.state,
+              context.state
             )}
           </StyledFormItem>
         );

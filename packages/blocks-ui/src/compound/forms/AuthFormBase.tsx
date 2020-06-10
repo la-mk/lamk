@@ -25,7 +25,7 @@ export const AuthFormBase = ({
   ...otherProps
 }: AuthFormBaseProps) => {
   const localization = useContext(LocalizationContext);
-  
+
   return (
     <Flex
       alignItems="center"
@@ -39,9 +39,11 @@ export const AuthFormBase = ({
       <Title level={2} mb={3} fontSize={4}>
         {primaryText}
       </Title>
-      {logoUrl && <Text textAlign="center" fontSize={0}>
-        {localization.authSameAccount}{' '}<PoweredBy logoUrl={logoUrl} />
-      </Text>}
+      {logoUrl && (
+        <Text textAlign="center" fontSize={0}>
+          {localization.authSameAccount} <PoweredBy logoUrl={logoUrl} />
+        </Text>
+      )}
 
       <Form
         mt={4}

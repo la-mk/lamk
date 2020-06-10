@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 type Caller = <T extends any>(
   promise: Promise<T>,
-  callback?: (res: T) => Action<any> | void,
+  callback?: (res: T) => Action<any> | void
 ) => void;
 
 export interface Action<T = any> {
@@ -34,7 +34,7 @@ export const useCall = (initialProcessingStatus = false): UseCallResult => {
         .catch((err: Error) => message.error(err.message))
         .finally(() => setIsProcessing(false));
     },
-    [dispatch],
+    [dispatch]
   );
 
   return [caller, isProcessing];

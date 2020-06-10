@@ -23,18 +23,22 @@ const FlexGridBase = <T extends any>({
   pagination,
 }: FlexGridProps<T>) => {
   return (
-    <Flex flexDirection='column' alignItems='center' width='100%'>
+    <Flex flexDirection="column" alignItems="center" width="100%">
       <Spin spinning={loading}>
         <Flex
           className={className}
-          justifyContent='center'
-          alignItems='center'
-          flexWrap='wrap'
-          flexDirection='row'
+          justifyContent="center"
+          alignItems="center"
+          flexWrap="wrap"
+          flexDirection="row"
           mb={4}
         >
           {items.map((entry: any) => {
-            return <React.Fragment key={entry[rowKey]}>{renderItem(entry)}</React.Fragment>;
+            return (
+              <React.Fragment key={entry[rowKey]}>
+                {renderItem(entry)}
+              </React.Fragment>
+            );
           })}
         </Flex>
       </Spin>
@@ -43,4 +47,4 @@ const FlexGridBase = <T extends any>({
   );
 };
 
-export const FlexGrid = system<any>(FlexGridBase as any);
+export const FlexGrid = system<FlexGridProps<any>>(FlexGridBase);

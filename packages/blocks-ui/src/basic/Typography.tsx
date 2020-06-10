@@ -30,33 +30,39 @@ const getTitleFontSize = (level: TitleProps['level']) => {
   }
 };
 
-export const BaseText = system<TextProps>(AntTypography.Text as any, [
+export const BaseText = system<TextProps>(AntTypography.Text, [
   'color',
   'textAlign',
   'fontSize',
 ]);
 
-export const BaseParagraph = system<BlockProps>(
-  AntTypography.Paragraph as any,
-  ['color', 'textAlign', 'fontSize']
-);
+export const BaseParagraph = system<BlockProps>(AntTypography.Paragraph, [
+  'color',
+  'textAlign',
+  'fontSize',
+]);
 
-const BaseTitle = system<TitleProps>(AntTypography.Title as any, [
+const BaseTitle = system<TitleProps>(AntTypography.Title, [
   'color',
   'textAlign',
   'fontSize',
 ]);
 
 // Omit type, use `color` instead.
-export const Text = (props: Omit<TextProps, "type"> & SystemProps) => {
+export const Text = (props: Omit<TextProps, 'type'> & SystemProps) => {
   return <BaseText color="text.dark" fontSize={1} {...props} />;
 };
 
-export const Paragraph = (props: Omit<ParagraphProps, "type"> & SystemProps) => {
+export const Paragraph = (
+  props: Omit<ParagraphProps, 'type'> & SystemProps
+) => {
   return <BaseParagraph color="text.dark" fontSize={1} {...props} />;
 };
 
-export const Title = ({ style, ...props }: Omit<TitleProps, "type"> & SystemProps) => {
+export const Title = ({
+  style,
+  ...props
+}: Omit<TitleProps, 'type'> & SystemProps) => {
   return (
     <BaseTitle
       color="heading.dark"

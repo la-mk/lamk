@@ -1,5 +1,10 @@
 import { DatePicker as AntDatePicker } from 'antd';
-import { DatePickerProps, WeekPickerProps, MonthPickerProps, RangePickerProps } from 'antd/es/date-picker';
+import {
+  DatePickerProps,
+  WeekPickerProps,
+  MonthPickerProps,
+  RangePickerProps,
+} from 'antd/es/date-picker';
 import 'antd/es/date-picker/style/index.less';
 
 import { system } from '../system';

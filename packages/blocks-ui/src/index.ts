@@ -2,13 +2,22 @@ export { Alert } from './basic/Alert';
 export { Avatar } from './basic/Avatar';
 export { Badge } from './basic/Badge';
 export { Box } from './basic/Box';
-export { Breadcrumb, BreadcrumbItem, BreadcrumbSeparator } from './basic/Breadcrumb';
+export {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbSeparator,
+} from './basic/Breadcrumb';
 export { Button, ButtonGroup } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
 export { Cascader } from './basic/Cascader';
-export {Checkbox, CheckboxGroup} from './basic/Checkbox';
+export { Checkbox, CheckboxGroup } from './basic/Checkbox';
 export { Collapse, CollapsePanel } from './basic/Collapse';
-export { DatePicker, RangePicker, WeekPicker, MonthPicker } from './basic/DatePicker';
+export {
+  DatePicker,
+  RangePicker,
+  WeekPicker,
+  MonthPicker,
+} from './basic/DatePicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider } from './basic/Divider';
 export { Drawer } from './basic/Drawer';
@@ -42,7 +51,7 @@ export { Slider } from './basic/Slider';
 export { Spin } from './basic/Spin';
 export { Statistic } from './basic/Statistic';
 export { Steps, Step } from './basic/Steps';
-export { Switch } from './basic/Switch'
+export { Switch } from './basic/Switch';
 export { Table } from './basic/Table';
 export { Tabs, TabPane } from './basic/Tabs';
 export { Tag } from './basic/Tag';
@@ -54,9 +63,9 @@ export { formInput, formTextArea, parsers } from './compound/FormHelpers';
 export { LoginForm } from './compound/forms/LoginForm';
 export { SignupForm } from './compound/forms/SignupForm';
 export { UploadContent } from './compound/UploadContent';
-export {HeadElements} from './compound/HeadElements'
-export {FooterContent} from './compound/FooterContent'
-export {PoweredBy} from './compound/PoweredBy'
+export { HeadElements } from './compound/HeadElements';
+export { FooterContent } from './compound/FooterContent';
+export { PoweredBy } from './compound/PoweredBy';
 
 export { message } from './static/message';
 

@@ -118,14 +118,14 @@ const filteringAsQuery = (filtering: FilterObject['filtering']) => {
 };
 
 const searchingAsQuery = (searching: FilterObject['searching']) => {
-  if(!searching){
-    return {}
+  if (!searching) {
+    return {};
   }
 
   return {
     search: searching,
-  }
-}
+  };
+};
 
 export const filtersAsQuery = (filters: FilterObject) => {
   return {
@@ -162,4 +162,4 @@ export const parseFiltersUrl = (url: string) => {
 
 export const stringifyFilters = (filters: MinifiedFilterObject) => {
   return queryString.stringify(filters);
-}
+};

@@ -32,7 +32,7 @@ export const SignupForm = ({
       {...otherProps}
     >
       <FormItem selector="email" label={localization.email || 'Email address'}>
-        {formInput({size: 'large'})}
+        {formInput({ size: 'large' })}
       </FormItem>
 
       <FormItem selector="password" label={localization.password || 'Password'}>

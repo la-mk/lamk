@@ -5,7 +5,9 @@ import 'antd/es/card/style/index.less';
 import { system } from '../system';
 import styled from 'styled-components';
 
-export const Card = styled(system<CardProps>(AntCard, ['color']))`
+export const Card = styled(
+  system<CardProps>(AntCard, ['color'])
+)`
   & li {
     box-sizing: border-box;
   }
@@ -14,4 +16,4 @@ export const Card = styled(system<CardProps>(AntCard, ['color']))`
     align-items: flex-start;
   }
 `;
-export const CardMeta = system<CardMetaProps>(AntCard.Meta as any);
+export const CardMeta = system<CardMetaProps>(AntCard.Meta);

@@ -16,13 +16,16 @@ export interface BoxProps
     React.RefAttributes<HTMLDivElement>,
     OrderProps,
     AlignSelfProps,
-    StyledFlexProps, 
+    StyledFlexProps,
     BorderRadiusProps {}
 
-export const Box = system<BoxProps>(styled.div`
-  box-sizing: border-box;
-  ${flex};
-  ${alignSelf};
-  ${order};
-  ${borderRadius}
-  ` as any, ['color']);
+export const Box = system<BoxProps>(
+  styled.div`
+    box-sizing: border-box;
+    ${flex};
+    ${alignSelf};
+    ${order};
+    ${borderRadius}
+  `,
+  ['color']
+);

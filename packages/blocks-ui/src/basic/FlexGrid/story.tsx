@@ -14,7 +14,7 @@ storiesOf('Flex Grid', module).add('standard', () => {
     <Provider>
       <>
         <FlexGrid
-          rowKey='item'
+          rowKey="item"
           loading={false}
           items={[{ item: 'a' }, { item: 'b' }, { item: 'c' }]}
           renderItem={(item: any) => <div>{item.item}</div>}

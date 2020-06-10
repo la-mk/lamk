@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/blocks-ui"
   },
-  "version": "0.0.75",
+  "version": "0.0.76",
   "description": "",
   "module": "dist/blocks-ui.esm.js",
   "typings": "dist/index.d.ts",
@@ -24,14 +24,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsdx lint --fix"
     }
-  },
-  "lint-staged": {
-    "./**/*.{js,mjs,jsx,ts,tsx}": [
-      "tsdx lint --fix",
-      "git add"
-    ]
   },
   "prettier": {
     "printWidth": 80,

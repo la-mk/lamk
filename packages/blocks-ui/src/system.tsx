@@ -33,14 +33,13 @@ export interface SystemProps
     MinWidthProps,
     MinHeightProps,
     DisplayProps,
-    ColorProps, 
+    ColorProps,
     TextAlignProps,
     FontSizeProps {}
 
-
-export const system = function<T>(Component: React.ComponentClass<T>, additionalProps?: string[]) {
+export const system = function<T>(Component: any, additionalProps?: string[]) {
   // Use multiple & to increase specificity over the Ant components.
-  return styled(Component)<SystemProps>`
+  return styled(Component as React.FunctionComponent<T>)<SystemProps>`
     && {
       ${space}
       ${width}

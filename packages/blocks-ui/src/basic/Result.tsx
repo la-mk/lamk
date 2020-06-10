@@ -4,4 +4,4 @@ import 'antd/es/result/style/index.less';
 
 import { system } from '../system';
 
-export const Result = system<ResultProps>(AntResult as any);
+export const Result = system<ResultProps>(AntResult);

@@ -29,7 +29,7 @@ export const Tag = styled(system<TagProps>(AntTag))`
 `;
 
 export const CheckableTag = styled(
-  system<CheckableTagProps>(AntTag.CheckableTag as any)
+  system<CheckableTagProps>(AntTag.CheckableTag)
 )`
   text-align: center;
   line-height: ${props =>

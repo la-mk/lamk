@@ -4,4 +4,4 @@ import 'antd/es/empty/style/index.less';
 
 import { system } from '../system';
 
-export const Empty = system<EmptyProps>(AntEmpty as any);
+export const Empty = system<EmptyProps>(AntEmpty);

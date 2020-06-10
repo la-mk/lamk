@@ -6,6 +6,6 @@ import { system } from '../system';
 
 export const Breadcrumb = system<BreadcrumbProps>(AntBreadcrumb);
 export const BreadcrumbItem = system<BreadcrumbItemProps>(AntBreadcrumb.Item);
-export const BreadcrumbSeparator = system<{children: React.ReactNode}>(AntBreadcrumb.Separator);
-
-
+export const BreadcrumbSeparator = system<{ children: React.ReactNode }>(
+  AntBreadcrumb.Separator
+);

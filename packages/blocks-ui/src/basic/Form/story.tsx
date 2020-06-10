@@ -11,7 +11,7 @@ storiesOf('Form', module).add('basic form', () => (
     <Form
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
-      layout='horizontal'
+      layout="horizontal"
       colon={false}
       onFormCompleted={console.log}
       externalState={{}}
@@ -20,7 +20,7 @@ storiesOf('Form', module).add('basic form', () => (
     >
       <FormItem
         extra={'Some explanation'}
-        selector='price'
+        selector="price"
         label={'Price'}
         parser={parsers.number}
       >
@@ -29,14 +29,14 @@ storiesOf('Form', module).add('basic form', () => (
 
       <FormItem
         extra={'Delivery destination'}
-        selector='delivery'
+        selector="delivery"
         label={'Delivery'}
       >
         {formInput()}
       </FormItem>
 
-      <Flex justifyContent='center' alignItems='center'>
-        <Button mr={2} type='primary' htmlType='submit' size='large'>
+      <Flex justifyContent="center" alignItems="center">
+        <Button mr={2} type="primary" htmlType="submit" size="large">
           Save
         </Button>
       </Flex>

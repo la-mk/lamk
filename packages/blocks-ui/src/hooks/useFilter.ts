@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import merge from 'lodash/merge';
 import noop from 'lodash/noop';
 import isEqual from 'lodash/isEqual';
@@ -16,9 +17,9 @@ export interface FilterRouter {
     as: string,
     options: {
       shallow: boolean;
-    },
+    }
   ) => void;
-  routeChangeListener?: (cb: () => void) => () => void
+  routeChangeListener?: (cb: () => void) => () => void;
 }
 
 export interface UseFilterConfig {
@@ -47,19 +48,19 @@ const defaultConfig: UseFilterConfig = {
 
 const getStorageState = (
   storage?: UseFilterConfig['storage'],
-  storageKey?: UseFilterConfig['storageKey'],
+  storageKey?: UseFilterConfig['storageKey']
 ) => {
   switch (storage) {
     case 'url': {
       // TODO: Some of the parsed values can be a number, but this will return all of them as strings.
-      return parseFiltersUrl(location.href);
+      return parseFiltersUrl(window.location.href);
     }
 
     case 'local': {
       if (!localStorage) {
         return {} as FilterObject;
       }
-      const key = storageKey || location.pathname;
+      const key = storageKey || window.location.pathname;
       const asObj = localStorage[key] ? JSON.parse(localStorage[key]) : {};
       return expandFilterObject(asObj as MinifiedFilterObject);
     }
@@ -69,12 +70,12 @@ const getStorageState = (
         return {} as FilterObject;
       }
 
-      const key = storageKey || location.pathname;
+      const key = storageKey || window.location.pathname;
       const asObj = sessionStorage[key] ? JSON.parse(sessionStorage[key]) : {};
       return expandFilterObject(asObj as MinifiedFilterObject);
     }
 
-    default: 
+    default:
       return {};
   }
 };
@@ -83,12 +84,12 @@ const addToStorage = (
   filter: MinifiedFilterObject,
   storage?: UseFilterConfig['storage'],
   storageKey?: UseFilterConfig['storageKey'],
-  router?: FilterRouter,
+  router?: FilterRouter
 ) => {
   switch (storage) {
     case 'url': {
-      const stringified = stringifyFilters(filter)
-      const baseUri = location.pathname;
+      const stringified = stringifyFilters(filter);
+      const baseUri = window.location.pathname;
       const newUri = `${baseUri}?${stringified}`;
       if (!router) {
         throw new Error('You need to provide a router for URL storage');
@@ -102,7 +103,7 @@ const addToStorage = (
       if (!localStorage) {
         return;
       }
-      const key = storageKey || location.pathname;
+      const key = storageKey || window.location.pathname;
       localStorage[key] = JSON.stringify(filter);
       return;
     }
@@ -112,7 +113,7 @@ const addToStorage = (
         return;
       }
 
-      const key = storageKey || location.pathname;
+      const key = storageKey || window.location.pathname;
       sessionStorage[key] = JSON.stringify(filter);
       return;
     }
@@ -120,15 +121,26 @@ const addToStorage = (
 };
 
 // If the filtering changes, the number of shown items potentially changes as well, so we want to reset pagination in order for it to not be larger than the total items shown
-const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: FilterObject) => {
+const resetPaginationIfNecessary = (
+  filtersBefore: FilterObject,
+  filtersAfter: FilterObject
+) => {
   // This takes care of null, undefined, and an empty object, which are practically the same;
-  const isFilteringEquallyEmpty = isEmpty(filtersBefore.filtering) === true && isEmpty(filtersAfter.filtering) === true;
-  const isSearchEquallyEmpty = isEmpty(filtersBefore.searching) === true && isEmpty(filtersAfter.searching) === true;
+  const isFilteringEquallyEmpty =
+    isEmpty(filtersBefore.filtering) === true &&
+    isEmpty(filtersAfter.filtering) === true;
+  const isSearchEquallyEmpty =
+    isEmpty(filtersBefore.searching) === true &&
+    isEmpty(filtersAfter.searching) === true;
 
-  const isFilteringSame = isFilteringEquallyEmpty || isEqual(filtersBefore.filtering, filtersAfter.filtering);
-  const isSearchingSame = isSearchEquallyEmpty || isEqual(filtersBefore.searching, filtersAfter.searching);
+  const isFilteringSame =
+    isFilteringEquallyEmpty ||
+    isEqual(filtersBefore.filtering, filtersAfter.filtering);
+  const isSearchingSame =
+    isSearchEquallyEmpty ||
+    isEqual(filtersBefore.searching, filtersAfter.searching);
 
-  if(isFilteringSame && isSearchingSame){
+  if (isFilteringSame && isSearchingSame) {
     return filtersAfter;
   }
 
@@ -136,15 +148,15 @@ const resetPaginationIfNecessary = (filtersBefore: FilterObject, filtersAfter: F
     ...filtersAfter,
     pagination: {
       pageSize: filtersAfter.pagination?.pageSize || 20,
-      currentPage: 1
-    }
-  }
-}
+      currentPage: 1,
+    },
+  };
+};
 
 // FUTURE: Add listener to all of the stores
 export const useFilter = (
   initialFilters: FilterObject | null,
-  config?: UseFilterConfig,
+  config?: UseFilterConfig
 ): [FilterObject, (filter: FilterObject) => void] => {
   // If it is not a browser environment (in case of SSR with NextJS), just skip it
   // This should work fine with hooks being defined conditionally as it is run on the server only.
@@ -153,23 +165,24 @@ export const useFilter = (
     return [initialFilters || {}, noop];
   }
 
-  let mergedConfig: Partial<UseFilterConfig> = {}
+  let mergedConfig: Partial<UseFilterConfig> = {};
   merge(mergedConfig, defaultConfig, config);
   const { storage, storageKey, router } = mergedConfig;
 
   const initialState = useMemo(
-    () => (initialFilters ? initialFilters : getStorageState(storage, storageKey)),
-    [],
+    () =>
+      initialFilters ? initialFilters : getStorageState(storage, storageKey),
+    []
   );
 
   const [filters, setFilters] = useState(initialState);
 
   // Listen to storage state changes and make it the source of truth.
   useEffect(() => {
-    if(storage === 'url' && router?.routeChangeListener) {
+    if (storage === 'url' && router?.routeChangeListener) {
       const listener = () => {
         const storageState = getStorageState(storage, storageKey);
-        if(!isEqual(filters, storageState)){
+        if (!isEqual(filters, storageState)) {
           const normalized = resetPaginationIfNecessary(filters, storageState);
           setFilters(normalized);
         }
@@ -178,16 +191,19 @@ export const useFilter = (
       return router.routeChangeListener(listener);
     }
     // FUTURE: Add listener for local and session storage as well.
-    
-    return;
-  }, [filters, storage, storageKey])
 
-  const handleSetFilter = useCallback((updatedFilters: FilterObject) => {
-    const normalized = resetPaginationIfNecessary(filters, updatedFilters);
-    const minified = minifiyFilterObject(normalized);
-    addToStorage(minified, storage, storageKey, router);
-    setFilters(normalized);
-  }, [filters]);
+    return;
+  }, [filters, storage, storageKey]);
+
+  const handleSetFilter = useCallback(
+    (updatedFilters: FilterObject) => {
+      const normalized = resetPaginationIfNecessary(filters, updatedFilters);
+      const minified = minifiyFilterObject(normalized);
+      addToStorage(minified, storage, storageKey, router);
+      setFilters(normalized);
+    },
+    [filters]
+  );
 
   return [filters, handleSetFilter];
 };

@@ -1,17 +1,16 @@
-
 // This theme is only used by the styled-system props. Modify config-overrides.js for ant theme changes
 const theme = {
   fontSizes: [14, 16, 18, 20, 24, 32, 44, 60],
   colors: {
     primary: '#EF4351',
     secondary: '#07074F',
-    
+
     danger: '#FF3838',
     success: '#5CB85C',
 
     heading: {
       light: '#FFFFFF',
-      dark: '#070708'
+      dark: '#070708',
     },
     text: {
       light: '#FAF8F0',
