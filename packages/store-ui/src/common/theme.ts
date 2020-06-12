@@ -1,26 +1,38 @@
+import tinycolor from 'tinycolor2';
+
+const getOtherColors = (brandColor: string) => {
+  const brand = tinycolor(brandColor).toHsl();
+
+  return {
+    background: {
+      light: tinycolor({ h: brand.h, s: 0.3, l: 0.97 }).toHexString(),
+      dark: tinycolor({ h: brand.h, s: 0.7, l: 0.18 }).toHexString(),
+    },
+
+    heading: {
+      light: tinycolor({ h: brand.h, s: 0.5, l: 0.95 }).toHexString(),
+      dark: tinycolor({ h: brand.h, s: 0.7, l: 0.1 }).toHexString(),
+    },
+
+    text: {
+      light: tinycolor({ h: brand.h, s: 0.2, l: 0.95 }).toHexString(),
+      dark: tinycolor({ h: brand.h, s: 0.25, l: 0.35 }).toHexString(),
+    },
+
+    mutedText: {
+      light: tinycolor({ h: brand.h, s: 0.1, l: 0.85 }).toHexString(),
+      dark: tinycolor({ h: brand.h, s: 0.15, l: 0.62 }).toHexString(),
+    },
+  };
+};
+
 export const getTheme = (brandColor: string) => {
   return {
     colors: {
       primary: brandColor,
-
       success: '#5CB85C',
 
-      background: {
-        light: '#F5F8FD',
-        dark: '#043353',
-      },
-      heading: {
-        dark: '#043353',
-        light: '#F8F8F8',
-      },
-      text: {
-        dark: '#505F65',
-        light: '#F8F8F8',
-      },
-      mutedText: {
-        light: '#D3DDE6',
-        dark: '#8e9cad',
-      },
+      ...getOtherColors(brandColor),
     },
   };
 };

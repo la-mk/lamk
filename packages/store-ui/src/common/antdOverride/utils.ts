@@ -8,7 +8,7 @@ const primaryEasing = baseEasing(0.6);
 const currentEasing = index => baseEasing(index * 0.1);
 
 /* tinycolor-mix */
-tinycolor.mix = function(color1, color2, amount) {
+tinycolor.mix = function (color1, color2, amount) {
   amount = amount === 0 ? 0 : amount || 50;
 
   var rgb1 = tinycolor(color1).toRgb();

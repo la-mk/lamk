@@ -14,6 +14,7 @@ const handle = app.getRequestHandler();
   server.use(nextI18NextMiddleware(NextI18NextInstance));
 
   server.get('*', (req: any, res: any) => handle(req, res));
+  server.head('*', (req: any, res: any) => handle(req, res));
   server.post('*', (req: any, res: any) => handle(req, res));
 
   await server.listen(port);
