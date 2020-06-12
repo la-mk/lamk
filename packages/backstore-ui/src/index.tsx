@@ -1,17 +1,32 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-
+import { createGlobalStyle } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 import { App } from './App';
-import './index.css';
 import './config/i18n';
 import { FullScreenSpinner } from './components/shared/components/FullScreenSpinner';
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100%;
+  }
+
+  i {
+    vertical-align: middle;
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+  }
+`;
 
 // Remove spinner in index.html shown while loading script resources
 document.getElementById('loading-spinner')?.remove();
 
 ReactDOM.render(
   <Suspense fallback={<FullScreenSpinner />}>
+    <GlobalStyle />
     <App />
   </Suspense>,
   document.getElementById('root'),

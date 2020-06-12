@@ -20,10 +20,10 @@ import { setOrders } from '../../../state/modules/orders/orders.module';
 import { Order, OrderStatus } from '@sradevski/la-sdk/dist/models/order';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
-import { T } from '../../../config/i18n';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { TFunction } from 'i18next';
 
-const getColumns = (t: T, filters: FilterObject) =>
+const getColumns = (t: TFunction, filters: FilterObject) =>
   [
     {
       title: t('common.id'),

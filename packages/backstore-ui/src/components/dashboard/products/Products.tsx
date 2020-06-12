@@ -29,13 +29,13 @@ import {
   setGroups,
 } from '../../../state/modules/products/products.module';
 import { useTranslation } from 'react-i18next';
-import { T } from '../../../config/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { getUniqueCategories } from '../../../state/modules/categories/categories.selector';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
+import { TFunction } from 'i18next';
 
 const searchSupportedFields = [
   'name',
@@ -63,7 +63,7 @@ const normalizeFilters = (filters: FilterObject) => {
 };
 
 const getColumns = (
-  t: T,
+  t: TFunction,
   storeId: string,
   categories: Category[] | null,
   groups: string[],

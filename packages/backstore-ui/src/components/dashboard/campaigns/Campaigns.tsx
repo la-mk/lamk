@@ -18,9 +18,9 @@ import { setCampaigns } from '../../../state/modules/campaigns/campaigns.module'
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { CampaignFormModal } from './CampaignFormModal';
 import { useTranslation } from 'react-i18next';
-import { T } from '../../../config/i18n';
+import { TFunction } from 'i18next';
 
-const getColumns = (t: T) =>
+const getColumns = (t: TFunction) =>
   [
     {
       title: t('common.id'),

@@ -6,10 +6,10 @@ import {
   GroupedCategories,
 } from '../../../state/modules/categories/categories.selector';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
-import { T } from '../../../config/i18n';
+import { TFunction } from 'i18next';
 
 export const useCategories = (
-  t: T,
+  t: TFunction,
 ): [Category[] | null, GroupedCategories | null] => {
   const getGroupedCategories = useCallback(() => {
     return createGetGroupedCategories((categoryKey: string) =>

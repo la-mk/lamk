@@ -10,6 +10,9 @@ module.exports = override(
     javascriptEnabled: true,
     //Find all variables here: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
     modifyVars: {
+      '@font-family': `
+      'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
+      `,
       '@primary-color': '#547AA5',
     },
   }),
