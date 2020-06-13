@@ -11,7 +11,7 @@ export interface FlexGridProps<T> {
   loading?: boolean;
   items: Array<T>;
   renderItem: any;
-  pagination: PaginationProps;
+  pagination?: PaginationProps;
 }
 
 const FlexGridBase = <T extends any>({
