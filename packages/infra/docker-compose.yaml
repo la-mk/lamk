@@ -50,7 +50,7 @@ services:
       DO_AUTH_TOKEN: ${DIGITALOCEAN_TOKEN}
 
   search:
-    image: typesense/typesense:facets-02-mar-2020
+    image: typesense/typesense:0.13.0
     container_name: search
     command: ./typesense-server
     expose:

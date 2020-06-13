@@ -1,5 +1,5 @@
-domain = "lamk.dev"
-artifacts-subdomain = "artifacts.lamk.dev"
+domain = "lamk.work"
+artifacts-subdomain = "artifacts.lamk.work"
 droplets-tags = ["stg"]
 project-name="lamk-stg"
 artifacts-name="lamk-artifacts-stg"

@@ -21,5 +21,5 @@ services:
       - ./storage:/verdaccio/storage
       - ./conf:/verdaccio/conf
     environment:
-      VIRTUAL_HOST: "registry.dev.sradevski.com"
+      VIRTUAL_HOST: "registry.lamk.dev"
       VIRTUAL_PORT: 4873
