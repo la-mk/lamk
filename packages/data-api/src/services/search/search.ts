@@ -237,14 +237,15 @@ class SearchService implements Service<SearchData> {
 
 export const search = (app: Application) => {
   const client = new Typesense.Client({
-    masterNode: {
-      host: env().SEARCH_SERVICE_ENDPOINT,
-      port: '443',
-      protocol: 'https',
-      apiKey: env().SEARCH_SERVICE_API_KEY,
-    },
-
-    timeoutSeconds: 10,
+    nodes: [
+      {
+        host: env().SEARCH_SERVICE_ENDPOINT,
+        port: '443',
+        protocol: 'https',
+      },
+    ],
+    apiKey: env().SEARCH_SERVICE_API_KEY,
+    connectionTimeoutSeconds: 5,
   });
 
   app.use('/search', new SearchService({ engineClient: client }));

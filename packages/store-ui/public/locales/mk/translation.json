@@ -23,7 +23,6 @@
     "noAddress": "Немате зачувани адреси",
     "noAddressExplanation": "Додадете адреса за достава",
     "removeAddressSuccess": "Адресата беше успешно отстранета",
-    "shippingAddress": "Адреса за достава",
     "updateAddressSuccess": "Адресата беше успешно обновена"
   },
   "analyticsFrequency": {
@@ -182,7 +181,6 @@
   "commerce": {
     "delivery": "Достава",
     "product": "Производ",
-    "product_plural": "Производи",
     "quantity": "Количина"
   },
   "common": {
@@ -198,7 +196,6 @@
     "email": "Емаил адреса",
     "filter_plural": "Филтри",
     "firstName": "Име",
-    "items": "Парчиња",
     "lastName": "Презиме",
     "name": "Име",
     "or": "или",

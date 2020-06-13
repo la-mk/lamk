@@ -23,7 +23,6 @@
     "noAddress": "You don't have any address saved",
     "noAddressExplanation": "Please add a delivery address",
     "removeAddressSuccess": "Address successfully removed",
-    "shippingAddress": "Shipping address",
     "updateAddressSuccess": "Address successfully updated"
   },
   "analyticsFrequency": {
@@ -182,7 +181,6 @@
   "commerce": {
     "delivery": "Delivery",
     "product": "Product",
-    "product_plural": "Products",
     "quantity": "Quantity"
   },
   "common": {
@@ -198,7 +196,6 @@
     "email": "Email address",
     "filter_plural": "Filters",
     "firstName": "First name",
-    "items": "Items",
     "lastName": "Last name",
     "name": "Name",
     "or": "or",
