@@ -131,7 +131,7 @@ class SearchService implements Service<SearchData> {
         .documents(id)
         .retrieve();
     } catch (err) {
-      if (err.message.includes(404)) {
+      if (err.message.toLowerCase().includes('not found')) {
         return {};
       }
 
@@ -158,12 +158,12 @@ class SearchService implements Service<SearchData> {
       return transformedData;
     } catch (err) {
       // The product already exists, so we just want to return.
-      if (err.message.includes(409)) {
+      if (err.message.toLowerCase().includes('already exists')) {
         return transformedData;
       }
 
       // The collection doesn't exist, so we lazily create it first.
-      if (err.message.includes(404)) {
+      if (err.message.toLowerCase().includes('not found')) {
         try {
           await this.engineClient.collections().create(getModel(model).schema);
 
@@ -171,7 +171,7 @@ class SearchService implements Service<SearchData> {
           this.create(entry, params);
         } catch (err) {
           // A concurrent process might have already created the collection, so just try again and create the search entry.
-          if (err.message.includes(409)) {
+          if (err.message.toLowerCase().includes('already exists')) {
             this.create(entry, params);
           }
 
@@ -217,7 +217,7 @@ class SearchService implements Service<SearchData> {
       return id;
     } catch (err) {
       // If the element we try to remove is not there, just log for documentation purposes and safely return. Unfortunately the error only has a message, so we rely on that.
-      if (err.message.includes(404)) {
+      if (err.message.toLowerCase().includes('not found')) {
         logger.error(
           'Failed to remove document from search collection because it was not found',
           id,
