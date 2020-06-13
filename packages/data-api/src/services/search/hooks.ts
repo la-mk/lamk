@@ -50,7 +50,7 @@ export const hooks = {
       convertQueryToNumber(numberFieldsSet),
     ],
     get: [requireAllQueryParams(['model'])],
-    create: [],
+    create: [disallow('external')],
     patch: [disallow('external')],
     remove: [disallow('external'), requireAllQueryParams(['model'])],
   },
