@@ -34,7 +34,7 @@ export const ProductDetails = ({
         key='description'
       >
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-          {product.description.trim()}
+          {product.description?.trim()}
         </Paragraph>
       </TabPane>
       <TabPane

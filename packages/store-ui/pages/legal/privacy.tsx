@@ -6,6 +6,7 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
 import { getTextSnippet } from '../../src/common/utils';
+import { Empty } from '@sradevski/blocks-ui';
 
 const getPrivacyPolicy = ({
   companyName,
@@ -46,6 +47,15 @@ ${companyName} има усвоена политика за сигурност и
 const PrivacyPage = ({ store }: { store: Store }) => {
   const { t } = useTranslation();
   const title = t('pages.privacy');
+  if (!store.company) {
+    return (
+      <>
+        <Head siteName={store?.name} title={title} description={title} />
+        <Empty mt={6} description={t('legal.legalNotAvailable')} />
+      </>
+    );
+  }
+
   const privacyPolicy = getPrivacyPolicy({
     companyName: store.company.companyName,
     registryNumber: store.company.registryNumber,

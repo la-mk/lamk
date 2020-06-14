@@ -264,7 +264,8 @@
     "total": "Total"
   },
   "legal": {
-    "legalExplanation": "We make sure to be compliant with all regulations and laws. We have taken all security measures and limit the amount of data we collect to the bare minimum while still providing a smooth user experience"
+    "legalExplanation": "We make sure to be compliant with all regulations and laws. We have taken all security measures and limit the amount of data we collect to the bare minimum while still providing a smooth user experience",
+    "legalNotAvailable": "We are still preparing our legal policies, reach out for more information"
   },
   "order": {
     "orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",

@@ -404,7 +404,7 @@ const StyleHolder = createGlobalStyle<{
     box-shadow: -1px 0 0 0 ${props => props.hoverColor};
   }
   .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child {
-    border-color: ${props => props.color};
+    border-color: ${props => props.color} !important;
   }
   .ant-radio-button-wrapper-checked::before {
     background-color: ${props => props.color} !important;
@@ -422,10 +422,10 @@ const StyleHolder = createGlobalStyle<{
     box-shadow: -1px 0 0 0 ${props => props.hoverColor};
   }
   .ant-radio-button-wrapper-checked:active {
-    color: ${props => props.activeColor};
-    border-color: ${props => props.activeColor};
-    -webkit-box-shadow: -1px 0 0 0 ${props => props.activeColor};
-    box-shadow: -1px 0 0 0 ${props => props.activeColor};
+    color: ${props => props.activeColor} !important;
+    border-color: ${props => props.activeColor} !important;
+    -webkit-box-shadow: -1px 0 0 0 ${props => props.activeColor} !important;
+    box-shadow: -1px 0 0 0 ${props => props.activeColor} !important;
   }
   .ant-radio-button-wrapper-checked:focus-within {
     outline: 3px solid rgba(24, 144, 255, 0.06);

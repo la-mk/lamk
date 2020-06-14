@@ -6,6 +6,7 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
 import { getTextSnippet } from '../../src/common/utils';
+import { Empty } from '@sradevski/blocks-ui';
 
 const getGeneralRules = ({
   storeName,
@@ -31,6 +32,15 @@ const getGeneralRules = ({
 const GeneralRulesPage = ({ store }: { store: Store }) => {
   const { t } = useTranslation();
   const title = t('pages.generalRules');
+  if (!store.company) {
+    return (
+      <>
+        <Head siteName={store?.name} title={title} description={title} />
+        <Empty mt={6} description={t('legal.legalNotAvailable')} />
+      </>
+    );
+  }
+
   const generalRules = getGeneralRules({
     storeName: store.name,
     companyName: store.company.companyName,
