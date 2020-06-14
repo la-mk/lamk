@@ -277,6 +277,7 @@
 		"messageExplanation": "Tell us more about your business or question"
 	},
 	"legal": {
+		"legalNotAvailable": "We are still preparing our legal policies, reach out for more information",
 		"legalExplanation": "We make sure to be compliant with all regulations and laws. We have taken all security measures and limit the amount of data we collect to the bare minimum while still providing a smooth user experience"
 	},
 	"onboarding": {
