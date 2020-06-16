@@ -23,9 +23,10 @@ const importToSearch = async (products) => {
   return Bluebird.map(
     products.slice(1),
     async product => {
+      console.log("Adding product: ", product.name);
       return await sdk.sdk.request('search').create({model: 'products', item: product});
     },
-    { concurrency: 100 }
+    { concurrency: 50 }
   );
 };
 
