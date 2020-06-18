@@ -40,7 +40,12 @@ export const Banner = ({
           justifyContent='center'
           flexDirection='column'
         >
-          <Title textAlign='center' level={1} fontSize={[5, 6, 6]}>
+          <Title
+            px={[2, 3, 4]}
+            textAlign='center'
+            level={1}
+            fontSize={[5, 6, 6]}
+          >
             {store.slogan}
           </Title>
           <Link href='/products' passHref>
