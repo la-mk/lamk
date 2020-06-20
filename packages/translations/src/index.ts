@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as vfs from 'vinyl-fs';
 import rimraf from 'rimraf';
 import glob from 'glob';
+import * as typescript from 'typescript';
 import {
   get,
   defaultsDeep,
@@ -49,8 +50,6 @@ const defaultScannerConfig = {
     list: ['i18next.t', 'i18n.t', 't'],
     extensions: ['.ts', '.tsx'],
   },
-
-  // There is no `trans` config as we don't use the `Trans` component.
   // We only specify a single language as we only care about the keys extracted from the scanner.
   lngs: ['en'],
   ns: [NAMESPACE],
@@ -67,6 +66,46 @@ const defaultScannerConfig = {
     prefix: '{{',
     suffix: '}}',
   },
+  trans: {
+    component: 'Trans',
+    defaultsKey: 'defaults',
+    i18nKey: 'i18nKey',
+    acorn: {
+      ecmaVersion: 10,
+      sourceType: 'module',
+    },
+  },
+};
+
+// The scanner doesn't support typescript, so we have to do it by ourselves
+const customTransform = function(file: any, enc: string, done: () => void) {
+  const extensionsList = ['.ts', '.tsx'];
+  const { base, ext } = path.parse(file.path);
+
+  if (extensionsList.includes(ext) && !base.includes('.d.ts')) {
+    const content = fs.readFileSync(file.path, enc);
+
+    const { outputText } = typescript.transpileModule(content, {
+      compilerOptions: {
+        target: 'es2018' as any,
+      },
+      fileName: path.basename(file.path),
+    });
+
+    if (extensionsList.includes(ext) && content.includes('<Trans')) {
+      // For trans there will always be default value, so we need to explicitly set it to the standard replacement value.
+      //@ts-ignore
+      this.parser.parseTransFromString(outputText, key => {
+        //@ts-ignore
+        this.parser.set(key, NOT_TRANSLATED_VALUE);
+      });
+    }
+
+    //@ts-ignore
+    this.parser.parseFuncFromString(outputText);
+  }
+
+  done();
 };
 
 // This will always result in a single file due to the fact that we only specify a single language and namespace.
@@ -75,7 +114,7 @@ const scanTranslations = (srcPaths: MainArgs['srcPaths'], config: any) => {
   return new Promise((resolve, reject) => {
     vfs
       .src(srcPaths)
-      .pipe(scanner(config))
+      .pipe(scanner(config, customTransform))
       .pipe(vfs.dest(ROOT_DESTINATION))
       .on('error', reject)
       .on('end', resolve);

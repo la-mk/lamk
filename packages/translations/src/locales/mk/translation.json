@@ -189,7 +189,8 @@
     "deliveryMethod": "Начин на достава",
     "getModernStore": "Добијте модерна продавница",
     "getModernStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"heroSlogan": "Како <1>Функционира</1>",
+		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
     "listAddProducts": "Додадете производи во продавницата",
     "listAddProductsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
     "listCreateStore": "Направете продавница",
@@ -246,6 +247,7 @@
     "featureDiscountCampaigns": "Флексибилни кампањи",
     "featureFreeDomain": "Персонален домен за продавницата",
 		"featureUnlimitedProductsStorage": "Неограничен број на производи",
+		"heroSlogan": "Онлајн Продавница <1>За 5 Минути</1>",
 		"homePage": "Дома",
 		"howItWorksPage": "Како функционира",
     "stepAddProducts": "Додадете ги вашите производи",
@@ -259,6 +261,7 @@
 	},
 	"landingFaq": {
 		"additionalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"heroSlogan": "Често <1>Поставувани Прашања</1>",
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
 		"paymentsAnswerSupportedMethods": "Моментално поддржуваме плаќање со платежни картички, и наплата при достава. Доколку моментално немаме поддршка за вашата банка, можеме да ја додадеме истата во рок од 1 недела.",
 		"paymentsGroupTitle": "Наплата",
@@ -272,6 +275,7 @@
 	"landingContact": {
 		"emailExample": "me@example.com",
 		"fullNameExample": "Миле Милевски",
+		"heroSlogan": "Контактирајте <1>Нѐ</1>",
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
     "thanksForContact": "Ви благодариме што не контактиравте",
     "thanksForContactDetails": "Ќе се обидеме да стапиме во контакт што е можно побрзо.",
