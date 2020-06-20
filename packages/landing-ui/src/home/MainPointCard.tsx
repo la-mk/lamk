@@ -10,13 +10,14 @@ const BarImage = ({ src, overflow }) => {
   };
 
   return (
-    <Image
-      src={src}
+    <Box
       maxWidth={[300, 350, 500]}
       width={[300, '50%', '40%']}
       height={'100%'}
       {...margins}
-    />
+    >
+      <Image src={src} width={'100%'} height={'100%'} />
+    </Box>
   );
 };
 
@@ -50,13 +51,13 @@ const Description = ({
   );
 };
 
-export interface MainPointCardProps extends Omit<typeof Box, 'ref'> {
+export type MainPointCardProps = {
   side: 'left' | 'right';
   overflow: 'top' | 'bottom' | 'both';
   image: string;
   title: string;
   description: string;
-}
+} & React.ComponentProps<typeof Box>;
 
 export const MainPointCard = ({
   side,

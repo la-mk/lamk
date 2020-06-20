@@ -20,7 +20,11 @@ export const TopMenu = ({
   theme: BlocksTheme;
   closeDrawer?: () => void;
 }) => {
-  const mode = hooks.useBreakpoint(['vertical', 'vertical', 'horizontal']);
+  const mode: 'vertical' | 'horizontal' = hooks.useBreakpoint([
+    'vertical',
+    'vertical',
+    'horizontal',
+  ]);
   const router = useRouter();
   const { t, i18n } = useTranslation();
   // Not a very clean solution, but it will do for now

@@ -30,10 +30,11 @@ export const ContactUsFooter = withTheme(({ theme }) => {
         <ContactForm />
       </Flex>
       <Box
+        height={[150, 240, 240]}
         display={['none', 'block', 'block']}
         style={{ zIndex: 1, position: 'absolute', right: '7%', bottom: 250 }}
       >
-        <Image height={[150, 240, 240]} src='/paper-airplane-trail.svg' />
+        <Image height='100%' src='/paper-airplane-trail.svg' />
       </Box>
       <Box
         display={['none', 'block', 'block']}

@@ -42,12 +42,9 @@ export const Hero = withTheme(({ theme }) => {
             <HeroButtons />
           </Box>
         </Box>
-        <Image
-          mt={[3, 0, 0]}
-          ml={[0, 3, 3]}
-          src='/how-it-works-hero.svg'
-          height={[300, 320, 450]}
-        />
+        <Box mt={[3, 0, 0]} ml={[0, 3, 3]} height={[300, 320, 450]}>
+          <Image src='/how-it-works-hero.svg' height='100%' />
+        </Box>
 
         <Box display={['block', 'none', 'none']} mt={5}>
           <HeroButtons alignItems='center' justifyContent='center' />

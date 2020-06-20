@@ -4,16 +4,16 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button } from '../Button';
 import { system } from '../../system';
 import { Flex } from '../Flex';
-import { Box, BoxProps } from '../Box';
+import { Box } from '../Box';
 
 export type ArrowDirection = 'left' | 'right';
-interface SetProps<T> extends Omit<BoxProps, 'ref'> {
+type SetProps<T> = {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   itemKey: string;
   gutter?: number | string | (number | string)[];
   footer?: React.ReactNode;
-}
+} & React.ComponentProps<typeof Box>;
 
 const SetContainer = styled(Box)`
   width: 100%;

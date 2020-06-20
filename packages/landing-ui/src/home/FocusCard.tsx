@@ -1,11 +1,11 @@
 import React from 'react';
 import { Flex, Image, Title, Text, Button, Box } from '@sradevski/blocks-ui';
 
-interface FocusCardProps extends Omit<typeof Box, 'ref'> {
+type FocusCardProps = {
   icon: string;
   title: string;
   description: string;
-}
+} & React.ComponentProps<typeof Box>;
 
 export const FocusCard = ({
   icon,

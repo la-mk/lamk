@@ -5,7 +5,7 @@ import { useTranslation } from './i18n';
 export const HeroButtons = ({
   noDemo,
   ...props
-}: typeof Flex & { noDemo?: boolean }) => {
+}: React.ComponentProps<typeof Flex> & { noDemo?: boolean }) => {
   const { t } = useTranslation();
   return (
     <Flex {...props} style={{ zIndex: 1 }}>

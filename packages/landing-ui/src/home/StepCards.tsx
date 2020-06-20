@@ -4,11 +4,11 @@ import { useTranslation } from '../common/i18n';
 import { Card } from '../common/Card';
 import { HeroButtons } from '../common/HeroButtons';
 
-interface StepCardProps extends Omit<typeof Box, 'ref'> {
+type StepCardProps = {
   icon: string;
   title: string;
   subtitle: string;
-}
+} & React.ComponentProps<typeof Box>;
 
 const StepCard = ({ icon, title, subtitle, ...props }: StepCardProps) => {
   return (

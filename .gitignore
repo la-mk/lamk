@@ -23,6 +23,7 @@
 **/build
 **/dist
 **/tmp
+**/out
 
 # misc
 .DS_Store
