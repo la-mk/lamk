@@ -11,6 +11,7 @@ import {
 import { CurvedSection } from '../common/CurvedSection';
 import { withTheme } from 'styled-components';
 import { TFunction } from 'next-i18next';
+import { Trans } from 'react-i18next';
 import { useTranslation } from '../common/i18n';
 
 interface FaqItem {
@@ -75,16 +76,18 @@ export const Faq = withTheme(({ theme }) => {
               textAlign={'center'}
               fontSize={[6, 7, 7]}
             >
-              Frequently{' '}
-              <Text fontSize={[6, 7, 7]} color='primary'>
-                Asked Questions
-              </Text>
+              <Trans t={t} i18nKey='landingFaq.heroSlogan'>
+                Frequently&nbsp;
+                <Text fontSize={[6, 7, 7]} color='primary'>
+                  Asked Questions
+                </Text>
+              </Trans>
             </Title>
 
             <Paragraph
               mt={4}
               fontSize={[2, 3, 3]}
-              textAlign={['center', 'start', 'start']}
+              textAlign={['center', 'center', 'center']}
             >
               {t('landingFaq.heroExplanation')}
             </Paragraph>

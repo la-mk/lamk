@@ -1,8 +1,9 @@
 import React from 'react';
-import { Flex, Title, Button, Text } from '@sradevski/blocks-ui';
+import { Flex, Title, Text } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { CurvedSection } from '../common/CurvedSection';
 import { HeroIllustration } from './hero-illustration';
+import { Trans } from 'react-i18next';
 import { useTranslation } from '../common/i18n';
 import { HeroButtons } from '../common/HeroButtons';
 
@@ -22,10 +23,17 @@ export const Hero = withTheme(({ theme }) => {
         mt={[4, 4, 5]}
       >
         <Title color='secondary' level={1} mb={2} fontSize={[6, 7, 7]}>
-          Online shop
-          <Text display='block' fontSize={[6, 7, 7]} color='primary'>
-            In 5 minutes
-          </Text>
+          <Trans t={t} i18nKey='landing.heroSlogan'>
+            Online shop
+            <Text
+              textAlign='center'
+              display='block'
+              fontSize={[6, 7, 7]}
+              color='primary'
+            >
+              In 5 minutes
+            </Text>
+          </Trans>
         </Title>
         <Text fontSize={[2, 3, 3]} textAlign={'center'}>
           {t('company.subTagline')}

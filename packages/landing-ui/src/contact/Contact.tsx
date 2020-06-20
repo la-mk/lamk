@@ -2,9 +2,12 @@ import React from 'react';
 import { Box, Flex, Title, Text, Paragraph } from '@sradevski/blocks-ui';
 import { CurvedSection } from '../common/CurvedSection';
 import { withTheme } from 'styled-components';
+import { Trans } from 'react-i18next';
 import { ContactForm } from '../common/ContactForm';
+import { useTranslation } from '../common/i18n';
 
 export const Contact = withTheme(({ theme }) => {
+  const { t } = useTranslation();
   return (
     <Box>
       <CurvedSection
@@ -25,21 +28,20 @@ export const Contact = withTheme(({ theme }) => {
               textAlign={'center'}
               fontSize={[6, 7, 7]}
             >
-              Contact{' '}
-              <Text fontSize={[6, 7, 7]} color='primary'>
-                Us
-              </Text>
+              <Trans t={t} i18nKey='landingContact.heroSlogan'>
+                Contact&nbsp;
+                <Text fontSize={[6, 7, 7]} color='primary'>
+                  Us
+                </Text>
+              </Trans>
             </Title>
 
             <Paragraph
               mt={4}
               fontSize={[2, 3, 3]}
-              textAlign={['center', 'start', 'start']}
+              textAlign={['center', 'center', 'center']}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              voluptatibus optio tempora vero, odio velit earum fugiat eveniet
-              assumenda ullam ab reprehenderit illo eum dolores omnis
-              dignissimos natus, voluptatem maiores.
+              {t('landingContact.heroExplanation')}
             </Paragraph>
           </Box>
         </Flex>
