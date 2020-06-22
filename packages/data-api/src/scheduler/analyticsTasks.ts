@@ -1,67 +1,13 @@
-import * as _ from 'lodash';
 import { Application } from '@feathersjs/feathers';
 import { Db } from 'mongodb';
 import Bluebird from 'bluebird';
-import { startOfDay, endOfDay } from 'date-fns';
+import { startOfDay } from 'date-fns';
 import { sdk } from '@sradevski/la-sdk';
 import { StoreAnalyticsEntry } from '@sradevski/la-sdk/dist/models/storeAnalytics';
 import { logger } from '../common/logger';
 import { getStoreVisits } from './amplitude';
-
-const getDailyRevenueForStore = (db: Db, storeId: string, forDate: Date) => {
-  const fromDatetime = startOfDay(forDate).toISOString();
-  const toDatetime = endOfDay(forDate).toISOString();
-
-  return db
-    .collection('orders')
-    .aggregate([
-      {
-        $match: {
-          orderedFrom: storeId,
-          createdAt: { $gte: fromDatetime, $lte: toDatetime },
-        },
-      },
-      {
-        $group: {
-          _id: '$status',
-          revenue: { $sum: '$calculatedTotal' },
-        },
-      },
-    ])
-    .toArray()
-    .then(res => {
-      if (res.length <= 0) {
-        return { [sdk.storeAnalytics.AnalyticsTypes.REVENUE]: {} };
-      }
-      return _.mapValues(_.keyBy(res, '_id'), 'revenue');
-    });
-};
-
-const getDailyOrderCountForStore = (db: Db, storeId: string, forDate: Date) => {
-  const fromDatetime = startOfDay(forDate).toISOString();
-  const toDatetime = endOfDay(forDate).toISOString();
-
-  return db
-    .collection('orders')
-    .aggregate([
-      {
-        $match: {
-          orderedFrom: storeId,
-          createdAt: { $gte: fromDatetime, $lte: toDatetime },
-        },
-      },
-      {
-        $group: { _id: '$status', orderCount: { $sum: 1 } },
-      },
-    ])
-    .toArray()
-    .then(res => {
-      if (res.length <= 0) {
-        return { [sdk.storeAnalytics.AnalyticsTypes.ORDER_COUNT]: {} };
-      }
-      return _.mapValues(_.keyBy(res, '_id'), 'orderCount');
-    });
-};
+import { getDailyOrderCountForStore } from '../aggegations/orders';
+import { getDailyRevenueForStore } from '../aggegations/revenue';
 
 const getStoreIds = (db: Db): Promise<string[]> =>
   db.collection('stores').distinct('_id');

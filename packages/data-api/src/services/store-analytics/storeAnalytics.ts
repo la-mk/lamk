@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { Application, Params } from '@feathersjs/feathers';
 import { Service, MongoDBServiceOptions } from 'feathers-mongodb';
 import { hooks } from './hooks';
@@ -12,6 +11,9 @@ import {
   StoreAnalytics,
 } from '@sradevski/la-sdk/dist/models/storeAnalytics';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { getProductCount } from '../../aggegations/products';
+import { getOrdersCount } from '../../aggegations/orders';
+import { getTotalRevenue } from '../../aggegations/revenue';
 
 const getAnalyticsTypeQuery = (
   engines: { mongoDb: Db; analyticsModel: Pick<Service, 'get' | 'find'> },
@@ -22,42 +24,17 @@ const getAnalyticsTypeQuery = (
   },
 ) => {
   switch (query.type) {
+    // We want to provide the key metrics in real time.
     case sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT: {
-      return () =>
-        engines.mongoDb
-          .collection('products')
-          .count({ soldBy: query.forStore });
+      return () => getProductCount(engines.mongoDb, query.forStore);
     }
     case sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT: {
-      return () =>
-        engines.mongoDb
-          .collection('orders')
-          .count({ orderedFrom: query.forStore });
+      return () => getOrdersCount(engines.mongoDb, query.forStore);
+    }
+    case sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE: {
+      return () => getTotalRevenue(engines.mongoDb, query.forStore);
     }
 
-    case sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE: {
-      return () =>
-        engines.mongoDb
-          .collection('orders')
-          .aggregate([
-            {
-              $match: { orderedFrom: query.forStore },
-            },
-            {
-              $group: {
-                _id: '$status',
-                revenue: { $sum: '$calculatedTotal' },
-              },
-            },
-          ])
-          .toArray()
-          .then(res => {
-            if (res.length <= 0) {
-              return { revenue: {} };
-            }
-            return _.mapValues(_.keyBy(res, '_id'), 'revenue');
-          });
-    }
     default: {
       return async () =>
         ((await engines.analyticsModel.find({
