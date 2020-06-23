@@ -22,7 +22,7 @@ export const Visits = () => {
               isAnimationActive={false}
               name={t('analytics.visitCount') as string}
               type='monotone'
-              dataKey={entry => entry.value.total ?? 0}
+              dataKey={entry => entry.value ?? 0}
               stroke={'#1890ff'}
             />,
           ]}

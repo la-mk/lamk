@@ -154,9 +154,8 @@ describe('"storeAnalytics" service', () => {
       testOrders[0].campaigns,
     );
 
-    expect(
-      analytics[sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE]
-        .pendingShipment,
-    ).toBe(price.total);
+    expect(analytics[sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE]).toBe(
+      price.total,
+    );
   });
 });

@@ -2,8 +2,8 @@ import React from 'react';
 import { StatisticsCard } from './StatisticsCard';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from 'react-i18next';
-import { statusLines } from './charts/statusLines';
 import { TimeLineChart } from './charts/TimeLineChart';
+import { Line } from 'recharts';
 
 export const Orders = () => {
   const { t } = useTranslation();
@@ -15,7 +15,20 @@ export const Orders = () => {
       frequencies={[sdk.storeAnalytics.AnalyticsFrequency.DAILY]}
       defaultFrequency={sdk.storeAnalytics.AnalyticsFrequency.DAILY}
     >
-      {data => <TimeLineChart data={data} lines={statusLines} />}
+      {data => (
+        <TimeLineChart
+          data={data}
+          lines={() => [
+            <Line
+              isAnimationActive={false}
+              name={t('analytics.orderCount') as string}
+              type='monotone'
+              dataKey={entry => entry.value ?? 0}
+              stroke={'#1890ff'}
+            />,
+          ]}
+        />
+      )}
     </StatisticsCard>
   );
 };
