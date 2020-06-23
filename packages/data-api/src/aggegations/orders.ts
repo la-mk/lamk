@@ -2,7 +2,7 @@ import { Db } from 'mongodb';
 import { startOfDay, endOfDay } from 'date-fns';
 
 export const getOrdersCount = (db: Db, storeId: string) =>
-  db.collection('orders').count({ orderedFrom: storeId });
+  db.collection('orders').countDocuments({ orderedFrom: storeId });
 
 export const getDailyOrderCountForStore = (
   db: Db,

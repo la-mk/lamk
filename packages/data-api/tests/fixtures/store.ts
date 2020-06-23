@@ -16,6 +16,7 @@ const defaultFixture: Partial<Store> = {
     email: 'campaigns@test.com',
     phoneNumber: '23456',
   },
+  color: '#000000',
   isPublished: true,
 };
 

@@ -8,7 +8,6 @@ import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { sdk } from '@sradevski/la-sdk';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
-import { GeneralError } from '../../../common/errors';
 import fixtures from '../../../../tests/fixtures';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 
@@ -93,11 +92,11 @@ describe('"storeAnalytics" service', () => {
     expect(res[sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT]).toBe(1);
   });
 
-  it('throws if nonexistent type is passed', async () => {
+  it('returns an empty array if nonexistent type is passed', async () => {
     expect.assertions(1);
 
     const params = getExternalUserParams(testUsers[0]);
-    const analyticsPromise = storeAnalytics.get('', {
+    const res = await storeAnalytics.get('', {
       query: {
         forStore: testStores[0]._id,
         type: 'non-existent',
@@ -105,7 +104,7 @@ describe('"storeAnalytics" service', () => {
       ...params,
     });
 
-    await expect(analyticsPromise).rejects.toThrow(GeneralError);
+    expect(res).toEqual({ 'non-existent': [] });
   });
 
   it('get returns the expected product count for store', async () => {
