@@ -84,9 +84,9 @@ const transformStoreVisit = (
     data.xValues.forEach((date, xIndex) => {
       // Amplitude doesn't return any results for the storeId if it has no data for the passed range, so we fill-in that data with the default value
       const storeIndex = storeIdsMap[storeId];
-      const value = { total: 0 };
+      let value = 0;
       if (storeIndex >= 0) {
-        value.total = data.series[storeIdsMap[storeId]][xIndex];
+        value = data.series[storeIdsMap[storeId]][xIndex];
       }
 
       res.push({
