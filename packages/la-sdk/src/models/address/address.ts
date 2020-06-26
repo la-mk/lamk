@@ -7,7 +7,7 @@ import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../../internal-utils';
 
 export const schema = {
- ...defaultSchemaEntries,
+  ...defaultSchemaEntries,
   addressFor: v8n().id(),
   name: v8n()
     .string()
@@ -22,7 +22,7 @@ export const schema = {
       .string()
       .minLength(2)
       .maxLength(511),
-    true,
+    true
   ),
   city: v8n()
     .string()
@@ -44,7 +44,6 @@ export const schema = {
     .string()
     .minLength(2)
     .maxLength(31),
- 
 };
 
 export interface Address extends DefaultSchema {
@@ -62,7 +61,7 @@ export interface Address extends DefaultSchema {
 export const getAddressSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Address>, Address>(
     client,
-    'addresses',
+    'addresses'
   );
 
   return {

@@ -87,11 +87,11 @@ export const errors: {
   },
   id: {
     name: 'id',
-    message: 'Field should be a valid id'
+    message: 'Field should be a valid id',
   },
   hexColor: {
     name: 'hexColor',
-    message: 'Field should be a valid hex color'
+    message: 'Field should be a valid hex color',
   },
   generic: {
     name: 'generic',
@@ -125,7 +125,7 @@ export const getError = (name: string, args: any[]) => {
   indices.forEach(index => {
     error.message = error.message.replace(
       `{{${index}}}`,
-      args[index].toString(),
+      args[index].toString()
     );
   });
   error.args = args;

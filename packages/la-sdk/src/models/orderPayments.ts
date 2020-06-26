@@ -14,7 +14,9 @@ export enum TransactionStatus {
 
 export const paymentTransactionSchema = {
   status: v8n().oneOf(Object.values(TransactionStatus)),
-  amount: v8n().number().positive(),
+  amount: v8n()
+    .number()
+    .positive(),
   message: v8n().optional(
     v8n()
       .string()
@@ -40,7 +42,10 @@ export const schema = {
   ...defaultSchemaEntries,
   forOrder: v8n().id(),
   // We put a very high upper-limit just to not get spammed here.
-  transactions: v8n().minLength(1).maxLength(100).every.schema(paymentTransactionSchema),
+  transactions: v8n()
+    .minLength(1)
+    .maxLength(100)
+    .every.schema(paymentTransactionSchema),
   // Calculated field based on all transactions.
   isSuccessful: v8n().boolean(),
 };

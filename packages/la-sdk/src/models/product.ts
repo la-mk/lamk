@@ -113,9 +113,9 @@ const getQueryForSet = (productSet: ProductSetTag) => {
     case 'discounted': {
       return {
         discount: {
-          $gt: 0
-        }
-      }
+          $gt: 0,
+        },
+      };
     }
 
     case 'latest': {
@@ -175,12 +175,10 @@ export const getProductSdk = (client: Application) => {
             } as ProductSet);
           }
 
-          const options = {query: { $limit: 10 }};
-          merge(
-            options,
-            params,
-            { query: { soldBy: storeId, ...queryForSet } },
-          );
+          const options = { query: { $limit: 10 } };
+          merge(options, params, {
+            query: { soldBy: storeId, ...queryForSet },
+          });
 
           return crudMethods
             .find(options)

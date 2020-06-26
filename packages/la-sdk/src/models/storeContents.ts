@@ -15,9 +15,9 @@ export const schema = {
         v8n()
           .string()
           .minLength(2)
-          .maxLength(65535),
+          .maxLength(65535)
       ),
-    }),
+    })
   ),
   landing: v8n().optional(
     v8n().schema({
@@ -25,9 +25,9 @@ export const schema = {
         v8n()
           .string()
           .minLength(2)
-          .maxLength(4095),
+          .maxLength(4095)
       ),
-    }),
+    })
   ),
 };
 
@@ -49,7 +49,7 @@ export const getStoreContentsSdk = (client: Application) => {
 
   const findForStore = (storeId: string, params?: Params) => {
     const options = {};
-    merge(options, params, { query:  { forStore: storeId } } );
+    merge(options, params, { query: { forStore: storeId } });
     return crudMethods.find(options);
   };
 
@@ -58,13 +58,13 @@ export const getStoreContentsSdk = (client: Application) => {
     findForStore,
     getAboutUsForStore: (storeId: string, params?: Params) => {
       return findForStore(storeId, params).then(res =>
-        res.total > 0 ? res.data[0].aboutUs : undefined,
+        res.total > 0 ? res.data[0].aboutUs : undefined
       );
     },
 
     getLandingContentForStore: (storeId: string, params?: Params) => {
       return findForStore(storeId, params).then(res =>
-        res.total > 0 ? res.data[0].landing : undefined,
+        res.total > 0 ? res.data[0].landing : undefined
       );
     },
 

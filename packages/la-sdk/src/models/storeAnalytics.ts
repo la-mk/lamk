@@ -11,10 +11,10 @@ export enum AnalyticsTypes {
   TOTAL_ORDER_COUNT = 'totalOrderCount',
   TOTAL_REVENUE = 'totalRevenue',
 
-  ORDER_COUNT="orderCount",
+  ORDER_COUNT = 'orderCount',
   REVENUE = 'revenue',
 
-  VISIT_COUNT="visitCount"
+  VISIT_COUNT = 'visitCount',
 }
 
 export enum AnalyticsFrequency {
@@ -26,7 +26,7 @@ export enum AnalyticsFrequency {
 
 // We don't need a schema yet, as create/patch are not allowed.
 export const schema = {
- ...defaultSchemaEntries,
+  ...defaultSchemaEntries,
   forStore: v8n().id(),
   frequency: v8n().oneOf(Object.values(AnalyticsFrequency)),
   type: v8n().oneOf(Object.values(AnalyticsTypes)),
@@ -36,8 +36,8 @@ export const schema = {
 };
 
 export type StoreAnalytics = {
-  [type in AnalyticsTypes]?: any 
-}
+  [type in AnalyticsTypes]?: any;
+};
 
 export interface StoreAnalyticsEntry extends DefaultSchema {
   forStore: string;
@@ -56,9 +56,14 @@ export const getStoreAnalyticsSdk = (client: Application) => {
 
   return {
     ...crudMethods,
-    getTypeForStore: (storeId: string, type: AnalyticsTypes, frequency?: AnalyticsFrequency,  params?: Params) => {
+    getTypeForStore: (
+      storeId: string,
+      type: AnalyticsTypes,
+      frequency?: AnalyticsFrequency,
+      params?: Params
+    ) => {
       const options = {};
-      merge(options, params, { query:  { forStore: storeId, type, frequency } } );
+      merge(options, params, { query: { forStore: storeId, type, frequency } });
       // The ID can be anything here, as it is not used currently
       return crudMethods.get(storeId, options);
     },

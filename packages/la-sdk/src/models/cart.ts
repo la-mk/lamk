@@ -41,14 +41,14 @@ export interface CartWithProducts extends Omit<Cart, 'items'> {
 export const getCartSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Cart>, Cart>(
     client,
-    'carts',
+    'carts'
   );
 
   return {
     ...crudMethods,
 
     findForUser: (userId: string, params?: Params) => {
-      const options = {}
+      const options = {};
       merge(options, params, { query: { forUser: userId } });
       return crudMethods.find(options);
     },
@@ -78,7 +78,7 @@ export const getCartSdk = (client: Application) => {
         items: cart.items.map(item => ({
           ...item,
           product: products.find(
-            (product: Product) => product._id === item.product,
+            (product: Product) => product._id === item.product
           ),
         })),
       } as CartWithProducts;
@@ -91,7 +91,7 @@ export const getCartSdk = (client: Application) => {
     removeItemFromCart: (
       cartId: string,
       item: CartItem | CartItemWithProduct,
-      params?: Params,
+      params?: Params
     ) => {
       let productId = item.product;
       if (typeof item.product !== 'string') {
@@ -101,7 +101,7 @@ export const getCartSdk = (client: Application) => {
       return crudMethods.patch(
         cartId,
         { $pull: { items: { product: productId } } },
-        params,
+        params
       );
     },
 
@@ -109,7 +109,7 @@ export const getCartSdk = (client: Application) => {
       cartId: string,
       item: CartItem | CartItemWithProduct,
       quantity: number,
-      params?: Params,
+      params?: Params
     ) => {
       let productId = item.product;
       if (typeof item.product !== 'string') {
@@ -121,7 +121,7 @@ export const getCartSdk = (client: Application) => {
       return crudMethods.patch(
         cartId,
         { $set: { 'items.$.quantity': quantity } },
-        options,
+        options
       );
     },
 

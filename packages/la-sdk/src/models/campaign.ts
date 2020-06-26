@@ -65,7 +65,7 @@ export interface Campaign extends DefaultSchema {
     {
       type: ProductRuleTypes;
       value: string;
-    },
+    }
   ];
   // For now we don't need to support customer rules and redemption budgets, as well as certain types of campaigns.
   // customerRules: [{type: 'new', 'loyal' ..., value: 'rank3' }];
@@ -76,7 +76,7 @@ export interface Campaign extends DefaultSchema {
 export const getCampaignSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Campaign>, Campaign>(
     client,
-    'campaigns',
+    'campaigns'
   );
 
   return {

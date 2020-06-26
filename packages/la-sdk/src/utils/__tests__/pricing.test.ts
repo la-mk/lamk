@@ -3,7 +3,7 @@ import * as pricing from '../pricing';
 const productFixture = {
   price: 200,
   discount: 100,
-}
+};
 
 // const cartItemFixture = {
 
@@ -23,7 +23,9 @@ const productFixture = {
 
 describe('calculateProductPrice utility', () => {
   test('calculates value correctly without discount', () => {
-    expect(pricing.calculateProductPrice({...productFixture, discount: undefined})).toBe(200);
+    expect(
+      pricing.calculateProductPrice({ ...productFixture, discount: undefined })
+    ).toBe(200);
   });
 
   test('calculates value correctly with discount', () => {

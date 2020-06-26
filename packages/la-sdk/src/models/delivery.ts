@@ -13,7 +13,7 @@ export enum DeliveryMethods {
 }
 
 export const schema = {
- ...defaultSchemaEntries,
+  ...defaultSchemaEntries,
   forStore: v8n().id(),
   method: v8n().oneOf(Object.values(DeliveryMethods)),
   price: v8n()
@@ -34,7 +34,7 @@ export interface Delivery extends DefaultSchema {
 export const getDeliverySdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Delivery>, Delivery>(
     client,
-    'deliveries',
+    'deliveries'
   );
 
   return {

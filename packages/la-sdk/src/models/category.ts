@@ -6,7 +6,7 @@ import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 
 export const schema = {
- ...defaultSchemaEntries,
+  ...defaultSchemaEntries,
   level1: v8n()
     .string()
     .minLength(2)
@@ -30,7 +30,7 @@ export interface Category extends DefaultSchema {
 export const getCategorySdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Category>, Category>(
     client,
-    'categories',
+    'categories'
   );
 
   return {

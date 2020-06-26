@@ -47,10 +47,10 @@ const extendValidation = () => {
       // The UUIDs we use are 36 characters length
       return typeof value === 'string' && value.length === 36;
     },
-    
-    hexColor: () => (value:string) => {
+
+    hexColor: () => (value: string) => {
       return hexRegex.test(value);
-    }
+    },
   });
 };
 

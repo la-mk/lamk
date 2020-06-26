@@ -1,6 +1,6 @@
 import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
-import {schema as categorySchema, Category} from './category';
+import { schema as categorySchema, Category } from './category';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
@@ -16,10 +16,10 @@ export interface StoreCategory extends Category {
 }
 
 export const getStoreCategorySdk = (client: Application) => {
-  const crudMethods = getCrudMethods<OmitServerProperties<StoreCategory>, StoreCategory>(
-    client,
-    'storeCategories',
-  );
+  const crudMethods = getCrudMethods<
+    OmitServerProperties<StoreCategory>,
+    StoreCategory
+  >(client, 'storeCategories');
 
   return {
     ...crudMethods,

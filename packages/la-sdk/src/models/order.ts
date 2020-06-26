@@ -19,14 +19,13 @@ export enum OrderStatus {
   COMPLETED = 'completed',
 }
 
-export const orderStatusColor: {[key in OrderStatus] : string} = {
-  [OrderStatus.CANCELLED]:'#FF3838',
+export const orderStatusColor: { [key in OrderStatus]: string } = {
+  [OrderStatus.CANCELLED]: '#FF3838',
   [OrderStatus.PENDING_PAYMENT]: '#FA8231',
   [OrderStatus.PENDING_SHIPMENT]: '#FBC531',
   [OrderStatus.SHIPPED]: '#9C88FF',
   [OrderStatus.COMPLETED]: '#4CD137',
 };
-
 
 export const schema = {
   ...defaultSchemaEntries,
@@ -47,7 +46,7 @@ export const schema = {
   calculatedTotal: v8n().optional(
     v8n()
       .number(false)
-      .positive(),
+      .positive()
   ),
 };
 
@@ -65,14 +64,14 @@ export interface Order extends DefaultSchema {
   campaigns: Campaign[];
   delivery: Delivery;
   deliverTo?: Address;
-  paymentMethod: PaymentMethodNames,
+  paymentMethod: PaymentMethodNames;
   calculatedTotal: number;
 }
 
 export const getOrderSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Order>, Order>(
     client,
-    'orders',
+    'orders'
   );
   return {
     ...crudMethods,
@@ -89,9 +88,15 @@ export const getOrderSdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
-    findForUserFromStore: (userId: string, storeId: string, params?: Params) => {
+    findForUserFromStore: (
+      userId: string,
+      storeId: string,
+      params?: Params
+    ) => {
       const options = {};
-      merge(options, params, { query: { orderedBy: userId, orderedFrom: storeId } });
+      merge(options, params, {
+        query: { orderedBy: userId, orderedFrom: storeId },
+      });
       return crudMethods.find(options);
     },
 

@@ -17,21 +17,21 @@ export const schema = {
       .string()
       .minLength(2)
       .maxLength(255),
-    true,
+    true
   ),
   lastName: v8n().optional(
     v8n()
       .string()
       .minLength(2)
       .maxLength(255),
-    true,
+    true
   ),
   phoneNumber: v8n().optional(
     v8n()
       .string()
       .minLength(2)
       .maxLength(31),
-    true,
+    true
   ),
 };
 
@@ -46,7 +46,7 @@ export interface User extends DefaultSchema {
 export const getUserSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<User>, User>(
     client,
-    'users',
+    'users'
   );
   return {
     ...crudMethods,

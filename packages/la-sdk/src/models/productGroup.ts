@@ -36,7 +36,7 @@ export const getProductGroupSdk = (client: Application) => {
 
     findForStore: (storeId: string, params?: Params) => {
       const options = {};
-      merge(options, params, { query: { forStore: storeId } } );
+      merge(options, params, { query: { forStore: storeId } });
 
       return crudMethods.find(options);
     },

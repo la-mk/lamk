@@ -17,6 +17,7 @@ export interface SetupSdkOptions {
   transport?: 'rest' | 'socket';
   apiEndpoint: string;
   imagesEndpoint?: string;
+  imagesProxyEndpoint?: string;
 }
 
 export const setupClient = (options: SetupSdkOptions) => {
@@ -43,7 +44,7 @@ export const setupClient = (options: SetupSdkOptions) => {
   client.configure(
     authentication({
       storageKey: 'lamk-token',
-    }),
+    })
   );
 
   return client;
@@ -74,7 +75,7 @@ export function getCrudMethods<T, U>(client: Application, serviceName: string) {
         id => {
           return client.service(serviceName).patch(id, data, params);
         },
-        { concurrency: 10 },
+        { concurrency: 10 }
       ) as Promise<U[]>;
     },
     batchRemove: (ids: Id[], params?: Params) => {
@@ -87,7 +88,7 @@ export function getCrudMethods<T, U>(client: Application, serviceName: string) {
         id => {
           return client.service(serviceName).remove(id, params);
         },
-        { concurrency: 10 },
+        { concurrency: 10 }
       ) as Promise<U[]>;
     },
   };
