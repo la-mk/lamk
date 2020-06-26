@@ -1,7 +1,8 @@
 import React from 'react';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { Flex, Image, Title, Text, Box } from '@sradevski/blocks-ui';
+import { Flex, Title, Text, Box } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
+import { NewImage } from '../NewImage';
 
 export const ProductImageWithTitle = ({
   product,
@@ -20,15 +21,13 @@ export const ProductImageWithTitle = ({
       justifyContent='flex-start'
       {...props}
     >
-      <Flex maxWidth={60} minWidth={60}>
-        <Image
-          width='100%'
-          maxHeight={90}
+      <Flex maxHeight={90} maxWidth={60} minWidth={60}>
+        <NewImage
+          height={90}
+          imageId={product.images[0]}
+          imageBucket={storeId}
+          getFullPath={sdk.artifact.getUrlForImage}
           alt={product.name}
-          src={
-            sdk.artifact.getUrlForArtifact(product.images[0], storeId) ||
-            undefined
-          }
         />
       </Flex>
       <Flex ml={4} flexDirection='column'>

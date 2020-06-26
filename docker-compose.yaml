@@ -185,6 +185,7 @@ services:
       API_ENDPOINT: "https://api.lamk.dev"
       # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
       ARTIFACTS_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
+      IMAGES_PROXY_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
       ANALYTICS_TRACKING_ID: '90f6dff8cd68254f0bcdedcc33ab7a14' 
       PORT: 80
       NESTPAY_GATEWAY_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate"
@@ -227,5 +228,6 @@ services:
       REACT_APP_API_ENDPOINT: "https://api.lamk.dev"
       # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
       REACT_APP_ARTIFACTS_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
+      REACT_APP_IMAGES_PROXY_ENDPOINT:  "https://artifacts.lamk.dev/dev-bucket"
       REACT_APP_ENABLE_SIGNUP: "true"
       PORT: 80

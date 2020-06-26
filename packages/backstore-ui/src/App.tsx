@@ -34,6 +34,7 @@ export const App = () => {
       transport: 'socket',
       apiEndpoint: env.API_ENDPOINT,
       imagesEndpoint: env.ARTIFACTS_ENDPOINT,
+      imagesProxyEndpoint: env.IMAGES_PROXY_ENDPOINT,
     });
   };
 

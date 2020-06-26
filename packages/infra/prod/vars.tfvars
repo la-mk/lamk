@@ -3,6 +3,7 @@ artifacts-subdomain = "artifacts.la.mk"
 droplets-tags = ["prod"]
 project-name="lamk-prod"
 artifacts-name="lamk-artifacts"
+images-proxy-endpoint="https://lamk.gumlet.io"
 environment="Production"
 agnesa-domain="agnesa.mk"
 nestpay-api-endpoint="https://epay.halkbank.mk/fim/api"

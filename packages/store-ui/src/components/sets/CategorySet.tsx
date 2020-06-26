@@ -42,9 +42,10 @@ export const CategorySet = ({
                   style={{
                     position: 'relative',
                   }}
-                  url={sdk.artifact.getUrlForArtifact(
+                  url={sdk.artifact.getUrlForImage(
                     `${categoryName}.jpg`,
                     'categories',
+                    { h: 280 },
                   )}
                 >
                   <Flex

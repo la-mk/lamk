@@ -9,6 +9,9 @@ const vars = {
   API_ENDPOINT: publicRuntimeConfig.API_ENDPOINT || process.env.API_ENDPOINT,
   ARTIFACTS_ENDPOINT:
     publicRuntimeConfig.ARTIFACTS_ENDPOINT || process.env.ARTIFACTS_ENDPOINT,
+  IMAGES_PROXY_ENDPOINT:
+    publicRuntimeConfig.IMAGES_PROXY_ENDPOINT ||
+    process.env.IMAGES_PROXY_ENDPOINT,
   ANALYTICS_TRACKING_ID:
     publicRuntimeConfig.ANALYTICS_TRACKING_ID ||
     process.env.ANALYTICS_TRACKING_ID,
@@ -21,13 +24,12 @@ const vars = {
 const envvar = from(vars as any);
 
 export default {
-  API_ENDPOINT: envvar
-    .get('API_ENDPOINT')
-    .required()
-    .asString(),
+  API_ENDPOINT: envvar.get('API_ENDPOINT').required().asString(),
 
-  ARTIFACTS_ENDPOINT: envvar
-    .get('ARTIFACTS_ENDPOINT')
+  ARTIFACTS_ENDPOINT: envvar.get('ARTIFACTS_ENDPOINT').required().asString(),
+
+  IMAGES_PROXY_ENDPOINT: envvar
+    .get('IMAGES_PROXY_ENDPOINT')
     .required()
     .asString(),
 

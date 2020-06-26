@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Box, Image, PoweredBy } from '@sradevski/blocks-ui';
+import { Flex, Text, Box, PoweredBy } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
@@ -24,14 +24,14 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
         alignItems='center'
       >
         <Box mr={2} p={2} bg='background.light'>
-          <Image
+          <img
             height={22}
             src={'/images/mastercard.svg'}
             alt='mastercard logo'
           />
         </Box>
         <Box ml={2} p={2} bg='background.light'>
-          <Image height={22} src={'/images/visa.svg'} alt='visa logo' />
+          <img height={22} src={'/images/visa.svg'} alt='visa logo' />
         </Box>
       </Flex>
     </Flex>

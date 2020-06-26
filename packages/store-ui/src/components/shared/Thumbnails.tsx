@@ -1,27 +1,29 @@
 import React from 'react';
-import { Image, Flex } from '@sradevski/blocks-ui';
+import { Flex } from '@sradevski/blocks-ui';
+import { NewImage } from './NewImage';
+import { sdk } from '@sradevski/la-sdk';
 
 export interface ThumbnailsProps {
   images: string[];
+  imageBucket: string;
   selectedImage: string;
-  onImageClick: (imageUrl: string) => void;
+  onImageClick: (imageId: string) => void;
 }
 
 export const Thumbnails = ({
   images,
+  imageBucket,
   selectedImage,
   onImageClick,
 }: ThumbnailsProps) => {
   return (
     <Flex flexDirection='row' flexWrap='wrap' justifyContent='center'>
-      {images.map((imageUrl, index) => {
+      {images.map((imageId, index) => {
         return (
           <Flex
-            key={imageUrl}
+            key={imageId}
             style={
-              selectedImage === imageUrl
-                ? { border: '1px solid lightgray' }
-                : {}
+              selectedImage === imageId ? { border: '1px solid lightgray' } : {}
             }
             justifyContent='center'
             alignItems='center'
@@ -29,13 +31,14 @@ export const Thumbnails = ({
             height='72px'
             m={2}
           >
-            <Image
+            <NewImage
+              height={72}
               alt={`product-thumbnail-${index}`}
-              maxHeight='62px'
-              maxWidth='62px'
               style={{ cursor: 'pointer' }}
-              onClick={() => onImageClick(imageUrl)}
-              src={imageUrl}
+              onClick={() => onImageClick(imageId)}
+              imageId={imageId}
+              imageBucket={imageBucket}
+              getFullPath={sdk.artifact.getUrlForImage}
             />
           </Flex>
         );

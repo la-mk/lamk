@@ -62,6 +62,7 @@ setupSdk({
   transport: 'rest',
   apiEndpoint: env.API_ENDPOINT,
   imagesEndpoint: env.ARTIFACTS_ENDPOINT,
+  imagesProxyEndpoint: env.IMAGES_PROXY_ENDPOINT,
 });
 
 // The custom document is required to setup styled components for SSR.

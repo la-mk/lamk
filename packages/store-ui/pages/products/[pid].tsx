@@ -46,7 +46,7 @@ const ProductPage = ({
         title={product.name}
         description={getProductSummary(product, t)}
         previewImages={product.images.map(imageId =>
-          sdk.artifact.getUrlForArtifact(imageId, store._id),
+          sdk.artifact.getUrlForImage(imageId, store._id, { h: 300 }),
         )}
       />
       <Product product={product} />

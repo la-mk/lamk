@@ -150,6 +150,7 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
         transport: 'rest',
         apiEndpoint: env.API_ENDPOINT,
         imagesEndpoint: env.ARTIFACTS_ENDPOINT,
+        imagesProxyEndpoint: env.IMAGES_PROXY_ENDPOINT,
       });
     }
 
@@ -159,7 +160,9 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
           <NextHead>
             <link
               rel='shortcut icon'
-              href={sdk.artifact.getUrlForArtifact(laStore.logo, laStore._id)}
+              href={sdk.artifact.getUrlForImage(laStore.logo, laStore._id, {
+                h: 128,
+              })}
             />
             <style
               id='flashbug_style'

@@ -24,7 +24,7 @@ export const getImageUploader = (
   options: {
     maxWidth: number;
     maxHeight: number;
-  } = { maxWidth: 800, maxHeight: 800 },
+  } = { maxWidth: 1200, maxHeight: 1200 },
 ) => async ({ file, onSuccess, onError }: any) => {
   new Compressor(file, {
     ...options,

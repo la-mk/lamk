@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Flex,
-  Image,
   Text,
   Title,
   Button,
@@ -35,6 +34,7 @@ import { ManagedSets } from '../sets/ManagedSets';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { ServicesSet } from '../sets/ServicesSet';
+import { NewImage } from '../shared/NewImage';
 
 interface ProductProps {
   product: ProductType;
@@ -71,9 +71,7 @@ export const Product = ({ product }: ProductProps) => {
   const { t } = useTranslation();
   const outOfStock = product.stock === 0;
 
-  const [selectedImage, setSelectedImage] = useState(
-    sdk.artifact.getUrlForArtifact(product.images[0], store._id),
-  );
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
   const [quantity, setQuantity] = React.useState(1);
   const isProductInCart =
@@ -130,9 +128,7 @@ export const Product = ({ product }: ProductProps) => {
   }, [product, trackedEvent]);
 
   useEffect(() => {
-    setSelectedImage(
-      sdk.artifact.getUrlForArtifact(product.images[0], store._id),
-    );
+    setSelectedImage(product.images[0]);
   }, [product]);
 
   const handleAddToCart = () => {
@@ -178,14 +174,19 @@ export const Product = ({ product }: ProductProps) => {
             flexDirection='column'
           >
             <Box height={280} minWidth={180} style={{ position: 'relative' }}>
-              <Image alt={product.name} height='100%' src={selectedImage} />
+              <NewImage
+                imageId={selectedImage}
+                imageBucket={store._id}
+                getFullPath={sdk.artifact.getUrlForImage}
+                height={280}
+                alt={product.name}
+              />
               <ProductTags product={product} t={t} />
             </Box>
             <Box mt={3} maxWidth={['100%', '100%', '80%']}>
               <Thumbnails
-                images={product.images.map(imageId =>
-                  sdk.artifact.getUrlForArtifact(imageId, store._id),
-                )}
+                images={product.images}
+                imageBucket={store._id}
                 selectedImage={selectedImage}
                 onImageClick={setSelectedImage}
               />

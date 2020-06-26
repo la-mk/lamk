@@ -20,7 +20,7 @@ export const Banner = ({
 
   return (
     <ImageBackgroundBox
-      url={sdk.artifact.getUrlForArtifact(banner, store._id)}
+      url={sdk.artifact.getUrlForImage(banner, store._id, { h: 600 })}
       height={[450, 600, 600]}
       style={{ position: 'relative' }}
     >
