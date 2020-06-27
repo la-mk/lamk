@@ -41,7 +41,9 @@ export const LandingPreferences = () => {
   useEffect(() => {
     if (storeContents && storeContents.landing) {
       setFileList(
-        getDefaultFileList(storeContents.landing.banner || [], store._id),
+        getDefaultFileList(storeContents.landing.banner || [], store._id, {
+          h: 80,
+        }),
       );
     }
   }, [storeContents, store._id]);

@@ -149,6 +149,7 @@ export const AddProductCard = ({
                 defaultFileList={getDefaultFileList(
                   product.images ?? [],
                   store._id,
+                  { h: 80 },
                 )}
                 name='product-images'
               >

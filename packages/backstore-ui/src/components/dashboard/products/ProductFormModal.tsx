@@ -359,6 +359,7 @@ export const ProductFormModal = ({
                 defaultFileList={getDefaultFileList(
                   product ? product.images : [],
                   storeId,
+                  { h: 80 },
                 )}
                 name='product-images'
               >

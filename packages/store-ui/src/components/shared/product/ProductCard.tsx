@@ -1,14 +1,13 @@
 import React from 'react';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { Title, Flex, Box, Paragraph } from '@sradevski/blocks-ui';
+import { Title, Flex, Box, Paragraph, Image } from '@sradevski/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 
 import { TFunction } from 'next-i18next';
 import { HoverableLink } from '../components/HoverableLink';
 import { ProductTags } from './ProductTags';
-import { NewImage } from '../NewImage';
 
 const ProductDescription = ({
   product,
@@ -74,11 +73,11 @@ const ProductImage = ({
       <ProductTags t={t} product={product} />
       {/* <ActionsOverlay /> */}
 
-      <NewImage
+      <Image
         height={emphasized ? [220, 280, 360] : [120, 140, 180]}
-        imageId={product.images[0]}
-        imageBucket={storeId}
-        getFullPath={sdk.artifact.getUrlForImage}
+        getSrc={params =>
+          sdk.artifact.getUrlForImage(product.images[0], storeId, params)
+        }
         alt={product.name}
       />
     </Flex>

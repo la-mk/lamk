@@ -1,6 +1,5 @@
 import React from 'react';
-import { Flex } from '@sradevski/blocks-ui';
-import { NewImage } from './NewImage';
+import { Flex, Image, Box } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 
 export interface ThumbnailsProps {
@@ -27,19 +26,21 @@ export const Thumbnails = ({
             }
             justifyContent='center'
             alignItems='center'
-            width='72px'
             height='72px'
+            width='72px'
             m={2}
           >
-            <NewImage
-              height={72}
-              alt={`product-thumbnail-${index}`}
-              style={{ cursor: 'pointer' }}
-              onClick={() => onImageClick(imageId)}
-              imageId={imageId}
-              imageBucket={imageBucket}
-              getFullPath={sdk.artifact.getUrlForImage}
-            />
+            <Box height={70}>
+              <Image
+                height={70}
+                alt={`product-thumbnail-${index}`}
+                style={{ cursor: 'pointer' }}
+                onClick={() => onImageClick(imageId)}
+                getSrc={params =>
+                  sdk.artifact.getUrlForImage(imageId, imageBucket, params)
+                }
+              />
+            </Box>
           </Flex>
         );
       })}

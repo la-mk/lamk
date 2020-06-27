@@ -44,6 +44,7 @@ export const getImageUploader = (
 export const getDefaultFileList = (
   value: string | string[],
   bucket: string,
+  params?: any,
 ) => {
   if (!value || isEmpty(value)) {
     return;
@@ -56,7 +57,7 @@ export const getDefaultFileList = (
             uid: value,
             name: value,
             status: 'done',
-            url: sdk.artifact.getUrlForArtifact(value, bucket),
+            url: sdk.artifact.getUrlForImage(value, bucket, params),
           },
         ] as UploadFile[])
       : undefined;
@@ -67,7 +68,7 @@ export const getDefaultFileList = (
           uid: fileId,
           name: fileId,
           status: 'done',
-          url: sdk.artifact.getUrlForArtifact(fileId, bucket),
+          url: sdk.artifact.getUrlForImage(fileId, bucket, params),
         } as UploadFile),
     );
   }

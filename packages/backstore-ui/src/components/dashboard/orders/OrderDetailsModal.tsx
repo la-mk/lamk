@@ -156,10 +156,10 @@ export const OrderDetailsModal = ({
                     order.delivery,
                     order.campaigns,
                   )}
-                  logoUrl={sdk.artifact.getUrlForArtifact(
-                    store.logo,
-                    store._id,
-                  )}
+                  logoUrl={sdk.artifact.getUrlForImage(store.logo, store._id, {
+                    h: 64,
+                    dpr: 2,
+                  })}
                 >
                   {t('actions.downloadInvoice')}
                 </InvoiceDownloadLink>,
@@ -233,18 +233,21 @@ export const OrderDetailsModal = ({
                     >
                       <Flex alignItems='center'>
                         <Flex
-                          width={'120px'}
+                          minWidth={'120px'}
+                          maxWidth={'120px'}
+                          height={60}
                           justifyContent='center'
                           alignItems='center'
                         >
                           <Image
-                            maxHeight='60px'
+                            height={60}
                             alt={product.name}
-                            src={
-                              sdk.artifact.getUrlForArtifact(
+                            getSrc={params =>
+                              sdk.artifact.getUrlForImage(
                                 product.images[0],
                                 store._id,
-                              ) || undefined
+                                params,
+                              )
                             }
                           />
                         </Flex>

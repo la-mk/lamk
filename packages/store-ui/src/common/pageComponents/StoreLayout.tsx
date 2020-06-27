@@ -7,6 +7,7 @@ import {
   Footer,
   Search,
   Box,
+  Image,
 } from '@sradevski/blocks-ui';
 import queryString from 'qs';
 import styled, { withTheme } from 'styled-components';
@@ -26,7 +27,6 @@ import { TopMenu } from './TopMenu';
 import { SubMenu } from './SubMenu';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import { Breadcrumbs } from './Breadcrumbs';
-import { NewImage } from '../../components/shared/NewImage';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -110,10 +110,14 @@ export const StoreLayout = withTheme(
               <Link href='/' passHref>
                 <LineHeightFreeAnchor style={{ display: 'flex' }}>
                   <Box height={64}>
-                    <NewImage
-                      imageId={store?.logo}
-                      imageBucket={store?._id}
-                      getFullPath={sdk.artifact.getUrlForImage}
+                    <Image
+                      getSrc={params =>
+                        sdk.artifact.getUrlForImage(
+                          store?.logo,
+                          store?._id,
+                          params,
+                        )
+                      }
                       height={64}
                       alt='logo'
                     />

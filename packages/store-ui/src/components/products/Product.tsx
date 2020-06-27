@@ -6,6 +6,7 @@ import {
   Button,
   InputNumber,
   Box,
+  Image,
   message,
   Spin,
   hooks,
@@ -34,7 +35,6 @@ import { ManagedSets } from '../sets/ManagedSets';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { ServicesSet } from '../sets/ServicesSet';
-import { NewImage } from '../shared/NewImage';
 
 interface ProductProps {
   product: ProductType;
@@ -174,10 +174,10 @@ export const Product = ({ product }: ProductProps) => {
             flexDirection='column'
           >
             <Box height={280} minWidth={180} style={{ position: 'relative' }}>
-              <NewImage
-                imageId={selectedImage}
-                imageBucket={store._id}
-                getFullPath={sdk.artifact.getUrlForImage}
+              <Image
+                getSrc={params =>
+                  sdk.artifact.getUrlForImage(selectedImage, store._id, params)
+                }
                 height={280}
                 alt={product.name}
               />

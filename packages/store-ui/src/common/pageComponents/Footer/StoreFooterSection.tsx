@@ -1,10 +1,9 @@
 import React from 'react';
-import { Flex, Text, Box, Title } from '@sradevski/blocks-ui';
+import { Flex, Text, Box, Title, Image } from '@sradevski/blocks-ui';
 import { PhoneFilled, MailFilled } from '@ant-design/icons';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from '../../i18n';
-import { NewImage } from '../../../components/shared/NewImage';
 
 const ContactEntry = ({
   icon,
@@ -37,10 +36,10 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
   return (
     <Flex flexDirection='column' alignItems={'flex-start'}>
       <Box maxHeight={96} maxWidth={192} mb={5} p={2} bg='background.light'>
-        <NewImage
-          imageId={store.logo}
-          imageBucket={store._id}
-          getFullPath={sdk.artifact.getUrlForImage}
+        <Image
+          getSrc={params =>
+            sdk.artifact.getUrlForImage(store.logo, store._id, params)
+          }
           height={96}
           alt='logo'
         />

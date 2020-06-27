@@ -77,15 +77,15 @@ const getColumns = (
       align: 'center',
       render: (_text, product) => {
         return (
-          <Image
-            minHeight='60px'
-            height='60px'
-            alt={product.name}
-            src={
-              sdk.artifact.getUrlForArtifact(product.images[0], storeId) ||
-              undefined
-            }
-          />
+          <Box minHeight='60px' height='60px'>
+            <Image
+              height={60}
+              alt={product.name}
+              getSrc={params =>
+                sdk.artifact.getUrlForImage(product.images[0], storeId, params)
+              }
+            />
+          </Box>
         );
       },
     },
