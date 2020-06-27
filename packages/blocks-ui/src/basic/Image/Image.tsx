@@ -86,7 +86,7 @@ export const Image = ({
   }
 
   return (
-    <picture onError={() => setFetchFailed(true)}>
+    <picture style={{height: 'inherit', width: 'inherit'}} onError={() => setFetchFailed(true)}>
       <source
         type='image/webp'
         srcSet={getSrcSet(getSrc, {
