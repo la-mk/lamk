@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex } from '../basic/Flex';
+import { Box } from '../basic/Box';
 import { Image } from '../basic/Image/Image';
 import { Text } from '../basic/Typography';
 
@@ -16,7 +17,9 @@ export const PoweredBy = ({
         <Text color={inverse ? 'text.light' : 'text.dark'} fontSize={0} mr={2}>
           powered by
         </Text>
-        <Image src={logoUrl} height={22} maxWidth={80} alt="la.mk logo" />
+        <Box maxWidth={80} height={22} >
+          <Image src={logoUrl} alt="la.mk logo" />
+        </Box>
       </Flex>
     </a>
   );

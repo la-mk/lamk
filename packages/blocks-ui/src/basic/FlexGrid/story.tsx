@@ -20,8 +20,8 @@ storiesOf('Flex Grid', module).add('standard', () => {
           renderItem={(item: any) => <div>{item.item}</div>}
           pagination={{
             ...pagination,
-            onChange: (page: number, pageSize: number) =>
-              setPagination({ ...pagination, current: page, pageSize }),
+            onChange: (page, pageSize) =>
+              setPagination({ ...pagination, current: page, pageSize: pageSize ?? 20 }),
           }}
         />
       </>

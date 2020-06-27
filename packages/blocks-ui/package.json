@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/blocks-ui"
   },
-  "version": "0.0.77",
+  "version": "0.0.78",
   "description": "",
   "module": "dist/blocks-ui.esm.js",
   "typings": "dist/index.d.ts",
@@ -75,7 +75,6 @@
     "@ant-design/icons": "^4.0.5",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "qs": "^6.9.1",
-    "react-image": "^2.4.0"
+    "qs": "^6.9.1"
   }
 }
