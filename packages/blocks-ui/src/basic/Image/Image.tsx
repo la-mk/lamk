@@ -93,22 +93,32 @@ export const Image = ({
     );
   }
 
+  const webpSrcset = getSrcSet(getSrc, {
+    format: 'webp',
+    ...params,
+  })
+  const defaultSrcset = getSrcSet(getSrc, params);
+  const imageSrc = getSrc(params);
+
+  if(!webpSrcset && !defaultSrcset && !imageSrc){
+    return <MissingImageSvg/>
+  }
+
   return (
     <picture style={{height: 'inherit', width: 'inherit'}} onError={() => setFetchFailed(true)}>
-      <source
+      {!!webpSrcset && <source
         type='image/webp'
-        srcSet={getSrcSet(getSrc, {
-          format: 'webp',
-          ...params,
-        })}
-      />
-      <source srcSet={getSrcSet(getSrc, params)} />
-      <SizedImage
+        srcSet={webpSrcset}
+      />}
+
+      {!!defaultSrcset && <source srcSet={defaultSrcset} />}
+
+      {!!imageSrc && <SizedImage
         {...otherProps}
         onError={() => setFetchFailed(true)}
         loading='lazy'
-        src={getSrc(params) || ''}
-      />
+        src={imageSrc}
+      />}
     </picture>
   );
 };

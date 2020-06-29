@@ -10,7 +10,7 @@ storiesOf('Image', module).add('standard', () => (
     <>
       <Flex flexDirection="column">
         <Text>No image found</Text>
-        <Image src={'this-wont-load'} />
+        <Image src={'https://via.placeholder-nonexistent.com/80x160'} />
       </Flex>
 
       <Flex flexDirection="column">
