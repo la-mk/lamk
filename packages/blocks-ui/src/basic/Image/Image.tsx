@@ -42,6 +42,7 @@ export interface ImageProps
   getSrc?: (parameters?: any) => string | null;
   height?: number | number[];
   width?: number | number[];
+  imageRef?: React.Ref<HTMLImageElement>;
 }
 
 const getSrcSet = (getSrc: Required<ImageProps>['getSrc'], parameters: any) => {
@@ -63,6 +64,7 @@ export const Image = ({
   getSrc,
   height,
   width,
+  imageRef,
   ...otherProps
 }: ImageProps) => {
   const [fetchFailed, setFetchFailed] = useState(false);
@@ -86,6 +88,7 @@ export const Image = ({
     return (
       <SizedImage
         {...otherProps}
+        ref={imageRef}
         onError={() => setFetchFailed(true)}
         loading='lazy'
         src={src}
@@ -115,6 +118,7 @@ export const Image = ({
 
       {!!imageSrc && <SizedImage
         {...otherProps}
+        ref={imageRef}
         onError={() => setFetchFailed(true)}
         loading='lazy'
         src={imageSrc}

@@ -1,0 +1,185 @@
+import React, { useRef, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
+
+// Heavily inspired by https://github.com/samuelmeuli/react-magnifier. We can probably PR it there if necessary.
+
+const ZOOM_FACTOR = 3;
+
+const MagnifyingContainer = styled.div`
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  height: fit-content;
+  width: fit-content;
+`;
+
+const MagnifyingGlass = styled.div<{
+  magnifierSize: number;
+  src: string;
+}>`
+  position: absolute;
+  z-index: 1;
+  background: #e5e5e5 no-repeat;
+  border: 2px solid #ebebeb;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+
+  width: ${props => props.magnifierSize}px;
+  height: ${props => props.magnifierSize}px;
+  background-image: url(${props => props.src});
+`;
+
+export interface ImageMagnifierProps {
+  children: (imageProps: any) => React.ReactNode;
+  magnifierSize?: number;
+  src: string;
+}
+
+export const ImageMagnifier = ({
+  children,
+  magnifierSize = 60,
+  src,
+}: ImageMagnifierProps ) => {
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [imageBounds, setImageBounds] = useState<DOMRect | undefined>();
+  const [showMagnifier, setShowMagnifier] = useState(false);
+  const [magnifierPosition, setMagnifierPosition] = useState<{
+    x: number;
+    y: number;
+  }>();
+
+  useEffect(() => {
+    if (!imageRef.current) {
+      return;
+    }
+
+    const debouncedSetImageBounds = debounce(
+      () => setImageBounds(imageRef.current?.getBoundingClientRect()),
+      200
+    );
+
+    const onMouseEnter = () => {
+      setShowMagnifier(true);
+      setImageBounds(imageRef.current?.getBoundingClientRect());
+    };
+
+    const onMouseMove = throttle((e: MouseEvent) => {
+      if (!imageBounds?.left || !imageBounds?.top) {
+        return;
+      }
+
+      const target = e.target as HTMLElement;
+      const x = (e.clientX - imageBounds.left) / target.clientWidth;
+      const y = (e.clientY - imageBounds.top) / target.clientHeight;
+
+      setMagnifierPosition({
+        x,
+        y,
+      });
+    }, 30, { trailing: false });
+
+    const onMouseOut = () => {
+      setShowMagnifier(false);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault(); // Prevent mouse event from being fired
+      setImageBounds(imageRef.current?.getBoundingClientRect());
+    };
+  
+    const onTouchMove = throttle((e: TouchEvent) => {
+      e.preventDefault(); // Disable scroll on touch
+      if (!imageBounds?.left || !imageBounds?.top) {
+        return;
+      }
+
+      const target = e.target as HTMLElement;
+      const x = (e.targetTouches[0].clientX - imageBounds.left) / target.clientWidth;
+      const y = (e.targetTouches[0].clientY - imageBounds.top) / target.clientHeight;
+
+      // Only show magnifying glass if touch is inside image
+      if (x >= 0 && y >= 0 && x <= 1 && y <= 1) {
+        setShowMagnifier(true);
+        setMagnifierPosition({
+          x,
+          y,
+        });
+      } else {
+        setShowMagnifier(false);
+      }
+    }, 30, { trailing: false });
+  
+    const onTouchEnd = () => {
+      setShowMagnifier(false);
+    };
+
+    // Add mouse/touch event listeners to image element (assigned in render function)
+    // `passive: false` prevents scrolling on touch move
+    imageRef.current.addEventListener('mouseenter', onMouseEnter, {
+      passive: false,
+    });
+    imageRef.current.addEventListener('mousemove', onMouseMove, {
+      passive: false,
+    });
+    imageRef.current.addEventListener('mouseout', onMouseOut, {
+      passive: false,
+    });
+
+    imageRef.current.addEventListener("touchstart", onTouchStart, { passive: false });
+		imageRef.current.addEventListener("touchmove", onTouchMove, { passive: false });
+		imageRef.current.addEventListener("touchend", onTouchEnd, { passive: false });
+
+    window.addEventListener('resize', debouncedSetImageBounds);
+    window.addEventListener('scroll', debouncedSetImageBounds, true);
+
+    return () => {
+      imageRef.current?.removeEventListener('mouseenter', onMouseEnter);
+      imageRef.current?.removeEventListener('mousemove', onMouseMove);
+      imageRef.current?.removeEventListener('mouseout', onMouseOut);
+      imageRef.current?.removeEventListener('touchstart', onTouchStart);
+      imageRef.current?.removeEventListener('touchmove', onTouchMove);
+      imageRef.current?.removeEventListener('touchend', onTouchEnd);
+
+      window.addEventListener('resize', debouncedSetImageBounds);
+      window.addEventListener('scroll', debouncedSetImageBounds, true);
+    };
+  }, [
+    imageRef?.current,
+    imageBounds?.left,
+    imageBounds?.top,
+    setShowMagnifier,
+    setMagnifierPosition,
+  ]);
+
+  const calculateImageBounds = () => {
+    if (!imageRef?.current) {
+      return;
+    }
+
+    setImageBounds(imageRef.current.getBoundingClientRect());
+  };
+
+  return (
+    <MagnifyingContainer>
+      {children({
+        imageRef,
+        onLoad: calculateImageBounds,
+      })}
+      {showMagnifier && magnifierPosition && imageBounds && src && (
+        <MagnifyingGlass
+          magnifierSize={magnifierSize}
+          src={src}
+          // For performance reasons we don't use styled components for the positioning, as it recreates classes on every change.
+          style={{
+            left: `calc(${magnifierPosition?.x * 100}% - ${magnifierSize / 2}px)`,
+            top: `calc(${magnifierPosition?.y * 100}% - ${magnifierSize / 2}px)`,
+            backgroundSize: `${ZOOM_FACTOR * imageBounds.width}% ${ZOOM_FACTOR * imageBounds.height}%`,
+            backgroundPosition: `calc(${magnifierPosition?.x * 100}% + ${magnifierSize / 2}px - ${magnifierPosition?.x * magnifierSize}px) calc(${magnifierPosition?.y * 100}% + ${magnifierSize / 2}px - ${magnifierPosition?.y * magnifierSize}px)`,
+          }}
+        />
+      )}
+    </MagnifyingContainer>
+  );
+};

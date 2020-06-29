@@ -4,6 +4,7 @@ import { Image } from './Image';
 import { Provider } from '../Provider';
 import { Text } from '../Typography';
 import { Flex } from '../Flex';
+import { ImageMagnifier } from './ImageMagnifier';
 
 storiesOf('Image', module).add('standard', () => (
   <Provider>
@@ -22,6 +23,16 @@ storiesOf('Image', module).add('standard', () => (
         <Text>Image Sizing</Text>
         <Image getSrc={() => 'https://via.placeholder.com/160x80'} />
         <Image getSrc={() => 'https://via.placeholder.com/80x160'} />
+      </Flex>
+
+      <Flex flexDirection="column" height="100%" width="100%">
+        <Text>Image Magnifier</Text>
+
+        <ImageMagnifier src={'https://via.placeholder.com/400x400'}>
+          {(imageProps)  => 
+            <Image getSrc={() => 'https://via.placeholder.com/400x400'} {...imageProps} />  
+          }
+        </ImageMagnifier>
       </Flex>
     </>
   </Provider>
