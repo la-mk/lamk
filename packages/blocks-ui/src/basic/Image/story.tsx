@@ -12,6 +12,12 @@ storiesOf('Image', module).add('standard', () => (
         <Text>No image found</Text>
         <Image src={'this-wont-load'} />
       </Flex>
+
+      <Flex flexDirection="column">
+        <Text>Src is null</Text>
+        <Image getSrc={() => null} />
+      </Flex>
+
       <Flex flexDirection="column">
         <Text>Image Sizing</Text>
         <Image getSrc={() => 'https://via.placeholder.com/160x80'} />

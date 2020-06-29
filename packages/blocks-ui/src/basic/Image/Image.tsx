@@ -46,7 +46,15 @@ export interface ImageProps
 
 const getSrcSet = (getSrc: Required<ImageProps>['getSrc'], parameters: any) => {
   return [1, 2, 3]
-    .map(dpr => `${getSrc({ ...parameters, dpr })} ${dpr}x`)
+    .map(dpr => {
+      const src = getSrc({ ...parameters, dpr });
+      if(!src){
+        return null;
+      }
+
+      return `${getSrc({ ...parameters, dpr })} ${dpr}x`
+    })
+    .filter(x => !!x)
     .join(',\n');
 };
 
