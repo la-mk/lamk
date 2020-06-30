@@ -25,7 +25,7 @@ storiesOf('Image', module).add('standard', () => (
         <Image getSrc={() => 'https://via.placeholder.com/80x160'} />
       </Flex>
 
-      <Flex flexDirection="column" height="100%" width="100%">
+      <Flex flexDirection="column" height="100%" width="fit-content">
         <Text>Image Magnifier</Text>
 
         <ImageMagnifier src={'https://via.placeholder.com/400x400'}>

@@ -49,6 +49,7 @@ export const ImageMagnifier = ({
     x: number;
     y: number;
   }>();
+  const [touchStartY, setTouchStartY] = useState<number | undefined>();
 
   useEffect(() => {
     if (!imageRef.current) {
@@ -85,19 +86,27 @@ export const ImageMagnifier = ({
     };
 
     const onTouchStart = (e: TouchEvent) => {
-      e.preventDefault(); // Prevent mouse event from being fired
       setImageBounds(imageRef.current?.getBoundingClientRect());
-    };
-  
-    const onTouchMove = throttle((e: TouchEvent) => {
-      e.preventDefault(); // Disable scroll on touch
-      if (!imageBounds?.left || !imageBounds?.top) {
+      setTouchStartY(e.targetTouches[0].clientY);
+    }
+
+    const onTouchEnd = (e: TouchEvent) => {
+      const newImageBounds = imageRef.current?.getBoundingClientRect();
+      setImageBounds(newImageBounds);
+      setTouchStartY(undefined);
+
+      const isScroll = touchStartY && Math.abs(touchStartY - e.targetTouches[0].clientY) > 60;
+      if(isScroll){
+        return;
+      }
+
+      if (!newImageBounds?.left || !newImageBounds?.top) {
         return;
       }
 
       const target = e.target as HTMLElement;
-      const x = (e.targetTouches[0].clientX - imageBounds.left) / target.clientWidth;
-      const y = (e.targetTouches[0].clientY - imageBounds.top) / target.clientHeight;
+      const x = (e.targetTouches[0].clientX - newImageBounds.left) / target.clientWidth;
+      const y = (e.targetTouches[0].clientY - newImageBounds.top) / target.clientHeight;
 
       // Only show magnifying glass if touch is inside image
       if (x >= 0 && y >= 0 && x <= 1 && y <= 1) {
@@ -109,10 +118,6 @@ export const ImageMagnifier = ({
       } else {
         setShowMagnifier(false);
       }
-    }, 30, { trailing: false });
-  
-    const onTouchEnd = () => {
-      setShowMagnifier(false);
     };
 
     // Add mouse/touch event listeners to image element (assigned in render function)
@@ -128,7 +133,6 @@ export const ImageMagnifier = ({
     });
 
     imageRef.current.addEventListener("touchstart", onTouchStart, { passive: false });
-		imageRef.current.addEventListener("touchmove", onTouchMove, { passive: false });
 		imageRef.current.addEventListener("touchend", onTouchEnd, { passive: false });
 
     window.addEventListener('resize', debouncedSetImageBounds);
@@ -139,7 +143,6 @@ export const ImageMagnifier = ({
       imageRef.current?.removeEventListener('mousemove', onMouseMove);
       imageRef.current?.removeEventListener('mouseout', onMouseOut);
       imageRef.current?.removeEventListener('touchstart', onTouchStart);
-      imageRef.current?.removeEventListener('touchmove', onTouchMove);
       imageRef.current?.removeEventListener('touchend', onTouchEnd);
 
       window.addEventListener('resize', debouncedSetImageBounds);
