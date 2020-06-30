@@ -9,8 +9,8 @@ const MagnifyingContainer = styled.div`
   position: relative;
   display: inline-block;
   line-height: 0;
-  height: fit-content;
-  width: fit-content;
+  height: 100%;
+  width: 100%;
 `;
 
 const MagnifyingGlass = styled.div<{
