@@ -49,7 +49,6 @@ export const ImageMagnifier = ({
     x: number;
     y: number;
   }>();
-  const [touchStartY, setTouchStartY] = useState<number | undefined>();
 
   useEffect(() => {
     if (!imageRef.current) {
@@ -85,18 +84,21 @@ export const ImageMagnifier = ({
       setShowMagnifier(false);
     };
 
+    let touchStartY: number | undefined;
+
     const onTouchStart = (e: TouchEvent) => {
-      setImageBounds(imageRef.current?.getBoundingClientRect());
-      setTouchStartY(e.targetTouches[0].clientY);
+      touchStartY = e.targetTouches[0]?.clientY;
     }
 
     const onTouchEnd = (e: TouchEvent) => {
       const newImageBounds = imageRef.current?.getBoundingClientRect();
       setImageBounds(newImageBounds);
-      setTouchStartY(undefined);
 
-      const isScroll = touchStartY && Math.abs(touchStartY - e.targetTouches[0].clientY) > 60;
+      const isScroll = touchStartY && Math.abs(touchStartY - e.changedTouches[0]?.clientY) > 12;
+      touchStartY = undefined;
+
       if(isScroll){
+        setShowMagnifier(false);
         return;
       }
 
@@ -105,8 +107,8 @@ export const ImageMagnifier = ({
       }
 
       const target = e.target as HTMLElement;
-      const x = (e.targetTouches[0].clientX - newImageBounds.left) / target.clientWidth;
-      const y = (e.targetTouches[0].clientY - newImageBounds.top) / target.clientHeight;
+      const x = (e.changedTouches[0].clientX - newImageBounds.left) / target.clientWidth;
+      const y = (e.changedTouches[0].clientY - newImageBounds.top) / target.clientHeight;
 
       // Only show magnifying glass if touch is inside image
       if (x >= 0 && y >= 0 && x <= 1 && y <= 1) {
