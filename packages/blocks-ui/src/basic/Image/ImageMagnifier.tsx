@@ -5,8 +5,6 @@ import debounce from 'lodash/debounce';
 
 // Heavily inspired by https://github.com/samuelmeuli/react-magnifier. We can probably PR it there if necessary.
 
-const ZOOM_FACTOR = 3;
-
 const MagnifyingContainer = styled.div`
   position: relative;
   display: inline-block;
@@ -34,12 +32,14 @@ const MagnifyingGlass = styled.div<{
 export interface ImageMagnifierProps {
   children: (imageProps: any) => React.ReactNode;
   magnifierSize?: number;
+  zoomFactor?: number;
   src: string;
 }
 
 export const ImageMagnifier = ({
   children,
   magnifierSize = 60,
+  zoomFactor = 2,
   src,
 }: ImageMagnifierProps ) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -175,7 +175,7 @@ export const ImageMagnifier = ({
           style={{
             left: `calc(${magnifierPosition?.x * 100}% - ${magnifierSize / 2}px)`,
             top: `calc(${magnifierPosition?.y * 100}% - ${magnifierSize / 2}px)`,
-            backgroundSize: `${ZOOM_FACTOR * imageBounds.width}% ${ZOOM_FACTOR * imageBounds.height}%`,
+            backgroundSize: `${zoomFactor * imageBounds.width}% ${zoomFactor * imageBounds.height}%`,
             backgroundPosition: `calc(${magnifierPosition?.x * 100}% + ${magnifierSize / 2}px - ${magnifierPosition?.x * magnifierSize}px) calc(${magnifierPosition?.y * 100}% + ${magnifierSize / 2}px - ${magnifierPosition?.y * magnifierSize}px)`,
           }}
         />
