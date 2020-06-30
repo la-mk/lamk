@@ -7,6 +7,7 @@ import {
   InputNumber,
   Box,
   Image,
+  ImageMagnifier,
   message,
   Spin,
   hooks,
@@ -174,13 +175,26 @@ export const Product = ({ product }: ProductProps) => {
             flexDirection='column'
           >
             <Box height={280} minWidth={180} style={{ position: 'relative' }}>
-              <Image
-                getSrc={params =>
-                  sdk.artifact.getUrlForImage(selectedImage, store._id, params)
-                }
-                height={280}
-                alt={product.name}
-              />
+              <ImageMagnifier
+                magnifierSize={180}
+                zoomFactor={1.3}
+                src={sdk.artifact.getUrlForImage(selectedImage, store._id)}
+              >
+                {imageProps => (
+                  <Image
+                    {...imageProps}
+                    getSrc={params =>
+                      sdk.artifact.getUrlForImage(
+                        selectedImage,
+                        store._id,
+                        params,
+                      )
+                    }
+                    height={280}
+                    alt={product.name}
+                  />
+                )}
+              </ImageMagnifier>
               <ProductTags product={product} t={t} />
             </Box>
             <Box mt={3} maxWidth={['100%', '100%', '80%']}>
