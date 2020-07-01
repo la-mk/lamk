@@ -10,8 +10,8 @@ const MissingImageSvg = ({
   width?: string | number;
 }) => (
   <svg
-    height={height ?? '100%'}
-    width={width ?? '100%'}
+    height={height ?? 'inherit'}
+    width={width ?? 'inherit'}
     fill='#f2f2f2'
     xmlns='https://www.w3.org/2000/svg'
     viewBox='0 0 3372 3352'
@@ -32,8 +32,8 @@ const SizedImage = styled.img`
   object-fit: contain;
   max-width: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
+  width: inherit;
+  height: inherit;
 `;
 
 export interface ImageProps
