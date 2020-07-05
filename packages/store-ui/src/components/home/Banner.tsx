@@ -19,42 +19,47 @@ export const Banner = ({
   }
 
   return (
-    <ImageBackgroundBox
-      url={sdk.artifact.getUrlForImage(banner, store._id, { h: 600 })}
-      height={[450, 600, 600]}
-      style={{ position: 'relative' }}
-    >
-      {store.slogan && (
-        <Flex
-          style={{
-            position: 'absolute',
-            top: '20%',
-            bottom: '20%',
-            opacity: 0.85,
-          }}
-          width={['80%', '70%', '60%']}
-          ml={['10%', '15%', '20%']}
-          borderRadius={0}
-          bg='background.light'
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
-        >
-          <Title
-            px={[2, 3, 4]}
-            textAlign='center'
-            level={1}
-            fontSize={[5, 6, 6]}
+    <Flex bg='background.light'>
+      <ImageBackgroundBox
+        mx='auto'
+        url={sdk.artifact.getUrlForImage(banner, store._id, { h: 600 })}
+        height={[450, 600, 600]}
+        maxWidth={1320}
+        width='100%'
+        style={{ position: 'relative' }}
+      >
+        {store.slogan && (
+          <Flex
+            style={{
+              position: 'absolute',
+              top: '20%',
+              bottom: '20%',
+              opacity: 0.85,
+            }}
+            width={['80%', '70%', '60%']}
+            ml={['10%', '15%', '20%']}
+            borderRadius={0}
+            bg='background.light'
+            alignItems='center'
+            justifyContent='center'
+            flexDirection='column'
           >
-            {store.slogan}
-          </Title>
-          <Link href='/products' passHref>
-            <Button size='large' type='primary'>
-              {t('actions.shopNow')}
-            </Button>
-          </Link>
-        </Flex>
-      )}
-    </ImageBackgroundBox>
+            <Title
+              px={[2, 3, 4]}
+              textAlign='center'
+              level={1}
+              fontSize={[5, 6, 6]}
+            >
+              {store.slogan}
+            </Title>
+            <Link href='/products' passHref>
+              <Button size='large' type='primary'>
+                {t('actions.shopNow')}
+              </Button>
+            </Link>
+          </Flex>
+        )}
+      </ImageBackgroundBox>
+    </Flex>
   );
 };

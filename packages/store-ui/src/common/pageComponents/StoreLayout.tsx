@@ -109,7 +109,7 @@ export const StoreLayout = withTheme(
             <Flex justifyContent='space-between'>
               <Link href='/' passHref>
                 <LineHeightFreeAnchor style={{ display: 'flex' }}>
-                  <Box height={64}>
+                  <Box height={56}>
                     <Image
                       getSrc={params =>
                         sdk.artifact.getUrlForImage(

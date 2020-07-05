@@ -34,13 +34,13 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
 
   const { phoneNumber, alternatePhoneNumber, email } = store.contact || {};
   return (
-    <Flex flexDirection='column' alignItems={'flex-start'}>
-      <Box maxHeight={96} maxWidth={192} mb={5} p={2} bg='background.light'>
+    <Flex flexDirection='column' alignItems={'center'}>
+      <Box height={84} mb={5} p={2} bg='background.light'>
         <Image
           getSrc={params =>
             sdk.artifact.getUrlForImage(store.logo, store._id, params)
           }
-          height={96}
+          height={84}
           alt='logo'
         />
       </Box>
