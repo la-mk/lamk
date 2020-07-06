@@ -220,19 +220,27 @@ export const Product = ({ product }: ProductProps) => {
             >
               {product.name}
             </Title>
-            <Price
-              size='large'
-              calculatedPrice={product.calculatedPrice}
-              basePrice={product.price}
-              currency={'ден'}
-            />
+            <Flex
+              flexDirection='column'
+              alignItems={['center', 'flex-start', 'flex-start']}
+              justifyContent='center'
+            >
+              <Price
+                size='large'
+                calculatedPrice={product.calculatedPrice}
+                basePrice={product.price}
+                currency={'ден'}
+              />
+              <Text fontSize={1} color='mutedText.dark'>
+                {t(`units.${product.unit}`)}
+              </Text>
+            </Flex>
             <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
               <Text>{t('product.availability')}:</Text>
               <Text ml={2} color={outOfStock ? 'danger' : 'success'}>
                 {outOfStock ? t('product.outOfStock') : t('product.inStock')}
               </Text>
             </Flex>
-
             <Flex mt={[3, 4, 4]} flexDirection='row' alignItems='center'>
               {!isProductInCart && (
                 <>
@@ -272,7 +280,6 @@ export const Product = ({ product }: ProductProps) => {
                 </Button>
               )}
             </Flex>
-
             <Box mx={[3, 0, 0]} mt={4}>
               <ProductDetails product={product} delivery={delivery} />
             </Box>

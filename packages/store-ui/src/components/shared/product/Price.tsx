@@ -19,13 +19,14 @@ export const Price = ({
   const discounted = basePrice !== calculatedPrice;
   const fontSize =
     size === 'small' ? 1 : size === 'large' ? [3, 4, 4] : [1, 2, 2];
+  const margin = size === 'small' ? 2 : 3;
 
   return (
     <Flex flexDirection={vertical ? 'column' : 'row'} flexWrap='wrap'>
       <Text
         fontSize={fontSize}
         color={discounted ? 'danger' : 'text.dark'}
-        mr={discounted ? fontSize : undefined}
+        mr={discounted ? margin : undefined}
         strong
       >
         {calculatedPrice} {currency}

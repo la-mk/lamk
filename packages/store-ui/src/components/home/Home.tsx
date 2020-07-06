@@ -69,7 +69,12 @@ export const Home = ({
 
   return (
     <>
-      <Banner banner={landingContent.banner} store={store} />
+      <Banner
+        banner={landingContent.banner}
+        // TODO: This is temporarily, manually added field, remove and find a proper strategy for handling the banner.
+        hideSlogan={(landingContent as any).hideSlogan}
+        store={store}
+      />
 
       <Flex mt={7} flexDirection='column'>
         {categoriesForSet.length > 1 && (

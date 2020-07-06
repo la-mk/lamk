@@ -265,6 +265,10 @@ export const OrderDetailsModal = ({
                           {t('commerce.quantity')}:{' '}
                           {getQuantityForProduct(order, product) ||
                             t('common.unknown')}
+                          {' / '}
+                          <Text color='mutedText.dark'>
+                            {t(`units.${product.unit}`)}
+                          </Text>
                         </Text>
                         <Text strong>
                           {t('finance.total')}:{' '}

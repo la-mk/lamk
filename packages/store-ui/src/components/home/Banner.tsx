@@ -8,9 +8,11 @@ import Link from 'next/link';
 
 export const Banner = ({
   banner,
+  hideSlogan,
   store,
 }: {
   banner?: string;
+  hideSlogan?: boolean;
   store: Store;
 }) => {
   const { t } = useTranslation();
@@ -24,11 +26,11 @@ export const Banner = ({
         mx='auto'
         url={sdk.artifact.getUrlForImage(banner, store._id, { h: 600 })}
         height={[450, 600, 600]}
-        maxWidth={1320}
+        maxWidth={1520}
         width='100%'
         style={{ position: 'relative' }}
       >
-        {store.slogan && (
+        {store.slogan && !hideSlogan && (
           <Flex
             style={{
               position: 'absolute',
