@@ -14,7 +14,7 @@ const Feature = ({ icon, text, ...props }) => {
       {...props}
     >
       <Box height={90}>
-        <Image src={icon} />
+        <Image src={icon} alt='example logo' />
       </Box>
       <Text
         height={60}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Text, Image, Flex } from '@sradevski/blocks-ui';
+import { Title, Text, Image, Flex, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from '../common/i18n';
 
 export const GeneratedStoreExample = () => {
@@ -20,14 +20,18 @@ export const GeneratedStoreExample = () => {
       <Text maxWidth={620} textAlign='center' mb={4}>
         {t('howItWorks.getModernStoreDetails')}
       </Text>
-      <Image
-        display={['none', 'block', 'block']}
-        src='/products-list-illustration.svg'
-      />
-      <Image
-        display={['block', 'none', 'none']}
-        src='/products-list-mobile.svg'
-      />
+      <Box display={['none', 'block', 'block']}>
+        <Image
+          src='/products-list-illustration.svg'
+          alt='producs list illustration'
+        />
+      </Box>
+      <Box display={['block', 'none', 'none']}>
+        <Image
+          src='/products-list-mobile.svg'
+          alt='product list illustration for mobile'
+        />
+      </Box>
     </Flex>
   );
 };

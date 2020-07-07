@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Image, Title, Text, Box } from '@sradevski/blocks-ui';
 
-const BarImage = ({ src, overflow }) => {
+const BarImage = ({ src, alt, overflow }) => {
   const margins = {
     mt: overflow === 'top' ? [4, 4, '-7%'] : 4,
     mb: overflow === 'bottom' ? [4, 4, '-7%'] : 4,
@@ -16,7 +16,9 @@ const BarImage = ({ src, overflow }) => {
       height={'100%'}
       {...margins}
     >
-      <Image src={src} width={'100%'} height={'100%'} />
+      <Box width='100%' height='100%'>
+        <Image src={src} alt={alt} />
+      </Box>
     </Box>
   );
 };
@@ -68,7 +70,7 @@ export const MainPointCard = ({
   ...props
 }: MainPointCardProps) => {
   const children = [
-    <BarImage key='image' src={image} overflow={overflow} />,
+    <BarImage alt={title} key='image' src={image} overflow={overflow} />,
     <Description
       key='description'
       side={side}

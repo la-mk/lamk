@@ -15,6 +15,7 @@ const RadiatingCircles = () => {
         key='dot1'
         style={{ position: 'absolute', left: 0, top: '5%' }}
         src='/radiating-dots-colored.svg'
+        alt='dots decoration'
       />
       <Image
         key='dot2'
@@ -24,12 +25,14 @@ const RadiatingCircles = () => {
           top: '15%',
           transform: 'rotate(180deg)',
         }}
+        alt='dots decoration'
         src='/radiating-dots-colored.svg'
       />
       <Image
         key='dot3'
         style={{ position: 'absolute', left: 0, top: '40%' }}
         src='/radiating-dots-colored.svg'
+        alt='dots decoration'
       />
       <Image
         key='dot4'
@@ -40,6 +43,7 @@ const RadiatingCircles = () => {
           transform: 'rotate(180deg)',
         }}
         src='/radiating-dots-colored.svg'
+        alt='dots decoration'
       />
     </>
   );

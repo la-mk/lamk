@@ -14,7 +14,9 @@ const StepCard = ({ icon, title, subtitle, ...props }: StepCardProps) => {
   return (
     <Card {...props} bg='#fff' p={4} width={300} minHeight={[300, 340, 360]}>
       <Flex justifyContent='center' alignItems='center' flexDirection='column'>
-        <Image mb={3} src={icon} />
+        <Box mb={3}>
+          <Image src={icon} alt='shop step icon' />
+        </Box>
         <Title textAlign='center' level={4} fontSize={[3, 4, 4]}>
           {title}
         </Title>
@@ -60,12 +62,11 @@ export const StepCards = () => {
           subtitle={t('landing.stepStartSellingDetails')}
         />
       </Flex>
-      <Image
-        mt={4}
-        display={['none', 'none', 'block']}
-        width='70%'
-        src='/step-dots.svg'
-      />
+      <Box display={['none', 'none', 'block']} mt={4} width='100%'>
+        <Flex alignItems='center' justifyContent='center' width='80%' mx='auto'>
+          <Image src='/step-dots.svg' alt='dots decoration' />
+        </Flex>
+      </Box>
 
       <HeroButtons mt={5} noDemo />
     </Flex>

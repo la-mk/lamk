@@ -108,10 +108,11 @@ const StepSuccess = () => {
     <Flex
       height='100%'
       width='100%'
+      p={3}
       alignItems='center'
       justifyContent='center'
     >
-      <Image src='/step-success.svg' />
+      <Image src='/step-success.svg' alt='success step illustration' />
     </Flex>
   );
 };
@@ -129,14 +130,14 @@ const HowToItem = ({ title, description, children }) => {
         <Box ml={['-60px', 0, 0]} py={2} mt={5} style={{ overflowX: 'auto' }}>
           <Flex
             minWidth={960}
+            width='90%'
             px={3}
+            my={2}
             bg='#fff'
             justifyContent='space-between'
             style={{ position: 'relative' }}
           >
             <Image
-              my={2}
-              width='90%'
               style={{
                 position: 'absolute',
                 left: 30,
@@ -144,6 +145,7 @@ const HowToItem = ({ title, description, children }) => {
                 zIndex: 0,
               }}
               src='/steps-connector.svg'
+              alt='steps connector illustration'
             />
             {children}
           </Flex>
@@ -184,7 +186,9 @@ export const HowToList = () => {
 
           <Step title={t('howItWorks.storeLogo')}>
             <StepEntry>
-              <Image src='/cactus-logo.svg' />
+              <Box p={2}>
+                <Image src='/cactus-logo.svg' alt='example logo - cactus' />
+              </Box>
             </StepEntry>
 
             <FakeButton mt={4} width='100%'>
@@ -209,7 +213,9 @@ export const HowToList = () => {
           </Step>
           <Step title={t('howItWorks.productImage')}>
             <StepEntry>
-              <Image src='/cactus-1.svg' />
+              <Box p={2}>
+                <Image src='/cactus-1.svg' alt='cactus illustration' />
+              </Box>
             </StepEntry>
           </Step>
           <Step title={t('howItWorks.productDescription')}>
@@ -266,7 +272,9 @@ export const HowToList = () => {
               alignItems='center'
               justifyContent='center'
             >
-              <Image mr={2} src='/checkbox.svg' />
+              <Box mr={2}>
+                <Image src='/checkbox.svg' alt='checkbox illustration' />
+              </Box>
               <StepEntry>
                 <Text color='mutedText.dark' textAlign='center'>
                   {t('howItWorks.samplePaymentCreditCard')}
@@ -274,7 +282,9 @@ export const HowToList = () => {
               </StepEntry>
             </Flex>
             <Flex width='100%' alignItems='center' justifyContent='center'>
-              <Image mr={2} src='/checkbox.svg' />
+              <Box mr={2}>
+                <Image src='/checkbox.svg' alt='checkbox illustration' />
+              </Box>
               <StepEntry>
                 <Text color='mutedText.dark' textAlign='center'>
                   {t('howItWorks.samplePaymentOnDelivery')}
@@ -349,10 +359,14 @@ export const HowToList = () => {
             <Flex
               width='100%'
               height='100%'
+              p={3}
               alignItems='center'
               justifyContent='center'
             >
-              <Image src='/package-truck.svg' />
+              <Image
+                src='/package-truck.svg'
+                alt='packages truck illustration'
+              />
             </Flex>
           </Step>
         </HowToItem>
@@ -394,7 +408,9 @@ export const HowToList = () => {
           </Step>
           <Step title={t('howItWorks.campaignPromote')}>
             <Flex>
-              <Image mr={2} src='/checkbox.svg' />
+              <Box mr={2}>
+                <Image src='/checkbox.svg' alt='checkbox illustration' />
+              </Box>
               <StepEntry>
                 <Box width='100%'>
                   <Text textAlign='center' display='block'>

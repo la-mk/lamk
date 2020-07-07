@@ -34,13 +34,16 @@ export const ContactUsFooter = withTheme(({ theme }) => {
         display={['none', 'block', 'block']}
         style={{ zIndex: 1, position: 'absolute', right: '7%', bottom: 250 }}
       >
-        <Image height='100%' src='/paper-airplane-trail.svg' />
+        <Box height='100%'>
+          <Image src='/paper-airplane-trail.svg' alt='Paper airplane trail' />
+        </Box>
       </Box>
       <Box
+        height={300}
         display={['none', 'block', 'block']}
         style={{ position: 'absolute', left: 0, bottom: -10 }}
       >
-        <Image height={300} src='/contact-form-plants.svg' />
+        <Image src='/contact-form-plants.svg' alt='Plants decoration' />
       </Box>
     </CurvedSection>
   );

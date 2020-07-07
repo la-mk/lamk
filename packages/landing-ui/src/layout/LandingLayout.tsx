@@ -10,6 +10,7 @@ import {
   Text,
   Drawer,
   hooks,
+  Box,
 } from '@sradevski/blocks-ui';
 import { MenuOutlined } from '@ant-design/icons';
 import styled, { withTheme } from 'styled-components';
@@ -33,6 +34,7 @@ const LineHeightFreeAnchor = styled.a`
   height: 56px;
   min-width: 56px;
   margin: 4px 0;
+  padding: 4px;
 `;
 
 export const LandingLayout = withTheme(
@@ -82,12 +84,7 @@ export const LandingLayout = withTheme(
             <Flex justifyContent='space-between'>
               <Link href='/' passHref>
                 <LineHeightFreeAnchor>
-                  <Image
-                    maxHeight='100%'
-                    my={1}
-                    src={'/logo-full.svg'}
-                    alt='logo'
-                  />
+                  <Image src={'/logo-full.svg'} alt='logo' />
                 </LineHeightFreeAnchor>
               </Link>
               {!isMenuCollapsed && <TopMenu theme={theme} />}

@@ -47,7 +47,7 @@ export const Hero = withTheme(({ theme }) => {
           </Box>
         </Box>
         <Box mt={[3, 0, 0]} ml={[0, 3, 3]} height={[300, 320, 450]}>
-          <Image src='/how-it-works-hero.svg' height='100%' />
+          <Image src='/how-it-works-hero.svg' alt='how it works illustration' />
         </Box>
 
         <Box display={['block', 'none', 'none']} mt={5}>

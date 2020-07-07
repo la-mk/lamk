@@ -32,7 +32,7 @@ export const FocusCard = ({
         pr={[0, '15%', '15%']}
       >
         <Box mb={[5, 0, 0]} mr={[0, 4, 4]} maxWidth={350}>
-          <Image src={icon} />
+          <Image src={icon} alt='Example logo' />
           <Title mt={2} color='text.light' level={4}>
             {title}
           </Title>
@@ -45,7 +45,7 @@ export const FocusCard = ({
         </Button>
 
         <Box style={{ position: 'absolute', bottom: -60, right: -40 }}>
-          <Image src='/radiating-dots.svg' />
+          <Image src='/radiating-dots.svg' alt='dots decoration' />
         </Box>
       </Flex>
     </Box>

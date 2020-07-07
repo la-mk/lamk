@@ -6,6 +6,7 @@ import {
   hooks,
   Dropdown,
   Text,
+  Flex,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -46,35 +47,35 @@ export const TopMenu = ({
         closeDrawer?.();
       }}
     >
-      <MenuItem p={0} key='home' mb={11} mx={[0, 1, 2]}>
+      <MenuItem p={0} key='home' mx={[0, 1, 2]}>
         <Link href='/' passHref>
           <Button type='link'>{t('landing.homePage')}</Button>
         </Link>
       </MenuItem>
-      <MenuItem p={0} key='how-it-works' mb={11} mx={[0, 1, 2]}>
+      <MenuItem p={0} key='how-it-works' mx={[0, 1, 2]}>
         <Link href='/how-it-works' passHref>
           <Button type='link'>{t('landing.howItWorksPage')}</Button>
         </Link>
       </MenuItem>
-      <MenuItem p={0} key='faq' mb={11} mx={[0, 1, 2]}>
+      <MenuItem p={0} key='faq' mx={[0, 1, 2]}>
         <Link href='/faq' passHref>
           <Button type='link'>{t('landing.faqPage')}</Button>
         </Link>
       </MenuItem>
-      <MenuItem p={0} key='contact' mb={11} mx={[0, 1, 2]}>
+      <MenuItem p={0} key='contact' mx={[0, 1, 2]}>
         <Link href='/contact' passHref>
           <Button type='link'>{t('landing.contactUsPage')}</Button>
         </Link>
       </MenuItem>
 
-      <MenuItem p={0} key='language' mb={11} mx={[0, 1, 2]}>
+      <MenuItem height='100%' p={0} key='language' mx={[0, 1, 2]}>
         <Dropdown
           placement='bottomLeft'
           overlay={
             <Menu
               selectedKeys={[i18n.language]}
               onClick={({ key }) => {
-                i18n.changeLanguage(key);
+                i18n.changeLanguage(key as string);
               }}
             >
               <MenuItem key='mk'>
@@ -86,27 +87,31 @@ export const TopMenu = ({
             </Menu>
           }
         >
-          <Button width='100%' display='block' type='link'>
-            <Text>
-              <GlobalOutlined style={{ marginRight: 0 }} />{' '}
-              {i18n.language.toUpperCase()}
-            </Text>
-          </Button>
+          <Flex alignItems='center' height='100%'>
+            <Button display='block' type='link'>
+              <Text fontSize={0}>
+                <GlobalOutlined style={{ marginRight: 0 }} />{' '}
+                {i18n.language.toUpperCase()}
+              </Text>
+            </Button>
+          </Flex>
         </Dropdown>
       </MenuItem>
 
       <MenuItem
+        height='100%'
         p={0}
         key='start-now'
         style={{ border: 'none' }}
-        mb={11}
         mx={[0, 1, 2]}
       >
-        <Link href='/' passHref>
-          <Button mx={[2, 0, 0]} style={{ color: 'white' }} type='primary'>
-            {t('actions.startNow')}
-          </Button>
-        </Link>
+        <Flex height='100%' alignItems='center' justifyContent='center'>
+          <Link href='/' passHref>
+            <Button mx={[2, 0, 0]} style={{ color: 'white' }} type='primary'>
+              {t('actions.startNow')}
+            </Button>
+          </Link>
+        </Flex>
       </MenuItem>
     </Menu>
   );
