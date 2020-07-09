@@ -106,11 +106,14 @@ export const TopMenu = ({
         mx={[0, 1, 2]}
       >
         <Flex height='100%' alignItems='center' justifyContent='center'>
-          <Link href='/' passHref>
-            <Button mx={[2, 0, 0]} style={{ color: 'white' }} type='primary'>
-              {t('actions.startNow')}
-            </Button>
-          </Link>
+          <Button
+            mx={[2, 0, 0]}
+            style={{ color: 'white' }}
+            type='primary'
+            href='https://admin.la.mk'
+          >
+            {t('actions.startNow')}
+          </Button>
         </Flex>
       </MenuItem>
     </Menu>

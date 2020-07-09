@@ -17,8 +17,18 @@ export const GeneratedStoreExample = () => {
       <Title level={3} textAlign='center'>
         {t('howItWorks.getModernStore')}
       </Title>
-      <Text maxWidth={620} textAlign='center' mb={4}>
+      <Text maxWidth={620} textAlign='center'>
         {t('howItWorks.getModernStoreDetails')}
+      </Text>
+      <Text
+        mt={1}
+        mb={4}
+        fontSize={0}
+        color='mutedText.dark'
+        maxWidth={620}
+        textAlign='center'
+      >
+        *{t('howItWorks.getModernStoreSmallPrint')}
       </Text>
       <Box display={['none', 'block', 'block']}>
         <Image

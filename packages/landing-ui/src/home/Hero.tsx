@@ -22,7 +22,13 @@ export const Hero = withTheme(({ theme }) => {
         width='100%'
         mt={[4, 4, 5]}
       >
-        <Title color='secondary' level={1} mb={2} fontSize={[6, 7, 7]}>
+        <Title
+          textAlign='center'
+          color='secondary'
+          level={1}
+          mb={2}
+          fontSize={[6, 7, 7]}
+        >
           <Trans t={t} i18nKey='landing.heroSlogan'>
             Online shop
             <Text

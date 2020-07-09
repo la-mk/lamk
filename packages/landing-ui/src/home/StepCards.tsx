@@ -12,7 +12,7 @@ type StepCardProps = {
 
 const StepCard = ({ icon, title, subtitle, ...props }: StepCardProps) => {
   return (
-    <Card {...props} bg='#fff' p={4} width={300} minHeight={[300, 340, 360]}>
+    <Card {...props} bg='#fff' p={4} width={300} minHeight={[300, 320, 360]}>
       <Flex justifyContent='center' alignItems='center' flexDirection='column'>
         <Box mb={3}>
           <Image src={icon} alt='shop step icon' />

@@ -13,7 +13,7 @@ const Feature = ({ icon, text, ...props }) => {
       justifyContent='center'
       {...props}
     >
-      <Box height={90}>
+      <Box height={90} p={2}>
         <Image src={icon} alt='example logo' />
       </Box>
       <Text
