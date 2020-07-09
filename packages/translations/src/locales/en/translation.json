@@ -1,41 +1,41 @@
 {
-  "actions": {
+	"actions": {
 		"activate": "Activate",
 		"add": "Add",
 		"addBanner": "Add banner",
 		"addLogo": "Add logo",
 		"addProductImages": "Add product images",
 		"addToCart": "Add to Cart",
-    "addToStore": "Add to store",
+		"addToStore": "Add to store",
 		"cancel": "Cancel",
 		"contactUs": "Contact us",
 		"continue": "Continue",
-    "create": "Create",
+		"create": "Create",
 		"delete": "Delete",
 		"downloadInvoice": "Download invoice",
-		"goToDashboard": "Go to dashboard",
-		"goToCart": "Go to Cart",
 		"goBack": "Go back",
+		"goToCart": "Go to Cart",
+		"goToDashboard": "Go to dashboard",
 		"orderNow": "Order now",
 		"pay": "Pay",
-    "promote": "Promote",
+		"promote": "Promote",
 		"publish": "Publish",
 		"remove": "Remove",
 		"reset": "Reset",
 		"retry": "Retry",
 		"save": "Save",
 		"search": "Search",
-		"select": "Select",
 		"seeDemoShop": "See demo shop",
+		"select": "Select",
 		"shopNow": "Shop now",
 		"showBanner": "Show banner",
-    "startNow": "Start now",
+		"startNow": "Start now",
 		"toCheckout": "To checkout",
 		"toPayment": "Proceed to payment",
 		"update": "Update",
 		"watchDemo": "Watch demo"
-  },
-  "address": {
+	},
+	"address": {
 		"addNewAddress": "Add new address",
 		"chooseShippingAddress": "Choose a shipping address",
 		"createAddressSuccess": "Address successfully created",
@@ -54,7 +54,7 @@
 		"revenue": "Revenue",
 		"visitCount": "Visit count"
 	},
-  "auth": {
+	"auth": {
 		"account": "Account",
 		"accountSettings": "Account settings",
 		"authSameAccount": "You can use the same account on every store that is",
@@ -79,6 +79,14 @@
 		"rewardExample": "eg. 200 ден",
 		"rewardTip": "The discount is calculated on the cart on the full amount"
 	},
+	"cart": {
+		"addedToCart": "Added to cart",
+		"cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
+		"emptyCartDescription": "You have no items in the cart",
+		"orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
+		"orderSuccess": "Your order has been placed",
+		"productAlreadyInCart": "Product already in cart"
+	},
 	"commerce": {
 		"buyer": "Buyer",
 		"campaign_plural": "Campaigns",
@@ -90,22 +98,15 @@
 		"quantity": "Quantity",
 		"revenue": "Revenue",
 		"store": "Store"
-  },
-  "cart": {
-		"addedToCart": "Added to cart",
-		"cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
-		"emptyCartDescription": "You have no items in the cart",
-		"orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
-		"orderSuccess": "Your order has been placed",
-		"productAlreadyInCart": "Product already in cart"
 	},
-  "common": {
+	"common": {
 		"action_plural": "Actions",
 		"actionsTip": "You can do bulk actions on multiple items",
 		"address": "Address",
 		"addressExample": "eg. Home Address",
-    "address_plural": "Addresses",
+		"address_plural": "Addresses",
 		"addressee": "Addressee",
+		"alternatePhoneNumber": "Alternate phone number",
 		"basic": "Basic",
 		"category": "Category",
 		"category_plural": "Categories",
@@ -134,11 +135,11 @@
 		"password": "Password",
 		"personalInfo": "Personal info",
 		"phoneNumber": "Phone number",
-		"alternatePhoneNumber": "Alternate phone number",
 		"polite": "Please",
 		"preferences": "Preferences",
 		"price": "Price",
 		"quantity": "Quantity",
+		"seeAll": "See all",
 		"selectCategory": "Select category",
 		"sort": "Sort",
 		"status": "Status",
@@ -147,14 +148,13 @@
 		"success": "Success!",
 		"summary": "Summary",
 		"unknown": "Unknown",
-		"zipcode": "Zipcode",
-		"seeAll": "See all"
+		"zipcode": "Zipcode"
 	},
 	"company": {
-    "subTagline": "The easiest way to build an online shop"
-  },
-  "countries": {
-    "mk": "Macedonia"
+		"subTagline": "The easiest way to build an online shop"
+	},
+	"countries": {
+		"mk": "Macedonia"
 	},
 	"delivery": {
 		"deliveryMethod": "Delivery method",
@@ -172,7 +172,7 @@
 		"cheapestFirst": "Cheapest first",
 		"expensiveFirst": "Expensive first"
 	},
-  "finance": {
+	"finance": {
 		"campaignDiscount": "Promotions",
 		"priceBreakdown": "Price breakdown",
 		"shippingCost": "Shipping cost",
@@ -180,88 +180,98 @@
 		"total": "Total"
 	},
 	"howItWorks": {
-    "buyerDetails": "Buyer details",
-    "campaignName": "Campaign name",
-    "campaignPromote": "Promote",
-    "campaignReward": "Reward",
-    "deliveryFee": "Delivery fee",
-    "deliveryMethod": "Delivery method",
-    "getModernStore": "Get a modern store",
-    "getModernStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-		"heroSlogan": "How <1>It Works</1>",
+		"buyerDetails": "Buyer details",
+		"campaignName": "Campaign name",
+		"campaignPromote": "Promote",
+		"campaignReward": "Reward",
+		"deliveryFee": "Delivery fee",
+		"deliveryMethod": "Delivery method",
+		"getModernStore": "Get a modern store",
+		"getModernStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"getModernStoreSmallPrint": "Starting from 2021, we will charge a flat fee of 1% interest rate.",
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listAddProducts": "Add products to your store",
-    "listAddProductsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listCreateStore": "Create a store",
-    "listCreateStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listDeliveryPaymentPreferences": "Specify your delivery and payment preferences",
-    "listDeliveryPaymentPreferencesDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listDiscountCampaigns": "Create discount campaigns, and more...",
-    "listDiscountCampaignsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listOrders": "Manage оrders",
-    "listOrdersDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "myOrders": "My orders",
-    "orderDetails": "Order details",
-    "paymentOptions": "Payment options",
-    "productDescription": "Product description",
-    "productGroups": "Product groups",
-    "productImage": "Product image",
-    "productName": "Product name",
-    "productPrice": "Product price",
-    "sampleAddressCityCountry": "Skopje, MK",
-    "sampleAddressRecepient": "Kara Snow",
-    "sampleAddressStreet": "57 Theatre St.",
-    "sampleCampaignName": "Summer sale",
-    "sampleCompletedOrder": "Complete",
-    "sampleDeliveryMethod": "Door to door delivery",
-    "sampleFreeOverDelivery": "Free over",
-    "sampleNewOrder": "New order",
-    "samplePaymentCreditCard": "Credit card",
-    "samplePaymentOnDelivery": "On delivery",
-    "samplePreparingOrder": "Preparing",
-    "sampleProductDescription": "Happy green cactus",
-    "sampleProductGroup": "Green cacti",
-    "sampleProductGroup2": "Spiky cacti",
-    "sampleProductGroup3": "Baby cacti",
-    "sampleProductName": "Green cactus",
-    "sampleProductName2_plural": "Happy cacti",
-    "sampleStoreName": "Cactus shop",
-    "sampleStoreUrl": "cactus",
-    "sendOrder": "Send order",
-    "storeLogo": "Store logo",
-    "storeName": "Store name",
-    "storeUrl": "Store URL"
+		"heroSlogan": "How <1>It Works</1>",
+		"listAddProducts": "Add products to your store",
+		"listAddProductsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listCreateStore": "Create a store",
+		"listCreateStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listDeliveryPaymentPreferences": "Specify your delivery and payment preferences",
+		"listDeliveryPaymentPreferencesDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listDiscountCampaigns": "Create discount campaigns, and more...",
+		"listDiscountCampaignsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listOrders": "Manage оrders",
+		"listOrdersDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"myOrders": "My orders",
+		"orderDetails": "Order details",
+		"paymentOptions": "Payment options",
+		"productDescription": "Product description",
+		"productGroups": "Product groups",
+		"productImage": "Product image",
+		"productName": "Product name",
+		"productPrice": "Product price",
+		"sampleAddressCityCountry": "Skopje, MK",
+		"sampleAddressRecepient": "Kara Snow",
+		"sampleAddressStreet": "57 Theatre St.",
+		"sampleCampaignName": "Summer sale",
+		"sampleCompletedOrder": "Complete",
+		"sampleDeliveryMethod": "Door to door delivery",
+		"sampleFreeOverDelivery": "Free over",
+		"sampleNewOrder": "New order",
+		"samplePaymentCreditCard": "Credit card",
+		"samplePaymentOnDelivery": "On delivery",
+		"samplePreparingOrder": "Preparing",
+		"sampleProductDescription": "Happy green cactus",
+		"sampleProductGroup": "Green cacti",
+		"sampleProductGroup2": "Spiky cacti",
+		"sampleProductGroup3": "Baby cacti",
+		"sampleProductName": "Green cactus",
+		"sampleProductName2_plural": "Happy cacti",
+		"sampleStoreName": "Cactus shop",
+		"sampleStoreUrl": "cactus",
+		"sendOrder": "Send order",
+		"storeLogo": "Store logo",
+		"storeName": "Store name",
+		"storeUrl": "Store URL"
 	},
 	"landing": {
 		"contactUsPage": "Contact us",
-    "corePointsAdmin": "Admin panel for the modern age",
-    "corePointsAdminDetails": "Manage your products, orders, campaigns and more from a single place. See how your store is doing with the built-in analytics",
-    "corePointsStore": "World-class store, without the hustle",
+		"corePointsAdmin": "Admin panel for the modern age",
+		"corePointsAdminDetails": "Manage your products, orders, campaigns and more from a single place. See how your store is doing with the built-in analytics",
+		"corePointsStore": "World-class store, without the hustle",
 		"corePointsStoreDetails": "Your job is to manage your products, and we will take care of the rest. Blazing fast, SEO optimized, and user-friendly website within a click away. We take care of the complexity of making your store run 24x7, all you need to do is sell",
 		"corePointsSupport": "We are here to help",
 		"corePointsSupportDetails": "We are here to help with whatever you need. Whether you are stuck, or you have a feature you can't live without, we want to hear from you. Message us using the built-in chat, and we'll help you succeed",
 		"faqPage": "FAQ",
 		"featureAnalytics": "Usage and sales analytics",
 		"featureCreditCardPayments": "Credit card payments",
-    "featureDiscountCampaigns": "Flexible discount campaigns",
-    "featureFreeDomain": "Personal domain for your shop",
+		"featureDiscountCampaigns": "Flexible discount campaigns",
+		"featureFreeDomain": "Personal domain for your shop",
 		"featureUnlimitedProductsStorage": "Unlimited products and storage",
 		"heroSlogan": "Online Shop <1>In 5 Minutes</1>",
 		"homePage": "Home",
 		"howItWorksPage": "How it works",
-    "stepAddProducts": "Add your products",
-    "stepAddProductsDetails": "We have no limits, so add as many as you want",
-    "stepCreateStore": "Create your store",
-    "stepCreateStoreDetails": "Sign up, tell us your store name, add your logo, and you're ready to go",
-    "stepStartSelling": "Start selling",
-    "stepStartSellingDetails": "Add your preferred delivery and payment methods, and start selling",
-    "warmingUp": "We are just warming up",
-    "warmingUpDetails": "This is just the beginning. We continuously improve, and we have big plans to build the best platform in the region. Join us now"
+		"stepAddProducts": "Add your products",
+		"stepAddProductsDetails": "We have no limits, so add as many as you want",
+		"stepCreateStore": "Create your store",
+		"stepCreateStoreDetails": "Sign up, tell us your store name, add your logo, and you're ready to go",
+		"stepStartSelling": "Start selling",
+		"stepStartSellingDetails": "Add your preferred delivery and payment methods, and start selling",
+		"warmingUp": "We are just warming up",
+		"warmingUpDetails": "This is just the beginning. We continuously improve, and we have big plans to build the best platform in the region. Join us now"
+	},
+	"landingContact": {
+		"emailExample": "me@example.com",
+		"fullNameExample": "John Doe",
+		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"heroSlogan": "Contact <1>Us</1>",
+		"messageExplanation": "Tell us more about your business or question",
+		"thanksForContact": "Thanks for contacting us!",
+		"thanksForContactDetails": "We will get back to you as soon as possible"
 	},
 	"landingFaq": {
 		"additionalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-		"heroSlogan": "Frequently <1>Asked Questions</1>",
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"heroSlogan": "Frequently <1>Asked Questions</1>",
 		"paymentsAnswerSupportedMethods": "Currently we support payment on delivery and credit card payments. If we currently don't support your bank, we can work together and add support for it within 1 week",
 		"paymentsGroupTitle": "Payments",
 		"paymentsQuestionSupportedMethods": "What payment methods can I use?",
@@ -270,15 +280,6 @@
 		"pricingGroupTitle": "Pricing",
 		"pricingQuestionHowMuch": "How much does it cost?",
 		"pricingQuestionSignContract": "Do I need to sign a contract?"
-	},
-	"landingContact": {
-		"emailExample": "me@example.com",
-		"fullNameExample": "John Doe",
-		"heroSlogan": "Contact <1>Us</1>",
-		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "thanksForContact": "Thanks for contacting us!",
-		"thanksForContactDetails": "We will get back to you as soon as possible",
-		"messageExplanation": "Tell us more about your business or question"
 	},
 	"legal": {
 		"legalNotAvailable": "We are still preparing our legal policies, reach out for more information",
@@ -291,8 +292,8 @@
 		"setupProductTitle": "Let's add some products",
 		"setupStoreSubtitle": "Don't worry, you can modify things later as well.",
 		"setupStoreTitle": "Let's kick things off by creating our store"
-  },
-  "order": {
+	},
+	"order": {
 		"orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",
 		"orderDate": "Order date",
 		"orderDeleted": "Order {{id}} successfully deleted",
@@ -303,9 +304,9 @@
 		"orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",
 		"retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
 		"seeOrder": "See order status"
-  },
-  "pages": {
-    "aboutUs": "About Us",
+	},
+	"pages": {
+		"aboutUs": "About Us",
 		"cart": "Cart",
 		"checkout": "Checkout",
 		"home": "Home",
@@ -340,7 +341,7 @@
 		"storeNoCardSupport": "The store does not support credit card payments",
 		"updatingPaymentMethodsTip": "Updating payments..."
 	},
-  "product": {
+	"product": {
 		"addProductSuccess": "Successfully added a new product",
 		"addingProductTip": "Adding product...",
 		"availability": "Availability",
@@ -365,8 +366,8 @@
 		"updateProductSuccess": "Successfully updated {{productName}}",
 		"updatingProductTip": "Updating product...",
 		"outOfStock": "Sold out"
-  },
-  "results": {
+	},
+	"results": {
 		"productNotFound": "Product not found",
 		"pageNotFound": "Not found",
 		"pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
@@ -375,7 +376,7 @@
 		"genericError": "Error occured",
 		"genericErrorExplanation": "There was an error with status code {{statusCode}}. Contact us if the issue persists"
 	},
-	"seoDescriptions" : {
+	"seoDescriptions": {
 		"product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",
 		"storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
 	},
@@ -387,7 +388,7 @@
 		"returnPolicy": "Return policy",
 		"returnPolicyExplanation": "Return what you don't like, risk free"
 	},
-  "store": {
+	"store": {
 		"aboutUs": "About us",
 		"aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience...",
 		"brandColor": "Brand color",
@@ -407,5 +408,5 @@
 	},
 	"uploads": {
 		"hint": "Support for single or bulk upload"
-  }
+	}
 }

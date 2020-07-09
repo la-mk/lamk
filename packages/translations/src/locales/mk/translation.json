@@ -1,5 +1,5 @@
 {
-  "actions": {
+	"actions": {
 		"activate": "Активирај",
 		"add": "Додадете",
 		"addBanner": "Додадете банер",
@@ -9,13 +9,13 @@
 		"addToStore": "Додај",
 		"cancel": "Откажете",
 		"contactUs": "Контактирајте нѐ",
-    "continue": "Продолжи",
+		"continue": "Продолжи",
 		"create": "Создадете",
 		"delete": "Избришете",
 		"downloadInvoice": "Преземи фактура",
+		"goBack": "Одете назад",
 		"goToCart": "Прегледај корпа",
 		"goToDashboard": "Одете на главен панел",
-		"goBack": "Одете назад",
 		"orderNow": "Порачајте сега",
 		"pay": "Плати",
 		"promote": "Промовирај",
@@ -25,17 +25,17 @@
 		"retry": "Обидете се повторно",
 		"save": "Зачувајте",
 		"search": "Пребарајте",
-		"select": "Одберете",
 		"seeDemoShop": "Демо продавница",
+		"select": "Одберете",
 		"shopNow": "Почнете со купување",
-    "showBanner": "Покажи банер",
-    "startNow": "Почни сега",
+		"showBanner": "Покажи банер",
+		"startNow": "Почни сега",
 		"toCheckout": "На каса",
 		"toPayment": "Продолжете кон плаќање",
 		"update": "Обновете",
 		"watchDemo": "Види видео"
-  },
-  "address": {
+	},
+	"address": {
 		"addNewAddress": "Додадете нова адреса",
 		"chooseShippingAddress": "Одберете адреса за достава",
 		"createAddressSuccess": "Нова адреса успешно создадена",
@@ -54,7 +54,7 @@
 		"revenue": "Приход",
 		"visitCount": "Број на посети"
 	},
-  "auth": {
+	"auth": {
 		"account": "Сметка",
 		"accountSettings": "Поставки за сметка",
 		"authSameAccount": "Можете да ја користите истата сметка на која било продавница која е",
@@ -80,7 +80,7 @@
 		"rewardExample": "пр. 200 ден",
 		"rewardTip": "Попуст пресметан на каса на целосната сума"
 	},
-  "cart": {
+	"cart": {
 		"addedToCart": "Додадено во корпа",
 		"cantCalculateShipping": "Цената за достава не може да се пресмета, вкупната цена може да не е точна.",
 		"emptyCartDescription": "Вашата корпа е празна",
@@ -99,14 +99,15 @@
 		"quantity": "Количина",
 		"revenue": "Приход",
 		"store": "Продавница"
-  },
-  "common": {
+	},
+	"common": {
 		"action_plural": "Операции",
 		"actionsTip": "Можете да извршите акции на повеќе предмети истовремено",
 		"address": "Адреса",
 		"addressExample": "пр. Домашна адреса",
 		"address_plural": "Адреси",
 		"addressee": "Примател",
+		"alternatePhoneNumber": "Алтернативен телефонски број",
 		"basic": "Основи",
 		"category": "Категорија",
 		"category_plural": "Категории",
@@ -135,11 +136,11 @@
 		"password": "Лозинка",
 		"personalInfo": "Лични податоци",
 		"phoneNumber": "Телефонски број",
-		"alternatePhoneNumber": "Алтернативен телефонски број",
 		"polite": "Ве молиме",
 		"preferences": "Поставки",
 		"price": "Цена",
 		"quantity": "Количина",
+		"seeAll": "Види ги сите",
 		"selectCategory": "Одбери категорија",
 		"sort": "Подредување",
 		"status": "Статус",
@@ -148,14 +149,13 @@
 		"success": "Успешна операција!",
 		"summary": "Преглед",
 		"unknown": "Непознато",
-		"zipcode": "Поштенски код",
-		"seeAll": "Види ги сите"
+		"zipcode": "Поштенски код"
 	},
 	"company": {
-    "subTagline": "Најлесниот начин да направите онлајн продавница"
-  },
-  "countries": {
-    "mk": "Македонија"
+		"subTagline": "Најлесниот начин да направите онлајн продавница"
+	},
+	"countries": {
+		"mk": "Македонија"
 	},
 	"delivery": {
 		"deliveryMethod": "Метод на достава",
@@ -173,7 +173,7 @@
 		"cheapestFirst": "Најниска цена",
 		"expensiveFirst": "Највисока цена"
 	},
-  "finance": {
+	"finance": {
 		"campaignDiscount": "Промоции",
 		"priceBreakdown": "Преглед на вкупна цена",
 		"shippingCost": "Цена за достава",
@@ -181,88 +181,98 @@
 		"total": "Вкупна цена"
 	},
 	"howItWorks": {
-    "buyerDetails": "Купувач",
-    "campaignName": "Име на кампања",
-    "campaignPromote": "Промовирај",
-    "campaignReward": "Попуст",
-    "deliveryFee": "Цена за достава",
-    "deliveryMethod": "Начин на достава",
-    "getModernStore": "Добијте модерна продавница",
-    "getModernStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-		"heroSlogan": "Како <1>Функционира</1>",
+		"buyerDetails": "Купувач",
+		"campaignName": "Име на кампања",
+		"campaignPromote": "Промовирај",
+		"campaignReward": "Попуст",
+		"deliveryFee": "Цена за достава",
+		"deliveryMethod": "Начин на достава",
+		"getModernStore": "Добијте модерна продавница",
+		"getModernStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"getModernStoreSmallPrint": "Почнувајќи од 2021, ќе наплаќаме провизија of 1%",
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listAddProducts": "Додадете производи во продавницата",
-    "listAddProductsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listCreateStore": "Направете продавница",
-    "listCreateStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listDeliveryPaymentPreferences": "Одберете опции за достава и начин на плаќање",
-    "listDeliveryPaymentPreferencesDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listDiscountCampaigns": "Започнете кампањи за попуст, и многу повеќе...",
-    "listDiscountCampaignsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "listOrders": "Прегледајте порачки",
-    "listOrdersDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "myOrders": "Мои порачки",
-    "orderDetails": "Детали за порачка",
-    "paymentOptions": "Начини на плаќање",
-    "productDescription": "Опис на производ",
-    "productGroups": "Групи на производи",
-    "productImage": "Слика од производ",
-    "productName": "Име на производ",
-    "productPrice": "Цена на производ",
-    "sampleAddressCityCountry": "Скопје, МК",
-    "sampleAddressRecepient": "Кара Сноу",
-    "sampleAddressStreet": "57 Театарска Ул.",
-    "sampleCampaignName": "Летна распродажба",
-    "sampleCompletedOrder": "Завршена",
-    "sampleDeliveryMethod": "Достава до врата",
-    "sampleFreeOverDelivery": "Бесплатно над",
-    "sampleNewOrder": "Нова порачка",
-    "samplePaymentCreditCard": "Картичка",
-    "samplePaymentOnDelivery": "При достава",
-    "samplePreparingOrder": "Се подготвува",
-    "sampleProductDescription": "Среќен зелен кактус",
-    "sampleProductGroup": "Зелени кактуси",
-    "sampleProductGroup2": "Боцкасти кактуси",
-    "sampleProductGroup3": "Мали кактуси",
-    "sampleProductName": "Зелен кактус",
-    "sampleProductName2_plural": "Среќни кактуси",
-    "sampleStoreName": "Кактус продавница",
-    "sampleStoreUrl": "cactus",
-    "sendOrder": "Испратете порачка",
-    "storeLogo": "Лого на продавница",
-    "storeName": "Име на продавница",
-    "storeUrl": "Линк на продавница"
+		"heroSlogan": "Како <1>Функционира</1>",
+		"listAddProducts": "Додадете производи во продавницата",
+		"listAddProductsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listCreateStore": "Направете продавница",
+		"listCreateStoreDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listDeliveryPaymentPreferences": "Одберете опции за достава и начин на плаќање",
+		"listDeliveryPaymentPreferencesDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listDiscountCampaigns": "Започнете кампањи за попуст, и многу повеќе...",
+		"listDiscountCampaignsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"listOrders": "Прегледајте порачки",
+		"listOrdersDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"myOrders": "Мои порачки",
+		"orderDetails": "Детали за порачка",
+		"paymentOptions": "Начини на плаќање",
+		"productDescription": "Опис на производ",
+		"productGroups": "Групи на производи",
+		"productImage": "Слика од производ",
+		"productName": "Име на производ",
+		"productPrice": "Цена на производ",
+		"sampleAddressCityCountry": "Скопје, МК",
+		"sampleAddressRecepient": "Кара Сноу",
+		"sampleAddressStreet": "57 Театарска Ул.",
+		"sampleCampaignName": "Летна распродажба",
+		"sampleCompletedOrder": "Завршена",
+		"sampleDeliveryMethod": "Достава до врата",
+		"sampleFreeOverDelivery": "Бесплатно над",
+		"sampleNewOrder": "Нова порачка",
+		"samplePaymentCreditCard": "Картичка",
+		"samplePaymentOnDelivery": "При достава",
+		"samplePreparingOrder": "Се подготвува",
+		"sampleProductDescription": "Среќен зелен кактус",
+		"sampleProductGroup": "Зелени кактуси",
+		"sampleProductGroup2": "Боцкасти кактуси",
+		"sampleProductGroup3": "Мали кактуси",
+		"sampleProductName": "Зелен кактус",
+		"sampleProductName2_plural": "Среќни кактуси",
+		"sampleStoreName": "Кактус продавница",
+		"sampleStoreUrl": "cactus",
+		"sendOrder": "Испратете порачка",
+		"storeLogo": "Лого на продавница",
+		"storeName": "Име на продавница",
+		"storeUrl": "Линк на продавница"
 	},
 	"landing": {
 		"contactUsPage": "Контакт",
-    "corePointsAdmin": "Админ панел за модерната доба",
-    "corePointsAdminDetails": "Менаџирајте ги вашите производи, порачки, кампањи и повеќе од едно место. Имајте преглед на вашите порачки, приходи и повеќе преку врадените аналитики",
-    "corePointsStore": "Продавница од светска класа, без многу работа",
+		"corePointsAdmin": "Админ панел за модерната доба",
+		"corePointsAdminDetails": "Менаџирајте ги вашите производи, порачки, кампањи и повеќе од едно место. Имајте преглед на вашите порачки, приходи и повеќе преку врадените аналитики",
+		"corePointsStore": "Продавница од светска класа, без многу работа",
 		"corePointsStoreDetails": "Вашата работа е да ги менаџирате вашите продукти, а ние ќе се погрижиме за се останато. Супер брза, SEO оптимизирана, и лесна за користење онлајн продавница со само неколку клика. Ние се грижиме за техничките комплексности за вашата страна да биде достапна 24/7, се што вие треба да правите е да продавате",
 		"corePointsSupport": "Тука сме да ви помогнеме",
 		"corePointsSupportDetails": "Тука сме да ви помогнеме со што ви треба. Без разлика дали имате проблеми со платформата, или имате функционалност без која не можете да функционирате, тука сме да ви помогнеме. Пишете ни преку вградениот чат и ќе ви помогнеме да успеете",
 		"faqPage": "ЧПП",
 		"featureAnalytics": "Аналитики за посета и продажба",
 		"featureCreditCardPayments": "Плаќање со платежни картички",
-    "featureDiscountCampaigns": "Флексибилни кампањи",
-    "featureFreeDomain": "Персонален домен за продавницата",
+		"featureDiscountCampaigns": "Флексибилни кампањи",
+		"featureFreeDomain": "Персонален домен за продавницата",
 		"featureUnlimitedProductsStorage": "Неограничен број на производи",
 		"heroSlogan": "Онлајн Продавница <1>За 5 Минути</1>",
 		"homePage": "Дома",
 		"howItWorksPage": "Како функционира",
-    "stepAddProducts": "Додадете ги вашите производи",
-    "stepAddProductsDetails": "Ние немаме органичувања, додадете колку производи што сакате",
-    "stepCreateStore": "Направете ја вашата продавница",
-    "stepCreateStoreDetails": "Регистрирајте се, внесете го името и логото на вашата продавница, и спреми сте за да продавате",
-    "stepStartSelling": "Почнете со продавање",
-    "stepStartSellingDetails": "Одберете опции за достава и наплаќање, и започнете со продажба",
-    "warmingUp": "Само се загреваме",
-    "warmingUpDetails": "Сето ова е само почеток. Постојано се подобруваме, и имаме големи планови да ја направиме најдобрата платформа во регионот. Придружете нѝ се"
+		"stepAddProducts": "Додадете ги вашите производи",
+		"stepAddProductsDetails": "Ние немаме органичувања, додадете колку производи што сакате",
+		"stepCreateStore": "Направете ја вашата продавница",
+		"stepCreateStoreDetails": "Регистрирајте се, внесете го името и логото на вашата продавница, и спреми сте за да продавате",
+		"stepStartSelling": "Почнете со продавање",
+		"stepStartSellingDetails": "Одберете опции за достава и наплаќање, и започнете со продажба",
+		"warmingUp": "Само се загреваме",
+		"warmingUpDetails": "Сето ова е само почеток. Постојано се подобруваме, и имаме големи планови да ја направиме најдобрата платформа во регионот. Придружете нѝ се"
+	},
+	"landingContact": {
+		"emailExample": "me@example.com",
+		"fullNameExample": "Миле Милевски",
+		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"heroSlogan": "Контактирајте <1>Нѐ</1>",
+		"messageExplanation": "Кажете ни повеќе за вашиот бизнис или прашање",
+		"thanksForContact": "Ви благодариме што не контактиравте",
+		"thanksForContactDetails": "Ќе се обидеме да стапиме во контакт што е можно побрзо."
 	},
 	"landingFaq": {
 		"additionalExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-		"heroSlogan": "Често <1>Поставувани Прашања</1>",
 		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
+		"heroSlogan": "Често <1>Поставувани Прашања</1>",
 		"paymentsAnswerSupportedMethods": "Моментално поддржуваме плаќање со платежни картички, и наплата при достава. Доколку моментално немаме поддршка за вашата банка, можеме да ја додадеме истата во рок од 1 недела.",
 		"paymentsGroupTitle": "Наплата",
 		"paymentsQuestionSupportedMethods": "Кои методи на наплата можам да ги користам",
@@ -271,15 +281,6 @@
 		"pricingGroupTitle": "Ценовник",
 		"pricingQuestionHowMuch": "Која е цената за отворање и управување на продавница?",
 		"pricingQuestionSignContract": "Дали треба да потпишам договор?"
-	},
-	"landingContact": {
-		"emailExample": "me@example.com",
-		"fullNameExample": "Миле Милевски",
-		"heroSlogan": "Контактирајте <1>Нѐ</1>",
-		"heroExplanation": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus optio tempora vero, odio velit earum fugiat eveniet assumenda ullam ab reprehenderit illo eum dolores omnis dignissimos natus, voluptatem maiores.",
-    "thanksForContact": "Ви благодариме што не контактиравте",
-    "thanksForContactDetails": "Ќе се обидеме да стапиме во контакт што е можно побрзо.",
-    "messageExplanation": "Кажете ни повеќе за вашиот бизнис или прашање"
 	},
 	"legal": {
 		"legalNotAvailable": "Правните документи се сеуште во подготовка, контактирајте не за повеќе детали",
@@ -292,8 +293,8 @@
 		"setupProductTitle": "Ајде да додадеме и неколку производи",
 		"setupStoreSubtitle": "Истите подесувања можат да се направат и подоцна",
 		"setupStoreTitle": "Да започнеме со подесување на продавницата"
-  },
-  "order": {
+	},
+	"order": {
 		"orderAlreadyPaid": "Порачката или е веќе платена, или плаќањето ќе се изврши на достава",
 		"orderDate": "Датум на порачка",
 		"orderDeleted": "Порачка со шифра {{id}} беше успешно избришана",
@@ -304,8 +305,8 @@
 		"orderNotFoundTip": "Не можевме да ја пронајдиме порачката, проверете дали сте логирани и пробајте повторно",
 		"retryFromOrdersTip": "Можете да се обидете повторно од страната за вашите порачки",
 		"seeOrder": "Видете ја порачката"
-  },
-  "pages": {
+	},
+	"pages": {
 		"aboutUs": "За нас",
 		"cart": "Корпа",
 		"checkout": "Каса",
@@ -341,7 +342,7 @@
 		"storeNoCardSupport": "Продавницата не поддржува плаќање со платежна картичка",
 		"updatingPaymentMethodsTip": "Плаќањата се обновуваат..."
 	},
-  "product": {
+	"product": {
 		"addProductSuccess": "Нов производ успешно додаден",
 		"addingProductTip": "Производот се додава...",
 		"availability": "Достапност",
@@ -366,8 +367,8 @@
 		"updateProductSuccess": "Производот {{productName}} успешно обновен",
 		"updatingProductTip": "Производот се обновува...",
 		"outOfStock": "Распродадено"
-  },
-  "results": {
+	},
+	"results": {
 		"productNotFound": "Производот не е пронајден",
 		"pageNotFound": "Не е пронајдена",
 		"pageNotFoundExplanation": "Страницата што ја баравте не беше пронајдена",
@@ -376,7 +377,7 @@
 		"genericError": "Се појави грешка",
 		"genericErrorExplanation": "Се појави грешка со статусен код {{statusCode}}. Доколку сеуште имате проблем, контактирајте не"
 	},
-	"seoDescriptions" : {
+	"seoDescriptions": {
 		"product_plural": "Купувајте онлајн производи од нашиот асортиман. Најбрз и најлесен начин за купување онлајн во Македонија. Нудиме висок квалитет, по најповолни цени. Придружете ни се сега.",
 		"storeGeneric": "Најлесен начин да купувате онлајн во Македонија, од удобноста на вашиот дом. Онлајн шопингот никогаш не бил полесен. Купете сега."
 	},
@@ -388,7 +389,7 @@
 		"returnPolicy": "Замена на производ",
 		"returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни"
 	},
-  "store": {
+	"store": {
 		"aboutUs": "За нас",
 		"aboutUsExample": "пр. Ние сме мултинационална компанија со 20 години искуство во производство...",
 		"brandColor": "Боја на брендот",
@@ -408,5 +409,5 @@
 	},
 	"uploads": {
 		"hint": "Поддршка за еден или повеќе фајлови"
-  }
+	}
 }
