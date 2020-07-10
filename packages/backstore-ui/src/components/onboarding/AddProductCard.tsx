@@ -48,7 +48,10 @@ export const AddProductCard = ({
   onRemoveProduct,
 }: AddProductCardProps) => {
   const { t } = useTranslation();
-  const [fullCategory, setFullCategory] = useFullCategory(categories, product);
+  const [fullCategory, setFullCategory] = useFullCategory(
+    categories,
+    product?.category,
+  );
   const [isModalVisible, setIsModalVisible] = useState(false);
   const store = useSelector(getStore);
 

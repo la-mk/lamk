@@ -1,23 +1,22 @@
 import { useState, useEffect, Dispatch } from 'react';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
 
 export type FullCategory = [string, string, string];
 
 export const useFullCategory = (
   categories: Category[] | null,
-  product: Product | null | undefined,
+  productCategory: string | null | undefined,
 ): [FullCategory | undefined, Dispatch<FullCategory | undefined>] => {
   const [fullCategory, setFullCategory] = useState<FullCategory | undefined>();
 
   useEffect(() => {
-    if (!categories || !product) {
+    if (!categories || !productCategory) {
       setFullCategory(undefined);
       return;
     }
 
     const categorySet = categories.find(
-      category => category.level3 === product.category,
+      category => category.level3 === productCategory,
     );
 
     if (!categorySet) {
@@ -30,7 +29,7 @@ export const useFullCategory = (
       categorySet.level2,
       categorySet.level3,
     ]);
-  }, [product, categories]);
+  }, [productCategory, categories]);
 
   return [fullCategory, setFullCategory];
 };

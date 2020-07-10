@@ -1,5 +1,5 @@
 import throttle from 'lodash/throttle';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Button,
   Flex,
@@ -67,7 +67,10 @@ export const ProductFormModal = ({
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;
   const [categories, groupedCategories] = useCategories(t);
-  const [fullCategory, setFullCategory] = useFullCategory(categories, product);
+  const [fullCategory, setFullCategory] = useFullCategory(
+    categories,
+    product?.category,
+  );
   const [externalState] = hooks.useFormState<Product>(
     product,
     {
@@ -114,6 +117,7 @@ export const ProductFormModal = ({
     if (store) {
       caller<Product>(sdk.product.create(newProduct), product => {
         message.success(t('product.addProductSuccess'));
+        setFullCategory(undefined);
         onClose();
         return addProduct(product);
       });
