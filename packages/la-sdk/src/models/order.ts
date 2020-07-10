@@ -12,6 +12,7 @@ import { PaymentMethodNames } from './storePaymentMethods';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 
 export enum OrderStatus {
+  INVALID = 'invalid',
   CANCELLED = 'cancelled',
   PENDING_PAYMENT = 'pendingPayment',
   PENDING_SHIPMENT = 'pendingShipment',
@@ -20,6 +21,7 @@ export enum OrderStatus {
 }
 
 export const orderStatusColor: { [key in OrderStatus]: string } = {
+  [OrderStatus.INVALID]: '#A8A8A8',
   [OrderStatus.CANCELLED]: '#FF3838',
   [OrderStatus.PENDING_PAYMENT]: '#FA8231',
   [OrderStatus.PENDING_SHIPMENT]: '#FBC531',
