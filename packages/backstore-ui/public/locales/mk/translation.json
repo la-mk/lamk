@@ -608,6 +608,8 @@
     "orderId": "Шифра на порачка"
   },
   "orderStatus": {
+    "invalid": "Невалидна",
+		"invalidDescription": "Невалидна порачка",
     "cancelled": "Откажана",
     "cancelledDescription": "Откажана",
     "completed": "Завршена",

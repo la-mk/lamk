@@ -601,6 +601,8 @@
     "seeOrder": "Видете ја порачката"
   },
   "orderStatus": {
+    "invalid": "Невалидна",
+		"invalidDescription": "Невалидна порачка",
     "cancelled": "Откажана",
     "cancelledDescription": "Откажана",
     "completed": "Завршена",

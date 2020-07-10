@@ -9,7 +9,12 @@ export const getTotalRevenue = (db: Db, storeId: string) =>
       {
         $match: {
           orderedFrom: storeId,
-          status: { $nin: [sdk.order.OrderStatus.CANCELLED] },
+          status: {
+            $nin: [
+              sdk.order.OrderStatus.CANCELLED,
+              sdk.order.OrderStatus.INVALID,
+            ],
+          },
         },
       },
       {
@@ -39,7 +44,12 @@ export const getDailyRevenueForStore = (
         $match: {
           orderedFrom: storeId,
           createdAt: { $gte: fromDatetime, $lte: toDatetime },
-          status: { $nin: [sdk.order.OrderStatus.CANCELLED] },
+          status: {
+            $nin: [
+              sdk.order.OrderStatus.CANCELLED,
+              sdk.order.OrderStatus.INVALID,
+            ],
+          },
         },
       },
       {

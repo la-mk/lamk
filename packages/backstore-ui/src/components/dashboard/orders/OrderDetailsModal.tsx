@@ -76,18 +76,6 @@ export const OrderDetailsModal = ({
     }
   };
 
-  const handleDeleteOrder = () => {
-    if (orderId) {
-      caller<Order>(sdk.order.remove(orderId), () => {
-        onClose();
-        message.success(
-          t('order.orderDeleted', { id: sdk.utils.getShortId(orderId) }),
-        );
-        return removeOrder(orderId);
-      });
-    }
-  };
-
   const prices = sdk.utils.pricing.calculatePrices(
     order?.ordered ?? [],
     order?.delivery,
@@ -106,11 +94,11 @@ export const OrderDetailsModal = ({
     >
       {order && (
         <Spin spinning={showSpinner}>
-          <Flex mb={3} justifyContent='flex-end'>
+          {/* <Flex mb={3} justifyContent='flex-end'>
             <Button onClick={handleDeleteOrder} danger>
               {t('actions.delete')}
             </Button>
-          </Flex>
+          </Flex> */}
 
           <Flex mb={3}>
             <Descriptions size='middle' width={'100%'} bordered>

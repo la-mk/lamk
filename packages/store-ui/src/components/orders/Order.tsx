@@ -28,6 +28,7 @@ const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
       return startIndex + 1;
     case sdk.order.OrderStatus.COMPLETED:
     case sdk.order.OrderStatus.CANCELLED:
+    case sdk.order.OrderStatus.INVALID:
       return startIndex + 2;
   }
 };
@@ -93,17 +94,24 @@ export const Order = ({ orderId }: { orderId: string }) => {
             title={t('orderStatus.shipped')}
             description={t('orderStatus.shippedDescription')}
           />
-          {status !== 'cancelled' && (
+          {status === sdk.order.OrderStatus.COMPLETED && (
             <Step
               title={t('orderStatus.completed')}
               description={t('orderStatus.completedDescription')}
             />
           )}
-          {status === 'cancelled' && (
+          {status === sdk.order.OrderStatus.CANCELLED && (
             <Step
               status='error'
               title={t('orderStatus.cancelled')}
               description={t('orderStatus.cancelledDescription')}
+            />
+          )}
+          {status === sdk.order.OrderStatus.INVALID && (
+            <Step
+              status='error'
+              title={t('orderStatus.invalid')}
+              description={t('orderStatus.invalidDescription')}
             />
           )}
         </Steps>

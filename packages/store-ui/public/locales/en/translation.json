@@ -601,6 +601,8 @@
     "seeOrder": "See order status"
   },
   "orderStatus": {
+    "invalid": "Invalid",
+		"invalidDescription": "Invalid order",
     "cancelled": "Cancelled",
     "cancelledDescription": "Cancelled",
     "completed": "Completed",

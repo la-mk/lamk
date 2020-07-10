@@ -5,7 +5,7 @@ import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { validate } from '../../common/hooks/db';
 import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
-import { checkContext } from 'feathers-hooks-common';
+import { checkContext, disallow } from 'feathers-hooks-common';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { patchableFields } from '../../common/hooks/filtering';
 
@@ -193,6 +193,10 @@ export const hooks = {
       queryWithCurrentUser(['orderedFrom']),
       validate(sdk.order.validate),
     ],
-    remove: [authenticate('jwt'), queryWithCurrentUser(['orderedFrom'])],
+    remove: [
+      disallow('external'),
+      authenticate('jwt'),
+      queryWithCurrentUser(['orderedFrom']),
+    ],
   },
 };
