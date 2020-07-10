@@ -645,6 +645,7 @@
   "product": {
     "addProductSuccess": "Successfully added a new product",
     "addingProductTip": "Adding product...",
+    "categoryTip": "Categories missing? Contact us",
     "descriptionExample": "eg. High quality sneakers",
     "discount": "Discount",
     "groups": "Groups",

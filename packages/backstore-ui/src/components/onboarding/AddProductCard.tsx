@@ -117,7 +117,7 @@ export const AddProductCard = ({
             </Button>,
           ]}
         >
-          <FormItem selector='category'>
+          <FormItem selector='category' help={t('product.categoryTip')}>
             {(_val, _onChange, onComplete) => (
               <Cascader
                 options={groupedCategories!}

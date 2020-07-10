@@ -183,7 +183,11 @@ export const ProductFormModal = ({
             </Col>
 
             <Col md={12} span={24}>
-              <FormItem label={t('common.category')} selector='category'>
+              <FormItem
+                label={t('common.category')}
+                selector='category'
+                help={t('product.categoryTip')}
+              >
                 {(_val, _onChange, onComplete) => (
                   <Cascader
                     options={groupedCategories || []}

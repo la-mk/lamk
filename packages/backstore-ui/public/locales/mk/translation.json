@@ -645,6 +645,7 @@
   "product": {
     "addProductSuccess": "Нов производ успешно додаден",
     "addingProductTip": "Производот се додава...",
+    "categoryTip": "Некои категории недостасуваат? Контактирајте нѐ",
     "descriptionExample": "пр. Високо квалитетни и лесни патики",
     "discount": "Попуст",
     "groups": "Групи",
