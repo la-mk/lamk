@@ -32,10 +32,18 @@ function* afterAuthSaga(authInfo: any, wasAuthenticated: boolean = false) {
   }
 }
 
+const isTokenExpiredError = (err: any) => {
+  return err.data?.name === 'TokenExpiredError';
+};
+
 export function* reauthenticateUserSaga() {
   try {
     yield call(sdk.authentication.reAuthenticate, false);
   } catch (err) {
+    if (isTokenExpiredError(err)) {
+      yield put(clearSession());
+    }
+
     console.log(err);
     //Ignore error, since it means the user couldn't be reauthenticated
   }
