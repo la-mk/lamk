@@ -12,6 +12,8 @@ export const schema = {
     .string()
     .minLength(8)
     .maxLength(255),
+  isEmailVerified: v8n()
+    .boolean(),
   firstName: v8n().optional(
     v8n()
       .string()

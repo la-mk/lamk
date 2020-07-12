@@ -19,6 +19,7 @@ import { getStoreAnalyticsSdk } from './models/storeAnalytics';
 import { getStorePaymentMethodsSdk } from './models/storePaymentMethods';
 import { getOrderPaymentsSdk } from './models/orderPayments';
 import { getContactUsSdk } from './models/contactUs';
+import { getAuthManagementSdk } from 'models/authManagement';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
@@ -34,6 +35,7 @@ export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
     artifact: getArtifactSdk(client, options),
     order: getOrderSdk(client),
     user: getUserSdk(client),
+    authManagement: getAuthManagementSdk(client),
     cart: getCartSdk(client),
     address: getAddressSdk(client),
     productGroup: getProductGroupSdk(client),
