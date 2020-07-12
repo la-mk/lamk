@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { formInput } from '../FormHelpers';
 import { FormItem, FormHandlers } from '../../basic/Form/Form';
-import { Text } from '../../basic/Typography';
 import { LocalizationContext } from '../../basic/Provider';
 import { AuthFormBase } from './AuthFormBase';
 
@@ -33,19 +32,11 @@ export const LoginForm = ({
       onSecondary={onSignupNowClick}
       {...otherProps}
     >
-      <FormItem
-        selector="email"
-        label={
-          <Text fontSize={0}>{localization.email || 'Email address'}</Text>
-        }
-      >
+      <FormItem selector="email" label={localization.email || 'Email address'}>
         {formInput({ size: 'large' })}
       </FormItem>
 
-      <FormItem
-        selector="password"
-        label={<Text fontSize={0}>{localization.password || 'Password'}</Text>}
-      >
+      <FormItem selector="password" label={localization.password || 'Password'}>
         {formInput({ size: 'large', type: 'password' })}
       </FormItem>
     </AuthFormBase>
