@@ -1,11 +1,12 @@
 import React from 'react';
-import { Flex, Text, Button, SignupForm } from '@sradevski/blocks-ui';
+import { Text, Button, SignupForm } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useDispatch } from 'react-redux';
 import { signup, Credentials } from '../../state/modules/auth/auth.module';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { useTranslation } from 'react-i18next';
 import env from '../../common/env';
+import { AuthBase } from './AuthBase';
 
 export const Signup = () => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ export const Signup = () => {
   };
 
   return (
-    <Flex flexDirection='column' alignItems='center' p={3}>
+    <AuthBase>
       {!env.ENABLE_SIGNUP && (
         <Text mb={6} color='secondary'>
           {t('auth.signupClosedBeta')}
@@ -29,7 +30,7 @@ export const Signup = () => {
 
       {env.ENABLE_SIGNUP && (
         <SignupForm
-          // logoUrl='/logo-horizontal.svg'
+          logoUrl='/logo-horizontal.svg'
           signup={handleSignup}
           validate={(data: Credentials) => sdk.user.validate(data as any, true)}
           validateSingle={sdk.user.validateSingle}
@@ -39,6 +40,6 @@ export const Signup = () => {
           onLoginNowClick={() => dispatch(goTo('/login'))}
         />
       )}
-    </Flex>
+    </AuthBase>
   );
 };

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Flex, LoginForm } from '@sradevski/blocks-ui';
+import { LoginForm } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useDispatch } from 'react-redux';
 import { login, Credentials } from '../../state/modules/auth/auth.module';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { useTranslation } from 'react-i18next';
+import { AuthBase } from './AuthBase';
 
 export const Login = () => {
   const { t } = useTranslation();
@@ -15,9 +16,9 @@ export const Login = () => {
   };
 
   return (
-    <Flex width='100%' flexDirection='column' alignItems='center' p={3}>
+    <AuthBase>
       <LoginForm
-        // logoUrl='/logo-horizontal.svg'
+        logoUrl='/logo-horizontal.svg'
         login={handleLogin}
         validate={(data: Credentials) => sdk.user.validate(data as any, true)}
         validateSingle={sdk.user.validateSingle}
@@ -26,6 +27,6 @@ export const Login = () => {
         }
         onSignupNowClick={() => dispatch(goTo('/signup'))}
       />
-    </Flex>
+    </AuthBase>
   );
 };
