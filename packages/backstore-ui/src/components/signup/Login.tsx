@@ -17,7 +17,7 @@ export const Login = () => {
   return (
     <Flex width='100%' flexDirection='column' alignItems='center' p={3}>
       <LoginForm
-        // logoUrl='/images/lamk-logo/horizontal.svg'
+        // logoUrl='/logo-horizontal.svg'
         login={handleLogin}
         validate={(data: Credentials) => sdk.user.validate(data as any, true)}
         validateSingle={sdk.user.validateSingle}

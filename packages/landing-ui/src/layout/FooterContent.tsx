@@ -118,7 +118,7 @@ export const FooterContent = () => {
         <Box mr={[0, 0, 5]}>
           <Flex flexDirection='column' alignItems={'flex-start'}>
             <Box maxHeight='96px' maxWidth='192px' width='100%' mb={5} p={2}>
-              <Image src={'/logo-full-inverse.svg'} alt='logo' />
+              <Image src={'/logo-horizontal-inverse.svg'} alt='logo' />
             </Box>
 
             <Title mb={3} color='heading.light' level={4} fontSize={1}>

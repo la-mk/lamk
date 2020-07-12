@@ -1,6 +1,5 @@
 import React from 'react';
 import App from 'next/app';
-import { default as NextHead } from 'next/head';
 import { Provider as ThemeProvider, hooks, theme } from '@sradevski/blocks-ui';
 import { LandingLayout } from '../src/layout/LandingLayout';
 import 'antd/dist/antd.less';
@@ -18,10 +17,6 @@ class MyApp extends App<any> {
     const { Component, pageProps } = this.props;
     return (
       <>
-        <NextHead>
-          <link rel='shortcut icon' href={'/icon.png'} />
-        </NextHead>
-
         <ThemeProvider basicLocale={mk_MK}>
           <hooks.BreakpointProvider
             breakpoints={theme.breakpoints.map((x) => parseInt(x))}

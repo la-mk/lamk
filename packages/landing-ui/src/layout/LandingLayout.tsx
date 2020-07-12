@@ -84,7 +84,7 @@ export const LandingLayout = withTheme(
             <Flex justifyContent='space-between'>
               <Link href='/' passHref>
                 <LineHeightFreeAnchor>
-                  <Image src={'/logo-full.svg'} alt='logo' />
+                  <Image src={'/logo-horizontal.svg'} alt='logo' />
                 </LineHeightFreeAnchor>
               </Link>
               {!isMenuCollapsed && <TopMenu theme={theme} />}
