@@ -36,17 +36,17 @@ export const AuthFormBase = ({
       minWidth={200}
       mx="auto"
     >
-      <Title level={2} mb={3} fontSize={4}>
+      <Title level={2} mb={3} fontSize={6}>
         {primaryText}
       </Title>
       {logoUrl && (
-        <Text textAlign="center" fontSize={0}>
+        <Text color="mutedText.dark" textAlign="center" fontSize={1}>
           {localization.authSameAccount} <PoweredBy logoUrl={logoUrl} />
         </Text>
       )}
 
       <Form
-        mt={4}
+        mt={3}
         width="100%"
         labelCol={{ xs: { span: 24 } }}
         wrapperCol={{ xs: { span: 24 } }}
@@ -65,7 +65,7 @@ export const AuthFormBase = ({
       </Form>
 
       <Flex alignItems="center" justifyContent="center" my={3}>
-        <Text fontSize={0}>{localization.or || 'or'}</Text>
+        <Text color="mutedText.dark" fontSize={1}>{localization.or || 'or'}</Text>
       </Flex>
 
       <Button size="large" width="100%" type="default" onClick={onSecondary}>

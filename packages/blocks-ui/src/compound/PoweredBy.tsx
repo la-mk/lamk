@@ -14,7 +14,7 @@ export const PoweredBy = ({
   return (
     <a style={{ textDecoration: 'none' }} href="https://la.mk" target="_blank">
       <Flex display="inline-flex" alignItems="center" justifyContent="center">
-        <Text color={inverse ? 'text.light' : 'text.dark'} fontSize={0} mr={2}>
+        <Text strong color={inverse ? 'text.light' : 'text.dark'} fontSize={0} mr={2}>
           powered by
         </Text>
         <Box maxWidth={80} height={22} >
