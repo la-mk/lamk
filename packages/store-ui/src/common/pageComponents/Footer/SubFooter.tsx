@@ -15,7 +15,7 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
         © 2020 All rights reserved
       </Text>
 
-      {/* <PoweredBy logoUrl={'/images/lamk-logo/horizontal-inverse.svg'} inverse /> */}
+      <PoweredBy logoUrl={'/images/lamk-logo/horizontal-inverse.svg'} inverse />
 
       <Flex
         mt={[3, 0, 0]}
