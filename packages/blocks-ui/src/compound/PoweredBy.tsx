@@ -17,7 +17,7 @@ export const PoweredBy = ({
         <Text strong color={inverse ? 'text.light' : 'text.dark'} fontSize={0} mr={2}>
           powered by
         </Text>
-        <Box maxWidth={80} height={22} >
+        <Box style={{lineHeight: 1}} maxWidth={80} height={22} >
           <Image src={logoUrl} alt="la.mk logo" />
         </Box>
       </Flex>
