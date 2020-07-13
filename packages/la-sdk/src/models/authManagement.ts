@@ -9,9 +9,21 @@ import pick from 'lodash/pick';
 export const schema = {
   ...defaultSchemaEntries,
   email: v8n().email(),
-  verifyToken: v8n().optional(v8n().email(), true),
+  verifyToken: v8n().optional(
+    v8n()
+      .string()
+      .minLength(8)
+      .maxLength(255),
+    true
+  ),
   verifyTokenCreatedAt: v8n().optional(v8n().datetime(), true),
-  resetToken: v8n().optional(v8n().email(), true),
+  resetToken: v8n().optional(
+    v8n()
+      .string()
+      .minLength(8)
+      .maxLength(255),
+    true
+  ),
   resetTokenCreatedAt: v8n().optional(v8n().datetime(), true),
 };
 
@@ -24,17 +36,20 @@ export interface AuthManagement extends DefaultSchema {
 }
 
 export const getAuthManagementSdk = (client: Application) => {
-  const crudMethods =  pick(getCrudMethods<OmitServerProperties<AuthManagement>, AuthManagement>(
-    client,
-    'authManagement'
-  ), ['patch']);
+  const crudMethods = pick(
+    getCrudMethods<OmitServerProperties<AuthManagement>, AuthManagement>(
+      client,
+      'authManagement'
+    ),
+    ['patch']
+  );
 
   return {
     ...crudMethods,
 
     resetPassword: (email: string) => {
       // The actual tokens are created on the server side, so we just send an empty data object.
-      crudMethods.patch(null, {}, {email})
+      crudMethods.patch(null, {}, { email });
     },
 
     validate: (data: AuthManagement, ignoreRequired = false) => {
