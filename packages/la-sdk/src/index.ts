@@ -19,7 +19,7 @@ import { getStoreAnalyticsSdk } from './models/storeAnalytics';
 import { getStorePaymentMethodsSdk } from './models/storePaymentMethods';
 import { getOrderPaymentsSdk } from './models/orderPayments';
 import { getContactUsSdk } from './models/contactUs';
-import { getAuthManagementSdk } from 'models/authManagement';
+import { getAuthManagementSdk } from './models/authManagement';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
