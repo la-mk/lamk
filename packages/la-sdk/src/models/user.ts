@@ -39,6 +39,7 @@ export const schema = {
 
 export interface User extends DefaultSchema {
   email: string;
+  isEmailVerified: boolean;
   password: string;
   firstName?: string;
   lastName?: string;
