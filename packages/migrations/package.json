@@ -16,6 +16,7 @@
     "@sradevski/la-sdk": "0.0.26",
     "bluebird": "^3.7.2",
     "migrate-mongo": "^7.0.1",
-    "mongodb": "^3.5.3"
+    "mongodb": "^3.5.3",
+    "uuid": "^8.2.0"
   }
 }
