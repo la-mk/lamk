@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../errors';
-import { isProvider, checkContext } from 'feathers-hooks-common';
+import { isProvider, checkContext, unless } from 'feathers-hooks-common';
 
 const isServerCall = isProvider('server');
 
@@ -63,11 +63,15 @@ export const isPublished = () => {
 };
 
 export const patchableFields = (fields: string[]) => {
-  return (ctx: HookContext) => {
-    checkContext(ctx, 'before', 'patch');
-    const dataFields = Object.keys(ctx.data);
-    if (dataFields.some(field => !fields.includes(field))) {
-      throw new BadRequest(`Some of the fields cannot be patched`);
-    }
-  };
+  return unless(
+    (...args) => isProvider('server')(...args),
+    (ctx: HookContext) => {
+      checkContext(ctx, 'before', 'patch');
+      const dataFields = Object.keys(ctx.data);
+      const violatingField = dataFields.find(field => !fields.includes(field));
+      if (violatingField) {
+        throw new BadRequest(`${violatingField} cannot be patched`);
+      }
+    },
+  );
 };

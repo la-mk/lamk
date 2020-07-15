@@ -5,6 +5,7 @@ import { defaultGenerator, GeneratorFunc } from './helpers';
 const defaultFixture: Partial<User> = {
   email: 'addresses@fixture.com',
   password: 'supersecret',
+  isEmailVerified: false,
 };
 
 export default {

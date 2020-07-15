@@ -2,20 +2,20 @@ import { Service } from 'feathers-mongodb';
 import { Application } from '@feathersjs/feathers';
 import { hooks } from './hooks';
 
-export const users = (app: Application) => {
+export const authManagement = (app: Application) => {
   const paginate = {
-    default: 10,
-    max: 50,
+    default: 1,
+    max: 1,
   };
 
   const mongoDb = app.get('mongoDb');
   const options = {
     paginate,
-    Model: mongoDb.collection('users'),
+    Model: mongoDb.collection('authManagement'),
     multi: true,
   };
 
-  app.use('/users', new Service(options));
-  const service = app.service('users');
+  app.use('/authManagement', new Service(options));
+  const service = app.service('authManagement');
   service.hooks(hooks);
 };

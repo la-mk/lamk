@@ -58,8 +58,6 @@ export const setCurrentUser = (fields: string[]) => {
 // Requires either the query to have the owner field, or the result. This is so we avoid an additional call to the DB, but it might change in the future.
 export const isOwner = (ownerFields: string[]) => {
   return (ctx: HookContext) => {
-    checkContext(ctx, null, ['find', 'get']);
-
     const userEntity = ctx.params.user;
     // Not authenticated, so not owner for sure.
     if (!userEntity) {
@@ -68,7 +66,11 @@ export const isOwner = (ownerFields: string[]) => {
 
     // We can just check from the returned data so we don't have to make a separate request.
     if (ctx.type === 'after') {
-      const data = ctx.method === 'get' ? ctx.result : ctx.result.data[0];
+      const data = ctx.result.data
+        ? ctx.result.data[0]
+        : Array.isArray(ctx.result)
+        ? ctx.result[0]
+        : ctx.result;
 
       // There is no data, so it doesn't matter
       if (!data) {

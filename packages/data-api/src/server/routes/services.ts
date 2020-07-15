@@ -6,6 +6,7 @@ import { orders } from '../../services/orders/orders';
 import { artifacts } from '../../services/artifacts/artifacts';
 import { deliveries } from '../../services/deliveries/deliveries';
 import { users } from '../../services/users/users';
+import { authManagement } from '../../services/authManagement/authManagement';
 import { carts } from '../../services/carts/carts';
 import { addresses } from '../../services/addresses/addresses';
 import { categories } from '../../services/categories/categories';
@@ -29,6 +30,7 @@ export const registerServices = (app: Application) => {
   deliveries(app);
   artifacts(app);
   users(app);
+  authManagement(app);
   carts(app);
   addresses(app);
   categories(app);
