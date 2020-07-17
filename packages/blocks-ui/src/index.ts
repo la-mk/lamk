@@ -67,6 +67,7 @@ export { UploadContent } from './compound/UploadContent';
 export { HeadElements } from './compound/HeadElements';
 export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
+export { LanguagePicker } from './compound/LanguagePicker';
 
 export { message } from './static/message';
 
