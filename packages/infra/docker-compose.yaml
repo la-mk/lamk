@@ -154,31 +154,32 @@ services:
       - traefik.http.routers.store-ui.tls.domains[0].main=*.${SYSTEM_TLD}
 
       # Custom domains
-      - traefik.http.middlewares.agnesa-domain-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.custom-domain-https.redirectscheme.scheme=https
 
       # middleware: https://www. to  https://
       - traefik.http.middlewares.trim_www.redirectregex.regex=^https://www\.(.+)
       - traefik.http.middlewares.trim_www.redirectregex.replacement=https://$${1}
       - traefik.http.middlewares.trim_www.redirectregex.permanent=false
 
-      - traefik.http.routers.agnesa-domain-http.priority=1
-      - traefik.http.routers.agnesa-domain-http.entrypoints=web
-      - traefik.http.routers.agnesa-domain-http.rule=Host(`${AGNESA_DOMAIN}`, `www.${AGNESA_DOMAIN}`)
-      - traefik.http.routers.agnesa-domain-http.middlewares=agnesa-domain-https
-      - traefik.http.routers.agnesa-domain-http.service=agnesa-domain
+      - traefik.http.routers.custom-domain-http.priority=1
+      - traefik.http.routers.custom-domain-http.entrypoints=web
+      - traefik.http.routers.custom-domain-http.rule=Host(${ESCAPED_CUSTOM_DOMAINS})
+      - traefik.http.routers.custom-domain-http.middlewares=custom-domain-https
+      - traefik.http.routers.custom-domain-http.service=custom-domain
 
-      - traefik.http.routers.agnesa-domain.priority=1 #Set to low priority so our services resolve before stores
-      - traefik.http.routers.agnesa-domain.entrypoints=websecure
-      - traefik.http.routers.agnesa-domain.rule=Host(`${AGNESA_DOMAIN}`, `www.${AGNESA_DOMAIN}`)
-      - traefik.http.routers.agnesa-domain.service=agnesa-domain
-      - traefik.http.services.agnesa-domain.loadbalancer.server.port=80
+      - traefik.http.routers.custom-domain.priority=1 #Set to low priority so our services resolve before stores
+      - traefik.http.routers.custom-domain.entrypoints=websecure
+      - traefik.http.routers.custom-domain.rule=Host(${ESCAPED_CUSTOM_DOMAINS})
+      - traefik.http.routers.custom-domain.service=custom-domain
+      - traefik.http.services.custom-domain.loadbalancer.server.port=80
 
-      - traefik.http.routers.agnesa-domain.middlewares=trim_www
+      - traefik.http.routers.custom-domain.middlewares=trim_www
 
-      - traefik.http.routers.agnesa-domain.tls=true
-      - traefik.http.routers.agnesa-domain.tls.certresolver=custom-certs
-      - traefik.http.routers.agnesa-domain.tls.domains[0].main=${AGNESA_DOMAIN}
-      - traefik.http.routers.agnesa-domain.tls.domains[0].sans=www.${AGNESA_DOMAIN}
+      - traefik.http.routers.custom-domain.tls=true
+      - traefik.http.routers.custom-domain.tls.certresolver=custom-certs
+      # This is just so we set something for a main domain, all other custom domains will be defined as sans
+      - traefik.http.routers.custom-domain.tls.domains[0].main=demo.${SYSTEM_TLD}
+      - traefik.http.routers.custom-domain.tls.domains[0].sans=${CUSTOM_DOMAINS}
 
     environment: 
       API_ENDPOINT: https://api.${SYSTEM_TLD}

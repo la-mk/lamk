@@ -50,7 +50,15 @@ variable "search-service-api-key" {
   type = string
 }
 
-variable "agnesa-domain" {
+variable "images-proxy-endpoint" {
+  type = string
+}
+
+variable "custom-domains" {
+  type = string
+}
+
+variable "escaped-custom-domains" {
   type = string
 }
 
@@ -118,7 +126,8 @@ export ANALYTICS_TRACKING_ID=$ANALYTICS_TRACKING_ID;
 export ANALYTICS_SECRET_KEY=$ANALYTICS_SECRET_KEY;
 export MAIL_SERVICE_API_KEY=$MAIL_SERVICE_API_KEY;
 export SEARCH_SERVICE_API_KEY=$SEARCH_SERVICE_API_KEY;
-export AGNESA_DOMAIN=$AGNESA_DOMAIN;
+export CUSTOM_DOMAINS='$CUSTOM_DOMAINS';
+export ESCAPED_CUSTOM_DOMAINS='$ESCAPED_CUSTOM_DOMAINS';
 export NESTPAY_API_ENDPOINT=$NESTPAY_API_ENDPOINT;
 export NESTPAY_GATEWAY_ENDPOINT=$NESTPAY_GATEWAY_ENDPOINT;
 ENVVARS_TPL
@@ -134,7 +143,8 @@ EOT
       ANALYTICS_SECRET_KEY = var.analytics-secret-key
       MAIL_SERVICE_API_KEY = var.mail-service-api-key
       SEARCH_SERVICE_API_KEY = var.search-service-api-key
-      AGNESA_DOMAIN = var.agnesa-domain
+      CUSTOM_DOMAINS = var.custom-domains
+      ESCAPED_CUSTOM_DOMAINS = var.escaped-custom-domains
       NESTPAY_API_ENDPOINT = var.nestpay-api-endpoint
       NESTPAY_GATEWAY_ENDPOINT = var.nestpay-gateway-endpoint
     }
