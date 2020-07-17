@@ -16,9 +16,10 @@ import { patchableFields } from '../../common/hooks/filtering';
 
 const promisifiedRandomBytes = util.promisify(crypto.randomBytes);
 
+// TODO: Create nice html templates before using this.
 export const handleResetToken = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['patch']);
-  const authManagement = ctx.result;
+  const authManagement = Array.isArray(ctx.result) ? ctx.result[0] : ctx.result;
 
   if (authManagement.resetToken) {
     await ctx.app.services['email'].create({
@@ -93,14 +94,11 @@ export const hooks = {
   },
 
   after: {
-    // Don't return any fields to external callers.
-    all: [allowFields([], [])],
-    find: [],
-    get: [],
-    create: [],
-    patch: [
-      /*handleResetToken*/
-    ],
-    remove: [],
+    all: [],
+    find: [allowFields([], [])],
+    get: [allowFields([], [])],
+    create: [allowFields([], [])],
+    patch: [/*handleResetToken,*/ allowFields([], [])],
+    remove: [allowFields([], [])],
   },
 };
