@@ -6,9 +6,7 @@ import {
   Flex,
   Menu,
   MenuItem,
-  Dropdown,
-  Text,
-  Button,
+  LanguagePicker,
 } from '@sradevski/blocks-ui';
 import {
   DashboardOutlined,
@@ -18,7 +16,6 @@ import {
   TagOutlined,
   ShopOutlined,
   // SettingOutlined,
-  GlobalOutlined,
   BankOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
@@ -131,34 +128,10 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
               <Link to='/dashboard/preferences' />
             </MenuItem> */}
             <MenuItem key='language'>
-              <Dropdown
-                placement='bottomLeft'
-                overlay={
-                  <Menu
-                    selectedKeys={[i18n.language]}
-                    onClick={({ key }) => {
-                      i18n.changeLanguage(key);
-                    }}
-                  >
-                    <MenuItem key='mk'>
-                      <Text>Македонски</Text>
-                    </MenuItem>
-                    <MenuItem key='en'>
-                      <Text>English</Text>
-                    </MenuItem>
-                  </Menu>
-                }
-              >
-                <Button
-                  p={0}
-                  display='block'
-                  type='link'
-                  style={{ color: 'inherit' }}
-                >
-                  <GlobalOutlined style={{ marginRight: 0 }} />{' '}
-                  {i18n.language.toUpperCase()}
-                </Button>
-              </Dropdown>
+              <LanguagePicker
+                languageCode={i18n.language}
+                onChangeLanguageCode={key => i18n.changeLanguage(key)}
+              />
             </MenuItem>
           </Menu>
         </FixedSider>

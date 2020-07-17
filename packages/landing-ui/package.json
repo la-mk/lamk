@@ -15,7 +15,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@sradevski/analytics": "0.0.7",
-    "@sradevski/blocks-ui": "0.0.87",
+    "@sradevski/blocks-ui": "0.0.91",
     "antd": "^4.4.1",
     "env-var": "^6.2.0",
     "next": "^9.4.4",

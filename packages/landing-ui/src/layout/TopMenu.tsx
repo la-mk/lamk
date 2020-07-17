@@ -4,13 +4,11 @@ import {
   MenuItem,
   Button,
   hooks,
-  Dropdown,
-  Text,
   Flex,
+  LanguagePicker,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { GlobalOutlined } from '@ant-design/icons';
 import { useTranslation } from '../common/i18n';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
@@ -68,34 +66,11 @@ export const TopMenu = ({
         </Link>
       </MenuItem>
 
-      <MenuItem height='100%' p={0} key='language' mx={[0, 1, 2]}>
-        <Dropdown
-          placement='bottomLeft'
-          overlay={
-            <Menu
-              selectedKeys={[i18n.language]}
-              onClick={({ key }) => {
-                i18n.changeLanguage(key as string);
-              }}
-            >
-              <MenuItem key='mk'>
-                <Text>Македонски</Text>
-              </MenuItem>
-              <MenuItem key='en'>
-                <Text>English</Text>
-              </MenuItem>
-            </Menu>
-          }
-        >
-          <Flex alignItems='center' height='100%'>
-            <Button display='block' type='link'>
-              <Text fontSize={0}>
-                <GlobalOutlined style={{ marginRight: 0 }} />{' '}
-                {i18n.language.toUpperCase()}
-              </Text>
-            </Button>
-          </Flex>
-        </Dropdown>
+      <MenuItem height='100%' py={0} px={2} key='language' mx={[0, 1, 2]}>
+        <LanguagePicker
+          languageCode={i18n.language}
+          onChangeLanguageCode={i18n.changeLanguage}
+        />
       </MenuItem>
 
       <MenuItem
