@@ -21,6 +21,7 @@ import { appWithTranslation, useTranslation } from '../src/common/i18n';
 import 'antd/dist/antd.less';
 import mk_MK from 'antd/lib/locale/mk_MK';
 import { I18n } from 'next-i18next';
+import memoize from 'mem';
 import { initializeAnalytics } from '../src/common/analytics';
 import { BrandColorWrapper } from '../src/common/antdOverride/BrandColorWrapper';
 import { getTheme } from '../src/common/theme';
@@ -36,7 +37,6 @@ const getCompoundLocale = (t: (key: string) => string) => {
   };
 };
 
-// TODO: Cache heavily for a long period.
 const getSlugForCustomDomain = async (host: string) => {
   const laStoreResult = await sdk.store.find({ query: { customDomain: host } });
   if (laStoreResult.total === 0) {
@@ -50,6 +50,11 @@ const getSlugForCustomDomain = async (host: string) => {
 
   return laStoreResult.data[0];
 };
+
+// Cache for 30 min, since custom domain will very rarely change.
+const memoizedGetSlugForCustomDomain = memoize(getSlugForCustomDomain, {
+  maxAge: 30 * 60 * 1000,
+});
 
 const stripWww = (host: string) => {
   if (host.startsWith('www')) {
@@ -65,7 +70,7 @@ const getStoreFromHost = (host: string) => {
   const serverTld = env.API_ENDPOINT.substr(env.API_ENDPOINT.indexOf('.') + 1);
 
   if (tld !== serverTld) {
-    return getSlugForCustomDomain(host);
+    return memoizedGetSlugForCustomDomain(host);
   }
 
   const slug = normalizedHost.substr(0, normalizedHost.indexOf('.'));

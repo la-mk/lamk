@@ -1,8 +1,11 @@
 import React from 'react';
-import { Flex } from '@sradevski/blocks-ui';
+import { Flex, LanguagePicker, Box } from '@sradevski/blocks-ui';
 import { CustomCard } from '../shared/components/CustomCard';
+import { useTranslation } from 'react-i18next';
 
 export const AuthBase = ({ children }: { children: React.ReactNode }) => {
+  const { i18n } = useTranslation();
+
   return (
     <Flex
       width='100vw'
@@ -11,6 +14,18 @@ export const AuthBase = ({ children }: { children: React.ReactNode }) => {
       justifyContent='center'
       bg='background.light'
     >
+      <Box
+        style={{
+          position: 'absolute',
+          top: 32,
+          right: 32,
+        }}
+      >
+        <LanguagePicker
+          languageCode={i18n.language}
+          onChangeLanguageCode={key => i18n.changeLanguage(key)}
+        />
+      </Box>
       <CustomCard
         bg='#fff'
         width={460}

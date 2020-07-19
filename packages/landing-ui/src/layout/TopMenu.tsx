@@ -69,7 +69,7 @@ export const TopMenu = ({
       <MenuItem height='100%' py={0} px={2} key='language' mx={[0, 1, 2]}>
         <LanguagePicker
           languageCode={i18n.language}
-          onChangeLanguageCode={i18n.changeLanguage}
+          onChangeLanguageCode={(key) => i18n.changeLanguage(key)}
         />
       </MenuItem>
 
