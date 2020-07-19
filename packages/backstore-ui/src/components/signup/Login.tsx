@@ -18,7 +18,7 @@ export const Login = () => {
   return (
     <AuthBase>
       <LoginForm
-        logoUrl='/logo-horizontal.svg'
+        // logoUrl='/logo-horizontal.svg'
         login={handleLogin}
         validate={(data: Credentials) => sdk.user.validate(data as any, true)}
         validateSingle={sdk.user.validateSingle}
