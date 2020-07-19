@@ -1,3 +1,4 @@
+service-instance-size="s-2vcpu-2gb"
 domain = "lamk.work"
 artifacts-subdomain = "artifacts.lamk.work"
 droplets-tags = ["stg"]

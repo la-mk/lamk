@@ -2,6 +2,10 @@
 
 ########## VARIABLE DEFINITION ############
 
+variable "service-instance-size" {
+  type = string
+}
+
 variable "domain" {
   type = string
 }
@@ -92,7 +96,7 @@ resource "digitalocean_droplet" "services-1" {
   image = "docker-18-04"
   name = "services-${var.environment}-1"
   region = "fra1"
-  size = "s-2vcpu-2gb"
+  size = var.service-instance-size
   tags = var.droplets-tags
   ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
 

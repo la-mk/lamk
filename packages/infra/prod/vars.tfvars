@@ -1,3 +1,4 @@
+service-instance-size="s-2vcpu-4gb"
 domain = "la.mk"
 artifacts-subdomain = "artifacts.la.mk"
 droplets-tags = ["prod"]
