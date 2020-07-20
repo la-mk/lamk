@@ -92,6 +92,13 @@ export const schema = {
     .minLength(1)
     .every.schema(variantSchema),
 
+  // The total stock of all variants
+  totalStock: v8n().optional(
+    v8n()
+      .number()
+      .not.negative()
+  ),
+
   // If variants have different prices, this is the minimum
   minPrice: v8n().optional(
     v8n()
@@ -117,11 +124,16 @@ export const schema = {
       .positive()
   ),
 
-  // The total stock of all variants
-  totalStock: v8n().optional(
+   // Same as min and max price
+   minCalculatedPrice: v8n().optional(
     v8n()
-      .number()
-      .not.negative()
+      .number(false)
+      .positive()
+  ),
+  maxCalculatedPrice: v8n().optional(
+    v8n()
+      .number(false)
+      .positive()
   ),
 };
 
@@ -129,11 +141,13 @@ export const orderProductSchema = {
   ...schema,
   ...variantSchema,
   variants: undefined,
+  totalStock: undefined,
   minPrice: undefined,
   maxPrice: undefined,
-  totalStock: undefined,
   minDiscount: undefined,
   maxDiscount: undefined,
+  minCalculatedPrice: undefined,
+  maxCalculatedPrice: undefined,
 };
 
 // export interface Attributes {
@@ -160,11 +174,13 @@ export interface Product extends DefaultSchema {
   images: string[];
   description?: string;
   variants: Variant[];
+  totalStock?: number;
   minPrice?: number;
   maxPrice?: number;
-  totalStock?: number;
   minDiscount?: number;
   maxDiscount?: number;
+  minCalculatedPrice?: number;
+  maxCalculatedPrice?: number;
 }
 
 // An order always stores a flattened product and variant combination.
@@ -172,11 +188,13 @@ export interface OrderProduct
   extends Omit<
       Product,
       | 'variants'
+      | 'totalStock'
       | 'minPrice'
       | 'maxPrice'
       | 'minDiscount'
       | 'maxDiscount'
-      | 'totalStock'
+      | 'minCalculatedPrice'
+      | 'maxCalculatedPrice'
     >,
     Variant {}
 
