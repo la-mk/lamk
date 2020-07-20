@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
-import { OrderProduct } from './product';
+import { OrderProduct, convertToOrderProduct, Product } from './product';
 import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
@@ -11,7 +11,9 @@ export const schema = {
   ...defaultSchemaEntries,
   forUser: v8n().id(),
   items: v8n().every.schema({
-    product: v8n().id(),
+    product: v8n().schema({
+      id: v8n().id(),
+    }),
     fromStore: v8n().id(),
     quantity: v8n()
       .number()
@@ -20,7 +22,9 @@ export const schema = {
 };
 
 export interface CartItem {
-  product: string;
+  product: {
+    id: string;
+  };
   fromStore: string;
   quantity: number;
 }
@@ -60,27 +64,31 @@ export const getCartSdk = (client: Application) => {
       }
 
       const cart = cartRes.data[0];
-      const productIds = cart.items
+      const cartProducts = cart.items
         .filter(item => (storeId ? item.fromStore === storeId : true))
         .map(item => item.product);
 
-      const productsRes =
-        productIds.length > 0
-          ? await client.service('products').find({
-              query: { _id: { $in: productIds } },
-            })
-          : Promise.resolve({ data: [] });
+      const products: Product[] =
+      cartProducts.length > 0
+          ? (await client.service('products').find({
+              query: { _id: { $in: cartProducts.map(product => product.id) } },
+            })).data
+          : [];
 
-      const products = productsRes.data;
 
       return {
         ...cart,
-        items: cart.items.map(item => ({
+        items: cart.items.map(item => {
+          const product = products.find(
+            (product) => product._id === item.product.id);
+          if (!product){
+            throw new Error('Missing product when populating cart');
+          }  
+
+          return {
           ...item,
-          product: products.find(
-            (product: OrderProduct) => product._id === item.product
-          ),
-        })),
+          product: convertToOrderProduct(product),
+        }})
       } as CartWithProducts;
     },
 
@@ -93,9 +101,10 @@ export const getCartSdk = (client: Application) => {
       item: CartItem | CartItemWithProduct,
       params?: Params
     ) => {
-      let productId = item.product;
-      if (typeof item.product !== 'string') {
-        productId = item.product._id;
+      let productId = (item as CartItem).product.id;
+
+      if ((item as CartItemWithProduct).product._id) {
+        productId = (item as CartItemWithProduct).product._id;
       }
 
       return crudMethods.patch(
@@ -111,13 +120,14 @@ export const getCartSdk = (client: Application) => {
       quantity: number,
       params?: Params
     ) => {
-      let productId = item.product;
-      if (typeof item.product !== 'string') {
-        productId = item.product._id;
+      let productId = (item as CartItem).product.id;
+
+      if ((item as CartItemWithProduct).product._id) {
+        productId = (item as CartItemWithProduct).product._id;
       }
 
       const options = {};
-      merge(options, params, { query: { 'items.product': productId } });
+      merge(options, params, { query: { 'items.product.id': productId } });
       return crudMethods.patch(
         cartId,
         { $set: { 'items.$.quantity': quantity } },

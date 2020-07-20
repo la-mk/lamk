@@ -240,6 +240,33 @@ const getQueryForSet = (productSet: ProductSetTag) => {
   }
 };
 
+export const convertToOrderProduct = (product: Product, attributes?: Attributes): OrderProduct => {
+  const variant = getVariantForAttributes(product, attributes);
+  return {
+    ...(omit(product, [
+    'variants',
+    'totalStock',
+    'minPrice',
+    'maxPrice',
+    'minDiscount',
+    'maxDiscount',
+    'minCalculatedPrice',
+    'maxCalculatedPrice',
+  ])),
+    ...variant,
+  }
+};
+
+// TODO: Filter by attributes once they're in the model.
+export const getVariantForAttributes = (product: Product, attributes?: Attributes) => {
+  // There is only a single base variant.
+  if(!attributes){
+    return product.variants[0];
+  }
+
+  return product.variants[0];
+};
+
 export const getProductSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Product>, Product>(
     client,
@@ -249,16 +276,6 @@ export const getProductSdk = (client: Application) => {
   const searchCrudMethods = pick(getCrudMethods<any, any>(client, 'search'), [
     'find',
   ]);
-
-  // TODO: Filter by attributes once they're in the model.
-  const getVariantForAttributes = (product: Product, attributes?: Attributes) => {
-    // There is only a single base variant.
-    if(!attributes){
-      return product.variants[0];
-    }
-
-    return product.variants[0];
-  };
 
   return {
     ...crudMethods,
@@ -313,23 +330,8 @@ export const getProductSdk = (client: Application) => {
     getQueryForSet,
 
     getVariantForAttributes,
-
-    convertToOrderProduct: (product: Product, attributes: Attributes): OrderProduct => {
-      const variant = getVariantForAttributes(product, attributes);
-      return {
-        ...(omit(product, [
-        'variants',
-        'totalStock',
-        'minPrice',
-        'maxPrice',
-        'minDiscount',
-        'maxDiscount',
-        'minCalculatedPrice',
-        'maxCalculatedPrice',
-      ])),
-        ...variant,
-      }
-    },
+    
+    convertToOrderProduct,
 
     validate: (data: Product, ignoreRequired = false) => {
       return validate(schema, data, ignoreRequired);
