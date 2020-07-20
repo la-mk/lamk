@@ -1,5 +1,5 @@
 import { sum, first } from 'lodash';
-import { Product } from '../models/product';
+import { OrderProduct } from '../models/product';
 import { Delivery } from '../models/delivery';
 import { Campaign, RewardTypes } from '../models/campaign';
 import { OrderItem } from '../models/order';
@@ -15,7 +15,7 @@ const round = (num: number) => {
 };
 
 export const calculateProductPrice = (
-  product: Pick<Product, 'price' | 'discount'>
+  product: Pick<OrderProduct, 'price' | 'discount'>
 ) => {
   return product.price - (product.discount ?? 0);
 };

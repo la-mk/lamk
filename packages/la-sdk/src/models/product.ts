@@ -18,14 +18,17 @@ export enum ProductUnit {
   G = 'g',
 }
 
-export const schema = {
-  ...defaultSchemaEntries,
-  soldBy: v8n().id(),
-  name: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(255),
-  unit: v8n().oneOf(Object.values(ProductUnit)),
+// const attributesSchema = {
+//   color: v8n().optional(v8n().hexColor(), true),
+//   size: v8n().optional(
+//     v8n()
+//       .string()
+//       .minLength(1)
+//       .maxLength(31)
+//   ),
+// };
+
+const variantSchema = {
   price: v8n()
     .number(false)
     .positive(),
@@ -41,27 +44,11 @@ export const schema = {
       .number(false)
       .positive()
   ),
-  images: v8n()
-    .maxLength(10)
-    .every.string()
-    .every.minLength(2)
-    .every.maxLength(2047),
-  category: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
-  description: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(4095),
-    true
-  ),
   sku: v8n().optional(
     v8n()
       .string()
       .minLength(2)
-      .maxLength(255),
+      .maxLength(63),
     true
   ),
   stock: v8n().optional(
@@ -69,27 +56,113 @@ export const schema = {
       .number()
       .not.negative()
   ),
+};
+
+export const schema = {
+  ...defaultSchemaEntries,
+  soldBy: v8n().id(),
+  name: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(255),
+  unit: v8n().oneOf(Object.values(ProductUnit)),
+  images: v8n()
+    .maxLength(10)
+    .every.string()
+    .every.minLength(2)
+    .every.maxLength(1023),
   groups: v8n()
     .maxLength(10)
     .every.string()
     .every.minLength(2)
     .every.maxLength(127),
+  category: v8n()
+    .string()
+    .minLength(2)
+    .maxLength(255),
+  description: v8n().optional(
+    v8n()
+      .string()
+      .minLength(2)
+      .maxLength(4095),
+    true
+  ),
+
+  variants: v8n().minLength(1).every.schema(variantSchema),
+
+  // If variants have different prices, this is the minimum
+  minPrice: v8n()
+    .number(false)
+    .positive(),
+  // If variants have different prices, this is the maximum, otherwise min and max will be he same.
+  maxPrice: v8n()
+    .number(false)
+    .positive(),
+
+  // Same as min and max price
+  minDiscount: v8n().optional(
+    v8n()
+      .number(false)
+      .positive()
+  ),
+  maxDiscount: v8n().optional(
+    v8n()
+      .number(false)
+      .positive()
+  ),
+
+  // The total stock of all variants
+  totalStock: v8n().optional(
+    v8n()
+      .number()
+      .not.negative()
+  ),
 };
+
+export const orderProductSchema = {
+  ...schema,
+  ...variantSchema,
+  variants: undefined,
+  minPrice: undefined,
+  maxPrice: undefined,
+  totalStock: undefined,
+  minDiscount: undefined,
+  maxDiscount: undefined,
+};
+
+// export interface Attributes {
+//   color?: string;
+//   size?: string;
+// }
+
+export interface Variant {
+  price: number;
+  calculatedPrice: number;
+  // attributes: Attributes;
+  discount?: number;
+  sku?: string;
+  stock?: number;
+  // variantImage?: string;
+}
 
 export interface Product extends DefaultSchema {
   soldBy: string;
   name: string;
   unit: ProductUnit;
-  price: number;
-  discount?: number;
-  calculatedPrice: number;
-  images: string[];
   category: string;
-  description?: string;
-  sku?: string;
-  stock?: number;
   groups: string[];
+  images: string[];
+  description?: string;
+  variants: Variant[];
+  minPrice: number;
+  maxPrice: number;
+  totalStock?: number;
+  minDiscount?: number;
+  maxDiscount?: number;
 }
+
+// An order always stores a flattened product and variant combination.
+export interface OrderProduct extends Omit<Product, 'variants' | 'minPrice' | 'maxPrice' | 'minDiscount' | 'maxDiscount' | 'totalStock'>, Variant {}
 
 export interface ProductSet {
   setTag: ProductSetTag;

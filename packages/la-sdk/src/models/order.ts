@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
-import { Product, schema as productSchema } from './product';
+import { orderProductSchema, OrderProduct } from './product';
 import { Address, schema as addressSchema } from './address/address';
 import { Delivery, schema as deliverySchema } from './delivery';
 import { validate, validateSingle } from '../utils/validation';
@@ -34,7 +34,7 @@ export const schema = {
   orderedFrom: v8n().id(),
   orderedBy: v8n().id(),
   ordered: v8n().every.schema({
-    product: v8n().schema(productSchema),
+    product: v8n().schema(orderProductSchema),
     quantity: v8n()
       .number()
       .positive(),
@@ -53,8 +53,8 @@ export const schema = {
 };
 
 export interface OrderItem {
-  // We want to store the actual product, so if the product is modified they can still see the exact thing that was ordered
-  product: Product;
+  // We want to store a variant of the actual product, so if the product is modified they can still see the exact thing that was ordered
+  product: OrderProduct;
   quantity: number;
 }
 

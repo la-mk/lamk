@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
-import { Product } from './product';
+import { OrderProduct } from './product';
 import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
@@ -26,7 +26,7 @@ export interface CartItem {
 }
 
 export interface CartItemWithProduct extends Omit<CartItem, 'product'> {
-  product: Product;
+  product: OrderProduct;
 }
 
 export interface Cart extends DefaultSchema {
@@ -78,7 +78,7 @@ export const getCartSdk = (client: Application) => {
         items: cart.items.map(item => ({
           ...item,
           product: products.find(
-            (product: Product) => product._id === item.product
+            (product: OrderProduct) => product._id === item.product
           ),
         })),
       } as CartWithProducts;
