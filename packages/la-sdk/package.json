@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.94",
+  "version": "0.0.95",
   "description": "",
   "license": "ISC",
   "author": "Stevche Radevski <sradevski@live.com>",

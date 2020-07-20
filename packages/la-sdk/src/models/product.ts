@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import omit from 'lodash/omit';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
@@ -219,7 +220,7 @@ const getQueryForSet = (productSet: ProductSetTag) => {
 
     case 'discounted': {
       return {
-        discount: {
+        minDiscount: {
           $gt: 0,
         },
       };
@@ -248,6 +249,16 @@ export const getProductSdk = (client: Application) => {
   const searchCrudMethods = pick(getCrudMethods<any, any>(client, 'search'), [
     'find',
   ]);
+
+  // TODO: Filter by attributes once they're in the model.
+  const getVariantForAttributes = (product: Product, attributes?: Attributes) => {
+    // There is only a single base variant.
+    if(!attributes){
+      return product.variants[0];
+    }
+
+    return product.variants[0];
+  };
 
   return {
     ...crudMethods,
@@ -301,14 +312,23 @@ export const getProductSdk = (client: Application) => {
 
     getQueryForSet,
 
-    // TODO: as a first step we'll just store the single variant without attributes as a variant, modify once we add attributes to the model.
-    getVariantForAttributes: (product: Product, attributes?: Attributes) => {
-      // There is only a single base variant.
-      if(!attributes){
-        return product.variants[0];
-      }
+    getVariantForAttributes,
 
-      return product.variants[0];
+    convertToOrderProduct: (product: Product, attributes: Attributes): OrderProduct => {
+      const variant = getVariantForAttributes(product, attributes);
+      return {
+        ...(omit(product, [
+        'variants',
+        'totalStock',
+        'minPrice',
+        'maxPrice',
+        'minDiscount',
+        'maxDiscount',
+        'minCalculatedPrice',
+        'maxCalculatedPrice',
+      ])),
+        ...variant,
+      }
     },
 
     validate: (data: Product, ignoreRequired = false) => {
