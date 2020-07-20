@@ -137,7 +137,7 @@ export const orderProductSchema = {
 
 export interface Variant {
   price: number;
-  calculatedPrice: number;
+  calculatedPrice?: number;
   // attributes: Attributes;
   discount?: number;
   sku?: string;
