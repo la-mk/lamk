@@ -150,10 +150,10 @@ export const orderProductSchema = {
   maxCalculatedPrice: undefined,
 };
 
-// export interface Attributes {
-//   color?: string;
-//   size?: string;
-// }
+export interface Attributes {
+  color?: string;
+  size?: string;
+}
 
 export interface Variant {
   price: number;
@@ -300,6 +300,16 @@ export const getProductSdk = (client: Application) => {
     },
 
     getQueryForSet,
+
+    // TODO: as a first step we'll just store the single variant without attributes as a variant, modify once we add attributes to the model.
+    getVariantForAttributes: (product: Product, attributes?: Attributes) => {
+      // There is only a single base variant.
+      if(!attributes){
+        return product.variants[0];
+      }
+
+      return product.variants[0];
+    },
 
     validate: (data: Product, ignoreRequired = false) => {
       return validate(schema, data, ignoreRequired);
