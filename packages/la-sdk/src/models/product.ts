@@ -88,16 +88,22 @@ export const schema = {
     true
   ),
 
-  variants: v8n().minLength(1).every.schema(variantSchema),
+  variants: v8n()
+    .minLength(1)
+    .every.schema(variantSchema),
 
   // If variants have different prices, this is the minimum
-  minPrice: v8n()
-    .number(false)
-    .positive(),
+  minPrice: v8n().optional(
+    v8n()
+      .number(false)
+      .positive()
+  ),
   // If variants have different prices, this is the maximum, otherwise min and max will be he same.
-  maxPrice: v8n()
-    .number(false)
-    .positive(),
+  maxPrice: v8n().optional(
+    v8n()
+      .number(false)
+      .positive()
+  ),
 
   // Same as min and max price
   minDiscount: v8n().optional(
@@ -154,15 +160,25 @@ export interface Product extends DefaultSchema {
   images: string[];
   description?: string;
   variants: Variant[];
-  minPrice: number;
-  maxPrice: number;
+  minPrice?: number;
+  maxPrice?: number;
   totalStock?: number;
   minDiscount?: number;
   maxDiscount?: number;
 }
 
 // An order always stores a flattened product and variant combination.
-export interface OrderProduct extends Omit<Product, 'variants' | 'minPrice' | 'maxPrice' | 'minDiscount' | 'maxDiscount' | 'totalStock'>, Variant {}
+export interface OrderProduct
+  extends Omit<
+      Product,
+      | 'variants'
+      | 'minPrice'
+      | 'maxPrice'
+      | 'minDiscount'
+      | 'maxDiscount'
+      | 'totalStock'
+    >,
+    Variant {}
 
 export interface ProductSet {
   setTag: ProductSetTag;
