@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { OrderProduct } from '@sradevski/la-sdk/dist/models/product';
 import { Flex, Title, Text, Box, Image } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 
@@ -9,7 +9,7 @@ export const ProductImageWithTitle = ({
   quantity,
   ...props
 }: {
-  product: Product;
+  product: OrderProduct;
   storeId: string;
   quantity?: number;
 } & React.ComponentProps<typeof Flex>) => {

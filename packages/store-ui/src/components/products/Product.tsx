@@ -70,7 +70,7 @@ export const Product = ({ product }: ProductProps) => {
   const [trackedEvent, setTrackedEvent] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const outOfStock = product.stock === 0;
+  const outOfStock = product.totalStock === 0;
 
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
@@ -134,10 +134,11 @@ export const Product = ({ product }: ProductProps) => {
 
   const handleAddToCart = () => {
     let action: Promise<Cart | void> = Promise.resolve();
+    const orderProduct = sdk.product.convertToOrderProduct(product);
 
     if (user) {
       action = sdk.cart.addItemToCart(user._id, {
-        product: product._id,
+        product: { id: orderProduct._id },
         fromStore: store._id,
         quantity,
       });
@@ -146,10 +147,10 @@ export const Product = ({ product }: ProductProps) => {
     dispatch(
       trackEvent({
         eventName: AnalyticsEvents.addItemToCart,
-        productId: product._id,
-        category: product.category,
-        price: product.calculatedPrice,
-        discount: product.discount,
+        productId: orderProduct._id,
+        category: orderProduct.category,
+        price: orderProduct.calculatedPrice,
+        discount: orderProduct.discount,
         quantity,
       }),
     );
@@ -157,7 +158,7 @@ export const Product = ({ product }: ProductProps) => {
     caller(action, () => {
       message.info(t('cart.addedToCart'));
       return addCartItemWithProduct({
-        product,
+        product: orderProduct,
         quantity,
         fromStore: store._id,
       });
@@ -227,8 +228,8 @@ export const Product = ({ product }: ProductProps) => {
             >
               <Price
                 size='large'
-                calculatedPrice={product.calculatedPrice}
-                basePrice={product.price}
+                calculatedPrice={product.minCalculatedPrice}
+                basePrice={product.minPrice}
                 currency={'ден'}
               />
               <Text fontSize={1} color='mutedText.dark'>
@@ -249,7 +250,7 @@ export const Product = ({ product }: ProductProps) => {
                     width='68px'
                     size='large'
                     min={1}
-                    max={product.stock || 999}
+                    max={product.totalStock || 999}
                     value={quantity}
                     onChange={(val: number) => setQuantity(val)}
                     mr={2}

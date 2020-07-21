@@ -59,7 +59,12 @@ describe('"storeAnalytics" service', () => {
         {
           orderedFrom: testStores[0]._id,
           orderedBy: testUsers[0]._id,
-          ordered: [{ product: testProducts[0], quantity: 2 }],
+          ordered: [
+            {
+              product: sdk.product.convertToOrderProduct(testProducts[0]),
+              quantity: 2,
+            },
+          ],
           delivery: testDeliveries[0],
           deliverTo: testAddresses[0],
         },

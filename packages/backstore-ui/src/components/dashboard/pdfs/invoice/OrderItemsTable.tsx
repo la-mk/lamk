@@ -40,19 +40,24 @@ export const OrderItemsTable = ({
             { text: item.quantity.toFixed(2) },
             {
               text: (
-                item.product.calculatedPrice -
-                item.product.calculatedPrice * 0.18
+                (item.product.calculatedPrice ?? 0) -
+                (item.product.calculatedPrice ?? 0) * 0.18
               ).toFixed(2),
             },
             {
               text: item.product.discount
-                ? `${(
-                    item.product.calculatedPrice / item.product.price
+                ? `${(item.product.discount
+                    ? (item.product.discount / item.product.price) * 100
+                    : 0
                   ).toFixed(2)}%`
                 : '',
             },
             { text: '18%' },
-            { text: (item.quantity * item.product.calculatedPrice).toFixed(2) },
+            {
+              text: (
+                item.quantity * (item.product.calculatedPrice ?? 0)
+              ).toFixed(2),
+            },
           ];
         }),
       ]}

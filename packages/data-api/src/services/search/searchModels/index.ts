@@ -29,13 +29,18 @@ export const productsModel = {
         facet: false,
       },
       {
-        name: 'calculatedPrice',
+        name: 'minCalculatedPrice',
+        type: 'float',
+        facet: false,
+      },
+      {
+        name: 'maxCalculatedPrice',
         type: 'float',
         facet: false,
       },
       {
         name: 'sku',
-        type: 'string',
+        type: 'string[]',
         facet: false,
       },
       {
@@ -71,8 +76,9 @@ export const productsModel = {
       soldBy: product.soldBy,
       name: normalizeText(product.name),
       description: normalizeText(product.description) ?? '',
-      sku: product.sku ?? '',
-      calculatedPrice: product.calculatedPrice,
+      sku: product.variants.map(variant => variant.sku ?? '').filter(x => !!x),
+      minCalculatedPrice: product.minCalculatedPrice,
+      maxCalculatedPrice: product.maxCalculatedPrice,
       category: product.category,
       // Convert to seconds so it fits in int32 (required for default sort)
       createdAt: Math.round(new Date(product.createdAt).getTime() / 1000),

@@ -8,6 +8,9 @@ import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
 import { checkContext, disallow } from 'feathers-hooks-common';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { patchableFields } from '../../common/hooks/filtering';
+import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { Order } from '@sradevski/la-sdk/dist/models/order';
 
 // FUTURE: Improve how we do the validation, maybe reassign all fields in the hook instead of checking the validity of each of them.
 
@@ -15,25 +18,26 @@ import { patchableFields } from '../../common/hooks/filtering';
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
 const validateOrderItems = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['create']);
-  const { orderedFrom, ordered } = ctx.data;
+  const { orderedFrom, ordered } = ctx.data as {
+    ordered: Order['ordered'];
+    orderedFrom: string;
+  };
 
-  ordered.forEach((orderItem: any) => {
+  ordered.forEach(orderItem => {
     if (orderItem.product.soldBy !== orderedFrom) {
       throw new BadRequest('Product is not from the specified store');
     }
   });
 
-  const products = (
-    await ctx.app.services['products'].find({
-      query: {
-        _id: {
-          $in: ordered.map((orderItem: any) => orderItem.product._id),
-        },
+  const products = ((await ctx.app.services['products'].find({
+    query: {
+      _id: {
+        $in: ordered.map(orderItem => orderItem.product._id),
       },
-    })
-  ).data;
+    },
+  })) as FindResult<Product>).data;
 
-  ordered.forEach((orderItem: any) => {
+  ordered.forEach(orderItem => {
     const dbProduct = products.find(
       (product: any) => product._id === orderItem.product._id,
     );
@@ -42,9 +46,17 @@ const validateOrderItems = async (ctx: HookContext) => {
       throw new BadRequest('A product in the cart no longer exists');
     }
 
+    const variant = sdk.product.getVariantForAttributes(dbProduct);
+
+    if (!variant) {
+      throw new BadRequest(
+        'The variant of the product in your cart does not exist anymore, remove the product and try adding it again',
+      );
+    }
+
     if (
-      dbProduct.price !== orderItem.product.price ||
-      dbProduct.calculatedPrice !== orderItem.product.calculatedPrice
+      variant.price !== orderItem.product.price ||
+      variant.calculatedPrice !== orderItem.product.calculatedPrice
     ) {
       throw new BadRequest(
         'The price of a product in your cart changed, refresh the page and try again',
@@ -52,17 +64,17 @@ const validateOrderItems = async (ctx: HookContext) => {
     }
 
     // If the stock is not set, it means there is unlimited stock.
-    if (dbProduct.stock === null) {
+    if (variant.stock == null) {
       return;
     }
 
-    if (dbProduct.stock === 0) {
+    if (variant.stock === 0) {
       throw new BadRequest(
         `It seems ${dbProduct.name} is out of stock, try again later`,
       );
     }
 
-    if (dbProduct.stock < orderItem.quantity) {
+    if ((variant.stock ?? 0) < orderItem.quantity) {
       throw new BadRequest(
         `There aren't enough items in stock for ${dbProduct.name}, try again later`,
       );

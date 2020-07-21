@@ -13,7 +13,7 @@ import { TFunction } from 'next-i18next';
 const getProductSummary = (product: ProductType, t: TFunction) => {
   const partialDescription = product.description?.slice(0, 130);
   return `${product.name}
-  ${t('common.price')}: ${product.calculatedPrice}
+  ${t('common.price')}: ${product.minCalculatedPrice}
   ${partialDescription ?? ''}...`;
 };
 

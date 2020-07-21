@@ -9,7 +9,7 @@ import {
   convertQueryToNumber,
   removeDuplicates,
 } from '../../common/hooks/db';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product, Variant } from '@sradevski/la-sdk/dist/models/product';
 import {
   createProductSearch,
   patchProductSearch,
@@ -39,59 +39,142 @@ const assignPreviousProduct = async (ctx: HookContext) => {
   (ctx as HookContextWithState<Product>).contextState = product;
 };
 
-const calculatePrice = async (ctx: HookContext) => {
+const calculateFields = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['create', 'patch']);
   // If we are creating the object, we are sure the price field is present.
   if (ctx.method === 'create') {
-    ctx.data.calculatedPrice = sdk.utils.pricing.calculateProductPrice(
-      ctx.data,
-    );
-    if (ctx.data.calculatedPrice <= 0) {
-      throw new BadRequest('Product has to have a positive price');
-    }
-    return;
-  }
+    ctx.data.variants.forEach((variant: Variant) => {
+      variant.calculatedPrice = sdk.utils.pricing.calculateProductPrice(
+        variant,
+      );
 
-  // If both the price and discount were not updated, there is no need to recalculate price.
-  if (!ctx.data.price && ctx.data.discount) {
+      if (variant.calculatedPrice <= 0) {
+        throw new BadRequest('Product variant has to have a positive price');
+      }
+
+      ctx.data.totalStock = variant.stock
+        ? (ctx.data.totalStock ?? 0) + variant.stock
+        : undefined;
+
+      ctx.data.minPrice = Math.min(
+        ctx.data.minPrice ?? Number.POSITIVE_INFINITY,
+        variant.price,
+      );
+      ctx.data.maxPrice = Math.max(
+        ctx.data.maxPrice ?? Number.NEGATIVE_INFINITY,
+        variant.price,
+      );
+
+      ctx.data.minDiscount = variant.discount
+        ? Math.min(
+            ctx.data.minDiscount ?? Number.POSITIVE_INFINITY,
+            variant.discount,
+          )
+        : undefined;
+      ctx.data.maxDiscount = variant.discount
+        ? Math.max(
+            ctx.data.maxDiscount ?? Number.NEGATIVE_INFINITY,
+            variant.discount,
+          )
+        : undefined;
+
+      ctx.data.minCalculatedPrice = Math.min(
+        ctx.data.minCalculatedPrice ?? Number.POSITIVE_INFINITY,
+        variant.calculatedPrice,
+      );
+      ctx.data.maxCalculatedPrice = Math.max(
+        ctx.data.maxCalculatedPrice ?? Number.NEGATIVE_INFINITY,
+        variant.calculatedPrice,
+      );
+    });
+
     return;
   }
 
   // If we are patching, and we only patch either just price or discount, we won't have all info to calculate the final price.
-  const product = await ctx.app.services['products'].get(ctx.id);
-  const price = ctx.data.price ?? product.price;
-  const discount = ctx.data.discount ?? product.discount ?? 0;
-  ctx.data.calculatedPrice = sdk.utils.pricing.calculateProductPrice({
-    price,
-    discount,
-  });
+  const product = (await ctx.app.services['products'].get(ctx.id)) as
+    | Product
+    | undefined;
 
-  if (ctx.data.calculatedPrice <= 0) {
-    throw new BadRequest('Product has to have a positive price');
+  if (!product) {
+    throw new BadRequest('Product could not be found when patching.');
   }
+
+  product.variants.forEach(variant => {
+    // TODO: Pass attributes here.
+    const patchedVariant = ctx.data.variants.find(() =>
+      sdk.product.getVariantForAttributes(product),
+    );
+    const stock = patchedVariant.stock ?? variant.stock;
+    const price = patchedVariant.price ?? variant.price;
+    const discount = patchedVariant.discount ?? variant.discount;
+    patchedVariant.calculatedPrice = sdk.utils.pricing.calculateProductPrice({
+      price,
+      discount,
+    });
+
+    if (patchedVariant.calculatedPrice <= 0) {
+      throw new BadRequest('Product variant has to have a positive price');
+    }
+
+    ctx.data.totalStock = stock
+      ? (ctx.data.totalStock ?? 0) + stock
+      : undefined;
+
+    ctx.data.minPrice = Math.min(
+      ctx.data.minPrice ?? Number.POSITIVE_INFINITY,
+      price,
+    );
+    ctx.data.maxPrice = Math.max(
+      ctx.data.maxPrice ?? Number.NEGATIVE_INFINITY,
+      price,
+    );
+
+    ctx.data.minDiscount = discount
+      ? Math.min(ctx.data.minDiscount ?? Number.POSITIVE_INFINITY, discount)
+      : undefined;
+    ctx.data.maxDiscount = discount
+      ? Math.max(ctx.data.maxDiscount ?? Number.NEGATIVE_INFINITY, discount)
+      : undefined;
+
+    ctx.data.minCalculatedPrice = Math.min(
+      ctx.data.minCalculatedPrice ?? Number.POSITIVE_INFINITY,
+      patchedVariant.calculatedPrice,
+    );
+    ctx.data.maxCalculatedPrice = Math.max(
+      ctx.data.maxCalculatedPrice ?? Number.NEGATIVE_INFINITY,
+      patchedVariant.calculatedPrice,
+    );
+  });
 };
 
 const allowedFields = [
   '_id',
   'name',
   'unit',
-  'price',
-  'discount',
-  'calculatedPrice',
   'category',
   'images',
   'description',
   'soldBy',
-  'sku',
-  'stock',
+  'variants',
+  'totalStock',
+  'minPrice',
+  'maxPrice',
+  'minDiscount',
+  'maxDiscount',
+  'minCalculatedPrice',
+  'maxCalculatedPrice',
   'createdAt',
 ];
 
 const numberFieldsSet = new Set([
-  'price',
-  'discount',
-  'calculatedPrice',
-  'stock',
+  'minPrice',
+  'maxPrice',
+  'minDiscount',
+  'maxDiscount',
+  'minCalculatedPrice',
+  'maxCalculatedPrice',
+  'totalStock',
 ]);
 
 export const hooks = {
@@ -106,7 +189,7 @@ export const hooks = {
       authenticate('jwt'),
       setCurrentUser(['soldBy']),
       removeDuplicates('groups'),
-      calculatePrice,
+      calculateFields,
       validate(sdk.product.validate),
     ],
     patch: [
@@ -114,7 +197,7 @@ export const hooks = {
       queryWithCurrentUser(['soldBy']),
       assignPreviousProduct,
       removeDuplicates('groups'),
-      calculatePrice,
+      calculateFields,
       validate(sdk.product.validate),
     ],
     remove: [authenticate('jwt'), queryWithCurrentUser(['soldBy'])],

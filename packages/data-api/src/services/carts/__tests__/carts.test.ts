@@ -67,7 +67,7 @@ describe('"carts" service', () => {
       {
         items: [
           {
-            product: testProducts[0]._id,
+            product: { id: testProducts[0]._id },
             fromStore: testStores[0]._id,
             quantity: 5,
           },
@@ -76,7 +76,7 @@ describe('"carts" service', () => {
       params,
     );
 
-    expect(cart.items[0].product).toBe(testProducts[0]._id);
+    expect(cart.items[0].product.id).toBe(testProducts[0]._id);
     expect(cart.items[0].fromStore).toBe(testStores[0]._id);
   });
 
