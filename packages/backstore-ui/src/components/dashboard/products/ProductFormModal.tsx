@@ -78,6 +78,7 @@ export const ProductFormModal = ({
       unit: sdk.product.ProductUnit.ITEM,
       images: [],
       groups: [],
+      variants: [{ price: 0 }],
     },
     [product, storeId],
   );
@@ -168,7 +169,8 @@ export const ProductFormModal = ({
           colon={false}
           externalState={externalState}
           validate={data => sdk.product.validate(data, Boolean(product))}
-          validateSingle={sdk.product.validateSingle}
+          // TODO: Add single validation when the validation library can handle nested schemas/selectors.
+          // validateSingle={sdk.product.validateSingle}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }
@@ -208,7 +210,7 @@ export const ProductFormModal = ({
             <Col md={8} span={24}>
               <FormItem
                 label={t('common.price')}
-                selector='price'
+                selector='variants[0].price'
                 parser={parsers.number}
               >
                 {(
@@ -238,7 +240,7 @@ export const ProductFormModal = ({
             <Col md={8} span={24}>
               <FormItem
                 label={t('product.discount')}
-                selector='discount'
+                selector='variants[0].discount'
                 parser={parsers.number}
               >
                 {(
@@ -285,7 +287,7 @@ export const ProductFormModal = ({
               <FormItem
                 help={t('product.stockTip')}
                 label={t('product.stock')}
-                selector='stock'
+                selector='variants[0].stock'
                 parser={parsers.integer}
               >
                 {(
@@ -308,7 +310,7 @@ export const ProductFormModal = ({
               </FormItem>
             </Col>
             <Col md={12} span={24}>
-              <FormItem label={t('product.sku')} selector='sku'>
+              <FormItem label={t('product.sku')} selector='variants[0].sku'>
                 {formInput({
                   placeholder: t('product.skuExample'),
                 })}

@@ -15,12 +15,12 @@ export const ProductTags = ({
   const compact = hooks.useBreakpoint([true, false, false]);
 
   const discountPercentage = Math.round(
-    ((product.discount ?? 0) / product.price) * 100,
+    ((product.minDiscount ?? 0) / product.minPrice) * 100,
   );
   const isNew =
     differenceInDays(new Date(product.createdAt), Date.now()) >
     NUM_DAYS_CONSIDER_AS_NEW;
-  const isSoldOut = product.stock === 0;
+  const isSoldOut = product.totalStock === 0;
 
   return (
     <Flex

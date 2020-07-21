@@ -22,7 +22,7 @@ import {
   getProducts,
   getGroups,
 } from '../../../state/modules/products/products.selector';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product, Variant } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import {
   setProducts,
@@ -42,7 +42,7 @@ const searchSupportedFields = [
   'sku',
   'soldBy',
   'description',
-  'calculatedPrice',
+  'minCalculatedPrice',
   'category',
   'createdAt',
 ];
@@ -95,47 +95,53 @@ const getColumns = (
     },
     {
       title: t('product.sku'),
-      dataIndex: 'sku',
+      dataIndex: 'variants',
+      render: (val: Variant[], record) => (
+        <Text ellipsis>{val.map(x => x.sku).join(', ')}</Text>
+      ),
     },
     {
       title: t('common.price'),
-      dataIndex: 'calculatedPrice',
+      dataIndex: 'minCalculatedPrice',
       filters: [
         {
           text: t('product.discount'),
           value: 'discounted',
         },
       ],
-      filteredValue: filters.filtering.discount ? ['discounted'] : undefined,
+      filteredValue: filters.filtering.minDiscount ? ['discounted'] : undefined,
       filterMultiple: false,
       onFilter: (value, record) =>
-        value === 'discounted' ? (record.discount ?? 0) > 0 : true,
+        value === 'discounted' ? (record.minDiscount ?? 0) > 0 : true,
       sortOrder:
-        filters.sorting?.field === 'calculatedPrice'
+        filters.sorting?.field === 'minCalculatedPrice'
           ? filters.sorting?.order
           : undefined,
-      sorter: (a, b) => a.calculatedPrice - b.calculatedPrice,
+      sorter: (a, b) =>
+        (a.minCalculatedPrice ?? 0) - (b.minCalculatedPrice ?? 0),
       render: (val, record) => (
-        <Text color={record.discount ? 'danger' : 'text.dark'}>{val}</Text>
+        <Text color={record.minDiscount ? 'danger' : 'text.dark'}>{val}</Text>
       ),
     },
     {
       title: t('product.stock'),
-      dataIndex: 'stock',
+      dataIndex: 'totalStock',
       filters: [
         {
           text: t('product.outOfStock'),
           value: 0,
         },
       ],
-      filteredValue: filters.filtering.stock
-        ? [filters.filtering.stock]
+      filteredValue: filters.filtering.totalStock
+        ? [filters.filtering.totalStock]
         : undefined,
       filterMultiple: false,
-      onFilter: (value, record) => record.stock === value,
+      onFilter: (value, record) => record.totalStock === value,
       sortOrder:
-        filters.sorting?.field === 'stock' ? filters.sorting?.order : undefined,
-      sorter: (a, b) => (a.stock ?? 0) - (b.stock ?? 0),
+        filters.sorting?.field === 'totalStock'
+          ? filters.sorting?.order
+          : undefined,
+      sorter: (a, b) => (a.totalStock ?? 0) - (b.totalStock ?? 0),
       render: val => <Text>{val}</Text>,
     },
     {
@@ -312,12 +318,14 @@ export const Products = () => {
               filtering: {
                 ...filters.filtering,
                 ...utils.filter.singleItemFilter(
-                  'stock',
-                  tableFilters.stock?.[0],
+                  'totalStock',
+                  tableFilters.totalStock?.[0],
                 ),
                 ...utils.filter.rangeFilter(
-                  'discount',
-                  tableFilters.calculatedPrice?.[0] === 'discounted' ? 1 : null,
+                  'minDiscount',
+                  tableFilters.minCalculatedPrice?.[0] === 'discounted'
+                    ? 1
+                    : null,
                   null,
                   0,
                   Infinity,

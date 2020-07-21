@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Modal,
   Spin,
-  message,
   Flex,
-  Button,
   Descriptions,
   DescriptionItem,
   Select,
@@ -18,13 +16,10 @@ import {
   hooks,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { OrderProduct } from '@sradevski/la-sdk/dist/models/product';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import format from 'date-fns/format';
-import {
-  setOrder,
-  removeOrder,
-} from '../../../state/modules/orders/orders.module';
+import { setOrder } from '../../../state/modules/orders/orders.module';
 import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
@@ -36,7 +31,7 @@ interface OrderDetailsModalProps {
   onClose: () => void;
 }
 
-const getQuantityForProduct = (order: Order, product: Product) => {
+const getQuantityForProduct = (order: Order, product: OrderProduct) => {
   const orderItem = order.ordered.find(
     item => item.product._id === product._id,
   );
@@ -44,13 +39,13 @@ const getQuantityForProduct = (order: Order, product: Product) => {
   return orderItem ? orderItem.quantity : null;
 };
 
-const getTotalPriceForProduct = (order: Order, product: Product) => {
+const getTotalPriceForProduct = (order: Order, product: OrderProduct) => {
   const orderItem = order.ordered.find(
     item => item.product._id === product._id,
   );
 
   return orderItem
-    ? orderItem.quantity * orderItem.product.calculatedPrice
+    ? orderItem.quantity * (orderItem.product.calculatedPrice ?? 0)
     : null;
 };
 
@@ -61,7 +56,7 @@ export const OrderDetailsModal = ({
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const order = useSelector<any, Order>(getOrder(orderId));
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<OrderProduct[]>([]);
   const { t } = useTranslation();
 
   useEffect(() => {

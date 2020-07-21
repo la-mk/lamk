@@ -13,26 +13,30 @@ const parsePriceFilter = (
   min: number,
   max: number,
 ) => {
-  if (!filtering || !filtering.calculatedPrice) {
+  if (!filtering || !filtering.minCalculatedPrice) {
     return [min, max];
   }
 
   // If it is an exact value, set that to be both from and to
   if (
-    isString(filtering.calculatedPrice) ||
-    isNumber(filtering.calculatedPrice)
+    isString(filtering.minCalculatedPrice) ||
+    isNumber(filtering.minCalculatedPrice)
   ) {
     return [
-      toNumber(filtering.calculatedPrice),
-      toNumber(filtering.calculatedPrice),
+      toNumber(filtering.minCalculatedPrice),
+      toNumber(filtering.minCalculatedPrice),
     ];
   }
 
   const fromPrice = toNumber(
-    filtering.calculatedPrice.$gt || filtering.calculatedPrice.$gte || min,
+    filtering.minCalculatedPrice.$gt ||
+      filtering.minCalculatedPrice.$gte ||
+      min,
   );
   const toPrice = toNumber(
-    filtering.calculatedPrice.$lt || filtering.calculatedPrice.$lte || max,
+    filtering.minCalculatedPrice.$lt ||
+      filtering.minCalculatedPrice.$lte ||
+      max,
   );
 
   return [fromPrice, toPrice];
@@ -93,7 +97,7 @@ export const PriceFilter = ({
       ...filters,
       filtering: {
         ...(filters.filtering || {}),
-        ...utils.filter.rangeFilter('calculatedPrice', f, t, min, max),
+        ...utils.filter.rangeFilter('minCalculatedPrice', f, t, min, max),
       },
     });
   };
