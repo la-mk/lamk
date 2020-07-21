@@ -125,8 +125,8 @@ export const schema = {
       .positive()
   ),
 
-   // Same as min and max price
-   minCalculatedPrice: v8n().optional(
+  // Same as min and max price
+  minCalculatedPrice: v8n().optional(
     v8n()
       .number(false)
       .positive()
@@ -138,18 +138,22 @@ export const schema = {
   ),
 };
 
-export const orderProductSchema = {
-  ...schema,
-  ...variantSchema,
-  variants: undefined,
-  totalStock: undefined,
-  minPrice: undefined,
-  maxPrice: undefined,
-  minDiscount: undefined,
-  maxDiscount: undefined,
-  minCalculatedPrice: undefined,
-  maxCalculatedPrice: undefined,
-};
+export const orderProductSchema = omit(
+  {
+    ...schema,
+    ...variantSchema,
+  },
+  [
+    'variants',
+    'totalStock',
+    'minPrice',
+    'maxPrice',
+    'minDiscount',
+    'maxDiscount',
+    'minCalculatedPrice',
+    'maxCalculatedPrice',
+  ]
+);
 
 export interface Attributes {
   color?: string;
@@ -240,27 +244,33 @@ const getQueryForSet = (productSet: ProductSetTag) => {
   }
 };
 
-export const convertToOrderProduct = (product: Product, attributes?: Attributes): OrderProduct => {
+export const convertToOrderProduct = (
+  product: Product,
+  attributes?: Attributes
+): OrderProduct => {
   const variant = getVariantForAttributes(product, attributes);
   return {
-    ...(omit(product, [
-    'variants',
-    'totalStock',
-    'minPrice',
-    'maxPrice',
-    'minDiscount',
-    'maxDiscount',
-    'minCalculatedPrice',
-    'maxCalculatedPrice',
-  ])),
+    ...omit(product, [
+      'variants',
+      'totalStock',
+      'minPrice',
+      'maxPrice',
+      'minDiscount',
+      'maxDiscount',
+      'minCalculatedPrice',
+      'maxCalculatedPrice',
+    ]),
     ...variant,
-  }
+  };
 };
 
 // TODO: Filter by attributes once they're in the model.
-export const getVariantForAttributes = (product: Product, attributes?: Attributes) => {
+export const getVariantForAttributes = (
+  product: Product,
+  attributes?: Attributes
+) => {
   // There is only a single base variant.
-  if(!attributes){
+  if (!attributes) {
     return product.variants[0];
   }
 
@@ -330,7 +340,7 @@ export const getProductSdk = (client: Application) => {
     getQueryForSet,
 
     getVariantForAttributes,
-    
+
     convertToOrderProduct,
 
     validate: (data: Product, ignoreRequired = false) => {
