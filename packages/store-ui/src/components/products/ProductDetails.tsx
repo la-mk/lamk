@@ -51,12 +51,8 @@ export const ProductDetails = ({
         key='delivery'
       >
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-          {t('delivery.productDeliveryCost', {
-            deliveryPrice,
-          })}{' '}
-          ден
+          {t(`deliveryMethods.${delivery.method}`)}: {`${deliveryPrice} ден`}
         </Paragraph>
-
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
           {t('delivery.productFreeDeliveryExplanation', {
             freeDeliveryPrice: `${freeDeliveryPrice} ден`,

@@ -165,7 +165,6 @@
 		"overPrice": "Over price",
 		"priceExplanation": "This can be the average delivery cost.",
 		"updatingDeliveryTip": "Updating delivery...",
-		"productDeliveryCost": "Get it delivered to your home for {{deliveryPrice}}",
 		"productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
 	},
 	"filters": {

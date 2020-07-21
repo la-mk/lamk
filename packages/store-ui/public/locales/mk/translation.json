@@ -517,7 +517,7 @@
     "country": "Држава",
     "description": "Опис",
     "details": "Детали",
-    "email": "Емаил адреса",
+    "email": "Емаил",
     "filter_plural": "Филтри",
     "firstName": "Име",
     "lastName": "Презиме",
@@ -539,7 +539,6 @@
   },
   "delivery": {
     "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
-    "productDeliveryCost": "Достава до вашиот дом за {{deliveryPrice}}",
     "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава"
   },
   "deliveryMethods": {
@@ -601,12 +600,12 @@
     "seeOrder": "Видете ја порачката"
   },
   "orderStatus": {
-    "invalid": "Невалидна",
-		"invalidDescription": "Невалидна порачка",
     "cancelled": "Откажана",
     "cancelledDescription": "Откажана",
     "completed": "Завршена",
     "completedDescription": "Испорачана до купувач",
+    "invalid": "Невалидна",
+    "invalidDescription": "Невалидна порачка",
     "pendingPayment": "За плаќање",
     "pendingPaymentDescription": "Се чека за наплата",
     "pendingShipment": "Се процесира",

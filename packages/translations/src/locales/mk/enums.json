@@ -465,7 +465,7 @@
 	},
 
 	"deliveryMethods": {
-    "cargo-pickup": "Да се подигне од Карго",
+    "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
 		"pickup": "Да се подигне"
 	},

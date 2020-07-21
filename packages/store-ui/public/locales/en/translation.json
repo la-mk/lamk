@@ -539,7 +539,6 @@
   },
   "delivery": {
     "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
-    "productDeliveryCost": "Get it delivered to your home for {{deliveryPrice}}",
     "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
   },
   "deliveryMethods": {
@@ -601,12 +600,12 @@
     "seeOrder": "See order status"
   },
   "orderStatus": {
-    "invalid": "Invalid",
-		"invalidDescription": "Invalid order",
     "cancelled": "Cancelled",
     "cancelledDescription": "Cancelled",
     "completed": "Completed",
     "completedDescription": "All done!",
+    "invalid": "Invalid",
+    "invalidDescription": "Invalid order",
     "pendingPayment": "Awaiting payment",
     "pendingPaymentDescription": "Awaiting payment",
     "pendingShipment": "Preparing",
