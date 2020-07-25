@@ -17,7 +17,7 @@ export const Quantity = ({
     <InputNumber
       width='80px'
       min={1}
-      max={999}
+      max={cartItem.product.stock || 999}
       value={cartItem.quantity}
       onChange={value => handleChangeItemQuantity(cartItem, value)}
       {...props}

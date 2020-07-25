@@ -30,7 +30,7 @@ export const ProductDuo = ({ set, storeId }: ProductSetProps) => {
     <>
       <SetTitle title={title} subtitle={subtitle} />
       <Flex
-        alignItems='center'
+        alignItems={['center', 'center', 'flex-start']}
         justifyContent='center'
         flexDirection={['column', 'column', 'row']}
       >

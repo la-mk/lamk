@@ -50,9 +50,11 @@ export const ProductDetails = ({
         }
         key='delivery'
       >
-        <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-          {t(`deliveryMethods.${delivery.method}`)}: {`${deliveryPrice} ден`}
-        </Paragraph>
+        {!!delivery?.method && (
+          <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+            {t(`deliveryMethods.${delivery.method}`)}: {`${deliveryPrice} ден`}
+          </Paragraph>
+        )}
         <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
           {t('delivery.productFreeDeliveryExplanation', {
             freeDeliveryPrice: `${freeDeliveryPrice} ден`,
