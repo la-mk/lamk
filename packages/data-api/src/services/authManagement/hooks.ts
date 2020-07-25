@@ -12,7 +12,7 @@ import { allowFields } from '../../common/hooks/auth';
 import { HookContext } from '@feathersjs/feathers';
 import { AuthManagement } from '@sradevski/la-sdk/dist/models/authManagement';
 import { BadRequest } from '../../common/errors';
-import { patchableFields } from '../../common/hooks/filtering';
+import { settableFields } from '../../common/hooks/filtering';
 
 const promisifiedRandomBytes = util.promisify(crypto.randomBytes);
 
@@ -85,7 +85,7 @@ export const hooks = {
     patch: [
       unless(
         (...args) => isProvider('server')(...args),
-        patchableFields(['resetToken', 'modifiedAt']),
+        settableFields(['resetToken', 'modifiedAt']),
       ),
       handleExternalPatch,
       validate(sdk.authManagement.validate),

@@ -7,7 +7,7 @@ import { validate } from '../../common/hooks/db';
 import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
 import { checkContext, disallow } from 'feathers-hooks-common';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
-import { patchableFields } from '../../common/hooks/filtering';
+import { settableFields } from '../../common/hooks/filtering';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
@@ -200,7 +200,7 @@ export const hooks = {
 
     patch: [
       authenticate('jwt'),
-      patchableFields(['status', 'modifiedAt']),
+      settableFields(['status', 'modifiedAt']),
       // Only the store can modify an order as things stand now.
       queryWithCurrentUser(['orderedFrom']),
       validate(sdk.order.validate),

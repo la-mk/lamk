@@ -1,6 +1,6 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
-import { requireAnyQueryParam } from '../../common/hooks/filtering';
+import { requireAnyQueryParam, pickFields } from '../../common/hooks/filtering';
 import { checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
 import { sdk } from '@sradevski/la-sdk';
@@ -41,112 +41,72 @@ const assignPreviousProduct = async (ctx: HookContext) => {
 
 const calculateFields = async (ctx: HookContext) => {
   checkContext(ctx, 'before', ['create', 'patch']);
-  // If we are creating the object, we are sure the price field is present.
-  if (ctx.method === 'create') {
-    ctx.data.variants.forEach((variant: Variant) => {
-      variant.calculatedPrice = sdk.utils.pricing.calculateProductPrice(
-        variant,
-      );
+  // If patching one variant, you'll need to pass all of them, otherwise it's difficult to know what changed. We can change it to be able ot pass a single full variantt, so we can match it with what is in the DB, but it's not necessary for now.
+  const variants = ctx.data.variants ?? [];
 
-      if (variant.calculatedPrice <= 0) {
-        throw new BadRequest('Product variant has to have a positive price');
-      }
+  variants.forEach((variant: Variant) => {
+    variant.calculatedPrice = sdk.utils.pricing.calculateProductPrice(variant);
 
-      ctx.data.totalStock = variant.stock
+    if (variant.calculatedPrice <= 0) {
+      throw new BadRequest('Product variant has to have a positive price');
+    }
+
+    ctx.data.totalStock =
+      variant.stock != null
         ? (ctx.data.totalStock ?? 0) + variant.stock
-        : undefined;
+        : ctx.data.totalStock;
 
-      ctx.data.minPrice = Math.min(
-        ctx.data.minPrice ?? Number.POSITIVE_INFINITY,
-        variant.price,
-      );
-      ctx.data.maxPrice = Math.max(
-        ctx.data.maxPrice ?? Number.NEGATIVE_INFINITY,
-        variant.price,
-      );
+    ctx.data.minPrice = Math.min(
+      ctx.data.minPrice ?? Number.POSITIVE_INFINITY,
+      variant.price,
+    );
 
-      ctx.data.minDiscount = variant.discount
+    ctx.data.maxPrice = Math.max(
+      ctx.data.maxPrice ?? Number.NEGATIVE_INFINITY,
+      variant.price,
+    );
+
+    ctx.data.minDiscount =
+      variant.discount != null
         ? Math.min(
             ctx.data.minDiscount ?? Number.POSITIVE_INFINITY,
             variant.discount,
           )
-        : undefined;
-      ctx.data.maxDiscount = variant.discount
+        : ctx.data.minDiscount;
+
+    ctx.data.maxDiscount =
+      variant.discount != null
         ? Math.max(
             ctx.data.maxDiscount ?? Number.NEGATIVE_INFINITY,
             variant.discount,
           )
-        : undefined;
-
-      ctx.data.minCalculatedPrice = Math.min(
-        ctx.data.minCalculatedPrice ?? Number.POSITIVE_INFINITY,
-        variant.calculatedPrice,
-      );
-      ctx.data.maxCalculatedPrice = Math.max(
-        ctx.data.maxCalculatedPrice ?? Number.NEGATIVE_INFINITY,
-        variant.calculatedPrice,
-      );
-    });
-
-    return;
-  }
-
-  // If we are patching, and we only patch either just price or discount, we won't have all info to calculate the final price.
-  const product = (await ctx.app.services['products'].get(ctx.id)) as
-    | Product
-    | undefined;
-
-  if (!product) {
-    throw new BadRequest('Product could not be found when patching.');
-  }
-
-  product.variants.forEach(variant => {
-    // TODO: Pass attributes here.
-    const patchedVariant = ctx.data.variants.find(() =>
-      sdk.product.getVariantForAttributes(product),
-    );
-    const stock = patchedVariant.stock ?? variant.stock;
-    const price = patchedVariant.price ?? variant.price;
-    const discount = patchedVariant.discount ?? variant.discount;
-    patchedVariant.calculatedPrice = sdk.utils.pricing.calculateProductPrice({
-      price,
-      discount,
-    });
-
-    if (patchedVariant.calculatedPrice <= 0) {
-      throw new BadRequest('Product variant has to have a positive price');
-    }
-
-    ctx.data.totalStock = stock
-      ? (ctx.data.totalStock ?? 0) + stock
-      : undefined;
-
-    ctx.data.minPrice = Math.min(
-      ctx.data.minPrice ?? Number.POSITIVE_INFINITY,
-      price,
-    );
-    ctx.data.maxPrice = Math.max(
-      ctx.data.maxPrice ?? Number.NEGATIVE_INFINITY,
-      price,
-    );
-
-    ctx.data.minDiscount = discount
-      ? Math.min(ctx.data.minDiscount ?? Number.POSITIVE_INFINITY, discount)
-      : undefined;
-    ctx.data.maxDiscount = discount
-      ? Math.max(ctx.data.maxDiscount ?? Number.NEGATIVE_INFINITY, discount)
-      : undefined;
+        : ctx.data.maxDiscount;
 
     ctx.data.minCalculatedPrice = Math.min(
       ctx.data.minCalculatedPrice ?? Number.POSITIVE_INFINITY,
-      patchedVariant.calculatedPrice,
+      variant.calculatedPrice,
     );
+
     ctx.data.maxCalculatedPrice = Math.max(
       ctx.data.maxCalculatedPrice ?? Number.NEGATIVE_INFINITY,
-      patchedVariant.calculatedPrice,
+      variant.calculatedPrice,
     );
   });
 };
+
+const allowSetFields = [
+  '_id',
+  'soldBy',
+  'name',
+  'unit',
+  'category',
+  'images',
+  'groups',
+  'description',
+  'variants',
+  'createdAt',
+  'modifiedAt',
+];
 
 const allowedFields = [
   '_id',
@@ -188,6 +148,7 @@ export const hooks = {
     create: [
       authenticate('jwt'),
       setCurrentUser(['soldBy']),
+      pickFields(allowSetFields),
       removeDuplicates('groups'),
       calculateFields,
       validate(sdk.product.validate),
@@ -195,6 +156,7 @@ export const hooks = {
     patch: [
       authenticate('jwt'),
       queryWithCurrentUser(['soldBy']),
+      pickFields(allowSetFields),
       assignPreviousProduct,
       removeDuplicates('groups'),
       calculateFields,

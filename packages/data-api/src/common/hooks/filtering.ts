@@ -62,16 +62,36 @@ export const isPublished = () => {
   };
 };
 
-export const patchableFields = (fields: string[]) => {
+export const settableFields = (fields: string[]) => {
   return unless(
     (...args) => isProvider('server')(...args),
     (ctx: HookContext) => {
-      checkContext(ctx, 'before', 'patch');
+      checkContext(ctx, 'before', ['create', 'patch']);
       const dataFields = Object.keys(ctx.data);
       const violatingField = dataFields.find(field => !fields.includes(field));
       if (violatingField) {
-        throw new BadRequest(`${violatingField} cannot be patched`);
+        throw new BadRequest(`${violatingField} cannot be set`);
       }
+    },
+  );
+};
+
+export const omitFields = (fields: string[]) => {
+  return unless(
+    (...args) => isProvider('server')(...args),
+    (ctx: HookContext) => {
+      checkContext(ctx, 'before', ['create', 'patch']);
+      ctx.data = _.omit(ctx.data, fields);
+    },
+  );
+};
+
+export const pickFields = (fields: string[]) => {
+  return unless(
+    (...args) => isProvider('server')(...args),
+    (ctx: HookContext) => {
+      checkContext(ctx, 'before', ['create', 'patch']);
+      ctx.data = _.pick(ctx.data, fields);
     },
   );
 };

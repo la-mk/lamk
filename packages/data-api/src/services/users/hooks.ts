@@ -9,7 +9,7 @@ import {
   hasEmailAndValidResetToken,
   removeAuthManagementForUser,
 } from './serviceHooks/authManagement';
-import { patchableFields } from '../../common/hooks/filtering';
+import { settableFields } from '../../common/hooks/filtering';
 import { unless } from 'feathers-hooks-common';
 
 const { authenticate } = feathersAuthentication.hooks;
@@ -36,7 +36,7 @@ export const hooks = {
       ),
 
       // For now we don't allow changing an email, once we do we need to reset isEmailVerified.
-      patchableFields([
+      settableFields([
         'firstName',
         'lastName',
         'phoneNumber',

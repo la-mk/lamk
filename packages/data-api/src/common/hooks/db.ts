@@ -97,6 +97,10 @@ export const convertQueryToNumber = (fields: Set<string>) => {
 export const removeDuplicates = (field: string) => {
   return (context: HookContext) => {
     checkContext(context, 'before', ['create', 'patch']);
+    // The field wasn't supplied, no duplicates to remove.
+    if (!context.data[field]) {
+      return;
+    }
     if (!Array.isArray(context.data[field])) {
       throw new BadRequest(`${field} has to be an array`);
     }
