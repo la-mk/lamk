@@ -155,12 +155,13 @@ interface FormItemContextProps {
 }
 
 interface FormListContextProps {
-  children: (currentVal: any, index: number) => React.ReactNode;
+  children: (currentVal: any, index: number, state: any) => React.ReactNode;
   getItemTitle: (currentVal: any) => string;
   getDefaults: () => any;
   selector: string;
-  as: 'tab';
+  as?: 'tab';
   min?: number;
+  max?: number;
 }
 
 export const FormItem = ({
@@ -213,6 +214,7 @@ export const FormList = ({
   getDefaults,
   as = 'tab',
   min = 0,
+  max = Number.POSITIVE_INFINITY,
   children,
 }: SystemProps & FormListContextProps) => {
   const [active, setActive] = React.useState('0');
@@ -248,12 +250,12 @@ export const FormList = ({
 
         if (as === 'tab') {
           return (
-            <Tabs activeKey={active} onChange={setActive} type="editable-card" onEdit={onEdit}>
+            <Tabs activeKey={active} onChange={setActive} type="editable-card" onEdit={onEdit} hideAdd={val.length >= max}>
               {val.map((entry, index) => {
                 const title = getItemTitle(entry);
                 return (
-                  <TabPane tab={title} key={index.toString()} closable={index > min}>
-                    {children(entry, index)}
+                  <TabPane tab={title} key={index.toString()} closable={index >= min}>
+                    {children(entry, index, context.state)}
                   </TabPane>
                 );
               })}
