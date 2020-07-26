@@ -1,5 +1,6 @@
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
+import isEqual from 'lodash/isEqual';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
@@ -19,15 +20,15 @@ export enum ProductUnit {
   G = 'g',
 }
 
-// const attributesSchema = {
-//   color: v8n().optional(v8n().hexColor(), true),
-//   size: v8n().optional(
-//     v8n()
-//       .string()
-//       .minLength(1)
-//       .maxLength(31)
-//   ),
-// };
+const attributesSchema = {
+  color: v8n().optional(v8n().hexColor(), true),
+  size: v8n().optional(
+    v8n()
+      .string()
+      .minLength(1)
+      .maxLength(31)
+  ),
+};
 
 const variantSchema = {
   price: v8n()
@@ -45,6 +46,7 @@ const variantSchema = {
       .number(false)
       .positive()
   ),
+  attributes: v8n().optional(v8n().schema(attributesSchema)),
   sku: v8n().optional(
     v8n()
       .string()
@@ -163,7 +165,7 @@ export interface Attributes {
 export interface Variant {
   price: number;
   calculatedPrice?: number;
-  // attributes: Attributes;
+  attributes?: Attributes;
   discount?: number;
   sku?: string;
   stock?: number;
@@ -247,8 +249,12 @@ const getQueryForSet = (productSet: ProductSetTag) => {
 export const convertToOrderProduct = (
   product: Product,
   attributes?: Attributes
-): OrderProduct => {
+): OrderProduct | null => {
   const variant = getVariantForAttributes(product, attributes);
+  if(!variant){
+    return null;
+  }
+
   return {
     ...omit(product, [
       'variants',
@@ -264,17 +270,21 @@ export const convertToOrderProduct = (
   };
 };
 
-// TODO: Filter by attributes once they're in the model.
 export const getVariantForAttributes = (
   product: Product,
   attributes?: Attributes
 ) => {
-  // There is only a single base variant.
+  // We return the first variant
   if (!attributes) {
     return product.variants[0];
   }
 
-  return product.variants[0];
+  const variant = product.variants.find(variant => isEqual(variant.attributes, attributes))
+  if(!variant){
+    return null;
+  }
+
+  return variant;
 };
 
 export const getProductSdk = (client: Application) => {
