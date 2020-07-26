@@ -6,6 +6,11 @@
 		"Monthly": "Monthly"
 	},
 
+	"attributes": {
+		"size": "Size",
+		"color": "Color"
+	},
+
 	"categories": {
 		"construction": "Construction",
 		"construction-material": "Construction materials",

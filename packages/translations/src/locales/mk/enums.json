@@ -6,6 +6,11 @@
 		"Monthly": "Месечен"
 	},
 
+	"attributes": {
+		"size": "Големина",
+		"color": "Боја"
+	},
+
 	"categories": {
 		"construction": "Градежништво",
 		"construction-material": "Градежни материјали",
