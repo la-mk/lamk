@@ -7,6 +7,7 @@ import get from 'lodash/get';
 import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 import { system, SystemProps } from '../../system';
+import { Tabs, TabPane } from '../Tabs';
 
 // This is not very performant, but it'll do for now.
 const setIn = (obj = {}, value: any, path: string) => {
@@ -153,6 +154,15 @@ interface FormItemContextProps {
   parser?: (val: any) => any;
 }
 
+interface FormListContextProps {
+  children: (currentVal: any, index: number) => React.ReactNode;
+  getItemTitle: (currentVal: any) => string;
+  getDefaults: () => any;
+  selector: string;
+  as: 'tab';
+  min?: number;
+}
+
 export const FormItem = ({
   selector,
   parser = identity,
@@ -192,6 +202,66 @@ export const FormItem = ({
             )}
           </StyledFormItem>
         );
+      }}
+    </Consumer>
+  );
+};
+
+export const FormList = ({
+  selector,
+  getItemTitle,
+  getDefaults,
+  as = 'tab',
+  min = 0,
+  children,
+}: SystemProps & FormListContextProps) => {
+  const [active, setActive] = React.useState('0');
+  
+  return (
+    <Consumer>
+      {context => {
+        const val = get(context.state, selector);
+        if (!Array.isArray(val)) {
+          throw new Error('FormList selector should point to an array item');
+        }
+
+        const onEdit = (
+          targetKey: React.MouseEvent | React.KeyboardEvent | string,
+          action: 'add' | 'remove'
+        ) => {
+          switch (action) {
+            case 'add': {
+              const newItems = [...val, getDefaults()];
+              context.inputCompleteHandler(newItems, selector);
+              // We want to make the new tab active
+              setActive(val.length.toString())
+              return;
+            }
+            case 'remove': {
+              const newItems = val.filter((_entry, idx) => idx.toString() !== targetKey);
+              context.inputCompleteHandler(newItems, selector);
+              setActive((Math.max(val.length - 2, 0)).toString())
+              return;
+            }
+          }
+        };
+
+        if (as === 'tab') {
+          return (
+            <Tabs activeKey={active} onChange={setActive} type="editable-card" onEdit={onEdit}>
+              {val.map((entry, index) => {
+                const title = getItemTitle(entry);
+                return (
+                  <TabPane tab={title} key={index.toString()} closable={index > min}>
+                    {children(entry, index)}
+                  </TabPane>
+                );
+              })}
+            </Tabs>
+          );
+        }
+
+        return null;
       }}
     </Consumer>
   );

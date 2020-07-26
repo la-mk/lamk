@@ -22,7 +22,7 @@ export const LanguagePicker = ({
         <Menu
           selectedKeys={[languageCode]}
           onClick={({ key }) => {
-            onChangeLanguageCode(key);
+            onChangeLanguageCode(key as string);
           }}
         >
           <MenuItem key="mk">

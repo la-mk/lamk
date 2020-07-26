@@ -25,7 +25,7 @@ export { Dropdown } from './basic/Dropdown';
 export { Empty } from './basic/Empty';
 export { Flex } from './basic/Flex';
 export { FlexGrid } from './basic/FlexGrid/FlexGrid';
-export { Form, FormItem } from './basic/Form/Form';
+export { Form, FormItem, FormList } from './basic/Form/Form';
 export { Row, Col } from './basic/Grid';
 export { Image } from './basic/Image/Image';
 export { ImageMagnifier } from './basic/Image/ImageMagnifier';
