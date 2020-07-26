@@ -156,7 +156,7 @@ interface FormItemContextProps {
 
 interface FormListContextProps {
   children: (currentVal: any, index: number, state: any) => React.ReactNode;
-  getItemTitle: (currentVal: any) => string;
+  getItemTitle: (currentVal: any, state: any) => string;
   getDefaults: () => any;
   selector: string;
   as?: 'tab';
@@ -252,7 +252,7 @@ export const FormList = ({
           return (
             <Tabs activeKey={active} onChange={setActive} type="editable-card" onEdit={onEdit} hideAdd={val.length >= max}>
               {val.map((entry, index) => {
-                const title = getItemTitle(entry);
+                const title = getItemTitle(entry, context.state);
                 return (
                   <TabPane tab={title} key={index.toString()} closable={index >= min}>
                     {children(entry, index, context.state)}
