@@ -93,6 +93,7 @@ export const schema = {
 
   variants: v8n()
     .minLength(1)
+    .unique('attributes')
     .every.schema(variantSchema),
 
   // The total stock of all variants

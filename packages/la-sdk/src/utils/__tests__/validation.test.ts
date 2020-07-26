@@ -173,6 +173,42 @@ describe('Custom validators', () => {
           { a: { c: 'd' }, b: 'b' },
         ])
     ).toBeFalsy();
+
+    expect(
+      v8n()
+        .unique('a')
+        .test([
+          { a: { c: 'd' }, b: 'b' },
+          { a: { c: 'd' }, b: 'b' },
+        ])
+    ).toBeFalsy();
+
+    expect(
+      v8n()
+        .unique('a')
+        .test([
+          { a: { c: 'd' }, b: 'b' },
+          { a: { c: 'h' }, b: 'b' },
+        ])
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .unique('a')
+        .test([
+          { a: { c: {e: 'f'} }, b: 'b' },
+          { a: { c: {e: 'f'} }, b: 'b' },
+        ])
+    ).toBeFalsy();
+
+    expect(
+      v8n()
+        .unique('a')
+        .test([
+          { a: { c: {d: 'f'} }, b: 'b' },
+          { a: { c: {e: 'f'} }, b: 'b' },
+        ])
+    ).toBeTruthy();
   });
 
   test('id', () => {

@@ -1,4 +1,4 @@
-import { property, uniq, uniqBy } from 'lodash';
+import { isEqual, uniq, uniqWith, get } from 'lodash';
 import v8n from 'v8n';
 import { errors, getError } from './errors';
 
@@ -29,7 +29,7 @@ const extendValidation = () => {
     },
     unique: (propertyPath?: string) => (value: any[]) => {
       const unique = propertyPath
-        ? uniqBy(value, property(propertyPath))
+        ? uniqWith(value, (first, second) => isEqual(get(first, propertyPath), get(second,propertyPath)))
         : uniq(value);
       return value.length === unique.length;
     },
