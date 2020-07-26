@@ -93,6 +93,7 @@ export const schema = {
 
   variants: v8n()
     .minLength(1)
+    .maxLength(63)
     .unique('attributes')
     .every.schema(variantSchema),
 
