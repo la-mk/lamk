@@ -156,7 +156,7 @@ interface FormItemContextProps {
 
 interface FormListContextProps {
   children: (currentVal: any, index: number, state: any) => React.ReactNode;
-  getItemTitle: (currentVal: any, state: any) => string;
+  getItemTitle: (currentVal: any, state: any) => React.ReactNode;
   getDefaults: () => any;
   selector: string;
   as?: 'tab';
