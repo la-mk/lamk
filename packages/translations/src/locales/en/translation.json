@@ -346,6 +346,7 @@
 		"addingProductTip": "Adding product...",
 		"availability": "Availability",
 		"categoryTip": "Categories missing? Contact us",
+		"chooseAttributes": "Choose attributes...",
 		"descriptionExample": "eg. High quality sneakers",
 		"discount": "Discount",
 		"discounted": "{{percentage}}% Off",
@@ -356,6 +357,7 @@
 		"new": "New",
 		"priceExample": "eg. 500",
 		"productDeleted": "Product {{id}} successfully deleted",
+		"productHasVariants": "Product has variants",
 		"seeAllProducts": "See all products",
 		"seeOtherProducts": "Continue shopping",
 		"sku": "Inventory code",
@@ -366,6 +368,8 @@
 		"skuExample": "eg. 42356731",
 		"updateProductSuccess": "Successfully updated {{productName}}",
 		"updatingProductTip": "Updating product...",
+		"variant": "Variant",
+		"variant_plural": "Variants",
 		"outOfStock": "Sold out"
 	},
 	"results": {

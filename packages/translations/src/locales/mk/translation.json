@@ -347,6 +347,7 @@
 		"addingProductTip": "Производот се додава...",
 		"availability": "Достапност",
 		"categoryTip": "Некои категории недостасуваат? Контактирајте нѐ",
+		"chooseAttributes": "Одберете атрибути...",
 		"descriptionExample": "пр. Високо квалитетни и лесни патики",
 		"discount": "Попуст",
 		"discounted": "{{percentage}}% Попуст",
@@ -357,6 +358,7 @@
 		"new": "Ново",
 		"priceExample": "пр. 500",
 		"productDeleted": "Производот со шифра {{id}} беше успешно избришан",
+		"productHasVariants": "Производот има варијанти",
 		"seeAllProducts": "Видете ги производите",
 		"seeOtherProducts": "Продолжете со купување",
 		"sku": "Шифра",
@@ -367,6 +369,8 @@
 		"stockTip": "Оставете празно за неограничена залиха",
 		"updateProductSuccess": "Производот {{productName}} успешно обновен",
 		"updatingProductTip": "Производот се обновува...",
+		"variant": "Варијанта",
+		"variant_plural": "Варијанти",
 		"outOfStock": "Распродадено"
 	},
 	"results": {
