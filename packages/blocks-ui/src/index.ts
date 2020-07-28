@@ -68,6 +68,7 @@ export { HeadElements } from './compound/HeadElements';
 export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
 export { LanguagePicker } from './compound/LanguagePicker';
+export { PickerBox, PickerBoxes } from './compound/PickerBoxes/PickerBoxes';
 
 export { message } from './static/message';
 

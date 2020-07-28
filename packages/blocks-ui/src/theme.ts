@@ -28,6 +28,7 @@ const theme = {
 
   radii: [6, 10],
   space: [0, 4, 8, 16, 32, 48, 64, 96],
+  baseHeight: [24, 32, 40],
   breakpoints: ['788px', '1128px', '1440px'],
   sizes: ['788px', '1096px', '1440px'],
   lineHeight: 1.5,
