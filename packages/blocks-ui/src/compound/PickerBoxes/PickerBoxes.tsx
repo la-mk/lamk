@@ -19,7 +19,7 @@ export const PickerBox = withTheme(
     highlight: boolean;
     theme: BlocksTheme;
   }) => {
-    const boxSize = theme.space[1] * 2 + theme.baseHeight[0];
+    const boxSize = theme.baseHeight[1];
 
     return (
       <Box
@@ -54,7 +54,7 @@ export const PickerBoxes = ({
   type?: 'color' | 'text';
 }) => {
   return (
-    <Flex flexWrap="wrap">
+    <Flex m={-1} flexWrap="wrap">
       {(values as any[]).map(value => (
         <PickerBox
           onClick={() => onSelect(value === selected ? undefined : value)}

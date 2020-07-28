@@ -4,7 +4,7 @@ import { Provider } from '../../basic/Provider';
 import { Box } from '../../basic/Box';
 import { PickerBox, PickerBoxes } from './PickerBoxes';
 
-storiesOf('Forms', module)
+storiesOf('PickerBoxes', module)
   .add('Color boxes picker', () => {
     const [selected, setSelected] = React.useState<string | number | undefined>(
       'green'
