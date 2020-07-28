@@ -20,7 +20,7 @@ export enum ProductUnit {
   G = 'g',
 }
 
-const attributesSchema = {
+export const attributesSchema = {
   color: v8n().optional(v8n().hexColor(), true),
   size: v8n().optional(
     v8n()

@@ -2,7 +2,13 @@ import merge from 'lodash/merge';
 import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
-import { OrderProduct, convertToOrderProduct, Product } from './product';
+import {
+  OrderProduct,
+  convertToOrderProduct,
+  Product,
+  Attributes,
+  attributesSchema,
+} from './product';
 import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
@@ -13,6 +19,7 @@ export const schema = {
   items: v8n().every.schema({
     product: v8n().schema({
       id: v8n().id(),
+      attributes: v8n().optional(v8n().schema(attributesSchema)),
     }),
     fromStore: v8n().id(),
     quantity: v8n()
@@ -24,6 +31,7 @@ export const schema = {
 export interface CartItem {
   product: {
     id: string;
+    attributes?: Attributes;
   };
   fromStore: string;
   quantity: number;
@@ -69,26 +77,31 @@ export const getCartSdk = (client: Application) => {
         .map(item => item.product);
 
       const products: Product[] =
-      cartProducts.length > 0
-          ? (await client.service('products').find({
-              query: { _id: { $in: cartProducts.map(product => product.id) } },
-            })).data
+        cartProducts.length > 0
+          ? (
+              await client.service('products').find({
+                query: {
+                  _id: { $in: cartProducts.map(product => product.id) },
+                },
+              })
+            ).data
           : [];
-
 
       return {
         ...cart,
         items: cart.items.map(item => {
           const product = products.find(
-            (product) => product._id === item.product.id);
-          if (!product){
+            product => product._id === item.product.id
+          );
+          if (!product) {
             throw new Error('Missing product when populating cart');
-          }  
+          }
 
           return {
-          ...item,
-          product: convertToOrderProduct(product),
-        }})
+            ...item,
+            product: convertToOrderProduct(product),
+          };
+        }),
       } as CartWithProducts;
     },
 
