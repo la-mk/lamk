@@ -356,8 +356,8 @@ export const getProductSdk = (client: Application) => {
     convertToOrderProduct,
 
     // If the product has at least one attribute, it means it has variants.
-    hasVariants: (product: Product) => {
-      product && Object.keys(product.variants?.[0]?.attributes ?? {}).length > 0
+    hasVariants: (product?: Product) => {
+      return product && Object.keys(product.variants?.[0]?.attributes ?? {}).length > 0
     },
 
     validate: (data: Product, ignoreRequired = false) => {
