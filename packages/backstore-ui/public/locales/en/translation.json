@@ -30,6 +30,10 @@
     "hourly": "Hourly",
     "weekly": "Weekly"
   },
+  "attributes": {
+    "color": "Color",
+    "size": "Size"
+  },
   "auth": {
     "account": "Account",
     "accountSettings": "Account settings",
@@ -604,16 +608,15 @@
   },
   "order": {
     "orderDate": "Order date",
-    "orderDeleted": "Order {{id}} successfully deleted",
     "orderId": "Order ID"
   },
   "orderStatus": {
-    "invalid": "Invalid",
-		"invalidDescription": "Invalid order",
     "cancelled": "Cancelled",
     "cancelledDescription": "Cancelled",
     "completed": "Completed",
     "completedDescription": "All done!",
+    "invalid": "Invalid",
+    "invalidDescription": "Invalid order",
     "pendingPayment": "Awaiting payment",
     "pendingPaymentDescription": "Awaiting payment",
     "pendingShipment": "Preparing",
@@ -648,6 +651,7 @@
     "addProductSuccess": "Successfully added a new product",
     "addingProductTip": "Adding product...",
     "categoryTip": "Categories missing? Contact us",
+    "chooseAttributes": "Choose attributes...",
     "descriptionExample": "eg. High quality sneakers",
     "discount": "Discount",
     "groups": "Groups",
@@ -656,6 +660,7 @@
     "outOfStock": "Sold out",
     "priceExample": "eg. 500",
     "productDeleted": "Product {{id}} successfully deleted",
+    "productHasVariants": "Product has variants",
     "sku": "Inventory code",
     "skuExample": "eg. 42356731",
     "stock": "Stock",
@@ -663,7 +668,9 @@
     "stockTip": "Leave empty for unmanaged stock",
     "unit": "Unit",
     "updateProductSuccess": "Successfully updated {{productName}}",
-    "updatingProductTip": "Updating product..."
+    "updatingProductTip": "Updating product...",
+    "variant": "Variant",
+    "variant_plural": "Variants"
   },
   "sets": {
     "categoryExplanation": "Categories you might like",

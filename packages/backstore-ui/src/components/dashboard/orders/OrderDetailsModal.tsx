@@ -14,6 +14,7 @@ import {
   Text,
   Divider,
   hooks,
+  Box,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { OrderProduct } from '@sradevski/la-sdk/dist/models/product';
@@ -25,6 +26,7 @@ import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { InvoiceDownloadLink } from '../pdfs/invoice/InvoiceDownloadLink';
+import { VariantName } from '../../shared/components/VariantName';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -236,11 +238,29 @@ export const OrderDetailsModal = ({
                         </Flex>
                         <Flex flexDirection='column'>
                           <Text mx={2}>{product.name}</Text>
-                          {product.sku && (
-                            <Text strong mx={2}>
-                              {`${t('product.sku')}: ${product.sku}`}
-                            </Text>
-                          )}
+
+                          <Flex alignItems='center'>
+                            {product.sku && (
+                              <Text strong mx={2}>
+                                {`${t('product.sku')}: ${product.sku}`}
+                              </Text>
+                            )}
+                            {product.attributes && (
+                              <>
+                                <Flex alignItems='center' ml={2}>
+                                  <Text strong>{`${t(
+                                    'product.variant',
+                                  )}: `}</Text>
+                                  <Box ml={1}>
+                                    <VariantName
+                                      t={t}
+                                      attributes={product.attributes}
+                                    />
+                                  </Box>
+                                </Flex>
+                              </>
+                            )}
+                          </Flex>
                         </Flex>
                       </Flex>
                       <Flex mx={2} flexDirection='column'>
