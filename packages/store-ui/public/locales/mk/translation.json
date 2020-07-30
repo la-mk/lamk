@@ -31,6 +31,10 @@
     "hourly": "Часовен",
     "weekly": "Неделен"
   },
+  "attributes": {
+    "color": "Боја",
+    "size": "Големина"
+  },
   "auth": {
     "accountUpdateSuccess": "Сметката беше успешно обновена",
     "authSameAccount": "Можете да ја користите истата сметка на која било продавница која е",
@@ -542,7 +546,7 @@
     "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава"
   },
   "deliveryMethods": {
-    "cargo-pickup": "Да се подигне од Карго",
+    "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
     "pickup": "Да се подигне"
   },

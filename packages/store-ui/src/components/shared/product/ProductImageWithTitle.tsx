@@ -2,6 +2,8 @@ import React from 'react';
 import { OrderProduct } from '@sradevski/la-sdk/dist/models/product';
 import { Flex, Title, Text, Box, Image } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
+import { VariantName } from '../components/VariantName';
+import { useTranslation } from '../../../common/i18n';
 
 export const ProductImageWithTitle = ({
   product,
@@ -13,6 +15,7 @@ export const ProductImageWithTitle = ({
   storeId: string;
   quantity?: number;
 } & React.ComponentProps<typeof Flex>) => {
+  const { t } = useTranslation();
   return (
     <Flex
       minWidth={200}
@@ -38,6 +41,7 @@ export const ProductImageWithTitle = ({
           ellipsis={{ rows: 2 }}
         >
           {product.name}
+          <VariantName t={t} attributes={product.attributes} />
         </Title>
 
         {!!quantity && (

@@ -1,3 +1,4 @@
+import difference from 'lodash/difference';
 import React, { useState, useEffect } from 'react';
 import {
   Flex,
@@ -10,10 +11,14 @@ import {
   ImageMagnifier,
   message,
   Spin,
+  PickerBoxes,
   hooks,
   utils,
 } from '@sradevski/blocks-ui';
-import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
+import {
+  Product as ProductType,
+  Attributes,
+} from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { Price } from '../shared/product/Price';
 import { Thumbnails } from '../shared/Thumbnails';
@@ -66,11 +71,15 @@ export const Product = ({ product }: ProductProps) => {
   const delivery = useSelector(getDelivery);
 
   const previousPage = useSelector<string | undefined>(getPreviousPage);
+  // If the product has at least one attribute, it means it has variants.
+  const hasAttributes = sdk.product.hasVariants(product);
 
+  const [chosenAttributes, setChosenAttributes] = useState<
+    Attributes | undefined
+  >(hasAttributes ? {} : undefined);
   const [trackedEvent, setTrackedEvent] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const outOfStock = product.totalStock === 0;
 
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
@@ -79,6 +88,46 @@ export const Product = ({ product }: ProductProps) => {
     cart &&
     cart.items &&
     cart.items.some(item => item.product._id === product._id);
+
+  const outOfStock = product.totalStock === 0;
+
+  const selectedVariant = sdk.product.getVariantForAttributes(
+    product,
+    chosenAttributes,
+  );
+
+  const allColors = product.variants
+    .map(variant => variant.attributes?.color)
+    .filter(x => !!x);
+
+  const allSizes = product.variants
+    .map(variant => variant.attributes?.size)
+    .filter(x => !!x);
+
+  const variantsWithStock = product.variants.filter(
+    variant => variant.stock == null || variant.stock > 0,
+  );
+
+  const remainingColorChoices = chosenAttributes?.size
+    ? variantsWithStock
+        .filter(variant => variant.attributes?.size === chosenAttributes.size)
+        .map(variant => variant.attributes?.color)
+        .filter(x => !!x)
+    : variantsWithStock
+        .map(variant => variant.attributes?.color)
+        .filter(x => !!x);
+
+  const remainingSizeChoices = chosenAttributes?.color
+    ? variantsWithStock
+        .filter(variant => variant.attributes?.color === chosenAttributes.color)
+        .map(variant => variant.attributes?.size)
+        .filter(x => !!x)
+    : variantsWithStock
+        .map(variant => variant.attributes?.size)
+        .filter(x => !!x);
+
+  const disabledSizeChoices = difference(allSizes, remainingSizeChoices);
+  const disabledColorChoices = difference(allColors, remainingColorChoices);
 
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
@@ -134,11 +183,19 @@ export const Product = ({ product }: ProductProps) => {
 
   const handleAddToCart = () => {
     let action: Promise<Cart | void> = Promise.resolve();
-    const orderProduct = sdk.product.convertToOrderProduct(product);
+    const orderProduct = sdk.product.convertToOrderProduct(
+      product,
+      chosenAttributes,
+    );
+
+    // The button should be disabled if there is there is no valid variant for the chosen attributes, this is just a safeguard.
+    if (!orderProduct) {
+      return;
+    }
 
     if (user) {
       action = sdk.cart.addItemToCart(user._id, {
-        product: { id: orderProduct._id },
+        product: { id: orderProduct._id, attributes: chosenAttributes },
         fromStore: store._id,
         quantity,
       });
@@ -148,6 +205,7 @@ export const Product = ({ product }: ProductProps) => {
       trackEvent({
         eventName: AnalyticsEvents.addItemToCart,
         productId: orderProduct._id,
+        attributes: JSON.stringify(chosenAttributes),
         category: orderProduct.category,
         price: orderProduct.calculatedPrice,
         discount: orderProduct.discount,
@@ -228,8 +286,22 @@ export const Product = ({ product }: ProductProps) => {
             >
               <Price
                 size='large'
-                calculatedPrice={product.minCalculatedPrice}
-                basePrice={product.minPrice}
+                minCalculatedPrice={
+                  selectedVariant
+                    ? selectedVariant.calculatedPrice
+                    : product.minCalculatedPrice
+                }
+                maxCalculatedPrice={
+                  selectedVariant
+                    ? selectedVariant.calculatedPrice
+                    : product.maxCalculatedPrice
+                }
+                minPrice={
+                  selectedVariant ? selectedVariant.price : product.minPrice
+                }
+                maxPrice={
+                  selectedVariant ? selectedVariant.price : product.maxPrice
+                }
                 currency={'ден'}
               />
               <Text fontSize={1} color='mutedText.dark'>
@@ -237,20 +309,50 @@ export const Product = ({ product }: ProductProps) => {
               </Text>
             </Flex>
             <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
-              <Text>{t('product.availability')}:</Text>
-              <Text ml={2} color={outOfStock ? 'danger' : 'success'}>
+              <Text mr={2}>{t('product.availability')}:</Text>
+              <Text color={outOfStock ? 'danger' : 'success'}>
                 {outOfStock ? t('product.outOfStock') : t('product.inStock')}
               </Text>
             </Flex>
+
+            {allColors.length > 0 && (
+              <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
+                <Text mr={2}>{t('attributes.color')}:</Text>
+                <PickerBoxes
+                  type='color'
+                  disabled={disabledColorChoices}
+                  values={allColors}
+                  selected={chosenAttributes?.color}
+                  onSelect={(color: string | undefined) =>
+                    setChosenAttributes({ ...(chosenAttributes ?? {}), color })
+                  }
+                />
+              </Flex>
+            )}
+
+            {allSizes.length > 0 && (
+              <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
+                <Text mr={2}>{t('attributes.size')}:</Text>
+                <PickerBoxes
+                  disabled={disabledSizeChoices}
+                  values={allSizes}
+                  selected={chosenAttributes?.size}
+                  onSelect={(size: string | undefined) =>
+                    setChosenAttributes({ ...(chosenAttributes ?? {}), size })
+                  }
+                />
+              </Flex>
+            )}
+
             <Flex mt={[3, 4, 4]} flexDirection='row' alignItems='center'>
               {!isProductInCart && (
                 <>
                   <InputNumber
-                    disabled={outOfStock}
+                    disabled={outOfStock || !selectedVariant}
                     width='68px'
                     size='large'
                     min={1}
-                    max={product.totalStock || 999}
+                    max={selectedVariant?.stock || 999}
                     value={quantity}
                     onChange={(val: number) => setQuantity(val)}
                     mr={2}
@@ -270,7 +372,7 @@ export const Product = ({ product }: ProductProps) => {
                 </>
               ) : (
                 <Button
-                  disabled={outOfStock}
+                  disabled={outOfStock || !selectedVariant}
                   onClick={handleAddToCart}
                   ml={2}
                   width={200}

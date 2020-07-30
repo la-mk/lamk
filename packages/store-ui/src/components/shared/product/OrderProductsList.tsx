@@ -52,8 +52,10 @@ const getColumns = (
         <Price
           size='small'
           vertical
-          calculatedPrice={item.product.calculatedPrice}
-          basePrice={item.product.price}
+          minCalculatedPrice={item.product.calculatedPrice}
+          maxCalculatedPrice={item.product.calculatedPrice}
+          minPrice={item.product.price}
+          maxPrice={item.product.price}
           currency='ден'
         />
       ),
@@ -147,8 +149,10 @@ export const OrderProductsList = ({
                     <Price
                       vertical
                       size='small'
-                      calculatedPrice={item.product.calculatedPrice}
-                      basePrice={item.product.price}
+                      minCalculatedPrice={item.product.calculatedPrice}
+                      maxCalculatedPrice={item.product.calculatedPrice}
+                      minPrice={item.product.price}
+                      maxPrice={item.product.price}
                       currency='ден'
                     />
                   </Flex>

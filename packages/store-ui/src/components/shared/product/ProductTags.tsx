@@ -14,9 +14,19 @@ export const ProductTags = ({
 }) => {
   const compact = hooks.useBreakpoint([true, false, false]);
 
-  const discountPercentage = Math.round(
+  const minDiscountPercentage = Math.round(
     ((product.minDiscount ?? 0) / product.minPrice) * 100,
   );
+  const maxDiscountPercentage = Math.round(
+    ((product.maxDiscount ?? 0) / product.maxPrice) * 100,
+  );
+
+  // min and max point to the products with min and max price, so any of the two can be larger.
+  const discountPercentage = Math.max(
+    minDiscountPercentage,
+    maxDiscountPercentage,
+  );
+
   const isNew =
     differenceInDays(new Date(product.createdAt), Date.now()) >
     NUM_DAYS_CONSIDER_AS_NEW;

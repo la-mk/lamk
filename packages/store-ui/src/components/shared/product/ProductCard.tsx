@@ -36,8 +36,10 @@ const ProductDescription = ({
       )}
 
       <Price
-        calculatedPrice={product.minCalculatedPrice}
-        basePrice={product.minPrice}
+        minCalculatedPrice={product.minCalculatedPrice}
+        maxCalculatedPrice={product.maxCalculatedPrice}
+        minPrice={product.minPrice}
+        maxPrice={product.maxPrice}
         currency={'ден'}
       />
     </Box>
