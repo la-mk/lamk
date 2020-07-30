@@ -46,7 +46,10 @@ const validateOrderItems = async (ctx: HookContext) => {
       throw new BadRequest('A product in the cart no longer exists');
     }
 
-    const variant = sdk.product.getVariantForAttributes(dbProduct);
+    const variant = sdk.product.getVariantForAttributes(
+      dbProduct,
+      orderItem.product.attributes,
+    );
 
     if (!variant) {
       throw new BadRequest(
