@@ -34,30 +34,31 @@ export const PickerBox = withTheme(
     highlight,
     disabled,
     type = 'text',
+    size = 'default',
     theme,
     ...otherProps
   }: React.ComponentProps<typeof Button> & {
     value: string;
     disabled?: boolean;
-    type: 'color' | 'text';
+    size?: 'small' | 'default';
+    type?: 'color' | 'text';
     highlight: boolean;
     theme: BlocksTheme;
   }) => {
-    const boxSize = theme.baseHeight[1];
+    const boxSize = size === 'small' ? theme.baseHeight[0] : theme.baseHeight[1];
 
     return (
       <ButtonWrapper
+        size={size}
         highlight={highlight}
         pickerType={type}
         value={value}
-        py={1}
-        px={type === 'color' ? 1 : 2}
         height={boxSize}
         width={type === 'color' ? boxSize : 'fit-content'}
         disabled={disabled}
         {...otherProps}
       >
-        {type === 'text' ? <Text fontSize={0}>{value}</Text> : ' '}
+        {type === 'text' ? <Flex alignItems="center" justifyContent="center"><Text fontSize={0}>{value}</Text> </Flex> : ' '}
       </ButtonWrapper>
     );
   }
@@ -68,18 +69,21 @@ export const PickerBoxes = ({
   disabled,
   onSelect,
   selected,
+  size = 'default',
   type = 'text',
 }: {
   values: string[];
   disabled?: string[];
   onSelect: (color: string | undefined) => void;
   selected: string | undefined;
+  size?: 'small' | 'default',
   type?: 'color' | 'text';
 }) => {
   return (
     <Flex m={-1} flexWrap="wrap">
       {values.map(value => (
         <PickerBox
+          size={size}
           onClick={() => onSelect(value === selected ? undefined : value)}
           highlight={selected === value}
           value={value}
