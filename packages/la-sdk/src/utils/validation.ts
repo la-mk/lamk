@@ -33,6 +33,19 @@ const extendValidation = () => {
         : uniq(value);
       return value.length === unique.length;
     },
+    // This makes sure that every object has the same schema, so if a field is optional, it ensures either all objects have it or none has it.
+    equalSchema: () => (value: any[]) => {
+      if(value.length === 0){
+        return true;
+      }
+
+      const first = value[0];
+      const baseKeys = first ? Object.keys(first).sort() : [];
+      return value.every(val => {
+        const keys = val ? Object.keys(val).sort() : [];
+        return isEqual(baseKeys, keys);
+      })
+    },
     // We check if the string is a valid ISO date
     datetime: () => (value: string) => {
       const parsed = Date.parse(value);

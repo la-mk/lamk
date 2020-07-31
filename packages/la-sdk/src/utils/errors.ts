@@ -85,6 +85,10 @@ export const errors: {
     name: 'unique',
     message: 'Field should have unique values',
   },
+  equalSchema: {
+    name: 'equalSchema',
+    message: 'All fields should have the same properties',
+  },
   id: {
     name: 'id',
     message: 'Field should be a valid id',

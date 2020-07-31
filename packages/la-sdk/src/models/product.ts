@@ -95,6 +95,7 @@ export const schema = {
     .minLength(1)
     .maxLength(63)
     .unique('attributes')
+    .equalSchema()
     .every.schema(variantSchema),
 
   // The total stock of all variants
