@@ -99,7 +99,7 @@ const getColumns = (
       render: (val: Variant[], record) => {
         console.log(val);
         return (
-          <Text ellipsis>
+          <Text maxWidth={140} ellipsis>
             {val
               .map(x => x.sku)
               .filter(x => !!x)

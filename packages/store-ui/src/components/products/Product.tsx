@@ -1,4 +1,5 @@
 import difference from 'lodash/difference';
+import uniq from 'lodash/uniq';
 import React, { useState, useEffect } from 'react';
 import {
   Flex,
@@ -73,10 +74,20 @@ export const Product = ({ product }: ProductProps) => {
   const previousPage = useSelector<string | undefined>(getPreviousPage);
   // If the product has at least one attribute, it means it has variants.
   const hasAttributes = sdk.product.hasVariants(product);
+  const outOfStock = product.totalStock === 0;
+  const hasSingleAvailableVariant =
+    hasAttributes && !outOfStock && product.variants.length === 1;
 
   const [chosenAttributes, setChosenAttributes] = useState<
     Attributes | undefined
-  >(hasAttributes ? {} : undefined);
+  >(
+    hasSingleAvailableVariant
+      ? product.variants[0].attributes
+      : hasAttributes
+      ? {}
+      : undefined,
+  );
+
   const [trackedEvent, setTrackedEvent] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -89,20 +100,18 @@ export const Product = ({ product }: ProductProps) => {
     cart.items &&
     cart.items.some(item => item.product._id === product._id);
 
-  const outOfStock = product.totalStock === 0;
-
   const selectedVariant = sdk.product.getVariantForAttributes(
     product,
     chosenAttributes,
   );
 
-  const allColors = product.variants
-    .map(variant => variant.attributes?.color)
-    .filter(x => !!x);
+  const allColors = uniq(
+    product.variants.map(variant => variant.attributes?.color).filter(x => !!x),
+  );
 
-  const allSizes = product.variants
-    .map(variant => variant.attributes?.size)
-    .filter(x => !!x);
+  const allSizes = uniq(
+    product.variants.map(variant => variant.attributes?.size).filter(x => !!x),
+  );
 
   const variantsWithStock = product.variants.filter(
     variant => variant.stock == null || variant.stock > 0,

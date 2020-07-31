@@ -51,10 +51,13 @@ const calculateFields = async (ctx: HookContext) => {
       throw new BadRequest('Product variant has to have a positive price');
     }
 
-    ctx.data.totalStock =
-      variant.stock != null
-        ? (ctx.data.totalStock ?? 0) + variant.stock
-        : ctx.data.totalStock;
+    // We check for null explicitly, meaning at least one of the variants has a null stock, so we don't want to track stocks.
+    if (ctx.data.totalStock !== null) {
+      ctx.data.totalStock =
+        variant.stock == null
+          ? null
+          : (ctx.data.totalStock ?? 0) + variant.stock;
+    }
 
     const isMinPriceVariant =
       variant.calculatedPrice <=

@@ -264,7 +264,7 @@ export const ProductFormModal = ({
               checked={showVariants}
               onChange={() => setShowVariants(!showVariants)}
             />
-            <Text ml={2}>{t('product.productshowVariants')}</Text>
+            <Text ml={2}>{t('product.productHasVariants')}</Text>
           </Flex>
           <VariantFormItems hasVariants={!!showVariants} t={t} />
 

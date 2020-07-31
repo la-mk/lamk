@@ -214,7 +214,8 @@ export const OrderDetailsModal = ({
                     <Flex
                       width={'100%'}
                       justifyContent='space-between'
-                      alignItems='center'
+                      alignItems={['flex-start', 'center', 'center']}
+                      flexDirection={['column', 'row', 'row']}
                     >
                       <Flex alignItems='center'>
                         <Flex
@@ -263,7 +264,7 @@ export const OrderDetailsModal = ({
                           </Flex>
                         </Flex>
                       </Flex>
-                      <Flex mx={2} flexDirection='column'>
+                      <Flex mt={[3, 0, 0]} mx={2} flexDirection='column'>
                         <Text>
                           {t('commerce.quantity')}:{' '}
                           {getQuantityForProduct(order, product) ||
