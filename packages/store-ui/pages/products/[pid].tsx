@@ -8,13 +8,20 @@ import { Empty } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { transliterate } from '@sradevski/nlp';
 import { TFunction } from 'next-i18next';
 
+//TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 const getProductSummary = (product: ProductType, t: TFunction) => {
   const partialDescription = product.description?.slice(0, 130);
-  return `${product.name}
-  ${t('common.price')}: ${product.minCalculatedPrice}
-  ${partialDescription ?? ''}...`;
+  const transliteratedName = transliterate(product.name, 'mk', 'en').replace(
+    '\n',
+    ' ',
+  );
+
+  return `${transliteratedName}, ${t('common.price')}: ${
+    product.minCalculatedPrice
+  } ден. ${partialDescription ?? ''}...`;
 };
 
 const ProductPage = ({

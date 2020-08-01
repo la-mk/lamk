@@ -29,6 +29,7 @@
     "@sradevski/analytics": "0.0.7",
     "@sradevski/blocks-ui": "0.0.99",
     "@sradevski/la-sdk": "0.0.104",
+    "@sradevski/nlp": "0.0.1",
     "antd": "^4.2.5",
     "bezier-easing": "^2.1.0",
     "connected-next-router": "^3.0.1",
