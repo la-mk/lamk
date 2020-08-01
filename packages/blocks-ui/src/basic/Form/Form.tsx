@@ -8,6 +8,7 @@ import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 import { system, SystemProps } from '../../system';
 import { Tabs, TabPane } from '../Tabs';
+import styled from 'styled-components';
 
 // This is not very performant, but it'll do for now.
 const setIn = (obj = {}, value: any, path: string) => {
@@ -208,6 +209,15 @@ export const FormItem = ({
   );
 };
 
+const PlaceholderFormItem = styled(FormItem)`
+  margin: 0;
+
+  & .ant-form-item-control-input {
+    min-height: 0;
+    height: 0;
+  }
+`
+
 export const FormList = ({
   selector,
   getItemTitle,
@@ -255,6 +265,8 @@ export const FormList = ({
                 const title = getItemTitle(entry, context.state);
                 return (
                   <TabPane tab={title} key={index.toString()} closable={index >= min}>
+                    {/* The formitem is only used to show errors on the entire list */}
+                    <PlaceholderFormItem selector={selector}>{() => null}</PlaceholderFormItem>
                     {children(entry, index, context.state)}
                   </TabPane>
                 );
