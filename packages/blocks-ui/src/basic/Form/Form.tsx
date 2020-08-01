@@ -177,7 +177,8 @@ export const FormItem = ({
         const error = get(context.errors, selector);
         const success = get(context.successes, selector);
         let help;
-        if (error) {
+        // If the schema is nested, error can just be a placeholder for the nested schema fields, so we ignore it.
+        if (error && error.name) {
           if (context.getErrorMessage) {
             help =
               context.getErrorMessage(error.name, { ...error.args }) ||
