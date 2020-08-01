@@ -555,6 +555,7 @@
     "boolean": "Field should be either true or false",
     "date": "Field should be a valid date",
     "email": "Field should be a valid email address",
+    "equalSchema": "All fields should have the same properties",
     "generic": "Invalid entry",
     "greaterThan": "Field should be more than {{0}}",
     "hexColor": "Field should be a valid hex color",
@@ -652,6 +653,7 @@
   },
   "product": {
     "availability": "Availability",
+    "chooseAttributes": "Choose attributes...",
     "discounted": "{{percentage}}% Off",
     "inStock": "In stock",
     "new": "New",
