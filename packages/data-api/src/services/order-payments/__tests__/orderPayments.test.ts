@@ -13,7 +13,7 @@ import fixtures from '../../../../tests/fixtures';
 import { OrderPayments } from '@sradevski/la-sdk/dist/models/orderPayments';
 import { sdk } from '@sradevski/la-sdk';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product, OrderProduct } from '@sradevski/la-sdk/dist/models/product';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import * as nestpay from '../../../common/paymentProcessors/nestpay';
@@ -92,7 +92,9 @@ describe('"orderPayments" service', () => {
           orderedBy: testUsers[0]._id,
           ordered: [
             {
-              product: sdk.product.convertToOrderProduct(testProducts[0]),
+              product: sdk.product.convertToOrderProduct(
+                testProducts[0],
+              ) as OrderProduct,
               quantity: 2,
             },
           ],

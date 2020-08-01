@@ -96,9 +96,17 @@ const getColumns = (
     {
       title: t('product.sku'),
       dataIndex: 'variants',
-      render: (val: Variant[], record) => (
-        <Text ellipsis>{val.map(x => x.sku).join(', ')}</Text>
-      ),
+      render: (val: Variant[], record) => {
+        console.log(val);
+        return (
+          <Text maxWidth={140} ellipsis>
+            {val
+              .map(x => x.sku)
+              .filter(x => !!x)
+              .join(', ')}
+          </Text>
+        );
+      },
     },
     {
       title: t('common.price'),
@@ -109,10 +117,10 @@ const getColumns = (
           value: 'discounted',
         },
       ],
-      filteredValue: filters.filtering.minDiscount ? ['discounted'] : undefined,
+      filteredValue: filters.filtering.maxDiscount ? ['discounted'] : undefined,
       filterMultiple: false,
       onFilter: (value, record) =>
-        value === 'discounted' ? (record.minDiscount ?? 0) > 0 : true,
+        value === 'discounted' ? (record.maxDiscount ?? 0) > 0 : true,
       sortOrder:
         filters.sorting?.field === 'minCalculatedPrice'
           ? filters.sorting?.order
@@ -120,7 +128,11 @@ const getColumns = (
       sorter: (a, b) =>
         (a.minCalculatedPrice ?? 0) - (b.minCalculatedPrice ?? 0),
       render: (val, record) => (
-        <Text color={record.minDiscount ? 'danger' : 'text.dark'}>{val}</Text>
+        <Text color={record.maxDiscount ? 'danger' : 'text.dark'}>
+          {record.minCalculatedPrice === record.maxCalculatedPrice
+            ? val
+            : `${record.minCalculatedPrice} ~ ${record.maxCalculatedPrice}`}
+        </Text>
       ),
     },
     {
@@ -322,7 +334,7 @@ export const Products = () => {
                   tableFilters.totalStock?.[0],
                 ),
                 ...utils.filter.rangeFilter(
-                  'minDiscount',
+                  'maxDiscount',
                   tableFilters.minCalculatedPrice?.[0] === 'discounted'
                     ? 1
                     : null,

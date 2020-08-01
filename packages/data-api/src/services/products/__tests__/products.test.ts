@@ -160,4 +160,15 @@ describe('"storeAnalytics" service', () => {
     expect(patchedProduct.maxDiscount).toBeFalsy();
     expect(patchedProduct.totalStock).toBeFalsy();
   });
+
+  it('totalStock is set only when all variants have stock set', async () => {
+    const patchedProduct = await products.patch(testProducts[2]._id, {
+      variants: [
+        { price: 300, attributes: { size: 'M' } },
+        { price: 200, stock: 0, attributes: { size: 'S' } },
+      ],
+    });
+
+    expect(patchedProduct.totalStock).toEqual(null);
+  });
 });

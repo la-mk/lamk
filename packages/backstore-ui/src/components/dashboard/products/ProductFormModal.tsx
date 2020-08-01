@@ -14,12 +14,13 @@ import {
   FormItem,
   formTextArea,
   formInput,
-  parsers,
   Cascader,
   hooks,
-  InputNumber,
   Select,
   Option,
+  Title,
+  Switch,
+  Text,
 } from '@sradevski/blocks-ui';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
@@ -48,6 +49,7 @@ import {
 import { useCategories } from '../../shared/hooks/useCategories';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
 import { getGroups } from '../../../state/modules/products/products.selector';
+import { VariantFormItems } from './VariantFormItems';
 
 interface ProductFormModalProps {
   product: Product | undefined;
@@ -61,6 +63,9 @@ export const ProductFormModal = ({
   visible,
 }: ProductFormModalProps) => {
   const { t } = useTranslation();
+  // If the product has at least one attribute, it means it has variants.
+  const hasAttributes = sdk.product.hasVariants(product);
+  const [showVariants, setShowVariants] = React.useState(hasAttributes);
   const [caller, showSpinner] = hooks.useCall();
   const [groupsCaller, groupsLoading] = hooks.useCall();
   const groups: string[] = useSelector(getGroups);
@@ -82,6 +87,10 @@ export const ProductFormModal = ({
     },
     [product, storeId],
   );
+
+  useEffect(() => {
+    setShowVariants(Boolean(hasAttributes));
+  }, [hasAttributes]);
 
   useEffect(() => {
     if (categories) {
@@ -157,14 +166,6 @@ export const ProductFormModal = ({
             : t('product.addingProductTip')
         }
       >
-        {product && (
-          <Flex mb={3} justifyContent='flex-end'>
-            <Button onClick={handleDeleteProduct} danger>
-              {t('actions.delete')}
-            </Button>
-          </Flex>
-        )}
-
         <Form
           colon={false}
           externalState={externalState}
@@ -177,6 +178,22 @@ export const ProductFormModal = ({
           onFormCompleted={product ? handlePatchProduct : handleCreateProduct}
           layout='vertical'
         >
+          <Flex
+            mt={2}
+            mb={2}
+            alignItems='center'
+            justifyContent='space-between'
+          >
+            <Title m={0} level={3}>
+              {t('common.basic')}
+            </Title>
+            {product && (
+              <Button m={0} onClick={handleDeleteProduct} danger>
+                {t('actions.delete')}
+              </Button>
+            )}
+          </Flex>
+
           <Row gutter={24}>
             <Col md={12} span={24}>
               <FormItem label={t('common.name')} selector='name'>
@@ -206,66 +223,56 @@ export const ProductFormModal = ({
               </FormItem>
             </Col>
           </Row>
+
+          <FormItem selector='images'>
+            {(val, _onChange, onComplete) => (
+              <UploadDragger
+                multiple
+                listType='picture-card'
+                customRequest={getImageUploader()}
+                accept='.png, .jpg, .jpeg'
+                onChange={info =>
+                  handleArtifactUploadStatus(
+                    info,
+                    val,
+                    false,
+                    onComplete,
+                    message.error,
+                  )
+                }
+                defaultFileList={getDefaultFileList(
+                  product ? product.images : [],
+                  storeId,
+                  { h: 80 },
+                )}
+                name='product-images'
+              >
+                <UploadContent
+                  text={t('actions.addProductImages')}
+                  hint={t('uploads.hint')}
+                />
+              </UploadDragger>
+            )}
+          </FormItem>
+
+          <Flex mt={4} mb={2} alignItems='center'>
+            <Title m={0} level={3}>
+              {t('product.variant_plural')}
+            </Title>
+            <Switch
+              ml={3}
+              checked={showVariants}
+              onChange={() => setShowVariants(!showVariants)}
+            />
+            <Text ml={2}>{t('product.productHasVariants')}</Text>
+          </Flex>
+          <VariantFormItems hasVariants={!!showVariants} t={t} />
+
+          <Title mt={4} mb={2} level={3}>
+            {t('common.details')}
+          </Title>
+
           <Row gutter={24}>
-            <Col md={8} span={24}>
-              <FormItem
-                label={t('common.price')}
-                selector='variants[0].price'
-                parser={parsers.number}
-              >
-                {(
-                  val: any,
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => {
-                  return (
-                    <InputNumber
-                      placeholder={t('product.priceExample')}
-                      formatter={value => {
-                        return value ? `${value} ден` : '';
-                      }}
-                      parser={value => (value || '').replace(/[^0-9.]/g, '')}
-                      width='100%'
-                      min={0}
-                      max={99999999}
-                      decimalSeparator='.'
-                      value={val}
-                      onChange={onChange}
-                      onBlur={() => onComplete(val)}
-                    />
-                  );
-                }}
-              </FormItem>
-            </Col>
-            <Col md={8} span={24}>
-              <FormItem
-                label={t('product.discount')}
-                selector='variants[0].discount'
-                parser={parsers.number}
-              >
-                {(
-                  val: any,
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => {
-                  return (
-                    <InputNumber
-                      formatter={value => {
-                        return value ? `${value} ден` : '';
-                      }}
-                      parser={value => (value || '').replace(/[^0-9.]/g, '')}
-                      width='100%'
-                      min={0}
-                      max={99999999}
-                      decimalSeparator='.'
-                      value={val}
-                      onChange={onChange}
-                      onBlur={() => onComplete(val)}
-                    />
-                  );
-                }}
-              </FormItem>
-            </Col>
             <Col md={8} span={24}>
               <FormItem label={t('product.unit')} selector='unit'>
                 {(val, _onChange, onComplete) => (
@@ -281,44 +288,7 @@ export const ProductFormModal = ({
                 )}
               </FormItem>
             </Col>
-          </Row>
-          <Row gutter={24}>
-            <Col md={12} span={24}>
-              <FormItem
-                help={t('product.stockTip')}
-                label={t('product.stock')}
-                selector='variants[0].stock'
-                parser={parsers.integer}
-              >
-                {(
-                  val: any,
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => {
-                  return (
-                    <InputNumber
-                      width='100%'
-                      min={0}
-                      max={999999}
-                      value={val}
-                      onChange={onChange}
-                      onBlur={() => onComplete(val)}
-                      placeholder={t('product.stockExample')}
-                    />
-                  );
-                }}
-              </FormItem>
-            </Col>
-            <Col md={12} span={24}>
-              <FormItem label={t('product.sku')} selector='variants[0].sku'>
-                {formInput({
-                  placeholder: t('product.skuExample'),
-                })}
-              </FormItem>
-            </Col>
-          </Row>
-          <Row gutter={24}>
-            <Col md={24} span={24}>
+            <Col md={16} span={24}>
               <FormItem
                 help={t('product.groupsTip')}
                 label={t('product.groups')}
@@ -350,36 +320,6 @@ export const ProductFormModal = ({
               </FormItem>
             </Col>
           </Row>
-          <FormItem selector='images'>
-            {(val, _onChange, onComplete) => (
-              <UploadDragger
-                multiple
-                listType='picture-card'
-                customRequest={getImageUploader()}
-                accept='.png, .jpg, .jpeg'
-                onChange={info =>
-                  handleArtifactUploadStatus(
-                    info,
-                    val,
-                    false,
-                    onComplete,
-                    message.error,
-                  )
-                }
-                defaultFileList={getDefaultFileList(
-                  product ? product.images : [],
-                  storeId,
-                  { h: 80 },
-                )}
-                name='product-images'
-              >
-                <UploadContent
-                  text={t('actions.addProductImages')}
-                  hint={t('uploads.hint')}
-                />
-              </UploadDragger>
-            )}
-          </FormItem>
 
           <FormItem label={t('common.description')} selector='description'>
             {formTextArea({

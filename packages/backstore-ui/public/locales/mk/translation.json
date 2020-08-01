@@ -30,6 +30,10 @@
     "hourly": "Часовен",
     "weekly": "Неделен"
   },
+  "attributes": {
+    "color": "Боја",
+    "size": "Големина"
+  },
   "auth": {
     "account": "Сметка",
     "accountSettings": "Поставки за сметка",
@@ -528,7 +532,7 @@
     "country": "Држава",
     "description": "Опис",
     "details": "Детали",
-    "email": "Емаил адреса",
+    "email": "Емаил",
     "id": "Шифра",
     "image_plural": "Слики",
     "interface": "Интерфејс",
@@ -542,7 +546,7 @@
     "preferences": "Поставки",
     "price": "Цена",
     "status": "Статус",
-    "success": "Успешна операција!",
+    "success": "Успешен процес!",
     "summary": "Преглед",
     "unknown": "Непознато"
   },
@@ -555,7 +559,7 @@
     "updatingDeliveryTip": "Доставата се обновува..."
   },
   "deliveryMethods": {
-    "cargo-pickup": "Да се подигне од Карго",
+    "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
     "pickup": "Да се подигне"
   },
@@ -604,16 +608,15 @@
   },
   "order": {
     "orderDate": "Датум на порачка",
-    "orderDeleted": "Порачка со шифра {{id}} беше успешно избришана",
     "orderId": "Шифра на порачка"
   },
   "orderStatus": {
-    "invalid": "Невалидна",
-		"invalidDescription": "Невалидна порачка",
     "cancelled": "Откажана",
     "cancelledDescription": "Откажана",
     "completed": "Завршена",
     "completedDescription": "Испорачана до купувач",
+    "invalid": "Невалидна",
+    "invalidDescription": "Невалидна порачка",
     "pendingPayment": "За плаќање",
     "pendingPaymentDescription": "Се чека за наплата",
     "pendingShipment": "Се процесира",
@@ -648,6 +651,7 @@
     "addProductSuccess": "Нов производ успешно додаден",
     "addingProductTip": "Производот се додава...",
     "categoryTip": "Некои категории недостасуваат? Контактирајте нѐ",
+    "chooseAttributes": "Одберете атрибути...",
     "descriptionExample": "пр. Високо квалитетни и лесни патики",
     "discount": "Попуст",
     "groups": "Групи",
@@ -656,6 +660,7 @@
     "outOfStock": "Распродадено",
     "priceExample": "пр. 500",
     "productDeleted": "Производот со шифра {{id}} беше успешно избришан",
+    "productHasVariants": "Производот има варијанти",
     "sku": "Шифра",
     "skuExample": "пр. 42356731",
     "stock": "Залиха",
@@ -663,7 +668,9 @@
     "stockTip": "Оставете празно за неограничена залиха",
     "unit": "Мерна единица",
     "updateProductSuccess": "Производот {{productName}} успешно обновен",
-    "updatingProductTip": "Производот се обновува..."
+    "updatingProductTip": "Производот се обновува...",
+    "variant": "Варијанта",
+    "variant_plural": "Варијанти"
   },
   "sets": {
     "categoryExplanation": "Категории кои ќе ви се допаднат",

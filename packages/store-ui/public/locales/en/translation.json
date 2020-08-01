@@ -31,6 +31,10 @@
     "hourly": "Hourly",
     "weekly": "Weekly"
   },
+  "attributes": {
+    "color": "Color",
+    "size": "Size"
+  },
   "auth": {
     "accountUpdateSuccess": "Account successfully updated",
     "authSameAccount": "You can use the same account on every store that is",

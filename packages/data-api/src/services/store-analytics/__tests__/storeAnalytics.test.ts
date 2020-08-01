@@ -3,7 +3,7 @@ import { Application } from '@feathersjs/express';
 import { Service } from '@feathersjs/feathers';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product, OrderProduct } from '@sradevski/la-sdk/dist/models/product';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { sdk } from '@sradevski/la-sdk';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
@@ -61,7 +61,9 @@ describe('"storeAnalytics" service', () => {
           orderedBy: testUsers[0]._id,
           ordered: [
             {
-              product: sdk.product.convertToOrderProduct(testProducts[0]),
+              product: sdk.product.convertToOrderProduct(
+                testProducts[0],
+              ) as OrderProduct,
               quantity: 2,
             },
           ],

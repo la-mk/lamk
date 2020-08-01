@@ -51,46 +51,32 @@ const calculateFields = async (ctx: HookContext) => {
       throw new BadRequest('Product variant has to have a positive price');
     }
 
-    ctx.data.totalStock =
-      variant.stock != null
-        ? (ctx.data.totalStock ?? 0) + variant.stock
-        : ctx.data.totalStock;
+    // We check for null explicitly, meaning at least one of the variants has a null stock, so we don't want to track stocks.
+    if (ctx.data.totalStock !== null) {
+      ctx.data.totalStock =
+        variant.stock == null
+          ? null
+          : (ctx.data.totalStock ?? 0) + variant.stock;
+    }
 
-    ctx.data.minPrice = Math.min(
-      ctx.data.minPrice ?? Number.POSITIVE_INFINITY,
-      variant.price,
-    );
+    const isMinPriceVariant =
+      variant.calculatedPrice <=
+      (ctx.data.minCalculatedPrice ?? Number.POSITIVE_INFINITY);
+    const isMaxPriceVariant =
+      variant.calculatedPrice >=
+      (ctx.data.maxCalculatedPrice ?? Number.NEGATIVE_INFINITY);
 
-    ctx.data.maxPrice = Math.max(
-      ctx.data.maxPrice ?? Number.NEGATIVE_INFINITY,
-      variant.price,
-    );
+    if (isMinPriceVariant) {
+      ctx.data.minPrice = variant.price;
+      ctx.data.minDiscount = variant.discount;
+      ctx.data.minCalculatedPrice = variant.calculatedPrice;
+    }
 
-    ctx.data.minDiscount =
-      variant.discount != null
-        ? Math.min(
-            ctx.data.minDiscount ?? Number.POSITIVE_INFINITY,
-            variant.discount,
-          )
-        : ctx.data.minDiscount;
-
-    ctx.data.maxDiscount =
-      variant.discount != null
-        ? Math.max(
-            ctx.data.maxDiscount ?? Number.NEGATIVE_INFINITY,
-            variant.discount,
-          )
-        : ctx.data.maxDiscount;
-
-    ctx.data.minCalculatedPrice = Math.min(
-      ctx.data.minCalculatedPrice ?? Number.POSITIVE_INFINITY,
-      variant.calculatedPrice,
-    );
-
-    ctx.data.maxCalculatedPrice = Math.max(
-      ctx.data.maxCalculatedPrice ?? Number.NEGATIVE_INFINITY,
-      variant.calculatedPrice,
-    );
+    if (isMaxPriceVariant) {
+      ctx.data.maxPrice = variant.price;
+      ctx.data.maxDiscount = variant.discount;
+      ctx.data.maxCalculatedPrice = variant.calculatedPrice;
+    }
   });
 };
 
