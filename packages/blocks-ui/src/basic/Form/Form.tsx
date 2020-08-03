@@ -20,7 +20,9 @@ const setIn = (obj = {}, value: any, path: string) => {
 
 const getVal = (eventOrVal: any) => {
   // If it is an event, get the target value, otherwise assume the passed argument is the value itself.
-  return eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
+  const val = eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
+  // Treat empty strings as undefined.
+  return val || undefined;
 };
 
 const StyledForm = system<FormProps>(AntForm);
