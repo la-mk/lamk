@@ -108,12 +108,11 @@ const checkDataAgainstSchema = (
   ignoreRequired: boolean
 ) =>
   Object.keys(schema).reduce((errs: ValidationErrorResponse, entry) => {
-    const val = data[entry];
-    if (ignoreRequired && (val === null || val === undefined)) {
+    if (ignoreRequired && !(entry in data)) {
       return errs;
     }
 
-    const err = validateSingle(schema, val, entry);
+    const err = validateSingle(schema, data[entry], entry);
     if (err) {
       errs[entry] = err;
     }
