@@ -7,7 +7,6 @@ import {
   parsers,
   InputNumber,
   formInput,
-  Input,
   PickerBoxes,
 } from '@sradevski/blocks-ui';
 import { TFunction } from 'i18next';
@@ -49,7 +48,7 @@ export const VariantFormItems = ({
       }
       getDefaults={() => ({ price: 0 })}
     >
-      {(_entry, index, state) => {
+      {(_entry, index) => {
         return (
           <>
             {hasVariants && (
@@ -80,17 +79,7 @@ export const VariantFormItems = ({
                     label={t('attributes.size')}
                     selector={`variants[${index}].attributes.size`}
                   >
-                    {(
-                      val: any,
-                      onChange: (val: any) => void,
-                      onComplete: (val: any) => void,
-                    ) => (
-                      <Input
-                        value={val}
-                        onChange={(val: any) => onChange(val || undefined)}
-                        onBlur={(val: any) => onComplete(val || undefined)}
-                      />
-                    )}
+                    {formInput()}
                   </FormItem>
                 </Col>
               </Row>

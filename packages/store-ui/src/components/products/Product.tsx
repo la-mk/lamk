@@ -1,4 +1,5 @@
 import difference from 'lodash/difference';
+import isEqual from 'lodash/isEqual';
 import uniq from 'lodash/uniq';
 import React, { useState, useEffect } from 'react';
 import {
@@ -95,15 +96,19 @@ export const Product = ({ product }: ProductProps) => {
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
   const [quantity, setQuantity] = React.useState(1);
-  const isProductInCart =
-    cart &&
-    cart.items &&
-    cart.items.some(item => item.product._id === product._id);
-
   const selectedVariant = sdk.product.getVariantForAttributes(
     product,
     chosenAttributes,
   );
+
+  const isProductInCart =
+    cart &&
+    cart.items &&
+    cart.items.some(
+      item =>
+        item.product._id === product._id &&
+        isEqual(item.product.attributes, selectedVariant.attributes),
+    );
 
   const allColors = uniq(
     product.variants.map(variant => variant.attributes?.color).filter(x => !!x),
