@@ -22,7 +22,7 @@ const getVal = (eventOrVal: any) => {
   // If it is an event, get the target value, otherwise assume the passed argument is the value itself.
   const val = eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
   // Treat empty strings as null.
-  return val || null;
+  return val === '' ? null : val;
 };
 
 const StyledForm = system<FormProps>(AntForm);
