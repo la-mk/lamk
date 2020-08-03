@@ -40,10 +40,10 @@ const extendValidation = () => {
       }
 
       const first = selector ? get(value[0], selector) : value[0];
-      const baseKeys = first ? Object.keys(first).sort() : [];
+      const baseKeys = first ? Object.entries(first).filter(([_, val]) => val != null).map(([key]) => key).sort() : [];
       return value.every(val => {
         const selected = selector ? get(val, selector) : val;
-        const keys = selected ? Object.keys(selected).sort() : [];
+        const keys = selected ? Object.entries(selected).filter(([_, val]) => val != null).map(([key]) => key).sort() : [];
         return isEqual(baseKeys, keys);
       })
     },

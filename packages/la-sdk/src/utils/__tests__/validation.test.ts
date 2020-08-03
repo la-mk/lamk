@@ -245,6 +245,12 @@ describe('Custom validators', () => {
     expect(
       v8n()
         .equalSchema()
+        .test([{a: null}, {}])
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .equalSchema()
         .test([1, 2])
     ).toBeTruthy();
 
