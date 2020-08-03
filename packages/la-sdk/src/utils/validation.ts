@@ -34,15 +34,16 @@ const extendValidation = () => {
       return value.length === unique.length;
     },
     // This makes sure that every object has the same schema, so if a field is optional, it ensures either all objects have it or none has it.
-    equalSchema: () => (value: any[]) => {
+    equalSchema: (selector = '') => (value: any[]) => {
       if(value.length === 0){
         return true;
       }
 
-      const first = value[0];
+      const first = selector ? get(value[0], selector) : value[0];
       const baseKeys = first ? Object.keys(first).sort() : [];
       return value.every(val => {
-        const keys = val ? Object.keys(val).sort() : [];
+        const selected = selector ? get(val, selector) : val;
+        const keys = selected ? Object.keys(selected).sort() : [];
         return isEqual(baseKeys, keys);
       })
     },

@@ -274,6 +274,24 @@ describe('Custom validators', () => {
           { b: 'b'},
         ])
     ).toBeFalsy();
+
+    expect(
+      v8n()
+        .equalSchema('b')
+        .test([
+          { b: {a: 'd' } },
+          { b: {a: 'b' }},
+        ])
+    ).toBeTruthy();
+
+    expect(
+      v8n()
+        .equalSchema('b')
+        .test([
+          { b: {a: 'd' } },
+          { b: {c: 'b' }},
+        ])
+    ).toBeFalsy();
   });
 
   test('id', () => {
