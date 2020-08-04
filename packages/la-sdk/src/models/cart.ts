@@ -12,6 +12,7 @@ import {
 import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { uniq } from 'lodash';
 
 export const schema = {
   ...defaultSchemaEntries,
@@ -81,7 +82,7 @@ export const getCartSdk = (client: Application) => {
           ? (
               await client.service('products').find({
                 query: {
-                  _id: { $in: cartProducts.map(product => product.id) },
+                  _id: { $in: uniq(cartProducts.map(product => product.id)) },
                 },
               })
             ).data
@@ -97,9 +98,14 @@ export const getCartSdk = (client: Application) => {
             throw new Error('Missing product when populating cart');
           }
 
+          const orderProduct = convertToOrderProduct(product, item.product.attributes)
+          if (!orderProduct) {
+            throw new Error('Missing product when populating cart');
+          }
+          
           return {
             ...item,
-            product: convertToOrderProduct(product),
+            product: orderProduct,
           };
         }),
       } as CartWithProducts;
@@ -122,7 +128,13 @@ export const getCartSdk = (client: Application) => {
 
       return crudMethods.patch(
         cartId,
-        { $pull: { items: { product: productId } } },
+        {
+          $pull: {
+            items: {
+              product: { id: productId, attributes: item.product.attributes },
+            },
+          },
+        },
         params
       );
     },
@@ -140,7 +152,12 @@ export const getCartSdk = (client: Application) => {
       }
 
       const options = {};
-      merge(options, params, { query: { 'items.product.id': productId } });
+      merge(options, params, {
+        query: {
+          'items.product.id': productId,
+          'items.product.attributes': item.product.attributes,
+        },
+      });
       return crudMethods.patch(
         cartId,
         { $set: { 'items.$.quantity': quantity } },
