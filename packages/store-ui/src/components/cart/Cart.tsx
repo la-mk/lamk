@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import React, { useEffect } from 'react';
 import { Flex, Empty, Spin, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
@@ -81,6 +82,9 @@ export const Cart = () => {
       trackEvent({
         eventName: AnalyticsEvents.removeItemFromCart,
         productId: cartItem.product._id,
+        attributes: cartItem.product.attributes
+          ? JSON.stringify(cartItem.product.attributes)
+          : undefined,
         category: cartItem.product.category,
         price: cartItem.product.calculatedPrice,
         discount: cartItem.product.discount,
@@ -92,7 +96,11 @@ export const Cart = () => {
       setCartWithProducts({
         ...cart,
         items: cart.items.filter(
-          item => item.product._id !== cartItem.product._id,
+          item =>
+            !(
+              item.product._id === cartItem.product._id &&
+              isEqual(item.product.attributes, cartItem.product.attributes)
+            ),
         ),
       }),
     );
@@ -111,7 +119,10 @@ export const Cart = () => {
       setCartWithProducts({
         ...cart,
         items: cart.items.map(item => {
-          if (item.product._id === cartItem.product._id) {
+          if (
+            item.product._id === cartItem.product._id &&
+            isEqual(item.product.attributes, cartItem.product.attributes)
+          ) {
             return { ...item, quantity };
           }
           return item;

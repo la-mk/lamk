@@ -1,4 +1,5 @@
 import unionWith from 'lodash/unionWith';
+import isEqual from 'lodash/isEqual';
 import {
   call,
   take,
@@ -78,7 +79,9 @@ export function* handleCartForUserSaga(authInfo: any) {
     const cartItems = unionWith(
       localCart?.items ?? [],
       serverCart?.items ?? [],
-      (a: any, b: any) => a.product._id === b.product._id,
+      (a: any, b: any) =>
+        a.product._id === b.product._id &&
+        isEqual(a.product.attributes, b.product.attributes),
     );
 
     yield call(sdk.cart.patch, serverCart._id, {
@@ -86,7 +89,10 @@ export function* handleCartForUserSaga(authInfo: any) {
         .filter(item => item.fromStore === store._id)
         .map((item: CartItemWithProduct) => ({
           ...item,
-          product: item.product._id,
+          product: {
+            id: item.product._id,
+            attributes: item.product.attributes,
+          },
         })),
     });
 

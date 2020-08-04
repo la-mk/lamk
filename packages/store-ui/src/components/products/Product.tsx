@@ -107,7 +107,7 @@ export const Product = ({ product }: ProductProps) => {
     cart.items.some(
       item =>
         item.product._id === product._id &&
-        isEqual(item.product.attributes, selectedVariant.attributes),
+        isEqual(item.product?.attributes, selectedVariant?.attributes),
     );
 
   const allColors = uniq(

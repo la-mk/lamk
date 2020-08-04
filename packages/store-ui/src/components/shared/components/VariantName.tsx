@@ -34,7 +34,7 @@ export const VariantName = ({
     });
 
   if (!values.length) {
-    return <Text>{t('product.chooseAttributes')}</Text>;
+    return null;
   }
 
   return <Flex alignItems='center'>{values}</Flex>;

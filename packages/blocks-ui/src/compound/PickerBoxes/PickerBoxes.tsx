@@ -83,6 +83,7 @@ export const PickerBoxes = ({
     <Flex m={-1} flexWrap="wrap">
       {values.map(value => (
         <PickerBox
+          key={value}
           size={size}
           onClick={() => onSelect(value === selected ? undefined : value)}
           highlight={selected === value}
