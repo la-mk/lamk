@@ -37,6 +37,7 @@ export const SetupProducts = ({
     unit: sdk.product.ProductUnit.ITEM,
     images: [],
     groups: [],
+    variants: [{ price: 0 }],
   });
 
   // This is a messy way of recreating the "AddProductCard" component when we add a product.
@@ -47,6 +48,7 @@ export const SetupProducts = ({
         unit: sdk.product.ProductUnit.ITEM,
         images: [],
         groups: [],
+        variants: [],
       });
     }
   }, [editedProduct, setEditedProduct]);
