@@ -8,6 +8,7 @@ import { validate, validateSingle } from '../utils/validation';
 import v8n from 'v8n';
 import pick from 'lodash/pick';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { omitBy, isNil } from 'lodash';
 
 export enum ProductUnit {
   ITEM = 'item',
@@ -282,13 +283,18 @@ export const getVariantForAttributes = (
     return product.variants[0];
   }
 
-  const variant = product.variants.find(variant => isEqual(variant.attributes, attributes))
+  const variant = product.variants.find(variant => areAttributesEquivalent(variant.attributes, attributes))
   if(!variant){
     return null;
   }
 
   return variant;
 };
+
+// We don't care about null/undefined properties
+export const areAttributesEquivalent = (a: Attributes | undefined, b: Attributes | undefined) => {
+  return isEqual(omitBy(a, isNil) , omitBy(b, isNil));
+}
 
 export const getProductSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Product>, Product>(
@@ -353,6 +359,8 @@ export const getProductSdk = (client: Application) => {
     getQueryForSet,
 
     getVariantForAttributes,
+
+    areAttributesEquivalent,
 
     convertToOrderProduct,
 
