@@ -1,5 +1,4 @@
 import unionWith from 'lodash/unionWith';
-import isEqual from 'lodash/isEqual';
 import {
   call,
   take,
@@ -81,7 +80,10 @@ export function* handleCartForUserSaga(authInfo: any) {
       serverCart?.items ?? [],
       (a: any, b: any) =>
         a.product._id === b.product._id &&
-        isEqual(a.product.attributes, b.product.attributes),
+        sdk.product.areAttributesEquivalent(
+          a.product.attributes,
+          b.product.attributes,
+        ),
     );
 
     yield call(sdk.cart.patch, serverCart._id, {

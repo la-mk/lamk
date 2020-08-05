@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Modal,
   Spin,
@@ -17,7 +17,6 @@ import {
   Box,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
-import { OrderProduct } from '@sradevski/la-sdk/dist/models/product';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import format from 'date-fns/format';
 import { setOrder } from '../../../state/modules/orders/orders.module';
@@ -33,24 +32,6 @@ interface OrderDetailsModalProps {
   onClose: () => void;
 }
 
-const getQuantityForProduct = (order: Order, product: OrderProduct) => {
-  const orderItem = order.ordered.find(
-    item => item.product._id === product._id,
-  );
-
-  return orderItem ? orderItem.quantity : null;
-};
-
-const getTotalPriceForProduct = (order: Order, product: OrderProduct) => {
-  const orderItem = order.ordered.find(
-    item => item.product._id === product._id,
-  );
-
-  return orderItem
-    ? orderItem.quantity * (orderItem.product.calculatedPrice ?? 0)
-    : null;
-};
-
 export const OrderDetailsModal = ({
   orderId,
   onClose,
@@ -58,14 +39,7 @@ export const OrderDetailsModal = ({
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const order = useSelector<any, Order>(getOrder(orderId));
-  const [products, setProducts] = useState<OrderProduct[]>([]);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    if (order) {
-      setProducts(order.ordered.map(orderItem => orderItem.product));
-    }
-  }, [order]);
 
   const handleStatusChanged = (status: Order['status']) => {
     if (order) {
@@ -207,10 +181,10 @@ export const OrderDetailsModal = ({
             </Card>
           </Flex>
           <Card title={t('commerce.product_plural')} mt={3}>
-            {Boolean(products) && (
+            {Boolean(order?.ordered) && (
               <List>
-                {products!.map(product => (
-                  <List.Item key={product._id}>
+                {order.ordered.map(orderItem => (
+                  <List.Item key={orderItem.product._id}>
                     <Flex
                       width={'100%'}
                       justifyContent='space-between'
@@ -227,10 +201,10 @@ export const OrderDetailsModal = ({
                         >
                           <Image
                             height={60}
-                            alt={product.name}
+                            alt={orderItem.product.name}
                             getSrc={params =>
                               sdk.artifact.getUrlForImage(
-                                product.images[0],
+                                orderItem.product.images[0],
                                 store._id,
                                 params,
                               )
@@ -238,15 +212,17 @@ export const OrderDetailsModal = ({
                           />
                         </Flex>
                         <Flex flexDirection='column'>
-                          <Text mx={2}>{product.name}</Text>
+                          <Text mx={2}>{orderItem.product.name}</Text>
 
                           <Flex alignItems='center'>
-                            {product.sku && (
+                            {orderItem.product.sku && (
                               <Text strong mx={2}>
-                                {`${t('product.sku')}: ${product.sku}`}
+                                {`${t('product.sku')}: ${
+                                  orderItem.product.sku
+                                }`}
                               </Text>
                             )}
-                            {product.attributes && (
+                            {orderItem.product.attributes && (
                               <>
                                 <Flex alignItems='center' ml={2}>
                                   <Text strong>{`${t(
@@ -255,7 +231,7 @@ export const OrderDetailsModal = ({
                                   <Box ml={1}>
                                     <VariantName
                                       t={t}
-                                      attributes={product.attributes}
+                                      attributes={orderItem.product.attributes}
                                     />
                                   </Box>
                                 </Flex>
@@ -267,16 +243,16 @@ export const OrderDetailsModal = ({
                       <Flex mt={[3, 0, 0]} mx={2} flexDirection='column'>
                         <Text>
                           {t('commerce.quantity')}:{' '}
-                          {getQuantityForProduct(order, product) ||
-                            t('common.unknown')}
+                          {orderItem.quantity || t('common.unknown')}
                           {' / '}
                           <Text color='mutedText.dark'>
-                            {t(`units.${product.unit}`)}
+                            {t(`units.${orderItem.product.unit}`)}
                           </Text>
                         </Text>
                         <Text strong>
                           {t('finance.total')}:{' '}
-                          {`${getTotalPriceForProduct(order, product)} ден` ||
+                          {`${orderItem.quantity *
+                            (orderItem.product.calculatedPrice ?? 0)} ден` ||
                             t('common.unknown')}
                         </Text>
                       </Flex>

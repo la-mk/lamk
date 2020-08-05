@@ -1,5 +1,4 @@
 import difference from 'lodash/difference';
-import isEqual from 'lodash/isEqual';
 import uniq from 'lodash/uniq';
 import React, { useState, useEffect } from 'react';
 import {
@@ -81,13 +80,7 @@ export const Product = ({ product }: ProductProps) => {
 
   const [chosenAttributes, setChosenAttributes] = useState<
     Attributes | undefined
-  >(
-    hasSingleAvailableVariant
-      ? product.variants[0].attributes
-      : hasAttributes
-      ? {}
-      : undefined,
-  );
+  >(undefined);
 
   const [trackedEvent, setTrackedEvent] = useState(false);
   const dispatch = useDispatch();
@@ -107,7 +100,10 @@ export const Product = ({ product }: ProductProps) => {
     cart.items.some(
       item =>
         item.product._id === product._id &&
-        isEqual(item.product?.attributes, selectedVariant?.attributes),
+        sdk.product.areAttributesEquivalent(
+          item.product?.attributes,
+          selectedVariant?.attributes,
+        ),
     );
 
   const allColors = uniq(
@@ -165,6 +161,23 @@ export const Product = ({ product }: ProductProps) => {
   }, [delivery, store._id]);
 
   useEffect(() => {
+    if (!product?._id) {
+      return;
+    }
+
+    setQuantity(1);
+    setSelectedImage(product.images[0]);
+    setTrackedEvent(false);
+    setChosenAttributes(
+      hasSingleAvailableVariant
+        ? product.variants[0].attributes
+        : hasAttributes
+        ? {}
+        : undefined,
+    );
+  }, [product?._id]);
+
+  useEffect(() => {
     if (!product || trackedEvent) {
       return;
     }
@@ -190,10 +203,6 @@ export const Product = ({ product }: ProductProps) => {
 
     setTrackedEvent(true);
   }, [product, trackedEvent]);
-
-  useEffect(() => {
-    setSelectedImage(product.images[0]);
-  }, [product]);
 
   const handleAddToCart = () => {
     let action: Promise<Cart | void> = Promise.resolve();
