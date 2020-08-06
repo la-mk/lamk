@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/nlp"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "ISC",
   "author": "Stevche Radevski",
   "main": "dist/index.js",
@@ -39,15 +39,15 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.2",
-    "@types/lodash": "^4.14.149",
-    "husky": "^4.2.1",
-    "tsdx": "^0.12.3",
-    "tslib": "^1.10.0",
-    "typescript": "^3.7.5"
+    "@types/jest": "^26.0.9",
+    "@types/lodash": "^4.14.159",
+    "husky": "^4.2.5",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lodash-es": "^4.17.15"
   }
 }

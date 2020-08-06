@@ -1,12 +1,19 @@
 import React from 'react';
-import { Input, TextArea } from '../basic/Input';
-import { InputProps, TextAreaProps } from 'antd/es/input';
+import { Input, TextArea, Password } from '../basic/Input';
+import { InputProps, TextAreaProps, PasswordProps } from 'antd/es/input';
 
 export const formInput = (props: InputProps = {}) => (
   val: any,
   onChange: (val: any) => void,
   onComplete: (val: any) => void
 ) => <Input {...props} value={val} onChange={onChange} onBlur={onComplete} />;
+
+export const formPassword = (props: PasswordProps = {}) => (
+  val: any,
+  onChange: (val: any) => void,
+  onComplete: (val: any) => void
+) => <Password {...props} value={val} onChange={onChange} onBlur={onComplete} />;
+
 
 export const formTextArea = (props: TextAreaProps = {}) => (
   val: any,

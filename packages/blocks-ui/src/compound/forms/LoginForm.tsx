@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { formInput } from '../FormHelpers';
+import { formInput, formPassword } from '../FormHelpers';
 import { FormItem, FormHandlers } from '../../basic/Form/Form';
 import { LocalizationContext } from '../../basic/Provider';
 import { AuthFormBase } from './AuthFormBase';
@@ -37,7 +37,7 @@ export const LoginForm = ({
       </FormItem>
 
       <FormItem selector="password" label={localization.password || 'Password'}>
-        {formInput({ size: 'large', type: 'password' })}
+        {formPassword({ size: 'large' })}
       </FormItem>
     </AuthFormBase>
   );

@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.110",
+  "version": "0.0.111",
   "description": "",
   "license": "ISC",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -34,26 +34,26 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@feathersjs/authentication-client": "^4.5.1",
-    "@feathersjs/feathers": "^4.5.1",
-    "@feathersjs/rest-client": "^4.5.1",
-    "@feathersjs/socketio-client": "^4.5.1",
+    "@feathersjs/authentication-client": "^4.5.7",
+    "@feathersjs/feathers": "^4.5.7",
+    "@feathersjs/rest-client": "^4.5.7",
+    "@feathersjs/socketio-client": "^4.5.7",
     "bluebird": "^3.7.2",
-    "iso-datestring-validator": "^2.0.4",
-    "lodash": "^4.17.15",
+    "iso-datestring-validator": "^2.0.5",
+    "lodash": "^4.17.19",
     "lodash-es": "^4.17.15",
     "node-fetch": "^2.6.0",
     "socket.io-client": "^2.3.0",
     "v8n": "^1.3.3"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.29",
-    "@types/jest": "^25.1.4",
-    "@types/lodash": "^4.14.149",
-    "@types/socket.io-client": "^1.4.32",
-    "husky": "^4.2.3",
-    "tsdx": "^0.12.3",
-    "tslib": "^1.11.1",
-    "typescript": "^3.8.3"
+    "@types/bluebird": "^3.5.32",
+    "@types/jest": "^26.0.9",
+    "@types/lodash": "^4.14.159",
+    "@types/socket.io-client": "^1.4.33",
+    "husky": "^4.2.5",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.7"
   }
 }
