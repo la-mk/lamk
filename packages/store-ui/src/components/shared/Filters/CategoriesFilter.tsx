@@ -44,7 +44,7 @@ export const CategoriesFilter = ({
   const handleSelectedCategoriesChange = ({
     selectedKeys,
   }: {
-    selectedKeys: string[];
+    selectedKeys?: (string | number)[];
   }) => {
     onChange({
       ...filters,

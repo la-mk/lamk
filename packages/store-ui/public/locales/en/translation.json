@@ -653,7 +653,6 @@
   },
   "product": {
     "availability": "Availability",
-    "chooseAttributes": "Choose attributes...",
     "discounted": "{{percentage}}% Off",
     "inStock": "In stock",
     "new": "New",

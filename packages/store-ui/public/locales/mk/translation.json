@@ -653,7 +653,6 @@
   },
   "product": {
     "availability": "Достапност",
-    "chooseAttributes": "Одберете атрибути...",
     "discounted": "{{percentage}}% Попуст",
     "inStock": "Има залиха",
     "new": "Ново",
