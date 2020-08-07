@@ -40,7 +40,7 @@ export interface SystemProps
 export const system = function<T>(Component: any, additionalProps?: string[]) {
   // Use multiple & to increase specificity over the Ant components.
   return styled(Component as React.FunctionComponent<T>)<SystemProps>`
-    && {
+    &&&& {
       ${space}
       ${width}
       ${height}
