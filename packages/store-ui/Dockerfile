@@ -1,4 +1,4 @@
-FROM node:12-slim as base
+FROM node:14.7.0-alpine as base
 ARG GPR_TOKEN
 
 WORKDIR /usr/src/app
@@ -21,7 +21,7 @@ RUN npm run build
 # TODO: It's somewhat confusing what should and shouldn't be a dev dependency, so let's just keep all of them for now
 # RUN npm prune --development
 
-FROM node:12-slim as prod
+FROM node:14.7.0-alpine as prod
 WORKDIR /usr/src/app
 ENV NODE_ENV production
 COPY ./entry.sh ./

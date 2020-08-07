@@ -6,6 +6,12 @@ networks:
   main-network:
     driver: bridge
 
+# We keep node modules in volumes for faster installs across container recreation and to prevent issue where installing a module would not be picked up immediately.
+volumes: 
+  store-ui_node_modules:
+  backstore-ui_node_modules:
+  data-api_node_modules:
+
 services:
   reverse-proxy:
     image: traefik:v2.1.1
@@ -105,7 +111,7 @@ services:
     container_name: data-api-dev
     volumes:
       - ./packages/data-api:/usr/src/app:delegated
-      - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
+      - data-api_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
     expose: 
@@ -159,7 +165,7 @@ services:
       - data-api
     volumes:
       - ./packages/store-ui:/usr/src/app:delegated
-      - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
+      - store-ui_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
     expose: 
@@ -204,7 +210,7 @@ services:
       - data-api
     volumes:
       - ./packages/backstore-ui:/usr/src/app:delegated
-      - /usr/src/app/node_modules #don't bind node_modules, speeding up hot reloads
+      - backstore-ui_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
     expose: 
