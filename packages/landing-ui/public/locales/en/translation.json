@@ -17,6 +17,10 @@
     "hourly": "Hourly",
     "weekly": "Weekly"
   },
+  "attributes": {
+    "color": "Color",
+    "size": "Size"
+  },
   "campaignBanners": {
     "allDiscountSubtitle": "All discounts are calculated on checkout",
     "allDiscountTitle": "{{rewardValue}} off on all orders"
@@ -493,6 +497,7 @@
     "boolean": "Field should be either true or false",
     "date": "Field should be a valid date",
     "email": "Field should be a valid email address",
+    "equalSchema": "All fields should have the same properties",
     "generic": "Invalid entry",
     "greaterThan": "Field should be more than {{0}}",
     "hexColor": "Field should be a valid hex color",
@@ -623,6 +628,8 @@
     "cancelledDescription": "Cancelled",
     "completed": "Completed",
     "completedDescription": "All done!",
+    "invalid": "Invalid",
+    "invalidDescription": "Invalid order",
     "pendingPayment": "Awaiting payment",
     "pendingPaymentDescription": "Awaiting payment",
     "pendingShipment": "Preparing",

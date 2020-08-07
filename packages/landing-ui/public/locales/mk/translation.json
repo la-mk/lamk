@@ -17,6 +17,10 @@
     "hourly": "Часовен",
     "weekly": "Неделен"
   },
+  "attributes": {
+    "color": "Боја",
+    "size": "Големина"
+  },
   "campaignBanners": {
     "allDiscountSubtitle": "Сите попусти се пресметуваат на каса",
     "allDiscountTitle": "{{rewardValue}} попуст на сите порачки"
@@ -484,7 +488,7 @@
     "subTagline": "Најлесниот начин да направите онлајн продавница"
   },
   "deliveryMethods": {
-    "cargo-pickup": "Да се подигне од Карго",
+    "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
     "pickup": "Да се подигне"
   },
@@ -493,6 +497,7 @@
     "boolean": "Полето треба да е обележано или необележано",
     "date": "Полето треба да е валиден датум",
     "email": "Полето треба да е валидна емаил адреса",
+    "equalSchema": "Полињата треба да имаат исти својства",
     "generic": "Невалиден внес",
     "greaterThan": "Полето треба да е повеќе од {{0}}",
     "hexColor": "Полето треба да е валидна шифра за боја",
@@ -623,6 +628,8 @@
     "cancelledDescription": "Откажана",
     "completed": "Завршена",
     "completedDescription": "Испорачана до купувач",
+    "invalid": "Невалидна",
+    "invalidDescription": "Невалидна порачка",
     "pendingPayment": "За плаќање",
     "pendingPaymentDescription": "Се чека за наплата",
     "pendingShipment": "Се процесира",
