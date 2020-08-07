@@ -1,4 +1,4 @@
-FROM node:12-slim as base
+FROM node:14.7.0-alpine as base
 ARG GPR_TOKEN
 
 WORKDIR /usr/src/app
@@ -20,7 +20,7 @@ ENV NODE_ENV production
 RUN npm run build
 RUN npm prune --development
 
-FROM node:12-slim as prod
+FROM node:14.7.0-alpine as prod
 WORKDIR /usr/src/app
 # Environment variables are not preserved from other build stages, and it is required by the application
 ENV NODE_ENV production

@@ -17,7 +17,7 @@ import {
   StorePaymentMethods,
 } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 import { BadRequest } from '../../common/errors';
-import uuid from 'uuid/v4';
+import {v4 as uuid} from 'uuid';
 import * as nestpay from '../../common/paymentProcessors/nestpay';
 
 // TODO: Rate-limit this so store keys cannot leak.

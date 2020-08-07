@@ -68,7 +68,7 @@ services:
       MINIO_SECRET_KEY: minio123
 
   search:
-    image: typesense/typesense:0.13.0
+    image: typesense/typesense:0.14.0
     container_name: search-dev
     command: ./typesense-server
     expose:

@@ -11,7 +11,6 @@ import { registerUnhandledErrorHandlers } from '../common/errors';
 
 import { initPreRouteMiddlewares } from './middlewares/preRouteMiddlewares';
 import { initPostRouteMiddlewares } from './middlewares/postRouteMiddlewares';
-import { initErrorHandlingMiddlewares } from './middlewares/errorHandlingMiddleware';
 
 import { registerServices } from './routes/services';
 import { registerAppHooks } from './hooks';
@@ -47,7 +46,6 @@ export default async () => {
   registerChannels(app);
 
   initPostRouteMiddlewares(app);
-  initErrorHandlingMiddlewares(app);
 
   await initScheduler(app);
 

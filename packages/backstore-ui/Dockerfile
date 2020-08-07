@@ -1,4 +1,4 @@
-FROM node:12-slim as base
+FROM node:14.7.0-alpine as base
 ARG GPR_TOKEN
 
 WORKDIR /usr/src/app

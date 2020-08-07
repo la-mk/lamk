@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Application, Service, Params } from '@feathersjs/feathers';
 // @ts-ignore
-import Typesense from 'typesense';
+import {Client as TypesenseClient} from 'typesense';
 import { hooks } from './hooks';
 import { productsModel } from './searchModels';
 import env from '../../common/env';
@@ -236,7 +236,7 @@ class SearchService implements Service<SearchData> {
 }
 
 export const search = (app: Application) => {
-  const client = new Typesense.Client({
+  const client = new TypesenseClient({
     nodes: [
       {
         host: env().SEARCH_SERVICE_ENDPOINT,

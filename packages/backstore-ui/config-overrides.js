@@ -7,16 +7,18 @@ module.exports = override(
     style: true,
   }),
   addLessLoader({
-    javascriptEnabled: true,
-    //Find all variables here: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
-    modifyVars: {
-      '@font-family': `
+    lessOptions: {
+      javascriptEnabled: true,
+      //Find all variables here: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+      modifyVars: {
+        '@font-family': `
       'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
       `,
-      '@primary-color': '#118AB2',
-      '@menu-highlight-color': '#EF4351',
-      '@menu-dark-item-active-bg': '#EF4351',
-      '@layout-header-background': '#07074F',
+        '@primary-color': '#118AB2',
+        '@menu-highlight-color': '#EF4351',
+        '@menu-dark-item-active-bg': '#EF4351',
+        '@layout-header-background': '#07074F',
+      },
     },
   }),
 );

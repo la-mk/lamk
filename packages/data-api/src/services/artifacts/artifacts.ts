@@ -6,7 +6,7 @@ import * as mimeTypes from 'mime-types';
 import { hooks } from './hooks';
 import env from '../../common/env';
 import { BadRequest, GeneralError } from '../../common/errors';
-import uuid from 'uuid/v4';
+import {v4 as uuid} from 'uuid';
 
 interface ArtifactsServiceData {
   uri: string;

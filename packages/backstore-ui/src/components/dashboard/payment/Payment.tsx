@@ -12,6 +12,7 @@ import {
   Option,
   Input,
   Col,
+  Password,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
@@ -316,7 +317,7 @@ export const Payment = () => {
                 onComplete: (val: any) => void,
                 { methods }: StorePaymentMethods,
               ) => (
-                <Input
+                <Password
                   disabled={
                     !(methods ?? []).some(
                       method =>
@@ -418,7 +419,7 @@ export const Payment = () => {
                 onComplete: (val: any) => void,
                 { methods }: StorePaymentMethods,
               ) => (
-                <Input
+                <Password
                   disabled={
                     !(methods ?? []).some(
                       method =>

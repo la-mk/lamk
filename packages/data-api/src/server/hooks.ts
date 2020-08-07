@@ -1,6 +1,7 @@
 // Application hooks that run for every service
 import { log } from '../common/hooks/log';
-import { Application, HooksObject } from '@feathersjs/feathers';
+import { error } from '../common/hooks/error';
+import { Application, HooksObject, HookContext } from '@feathersjs/feathers';
 import {
   appendCreateTimestamp,
   appendModifyTimestamp,
@@ -33,7 +34,7 @@ const hooks: HooksObject = {
   },
 
   error: {
-    all: [log],
+    all: [log, error],
     find: [],
     get: [],
     create: [],

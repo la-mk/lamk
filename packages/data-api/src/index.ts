@@ -27,6 +27,7 @@ const healthCheck = async (app: Application) => {
 };
 
 setup().then(app => {
+  logger.info(`Starting server...`);
   const server = app.listen(env().PORT, () => {
     logger.info(`Server started on port: ${env().PORT}`);
   });

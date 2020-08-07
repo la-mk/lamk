@@ -1,5 +1,5 @@
 import { Store } from '@sradevski/la-sdk/dist/models/store';
-import uuid from 'uuid/v4';
+import {v4 as uuid} from 'uuid';
 import { defaultGenerator, GeneratorFunc } from './helpers';
 
 const defaultFixture: Partial<Store> = {
