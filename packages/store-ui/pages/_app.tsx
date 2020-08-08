@@ -1,12 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import { default as NextHead } from 'next/head';
-import {
-  Provider as ThemeProvider,
-  Empty,
-  hooks,
-  theme,
-} from '@sradevski/blocks-ui';
+import { Provider as ThemeProvider, hooks, theme } from '@sradevski/blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
@@ -25,6 +20,7 @@ import memoize from 'mem';
 import { initializeAnalytics } from '../src/common/analytics';
 import { BrandColorWrapper } from '../src/common/antdOverride/BrandColorWrapper';
 import { getTheme } from '../src/common/theme';
+import { StoreNotFound } from '../src/common/pageComponents/StoreNotFound';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
@@ -97,8 +93,9 @@ const setInitialDataInState = async (appCtx: any) => {
   }
 };
 
-const Main = ({ store, brandColor, children }) => {
+const Main = ({ store, laStore, children }) => {
   const { t, i18n } = useTranslation();
+  const brandColor = laStore?.brandColor;
 
   return (
     <ThemeProvider
@@ -111,14 +108,17 @@ const Main = ({ store, brandColor, children }) => {
           <hooks.BreakpointProvider
             breakpoints={theme.breakpoints.map(x => parseInt(x))}
           >
-            {brandColor && <BrandColorWrapper brandColor={brandColor} />}
-
-            <StoreLayout>
-              <>
-                {children}
-                <AuthModal />
-              </>
-            </StoreLayout>
+            <BrandColorWrapper brandColor={brandColor} />
+            {laStore ? (
+              <StoreLayout>
+                <>
+                  {children}
+                  <AuthModal />
+                </>
+              </StoreLayout>
+            ) : (
+              <StoreNotFound t={t} />
+            )}
           </hooks.BreakpointProvider>
         </ConnectedRouter>
       </ReduxProvider>
@@ -145,7 +145,7 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
     const laStore = getStore(store.getState());
 
     // Initialize analytics and only in the browser for now.
-    if (process.browser) {
+    if (process.browser && laStore?.slug) {
       initializeAnalytics(laStore.slug);
     }
 
@@ -180,12 +180,8 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
           </NextHead>
         )}
 
-        <Main store={store} brandColor={laStore?.color}>
-          {laStore ? (
-            <Component {...pageProps} />
-          ) : (
-            <Empty description='Store not found'></Empty>
-          )}
+        <Main store={store} laStore={laStore}>
+          {laStore ? <Component {...pageProps} /> : null}
         </Main>
       </>
     );

@@ -1120,14 +1120,11 @@ const StyleHolder = createGlobalStyle<{
 `;
 
 export const BrandColorWrapper = withTheme(
-  ({ theme, brandColor }: { theme: BlocksTheme; brandColor: string }) => {
-    if (!brandColor) {
-      return null;
-    }
-    const color = brandColor;
-    const hoverColor = getHoverColor(brandColor);
-    const activeColor = getActiveColor(brandColor);
-    const shadowColor = getShadowColor(brandColor);
+  ({ theme, brandColor }: { theme: BlocksTheme; brandColor?: string }) => {
+    const color = brandColor ?? theme.colors.primary;
+    const hoverColor = getHoverColor(color);
+    const activeColor = getActiveColor(color);
+    const shadowColor = getShadowColor(color);
     const dangerColor = theme.colors.danger;
 
     return (

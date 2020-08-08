@@ -3,6 +3,7 @@
     "addToCart": "Add to Cart",
     "cancel": "Cancel",
     "create": "Create",
+    "createStoreNow": "Create store now",
     "delete": "Delete",
     "goBack": "Go back",
     "goToCart": "Go to Cart",
@@ -665,7 +666,9 @@
     "pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
     "productNotFound": "Product not found",
     "serverError": "Server error",
-    "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
+    "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists",
+    "storeNotFound": "Store not found",
+    "storeNotFoundExplanation": "The store you were looking for doesn't exist"
   },
   "seoDescriptions": {
     "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",

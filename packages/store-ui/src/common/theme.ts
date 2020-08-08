@@ -26,7 +26,7 @@ const getOtherColors = (brandColor: string) => {
   };
 };
 
-export const getTheme = (brandColor: string) => {
+export const getTheme = (brandColor = '#EF4351') => {
   return {
     colors: {
       primary: brandColor,
