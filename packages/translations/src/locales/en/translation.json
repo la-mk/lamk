@@ -25,6 +25,7 @@
 		"retry": "Retry",
 		"save": "Save",
 		"search": "Search",
+		"createStoreNow": "Create store now",
 		"seeDemoShop": "See demo shop",
 		"select": "Select",
 		"shopNow": "Shop now",
@@ -378,6 +379,8 @@
 		"pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
 		"serverError": "Server error",
 		"serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists",
+		"storeNotFound": "Store not found",
+		"storeNotFoundExplanation": "The store you were looking for doesn't exist",
 		"genericError": "Error occured",
 		"genericErrorExplanation": "There was an error with status code {{statusCode}}. Contact us if the issue persists"
 	},
