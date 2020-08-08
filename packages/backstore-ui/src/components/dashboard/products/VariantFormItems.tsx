@@ -8,6 +8,10 @@ import {
   InputNumber,
   formInput,
   PickerBoxes,
+  InputGroup,
+  Select,
+  Option,
+  Input,
 } from '@sradevski/blocks-ui';
 import { TFunction } from 'i18next';
 import { VariantName } from '../../shared/components/VariantName';
@@ -30,6 +34,11 @@ const COLORS = [
   '#808080',
 ];
 
+enum DiscountInputMode {
+  percentage,
+  value,
+}
+
 export const VariantFormItems = ({
   hasVariants,
   t,
@@ -37,6 +46,10 @@ export const VariantFormItems = ({
   hasVariants: boolean;
   t: TFunction;
 }) => {
+  const [discountInputMode, setDiscountInputMode] = React.useState<
+    DiscountInputMode
+  >(DiscountInputMode.percentage);
+
   return (
     <FormList
       as='tab'
@@ -58,11 +71,7 @@ export const VariantFormItems = ({
                     label={t('attributes.color')}
                     selector={`variants[${index}].attributes.color`}
                   >
-                    {(
-                      val: any,
-                      _onChange: (val: any) => void,
-                      onComplete: (val: any) => void,
-                    ) => {
+                    {(val, _onChange, onComplete) => {
                       return (
                         <PickerBoxes
                           onSelect={onComplete}
@@ -91,11 +100,7 @@ export const VariantFormItems = ({
                   selector={`variants[${index}].price`}
                   parser={parsers.number}
                 >
-                  {(
-                    val: any,
-                    onChange: (val: any) => void,
-                    onComplete: (val: any) => void,
-                  ) => {
+                  {(val, onChange, onComplete) => {
                     return (
                       <InputNumber
                         placeholder={t('product.priceExample')}
@@ -121,25 +126,79 @@ export const VariantFormItems = ({
                   selector={`variants[${index}].discount`}
                   parser={parsers.number}
                 >
-                  {(
-                    val: any,
-                    onChange: (val: any) => void,
-                    onComplete: (val: any) => void,
-                  ) => {
+                  {(val, onChange, onComplete, state) => {
+                    const variantPrice = state.variants[index]?.price ?? 0;
+                    const percentageDiscount =
+                      variantPrice === 0 ? 0 : (val / variantPrice) * 100;
+
+                    // TODO: Implement this with addon once ant design supports it, see https://github.com/ant-design/ant-design/issues/14284
                     return (
-                      <InputNumber
-                        formatter={value => {
-                          return value ? `${value} ден` : '';
-                        }}
-                        parser={value => (value || '').replace(/[^0-9.]/g, '')}
-                        width='100%'
-                        min={0}
-                        max={99999999}
-                        decimalSeparator='.'
-                        value={val}
-                        onChange={onChange}
-                        onBlur={() => onComplete(val)}
-                      />
+                      <InputGroup compact width='100%'>
+                        {discountInputMode === DiscountInputMode.percentage && (
+                          <InputNumber
+                            width={'calc(100% - 210px)'}
+                            formatter={value => {
+                              return value ? `${value} %` : '';
+                            }}
+                            parser={value =>
+                              (value || '').replace(/[^0-9.]/g, '')
+                            }
+                            min={0}
+                            max={100}
+                            decimalSeparator='.'
+                            value={percentageDiscount}
+                            onChange={val => {
+                              const normalized =
+                                (val as number) > 100 ? 100 : (val as number);
+                              onChange((normalized * variantPrice) / 100);
+                            }}
+                            onBlur={() => onComplete(val)}
+                          />
+                        )}
+
+                        {discountInputMode === DiscountInputMode.value && (
+                          <InputNumber
+                            width={'calc(100% - 210px)'}
+                            formatter={value => {
+                              return value ? `${value} ден` : '';
+                            }}
+                            parser={value =>
+                              (value || '').replace(/[^0-9.]/g, '')
+                            }
+                            min={0}
+                            max={variantPrice}
+                            decimalSeparator='.'
+                            value={val}
+                            onChange={val => {
+                              const normalized =
+                                (val as number) > variantPrice
+                                  ? variantPrice
+                                  : (val as number);
+                              onChange(normalized);
+                            }}
+                            onBlur={() => onComplete(val)}
+                          />
+                        )}
+                        <Select
+                          style={{ width: 90 }}
+                          onChange={setDiscountInputMode}
+                          value={discountInputMode}
+                        >
+                          <Option value={DiscountInputMode.percentage}>
+                            %
+                          </Option>
+                          <Option value={DiscountInputMode.value}>ден</Option>
+                        </Select>
+                        <Input
+                          width={120}
+                          disabled
+                          value={
+                            discountInputMode === DiscountInputMode.percentage
+                              ? `${val ?? 0} ден`
+                              : `${percentageDiscount.toPrecision(2)} %`
+                          }
+                        />
+                      </InputGroup>
                     );
                   }}
                 </FormItem>
@@ -154,11 +213,7 @@ export const VariantFormItems = ({
                   selector={`variants[${index}].stock`}
                   parser={parsers.integer}
                 >
-                  {(
-                    val: any,
-                    onChange: (val: any) => void,
-                    onComplete: (val: any) => void,
-                  ) => {
+                  {(val, onChange, onComplete) => {
                     return (
                       <InputNumber
                         width='100%'

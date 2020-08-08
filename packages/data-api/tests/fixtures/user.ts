@@ -1,5 +1,5 @@
 import { User } from '@sradevski/la-sdk/dist/models/user';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { defaultGenerator, GeneratorFunc } from './helpers';
 
 const defaultFixture: Partial<User> = {

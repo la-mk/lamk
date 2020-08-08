@@ -95,7 +95,7 @@ const setInitialDataInState = async (appCtx: any) => {
 
 const Main = ({ store, laStore, children }) => {
   const { t, i18n } = useTranslation();
-  const brandColor = laStore?.brandColor;
+  const brandColor = laStore?.color;
 
   return (
     <ThemeProvider
