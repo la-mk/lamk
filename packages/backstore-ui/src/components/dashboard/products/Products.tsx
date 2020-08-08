@@ -219,7 +219,14 @@ export const Products = () => {
 
   // We set category as undefined so on the first filter change the pagination won't reset (this is what is returned from multipleItemsFilter)
   const [filters, setFilters] = hooks.useFilter(
-    { filtering: { category: undefined } },
+    {
+      filtering: {
+        category: undefined,
+        groups: undefined,
+        maxDiscount: undefined,
+        totalStock: undefined,
+      },
+    },
     {
       storage: 'session',
       storageKey: `${store ? store._id : ''}/productFilters`,
@@ -317,8 +324,8 @@ export const Products = () => {
           setFilters(
             normalizeFilters({
               pagination: {
-                pageSize: pagination.pageSize || 20,
-                currentPage: pagination.current || 1,
+                pageSize: pagination.pageSize ?? 20,
+                currentPage: pagination.current ?? 1,
               },
               sorting:
                 singleSorter?.field && singleSorter?.order

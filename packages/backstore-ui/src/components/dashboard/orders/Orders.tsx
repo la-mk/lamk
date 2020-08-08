@@ -138,8 +138,8 @@ export const Orders = () => {
 
           setFilters({
             pagination: {
-              pageSize: pagination.pageSize || 20,
-              currentPage: pagination.current || 1,
+              pageSize: pagination.pageSize ?? 20,
+              currentPage: pagination.current ?? 1,
             },
             sorting:
               singleSorter?.field && singleSorter?.order
