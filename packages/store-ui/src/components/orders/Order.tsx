@@ -94,12 +94,13 @@ export const Order = ({ orderId }: { orderId: string }) => {
             title={t('orderStatus.shipped')}
             description={t('orderStatus.shippedDescription')}
           />
-          {status === sdk.order.OrderStatus.COMPLETED && (
-            <Step
-              title={t('orderStatus.completed')}
-              description={t('orderStatus.completedDescription')}
-            />
-          )}
+          {status !== sdk.order.OrderStatus.CANCELLED &&
+            status !== sdk.order.OrderStatus.INVALID && (
+              <Step
+                title={t('orderStatus.completed')}
+                description={t('orderStatus.completedDescription')}
+              />
+            )}
           {status === sdk.order.OrderStatus.CANCELLED && (
             <Step
               status='error'
