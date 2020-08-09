@@ -5,7 +5,7 @@ import { Text } from '../../basic/Typography';
 import styled, { withTheme } from 'styled-components';
 import { BlocksTheme } from 'theme';
 
-const ButtonWrapper = styled(Button)<{ highlight: boolean, pickerType: 'color' | 'size' }>`
+const ButtonWrapper = styled(Button)<{ highlight: boolean, pickerType: PickerBoxProps['type'] }>`
   border-radius: ${props => props.theme.radii[0]}px;
   border: ${props =>
     props.highlight
@@ -27,6 +27,15 @@ const ButtonWrapper = styled(Button)<{ highlight: boolean, pickerType: 'color' |
   }
 `;
 
+export type PickerBoxProps = React.ComponentProps<typeof Button> & {
+  value: string;
+  disabled?: boolean;
+  highlight: boolean;
+  size?: PickerBoxesProps['size'];
+  type?: PickerBoxesProps['type'];
+  theme: BlocksTheme;
+};
+
 // TODO: Add aria label for the color or text name and show on hover.
 export const PickerBox = withTheme(
   ({
@@ -37,14 +46,7 @@ export const PickerBox = withTheme(
     size = 'default',
     theme,
     ...otherProps
-  }: React.ComponentProps<typeof Button> & {
-    value: string;
-    disabled?: boolean;
-    size?: 'small' | 'default';
-    type?: 'color' | 'text';
-    highlight: boolean;
-    theme: BlocksTheme;
-  }) => {
+  }: PickerBoxProps) => {
     const boxSize = size === 'small' ? theme.baseHeight[0] : theme.baseHeight[1];
 
     return (
@@ -64,6 +66,15 @@ export const PickerBox = withTheme(
   }
 );
 
+export interface PickerBoxesProps {
+  values: string[];
+  disabled?: string[];
+  onSelect: (color: string | undefined) => void;
+  selected: string | undefined;
+  size?: 'small' | 'default',
+  type?: 'color' | 'color-picker' | 'text';
+}
+
 export const PickerBoxes = ({
   values,
   disabled,
@@ -71,14 +82,7 @@ export const PickerBoxes = ({
   selected,
   size = 'default',
   type = 'text',
-}: {
-  values: string[];
-  disabled?: string[];
-  onSelect: (color: string | undefined) => void;
-  selected: string | undefined;
-  size?: 'small' | 'default',
-  type?: 'color' | 'text';
-}) => {
+}: PickerBoxesProps) => {
   return (
     <Flex m={-1} flexWrap="wrap">
       {values.map(value => (
