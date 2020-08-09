@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.64",
+  "version": "1.0.65",
   "private": true,
   "scripts": {
     "dev": "concurrently \"react-app-rewired start\" \"nodemon --config nodemon.deps.json\"",
