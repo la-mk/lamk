@@ -657,6 +657,7 @@
     "discounted": "{{percentage}}% Off",
     "inStock": "In stock",
     "new": "New",
+    "noMatchingProduct_plural": "There are no products that match your search criteria",
     "outOfStock": "Sold out",
     "seeOtherProducts": "Continue shopping"
   },

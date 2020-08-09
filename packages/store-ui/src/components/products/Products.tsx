@@ -8,6 +8,7 @@ import {
   Drawer,
   Button,
   Divider,
+  Empty,
 } from '@sradevski/blocks-ui';
 import { FilterOutlined } from '@ant-design/icons';
 import { ProductCard } from '../shared/product/ProductCard';
@@ -117,29 +118,36 @@ export const Products = ({
             />
           </Box>
 
-          <FlexGrid
-            loading={showSpinner}
-            rowKey='_id'
-            items={products.data}
-            renderItem={(item: any) => (
-              <Box mx={[1, 2, 2]} mb={'auto'}>
-                <ProductCard product={item} storeId={store._id} />
-              </Box>
-            )}
-            pagination={{
-              current: filters.pagination ? filters.pagination.currentPage : 1,
-              pageSize: filters.pagination ? filters.pagination.pageSize : 20,
-              total: products.total,
-              showSizeChanger: false,
-              onChange: (currentPage: number, pageSize: number) => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setFilters({
-                  ...filters,
-                  pagination: { currentPage, pageSize },
-                });
-              },
-            }}
-          />
+          {products.total === 0 && (
+            <Empty description={t('product.noMatchingProduct_plural')} />
+          )}
+          {products.total > 0 && (
+            <FlexGrid
+              loading={showSpinner}
+              rowKey='_id'
+              items={products.data}
+              renderItem={(item: any) => (
+                <Box mx={[1, 2, 2]} mb={'auto'}>
+                  <ProductCard product={item} storeId={store._id} />
+                </Box>
+              )}
+              pagination={{
+                current: filters.pagination
+                  ? filters.pagination.currentPage
+                  : 1,
+                pageSize: filters.pagination ? filters.pagination.pageSize : 20,
+                total: products.total,
+                showSizeChanger: false,
+                onChange: (currentPage: number, pageSize: number) => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setFilters({
+                    ...filters,
+                    pagination: { currentPage, pageSize },
+                  });
+                },
+              }}
+            />
+          )}
         </Flex>
       </Flex>
     </Page>

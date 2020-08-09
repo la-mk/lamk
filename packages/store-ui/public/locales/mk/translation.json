@@ -657,6 +657,7 @@
     "discounted": "{{percentage}}% Попуст",
     "inStock": "Има залиха",
     "new": "Ново",
+    "noMatchingProduct_plural": "Нема производи за вашето пребарување",
     "outOfStock": "Распродадено",
     "seeOtherProducts": "Продолжете со купување"
   },
