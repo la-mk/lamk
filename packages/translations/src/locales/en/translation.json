@@ -371,7 +371,8 @@
 		"updatingProductTip": "Updating product...",
 		"variant": "Variant",
 		"variant_plural": "Variants",
-		"outOfStock": "Sold out"
+		"outOfStock": "Sold out",
+		"noMatchingProduct_plural": "There are no products that match your search criteria"
 	},
 	"results": {
 		"productNotFound": "Product not found",

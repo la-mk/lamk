@@ -372,7 +372,8 @@
 		"updatingProductTip": "Производот се обновува...",
 		"variant": "Варијанта",
 		"variant_plural": "Варијанти",
-		"outOfStock": "Распродадено"
+		"outOfStock": "Распродадено",
+		"noMatchingProduct_plural": "Нема производи за вашето пребарување"
 	},
 	"results": {
 		"productNotFound": "Производот не е пронајден",
