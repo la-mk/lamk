@@ -1,3 +1,4 @@
+import round from 'lodash/round';
 import React from 'react';
 import {
   Row,
@@ -128,8 +129,10 @@ export const VariantFormItems = ({
                 >
                   {(val, onChange, onComplete, state) => {
                     const variantPrice = state.variants[index]?.price ?? 0;
-                    const percentageDiscount =
-                      variantPrice === 0 ? 0 : (val / variantPrice) * 100;
+                    const percentageDiscount = round(
+                      variantPrice === 0 ? 0 : (val / variantPrice) * 100,
+                      3,
+                    );
 
                     // TODO: Implement this with addon once ant design supports it, see https://github.com/ant-design/ant-design/issues/14284
                     return (
@@ -148,8 +151,10 @@ export const VariantFormItems = ({
                             decimalSeparator='.'
                             value={percentageDiscount}
                             onChange={val => {
-                              const normalized =
-                                (val as number) > 100 ? 100 : (val as number);
+                              const normalized = round(
+                                (val as number) > 100 ? 100 : (val as number),
+                                3,
+                              );
                               onChange((normalized * variantPrice) / 100);
                             }}
                             onBlur={() => onComplete(val)}
@@ -170,10 +175,12 @@ export const VariantFormItems = ({
                             decimalSeparator='.'
                             value={val}
                             onChange={val => {
-                              const normalized =
+                              const normalized = round(
                                 (val as number) > variantPrice
                                   ? variantPrice
-                                  : (val as number);
+                                  : (val as number),
+                                3,
+                              );
                               onChange(normalized);
                             }}
                             onBlur={() => onComplete(val)}
@@ -195,7 +202,7 @@ export const VariantFormItems = ({
                           value={
                             discountInputMode === DiscountInputMode.percentage
                               ? `${val ?? 0} ден`
-                              : `${percentageDiscount.toPrecision(2)} %`
+                              : `${percentageDiscount} %`
                           }
                         />
                       </InputGroup>
