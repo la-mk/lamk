@@ -1,9 +1,17 @@
 import { sum, first } from 'lodash';
 import { OrderProduct } from '../models/product';
 import { Delivery } from '../models/delivery';
-import { Campaign, RewardTypes } from '../models/campaign';
-import { OrderItem } from '../models/order';
-import { CartItemWithProduct } from '../models/cart';
+import { Campaign, RewardTypes, ProductRuleTypes } from '../models/campaign';
+
+export interface PricingProduct {
+  product: Pick<
+    OrderProduct,
+    'price' | 'discount' | 'calculatedPrice' | 'groups'
+  >;
+  quantity: number;
+}
+
+export type PricingCampaign = Pick<Campaign, 'productRules' | 'reward'>;
 
 const round = (num: number) => {
   if (!num) {
@@ -20,84 +28,99 @@ export const calculateProductPrice = (
   return product.price - (product.discount ?? 0);
 };
 
+const calculateProductTotal = (product: PricingProduct) => {
+  return (
+    (product.product.calculatedPrice ??
+      calculateProductPrice(product.product)) * (product.quantity ?? 1)
+  );
+};
+
 export const calculateProductsTotal = (
-  productsWithQuantity: (CartItemWithProduct | OrderItem)[]
+  productsWithQuantity: PricingProduct[]
 ) => {
   return sum(
-    productsWithQuantity.map(
-      ({ product, quantity }) =>
-        (product.calculatedPrice ?? calculateProductPrice(product)) *
-        (quantity ?? 1)
-    )
+    productsWithQuantity.map(product => calculateProductTotal(product))
   );
 };
 
 const calculateWithDiscountCampaign = (
-  campaign: Campaign,
-  productsTotal: number
+  campaign: PricingCampaign,
+  product: PricingProduct
 ) => {
+  const productPrice = calculateProductTotal(product);
+
   switch (campaign.reward.type) {
     case RewardTypes.PERCENTAGE_DISCOUNT: {
-      return (
-        productsTotal - productsTotal * ((campaign.reward.value ?? 0) / 100)
-      );
+      return productPrice - productPrice * ((campaign.reward.value ?? 0) / 100);
     }
 
     case RewardTypes.CONSTANT_DISCOUNT: {
-      return productsTotal - (campaign.reward.value ?? 0);
+      return productPrice - (campaign.reward.value ?? 0);
     }
   }
 };
 
-const getBestCampaign = (campaigns: Campaign[], productsTotal: number) => {
+const isCampaignApplicable = (
+  campaign: PricingCampaign,
+  product: PricingProduct
+) => {
+  return campaign.productRules.some(rule => {
+    if (rule.type === ProductRuleTypes.ALL) {
+      return true;
+    }
+    if (rule.type === ProductRuleTypes.GROUP) {
+      return product.product.groups.includes(rule.value);
+    }
+
+    return false;
+  });
+};
+
+export const getBestCampaign = (
+  campaigns: PricingCampaign[],
+  product: PricingProduct
+) => {
+  const applicableCampaigns = campaigns.filter(campaign =>
+    isCampaignApplicable(campaign, product)
+  );
   return first(
-    campaigns.sort((a, b) => {
+    applicableCampaigns.sort((a, b) => {
       return (
-        calculateWithDiscountCampaign(a, productsTotal) -
-        calculateWithDiscountCampaign(b, productsTotal)
+        calculateWithDiscountCampaign(a, product) -
+        calculateWithDiscountCampaign(b, product)
       );
     })
   );
 };
 
-export const getApplicableCampaigns = (
-  campaigns: Campaign[],
-  productsWithQuantity: (CartItemWithProduct | OrderItem)[]
-) => {
-  // For now, there can only be a single campaign applied to all products, so we just get the one that has the best reward. Price calculation will be much more complex as other types of campaigns will be supported.
-  const productsTotal = calculateProductsTotal(productsWithQuantity);
-  const bestCampaign = getBestCampaign(campaigns, productsTotal);
-  return bestCampaign ? [bestCampaign] : [];
-};
-
 export const calculateWithCampaignsTotal = (
-  campaigns: Campaign[],
-  productsWithQuantity: (CartItemWithProduct | OrderItem)[],
-  productsTotal: number
+  campaigns: PricingCampaign[],
+  productsWithQuantity: PricingProduct[]
 ) => {
-  const bestCampaign = getApplicableCampaigns(
-    campaigns,
-    productsWithQuantity
-  )[0];
-  return bestCampaign
-    ? calculateWithDiscountCampaign(bestCampaign, productsTotal)
-    : productsTotal;
+  return productsWithQuantity.reduce((withCampaigns: number, product) => {
+    const bestCampaign = getBestCampaign(campaigns, product);
+    if (!bestCampaign) {
+      return withCampaigns + calculateProductTotal(product);
+    }
+
+    return withCampaigns + calculateWithDiscountCampaign(bestCampaign, product);
+  }, 0);
 };
 
 export const calculatePrices = (
-  productsWithQuantity: (CartItemWithProduct | OrderItem)[],
+  productsWithQuantity: PricingProduct[],
   delivery?: Pick<Delivery, 'freeDeliveryOver' | 'price'>,
-  campaigns: Campaign[] = []
+  campaigns: PricingCampaign[] = []
 ) => {
   const productsTotal = round(calculateProductsTotal(productsWithQuantity));
   let withCampaignsTotal = round(
-    calculateWithCampaignsTotal(campaigns, productsWithQuantity, productsTotal)
+    calculateWithCampaignsTotal(campaigns, productsWithQuantity)
   );
   // We don't want to allow the withCampaigns value to drop below 0, as it doesn't make any sense.
   withCampaignsTotal = withCampaignsTotal < 0 ? 0 : withCampaignsTotal;
   const deliveryTotal = delivery
     ? round(delivery.freeDeliveryOver < withCampaignsTotal ? 0 : delivery.price)
-    : undefined;
+    : 0;
   const total = round(withCampaignsTotal + (deliveryTotal ?? 0));
 
   return {

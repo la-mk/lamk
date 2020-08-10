@@ -17,6 +17,7 @@ export enum CampaignTypes {
 
 export enum ProductRuleTypes {
   ALL = 'all',
+  GROUP = 'group',
 }
 
 export const schema = {
