@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { Menu } from '@sradevski/blocks-ui/dist/compound/FooterContent';
 import { useTranslation } from '../common/i18n';
 import {
-  // PhoneFilled,
+  PhoneFilled,
   MailFilled,
   FacebookFilled,
   TwitterSquareFilled,
@@ -125,7 +125,7 @@ export const FooterContent = () => {
               {t('common.contactDetails').toUpperCase()}
             </Title>
 
-            {/* <ContactEntry icon={<PhoneFilled />} value={''} /> */}
+            <ContactEntry icon={<PhoneFilled />} value={'+389 77 647 585'} />
             <ContactEntry icon={<MailFilled />} value={'contact@la.mk'} />
           </Flex>
         </Box>
