@@ -460,8 +460,8 @@
   },
 
 	"campaignBanners": {
-		"allDiscountTitle": "{{rewardValue}} off on all orders",
-		"allDiscountSubtitle": "All discounts are calculated on checkout"
+		"setDiscountTitle": "{{rewardValue}} off on {{productsTarget}} products",
+		"setDiscountSubtitle": "All discounts are calculated on checkout"
 	},
 
 	"campaignRewardTypes": {

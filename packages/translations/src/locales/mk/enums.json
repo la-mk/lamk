@@ -460,8 +460,8 @@
 	},
 
 	"campaignBanners": {
-		"allDiscountTitle": "{{rewardValue}} попуст на сите порачки",
-		"allDiscountSubtitle": "Сите попусти се пресметуваат на каса"
+		"setDiscountTitle": "{{rewardValue}} попуст на {{productsTarget}} производи",
+		"setDiscountSubtitle": "Сите попусти се пресметуваат на каса"
 	},
 
 	"campaignRewardTypes": {
