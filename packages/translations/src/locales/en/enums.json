@@ -469,6 +469,11 @@
 		"constant-discount": "Fixed amount"
 	},
 
+	"productRuleTypes": {
+		"all": "All",
+		"group": "Group"
+	},
+
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",

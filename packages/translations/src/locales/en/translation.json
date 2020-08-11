@@ -78,7 +78,9 @@
 		"promotedTip": "Show a banner to promote the campaign",
 		"reward": "Reward",
 		"rewardExample": "eg. 200 ден",
-		"rewardTip": "The discount is calculated on the cart on the full amount"
+		"rewardTip": "The discount is calculated on the cart on the full amount",
+		"targetProductType": "Targeted product type",
+		"productsTarget": "Products target"
 	},
 	"cart": {
 		"addedToCart": "Added to cart",

@@ -469,6 +469,11 @@
 		"constant-discount": "Фиксна вредност"
 	},
 
+	"productRuleTypes": {
+		"all": "Сите",
+		"group": "Група"
+	},
+
 	"deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
