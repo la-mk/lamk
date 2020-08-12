@@ -157,9 +157,11 @@ export const Checkout = () => {
 
     const applicableCampaigns = uniqBy(
       ordered.map(item => sdk.utils.pricing.getBestCampaign(campaigns, item)),
-      (campaign: Campaign) => campaign._id,
+      (campaign: Campaign | undefined) => campaign?._id,
+    )
+      .filter(x => !!x)
       // This is not returned by the API, but is required for validation.
-    ).map(campaign => ({ ...campaign, isActive: true }));
+      .map(campaign => ({ ...campaign, isActive: true }));
 
     caller(
       sdk.order.create({
