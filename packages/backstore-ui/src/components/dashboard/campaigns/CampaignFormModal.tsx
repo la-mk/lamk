@@ -50,8 +50,8 @@ export const CampaignFormModal = ({
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
-  const [groupsCaller, groupsLoading] = hooks.useCall();
-  const groups: string[] = useSelector(getGroups);
+  const [groupsCaller] = hooks.useCall();
+  const groups: string[] | undefined = useSelector(getGroups);
   const storeId = store ? store._id : undefined;
   const [externalState] = hooks.useFormState<Campaign>(
     campaign,
@@ -240,9 +240,9 @@ export const CampaignFormModal = ({
                 {(val, _onChange, onComplete) => {
                   const isGroupType =
                     val[0].type === sdk.campaign.ProductRuleTypes.GROUP;
-                  const opts = isGroupType ? groups : ['all'];
+                  const opts = isGroupType ? groups ?? [] : ['all'];
 
-                  if (!opts.includes(val[0].value)) {
+                  if (opts.length > 0 && !opts.includes(val[0].value)) {
                     onComplete([{ ...val[0], value: opts[0] }]);
                   }
 

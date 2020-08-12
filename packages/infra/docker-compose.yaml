@@ -191,7 +191,7 @@ services:
 
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.66
+    image: lamk/backstore-ui:1.0.67
     container_name: backstore-ui
     restart: always
     depends_on: 

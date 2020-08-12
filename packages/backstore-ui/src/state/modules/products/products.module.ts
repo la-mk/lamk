@@ -1,8 +1,8 @@
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 
-const initialState: { products: Product[]; groups: string[] } = {
+const initialState: { products: Product[]; groups?: string[] } = {
   products: [],
-  groups: [],
+  groups: undefined,
 };
 
 const SET_PRODUCTS = 'products/SET_PRODUCTS';

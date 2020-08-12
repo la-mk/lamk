@@ -1,10 +1,10 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.66",
+  "version": "1.0.67",
   "private": true,
   "scripts": {
     "dev": "concurrently \"react-app-rewired start\" \"nodemon --config nodemon.deps.json\"",
-    "build": "react-app-rewired build",
+    "build": "GENERATE_SOURCEMAP=false && react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
