@@ -49,9 +49,11 @@
     "addingCampaignTip": "Кампањата се додава...",
     "campaignDeleted": "Кампањата со шифра {{id}} беше успешно избришана",
     "nameExample": "пр. Летен попуст",
+    "productsTarget": "Таргетирани производи",
     "promoted": "Се промовира",
     "promotedTip": "Дали да се прикаже банер за кампањата",
     "reward": "Награда",
+    "targetProductType": "Тип на таргетирани производи",
     "updateCampaignSuccess": "Кампањата {{campaignName}} е успешно обновена",
     "updatingCampaignTip": "Кампањата се обновува..."
   },
@@ -672,6 +674,10 @@
     "updatingProductTip": "Производот се обновува...",
     "variant": "Варијанта",
     "variant_plural": "Варијанти"
+  },
+  "productRuleTypes": {
+    "all": "Сите",
+    "group": "Група"
   },
   "sets": {
     "categoryExplanation": "Категории кои ќе ви се допаднат",

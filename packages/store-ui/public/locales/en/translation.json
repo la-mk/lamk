@@ -45,8 +45,8 @@
     "signup": "Sign up"
   },
   "campaignBanners": {
-    "allDiscountSubtitle": "All discounts are calculated on checkout",
-    "allDiscountTitle": "{{rewardValue}} off on all orders"
+    "setDiscountSubtitle": "All discounts are calculated on checkout",
+    "setDiscountTitle": "{{rewardValue}} off on {{productsTarget}} products"
   },
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
@@ -534,6 +534,7 @@
     "phoneNumber": "Phone number",
     "price": "Price",
     "seeAll": "See all",
+    "selected": "Selected",
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
@@ -660,6 +661,10 @@
     "noMatchingProduct_plural": "There are no products that match your search criteria",
     "outOfStock": "Sold out",
     "seeOtherProducts": "Continue shopping"
+  },
+  "productRuleTypes": {
+    "all": "All",
+    "group": "Group"
   },
   "results": {
     "genericError": "Error occured",

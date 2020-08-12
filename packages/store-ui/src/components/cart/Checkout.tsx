@@ -1,3 +1,4 @@
+import uniqBy from 'lodash/uniqBy';
 import React, { useState, useEffect } from 'react';
 import { Flex, Empty, Spin, hooks, Box } from '@sradevski/blocks-ui';
 import { Summary } from '../shared/Summary';
@@ -28,6 +29,7 @@ import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 
 export const Checkout = () => {
   const [caller, showSpinner] = hooks.useCall(true);
@@ -149,19 +151,22 @@ export const Checkout = () => {
     const ordered = cart.items
       .filter(item => item.fromStore === store._id)
       .map(item => ({
-        // Groups are required, but we don't pass them to the store as it can be sensitive info.
-        product: { ...item.product, groups: [] },
+        product: item.product,
         quantity: item.quantity,
       }));
+
+    const applicableCampaigns = uniqBy(
+      ordered.map(item => sdk.utils.pricing.getBestCampaign(campaigns, item)),
+      (campaign: Campaign) => campaign._id,
+      // This is not returned by the API, but is required for validation.
+    ).map(campaign => ({ ...campaign, isActive: true }));
 
     caller(
       sdk.order.create({
         orderedFrom: store._id,
         orderedBy: user._id,
         status: sdk.order.OrderStatus.PENDING_SHIPMENT,
-        campaigns: sdk.utils.pricing
-          .getApplicableCampaigns(campaigns, ordered)
-          .map(campaign => ({ ...campaign, isActive: true })),
+        campaigns: applicableCampaigns,
         delivery,
         deliverTo,
         paymentMethod,

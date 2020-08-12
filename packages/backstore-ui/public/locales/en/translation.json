@@ -49,9 +49,11 @@
     "addingCampaignTip": "Adding campaign...",
     "campaignDeleted": "Campaign {{id}} successfully deleted",
     "nameExample": "eg. Summer discount",
+    "productsTarget": "Products target",
     "promoted": "Promoted",
     "promotedTip": "Show a banner to promote the campaign",
     "reward": "Reward",
+    "targetProductType": "Targeted product type",
     "updateCampaignSuccess": "Successfully updated {{campaignName}}",
     "updatingCampaignTip": "Updating product..."
   },
@@ -672,6 +674,10 @@
     "updatingProductTip": "Updating product...",
     "variant": "Variant",
     "variant_plural": "Variants"
+  },
+  "productRuleTypes": {
+    "all": "All",
+    "group": "Group"
   },
   "sets": {
     "categoryExplanation": "Categories you might like",

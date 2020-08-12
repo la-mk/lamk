@@ -43,12 +43,17 @@ export const DiscountCampaign = withTheme(
             color='text.light'
             textAlign='center'
           >
-            {t('campaignBanners.allDiscountTitle', {
+            {t('campaignBanners.setDiscountTitle', {
               rewardValue: rewardValueText,
+              productsTarget: (campaign.productRules[0].type ===
+              sdk.campaign.ProductRuleTypes.ALL
+                ? t('productRuleTypes.all')
+                : t('common.selected')
+              ).toLowerCase(),
             })}
           </Text>
           <Text fontSize={[0, 0, 1]} color='mutedText.light' textAlign='center'>
-            {t('campaignBanners.allDiscountSubtitle')}
+            {t('campaignBanners.setDiscountSubtitle')}
           </Text>
         </Flex>
       </Flex>

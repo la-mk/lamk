@@ -15,6 +15,7 @@ import {
   Option,
   Select,
   InputNumber,
+  Input,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
@@ -26,6 +27,11 @@ import {
 import { getStore } from '../../../state/modules/store/store.selector';
 import { useTranslation } from 'react-i18next';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { groupCollapsed } from 'console';
+import { getGroups } from '../../../state/modules/products/products.selector';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
+import { setGroups } from '../../../state/modules/products/products.module';
 
 interface ProductFormModalProps {
   campaign: Campaign | undefined;
@@ -44,6 +50,8 @@ export const CampaignFormModal = ({
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
+  const [groupsCaller, groupsLoading] = hooks.useCall();
+  const groups: string[] = useSelector(getGroups);
   const storeId = store ? store._id : undefined;
   const [externalState] = hooks.useFormState<Campaign>(
     campaign,
@@ -60,6 +68,15 @@ export const CampaignFormModal = ({
     },
     [campaign, storeId],
   );
+
+  React.useEffect(() => {
+    if (!groups) {
+      groupsCaller<FindResult<ProductGroup>>(
+        sdk.productGroup.findForStore(storeId),
+        productGroups => setGroups(productGroups.data.map(x => x.groupName)),
+      );
+    }
+  }, [groups]);
 
   const handlePatchCampaign = (campaign: Campaign) => {
     caller<Campaign>(sdk.campaign.patch(campaign._id, campaign), campaign => {
@@ -142,12 +159,7 @@ export const CampaignFormModal = ({
             </Col>
             <Col md={6} span={12}>
               <FormItem label={t('campaign.reward')} selector='reward.value'>
-                {(
-                  val: any,
-                  onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                  newCampaign,
-                ) => {
+                {(val: any, onChange, onComplete, newCampaign) => {
                   const isPercentage =
                     newCampaign.reward?.type ===
                     sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT;
@@ -176,11 +188,7 @@ export const CampaignFormModal = ({
             </Col>
             <Col md={6} span={12}>
               <FormItem label={t('campaign.reward')} selector='reward.type'>
-                {(
-                  val: any,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => {
+                {(val: any, _onChange, onComplete) => {
                   return (
                     <Select value={val} onChange={onComplete}>
                       {Object.values(sdk.campaign.RewardTypes).map(option => {
@@ -198,12 +206,72 @@ export const CampaignFormModal = ({
           </Row>
           <Row gutter={24}>
             <Col md={12} span={24}>
+              <FormItem
+                label={t('campaign.targetProductType')}
+                selector='productRules'
+              >
+                {(val, _onChange, onComplete) => {
+                  return (
+                    <Select
+                      value={val[0].type}
+                      onChange={type =>
+                        onComplete([{ value: val[0].value, type }])
+                      }
+                    >
+                      {Object.values(sdk.campaign.ProductRuleTypes).map(
+                        option => {
+                          return (
+                            <Option key={option} value={option}>
+                              {t(`productRuleTypes.${option}`)}
+                            </Option>
+                          );
+                        },
+                      )}
+                    </Select>
+                  );
+                }}
+              </FormItem>
+            </Col>
+            <Col md={12} span={24}>
+              <FormItem
+                label={t('campaign.productsTarget')}
+                selector='productRules'
+              >
+                {(val, _onChange, onComplete) => {
+                  const isGroupType =
+                    val[0].type === sdk.campaign.ProductRuleTypes.GROUP;
+                  const opts = isGroupType ? groups : ['all'];
+
+                  if (!opts.includes(val[0].value)) {
+                    onComplete([{ ...val[0], value: opts[0] }]);
+                  }
+
+                  return (
+                    <Select
+                      value={val[0].value}
+                      onChange={value =>
+                        onComplete([{ type: val[0].type, value }])
+                      }
+                    >
+                      {opts.map(option => {
+                        return (
+                          <Option key={option} value={option}>
+                            {option === 'all'
+                              ? t('productRuleTypes.all')
+                              : option}
+                          </Option>
+                        );
+                      })}
+                    </Select>
+                  );
+                }}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row gutter={24}>
+            <Col md={12} span={24}>
               <FormItem label={t('campaign.active')} selector='isActive'>
-                {(
-                  val: any,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => (
+                {(val: any, _onChange, onComplete) => (
                   <Checkbox
                     mr={3}
                     checked={val}
@@ -220,11 +288,7 @@ export const CampaignFormModal = ({
                 label={t('campaign.promoted')}
                 selector='isPromoted'
               >
-                {(
-                  val: any,
-                  _onChange: (val: any) => void,
-                  onComplete: (val: any) => void,
-                ) => (
+                {(val: any, _onChange, onComplete) => (
                   <Checkbox
                     mr={3}
                     checked={val}

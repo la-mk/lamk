@@ -100,6 +100,7 @@ const allowedFields = [
   'unit',
   'category',
   'images',
+  'groups',
   'description',
   'soldBy',
   'variants',

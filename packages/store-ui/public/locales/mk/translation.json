@@ -45,8 +45,8 @@
     "signup": "Регистрирај се"
   },
   "campaignBanners": {
-    "allDiscountSubtitle": "Сите попусти се пресметуваат на каса",
-    "allDiscountTitle": "{{rewardValue}} попуст на сите порачки"
+    "setDiscountSubtitle": "Сите попусти се пресметуваат на каса",
+    "setDiscountTitle": "{{rewardValue}} попуст на {{productsTarget}} производи"
   },
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
@@ -534,6 +534,7 @@
     "phoneNumber": "Телефонски број",
     "price": "Цена",
     "seeAll": "Види ги сите",
+    "selected": "Одбрани",
     "street": "Улица",
     "streetExample": "пр. Солунска 25",
     "summary": "Преглед",
@@ -660,6 +661,10 @@
     "noMatchingProduct_plural": "Нема производи за вашето пребарување",
     "outOfStock": "Распродадено",
     "seeOtherProducts": "Продолжете со купување"
+  },
+  "productRuleTypes": {
+    "all": "Сите",
+    "group": "Група"
   },
   "results": {
     "genericError": "Се појави грешка",

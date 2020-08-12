@@ -116,9 +116,6 @@ export const hooks = {
       // These are the only ones we support as of now, we just alter them to avoid potential validation errors.
       alterItems(record => {
         record.type = sdk.campaign.CampaignTypes.CART_DISCOUNT;
-        record.productRules = [
-          { type: sdk.campaign.ProductRuleTypes.ALL, value: 'all' },
-        ];
       }),
       validate(sdk.campaign.validate),
       validateReward,
@@ -130,9 +127,6 @@ export const hooks = {
       queryWithCurrentUser(['forStore']),
       alterItems(record => {
         record.type = sdk.campaign.CampaignTypes.CART_DISCOUNT;
-        record.productRules = [
-          { type: sdk.campaign.ProductRuleTypes.ALL, value: 'all' },
-        ];
       }),
       validate(sdk.campaign.validate),
       validateReward,
