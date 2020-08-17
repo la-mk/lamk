@@ -216,12 +216,14 @@ export const Product = ({ product }: ProductProps) => {
       return;
     }
 
+    const cartItem = {
+      product: { id: orderProduct._id, attributes: chosenAttributes },
+      fromStore: store._id,
+      quantity,
+    };
+
     if (user) {
-      action = sdk.cart.addItemToCart(user._id, {
-        product: { id: orderProduct._id, attributes: chosenAttributes },
-        fromStore: store._id,
-        quantity,
-      });
+      action = sdk.cart.addItemToCart(user._id, cartItem);
     }
 
     dispatch(

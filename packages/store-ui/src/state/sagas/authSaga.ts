@@ -36,11 +36,15 @@ const isTokenExpiredError = (err: any) => {
   return err.data?.name === 'TokenExpiredError';
 };
 
+const isTokenInvalidError = (err: any) => {
+  return err.data?.name === 'JsonWebTokenError';
+};
+
 export function* reauthenticateUserSaga() {
   try {
     yield call(sdk.authentication.reAuthenticate, false);
   } catch (err) {
-    if (isTokenExpiredError(err)) {
+    if (isTokenExpiredError(err) || isTokenInvalidError(err)) {
       yield put(clearSession());
     }
 
@@ -116,15 +120,19 @@ function* authenticationCheckSaga(action: LocationChangeAction) {
 
 function* checkTokenSaga() {
   while (true) {
-    const authInfo = yield call(sdk.authentication.getAuthentication);
-    if (authInfo) {
-      const tokenData = jwtDecode(authInfo.accessToken);
-      const expirationTimestamp = tokenData.exp;
-      const currentTimestamp = Date.now() / 1000;
-      if (currentTimestamp > expirationTimestamp) {
-        yield call(sdk.authentication.logout);
-        yield put(clearSession());
+    try {
+      const authInfo = yield call(sdk.authentication.getAuthentication);
+      if (authInfo) {
+        const tokenData = jwtDecode(authInfo.accessToken);
+        const expirationTimestamp = tokenData.exp;
+        const currentTimestamp = Date.now() / 1000;
+        if (currentTimestamp > expirationTimestamp) {
+          yield call(sdk.authentication.logout);
+          yield put(clearSession());
+        }
       }
+    } catch (err) {
+      console.error(err);
     }
 
     yield delay(5000);
