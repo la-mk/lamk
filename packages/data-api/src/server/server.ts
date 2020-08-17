@@ -19,6 +19,7 @@ import { initMongoClient } from './mongo';
 import { initScheduler } from '../scheduler';
 
 import env from '../common/env';
+import { initErrorMiddlewares } from './middlewares/errorMiddlewares';
 
 export default async () => {
   initLogger({ env: env().NODE_ENV });
@@ -46,6 +47,7 @@ export default async () => {
   registerChannels(app);
 
   initPostRouteMiddlewares(app);
+  initErrorMiddlewares(app);
 
   await initScheduler(app);
 
