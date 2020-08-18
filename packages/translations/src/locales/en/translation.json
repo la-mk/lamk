@@ -279,7 +279,7 @@
     "paymentsAnswerSupportedMethods": "Currently we support payment on delivery and credit card payments. If we currently don't support your bank, we can work together and add support for it within 1 week",
     "paymentsGroupTitle": "Payments",
     "paymentsQuestionSupportedMethods": "What payment methods can I use?",
-    "pricingAnswerHowMuch": "It's completely free!",
+    "pricingAnswerHowMuch": "It's completely free until the end of 2020, after which we will charge a flat fee of 1% interest rate.",
     "pricingAnswerSignContract": "There are no contracts or obligations, you can stop using the platform whenever you want, no strings attached.",
     "pricingGroupTitle": "Pricing",
     "pricingQuestionHowMuch": "How much does it cost?",
