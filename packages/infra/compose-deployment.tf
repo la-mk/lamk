@@ -14,6 +14,10 @@ variable "artifacts-subdomain" {
   type = string
 }
 
+variable "landing-ip" {
+  type = string
+}
+
 variable "droplets-tags" {
   type = list(string)
 }
@@ -222,14 +226,14 @@ resource "digitalocean_floating_ip" "floating-ip-1" {
 
 resource "digitalocean_domain" "default-domain" {
    name = var.domain
-   ip_address = digitalocean_floating_ip.floating-ip-1.ip_address
+   ip_address = var.landing-ip
 }
 
-resource "digitalocean_record" "CNAME-all" {
+resource "digitalocean_record" "A-all" {
   domain = digitalocean_domain.default-domain.name
-  type = "CNAME"
+  type = "A"
   name = "*"
-  value = "@"
+  value = digitalocean_floating_ip.floating-ip-1.ip_address
   ttl = 43200
 }
 

@@ -1,6 +1,7 @@
 service-instance-size="s-2vcpu-2gb"
 domain = "lamk.work"
 artifacts-subdomain = "artifacts.lamk.work"
+landing-ip = "127.0.0.1"
 droplets-tags = ["stg"]
 project-name="lamk-stg"
 artifacts-name="lamk-artifacts-stg"
