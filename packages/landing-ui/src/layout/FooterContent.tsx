@@ -16,6 +16,7 @@ import {
   MailFilled,
   FacebookFilled,
   TwitterSquareFilled,
+  InstagramFilled,
 } from '@ant-design/icons';
 
 const getMenus = (t: any): Menu[] => [
@@ -158,12 +159,22 @@ export const FooterContent = () => {
           alignItems='center'
         >
           <a
-            href='https://www.facebook.com/social.la.mk'
+            href='https://www.facebook.com/Lamk-102161548245479'
             target='_blank'
             rel='noreferrer noopener'
           >
             <Text px={2} fontSize={3} color='text.light'>
               <FacebookFilled />
+            </Text>
+          </a>
+
+          <a
+            href='https://www.instagram.com/_la.mk/'
+            target='_blank'
+            rel='noreferrer noopener'
+          >
+            <Text px={2} fontSize={3} color='text.light'>
+              <InstagramFilled />
             </Text>
           </a>
 
