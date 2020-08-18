@@ -121,7 +121,7 @@ services:
       NESTPAY_API_ENDPOINT: $NESTPAY_API_ENDPOINT
       ANALYTICS_TRACKING_ID: $ANALYTICS_TRACKING_ID
       ANALYTICS_SECRET_KEY: $ANALYTICS_SECRET_KEY
-      ENABLE_SIGNUP: "false"
+      ENABLE_SIGNUP: "true"
 
   store-ui:
     image: lamk/store-ui:1.0.89
