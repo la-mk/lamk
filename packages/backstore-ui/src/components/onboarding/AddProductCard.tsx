@@ -104,6 +104,7 @@ export const AddProductCard = ({
             ...(product
               ? [
                   <Button
+                    disabled={!product._id}
                     onClick={() => onRemoveProduct(product._id)}
                     type='link'
                     icon={<DeleteOutlined />}

@@ -111,6 +111,10 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   };
 
   const handleRemoveProduct = (id: string) => {
+    if (!id) {
+      return;
+    }
+
     caller<Product>(sdk.product.remove(id), () => removeProduct(id));
   };
 
