@@ -229,6 +229,14 @@ resource "digitalocean_domain" "default-domain" {
    ip_address = var.landing-ip
 }
 
+resource "digitalocean_record" "CNAME-www" {
+  domain = digitalocean_domain.default-domain.name
+  type = "CNAME"
+  name = "www"
+  value = "@"
+  ttl = 43200
+}
+
 resource "digitalocean_record" "A-all" {
   domain = digitalocean_domain.default-domain.name
   type = "A"
