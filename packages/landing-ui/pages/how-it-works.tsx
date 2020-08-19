@@ -7,7 +7,7 @@ function HowItWorksPage() {
   return (
     <>
       <Head
-        previewImages={['/logo-padding.png']}
+        previewImages={['https://la.mk/logo-padding.png']}
         siteName='la.mk'
         title={t('landing.howItWorksPage')}
         description={t('howItWorks.heroExplanation')}

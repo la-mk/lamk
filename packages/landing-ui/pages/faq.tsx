@@ -7,7 +7,7 @@ function FaqPage() {
   return (
     <>
       <Head
-        previewImages={['/logo-padding.png']}
+        previewImages={['https://la.mk/logo-padding.png']}
         siteName='la.mk'
         title={t('landing.faqPage')}
         description={t('landingFaq.heroExplanation')}
