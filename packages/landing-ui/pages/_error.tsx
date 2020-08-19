@@ -13,6 +13,7 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
       return (
         <div>
           <Head
+            siteName='la.mk'
             title={`404 | ${t('results.pageNotFound')}`}
             description={t('results.pageNotFoundExplanation')}
           />
@@ -32,6 +33,7 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
       return (
         <div>
           <Head
+            siteName='la.mk'
             title={`500 | ${t('results.serverError')}`}
             description={t('results.serverErrorExplanation')}
           />
@@ -51,6 +53,7 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
       return (
         <div>
           <Head
+            siteName='la.mk'
             title={`${errorCode} | ${t('results.genericError')}`}
             description={t('results.genericError')}
           />

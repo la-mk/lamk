@@ -7,6 +7,7 @@ function ContactPage() {
   return (
     <>
       <Head
+        previewImages={['/logo-512x512.png']}
         siteName='la.mk'
         title={t('landing.contactUsPage')}
         description={t('landingContact.heroExplanation')}
