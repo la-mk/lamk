@@ -8,7 +8,7 @@ function HomePage() {
   return (
     <>
       <Head
-        previewImages={['/logo-512x512.png']}
+        previewImages={['/logo-padding.png']}
         siteName='la.mk'
         title={t('landing.homePage')}
         description={t('company.subTagline')}
