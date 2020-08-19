@@ -40,7 +40,13 @@ export const FocusCard = ({
             {description}
           </Text>
         </Box>
-        <Button style={{ zIndex: 2 }} size='large' href='https://admin.la.mk'>
+        <Button
+          style={{ zIndex: 2 }}
+          target='_blank'
+          rel='noreferrer noopener'
+          size='large'
+          href='https://admin.la.mk'
+        >
           Start now
         </Button>
 

@@ -85,6 +85,8 @@ export const TopMenu = ({
             mx={[2, 0, 0]}
             style={{ color: 'white' }}
             type='primary'
+            target='_blank'
+            rel='noreferrer noopener'
             href='https://admin.la.mk'
           >
             {t('actions.startNow')}

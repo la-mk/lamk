@@ -13,7 +13,13 @@ export const HeroButtons = ({
         {t('actions.startNow')}
       </Button>
       {!noDemo && (
-        <Button ml={2} size='large' target='_blank' href='https://demo.la.mk'>
+        <Button
+          ml={2}
+          size='large'
+          target='_blank'
+          rel='noreferrer noopener'
+          href='https://demo.la.mk'
+        >
           {t('actions.seeDemoShop')}
         </Button>
       )}

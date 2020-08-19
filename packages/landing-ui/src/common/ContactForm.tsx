@@ -14,6 +14,7 @@ import {
 import { track } from './analytics';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useTranslation } from './i18n';
+import { TFunction } from 'next-i18next';
 
 interface ContactUs {
   email: string;
@@ -26,25 +27,25 @@ const regex =
   '[^\\.\\s@:](?:[^\\s@:]*[^\\s@:\\.])?@[^\\.\\s@]+(?:\\.[^\\.\\s@]+)*';
 const tester = new RegExp(`^${regex}$`);
 
-const validator = ({ email, name, message }: ContactUs) => {
+const validator = ({ email, name, message }: ContactUs, t: TFunction) => {
   const res: any = {};
 
   if (!name) {
-    res.name = { name: 'name', message: 'Name is required' };
+    res.name = { name: 'name', message: t(`errors.minLength`, [2]) };
   }
 
   if (!message) {
-    res.message = { name: 'message', message: 'Message is required' };
+    res.message = { name: 'message', message: t(`errors.minLength`, [2]) };
   }
 
   if (!email) {
-    res.email = { name: 'email', message: 'Email is required' };
+    res.email = { name: 'email', message: t(`errors.minLength`, [2]) };
   }
 
   if (!tester.test(email)) {
     res.email = {
       name: 'email',
-      message: 'The field is not a valid email address',
+      message: t('errors.email'),
     };
   }
 
@@ -109,9 +110,9 @@ export const ContactForm = () => {
             layout='vertical'
             colon={false}
             onFormCompleted={handleSubmit}
-            validate={validator}
+            validate={(vals) => validator(vals, t)}
             validateSingle={(val, selector) =>
-              validator({ [selector]: val } as any)[selector]
+              validator({ [selector]: val } as any, t)[selector]
             }
           >
             <FormItem selector='name' label={t('common.fullName')}>
