@@ -416,7 +416,8 @@
 		"storeLogo": "Store Logo",
 		"storeName": "Store name",
 		"storeUrl": "Store URL",
-		"updatingStoreTip": "Updating store..."
+		"updatingStoreTip": "Updating store...",
+		"emptyStoreExplanation": "We are still preparing our store, visit us again soon."
 	},
 	"uploads": {
 		"hint": "Support for single or bulk upload"
