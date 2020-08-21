@@ -1,7 +1,7 @@
 import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
-import { Flex, Spin, hooks, Box } from '@sradevski/blocks-ui';
+import { Flex, Spin, hooks, Box, Empty } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { ProductSet as ProductSetType } from '@sradevski/la-sdk/dist/models/product';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
@@ -67,6 +67,10 @@ export const Home = ({
     );
   }, [store, categories?.length]);
 
+  const productSetsWithData = productSets.filter(
+    set => Boolean(set.data) && set.data.length > 0,
+  );
+
   return (
     <>
       <Banner
@@ -88,62 +92,62 @@ export const Home = ({
           </Box>
         )}
 
+        {!showSpinner && productSetsWithData.length === 0 && (
+          <Empty mt={6} description={t('store.emptyStoreExplanation')} />
+        )}
+
         <Spin spinning={showSpinner}>
           <>
-            {productSets
-              .filter(set => Boolean(set.data) && set.data.length > 0)
-              .map((set, index) => (
-                <React.Fragment
-                  key={set.setTag.name + (set.setTag.value || '')}
-                >
-                  <Box px={[2, 4, 5]} mb={7}>
-                    {set.data.length <= 2 ? (
-                      <ProductDuo set={set} storeId={store._id} />
-                    ) : (
-                      <>
-                        {index % 4 === 0 && (
-                          <ProductSet set={set} storeId={store._id} />
-                        )}
+            {productSetsWithData.map((set, index) => (
+              <React.Fragment key={set.setTag.name + (set.setTag.value || '')}>
+                <Box px={[2, 4, 5]} mb={7}>
+                  {set.data.length <= 2 ? (
+                    <ProductDuo set={set} storeId={store._id} />
+                  ) : (
+                    <>
+                      {index % 4 === 0 && (
+                        <ProductSet set={set} storeId={store._id} />
+                      )}
 
-                        {index % 4 === 1 && (
-                          <ProductGrid set={set} storeId={store._id} />
-                        )}
+                      {index % 4 === 1 && (
+                        <ProductGrid set={set} storeId={store._id} />
+                      )}
 
-                        {index % 4 === 2 &&
-                          (set.data.length > 2 ? (
-                            <ProductTrio set={set} storeId={store._id} />
-                          ) : (
-                            <ProductGrid
-                              set={set}
-                              horizontal={true}
-                              storeId={store._id}
-                            />
-                          ))}
-
-                        {index % 4 === 3 && (
+                      {index % 4 === 2 &&
+                        (set.data.length > 2 ? (
+                          <ProductTrio set={set} storeId={store._id} />
+                        ) : (
                           <ProductGrid
                             set={set}
                             horizontal={true}
                             storeId={store._id}
                           />
-                        )}
-                      </>
-                    )}
+                        ))}
+
+                      {index % 4 === 3 && (
+                        <ProductGrid
+                          set={set}
+                          horizontal={true}
+                          storeId={store._id}
+                        />
+                      )}
+                    </>
+                  )}
+                </Box>
+
+                {index === 0 && promotedCampaign && (
+                  <Box mb={7}>
+                    <DiscountCampaign campaign={promotedCampaign} />
                   </Box>
+                )}
 
-                  {index === 0 && promotedCampaign && (
-                    <Box mb={7}>
-                      <DiscountCampaign campaign={promotedCampaign} />
-                    </Box>
-                  )}
-
-                  {index === 2 && (
-                    <Box mb={7}>
-                      <ServicesSet />
-                    </Box>
-                  )}
-                </React.Fragment>
-              ))}
+                {index === 2 && (
+                  <Box mb={7}>
+                    <ServicesSet />
+                  </Box>
+                )}
+              </React.Fragment>
+            ))}
           </>
         </Spin>
       </Flex>

@@ -698,6 +698,7 @@
     "selectedCategoriesExplanation": "Categories picked just for you"
   },
   "store": {
+    "emptyStoreExplanation": "We are still preparing our store, visit us again soon.",
     "noAboutusInformation": "Couldn't fetch the information about the store, try again later"
   },
   "units": {
