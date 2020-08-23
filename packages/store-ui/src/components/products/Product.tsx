@@ -261,7 +261,7 @@ export const Product = ({ product }: ProductProps) => {
             <Box height={280} minWidth={180} style={{ position: 'relative' }}>
               <ImageMagnifier
                 magnifierSize={180}
-                zoomFactor={1.2}
+                zoomFactor={1.15}
                 src={sdk.artifact.getUrlForImage(selectedImage, store._id)}
               >
                 {imageProps => (

@@ -21,7 +21,7 @@ export const Banner = ({
   }
 
   return (
-    <Flex bg='background.light'>
+    <Flex bg='white'>
       <ImageBackgroundBox
         mx='auto'
         url={sdk.artifact.getUrlForImage(banner, store._id, { h: 600 })}

@@ -62,21 +62,21 @@ const ProductImage = ({
   return (
     <Flex
       height={
-        emphasized ? ['220px', '280px', '360px'] : ['120px', '140px', '180px']
+        emphasized ? ['236px', '296px', '376px'] : ['136px', '156px', '196px']
       }
       minWidth={horizontal ? ['120px', '140px', '180px'] : undefined}
       maxWidth={horizontal ? ['120px', '140px', '180px'] : undefined}
       justifyContent='center'
       alignItems='center'
       style={{ position: 'relative' }}
-      mb={horizontal ? 0 : 4}
+      mb={horizontal ? 0 : 3}
       mr={horizontal ? 3 : 0}
     >
       <ProductTags t={t} product={product} />
       {/* <ActionsOverlay /> */}
 
       <Image
-        height={emphasized ? [220, 280, 360] : [120, 140, 180]}
+        height={emphasized ? [236, 296, 376] : [136, 156, 196]}
         getSrc={params =>
           sdk.artifact.getUrlForImage(product.images[0], storeId, params)
         }
