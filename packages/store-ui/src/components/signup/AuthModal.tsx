@@ -48,7 +48,7 @@ export const AuthModal = () => {
       >
         {method === 'login' && (
           <LoginForm
-            // logoUrl='/images/lamk-logo/horizontal.svg'
+            logoUrl='/images/lamk-logo/horizontal.svg'
             login={handleLogin}
             onSignupNowClick={() => setMethod('signup')}
             validate={data => sdk.user.validate(data as any, true) as any}
@@ -60,7 +60,7 @@ export const AuthModal = () => {
         )}
         {method === 'signup' && (
           <SignupForm
-            // logoUrl='/images/lamk-logo/horizontal.svg'
+            logoUrl='/images/lamk-logo/horizontal.svg'
             signup={handleSignup}
             onLoginNowClick={() => setMethod('login')}
             validate={data => sdk.user.validate(data as any, true)}

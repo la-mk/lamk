@@ -30,7 +30,7 @@ export const Signup = () => {
 
       {env.ENABLE_SIGNUP && (
         <SignupForm
-          // logoUrl='/logo-horizontal.svg'
+          logoUrl='/logo-horizontal.svg'
           signup={handleSignup}
           validate={(data: Credentials) => sdk.user.validate(data as any, true)}
           validateSingle={sdk.user.validateSingle}
