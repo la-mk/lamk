@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex, Image, Title, Text, Button, Box } from '@sradevski/blocks-ui';
+import { useTranslation } from '../common/i18n';
 
 type FocusCardProps = {
   icon: string;
@@ -13,6 +14,7 @@ export const FocusCard = ({
   description,
   ...props
 }: FocusCardProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       {...props}
@@ -47,7 +49,7 @@ export const FocusCard = ({
           size='large'
           href='https://admin.la.mk'
         >
-          Start now
+          {t('actions.startNow')}
         </Button>
 
         <Box style={{ position: 'absolute', bottom: -60, right: -40 }}>
