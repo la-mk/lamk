@@ -10,7 +10,7 @@ const MagnifyingContainer = styled.div`
   display: inline-block;
   line-height: 0;
   height: 100%;
-  width: 100%;
+  max-width: 100%;
 `;
 
 const MagnifyingGlass = styled.div<{
@@ -27,6 +27,7 @@ const MagnifyingGlass = styled.div<{
   width: ${props => props.magnifierSize}px;
   height: ${props => props.magnifierSize}px;
   background-image: url(${props => props.src});
+  background-size: auto;
 `;
 
 export interface ImageMagnifierProps {
@@ -165,6 +166,8 @@ export const ImageMagnifier = ({
 
     setImageBounds(imageRef.current.getBoundingClientRect());
   };
+
+  console.log(src, imageBounds)
 
   return (
     <MagnifyingContainer>
