@@ -23,7 +23,7 @@ import { useTranslation } from '../i18n';
 import { HoverableLink } from '../../components/shared/components/HoverableLink';
 
 export const TopMenu = withTheme(
-  ({ selectedKey, cart, user, handleLogout, handleLogin, theme }) => {
+  ({ selectedKey, cartCount, user, handleLogout, handleLogin, theme }) => {
     const { t } = useTranslation();
 
     return (
@@ -73,7 +73,7 @@ export const TopMenu = withTheme(
                 style={{ backgroundColor: theme.colors.primary }}
                 showZero
                 offset={[2, 2]}
-                count={cart && cart.items ? cart.items.length : 0}
+                count={cartCount ?? 0}
               >
                 <Text
                   color={selectedKey === 'cart' ? 'primary' : 'text.dark'}

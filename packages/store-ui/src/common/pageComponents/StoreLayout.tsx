@@ -16,7 +16,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
-import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
+import { getCartCount } from '../../state/modules/cart/cart.selector';
 import { logout } from '../../state/modules/auth/auth.module';
 import { getUser } from '../../state/modules/user/user.selector';
 import { toggleAuthModal, setUiLoaded } from '../../state/modules/ui/ui.module';
@@ -56,7 +56,7 @@ export const StoreLayout = withTheme(
     const router = useRouter();
     const store = useSelector(getStore);
     const user = useSelector(getUser);
-    const cart = useSelector(getCartWithProducts);
+    const cartCount = useSelector(getCartCount);
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
@@ -137,7 +137,7 @@ export const StoreLayout = withTheme(
               <TopMenu
                 selectedKey={selectedKey}
                 user={user}
-                cart={cart}
+                cartCount={cartCount}
                 handleLogin={handleLogin}
                 handleLogout={handleLogout}
               />
