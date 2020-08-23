@@ -172,7 +172,7 @@ export const FooterContent = () => {
               <InstagramFilled />
             </Text>
           </a>
-
+          {/* 
           <a
             href='https://twitter.com/__lamk'
             target='_blank'
@@ -181,7 +181,7 @@ export const FooterContent = () => {
             <Text px={2} fontSize={3} color='text.light'>
               <TwitterSquareFilled />
             </Text>
-          </a>
+          </a> */}
         </Flex>
       </Flex>
     </Box>
