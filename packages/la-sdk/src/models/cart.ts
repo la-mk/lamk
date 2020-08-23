@@ -95,19 +95,21 @@ export const getCartSdk = (client: Application) => {
             product => product._id === item.product.id
           );
           if (!product) {
-            throw new Error('Missing product when populating cart');
+            return null;
           }
 
           const orderProduct = convertToOrderProduct(product, item.product.attributes)
           if (!orderProduct) {
-            throw new Error('Missing product when populating cart');
+            return null;
           }
           
           return {
             ...item,
             product: orderProduct,
           };
-        }),
+
+        // If a product that is in the cart and it no longer exists, we simply ignore it from the results. We might want to patch the cart as well in the future, but this should be enough for now. 
+        }).filter(x => !!x),
       } as CartWithProducts;
     },
 
