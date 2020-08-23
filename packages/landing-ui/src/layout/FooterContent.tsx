@@ -43,42 +43,37 @@ const getMenus = (t: any): Menu[] => [
       },
     ],
   },
-  // {
-  //   text: t('landing.importantPages'),
+  {
+    text: t('landing.resources'),
 
-  //   submenus: [
-  //     {
-  //       link: 'https://admin.la.mk',
-  //       text: t('landing.adminPanel'),
-  //     },
-  //     {
-  //       link: 'https://demo.la.mk',
-  //       text: t('landing.demoShop'),
-  //     },
-  //   ],
-  // },
-  // {
-  //   text: t('pages.legal'),
-  //   link: '/legal',
-  //   submenus: [
-  //     {
-  //       link: '/legal/general-rules',
-  //       text: t('pages.generalRules'),
-  //     },
-  //     {
-  //       link: '/legal/terms-of-use',
-  //       text: t('pages.termsOfUse'),
-  //     },
-  //     {
-  //       link: '/legal/return-and-refund',
-  //       text: t('pages.returnAndRefund'),
-  //     },
-  //     {
-  //       link: '/legal/privacy',
-  //       text: t('pages.privacy'),
-  //     },
-  //   ],
-  // },
+    submenus: [
+      {
+        link: 'https://admin.la.mk',
+        text: t('landing.adminPanel'),
+      },
+      {
+        link: 'https://demo.la.mk',
+        text: t('landing.demoShop'),
+      },
+    ],
+  },
+  {
+    text: t('pages.legal'),
+    submenus: [
+      {
+        link: '/legal/general-rules',
+        text: t('pages.generalRules'),
+      },
+      {
+        link: '/legal/terms-of-use',
+        text: t('pages.termsOfUse'),
+      },
+      {
+        link: '/legal/privacy',
+        text: t('pages.privacy'),
+      },
+    ],
+  },
 ];
 
 const ContactEntry = ({
@@ -108,15 +103,15 @@ export const FooterContent = () => {
   return (
     <Box>
       <Flex
-        maxWidth={1024}
-        px={[3, 4, 6]}
+        maxWidth={1280}
+        px={[3, 4, 5]}
         pt={[3, 4, 5]}
         mx='auto'
         flexDirection={['column', 'column', 'row']}
         alignItems={['center', 'center', 'flex-start']}
         justifyContent={'space-between'}
       >
-        <Box mr={[0, 0, 5]}>
+        <Box minWidth={192} mr={[0, 0, 4]}>
           <Flex flexDirection='column' alignItems={'flex-start'}>
             <Box maxHeight='96px' maxWidth='192px' width='100%' mb={5} p={2}>
               <Image src={'/logo-horizontal-inverse.svg'} alt='logo' />

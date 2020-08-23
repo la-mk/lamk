@@ -7,10 +7,8 @@ import {
   Image,
   Flex,
   Button,
-  Text,
   Drawer,
   hooks,
-  Box,
 } from '@sradevski/blocks-ui';
 import { MenuOutlined } from '@ant-design/icons';
 import styled, { withTheme } from 'styled-components';

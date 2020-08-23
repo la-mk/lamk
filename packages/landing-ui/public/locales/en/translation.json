@@ -576,6 +576,7 @@
     "storeUrl": "Store URL"
   },
   "landing": {
+    "adminPanel": "Admin panel",
     "contactUsPage": "Contact us",
     "corePointsAdmin": "Admin panel for the modern age",
     "corePointsAdminDetails": "Manage your products, orders, campaigns and more from a single place. The built-in analytics give you an overview of your orders, revenue, and visits of your online store",
@@ -583,6 +584,7 @@
     "corePointsStoreDetails": "Super fast, SEO optimized, and easy to use online store. Your job is to manage your products, and our responsibility is to take care of the rest. We handle the complexity of keeping your store fast, easy to use, and available 24x7, all you need to do is sell",
     "corePointsSupport": "We are here to help",
     "corePointsSupportDetails": "We are here to help with whatever you need. Whether you are stuck, or you have a feature you can't live without, we want to hear from you. Message us using the built-in chat in the admin panel, and we will help you succeed",
+    "demoShop": "Demo shop",
     "faqPage": "FAQ",
     "featureAnalytics": "Usage and sales analytics",
     "featureCreditCardPayments": "Credit card payments",
@@ -592,6 +594,7 @@
     "heroSlogan": "Online Shop <1>In 5 Minutes</1>",
     "homePage": "Home",
     "howItWorksPage": "About the platform",
+    "resources": "Resources",
     "stepAddProducts": "Add your products",
     "stepAddProductsDetails": "We have no limits, so add as many as you want",
     "stepCreateStore": "Create your store",
@@ -656,6 +659,12 @@
     "pendingShipmentDescription": "Awaiting shipment",
     "shipped": "Shipped",
     "shippedDescription": "Awaiting arrival"
+  },
+  "pages": {
+    "generalRules": "General rules",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "termsOfUse": "Terms of use"
   },
   "paymentMethodNames": {
     "creditCard": "Credit card",
