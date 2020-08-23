@@ -12,6 +12,7 @@ import { ProductTags } from './ProductTags';
 const ProductDescription = ({
   product,
   detailed,
+  horizontal,
   emphasized,
 }: {
   product: Product;
@@ -20,7 +21,7 @@ const ProductDescription = ({
   horizontal?: boolean;
 }) => {
   return (
-    <Box>
+    <Box py={horizontal ? 3 : 0}>
       <Title mb={2} level={3} fontSize={[1, 2, 2]} ellipsis={{ rows: 2 }}>
         {product.name}
       </Title>
@@ -46,6 +47,12 @@ const ProductDescription = ({
   );
 };
 
+const normalSizes = [136, 176, 216];
+const emphasizedSizes = [236, 296, 376];
+const normalSizesWithPadding = [168, 212, 248];
+const emphasizedSizesWithPadding = [268, 328, 408];
+const horizontalSizees = [320, 460, 560];
+
 const ProductImage = ({
   storeId,
   product,
@@ -61,22 +68,20 @@ const ProductImage = ({
 }) => {
   return (
     <Flex
-      height={
-        emphasized ? ['236px', '296px', '376px'] : ['136px', '156px', '196px']
-      }
-      minWidth={horizontal ? ['120px', '140px', '180px'] : undefined}
-      maxWidth={horizontal ? ['120px', '140px', '180px'] : undefined}
+      height={emphasized ? emphasizedSizes : normalSizes}
+      minWidth={horizontal ? normalSizes : undefined}
+      maxWidth={horizontal ? normalSizes : undefined}
       justifyContent='center'
       alignItems='center'
       style={{ position: 'relative' }}
       mb={horizontal ? 0 : 3}
-      mr={horizontal ? 3 : 0}
+      mr={horizontal ? [3, 3, 4] : 0}
     >
       <ProductTags t={t} product={product} />
       {/* <ActionsOverlay /> */}
 
       <Image
-        height={emphasized ? [236, 296, 376] : [136, 156, 196]}
+        height={emphasized ? emphasizedSizes : normalSizes}
         getSrc={params =>
           sdk.artifact.getUrlForImage(product.images[0], storeId, params)
         }
@@ -138,10 +143,10 @@ export const ProductCard = ({
         my={2}
         width={
           horizontal && !emphasized
-            ? ['320px', '460px', '560px']
+            ? horizontalSizees
             : emphasized
-            ? ['260px', '360px', '440px']
-            : ['160px', '240px', '280px']
+            ? emphasizedSizesWithPadding
+            : normalSizesWithPadding
         }
       >
         <ProductImage
@@ -156,6 +161,7 @@ export const ProductCard = ({
           product={product}
           detailed={detailed}
           emphasized={emphasized}
+          horizontal={horizontal}
         />
       </Flex>
     </HoverableLink>

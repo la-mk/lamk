@@ -52,7 +52,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
           alignItems={['flex-start', 'flex-start', 'center']}
           justifyContent='center'
         >
-          <Box mb={[0, 0, 2]} mr={[2, 2, 0]}>
+          <Box mb={[0, 0, 2]} mr={[1, 2, 0]}>
             <ProductCard
               detailed
               horizontal={areCardsHorizontal}
@@ -60,7 +60,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
               storeId={storeId}
             />
           </Box>
-          <Box mt={[0, 0, 2]} ml={[2, 2, 0]}>
+          <Box mt={[0, 0, 2]} ml={[1, 2, 0]}>
             <ProductCard
               detailed
               horizontal={areCardsHorizontal}
