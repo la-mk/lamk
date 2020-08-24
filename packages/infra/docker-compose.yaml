@@ -124,7 +124,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: lamk/store-ui:1.0.93
+    image: lamk/store-ui:1.0.94
     container_name: store-ui
     restart: always
     depends_on: 
