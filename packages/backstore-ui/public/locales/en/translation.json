@@ -58,8 +58,8 @@
     "updatingCampaignTip": "Updating product..."
   },
   "campaignBanners": {
-    "allDiscountSubtitle": "All discounts are calculated on checkout",
-    "allDiscountTitle": "{{rewardValue}} off on all orders"
+    "setDiscountSubtitle": "All discounts are calculated on checkout",
+    "setDiscountTitle": "{{rewardValue}} off on {{productsTarget}} products"
   },
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
@@ -638,7 +638,7 @@
     "clientUsernameTip": "Provided by your bank as 'API username'",
     "paymentMethod": "Payment method",
     "processor": "Bank",
-    "processorMissingTip": "You don't see your bank in the list? Contact us for support.",
+    "processorMissingTip": "You don't see your bank on the list? Contact us for support.",
     "updatingPaymentMethodsTip": "Updating payments..."
   },
   "paymentMethodNames": {
@@ -690,7 +690,7 @@
   },
   "store": {
     "aboutUs": "About us",
-    "aboutUsExample": "eg. We are a multinational company with 20 years manufacturing experience...",
+    "aboutUsExample": "eg. We are a multinational company with 20 years of manufacturing experience...",
     "brandColor": "Brand color",
     "companyAddress": "Company address",
     "companyName": "Company name",

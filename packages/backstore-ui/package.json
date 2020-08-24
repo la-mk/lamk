@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.68",
+  "version": "1.0.69",
   "private": true,
   "scripts": {
     "dev": "concurrently \"react-app-rewired start\" \"nodemon --config nodemon.deps.json\"",
@@ -87,7 +87,7 @@
     "@aida/injector-open-api": "0.0.7",
     "@aida/injector-routes": "0.0.7",
     "@aida/injector-routes-map": "0.0.7",
-    "@sradevski/translations": "0.0.80",
+    "@sradevski/translations": "0.0.90",
     "@types/recharts": "^1.8.14",
     "@types/socket.io-client": "^1.4.33",
     "babel-plugin-import": "^1.13.0",
