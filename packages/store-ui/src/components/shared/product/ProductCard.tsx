@@ -47,9 +47,9 @@ const ProductDescription = ({
   );
 };
 
-const normalSizes = [136, 176, 216];
+const normalSizes = [128, 176, 216];
 const emphasizedSizes = [236, 296, 376];
-const normalSizesWithPadding = [168, 212, 248];
+const normalSizesWithPadding = [160, 212, 248];
 const emphasizedSizesWithPadding = [268, 328, 408];
 const horizontalSizees = [320, 460, 560];
 
