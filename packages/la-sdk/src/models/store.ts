@@ -96,7 +96,7 @@ export interface Store extends DefaultSchema {
     phoneNumber: string;
     alternatePhoneNumber?: string;
   };
-  logo: string;
+  logo?: string;
   isPublished: boolean;
 }
 
