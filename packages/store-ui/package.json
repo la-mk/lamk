@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "1.0.97",
+  "version": "1.0.98",
   "description": "Store UI",
   "main": "pages/index.ts",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -55,7 +55,7 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.90",
+    "@sradevski/translations": "0.0.92",
     "@types/express": "^4.17.7",
     "@types/next-redux-wrapper": "^3.0.0",
     "@types/node": "^14.0.27",

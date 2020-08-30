@@ -9,7 +9,7 @@ import { Trans, useTranslation } from 'react-i18next';
 export const StoreLink = () => {
   const { t } = useTranslation();
   const store = useSelector(getStore);
-  const slug = `${store._id}-hide-store-link`;
+  const slug = `${store?._id ?? ''}-hide-store-link`;
   const [shouldHide, hideNotice] = useOneTimeNotice(slug);
   const isNewShop =
     Math.abs(differenceInDays(new Date(store.createdAt), Date.now())) <= 3;
