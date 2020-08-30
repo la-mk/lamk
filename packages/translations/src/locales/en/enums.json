@@ -456,7 +456,17 @@
 		"health-food-other": "Others",
 		"international-food": "International food",
 		"asian-food": "Asian food",
-		"international-food-other": "Others"
+		"international-food-other": "Others",
+		"toy-game": "Toys and games",
+		"education-toy": "Educational toys",
+		"electronic-toy": "Electronic toys",
+		"toy-flash-card-memory": "Memory toys and flash cards",
+		"toy-musical-instrument": "Musical instruments",
+		"toy-science-kit": "Science kits",
+		"toy-read-write": "Reading and writing", 
+		"toy-spy": "Spy and detective toys",
+		"toy-count-math": "Counting and math",
+		"education-toy-other": "Others"
   },
 
 	"campaignBanners": {

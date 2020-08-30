@@ -456,7 +456,17 @@
 		"health-food-other": "Останато",
 		"international-food": "Интернационална храна",
 		"asian-food": "Азиска храна",
-		"international-food-other": "Останато"
+		"international-food-other": "Останато",
+		"toy-game": "Играчки и игри",
+		"education-toy": "Едукативни играчки",
+		"electronic-toy": "Електронски играчки",
+		"toy-flash-card-memory": "Играчки за меморија и флеш карти",
+		"toy-musical-instrument": "Музички инструменти",
+		"toy-science-kit": "Научни сетови",
+		"toy-read-write": "Читање и пишување", 
+		"toy-spy": "Детективски играчки",
+		"toy-count-math": "Броење и математика",
+		"education-toy-other": "Останато"
 	},
 
 	"campaignBanners": {
