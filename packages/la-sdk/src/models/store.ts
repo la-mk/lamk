@@ -70,10 +70,11 @@ export const schema = {
       ),
     })
   ),
-  logo: v8n()
+  logo: v8n().optional(v8n()
     .string()
     .minLength(2)
-    .maxLength(4095),
+    .maxLength(4095)
+    ),
   isPublished: v8n().boolean(),
 };
 
