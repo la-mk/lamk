@@ -113,19 +113,17 @@ export const ProductFormModal = ({
     { leading: true, trailing: false },
   );
 
-  const handlePatchProduct = (product: Product) => {
-    caller<Product>(sdk.product.patch(product._id, product), product => {
-      message.success(
-        t('product.updateProductSuccess', { productName: product.name }),
-      );
-      onClose();
-      return patchProduct(product);
-    });
-  };
-
-  const handleCreateProduct = (newProduct: Product) => {
-    if (store) {
-      caller<Product>(sdk.product.create(newProduct), product => {
+  const handleProductFormCompleted = (product: Product) => {
+    if (product._id) {
+      caller<Product>(sdk.product.patch(product._id, product), product => {
+        message.success(
+          t('product.updateProductSuccess', { productName: product.name }),
+        );
+        onClose();
+        return patchProduct(product);
+      });
+    } else {
+      caller<Product>(sdk.product.create(product), product => {
         message.success(t('product.addProductSuccess'));
         setFullCategory(undefined);
         onClose();
@@ -169,13 +167,13 @@ export const ProductFormModal = ({
         <Form
           colon={false}
           externalState={externalState}
-          validate={data => sdk.product.validate(data, Boolean(product))}
+          validate={sdk.product.validate}
           // TODO: Add single validation when the validation library can handle nested schemas/selectors.
           // validateSingle={sdk.product.validateSingle}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }
-          onFormCompleted={product ? handlePatchProduct : handleCreateProduct}
+          onFormCompleted={handleProductFormCompleted}
           layout='vertical'
         >
           <Flex
@@ -306,7 +304,7 @@ export const ProductFormModal = ({
                       groupsLoading ? <Spin size='small' /> : null
                     }
                   >
-                    {groups
+                    {(groups ?? [])
                       .filter(x => !val || !val.includes(x))
                       .map(option => {
                         return (

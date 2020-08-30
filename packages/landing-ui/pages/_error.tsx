@@ -60,7 +60,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
           <Result
             status='error'
             title={errorCode}
-            subTitle={t('results.genericError', { statusCode: errorCode })}
+            subTitle={t('results.genericErrorExplanation', {
+              statusCode: errorCode,
+            })}
             extra={
               <Link href='/' passHref>
                 <Button type='link'>{t('actions.goBack')}</Button>

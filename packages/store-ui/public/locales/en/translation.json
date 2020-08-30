@@ -668,6 +668,7 @@
   },
   "results": {
     "genericError": "Error occured",
+    "genericErrorExplanation": "There was an error with status code {{statusCode}}. Contact us if the issue persists",
     "pageNotFound": "Not found",
     "pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
     "productNotFound": "Product not found",

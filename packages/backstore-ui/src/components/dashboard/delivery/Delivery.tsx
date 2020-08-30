@@ -36,13 +36,14 @@ export const Delivery = () => {
       return;
     }
 
-    caller<DeliveryType>(
-      sdk.delivery.patch(newDelivery._id, newDelivery),
-      updatedDelivery => {
-        message.success(t('common.success'));
-        return setDelivery(updatedDelivery);
-      },
-    );
+    const handler = !!delivery?._id
+      ? sdk.delivery.patch(delivery._id, newDelivery)
+      : sdk.delivery.create(newDelivery);
+
+    caller<DeliveryType>(handler, updatedDelivery => {
+      message.success(t('common.success'));
+      return setDelivery(updatedDelivery);
+    });
   };
 
   return (

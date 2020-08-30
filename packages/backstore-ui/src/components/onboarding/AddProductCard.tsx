@@ -63,7 +63,7 @@ export const AddProductCard = ({
     <>
       <Form
         colon={false}
-        validate={data => sdk.product.validate(data, Boolean(product))}
+        validate={sdk.product.validate}
         // TODO: Add single validation when the validation library can handle nested schemas/selectors.
         // validateSingle={sdk.product.validateSingle}
         getErrorMessage={(errorName, context) =>

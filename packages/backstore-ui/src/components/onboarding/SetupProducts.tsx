@@ -42,16 +42,16 @@ export const SetupProducts = ({
 
   // This is a messy way of recreating the "AddProductCard" component when we add a product.
   React.useEffect(() => {
-    if (!editedProduct) {
+    if (!editedProduct || !editedProduct.soldBy) {
       setEditedProduct({
         soldBy: storeId,
         unit: sdk.product.ProductUnit.ITEM,
         images: [],
         groups: [],
-        variants: [],
+        variants: [{ price: 0 }],
       });
     }
-  }, [editedProduct, setEditedProduct]);
+  }, [storeId, editedProduct, setEditedProduct]);
 
   return (
     <>
