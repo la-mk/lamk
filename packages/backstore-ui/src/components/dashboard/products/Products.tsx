@@ -213,6 +213,7 @@ export const Products = () => {
   const groups: string[] = useSelector(getGroups);
   const products: Product[] = useSelector(getProducts);
   const store: Store | null = useSelector(getStore);
+  const storeId = store?._id;
 
   const [caller, showSpinner] = hooks.useCall();
   const [groupsCaller] = hooks.useCall();
@@ -234,33 +235,33 @@ export const Products = () => {
   );
   const categories = useSelector(getUniqueCategories('level3'));
   const columns = React.useMemo(() => {
-    return getColumns(t, store ? store._id : '', categories, groups, filters);
-  }, [store, categories, groups, filters, t]);
+    return getColumns(t, storeId ?? '', categories, groups, filters);
+  }, [storeId, categories, groups, filters, t]);
 
   React.useEffect(() => {
-    if (!store) {
+    if (!storeId) {
       return;
     }
 
     caller(
-      sdk.product.findForStore(store._id, utils.filter.filtersAsQuery(filters)),
+      sdk.product.findForStore(storeId, utils.filter.filtersAsQuery(filters)),
       res => {
         setTotal(res.total);
         return setProducts(res.data);
       },
     );
-  }, [store, filters, caller]);
+  }, [storeId, filters, caller]);
 
   React.useEffect(() => {
-    if (!store?._id) {
+    if (!storeId) {
       return;
     }
 
     groupsCaller<FindResult<ProductGroup>>(
-      sdk.productGroup.findForStore(store._id),
+      sdk.productGroup.findForStore(storeId),
       productGroups => setGroups(productGroups.data.map(x => x.groupName)),
     );
-  }, [store?._id]);
+  }, [storeId, groupsCaller]);
 
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
