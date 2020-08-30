@@ -2,6 +2,7 @@ import toInteger from 'lodash/toInteger';
 import React from 'react';
 import { Route, Redirect, Switch, RouteComponentProps } from 'react-router-dom';
 import { Onboarding } from './Onboarding';
+import { ErrorBoundary } from '../shared/components/ErrorBoundary';
 
 export const OnboardingRouter = () => {
   return (
@@ -12,10 +13,12 @@ export const OnboardingRouter = () => {
           match,
           history,
         }: RouteComponentProps<{ step?: string }>) => (
-          <Onboarding
-            step={toInteger(match.params.step || 0)}
-            setStep={(step: number) => history.push(`${step}`)}
-          />
+          <ErrorBoundary>
+            <Onboarding
+              step={toInteger(match.params.step || 0)}
+              setStep={(step: number) => history.push(`${step}`)}
+            />
+          </ErrorBoundary>
         )}
       />
       <Redirect to='/onboarding/0' />

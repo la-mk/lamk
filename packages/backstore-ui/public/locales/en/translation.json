@@ -679,6 +679,10 @@
     "all": "All",
     "group": "Group"
   },
+  "results": {
+    "genericError": "Error occured",
+    "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
+  },
   "sets": {
     "categoryExplanation": "Categories you might like",
     "discounted": "Products on sale",
