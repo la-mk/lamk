@@ -154,7 +154,7 @@ export const FooterContent = () => {
           alignItems='center'
         >
           <a
-            href='https://www.facebook.com/Lamk-102161548245479'
+            href='https://www.facebook.com/social.la.mk'
             target='_blank'
             rel='noreferrer noopener'
           >
