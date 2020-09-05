@@ -17,7 +17,7 @@ const ContactEntry = ({
   }
 
   return (
-    <Text my={1} color='primary'>
+    <Text my={1} color='text.light'>
       {icon}
       <Text fontSize={0} color='text.light' ml={4}>
         {value}

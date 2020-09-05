@@ -12,6 +12,7 @@ export const StoreLink = () => {
   const slug = `${store?._id ?? ''}-hide-store-link`;
   const [shouldHide, hideNotice] = useOneTimeNotice(slug);
   const isNewShop =
+    store &&
     Math.abs(differenceInDays(new Date(store.createdAt), Date.now())) <= 3;
 
   if (!store || shouldHide || !isNewShop) {

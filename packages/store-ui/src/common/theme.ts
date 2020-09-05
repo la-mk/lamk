@@ -6,12 +6,12 @@ const getOtherColors = (brandColor: string) => {
   return {
     background: {
       light: tinycolor({ h: brand.h, s: 0.3, l: 0.97 }).toHexString(),
-      dark: tinycolor({ h: brand.h, s: 0.7, l: 0.18 }).toHexString(),
+      dark: tinycolor({ h: brand.h, s: 0.92, l: 0.08 }).toHexString(),
     },
 
     heading: {
       light: tinycolor({ h: brand.h, s: 0.5, l: 0.95 }).toHexString(),
-      dark: tinycolor({ h: brand.h, s: 0.7, l: 0.1 }).toHexString(),
+      dark: tinycolor({ h: brand.h, s: 0.92, l: 0.04 }).toHexString(),
     },
 
     text: {
