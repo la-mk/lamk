@@ -6,5 +6,6 @@ export const getAuthenticationSdk = (client: Application) => {
     authenticate: client.authenticate,
     logout: client.logout,
     getAuthentication: () => client.get('authentication'),
+    getAccessToken: () => client.authentication.getAccessToken,
   };
 };
