@@ -6,12 +6,16 @@ import env from '../env';
 const getLogObject = (context: HookContext) => {
   return `
   ${context.type} app.service('${context.path}').${context.method}()
-
-  Params: ${JSON.stringify(context.params.query, null, 2)}, ID: ${context.id}, 
-  Data: ${JSON.stringify(_.omit(context.data, 'uri'), null, 2)},
+  Params: ${JSON.stringify(context.params.query)}, ID: ${context.id}, 
+  Data: ${JSON.stringify(_.omit(context.data, 'uri'))},
   ${
     context.result
-      ? `Result: ${JSON.stringify(_.omit(context.result, 'uri'), null, 2)}`
+      ? `Result: ${JSON.stringify(_.omit(context.result, 'uri')).slice(0, 100)}`
+      : ''
+  },
+  ${
+    context.error
+      ? `Error: ${context.error.stack || context.error.message}`
       : ''
   }
   `;
@@ -19,10 +23,12 @@ const getLogObject = (context: HookContext) => {
 
 export const log = (context: HookContext) => {
   if (env().NODE_ENV === 'development') {
-    logger.info(getLogObject(context));
-  }
-
-  if (context.error && !context.result) {
-    logger.error(getLogObject(context), context.error.stack);
+    if (context.error) {
+      logger.error(getLogObject(context));
+    } else {
+      logger.info(getLogObject(context));
+    }
+  } else if (context.error && !context.result) {
+    logger.error(getLogObject(context));
   }
 };

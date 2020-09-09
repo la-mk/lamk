@@ -11,7 +11,7 @@ export const setCategoriesIfNone = (ctx: NextPageContext & { store: any }) => {
 
   const categoriesAction = categories
     ? Promise.resolve(categories)
-    : sdk.storeCategory.findForStore(store._id);
+    : sdk.storeCategory.findForStore(store?._id);
 
   return categoriesAction
     .then(categoriesResult => {

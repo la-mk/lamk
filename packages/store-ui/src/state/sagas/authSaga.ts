@@ -26,6 +26,25 @@ function* afterAuthSaga(authInfo: any, wasAuthenticated: boolean = false) {
   }
 }
 
+const isTokenValid = (token: string) => {
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const tokenData = jwtDecode(token);
+    const expirationTimestamp = tokenData.exp;
+    const currentTimestamp = Date.now() / 1000;
+    if (currentTimestamp > expirationTimestamp) {
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+
+  return true;
+};
+
 const isTokenExpiredError = (err: any) => {
   return err.data?.name === 'TokenExpiredError';
 };
@@ -34,9 +53,12 @@ const isTokenInvalidError = (err: any) => {
   return err.data?.name === 'JsonWebTokenError';
 };
 
+// If there is a concurrent request with `reAuthenticate`, and `reAuthenticate` throws, the other concurrent requests will throw as well
+// because there is an assumption that we first reauthenticate before doing server requests (which is not necessary if the routes we hit don't require auth)
+// See https://github.com/feathersjs/feathers/issues/1947
 export function* reauthenticateUserSaga() {
   try {
-    yield call(sdk.authentication.reAuthenticate, false);
+    yield call(sdk.authentication.reAuthenticate, true);
   } catch (err) {
     if (isTokenExpiredError(err) || isTokenInvalidError(err)) {
       yield put(clearSession());
@@ -59,10 +81,20 @@ export function* getAuthenticationSaga() {
 
 // Do the auth check and flow.
 function* authenticationCheckSaga(action: LocationChangeAction) {
-  const oldAuthInfo = yield call(sdk.authentication.getAuthentication);
-  const wasAuthenticated = Boolean(oldAuthInfo);
+  const accessToken = yield call(sdk.authentication.getAccessToken);
+  const wasAuthenticated = Boolean(accessToken);
 
-  yield reauthenticateUserSaga();
+  // If we know the token is invalid or there is none remove the token, no need to check with the server cause it causes a weird bug (see comment on reauth function)
+  if (accessToken && !isTokenValid(accessToken)) {
+    try {
+      yield call(sdk.authentication.removeAccessToken);
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (accessToken) {
+    yield reauthenticateUserSaga();
+  }
+
   const authInfo = yield getAuthenticationSaga();
   yield afterAuthSaga(authInfo, wasAuthenticated);
 }
@@ -70,21 +102,16 @@ function* authenticationCheckSaga(action: LocationChangeAction) {
 function* checkTokenSaga() {
   while (true) {
     try {
-      const authInfo = yield call(sdk.authentication.getAuthentication);
-      if (authInfo) {
-        const tokenData = jwtDecode(authInfo.accessToken);
-        const expirationTimestamp = tokenData.exp;
-        const currentTimestamp = Date.now() / 1000;
-        if (currentTimestamp > expirationTimestamp) {
-          yield call(sdk.authentication.logout);
-          yield put(clearSession());
-        }
+      const accessToken = yield call(sdk.authentication.getAccessToken);
+      if (accessToken && !isTokenValid(accessToken)) {
+        yield call(sdk.authentication.logout);
+        yield put(clearSession());
       }
     } catch (err) {
       console.error(err);
     }
 
-    yield delay(5000);
+    yield delay(15000);
   }
 }
 

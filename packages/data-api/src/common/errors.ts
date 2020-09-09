@@ -11,17 +11,15 @@ export const MethodNotAllowed = errors.MethodNotAllowed;
 export const registerUnhandledErrorHandlers = (
   getSyncLogger: (handler: (err: Error, logger: Logger) => void) => void,
 ) => {
-  process.on(
-    'uncaughtException',
-    () => getSyncLogger((err, logger) => {
+  process.on('uncaughtException', () =>
+    getSyncLogger((err, logger) => {
       logger.error(err, 'uncaughtException');
       process.exit(1);
     }),
   );
 
-  process.on(
-    'unhandledRejection',
-    () => getSyncLogger((err, logger) => {
+  process.on('unhandledRejection', () =>
+    getSyncLogger((err, logger) => {
       logger.error(err, 'unhandledRejection');
       process.exit(1);
     }),

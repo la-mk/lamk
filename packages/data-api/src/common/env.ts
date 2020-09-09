@@ -7,35 +7,20 @@ const loadEnv = _.once(() => {
       .required()
       .asEnum(['test', 'development', 'staging', 'production']),
 
-    PORT: envvar
-      .get('PORT')
-      .required()
-      .asPortNumber(),
+    PORT: envvar.get('PORT').required().asPortNumber(),
 
-    HOST: envvar
-      .get('HOST')
-      .required()
-      .asString(),
+    HOST: envvar.get('HOST').required().asString(),
 
-    JWT_SECRET: envvar
-      .get('JWT_SECRET')
-      .required()
-      .asString(),
+    JWT_SECRET: envvar.get('JWT_SECRET').required().asString(),
 
-    MONGODB_DB_NAME: envvar
-      .get('MONGODB_DB_NAME')
-      .required()
-      .asString(),
+    MONGODB_DB_NAME: envvar.get('MONGODB_DB_NAME').required().asString(),
 
     MONGODB_CONNECTION_STRING: envvar
       .get('MONGODB_CONNECTION_STRING')
       .required()
       .asString(),
 
-    STORAGE_ENDPOINT: envvar
-      .get('STORAGE_ENDPOINT')
-      .required()
-      .asString(),
+    STORAGE_ENDPOINT: envvar.get('STORAGE_ENDPOINT').required().asString(),
 
     STORAGE_BUCKET_NAME: envvar
       .get('STORAGE_BUCKET_NAME')
@@ -82,10 +67,7 @@ const loadEnv = _.once(() => {
       .required()
       .asString(),
 
-    ENABLE_SIGNUP: envvar
-      .get('ENABLE_SIGNUP')
-      .required()
-      .asBool(),
+    ENABLE_SIGNUP: envvar.get('ENABLE_SIGNUP').required().asBool(),
   };
 });
 
