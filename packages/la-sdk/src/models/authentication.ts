@@ -6,7 +6,8 @@ export const getAuthenticationSdk = (client: Application) => {
     authenticate: client.authenticate,
     logout: client.logout,
     getAuthentication: () => client.get('authentication'),
-    getAccessToken: client.authentication.getAccessToken,
-    removeAccessToken: client.authentication.removeAccessToken,
+    // We need to create arrow functions to preserve the this context
+    getAccessToken: () => client.authentication.getAccessToken(),
+    removeAccessToken: () => client.authentication.removeAccessToken(),
   };
 };
