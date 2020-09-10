@@ -63,6 +63,7 @@ export { Upload, UploadDragger } from './basic/Upload';
 export { formInput, formTextArea, formPassword, parsers } from './compound/FormHelpers';
 export { LoginForm } from './compound/forms/LoginForm';
 export { SignupForm } from './compound/forms/SignupForm';
+export { UserForm } from './compound/forms/UserForm';
 export { UploadContent } from './compound/UploadContent';
 export { HeadElements } from './compound/HeadElements';
 export { FooterContent } from './compound/FooterContent';
