@@ -44,7 +44,7 @@ export const UserForm = ({ size, ...props }: any) => {
 
       <Flex mt={4} justifyContent='center' alignItems='center'>
         <Button width='100%' type='primary' htmlType='submit' size='large'>
-          {'actions.update'}
+          {localization.update || 'Update'}
         </Button>
       </Flex>
     </Form>

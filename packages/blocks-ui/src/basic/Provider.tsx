@@ -15,6 +15,7 @@ interface LocalizationContext {
   signup?: string;
   or?: string;
   authSameAccount?: string;
+  update?: string;
 }
 
 export const LocalizationContext = React.createContext<LocalizationContext>({});
