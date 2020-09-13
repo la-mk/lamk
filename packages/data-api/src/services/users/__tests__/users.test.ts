@@ -4,6 +4,7 @@ import {
   UniqueConstraint,
   NotFound,
   NotAuthenticated,
+  BadRequest,
 } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
 import { User } from '@sradevski/la-sdk/dist/models/user';
@@ -195,5 +196,44 @@ describe('"users" service', () => {
     );
 
     expect(user.firstName).toBe('token');
+  });
+
+  it('user password patching throws an error if current password is not passed', async () => {
+    const [testUser] = await fixtures.user(feathersApp, 1, {});
+    const params = getExternalUserParams(testUser);
+
+    const userPromise = users.patch(
+      testUser._id,
+      { password: '12345678' },
+      params,
+    );
+    await expect(userPromise).rejects.toThrow(BadRequest);
+  });
+
+  it('user password patching throws an error if current password does not match', async () => {
+    const [testUser] = await fixtures.user(feathersApp, 1, {});
+    const params = getExternalUserParams(testUser);
+
+    // @ts-ignore
+    const userPromise = users.patch(
+      testUser._id,
+      { password: '12345678', currentPassword: '12345678' },
+      params,
+    );
+    await expect(userPromise).rejects.toThrow(BadRequest);
+  });
+
+  it('user password succeeds if current password matches', async () => {
+    const [testUser] = await fixtures.user(feathersApp, 1, {});
+    const params = getExternalUserParams(testUser);
+
+    // @ts-ignore
+    const user = await users.patch(
+      testUser._id,
+      { password: '12345678', currentPassword: 'supersecret' },
+      params,
+    );
+
+    expect(user._id).toEqual(testUser._id);
   });
 });
