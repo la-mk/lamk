@@ -36,7 +36,7 @@
   },
   "auth": {
     "account": "Account",
-    "accountSettings": "Account settings",
+    "accountUpdateSuccess": "Account successfully updated",
     "authSameAccount": "You can use the same account on every store that is",
     "login": "Log in",
     "logout": "Log out",
@@ -553,6 +553,7 @@
     "optional": "Optional",
     "or": "or",
     "password": "Password",
+    "personalInfo": "Personal info",
     "phoneNumber": "Phone number",
     "polite": "Please",
     "preferences": "Preferences",

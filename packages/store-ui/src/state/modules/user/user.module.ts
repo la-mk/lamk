@@ -13,7 +13,7 @@ export default function user(state = initialState, action: any) {
       return { ...state, user: action.user };
     }
     case PATCH_USER: {
-      return { ...state, user: { ...state.user, ...action.user } };
+      return { ...state, user: { ...(state.user ?? {}), ...action.user } };
     }
     case SET_ADDRESSES: {
       return { ...state, addresses: action.addresses };

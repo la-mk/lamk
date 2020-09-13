@@ -20,6 +20,7 @@ export const Orders = () => {
           data={data}
           lines={() => [
             <Line
+              key='orderCount'
               isAnimationActive={false}
               name={t('analytics.orderCount') as string}
               type='monotone'

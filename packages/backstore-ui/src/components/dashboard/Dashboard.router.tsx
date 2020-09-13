@@ -8,6 +8,7 @@ import { StoreRouter } from './store/Store.router';
 import { DeliveryRouter } from './delivery/Delivery.router';
 import { PaymentRouter } from './payment/Payment.router';
 import { PreferencesRouter } from './preferences/Preferences.router';
+import { AccountRouter } from './account/Account.router';
 import { Summary } from './summary/Summary';
 import { ErrorBoundary } from '../shared/components/ErrorBoundary';
 
@@ -24,6 +25,7 @@ export const DashboardRouter = () => {
           <Route path='/dashboard/delivery' component={DeliveryRouter} />
           <Route path='/dashboard/payment' component={PaymentRouter} />
           <Route path='/dashboard/preferences' component={PreferencesRouter} />
+          <Route path='/dashboard/account' component={AccountRouter} />
           <Redirect to='/dashboard/summary' />
         </Switch>
       </ErrorBoundary>

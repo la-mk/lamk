@@ -15,7 +15,6 @@ import {
   Option,
   Select,
   InputNumber,
-  Input,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
@@ -27,7 +26,6 @@ import {
 import { getStore } from '../../../state/modules/store/store.selector';
 import { useTranslation } from 'react-i18next';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
-import { groupCollapsed } from 'console';
 import { getGroups } from '../../../state/modules/products/products.selector';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
@@ -76,7 +74,7 @@ export const CampaignFormModal = ({
         productGroups => setGroups(productGroups.data.map(x => x.groupName)),
       );
     }
-  }, [groups]);
+  }, [groups, groupsCaller, storeId]);
 
   const handlePatchCampaign = (campaign: Campaign) => {
     caller<Campaign>(sdk.campaign.patch(campaign._id, campaign), campaign => {

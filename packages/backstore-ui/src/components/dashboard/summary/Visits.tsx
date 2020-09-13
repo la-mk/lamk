@@ -19,6 +19,7 @@ export const Visits = () => {
           data={data}
           lines={() => [
             <Line
+              key='visitCount'
               isAnimationActive={false}
               name={t('analytics.visitCount') as string}
               type='monotone'

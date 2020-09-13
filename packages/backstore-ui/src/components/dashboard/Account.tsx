@@ -1,11 +1,30 @@
 import React from 'react';
-import { Flex, Dropdown, Menu, MenuItem, Avatar } from '@sradevski/blocks-ui';
-import { UserOutlined, LogoutOutlined, DownOutlined } from '@ant-design/icons';
+import {
+  Flex,
+  Box,
+  Text,
+  Dropdown,
+  Menu,
+  MenuItem,
+  Avatar,
+  MenuDivider,
+} from '@sradevski/blocks-ui';
+import {
+  UserOutlined,
+  LogoutOutlined,
+  DownOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../state/modules/auth/auth.module';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-export const Account = () => {
+export const Account = ({
+  isSidebarCollapsed,
+}: {
+  isSidebarCollapsed: boolean;
+}) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -15,12 +34,18 @@ export const Account = () => {
 
   const menu = (
     <Menu>
-      {/* <MenuItem>
-        <SettingOutlined /> {t('auth.accountSettings')}
+      <MenuItem key='account'>
+        <Link to='/dashboard/account'>
+          <SettingOutlined />
+          <Text ml={2}>{t('common.preferences')}</Text>
+        </Link>
       </MenuItem>
-      <MenuDivider /> */}
-      <MenuItem onClick={handleLogout}>
-        <LogoutOutlined /> {t('auth.logout')}
+      <MenuDivider />
+      <MenuItem key='logout' onClick={handleLogout}>
+        <Box>
+          <LogoutOutlined />
+          <Text ml={2}>{t('auth.logout')}</Text>
+        </Box>
       </MenuItem>
     </Menu>
   );
@@ -28,9 +53,11 @@ export const Account = () => {
     <Dropdown placement='bottomRight' overlay={menu}>
       <Flex flexDirection='column' alignItems='center' justifyContent='center'>
         <Avatar icon={<UserOutlined />} />
-        <span>
-          {t('auth.account')} <DownOutlined />
-        </span>
+        {!isSidebarCollapsed && (
+          <span>
+            {t('auth.account')} <DownOutlined />
+          </span>
+        )}
       </Flex>
     </Dropdown>
   );

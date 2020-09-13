@@ -19,6 +19,7 @@ export const Revenue = () => {
           data={data}
           lines={() => [
             <Line
+              key='revenue'
               isAnimationActive={false}
               name={t('analytics.revenue') as string}
               type='monotone'

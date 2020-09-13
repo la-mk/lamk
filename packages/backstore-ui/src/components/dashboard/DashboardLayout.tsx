@@ -46,7 +46,7 @@ const TopMenuContainer = styled(Flex)`
   color: white;
 `;
 
-const TopMenu = ({ i18n }: any) => {
+const TopMenu = ({ isSidebarCollapsed, i18n }: any) => {
   return (
     <TopMenuContainer
       py={4}
@@ -55,7 +55,7 @@ const TopMenu = ({ i18n }: any) => {
       alignItems='center'
       justifyContent='center'
     >
-      <Account />
+      <Account isSidebarCollapsed={isSidebarCollapsed} />
     </TopMenuContainer>
   );
 };
@@ -76,7 +76,7 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
           collapsed={isSidebarCollapsed}
           onCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
-          <TopMenu i18n={i18n} />
+          <TopMenu isSidebarCollapsed={isSidebarCollapsed} i18n={i18n} />
 
           <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
             <MenuItem key='summary'>

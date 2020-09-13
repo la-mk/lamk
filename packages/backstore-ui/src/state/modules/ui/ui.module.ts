@@ -1,5 +1,3 @@
-import { enhanceReducer } from '../../utils';
-
 const initialState = { uiReady: false };
 
 export const CLEAR_SESSION = 'ui/CLEAR_SESSION';
@@ -15,7 +13,7 @@ function uiReady(state = initialState, action: any) {
   }
 }
 
-export default enhanceReducer(uiReady);
+export default uiReady;
 
 export function clearSession() {
   return { type: CLEAR_SESSION };
