@@ -1,9 +1,7 @@
+import omit from 'lodash/omit';
 import React, { useState } from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import {
-  Form,
-  FormItem,
-  formInput,
   Button,
   Flex,
   message,
@@ -11,6 +9,8 @@ import {
   Tabs,
   TabPane,
   hooks,
+  UserForm,
+  ChangePasswordForm,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
@@ -57,16 +57,8 @@ export const Account = ({ user }: AccountProps) => {
               minWidth={200}
               mx='auto'
             >
-              <Form
-                width='100%'
-                labelCol={{
-                  xs: { span: 24 },
-                }}
-                wrapperCol={{
-                  xs: { span: 24 },
-                }}
-                layout='vertical'
-                colon={false}
+              <UserForm
+                size='large'
                 onFormCompleted={handlePatchAccount}
                 externalState={user}
                 validate={data => sdk.user.validate(data, true)}
@@ -74,33 +66,39 @@ export const Account = ({ user }: AccountProps) => {
                 getErrorMessage={(errorName, context) =>
                   t(`errors.${errorName}`, context)
                 }
-              >
-                <FormItem selector='firstName' label={t('common.firstName')}>
-                  {formInput({ size: 'large' })}
-                </FormItem>
-
-                <FormItem selector='lastName' label={t('common.lastName')}>
-                  {formInput({ size: 'large' })}
-                </FormItem>
-
-                <FormItem
-                  selector='phoneNumber'
-                  label={t('common.phoneNumber')}
-                >
-                  {formInput({ size: 'large' })}
-                </FormItem>
-
-                <Flex mt={4} justifyContent='center' alignItems='center'>
-                  <Button
-                    width='100%'
-                    type='primary'
-                    htmlType='submit'
-                    size='large'
-                  >
-                    {t('actions.update')}
-                  </Button>
-                </Flex>
-              </Form>
+              />
+            </Flex>
+          </Spin>
+        </TabPane>
+        <TabPane pt={4} tab={t('common.password')} key='password'>
+          <Spin spinning={showSpinner}>
+            <Flex
+              alignItems='center'
+              justifyContent='center'
+              flexDirection='column'
+              width={'100%'}
+              maxWidth={600}
+              minWidth={200}
+              mx='auto'
+            >
+              <ChangePasswordForm
+                size='large'
+                onFormCompleted={handlePatchAccount}
+                externalState={user}
+                // We don't want to validate `currentPassword` as it is a special field that is only used for comparison
+                validate={data =>
+                  sdk.user.validate(omit(data, ['currentPassword']), true)
+                }
+                validateSingle={(val, selector) => {
+                  if (selector === 'currentPassword') {
+                    return;
+                  }
+                  return sdk.user.validateSingle(val, selector);
+                }}
+                getErrorMessage={(errorName, context) =>
+                  t(`errors.${errorName}`, context)
+                }
+              />
             </Flex>
           </Spin>
         </TabPane>

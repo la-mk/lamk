@@ -24,12 +24,18 @@ import { StoreNotFound } from '../src/common/pageComponents/StoreNotFound';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
+    firstName: t('common.firstName'),
+    lastName: t('common.lastName'),
+    phoneNumber: t('common.phoneNumber'),
     email: t('common.email'),
     password: t('common.password'),
+    currentPassword: t('common.currentPassword'),
+    newPassword: t('common.newPassword'),
     signup: t('auth.signup'),
     login: t('auth.login'),
     or: t('common.or'),
     authSameAccount: t('auth.authSameAccount'),
+    update: t('actions.update'),
   };
 };
 

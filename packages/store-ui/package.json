@@ -27,7 +27,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@sradevski/analytics": "0.0.7",
-    "@sradevski/blocks-ui": "0.0.108",
+    "@sradevski/blocks-ui": "0.0.113",
     "@sradevski/la-sdk": "0.0.119",
     "@sradevski/nlp": "0.0.2",
     "antd": "^4.5.2",
@@ -55,7 +55,7 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.92",
+    "@sradevski/translations": "0.0.94",
     "@types/express": "^4.17.7",
     "@types/next-redux-wrapper": "^3.0.0",
     "@types/node": "^14.0.27",
