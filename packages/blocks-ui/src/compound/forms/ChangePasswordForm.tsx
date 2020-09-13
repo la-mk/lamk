@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import { Flex } from '../../basic/Flex';
 import { Button } from '../../basic/Button';
-import { formInput } from '../FormHelpers';
+import { formPassword } from '../FormHelpers';
 import { Form, FormItem, FormHandlers } from '../../basic/Form/Form';
 import { LocalizationContext } from '../../basic/Provider';
 import { SizeType } from 'antd/lib/config-provider/SizeContext';
 
-export interface UserFormProps extends FormHandlers {
+export interface ChangePasswordFormProps extends FormHandlers {
   size?: SizeType;
 }
 
-export const UserForm = ({ size, ...props }: any) => {
+export const ChangePasswordForm = ({ size, ...props }: any) => {
   const localization = useContext(LocalizationContext);
+  
   return (
     <Form
       width="100%"
@@ -26,24 +27,23 @@ export const UserForm = ({ size, ...props }: any) => {
       {...props}
     >
       <FormItem
-        selector="firstName"
-        label={localization.firstName || 'First name'}
+        selector="currentPassword"
+        label={localization.currentPassword || 'Current Password'}
       >
-        {formInput({ size })}
+        {formPassword({
+          size,
+          placeholder: '********',
+        })}
       </FormItem>
 
       <FormItem
-        selector="lastName"
-        label={localization.lastName || 'Last name'}
+        selector="password"
+        label={localization.newPassword || 'New password'}
       >
-        {formInput({ size })}
-      </FormItem>
-
-      <FormItem
-        selector="phoneNumber"
-        label={localization.phoneNumber || 'Phone number'}
-      >
-        {formInput({ size })}
+        {formPassword({
+          size,
+          placeholder: '********',
+        })}
       </FormItem>
 
       <Flex mt={4} justifyContent="center" alignItems="center">

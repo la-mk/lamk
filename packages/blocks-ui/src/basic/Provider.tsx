@@ -10,6 +10,7 @@ interface LocalizationContext {
   phoneNumber?: string;
   email?: string;
   password?: string;
+  currentPassword?: string;
   newPassword?: string;
   login?: string;
   signup?: string;

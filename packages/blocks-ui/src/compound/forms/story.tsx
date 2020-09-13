@@ -4,6 +4,8 @@ import { Provider } from '../../basic/Provider';
 import { LoginForm } from './LoginForm';
 import { SignupForm } from './SignupForm';
 import { UserForm } from './UserForm';
+import { ChangePasswordForm } from './ChangePasswordForm';
+import { Box } from '../../basic/Box';
 
 storiesOf('Forms', module)
   .add('Login form', () => (
@@ -35,17 +37,35 @@ storiesOf('Forms', module)
       />
     </Provider>
   ))
+  .add('Password form', () => (
+    <Provider>
+      <Box width="600px">
+        <ChangePasswordForm
+          size="large"
+          onFormCompleted={() => console.log('Form completed')}
+          validate={() => null}
+          validateSingle={() => null}
+          getErrorMessage={(errorName: any, context: any) => {
+            console.log(errorName, context);
+            return '';
+          }}
+        />
+      </Box>
+    </Provider>
+  ))
   .add('User form', () => (
     <Provider>
-      <UserForm
-        size="large"
-        onFormCompleted={() => console.log("Form completed")}
-        validate={() => null}
-        validateSingle={() => null}
-        getErrorMessage={(errorName: any, context: any) => {
-          console.log(errorName, context);
-          return '';
-        }}
-      />
+      <Box width="600px">
+        <UserForm
+          size="large"
+          onFormCompleted={() => console.log('Form completed')}
+          validate={() => null}
+          validateSingle={() => null}
+          getErrorMessage={(errorName: any, context: any) => {
+            console.log(errorName, context);
+            return '';
+          }}
+        />
+      </Box>
     </Provider>
   ));

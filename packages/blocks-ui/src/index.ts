@@ -64,6 +64,7 @@ export { formInput, formTextArea, formPassword, parsers } from './compound/FormH
 export { LoginForm } from './compound/forms/LoginForm';
 export { SignupForm } from './compound/forms/SignupForm';
 export { UserForm } from './compound/forms/UserForm';
+export { ChangePasswordForm } from './compound/forms/ChangePasswordForm';
 export { UploadContent } from './compound/UploadContent';
 export { HeadElements } from './compound/HeadElements';
 export { FooterContent } from './compound/FooterContent';
