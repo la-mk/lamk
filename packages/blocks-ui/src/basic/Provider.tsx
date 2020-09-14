@@ -12,6 +12,9 @@ interface LocalizationContext {
   password?: string;
   currentPassword?: string;
   newPassword?: string;
+  forgotPassword?: string;
+  resetPassword?: string;
+  sendPasswordResetLink?: string;
   login?: string;
   signup?: string;
   or?: string;

@@ -11,8 +11,10 @@ interface AuthFormBaseProps {
   logoUrl?: string;
   onPrimary: (data?: any) => void;
   onSecondary: (data?: any) => void;
+  onForgotPassword?: () => void;
   primaryText: string;
   secondaryText: string;
+  forgotPasswordText?: string;
 }
 
 export const AuthFormBase = ({
@@ -20,8 +22,10 @@ export const AuthFormBase = ({
   logoUrl,
   onPrimary,
   onSecondary,
+  onForgotPassword,
   primaryText,
   secondaryText,
+  forgotPasswordText,
   ...otherProps
 }: AuthFormBaseProps) => {
   const localization = useContext(LocalizationContext);
@@ -71,6 +75,8 @@ export const AuthFormBase = ({
       <Button size="large" width="100%" type="default" onClick={onSecondary}>
         {secondaryText}
       </Button>
+
+      {onForgotPassword && <Button mt={3} type="link" onClick={onForgotPassword}>{forgotPasswordText}</Button>}
     </Flex>
   );
 };

@@ -6,7 +6,8 @@ import { AuthFormBase } from './AuthFormBase';
 
 export interface LoginProps extends FormHandlers {
   login: (credentials: LoginCredentials) => void;
-  onSignupNowClick: () => void;
+  onSignupNowClick: (data?: any) => void;
+  onForgotPasswordClick: () => void;
   logoUrl?: string;
 }
 
@@ -18,6 +19,7 @@ export interface LoginCredentials {
 export const LoginForm = ({
   login,
   onSignupNowClick,
+  onForgotPasswordClick,
   logoUrl,
   ...otherProps
 }: LoginProps) => {
@@ -29,7 +31,9 @@ export const LoginForm = ({
       onPrimary={login}
       primaryText={localization.login || 'Log in'}
       secondaryText={localization.signup || 'Sign up'}
+      forgotPasswordText={localization.forgotPassword || 'Forgot your password?'}
       onSecondary={onSignupNowClick}
+      onForgotPassword={onForgotPasswordClick}
       {...otherProps}
     >
       <FormItem selector="email" label={localization.email || 'Email address'}>
