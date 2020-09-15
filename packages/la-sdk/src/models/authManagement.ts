@@ -49,7 +49,7 @@ export const getAuthManagementSdk = (client: Application) => {
 
     resetPassword: (email: string) => {
       // The actual tokens are created on the server side, so we just send one so we know what we want to patch
-      crudMethods.patch(null, {resetToken: '!'}, { email });
+      return crudMethods.patch(null, {resetToken: '!'}, { email });
     },
 
     validate: (data: AuthManagement, ignoreRequired = false) => {
