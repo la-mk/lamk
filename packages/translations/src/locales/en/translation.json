@@ -67,6 +67,7 @@
 		"forgotPasswordSuccessExplanation": "If the email you entered is registered in our system, you will get an email with a reset link",
 		"resetPassword": "Reset password",
 		"resetPasswordExplanation": "Set your email and new password in the form below",
+		"resetPasswordSuccess": "Password reset successfully",
 		"login": "Log in",
 		"logout": "Log out",
 		"noUserInformation": "Could not load user information. Check if you are logged in.",
