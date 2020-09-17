@@ -32,8 +32,8 @@ class EmailService implements Service<EmailServiceData> {
   // @ts-ignore
   async create(data: EmailServiceData) {
     const msg = {
-      from: data.from,
-      to: data.to,
+      from: data.from.toLowerCase(),
+      to: data.to.toLowerCase(),
       subject: data.subject,
       text: data.text,
       html: data.html,

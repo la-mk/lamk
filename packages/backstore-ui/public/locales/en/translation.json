@@ -10,10 +10,12 @@
     "delete": "Delete",
     "downloadInvoice": "Download invoice",
     "goToDashboard": "Go to dashboard",
+    "loginInstead": "Log in instead",
     "publish": "Publish",
     "save": "Save",
     "search": "Search",
     "select": "Select",
+    "sendPasswordResetLink": "Send password reset link",
     "update": "Update"
   },
   "analytics": {
@@ -38,8 +40,15 @@
     "account": "Account",
     "accountUpdateSuccess": "Account successfully updated",
     "authSameAccount": "You can use the same account on every store that is",
+    "forgotPassword": "Forgot your password?",
+    "forgotPasswordExplanation": "We will send you a email with a link to reset your password",
+    "forgotPasswordSuccess": "Reset link sent",
+    "forgotPasswordSuccessExplanation": "If the email you entered is registered in our system, you will get an email with a reset link",
     "login": "Log in",
     "logout": "Log out",
+    "resetPassword": "Reset password",
+    "resetPasswordExplanation": "Set your email and new password in the form below",
+    "resetPasswordSuccess": "Password reset successfully",
     "signup": "Sign up",
     "signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
   },

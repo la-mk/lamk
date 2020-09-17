@@ -43,6 +43,12 @@ const comparePasswordsIfPatched = async (ctx: HookContext) => {
   }
 };
 
+const transform = async (ctx: HookContext) => {
+  if (ctx.data?.email) {
+    ctx.data.email = ctx.data.email.toLowerCase();
+  }
+};
+
 export const hooks = {
   before: {
     all: [],
@@ -51,6 +57,7 @@ export const hooks = {
     create: [
       hashPassword('password'),
       setFields({ isEmailVerified: false }),
+      transform,
       validate(sdk.user.validate),
       unique(['email']),
     ],
@@ -73,6 +80,7 @@ export const hooks = {
         'modifiedAt',
       ]),
       hashPassword('password'),
+      transform,
       validate(sdk.user.validate),
       unique(['email']),
     ],

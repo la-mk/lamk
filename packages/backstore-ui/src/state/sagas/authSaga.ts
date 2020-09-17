@@ -10,7 +10,7 @@ import { clearSession, setUiReady } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
 import { message } from 'antd';
 
-const authRoutes = ['/login', '/signup'];
+const authRoutes = ['/login', '/signup', '/forgotPassword', '/resetPassword'];
 
 function* afterAuthSaga() {
   try {

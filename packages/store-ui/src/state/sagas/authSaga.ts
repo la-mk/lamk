@@ -7,13 +7,13 @@ import {
   delay,
 } from 'redux-saga/effects';
 import { sdk } from '@sradevski/la-sdk';
+import { message } from '@sradevski/blocks-ui';
 import jwtDecode from 'jwt-decode';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { SET_UI_LOADED } from '../modules/ui/ui.module';
 import { clearSession, toggleAuthModal } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
 
-import { message } from 'antd';
 import { LocationChangeAction } from 'connected-next-router/actions';
 
 function* afterAuthSaga(authInfo: any, wasAuthenticated: boolean = false) {

@@ -13,21 +13,48 @@ import { HookContext } from '@feathersjs/feathers';
 import { AuthManagement } from '@sradevski/la-sdk/dist/models/authManagement';
 import { BadRequest } from '../../common/errors';
 import { settableFields } from '../../common/hooks/filtering';
+import { getEmailTemplate } from '../email/templateProcessor';
+import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 const promisifiedRandomBytes = util.promisify(crypto.randomBytes);
 
-// TODO: Create nice html templates before using this.
+const getStore = async (ctx: HookContext): Promise<Store | null> => {
+  const storeId = ctx.params.query?.storeId;
+  if (!storeId) {
+    return null;
+  }
+
+  return await ctx.app.services['store'].get(storeId);
+};
+
 export const handleResetToken = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['patch']);
   const authManagement = Array.isArray(ctx.result) ? ctx.result[0] : ctx.result;
+  const storeInfo = await getStore(ctx);
+  const storeDomain = storeInfo
+    ? storeInfo.customDomain || `${storeInfo.slug}.la.mk`
+    : undefined;
+
+  const templateData = {
+    storeName: storeInfo?.name ?? 'admin.la.mk',
+    storeUrl: `https://${storeDomain ?? 'admin.la.mk'}`,
+    resetLink: storeDomain
+      ? `https://${storeDomain}/resetPassword?resetToken=${authManagement?.resetToken}`
+      : `https://admin.la.mk/resetPassword?resetToken=${authManagement?.resetToken}`,
+  };
 
   if (authManagement.resetToken) {
     await ctx.app.services['email'].create({
       from: 'noreply@la.mk',
       to: authManagement.email,
       subject: 'la.mk - Reset password',
+      html: await getEmailTemplate('reset-password', templateData),
       text: `
-        You have requested a password reset for ${authManagement.email}. You can reset your password by clicking https://admin.la.mk/account/reset/${authManagement.resetToken}
+        Reset your password
+
+        You have requested a password reset for ${authManagement.email}.
+
+        You can reset your password by clicking on https://admin.la.mk/resetPassword?resetToken=${authManagement.resetToken}
       `,
     });
   }
@@ -98,7 +125,7 @@ export const hooks = {
     find: [allowFields([], [])],
     get: [allowFields([], [])],
     create: [allowFields([], [])],
-    patch: [/*handleResetToken,*/ allowFields([], [])],
+    patch: [handleResetToken, allowFields([], [])],
     remove: [allowFields([], [])],
   },
 };

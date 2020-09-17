@@ -10,7 +10,7 @@ export const createAuthManagementForUser = async (ctx: HookContext) => {
   const { email } = user;
 
   await ctx.app.services['authManagement'].create(
-    { email: email },
+    { email: email.toLowerCase() },
     { user, authenticated: true },
   );
 };
@@ -20,7 +20,7 @@ export const removeAuthManagementForUser = async (ctx: HookContext) => {
 
   const user = ctx.result;
   const userAuthManagement = await ctx.app.services['authManagement'].find({
-    query: { email: user.email },
+    query: { email: user.email.toLowerCase() },
     user,
     authenticated: true,
   });
@@ -45,7 +45,7 @@ export const hasEmailAndValidResetToken = async (ctx: HookContext) => {
   }
 
   const authManagementResult = await ctx.app.services['authManagement'].find({
-    query: { email },
+    query: { email: email.toLowerCase() },
   });
 
   // Only allow using a reset token just once, so we don't get bruteforce attacked.
@@ -55,7 +55,7 @@ export const hasEmailAndValidResetToken = async (ctx: HookContext) => {
       resetToken: null,
       resetTokenCreatedAt: null,
     },
-    { query: { email } },
+    { query: { email: email.toLowerCase() } },
   );
 
   if (authManagementResult.total < 1) {

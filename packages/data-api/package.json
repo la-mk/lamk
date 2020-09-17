@@ -78,6 +78,7 @@
     "@sendgrid/mail": "^7.2.3",
     "@sradevski/la-sdk": "0.0.114",
     "@sradevski/nlp": "0.0.2",
+    "@sradevski/translations": "0.0.96",
     "agenda": "^3.1.0",
     "bluebird": "^3.7.2",
     "compression": "^1.7.4",

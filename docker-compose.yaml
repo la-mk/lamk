@@ -143,7 +143,7 @@ services:
       STORAGE_ENDPOINT: "artifacts.lamk.dev"
       STORAGE_ACCESS_KEY_ID: minio
       STORAGE_ACCESS_KEY_SECRET: minio123
-      MAIL_SERVICE_API_KEY: "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"
+      MAIL_SERVICE_API_KEY: "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"
       SEARCH_SERVICE_API_KEY: "12345678"
       SEARCH_SERVICE_ENDPOINT: "search.lamk.dev"
       NESTPAY_API_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/api"

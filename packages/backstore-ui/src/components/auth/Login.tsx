@@ -26,6 +26,7 @@ export const Login = () => {
           t(`errors.${errorName}`, context)
         }
         onSignupNowClick={() => dispatch(goTo('/signup'))}
+        onForgotPasswordClick={() => dispatch(goTo('/forgotPassword'))}
       />
     </AuthBase>
   );

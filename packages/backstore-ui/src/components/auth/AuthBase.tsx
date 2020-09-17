@@ -17,8 +17,9 @@ export const AuthBase = ({ children }: { children: React.ReactNode }) => {
       <Box
         style={{
           position: 'absolute',
-          top: 32,
+          top: 16,
           right: 32,
+          zIndex: 2,
         }}
       >
         <LanguagePicker

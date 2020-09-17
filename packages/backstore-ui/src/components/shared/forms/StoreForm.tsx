@@ -89,7 +89,7 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
               )
             }
             defaultFileList={getDefaultFileList(
-              store ? store.logo : [],
+              store?.logo ?? [],
               store ? store._id : '',
               { h: 80 },
             )}
