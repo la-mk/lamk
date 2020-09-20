@@ -47,9 +47,9 @@ export const getAuthManagementSdk = (client: Application) => {
   return {
     ...crudMethods,
 
-    resetPassword: (email: string) => {
+    resetPassword: (email: string, storeId?: string) => {
       // The actual tokens are created on the server side, so we just send one so we know what we want to patch
-      return crudMethods.patch(null, {resetToken: '!'}, { query: { email } });
+      return crudMethods.patch(null, {resetToken: '!'}, { query: { email, storeId } });
     },
 
     validate: (data: AuthManagement, ignoreRequired = false) => {
