@@ -51,6 +51,7 @@ export const AuthModal = () => {
             logoUrl='/images/lamk-logo/horizontal.svg'
             login={handleLogin}
             onSignupNowClick={() => setMethod('signup')}
+            onForgotPasswordClick={() => null}
             validate={data => sdk.user.validate(data as any, true) as any}
             validateSingle={sdk.user.validateSingle as any}
             getErrorMessage={(errorName, context) =>
