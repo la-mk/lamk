@@ -27,6 +27,6 @@ ENV NODE_ENV production
 COPY --from=build /usr/src/app/node_modules ./node_modules/
 COPY --from=build /usr/src/app/assets ./assets/
 COPY --from=build /usr/src/app/dist ./src/
-ENTRYPOINT ["node", "./dist/index.js"]
+ENTRYPOINT ["node", "./src/index.js"]
 
 # A sample Dockerfile that this is based on: https://github.com/BretFisher/dockercon19
