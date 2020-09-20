@@ -1,6 +1,6 @@
 {
   "name": "@lamk/data-api",
-  "version": "1.0.70",
+  "version": "1.0.71",
   "private": true,
   "description": "",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -92,6 +92,7 @@
     "feathers-mongodb": "^6.1.0",
     "got": "^11.5.1",
     "helmet": "^4.0.0",
+    "i18next": "^19.7.0",
     "i18next-fs-backend": "^1.0.7",
     "lodash": "^4.17.19",
     "mime-types": "^2.1.27",
