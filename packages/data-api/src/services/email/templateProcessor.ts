@@ -2,10 +2,25 @@ import * as _ from 'lodash';
 import mjml2html from 'mjml';
 import * as fs from 'fs';
 import * as path from 'path';
+import { t } from '../../common/i18n';
 
 interface Templates {
   'reset-password'?: string;
 }
+
+const getTranslationsForTemplate = (templateName: keyof Templates) => {
+  switch (templateName) {
+    case 'reset-password': {
+      return {
+        tResetYourPassword: t('auth.resetPassword'),
+        tAskedResetPasswordOn: t('auth.askedResetPasswordOn'),
+        tStoreEnabledBy: t('store.storeEnabledBy').toLowerCase(),
+        tResetPassword: t('actions.resetPassword'),
+        tDidntAskResetExplanation: t('auth.didntAskResetExplanation'),
+      };
+    }
+  }
+};
 
 // Moustashe {{}} syntax
 const interpolate = /{{([\s\S]+?)}}/g;
@@ -53,5 +68,7 @@ export const getEmailTemplate = async (
     interpolate,
   });
 
-  return executeTemplate(data);
+  const translations = getTranslationsForTemplate(templateName);
+
+  return executeTemplate({ ...data, ...translations });
 };

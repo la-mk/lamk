@@ -15,6 +15,7 @@ import { BadRequest } from '../../common/errors';
 import { settableFields } from '../../common/hooks/filtering';
 import { getEmailTemplate } from '../email/templateProcessor';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { t } from '../../common/i18n';
 
 const promisifiedRandomBytes = util.promisify(crypto.randomBytes);
 
@@ -47,7 +48,7 @@ export const handleResetToken = async (ctx: HookContext) => {
     await ctx.app.services['email'].create({
       from: 'noreply@la.mk',
       to: authManagement.email,
-      subject: 'la.mk - Reset password',
+      subject: `la.mk - ${t('auth.resetPassword')}`,
       html: await getEmailTemplate('reset-password', templateData),
       text: `
         Reset your password

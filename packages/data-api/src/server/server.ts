@@ -36,7 +36,7 @@ export default async () => {
     }),
   );
 
-  initPreRouteMiddlewares(app);
+  await initPreRouteMiddlewares(app);
 
   // Initialize database connection
   await initMongoClient(app);

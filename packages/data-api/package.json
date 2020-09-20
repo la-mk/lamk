@@ -14,7 +14,8 @@
     "build": "tsc",
     "dev": "concurrently \"nodemon --config nodemon.src.json\" \"nodemon --config nodemon.deps.json \"",
     "test": "jest --ci",
-    "test:watch": "jest --watch --coverage -u"
+    "test:watch": "jest --watch --coverage -u",
+    "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'src/common/locales'"
   },
   "husky": {
     "hooks": {
@@ -28,6 +29,7 @@
     ]
   },
   "devDependencies": {
+    "@sradevski/translations": "0.0.97",
     "@types/agenda": "^2.0.9",
     "@types/bluebird": "^3.5.32",
     "@types/compression": "^1.7.0",
@@ -35,6 +37,7 @@
     "@types/feathersjs__socket-commons": "^3.1.4",
     "@types/got": "^9.6.11",
     "@types/helmet": "0.0.47",
+    "@types/i18next-fs-backend": "^1.0.0",
     "@types/jest": "^26.0.13",
     "@types/lodash": "^4.14.159",
     "@types/mime-types": "^2.1.0",
@@ -78,7 +81,6 @@
     "@sendgrid/mail": "^7.2.3",
     "@sradevski/la-sdk": "0.0.114",
     "@sradevski/nlp": "0.0.2",
-    "@sradevski/translations": "0.0.96",
     "agenda": "^3.1.0",
     "bluebird": "^3.7.2",
     "compression": "^1.7.4",
@@ -90,6 +92,7 @@
     "feathers-mongodb": "^6.1.0",
     "got": "^11.5.1",
     "helmet": "^4.0.0",
+    "i18next-fs-backend": "^1.0.7",
     "lodash": "^4.17.19",
     "mime-types": "^2.1.27",
     "minio": "^7.0.16",
