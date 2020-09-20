@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import mjml2html from 'mjml';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as process from 'process';
 import { t } from '../../common/i18n';
 
 interface Templates {
@@ -29,12 +30,16 @@ let templates: Templates | undefined;
 
 // Load and cache the compiled templates
 const loadTemplates = async () => {
-  const dirName = path.join(__dirname, './templates');
+  const dirName = path.join(process.cwd(), 'assets/templates');
   const filenames = await fs.promises.readdir(dirName);
   const res: Templates = {};
 
   await Promise.all(
     filenames.map(async filename => {
+      if (!filename.endsWith('.mjml')) {
+        return;
+      }
+
       const mjmsTemplate = (
         await fs.promises.readFile(path.join(dirName, filename))
       ).toString('utf-8');

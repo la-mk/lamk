@@ -1,5 +1,6 @@
 import i18n, { TFunction } from 'i18next';
 import i18nBackend from 'i18next-fs-backend';
+import * as process from 'process';
 
 export let t: TFunction;
 
@@ -10,7 +11,7 @@ export const initializeI18n = async () => {
     preload: ['mk', 'en'],
     debug: false,
     backend: {
-      loadPath: `${__dirname}/locales/{{lng}}/{{ns}}.json`,
+      loadPath: `${process.cwd()}/assets/locales/{{lng}}/{{ns}}.json`,
     },
   });
 
