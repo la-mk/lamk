@@ -5,6 +5,7 @@ import { PoweredBy } from '../PoweredBy';
 import { Button } from '../../basic/Button';
 import { Form } from '../../basic/Form/Form';
 import { LocalizationContext } from '../../basic/Provider';
+import { BaseSection } from './BaseSection';
 
 interface AuthFormBaseProps {
   children: React.ReactNode;
@@ -31,15 +32,7 @@ export const AuthFormBase = ({
   const localization = useContext(LocalizationContext);
 
   return (
-    <Flex
-      alignItems="center"
-      justifyContent="center"
-      flexDirection="column"
-      width={'100%'}
-      maxWidth={600}
-      minWidth={200}
-      mx="auto"
-    >
+    <BaseSection>
       <Title level={2} mb={3} fontSize={6}>
         {primaryText}
       </Title>
@@ -77,6 +70,6 @@ export const AuthFormBase = ({
       </Button>
 
       {onForgotPassword && <Button mt={3} type="link" onClick={onForgotPassword}>{forgotPasswordText}</Button>}
-    </Flex>
+    </BaseSection>
   );
 };

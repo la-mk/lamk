@@ -73,30 +73,42 @@ storiesOf('Forms', module)
     </Provider>
   )).add('Forgot password form', () => (
     <Provider>
-      <Box width="600px">
-        <ForgotPasswordForm
-          onFormCompleted={() => console.log('Form completed')}
-          validate={() => null}
-          validateSingle={() => null}
-          getErrorMessage={(errorName: any, context: any) => {
-            console.log(errorName, context);
-            return '';
-          }}
-        />
-      </Box>
+      <>
+      <ForgotPasswordForm
+        onLoginInstead={() => null}
+        onFormCompleted={() => console.log('Form completed')}
+        validate={() => null}
+        validateSingle={() => null}
+        getErrorMessage={(errorName: any, context: any) => {
+          console.log(errorName, context);
+          return '';
+        }}
+      />
+
+      <ForgotPasswordForm
+        hasSubmitted
+        onLoginInstead={() => null}
+        onFormCompleted={() => console.log('Form completed')}
+        validate={() => null}
+        validateSingle={() => null}
+        getErrorMessage={(errorName: any, context: any) => {
+          console.log(errorName, context);
+          return '';
+        }}
+      />
+      </>
     </Provider>
   )).add('Reset password form', () => (
     <Provider>
-      <Box width="600px">
-        <ResetPasswordForm
-          onFormCompleted={() => console.log('Form completed')}
-          validate={() => null}
-          validateSingle={() => null}
-          getErrorMessage={(errorName: any, context: any) => {
-            console.log(errorName, context);
-            return '';
-          }}
-        />
-      </Box>
+      <ResetPasswordForm
+        onLoginInstead={() => null}
+        onFormCompleted={() => console.log('Form completed')}
+        validate={() => null}
+        validateSingle={() => null}
+        getErrorMessage={(errorName: any, context: any) => {
+          console.log(errorName, context);
+          return '';
+        }}
+      />
     </Provider>
   ));
