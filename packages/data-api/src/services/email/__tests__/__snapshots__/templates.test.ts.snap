@@ -6,7 +6,7 @@ exports[`email templates can render a reset password template 1`] = `
     <html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
       <head>
         <title>
-          Reset password
+          Ресетирајте ја вашата лозинка
         </title>
         <!--[if !mso]><!-- -->
         <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
@@ -230,7 +230,7 @@ exports[`email templates can render a reset password template 1`] = `
       
     <!--[if mso | IE]>
     
-        <table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td height=\\"16\\" style=\\"vertical-align:top;height:16px;\\">
+        <table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td height=\\"16\\" style=\\"height:16px;\\">
       
     <![endif]-->
   
@@ -355,7 +355,7 @@ exports[`email templates can render a reset password template 1`] = `
                 
       <div
          style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:28px;font-weight:300;line-height:1;text-align:center;color:#687C94;\\"
-      >Forgotten password request</div>
+      >Ресетирај лозинка</div>
     
               </td>
             </tr>
@@ -447,7 +447,7 @@ exports[`email templates can render a reset password template 1`] = `
                 
       <div
          style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;font-weight:300;line-height:150%;text-align:center;color:#070708;\\"
-      >It seems you have requested to reset your password on <a href=\\"https://demo.la.mk\\" target=\\"_blank\\"><strong>Demo</strong></a>, a store powered by <a href=\\"https://la.mk\\" target=\\"_blank\\"><strong>la.mk</strong></a>.</div>
+      >Побаравте да ја ресетирате вашата лозинка на <a href=\\"https://demo.la.mk\\" target=\\"_blank\\"><strong>Demo</strong></a>, продавница овозможена од <a href=\\"https://la.mk\\" target=\\"_blank\\"><strong>la.mk</strong></a>.</div>
     
               </td>
             </tr>
@@ -547,7 +547,7 @@ exports[`email templates can render a reset password template 1`] = `
             <a
                href=\\"https://demo.la.mk/account/resetPassword?resetToken=23456\\" style=\\"display:inline-block;background:#EF4351;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:3px;\\" target=\\"_blank\\"
             >
-              Reset your password
+              Ресетирај лозинка
             </a>
           </td>
         </tr>
@@ -643,7 +643,7 @@ exports[`email templates can render a reset password template 1`] = `
                 
       <div
          style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;font-weight:300;line-height:150%;text-align:center;color:#687C94;\\"
-      >If you didn't ask for a password request, you can ignore this email. Your password will not be changed.</div>
+      >Ако не побаравте да ја ресетирате лозинката, можете да го игнорирате овој емаил. Вашата лозинка ќе остане непроменета.</div>
     
               </td>
             </tr>
@@ -746,7 +746,7 @@ exports[`email templates can render a reset password template 1`] = `
       
     <!--[if mso | IE]>
     
-        <table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td height=\\"32\\" style=\\"vertical-align:top;height:32px;\\">
+        <table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td height=\\"32\\" style=\\"height:32px;\\">
       
     <![endif]-->
   
@@ -889,7 +889,7 @@ exports[`email templates can render a reset password template 1`] = `
       <tr
         
       >
-        <td  style=\\"padding:0 12px;\\">
+        <td  style=\\"padding:0 12px;vertical-align:middle;\\">
           <table
              border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"background:#687C94;border-radius:3px;width:24px;\\"
           >
@@ -920,7 +920,7 @@ exports[`email templates can render a reset password template 1`] = `
       <tr
         
       >
-        <td  style=\\"padding:0 12px;\\">
+        <td  style=\\"padding:0 12px;vertical-align:middle;\\">
           <table
              border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"background:#687C94;border-radius:3px;width:24px;\\"
           >
@@ -951,7 +951,7 @@ exports[`email templates can render a reset password template 1`] = `
       <tr
         
       >
-        <td  style=\\"padding:0 12px;\\">
+        <td  style=\\"padding:0 12px;vertical-align:middle;\\">
           <table
              border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"background:#687C94;border-radius:3px;width:24px;\\"
           >
@@ -960,6 +960,37 @@ exports[`email templates can render a reset password template 1`] = `
                 <a  href=\\"https://instagram.com/_la.mk\\" target=\\"_blank\\">
                     <img
                        height=\\"24\\" src=\\"https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png\\" style=\\"border-radius:3px;display:block;\\" width=\\"24\\"
+                    />
+                  </a>
+                </td>
+              </tr>
+          </table>
+        </td>
+        
+      </tr>
+    
+              </table>
+            <!--[if mso | IE]>
+              </td>
+            
+              <td>
+            <![endif]-->
+              <table
+                 align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"float:none;display:inline-table;\\"
+              >
+                
+      <tr
+        
+      >
+        <td  style=\\"padding:0 12px;vertical-align:middle;\\">
+          <table
+             border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"background:#687C94;border-radius:3px;width:24px;\\"
+          >
+            <tr>
+              <td  style=\\"font-size:0;height:24px;vertical-align:middle;width:24px;\\">
+                <a  href=\\"https://twitter.com/intent/tweet?url=https://twitter.com/__la.mk\\" target=\\"_blank\\">
+                    <img
+                       height=\\"24\\" src=\\"https://www.mailjet.com/images/theme/v1/icons/ico-social/twitter.png\\" style=\\"border-radius:3px;display:block;\\" width=\\"24\\"
                     />
                   </a>
                 </td>

@@ -17,6 +17,7 @@ import { registerAppHooks } from './hooks';
 import { registerChannels } from './channels/channels';
 import { initMongoClient } from './mongo';
 import { initScheduler } from '../scheduler';
+import { initI18n } from '../common/i18n';
 
 import env from '../common/env';
 import { initErrorMiddlewares } from './middlewares/errorMiddlewares';
@@ -37,6 +38,7 @@ export default async () => {
   );
 
   await initPreRouteMiddlewares(app);
+  await initI18n();
 
   // Initialize database connection
   await initMongoClient(app);

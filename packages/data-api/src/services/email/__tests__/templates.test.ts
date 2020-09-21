@@ -1,6 +1,11 @@
 import { getEmailTemplate } from '../templateProcessor';
+import setup from '../../../server/server';
 
 describe('email templates', () => {
+  beforeAll(async () => {
+    await setup();
+  });
+
   it('can render a reset password template', async () => {
     const resetEmail = await getEmailTemplate('reset-password', {
       storeName: 'Demo',

@@ -2,7 +2,6 @@ import { Application, original as express } from '@feathersjs/express';
 import compress from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
-import { initializeI18n } from '../../common/i18n';
 
 export const initPreRouteMiddlewares = async (app: Application) => {
   //TODO: Handle all of these by a reverse proxy.
@@ -12,6 +11,4 @@ export const initPreRouteMiddlewares = async (app: Application) => {
 
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ limit: '10mb', extended: true }));
-
-  await initializeI18n();
 };

@@ -4,7 +4,7 @@ import * as process from 'process';
 
 export let t: TFunction;
 
-export const initializeI18n = async () => {
+export const initI18n = async () => {
   t = await i18n.use(i18nBackend).init({
     lng: 'mk',
     fallbackLng: 'en',
