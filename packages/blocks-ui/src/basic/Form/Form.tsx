@@ -20,7 +20,8 @@ const setIn = (obj = {}, value: any, path: string) => {
 
 const getVal = (eventOrVal: any) => {
   // If it is an event, get the target value, otherwise assume the passed argument is the value itself.
-  const val = eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
+  const val =
+    eventOrVal && eventOrVal.target ? eventOrVal.target.value : eventOrVal;
   // Treat empty strings as null.
   return val === '' ? null : val;
 };
@@ -219,7 +220,7 @@ const PlaceholderFormItem = styled(FormItem)`
     min-height: 0;
     height: 0;
   }
-`
+`;
 
 export const FormList = ({
   selector,
@@ -231,7 +232,7 @@ export const FormList = ({
   children,
 }: SystemProps & FormListContextProps) => {
   const [active, setActive] = React.useState('0');
-  
+
   return (
     <Consumer>
       {context => {
@@ -249,13 +250,15 @@ export const FormList = ({
               const newItems = [...val, getDefaults()];
               context.inputCompleteHandler(newItems, selector);
               // We want to make the new tab active
-              setActive(val.length.toString())
+              setActive(val.length.toString());
               return;
             }
             case 'remove': {
-              const newItems = val.filter((_entry, idx) => idx.toString() !== targetKey);
+              const newItems = val.filter(
+                (_entry, idx) => idx.toString() !== targetKey
+              );
               context.inputCompleteHandler(newItems, selector);
-              setActive((Math.max(val.length - 2, 0)).toString())
+              setActive(Math.max(val.length - 2, 0).toString());
               return;
             }
           }
@@ -263,13 +266,25 @@ export const FormList = ({
 
         if (as === 'tab') {
           return (
-            <Tabs activeKey={active} onChange={setActive} type="editable-card" onEdit={onEdit} hideAdd={val.length >= max}>
+            <Tabs
+              activeKey={active}
+              onChange={setActive}
+              type="editable-card"
+              onEdit={onEdit}
+              hideAdd={val.length >= max}
+            >
               {val.map((entry, index) => {
                 const title = getItemTitle(entry, context.state);
                 return (
-                  <TabPane tab={title} key={index.toString()} closable={index >= min}>
+                  <TabPane
+                    tab={title}
+                    key={index.toString()}
+                    closable={index >= min}
+                  >
                     {/* The formitem is only used to show errors on the entire list */}
-                    <PlaceholderFormItem selector={selector}>{() => null}</PlaceholderFormItem>
+                    <PlaceholderFormItem selector={selector}>
+                      {() => null}
+                    </PlaceholderFormItem>
                     {children(entry, index, context.state)}
                   </TabPane>
                 );

@@ -31,7 +31,9 @@ export const LoginForm = ({
       onPrimary={login}
       primaryText={localization.login || 'Log in'}
       secondaryText={localization.signup || 'Sign up'}
-      forgotPasswordText={localization.forgotPassword || 'Forgot your password?'}
+      forgotPasswordText={
+        localization.forgotPassword || 'Forgot your password?'
+      }
       onSecondary={onSignupNowClick}
       onForgotPassword={onForgotPasswordClick}
       {...otherProps}

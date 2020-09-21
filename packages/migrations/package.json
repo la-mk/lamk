@@ -1,6 +1,6 @@
 {
   "name": "@sradevski/migrations",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Database migration tool",
   "repository": {
     "type": "git",
@@ -13,10 +13,10 @@
     "migrate": "migrate-mongo"
   },
   "dependencies": {
-    "@sradevski/la-sdk": "0.0.26",
+    "@sradevski/la-sdk": "0.0.122",
     "bluebird": "^3.7.2",
-    "migrate-mongo": "^7.0.1",
-    "mongodb": "^3.5.3",
-    "uuid": "^8.2.0"
+    "migrate-mongo": "^8.1.2",
+    "mongodb": "^3.6.2",
+    "uuid": "^8.3.0"
   }
 }

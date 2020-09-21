@@ -14,10 +14,15 @@ export const PoweredBy = ({
   return (
     <a style={{ textDecoration: 'none' }} href="https://la.mk" target="_blank">
       <Flex display="inline-flex" alignItems="center" justifyContent="center">
-        <Text strong color={inverse ? 'text.light' : 'text.dark'} fontSize={0} mr={2}>
+        <Text
+          strong
+          color={inverse ? 'text.light' : 'text.dark'}
+          fontSize={0}
+          mr={2}
+        >
           powered by
         </Text>
-        <Box style={{lineHeight: 1}} maxWidth={80} height={22} >
+        <Box style={{ lineHeight: 1 }} maxWidth={80} height={22}>
           <Image src={logoUrl} alt="la.mk logo" />
         </Box>
       </Flex>

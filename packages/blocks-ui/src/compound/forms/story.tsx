@@ -71,34 +71,36 @@ storiesOf('Forms', module)
         />
       </Box>
     </Provider>
-  )).add('Forgot password form', () => (
+  ))
+  .add('Forgot password form', () => (
     <Provider>
       <>
-      <ForgotPasswordForm
-        onLoginInstead={() => null}
-        onFormCompleted={() => console.log('Form completed')}
-        validate={() => null}
-        validateSingle={() => null}
-        getErrorMessage={(errorName: any, context: any) => {
-          console.log(errorName, context);
-          return '';
-        }}
-      />
+        <ForgotPasswordForm
+          onLoginInstead={() => null}
+          onFormCompleted={() => console.log('Form completed')}
+          validate={() => null}
+          validateSingle={() => null}
+          getErrorMessage={(errorName: any, context: any) => {
+            console.log(errorName, context);
+            return '';
+          }}
+        />
 
-      <ForgotPasswordForm
-        hasSubmitted
-        onLoginInstead={() => null}
-        onFormCompleted={() => console.log('Form completed')}
-        validate={() => null}
-        validateSingle={() => null}
-        getErrorMessage={(errorName: any, context: any) => {
-          console.log(errorName, context);
-          return '';
-        }}
-      />
+        <ForgotPasswordForm
+          hasSubmitted
+          onLoginInstead={() => null}
+          onFormCompleted={() => console.log('Form completed')}
+          validate={() => null}
+          validateSingle={() => null}
+          getErrorMessage={(errorName: any, context: any) => {
+            console.log(errorName, context);
+            return '';
+          }}
+        />
       </>
     </Provider>
-  )).add('Reset password form', () => (
+  ))
+  .add('Reset password form', () => (
     <Provider>
       <ResetPasswordForm
         onLoginInstead={() => null}

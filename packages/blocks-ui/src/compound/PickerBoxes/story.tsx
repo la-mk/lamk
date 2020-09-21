@@ -6,9 +6,7 @@ import { PickerBox, PickerBoxes } from './PickerBoxes';
 
 storiesOf('PickerBoxes', module)
   .add('Color boxes picker', () => {
-    const [selected, setSelected] = React.useState<string | undefined>(
-      'green'
-    );
+    const [selected, setSelected] = React.useState<string | undefined>('green');
     return (
       <Provider>
         <Box>
@@ -33,9 +31,7 @@ storiesOf('PickerBoxes', module)
     );
   })
   .add('Text boxes picker', () => {
-    const [selected, setSelected] = React.useState<string | undefined>(
-      'green'
-    );
+    const [selected, setSelected] = React.useState<string | undefined>('green');
     const [size, setSize] = React.useState<string | undefined>('S');
     return (
       <Provider>
@@ -55,21 +51,18 @@ storiesOf('PickerBoxes', module)
           <PickerBox highlight={true} value={size} />
 
           <PickerBoxes
-            size={"small"}
+            size={'small'}
             values={['green', 'blue', 'yellow', 'white', 'black']}
             selected={selected}
             onSelect={setSelected}
           />
-          <PickerBox size={"small"} value={selected} />
-          
+          <PickerBox size={'small'} value={selected} />
         </Box>
       </Provider>
     );
   })
   .add('Disabled boxes picker', () => {
-    const [selected, setSelected] = React.useState<string | undefined>(
-      'green'
-    );
+    const [selected, setSelected] = React.useState<string | undefined>('green');
     return (
       <Provider>
         <Box>

@@ -42,7 +42,7 @@ export const ImageMagnifier = ({
   magnifierSize = 60,
   zoomFactor = 2,
   src,
-}: ImageMagnifierProps ) => {
+}: ImageMagnifierProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [imageBounds, setImageBounds] = useState<DOMRect | undefined>();
   const [showMagnifier, setShowMagnifier] = useState(false);
@@ -66,20 +66,24 @@ export const ImageMagnifier = ({
       setImageBounds(imageRef.current?.getBoundingClientRect());
     };
 
-    const onMouseMove = throttle((e: MouseEvent) => {
-      if (!imageBounds?.left || !imageBounds?.top) {
-        return;
-      }
+    const onMouseMove = throttle(
+      (e: MouseEvent) => {
+        if (!imageBounds?.left || !imageBounds?.top) {
+          return;
+        }
 
-      const target = e.target as HTMLElement;
-      const x = (e.clientX - imageBounds.left) / target.clientWidth;
-      const y = (e.clientY - imageBounds.top) / target.clientHeight;
+        const target = e.target as HTMLElement;
+        const x = (e.clientX - imageBounds.left) / target.clientWidth;
+        const y = (e.clientY - imageBounds.top) / target.clientHeight;
 
-      setMagnifierPosition({
-        x,
-        y,
-      });
-    }, 30, { trailing: false });
+        setMagnifierPosition({
+          x,
+          y,
+        });
+      },
+      30,
+      { trailing: false }
+    );
 
     const onMouseOut = () => {
       setShowMagnifier(false);
@@ -89,16 +93,18 @@ export const ImageMagnifier = ({
 
     const onTouchStart = (e: TouchEvent) => {
       touchStartY = e.targetTouches[0]?.clientY;
-    }
+    };
 
     const onTouchEnd = (e: TouchEvent) => {
       const newImageBounds = imageRef.current?.getBoundingClientRect();
       setImageBounds(newImageBounds);
 
-      const isScroll = touchStartY && Math.abs(touchStartY - e.changedTouches[0]?.clientY) > 12;
+      const isScroll =
+        touchStartY &&
+        Math.abs(touchStartY - e.changedTouches[0]?.clientY) > 12;
       touchStartY = undefined;
 
-      if(isScroll){
+      if (isScroll) {
         setShowMagnifier(false);
         return;
       }
@@ -108,8 +114,12 @@ export const ImageMagnifier = ({
       }
 
       const target = e.target as HTMLElement;
-      const x = (e.changedTouches[0].clientX - newImageBounds.left) / target.clientWidth;
-      const y = (e.changedTouches[0].clientY - newImageBounds.top) / target.clientHeight;
+      const x =
+        (e.changedTouches[0].clientX - newImageBounds.left) /
+        target.clientWidth;
+      const y =
+        (e.changedTouches[0].clientY - newImageBounds.top) /
+        target.clientHeight;
 
       // Only show magnifying glass if touch is inside image
       if (x >= 0 && y >= 0 && x <= 1 && y <= 1) {
@@ -135,8 +145,12 @@ export const ImageMagnifier = ({
       passive: false,
     });
 
-    imageRef.current.addEventListener("touchstart", onTouchStart, { passive: false });
-		imageRef.current.addEventListener("touchend", onTouchEnd, { passive: false });
+    imageRef.current.addEventListener('touchstart', onTouchStart, {
+      passive: false,
+    });
+    imageRef.current.addEventListener('touchend', onTouchEnd, {
+      passive: false,
+    });
 
     window.addEventListener('resize', debouncedSetImageBounds);
     window.addEventListener('scroll', debouncedSetImageBounds, true);
@@ -167,7 +181,7 @@ export const ImageMagnifier = ({
     setImageBounds(imageRef.current.getBoundingClientRect());
   };
 
-  console.log(src, imageBounds)
+  console.log(src, imageBounds);
 
   return (
     <MagnifyingContainer>
@@ -181,10 +195,17 @@ export const ImageMagnifier = ({
           src={src}
           // For performance reasons we don't use styled components for the positioning, as it recreates classes on every change.
           style={{
-            left: `calc(${magnifierPosition?.x * 100}% - ${magnifierSize / 2}px)`,
-            top: `calc(${magnifierPosition?.y * 100}% - ${magnifierSize / 2}px)`,
-            backgroundSize: `${zoomFactor * imageBounds.width}% ${zoomFactor * imageBounds.height}%`,
-            backgroundPosition: `calc(${magnifierPosition?.x * 100}% + ${magnifierSize / 2}px - ${magnifierPosition?.x * magnifierSize}px) calc(${magnifierPosition?.y * 100}% + ${magnifierSize / 2}px - ${magnifierPosition?.y * magnifierSize}px)`,
+            left: `calc(${magnifierPosition?.x * 100}% - ${magnifierSize /
+              2}px)`,
+            top: `calc(${magnifierPosition?.y * 100}% - ${magnifierSize /
+              2}px)`,
+            backgroundSize: `${zoomFactor * imageBounds.width}% ${zoomFactor *
+              imageBounds.height}%`,
+            backgroundPosition: `calc(${magnifierPosition?.x *
+              100}% + ${magnifierSize / 2}px - ${magnifierPosition?.x *
+              magnifierSize}px) calc(${magnifierPosition?.y *
+              100}% + ${magnifierSize / 2}px - ${magnifierPosition?.y *
+              magnifierSize}px)`,
           }}
         />
       )}

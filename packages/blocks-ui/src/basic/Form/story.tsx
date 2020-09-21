@@ -53,7 +53,12 @@ storiesOf('Form', module)
         colon={false}
         onFormCompleted={console.log}
         externalState={{ variants: [{}] }}
-        validate={() => ({'variants': {message: "The list can have its own error", name: 'valid'}})}
+        validate={() => ({
+          variants: {
+            message: 'The list can have its own error',
+            name: 'valid',
+          },
+        })}
         validateSingle={() => null}
       >
         <FormList

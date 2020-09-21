@@ -10,9 +10,12 @@ export interface ChangePasswordFormProps extends FormHandlers {
   size?: SizeType;
 }
 
-export const ChangePasswordForm = ({ size, ...props }: ChangePasswordFormProps) => {
+export const ChangePasswordForm = ({
+  size,
+  ...props
+}: ChangePasswordFormProps) => {
   const localization = useContext(LocalizationContext);
-  
+
   return (
     <Form
       width="100%"

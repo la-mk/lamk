@@ -62,14 +62,20 @@ export const AuthFormBase = ({
       </Form>
 
       <Flex alignItems="center" justifyContent="center" my={3}>
-        <Text color="mutedText.dark" fontSize={1}>{localization.or || 'or'}</Text>
+        <Text color="mutedText.dark" fontSize={1}>
+          {localization.or || 'or'}
+        </Text>
       </Flex>
 
       <Button size="large" width="100%" type="default" onClick={onSecondary}>
         {secondaryText}
       </Button>
 
-      {onForgotPassword && <Button mt={3} type="link" onClick={onForgotPassword}>{forgotPasswordText}</Button>}
+      {onForgotPassword && (
+        <Button mt={3} type="link" onClick={onForgotPassword}>
+          {forgotPasswordText}
+        </Button>
+      )}
     </BaseSection>
   );
 };

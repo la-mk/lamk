@@ -5,7 +5,10 @@ import { Text } from '../../basic/Typography';
 import styled, { withTheme } from 'styled-components';
 import { BlocksTheme } from 'theme';
 
-const ButtonWrapper = styled(Button)<{ highlight: boolean, pickerType: PickerBoxProps['type'] }>`
+const ButtonWrapper = styled(Button)<{
+  highlight: boolean;
+  pickerType: PickerBoxProps['type'];
+}>`
   border-radius: ${props => props.theme.radii[0]}px;
   border: ${props =>
     props.highlight
@@ -19,11 +22,16 @@ const ButtonWrapper = styled(Button)<{ highlight: boolean, pickerType: PickerBox
   }
 
   &:not([disabled]) {
-    ${props => props.pickerType === 'color' ? `background: ${props.value}` : ''};
+    ${props =>
+      props.pickerType === 'color' ? `background: ${props.value}` : ''};
   }
 
-  &:disabled, &:disabled:hover {
-    ${props => props.pickerType === 'color' ? `background: ${props.value}; opacity: 0.5;` : ''};
+  &:disabled,
+  &:disabled:hover {
+    ${props =>
+      props.pickerType === 'color'
+        ? `background: ${props.value}; opacity: 0.5;`
+        : ''};
   }
 `;
 
@@ -47,7 +55,8 @@ export const PickerBox = withTheme(
     theme,
     ...otherProps
   }: PickerBoxProps) => {
-    const boxSize = size === 'small' ? theme.baseHeight[0] : theme.baseHeight[1];
+    const boxSize =
+      size === 'small' ? theme.baseHeight[0] : theme.baseHeight[1];
 
     return (
       <ButtonWrapper
@@ -60,7 +69,13 @@ export const PickerBox = withTheme(
         disabled={disabled}
         {...otherProps}
       >
-        {type === 'text' ? <Flex alignItems="center" justifyContent="center"><Text fontSize={0}>{value}</Text> </Flex> : ' '}
+        {type === 'text' ? (
+          <Flex alignItems="center" justifyContent="center">
+            <Text fontSize={0}>{value}</Text>{' '}
+          </Flex>
+        ) : (
+          ' '
+        )}
       </ButtonWrapper>
     );
   }
@@ -71,7 +86,7 @@ export interface PickerBoxesProps {
   disabled?: string[];
   onSelect: (color: string | undefined) => void;
   selected: string | undefined;
-  size?: 'small' | 'default',
+  size?: 'small' | 'default';
   type?: 'color' | 'color-picker' | 'text';
 }
 

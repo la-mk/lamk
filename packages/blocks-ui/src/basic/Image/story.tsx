@@ -35,28 +35,36 @@ storiesOf('Image', module).add('standard', () => (
         <Text>Image Magnifier</Text>
 
         <Box height={400}>
-        <ImageMagnifier src={'https://via.placeholder.com/400x400'}>
-          {(imageProps)  => 
-            <Image getSrc={() => 'https://via.placeholder.com/400x400'} {...imageProps} />  
-          }
-        </ImageMagnifier>
+          <ImageMagnifier src={'https://via.placeholder.com/400x400'}>
+            {imageProps => (
+              <Image
+                getSrc={() => 'https://via.placeholder.com/400x400'}
+                {...imageProps}
+              />
+            )}
+          </ImageMagnifier>
         </Box>
 
         <Box height={400}>
-        <ImageMagnifier src={'https://via.placeholder.com/200x400'}>
-          {(imageProps)  => 
-            <Image getSrc={() => 'https://via.placeholder.com/200x400'} {...imageProps} />  
-          }
-        </ImageMagnifier>
+          <ImageMagnifier src={'https://via.placeholder.com/200x400'}>
+            {imageProps => (
+              <Image
+                getSrc={() => 'https://via.placeholder.com/200x400'}
+                {...imageProps}
+              />
+            )}
+          </ImageMagnifier>
         </Box>
 
-
         <Box height={200}>
-        <ImageMagnifier src={'https://via.placeholder.com/400x200'}>
-          {(imageProps)  => 
-            <Image getSrc={() => 'https://via.placeholder.com/400x200'} {...imageProps} />  
-          }
-        </ImageMagnifier>
+          <ImageMagnifier src={'https://via.placeholder.com/400x200'}>
+            {imageProps => (
+              <Image
+                getSrc={() => 'https://via.placeholder.com/400x200'}
+                {...imageProps}
+              />
+            )}
+          </ImageMagnifier>
         </Box>
       </Flex>
     </>

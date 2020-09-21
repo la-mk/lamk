@@ -12,8 +12,9 @@ export const formPassword = (props: PasswordProps = {}) => (
   val: any,
   onChange: (val: any) => void,
   onComplete: (val: any) => void
-) => <Password {...props} value={val} onChange={onChange} onBlur={onComplete} />;
-
+) => (
+  <Password {...props} value={val} onChange={onChange} onBlur={onComplete} />
+);
 
 export const formTextArea = (props: TextAreaProps = {}) => (
   val: any,

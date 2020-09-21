@@ -21,7 +21,11 @@ storiesOf('Flex Grid', module).add('standard', () => {
           pagination={{
             ...pagination,
             onChange: (page, pageSize) =>
-              setPagination({ ...pagination, current: page, pageSize: pageSize ?? 20 }),
+              setPagination({
+                ...pagination,
+                current: page,
+                pageSize: pageSize ?? 20,
+              }),
           }}
         />
       </>

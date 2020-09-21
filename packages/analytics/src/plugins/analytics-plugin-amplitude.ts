@@ -8,6 +8,7 @@ export default function amplitude(pluginConfig: AmplitudeConfig) {
 
   return {
     NAMESPACE: 'amplitude',
+    name: 'amplitude',
     config: pluginConfig,
     loaded: () => Boolean(amplitudeSdk),
     initialize: ({ config }: { config: AmplitudeConfig }) => {

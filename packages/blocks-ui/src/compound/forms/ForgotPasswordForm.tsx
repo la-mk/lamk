@@ -76,7 +76,10 @@ export const ForgotPasswordForm = ({
           <Result
             status="success"
             title={localization.forgotPasswordSuccess || 'Reset link sent'}
-            subTitle={localization.forgotPasswordSuccessExplanation || 'If the email you entered is registered in our system, you will get an email with a reset link'}
+            subTitle={
+              localization.forgotPasswordSuccessExplanation ||
+              'If the email you entered is registered in our system, you will get an email with a reset link'
+            }
           />
         </Flex>
       )}

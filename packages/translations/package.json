@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/translations"
   },
-  "version": "0.0.97",
+  "version": "0.0.98",
   "license": "ISC",
   "author": "Stevche Radevski",
   "main": "dist/index.js",
@@ -43,24 +43,24 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.9",
-    "@types/lodash": "^4.14.159",
+    "@types/jest": "^26.0.14",
+    "@types/lodash": "^4.14.161",
     "@types/rimraf": "^3.0.0",
     "@types/vinyl-fs": "^2.4.11",
-    "husky": "^4.2.5",
+    "husky": "^4.3.0",
     "i18next-json-sync": "^2.3.1",
     "rollup-plugin-copy-glob": "^0.3.1",
-    "tsdx": "^0.13.2",
-    "tslib": "^2.0.0"
+    "tsdx": "^0.13.3",
+    "tslib": "^2.0.1"
   },
   "dependencies": {
     "glob": "^7.1.6",
     "i18next-scanner": "^2.11.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "lodash-es": "^4.17.15",
     "rimraf": "^3.0.2",
     "sort-keys": "^4.0.0",
-    "typescript": "^3.9.7",
+    "typescript": "^4.0.3",
     "vinyl-fs": "^3.0.3"
   }
 }
