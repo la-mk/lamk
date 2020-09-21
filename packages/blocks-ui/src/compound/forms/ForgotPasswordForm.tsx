@@ -24,7 +24,7 @@ export const ForgotPasswordForm = ({
     <BaseSection>
       {!hasSubmitted && (
         <>
-          <Title level={2} mb={3} fontSize={6}>
+          <Title textAlign="center" level={2} mb={3} fontSize={6}>
             {localization.forgotPassword || 'Forgot your password?'}
           </Title>
           <Text color="mutedText.dark" textAlign="center" fontSize={1}>

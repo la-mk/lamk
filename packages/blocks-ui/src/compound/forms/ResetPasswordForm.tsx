@@ -19,7 +19,7 @@ export const ResetPasswordForm = ({
 
   return (
     <BaseSection>
-      <Title level={2} mb={3} fontSize={6}>
+      <Title textAlign="center" level={2} mb={3} fontSize={6}>
         {localization.resetPassword || 'Reset password'}
       </Title>
       <Text color="mutedText.dark" textAlign="center" fontSize={1}>
