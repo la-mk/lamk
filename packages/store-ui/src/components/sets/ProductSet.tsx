@@ -26,6 +26,10 @@ export const ProductSet = ({ set, storeId }: ProductSetProps) => {
   const title = t(getTitleForSet(set.setTag));
   const subtitle = t(getSubtitleForSet(set.setTag));
 
+  if (products?.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <SetTitle title={title} subtitle={subtitle} />

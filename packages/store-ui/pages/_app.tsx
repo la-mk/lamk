@@ -8,7 +8,7 @@ import { ConnectedRouter } from 'connected-next-router';
 import configureStore from '../src/state/configureStore';
 import { StoreLayout } from '../src/common/pageComponents/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
-import { AuthModal } from '../src/components/signup/AuthModal';
+import { AuthModal } from '../src/components/auth/AuthModal';
 import { sdk, setupSdk } from '@sradevski/la-sdk';
 import env from '../src/common/env';
 import { getStore } from '../src/state/modules/store/store.selector';
@@ -31,6 +31,16 @@ const getCompoundLocale = (t: (key: string) => string) => {
     password: t('common.password'),
     currentPassword: t('common.currentPassword'),
     newPassword: t('common.newPassword'),
+    forgotPassword: t('auth.forgotPassword'),
+    forgotPasswordExplanation: t('auth.forgotPasswordExplanation'),
+    resetPassword: t('auth.resetPassword'),
+    resetPasswordExplanation: t('auth.resetPasswordExplanation'),
+    sendPasswordResetLink: t('actions.sendPasswordResetLink'),
+    loginInstead: t('actions.loginInstead'),
+    forgotPasswordSuccess: t('auth.forgotPasswordSuccess'),
+    forgotPasswordSuccessExplanation: t(
+      'auth.forgotPasswordSuccessExplanation',
+    ),
     signup: t('auth.signup'),
     login: t('auth.login'),
     or: t('common.or'),

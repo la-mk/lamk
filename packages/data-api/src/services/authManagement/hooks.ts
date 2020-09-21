@@ -25,7 +25,7 @@ const getStore = async (ctx: HookContext): Promise<Store | null> => {
     return null;
   }
 
-  return await ctx.app.services['store'].get(storeId);
+  return await ctx.app.services['stores'].get(storeId);
 };
 
 export const handleResetToken = async (ctx: HookContext) => {
@@ -40,11 +40,11 @@ export const handleResetToken = async (ctx: HookContext) => {
     storeName: storeInfo?.name ?? 'admin.la.mk',
     storeUrl: `https://${storeDomain ?? 'admin.la.mk'}`,
     resetLink: storeDomain
-      ? `https://${storeDomain}/resetPassword?resetToken=${authManagement?.resetToken}`
+      ? `https://${storeDomain}/auth/resetPassword?resetToken=${authManagement?.resetToken}`
       : `https://admin.la.mk/resetPassword?resetToken=${authManagement?.resetToken}`,
   };
 
-  if (authManagement.resetToken) {
+  if (authManagement?.resetToken && authManagement?.email) {
     await ctx.app.services['email'].create({
       from: 'noreply@la.mk',
       to: authManagement.email,

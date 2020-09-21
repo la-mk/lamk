@@ -1,15 +1,16 @@
 import { hooks, ResetPasswordForm, Spin, message } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../common/i18n';
 import { useDispatch } from 'react-redux';
+import { Page } from '../shared/Page';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
-import { AuthBase } from './AuthBase';
+import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 
 export const ResetPassword = ({
   resetToken,
 }: {
-  resetToken: string | null;
+  resetToken: string | undefined;
 }) => {
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
@@ -24,16 +25,16 @@ export const ResetPassword = ({
       ),
       () => {
         message.success(t('auth.resetPasswordSuccess'));
-        dispatch(goTo('/login'));
+        dispatch(goTo('/'));
       },
     );
   };
 
   return (
-    <Spin spinning={showSpinner}>
-      <AuthBase>
+    <Page>
+      <Spin spinning={showSpinner}>
         <ResetPasswordForm
-          onLoginInstead={() => dispatch(goTo('/login'))}
+          onLoginInstead={() => dispatch(toggleAuthModal(true))}
           onFormCompleted={handleResetPasswordSubmitted}
           validate={(data: any) => sdk.user.validate(data, true)}
           validateSingle={sdk.user.validateSingle}
@@ -41,7 +42,7 @@ export const ResetPassword = ({
             t(`errors.${errorName}`, context)
           }
         />
-      </AuthBase>
-    </Spin>
+      </Spin>
+    </Page>
   );
 };
