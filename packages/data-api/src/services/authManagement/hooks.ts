@@ -19,8 +19,14 @@ import { t } from '../../common/i18n';
 
 const promisifiedRandomBytes = util.promisify(crypto.randomBytes);
 
-const getStore = async (ctx: HookContext): Promise<Store | null> => {
-  const storeId = ctx.params.query?.storeId;
+interface CustomHookContext extends HookContext {
+  custom?: {
+    storeId: string;
+  };
+}
+
+const getStore = async (ctx: CustomHookContext): Promise<Store | null> => {
+  const storeId = ctx.custom?.storeId;
   if (!storeId) {
     return null;
   }
@@ -28,7 +34,7 @@ const getStore = async (ctx: HookContext): Promise<Store | null> => {
   return await ctx.app.services['stores'].get(storeId);
 };
 
-export const handleResetToken = async (ctx: HookContext) => {
+export const handleResetToken = async (ctx: CustomHookContext) => {
   checkContext(ctx, 'after', ['patch']);
   const authManagement = Array.isArray(ctx.result) ? ctx.result[0] : ctx.result;
   const storeInfo = await getStore(ctx);
@@ -87,11 +93,19 @@ const getUpdatedData = async (
   return null;
 };
 
-export const handleExternalPatch = async (ctx: HookContext) => {
+export const handleExternalPatch = async (ctx: CustomHookContext) => {
   checkContext(ctx, 'before', ['patch']);
   const { email } = ctx.params.query ?? {};
   if (!email) {
     throw new BadRequest('Email query parameter is required');
+  }
+
+  if (ctx.params.query?.storeId) {
+    ctx.custom = {
+      storeId: ctx.params.query.storeId as string,
+    };
+
+    delete ctx.params.query.storeId;
   }
 
   ctx.data = {

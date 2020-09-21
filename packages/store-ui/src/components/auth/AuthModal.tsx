@@ -53,6 +53,7 @@ export const AuthModal = () => {
       onCancel={() => {
         dispatch(toggleAuthModal(false));
         setMethod('login');
+        setForgotPasswordDone(false);
       }}
     >
       <Flex
