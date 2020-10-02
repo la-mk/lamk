@@ -5,12 +5,12 @@ import { History } from 'history';
 //TODO: localForage is recommended, but we can add it later on.
 import storage from 'redux-persist/es/storage';
 
-import store from './modules/store/store.persist';
-import products from './modules/products/products.persist';
-import orders from './modules/orders/orders.persist';
-import delivery from './modules/delivery/delivery.persist';
-import categories from './modules/categories/categories.persist';
-import campaigns from './modules/campaigns/campaigns.persist';
+import store from './modules/store/store.module';
+import products from './modules/products/products.module';
+import orders from './modules/orders/orders.module';
+import delivery from './modules/delivery/delivery.module';
+import categories from './modules/categories/categories.module';
+import campaigns from './modules/campaigns/campaigns.module';
 import user from './modules/user/user.module';
 import ui from './modules/ui/ui.module';
 
