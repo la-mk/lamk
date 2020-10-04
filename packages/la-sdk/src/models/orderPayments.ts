@@ -3,8 +3,8 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
 export enum TransactionStatus {
   APPROVED = 'approved',
@@ -12,43 +12,67 @@ export enum TransactionStatus {
   ERROR = 'error',
 }
 
-export const paymentTransactionSchema = {
-  status: v8n().oneOf(Object.values(TransactionStatus)),
-  amount: v8n()
-    .number()
-    .positive(),
-  message: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(511)
-  ),
-  processorId: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63)
-  ),
-  userIp: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(31)
-  ),
-  date: v8n().datetime(),
-};
+export const paymentTransactionSchema: JSONSchemaType<PaymentTransaction> = {
+  type:  'object',
+  additionalProperties: false,
+  required: ['status', 'amount', 'date'],
+  properties: {
+    status: {
+      type: 'string',
+      oneOf: Object.values(TransactionStatus) as any
+    },
+    amount: {
+      type: 'number',
+      exclusiveMinimum: 0
+    },
+    message: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 511
+    },
+    processorId: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 63
+    },
+    userIp: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 31
+    },
+    date: {
+      type: 'string',
+      format: 'date-time'
+    }
+  }
+}
 
-export const schema = {
-  ...defaultSchemaEntries,
-  forOrder: v8n().id(),
+export const schema: JSONSchemaType<OrderPayments> = {
+  type:  'object',
+  additionalProperties: false,
+  required: [...defaultSchemaEntries.required, 'forOrder', 'transactions', 'isSuccessful'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forOrder: {
+      type: 'string',
+      format: 'uuid',
+    },
   // We put a very high upper-limit just to not get spammed here.
-  transactions: v8n()
-    .minLength(1)
-    .maxLength(100)
-    .every.schema(paymentTransactionSchema),
+    transactions: {
+      type: 'array',
+      minLength: 1,
+      maxLength: 100,
+      items: paymentTransactionSchema
+    },
   // Calculated field based on all transactions.
-  isSuccessful: v8n().boolean(),
-};
+    isSuccessful: {
+      type: 'boolean'
+    }
+  }
+}
 
 export interface PaymentTransaction {
   status: TransactionStatus;

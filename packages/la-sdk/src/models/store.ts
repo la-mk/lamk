@@ -3,80 +3,113 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
-export const schema = {
-  ...defaultSchemaEntries,
-  ownedBy: v8n().id(),
-  name: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
-  slug: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
-  color: v8n().hexColor(),
-  slogan: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(255)
-  ),
-  customDomain: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(1023),
-    true
-  ),
-  company: v8n().optional(
-    v8n().schema({
-      companyName: v8n()
-        .string()
-        .minLength(2)
-        .maxLength(511),
-      companyAddress: v8n()
-        .string()
-        .minLength(2)
-        .maxLength(1023),
-      registryNumber: v8n()
-        .string()
-        .minLength(2)
-        .maxLength(127),
-      taxNumber: v8n()
-        .string()
-        .minLength(2)
-        .maxLength(127),
-    })
-  ),
-  contact: v8n().optional(
-    v8n().schema({
-      email: v8n()
-        .string()
-        .minLength(4)
-        .maxLength(1023),
-      phoneNumber: v8n()
-        .string()
-        .minLength(4)
-        .maxLength(63),
-      alternatePhoneNumber: v8n().optional(
-        v8n()
-          .string()
-          .minLength(4)
-          .maxLength(63),
-        true
-      ),
-    })
-  ),
-  logo: v8n().optional(v8n()
-    .string()
-    .minLength(2)
-    .maxLength(4095)
-    ),
-  isPublished: v8n().boolean(),
-};
+export const schema: JSONSchemaType<Store> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [
+    ...defaultSchemaEntries.required,
+    'ownedBy',
+    'name',
+    'slug',
+    'color',
+  ],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    ownedBy: {
+      type: 'string',
+      format: 'uuid',
+    },
+    name: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 511
+    },
+    slug: {
+      type: 'string',
+      minLength: 4,
+      maxLength: 511
+    },
+    color: {
+      type: 'string',
+      format: 'hexColor'
+    },
+    slogan: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 255
+    },
+    customDomain: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 511
+    },
+    company: {
+      nullable: true,
+      type: 'object',
+      additionalProperties: false,
+      required: ['companyName', 'companyAddress', 'registryNumber', 'taxNumber'],
+      properties: {
+        companyName: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 511
+        },
+        companyAddress: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 1023
+        },
+        registryNumber: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 127
+        },
+        taxNumber: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 127
+        },
+      }
+    },
+    contact: {
+      nullable: true,
+      type: 'object',
+      additionalProperties: false,
+      required: ['email', 'phoneNumber'],
+      properties: {
+        email: {
+          type: 'string',
+          format: 'email'
+        },
+        phoneNumber: {
+          type: 'string',
+          minLength: 4,
+          maxLength: 63
+        },
+        alternatePhoneNumber: {
+          nullable: true,
+          type: 'string',
+          minLength: 4,
+          maxLength: 63
+        },
+      }
+    },
+    logo: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 4095
+    },
+    isPublished: {
+      type: 'boolean'
+    }
+  }
+}
 
 export interface Store extends DefaultSchema {
   ownedBy: string;

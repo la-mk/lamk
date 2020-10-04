@@ -6,10 +6,10 @@ import { orderProductSchema, OrderProduct } from './product';
 import { Address, schema as addressSchema } from './address/address';
 import { Delivery, schema as deliverySchema } from './delivery';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { Campaign, schema as campaignSchema } from './campaign';
 import { PaymentMethodNames } from './storePaymentMethods';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
 export enum OrderStatus {
   INVALID = 'invalid',
@@ -29,28 +29,57 @@ export const orderStatusColor: { [key in OrderStatus]: string } = {
   [OrderStatus.COMPLETED]: '#4CD137',
 };
 
-export const schema = {
-  ...defaultSchemaEntries,
-  orderedFrom: v8n().id(),
-  orderedBy: v8n().id(),
-  ordered: v8n().every.schema({
-    product: v8n().schema(orderProductSchema),
-    quantity: v8n()
-      .number()
-      .positive(),
-  }),
-  status: v8n().oneOf(Object.values(OrderStatus)),
-  campaigns: v8n().every.schema(campaignSchema),
-  delivery: v8n().schema(deliverySchema),
-  deliverTo: v8n().schema(addressSchema),
-  paymentMethod: v8n().oneOf(Object.values(PaymentMethodNames)),
-  // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
-  calculatedTotal: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-};
+
+export const schema: JSONSchemaType<Order> = {
+  type:  'object',
+  additionalProperties: false,
+  required: [...defaultSchemaEntries.required, 'orderedFrom', 'orderedBy', 'ordered', 'status', 'campaigns', 'delivery', 'deliverTo', 'paymentMethod'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    orderedFrom: {
+      type: 'string',
+      format: 'uuid'
+    },
+    orderedBy: {
+      type: 'string',
+      format: 'uuid'
+    },
+    ordered: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['product', 'quantity'],
+        properties: {
+          product: orderProductSchema as any,
+          quantity: {
+            type: 'integer',
+            minimum: 1
+          }
+        }
+      }
+    },
+    status: {
+      type: 'string',
+      oneOf: Object.values(OrderStatus) as any
+    },
+    campaigns: {
+      type: 'array',
+      items: campaignSchema
+    },
+    delivery: deliverySchema,
+    deliverTo: addressSchema as any,
+    paymentMethod: {
+      type: 'string',
+      oneOf: Object.values(PaymentMethodNames) as any
+    },
+    // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
+    calculatedTotal: {
+      type: 'number',
+      exclusiveMinimum: 0
+    }
+  }
+}
 
 export interface OrderItem {
   // We want to store a variant of the actual product, so if the product is modified they can still see the exact thing that was ordered
@@ -65,7 +94,7 @@ export interface Order extends DefaultSchema {
   status: OrderStatus;
   campaigns: Campaign[];
   delivery: Delivery;
-  deliverTo?: Address;
+  deliverTo: Address;
   paymentMethod: PaymentMethodNames;
   calculatedTotal: number;
 }

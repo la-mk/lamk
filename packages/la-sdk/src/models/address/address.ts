@@ -3,47 +3,62 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../../setup';
 import { OmitServerProperties } from '../../utils';
 import { validate, validateSingle } from '../../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
-export const schema = {
-  ...defaultSchemaEntries,
-  addressFor: v8n().id(),
-  name: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
-  country: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(255),
-  region: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(511),
-    true
-  ),
-  city: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(255),
-  zip: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(31),
-  street: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(255),
-  person: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
-  phoneNumber: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(31),
+export const schema: JSONSchemaType<Address> = {
+  type:  'object',
+  additionalProperties: false,
+  // All of these are created on the server and optional for the client.
+  required: [...defaultSchemaEntries.required, 'addressFor', 'name', 'country', 'city', 'zip', 'street', 'person', 'phoneNumber'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    addressFor: {
+      type: 'string',
+      format: 'uuid'
+    },
+    name: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 511,
+    },
+    country: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255,
+    },
+    region: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 255,
+    },
+    city: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255,
+    },
+    zip: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 31,
+    },
+    street: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255,
+    },
+    person: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255,
+    },
+    phoneNumber: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 31,
+    },
+  }
 };
 
 export interface Address extends DefaultSchema {

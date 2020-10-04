@@ -3,33 +3,52 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
-export const schema = {
-  ...defaultSchemaEntries,
-  forStore: v8n().id(),
-  aboutUs: v8n().optional(
-    v8n().schema({
-      description: v8n().optional(
-        v8n()
-          .string()
-          .minLength(2)
-          .maxLength(65535)
-      ),
-    })
-  ),
-  landing: v8n().optional(
-    v8n().schema({
-      banner: v8n().optional(
-        v8n()
-          .string()
-          .minLength(2)
-          .maxLength(4095)
-      ),
-    })
-  ),
-};
+export const schema: JSONSchemaType<StoreContents> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [
+    ...defaultSchemaEntries.required,
+    'forStore',
+  ],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forStore: {
+      type: 'string',
+      format: 'uuid',
+    },
+    aboutUs: {
+      nullable: true,
+      type: 'object',
+      additionalProperties: false,
+      required: [],
+      properties: {
+        description: {
+          nullable: true,
+          type: 'string',
+          minLength: 2,
+          maxLength: 65535
+        }
+      }
+    },
+    landing: {
+      nullable: true,
+      type: 'object',
+      additionalProperties: false,
+      required: [],
+      properties: {
+        banner: {
+          nullable: true,
+          type: 'string',
+          minLength: 2,
+          maxLength: 4095
+        }
+      }
+    }
+  }
+}
 
 export interface StoreContents extends DefaultSchema {
   forStore: string;

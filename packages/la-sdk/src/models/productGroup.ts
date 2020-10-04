@@ -3,21 +3,36 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
-export const schema = {
-  ...defaultSchemaEntries,
-  forStore: v8n().id(),
-  groupName: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(127),
-  // positive also includes 0
-  itemCountInGroup: v8n()
-    .number()
-    .positive(),
-};
+
+export const schema: JSONSchemaType<ProductGroup> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [
+    ...defaultSchemaEntries.required,
+    'forStore',
+    'groupName',
+    'itemCountInGroup',
+  ],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forStore: {
+      type: 'string',
+      format: 'uuid',
+    },
+    groupName: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 127
+    },
+    itemCountInGroup: {
+      type: 'integer',
+      minimum: 0
+    }
+  }
+}
 
 export interface ProductGroup extends DefaultSchema {
   forStore: string;

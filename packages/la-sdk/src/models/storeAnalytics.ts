@@ -3,8 +3,8 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
 export enum AnalyticsTypes {
   TOTAL_PRODUCT_COUNT = 'totalProductCount',
@@ -24,15 +24,46 @@ export enum AnalyticsFrequency {
   MONTHLY = 'monthly',
 }
 
-// We don't need a schema yet, as create/patch are not allowed.
-export const schema = {
-  ...defaultSchemaEntries,
-  forStore: v8n().id(),
-  frequency: v8n().oneOf(Object.values(AnalyticsFrequency)),
-  type: v8n().oneOf(Object.values(AnalyticsTypes)),
-  // The value can be any, either a number or an object with numbers.
-  value: v8n().not.null(),
-  timestamp: v8n().datetime(),
+export const schema: JSONSchemaType<StoreAnalyticsEntry> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [
+    ...defaultSchemaEntries.required,
+    'forStore',
+    'frequency',
+    'type',
+    'value',
+    'timestamp',
+  ],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forStore: {
+      type: 'string',
+      format: 'uuid',
+    },
+    frequency: {
+      type: 'string',
+      oneOf: Object.values(AnalyticsFrequency) as any,
+    },
+    type: {
+      type: 'string',
+      oneOf: Object.values(AnalyticsTypes) as any,
+    },
+    value: {
+      anyOf: [
+        {
+          type: 'string',
+        },
+        {
+          type: 'number',
+        },
+      ],
+    } as any,
+    timestamp: {
+      type: 'string',
+      format: 'date-time',
+    },
+  },
 };
 
 export type StoreAnalytics = {
@@ -43,8 +74,8 @@ export interface StoreAnalyticsEntry extends DefaultSchema {
   forStore: string;
   frequency: AnalyticsFrequency;
   type: AnalyticsTypes;
-  // The value can be a number of an object, depending on the type.
-  value: any;
+  // The value can be a number or string for now, but we can expand to objects later on
+  value: string | number;
   timestamp: string;
 }
 

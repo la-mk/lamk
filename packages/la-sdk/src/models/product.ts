@@ -5,10 +5,10 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import pick from 'lodash/pick';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { omitBy, isNil } from 'lodash';
+import { JSONSchemaType } from 'ajv';
 
 export enum ProductUnit {
   ITEM = 'item',
@@ -21,145 +21,188 @@ export enum ProductUnit {
   G = 'g',
 }
 
-export const attributesSchema = {
-  color: v8n().optional(v8n().hexColor(), true),
-  size: v8n().optional(
-    v8n()
-      .string()
-      .minLength(1)
-      .maxLength(31)
-  ),
-};
-
-const variantSchema = {
-  price: v8n()
-    .number(false)
-    .positive(),
-  // Discount is always a value in the base currency, even if we allow the user to input in % (we can just convert to a currency value).
-  discount: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-  // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
-  calculatedPrice: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-  attributes: v8n().optional(v8n().schema(attributesSchema)),
-  sku: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63),
-    true
-  ),
-  stock: v8n().optional(
-    v8n()
-      .number()
-      .not.negative()
-  ),
-};
-
-export const schema = {
-  ...defaultSchemaEntries,
-  soldBy: v8n().id(),
-  name: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(255),
-  unit: v8n().oneOf(Object.values(ProductUnit)),
-  images: v8n()
-    .maxLength(10)
-    .every.string()
-    .every.minLength(2)
-    .every.maxLength(1023),
-  groups: v8n()
-    .maxLength(10)
-    .every.string()
-    .every.minLength(2)
-    .every.maxLength(127),
-  category: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(255),
-  description: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(4095),
-    true
-  ),
-
-  variants: v8n()
-    .minLength(1)
-    .maxLength(63)
-    .unique('attributes')
-    .equalSchema('attributes')
-    .every.schema(variantSchema),
-
-  // The total stock of all variants
-  totalStock: v8n().optional(
-    v8n()
-      .number()
-      .not.negative()
-  ),
-
-  // If variants have different prices, this is the minimum
-  minPrice: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-  // If variants have different prices, this is the maximum, otherwise min and max will be he same.
-  maxPrice: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-
-  // Same as min and max price
-  minDiscount: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-  maxDiscount: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-
-  // Same as min and max price
-  minCalculatedPrice: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-  maxCalculatedPrice: v8n().optional(
-    v8n()
-      .number(false)
-      .positive()
-  ),
-};
-
-export const orderProductSchema = omit(
-  {
-    ...schema,
-    ...variantSchema,
+export const attributesSchema: JSONSchemaType<Attributes> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [],
+  properties: {
+    color: {
+      nullable: true,
+      type: 'string',
+      format: 'hexColor',
+    },
+    size: {
+      nullable: true,
+      type: 'string',
+      minLength: 1,
+      maxLength: 31,
+    },
   },
-  [
+};
+
+export const variantSchema: JSONSchemaType<Variant> = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['price'],
+  properties: {
+    price: {
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    // Discount is always a value in the base currency, even if we allow the user to input in % (we can just convert to a currency value).
+    discount: {
+      nullable: true,
+      type: 'number',
+      minimum: 0,
+    },
+    // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
+    calculatedPrice: {
+      nullable: true,
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    attributes: attributesSchema as any,
+    sku: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 63,
+    },
+    stock: {
+      nullable: true,
+      type: 'integer',
+      minimum: 0,
+    },
+  },
+};
+
+export const schema: JSONSchemaType<Product> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [
+    ...defaultSchemaEntries.required,
+    'soldBy',
+    'name',
+    'unit',
+    'images',
+    'groups',
+    'category',
     'variants',
-    'totalStock',
-    'minPrice',
-    'maxPrice',
-    'minDiscount',
-    'maxDiscount',
-    'minCalculatedPrice',
-    'maxCalculatedPrice',
-  ]
-);
+  ],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    soldBy: {
+      type: 'string',
+      format: 'uuid',
+    },
+    name: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255,
+    },
+    unit: {
+      type: 'string',
+      oneOf: Object.values(ProductUnit) as any,
+    },
+    images: {
+      type: 'array',
+      maxItems: 10,
+      items: {
+        type: 'string',
+        minLength: 2,
+        maxLength: 1023,
+      },
+    },
+    groups: {
+      type: 'array',
+      maxItems: 10,
+      items: {
+        type: 'string',
+        minLength: 2,
+        maxLength: 127,
+      },
+    },
+    category: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255,
+    },
+    description: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 4095,
+    },
+    variants: {
+      type: 'array',
+      minItems: 1,
+      maxItems: 63,
+      items: variantSchema,
+      uniqueOn: '/attributes',
+      equalSchema: '/attributes'
+    },
+    
+    // The total stock of all variants
+    totalStock: {
+      nullable: true,
+      type: 'integer',
+      minimum: 0,
+    },
+    // If variants have different prices, this is the minimum
+    minPrice: {
+      nullable: true,
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    // If variants have different prices, this is the maximum, otherwise min and max will be he same.
+    maxPrice: {
+      nullable: true,
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    // Same as min and max price
+    minDiscount: {
+      nullable: true,
+      type: 'number',
+      minimum: 0,
+    },
+    // If variants have different prices, this is the maximum, otherwise min and max will be he same.
+    maxDiscount: {
+      nullable: true,
+      type: 'number',
+      minimum: 0,
+    },
+    // Same as min and max price
+    minCalculatedPrice: {
+      nullable: true,
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    maxCalculatedPrice: {
+      nullable: true,
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+  },
+};
+
+const omittedOrderProductFields =   [
+  'variants',
+  'totalStock',
+  'minPrice',
+  'maxPrice',
+  'minDiscount',
+  'maxDiscount',
+  'minCalculatedPrice',
+  'maxCalculatedPrice',
+];
+
+export const orderProductSchema = {
+  type: 'object',
+  additionalProperties: false,
+  required: [...schema.required, ...variantSchema.required].filter(x => !omittedOrderProductFields.includes(x)),
+  properties: omit({...schema.properties, ...variantSchema.properties}, omittedOrderProductFields),
+}
 
 export interface Attributes {
   color?: string;
@@ -255,7 +298,7 @@ export const convertToOrderProduct = (
   attributes?: Attributes
 ): OrderProduct | null => {
   const variant = getVariantForAttributes(product, attributes);
-  if(!variant){
+  if (!variant) {
     return null;
   }
 
@@ -283,8 +326,10 @@ export const getVariantForAttributes = (
     return product.variants[0];
   }
 
-  const variant = product.variants.find(variant => areAttributesEquivalent(variant.attributes, attributes))
-  if(!variant){
+  const variant = product.variants.find(variant =>
+    areAttributesEquivalent(variant.attributes, attributes)
+  );
+  if (!variant) {
     return null;
   }
 
@@ -292,9 +337,12 @@ export const getVariantForAttributes = (
 };
 
 // We don't care about null/undefined properties
-export const areAttributesEquivalent = (a: Attributes | undefined, b: Attributes | undefined) => {
-  return isEqual(omitBy(a, isNil) , omitBy(b, isNil));
-}
+export const areAttributesEquivalent = (
+  a: Attributes | undefined,
+  b: Attributes | undefined
+) => {
+  return isEqual(omitBy(a, isNil), omitBy(b, isNil));
+};
 
 export const getProductSdk = (client: Application) => {
   const crudMethods = getCrudMethods<OmitServerProperties<Product>, Product>(
@@ -366,7 +414,10 @@ export const getProductSdk = (client: Application) => {
 
     // If the product has at least one attribute, it means it has variants.
     hasVariants: (product?: Product) => {
-      return product && Object.keys(product.variants?.[0]?.attributes ?? {}).length > 0
+      return (
+        product &&
+        Object.keys(product.variants?.[0]?.attributes ?? {}).length > 0
+      );
     },
 
     validate: (data: Product, ignoreRequired = false) => {

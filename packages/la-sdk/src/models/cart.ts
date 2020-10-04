@@ -10,23 +10,52 @@ import {
   attributesSchema,
 } from './product';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { uniq } from 'lodash';
+import { JSONSchemaType } from 'ajv';
 
-export const schema = {
-  ...defaultSchemaEntries,
-  forUser: v8n().id(),
-  items: v8n().every.schema({
-    product: v8n().schema({
-      id: v8n().id(),
-      attributes: v8n().optional(v8n().schema(attributesSchema)),
-    }),
-    fromStore: v8n().id(),
-    quantity: v8n()
-      .number()
-      .positive(),
-  }),
+
+export const schema: JSONSchemaType<Cart> = {
+  type:  'object',
+  additionalProperties: false,
+  required: [...defaultSchemaEntries.required, 'forUser', 'items'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forUser: {
+      type: 'string',
+      format: 'uuid'
+    },
+    items: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['product', 'fromStore', 'quantity'],
+        properties: {
+          product: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['id'],
+            properties: {
+              id: {
+                type: 'string',
+                format: 'uuid'
+              },
+              attributes: attributesSchema as any
+            }
+          },
+          fromStore: {
+            type: 'string',
+            format: 'uuid'
+          },
+          quantity: {
+            type: 'integer',
+            minimum: 1,
+          },
+        }
+      }
+    },
+  }
 };
 
 export interface CartItem {

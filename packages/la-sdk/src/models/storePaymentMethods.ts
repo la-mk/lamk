@@ -3,8 +3,8 @@ import { Application, Params, Id } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
 export enum PaymentMethodNames {
   CREDIT_CARD = 'creditCard',
@@ -15,46 +15,68 @@ export enum PaymentProcessors {
   HALKBANK = 'halkbank',
 }
 
-export const paymentMethodSchema = {
-  name: v8n().oneOf(Object.values(PaymentMethodNames)),
-  processor: v8n().optional(v8n().oneOf(Object.values(PaymentProcessors))),
-  clientId: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63)
-  ),
-  clientKey: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63)
-  ),
-  clientUsername: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63)
-  ),
-  clientPassword: v8n().optional(
-    v8n()
-      .string()
-      .minLength(2)
-      .maxLength(63)
-  ),
-};
+export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['name'],
+  properties: {
+    name: {
+      type: 'string',
+      oneOf: Object.values(PaymentMethodNames) as any
+    },
+    processor: {
+      nullable: true,
+      type: 'string',
+      oneOf: Object.values(PaymentProcessors)  as any
+    },
+    clientId: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 63
+    },
+    clientKey: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 63
+    },
+    clientUsername: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 63
+    },
+    clientPassword: {
+      nullable: true,
+      type: 'string',
+      minLength: 2,
+      maxLength: 63
+    },
+  }
+}
 
-export const schema = {
-  ...defaultSchemaEntries,
-  forStore: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(63),
-
-  methods: v8n()
-    .minLength(1)
-    .unique('name')
-    .every.schema(paymentMethodSchema),
+export const schema: JSONSchemaType<StorePaymentMethods> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [
+    ...defaultSchemaEntries.required,
+    'forStore',
+    'methods'
+  ],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forStore: {
+      type: 'string',
+      format: 'uuid',
+    },
+    methods: {
+      type: 'array',
+      minLength: 1,
+      items: paymentMethodSchema,
+      uniqueOn: '/name'
+    }
+  }
 };
 
 export interface PaymentMethod {

@@ -2,23 +2,31 @@ import { Application } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
-export const schema = {
-  ...defaultSchemaEntries,
-  level1: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
-  level2: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
-  level3: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(511),
+export const schema: JSONSchemaType<Category> = {
+  type:  'object',
+  additionalProperties: false,
+  required: [...defaultSchemaEntries.required, 'level1', 'level2', 'level3'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    level1: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255
+    },
+    level2: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255
+    },
+    level3: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255
+    },
+  }
 };
 
 export interface Category extends DefaultSchema {

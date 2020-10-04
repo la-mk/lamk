@@ -3,8 +3,8 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
 export enum RewardTypes {
   PERCENTAGE_DISCOUNT = 'percentage-discount',
@@ -20,35 +20,68 @@ export enum ProductRuleTypes {
   GROUP = 'group',
 }
 
-export const schema = {
-  ...defaultSchemaEntries,
-  forStore: v8n().id(),
-  name: v8n()
-    .string()
-    .minLength(2)
-    .maxLength(255),
-  // validFrom: v8n().datetime(),
-  // validTo: v8n().datetime(),
-  isActive: v8n().boolean(),
-  isPromoted: v8n().boolean(),
-  type: v8n().oneOf(Object.values(CampaignTypes)),
-  reward: v8n().schema({
-    type: v8n().oneOf(Object.values(RewardTypes)),
-    value: v8n()
-      .number()
-      .positive(),
-  }),
-  productRules: v8n()
-    .minLength(1)
-    .maxLength(1)
-    .every.schema({
-      type: v8n().oneOf(Object.values(ProductRuleTypes)),
-      value: v8n()
-        .string()
-        .minLength(2)
-        .maxLength(127),
-    }),
-};
+
+export const schema: JSONSchemaType<Campaign> = {
+  type:  'object',
+  additionalProperties: false,
+  required: [...defaultSchemaEntries.required, 'forStore', 'name', 'isActive', 'isPromoted', 'type', 'reward', 'productRules'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forStore: {
+      type: 'string',
+      format: 'uuid'
+    },
+    name: {
+      type: 'string',
+      minLength: 2,
+      maxLength: 255
+    },
+    isActive: {
+      type: 'boolean'
+    },
+    isPromoted: {
+      type: 'boolean'
+    },
+    type: {
+      type: 'string',
+      oneOf: Object.values(CampaignTypes) as any
+    },
+    reward: {
+      type: 'object',
+      additionalProperties: false,
+      required: ['type', 'value'],
+      properties: {
+        type: {
+          type: 'string',
+          oneOf: Object.values(RewardTypes) as any
+        },
+        value: {
+          type: 'number',
+          exclusiveMinimum: 0,
+        }
+      }
+    },
+    productRules: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['type', 'value'],
+        properties: {
+          type: {
+            type: 'string',
+            oneOf: Object.values(ProductRuleTypes) as any
+          },
+          value: {
+            type: 'string',
+            minLength: 2,
+            maxLength: 127,
+          }
+        }
+      }
+    }
+  }
+}
 
 export interface Campaign extends DefaultSchema {
   forStore: string;
@@ -62,12 +95,10 @@ export interface Campaign extends DefaultSchema {
     type: RewardTypes;
     value: number;
   };
-  productRules: [
-    {
-      type: ProductRuleTypes;
-      value: string;
-    }
-  ];
+  productRules: {
+    type: ProductRuleTypes;
+    value: string;
+  }[];
   // For now we don't need to support customer rules and redemption budgets, as well as certain types of campaigns.
   // customerRules: [{type: 'new', 'loyal' ..., value: 'rank3' }];
   // redemptionLimit?: number;

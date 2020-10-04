@@ -3,8 +3,8 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import { JSONSchemaType } from 'ajv';
 
 export enum DeliveryMethods {
   PICKUP = 'pickup',
@@ -12,17 +12,30 @@ export enum DeliveryMethods {
   DOOR_TO_DOOR = 'door-to-door',
 }
 
-export const schema = {
-  ...defaultSchemaEntries,
-  forStore: v8n().id(),
-  method: v8n().oneOf(Object.values(DeliveryMethods)),
-  price: v8n()
-    .number()
-    .positive(),
-  freeDeliveryOver: v8n()
-    .number()
-    .positive(),
-};
+export const schema: JSONSchemaType<Delivery> = {
+  type:  'object',
+  additionalProperties: false,
+  required: [...defaultSchemaEntries.required, 'forStore', 'method', 'price', 'freeDeliveryOver'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    forStore: {
+      type: 'string',
+      format: 'uuid'
+    },
+    method: {
+      type: 'string',
+      oneOf: Object.values(DeliveryMethods) as any,
+    },
+    price: {
+      type: 'number',
+      minimum: 0
+    },
+    freeDeliveryOver: {
+      type: 'number',
+      minimum: 0
+    }
+  }
+}
 
 export interface Delivery extends DefaultSchema {
   forStore: string;

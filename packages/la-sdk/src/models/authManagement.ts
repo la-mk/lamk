@@ -2,29 +2,43 @@ import { Application } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import v8n from 'v8n';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import pick from 'lodash/pick';
+import { JSONSchemaType } from 'ajv';
 
-export const schema = {
-  ...defaultSchemaEntries,
-  email: v8n().email(),
-  verifyToken: v8n().optional(
-    v8n()
-      .string()
-      .minLength(8)
-      .maxLength(255),
-    true
-  ),
-  verifyTokenCreatedAt: v8n().optional(v8n().datetime(), true),
-  resetToken: v8n().optional(
-    v8n()
-      .string()
-      .minLength(8)
-      .maxLength(255),
-    true
-  ),
-  resetTokenCreatedAt: v8n().optional(v8n().datetime(), true),
+export const schema: JSONSchemaType<AuthManagement> = {
+  type:  'object',
+  additionalProperties: false,
+  required: [...defaultSchemaEntries.required, 'email'],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    email: {
+      type: 'string',
+      format: 'email'
+    },
+    verifyToken: {
+      nullable: true,
+      type: 'string',
+      minLength: 8,
+      maxLength: 255,
+    },
+    verifyTokenCreatedAt: {
+      nullable: true,
+      type: 'string',
+      format: 'date-time',
+    },
+    resetToken: {
+      nullable: true,
+      type: 'string',
+      minLength: 8,
+      maxLength: 255,
+    },
+    resetTokenCreatedAt: {
+      nullable: true,
+      type: 'string',
+      format: 'date-time',
+    },
+  }
 };
 
 export interface AuthManagement extends DefaultSchema {
