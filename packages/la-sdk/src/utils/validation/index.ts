@@ -1,4 +1,4 @@
-import {set, get} from 'lodash';
+import {set, get, last} from 'lodash';
 import { keywords, formats } from './customRules';
 import Ajv, {JSONSchemaType, DefinedError} from "ajv"
 import addFormats from "ajv-formats"
@@ -37,8 +37,12 @@ const transformToErrorObject = (errors: DefinedError[]): ValidationErrorResponse
     if(err.keyword === 'type'){
       errName = err.params.type;
     }
+
+    if(err.keyword === 'format'){
+      errName = err.params.format;
+    }
     
-    set(res, path, { name: errName, message: err.message, args });
+    set(res, path, { name: errName, message: err.message, args: {...args, field: last(path)} });
   });
 
   return res;
