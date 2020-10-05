@@ -63,8 +63,8 @@ export const schema: JSONSchemaType<OrderPayments> = {
   // We put a very high upper-limit just to not get spammed here.
     transactions: {
       type: 'array',
-      minLength: 1,
-      maxLength: 100,
+      minItems: 1,
+      maxItems: 100,
       items: paymentTransactionSchema
     },
   // Calculated field based on all transactions.

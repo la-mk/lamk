@@ -72,7 +72,7 @@ export const schema: JSONSchemaType<StorePaymentMethods> = {
     },
     methods: {
       type: 'array',
-      minLength: 1,
+      minItems: 1,
       items: paymentMethodSchema,
       uniqueOn: '/name'
     }
