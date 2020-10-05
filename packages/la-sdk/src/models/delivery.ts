@@ -24,7 +24,7 @@ export const schema: JSONSchemaType<Delivery> = {
     },
     method: {
       type: 'string',
-      oneOf: Object.values(DeliveryMethods) as any,
+      enum: Object.values(DeliveryMethods),
     },
     price: {
       type: 'number',

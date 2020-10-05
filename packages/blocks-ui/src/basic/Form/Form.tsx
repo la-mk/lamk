@@ -36,7 +36,7 @@ export interface SingleValidationErrorResponse {
 }
 
 export interface ValidationErrorResponse {
-  [key: string]: SingleValidationErrorResponse;
+  [key: string]: SingleValidationErrorResponse | ValidationErrorResponse;
 }
 
 export interface FormHandlers {

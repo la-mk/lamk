@@ -22,12 +22,12 @@ export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
   properties: {
     name: {
       type: 'string',
-      oneOf: Object.values(PaymentMethodNames) as any
+      enum: Object.values(PaymentMethodNames)
     },
     processor: {
       nullable: true,
       type: 'string',
-      oneOf: Object.values(PaymentProcessors)  as any
+      enum: Object.values(PaymentProcessors)
     },
     clientId: {
       nullable: true,

@@ -44,7 +44,7 @@ export const schema: JSONSchemaType<Campaign> = {
     },
     type: {
       type: 'string',
-      oneOf: Object.values(CampaignTypes) as any
+      enum: Object.values(CampaignTypes)
     },
     reward: {
       type: 'object',
@@ -53,7 +53,7 @@ export const schema: JSONSchemaType<Campaign> = {
       properties: {
         type: {
           type: 'string',
-          oneOf: Object.values(RewardTypes) as any
+          enum: Object.values(RewardTypes)
         },
         value: {
           type: 'number',
@@ -70,7 +70,7 @@ export const schema: JSONSchemaType<Campaign> = {
         properties: {
           type: {
             type: 'string',
-            oneOf: Object.values(ProductRuleTypes) as any
+            enum: Object.values(ProductRuleTypes)
           },
           value: {
             type: 'string',

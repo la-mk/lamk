@@ -102,7 +102,7 @@ export const schema: JSONSchemaType<Product> = {
     },
     unit: {
       type: 'string',
-      oneOf: Object.values(ProductUnit) as any,
+      enum: Object.values(ProductUnit),
     },
     images: {
       type: 'array',

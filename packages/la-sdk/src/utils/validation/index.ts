@@ -51,7 +51,7 @@ export const validateSingle = <T extends any>(schema: JSONSchemaType<T>, val: an
     return null;
   }
 
-  return get(errors, selector);
+  return get(errors, selector) as SingleValidationErrorResponse | null;
 }
 
 export const validate = <T extends any>(schema: JSONSchemaType<T>, data: T | Partial<T>, ignoreRequired: boolean = false) => {

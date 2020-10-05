@@ -61,7 +61,7 @@ export const schema: JSONSchemaType<Order> = {
     },
     status: {
       type: 'string',
-      oneOf: Object.values(OrderStatus) as any
+      enum: Object.values(OrderStatus)
     },
     campaigns: {
       type: 'array',
@@ -71,7 +71,7 @@ export const schema: JSONSchemaType<Order> = {
     deliverTo: addressSchema as any,
     paymentMethod: {
       type: 'string',
-      oneOf: Object.values(PaymentMethodNames) as any
+      enum: Object.values(PaymentMethodNames)
     },
     // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
     calculatedTotal: {

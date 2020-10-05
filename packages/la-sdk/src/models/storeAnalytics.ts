@@ -43,11 +43,11 @@ export const schema: JSONSchemaType<StoreAnalyticsEntry> = {
     },
     frequency: {
       type: 'string',
-      oneOf: Object.values(AnalyticsFrequency) as any,
+      enum: Object.values(AnalyticsFrequency),
     },
     type: {
       type: 'string',
-      oneOf: Object.values(AnalyticsTypes) as any,
+      enum: Object.values(AnalyticsTypes),
     },
     value: {
       anyOf: [

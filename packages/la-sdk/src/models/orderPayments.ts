@@ -19,7 +19,7 @@ export const paymentTransactionSchema: JSONSchemaType<PaymentTransaction> = {
   properties: {
     status: {
       type: 'string',
-      oneOf: Object.values(TransactionStatus) as any
+      enum: Object.values(TransactionStatus)
     },
     amount: {
       type: 'number',
