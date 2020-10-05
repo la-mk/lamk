@@ -29,15 +29,17 @@ const getVal = (eventOrVal: any) => {
 const StyledForm = system<FormProps>(AntForm);
 const StyledFormItem = system<FormItemProps>(AntForm.Item);
 
+// name and args are defined in the SDK, and we don't care as much here.
 export interface SingleValidationErrorResponse {
-  name: string;
+  name: any;
   message: string;
-  args?: any[];
+  args?: any;
 }
 
 export interface ValidationErrorResponse {
   [key: string]: SingleValidationErrorResponse | ValidationErrorResponse;
 }
+
 
 export interface FormHandlers {
   onInputChanged?: (state: any, val: any, selector: string) => void;
