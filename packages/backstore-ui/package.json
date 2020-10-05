@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.78",
+  "version": "1.0.79",
   "private": true,
   "scripts": {
     "dev": "concurrently \"react-app-rewired start\" \"nodemon --config nodemon.deps.json\"",
@@ -43,7 +43,7 @@
     "@jaames/iro": "^5.2.3",
     "@react-pdf/renderer": "^2.0.0-beta.6",
     "@sradevski/blocks-ui": "0.0.117",
-    "@sradevski/la-sdk": "0.0.124",
+    "@sradevski/la-sdk": "0.0.128",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.161",
     "@types/node": "^14.11.1",
@@ -91,7 +91,7 @@
     "@aida/injector-open-api": "0.0.7",
     "@aida/injector-routes": "0.0.7",
     "@aida/injector-routes-map": "0.0.7",
-    "@sradevski/translations": "0.0.98",
+    "@sradevski/translations": "0.0.99",
     "@types/recharts": "^1.8.15",
     "@types/socket.io-client": "^1.4.33",
     "babel-plugin-import": "^1.13.0",
