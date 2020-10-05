@@ -42,7 +42,7 @@
     "@ant-design/icons": "^4.2.2",
     "@jaames/iro": "^5.2.3",
     "@react-pdf/renderer": "^2.0.0-beta.6",
-    "@sradevski/blocks-ui": "0.0.117",
+    "@sradevski/blocks-ui": "0.0.119",
     "@sradevski/la-sdk": "0.0.128",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.161",
