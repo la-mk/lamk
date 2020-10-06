@@ -508,6 +508,8 @@
 		"maxLength": "Field {{field}} should have at most {{limit}} characters",
 		"minProperties": "Field {{field}} should have at least {{limit}} properties",
 		"maxProperties": "Field {{field}} should have at most {{limit}} properties",
+		"exclusiveMinimum": "Field {{field}} should be {{comparison}} {{limit}}",
+		"exclusiveMaximum": "Field {{field}} should be {{comparison}} {{limit}}",
 		"minimum": "Field {{field}} should be {{comparison}} {{limit}}",
 		"maximum": "Field {{field}} should be {{comparison}} {{limit}}",
 		"format": "Field {{field}} should be formatted as {{format}}",

@@ -508,6 +508,8 @@
 		"maxLength": "Полето {{field}} треба да има најмногу {{limit}} карактери",
 		"minProperties": "Полето {{field}} треба да има најмалку {{limit}} својства",
 		"maxProperties": "Полето {{field}} треба да има најмногу {{limit}} својства",
+		"exclusiveMinimum": "Полето {{field}} треба да е {{comparison}} {{limit}}",
+		"exclusiveMaximum": "Полето {{field}} треба да е {{comparison}} {{limit}}",
 		"minimum":  "Полето {{field}} треба да е {{comparison}} {{limit}}",
 		"maximum":  "Полето {{field}} треба да е {{comparison}} {{limit}}",
 		"format": "Полето {{field}} треба да е форматирано како {{format}}",
