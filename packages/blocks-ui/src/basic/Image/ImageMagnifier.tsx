@@ -181,8 +181,6 @@ export const ImageMagnifier = ({
     setImageBounds(imageRef.current.getBoundingClientRect());
   };
 
-  console.log(src, imageBounds);
-
   return (
     <MagnifyingContainer>
       {children({
