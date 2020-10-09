@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.81",
+  "version": "1.0.82",
   "private": true,
   "scripts": {
     "dev": "concurrently \"react-app-rewired start\" \"nodemon --config nodemon.deps.json\"",
@@ -44,7 +44,7 @@
     "@react-pdf/renderer": "^2.0.0-beta.6",
     "@sradevski/analytics": "0.0.9",
     "@sradevski/blocks-ui": "0.0.120",
-    "@sradevski/la-sdk": "0.0.128",
+    "@sradevski/la-sdk": "0.0.129",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.161",
     "@types/node": "^14.11.1",
