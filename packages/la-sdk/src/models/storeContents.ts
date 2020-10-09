@@ -44,6 +44,10 @@ export const schema: JSONSchemaType<StoreContents> = {
           type: 'string',
           minLength: 2,
           maxLength: 4095
+        },
+        hideSlogan: {
+          nullable: true,
+          type: 'boolean',
         }
       }
     }
@@ -57,6 +61,7 @@ export interface StoreContents extends DefaultSchema {
   };
   landing?: {
     banner?: string;
+    hideSlogan?: boolean;
   };
 }
 
