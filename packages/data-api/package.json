@@ -19,13 +19,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && npm run i18n"
     }
   },
   "lint-staged": {
     "./**/*.{js,mjs,jsx,ts,tsx}": [
       "eslint --fix",
-      "git add"
+      "prettier --write"
     ]
   },
   "devDependencies": {
@@ -53,8 +53,6 @@
     "@typescript-eslint/parser": "^4.2.0",
     "concurrently": "^5.3.0",
     "eslint": "^7.9.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "lint-staged": "^10.4.0",
