@@ -12,7 +12,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "concurrently \"nodemon --config nodemon.src.json\" \"nodemon --config nodemon.deps.json \"",
+    "dev": "nodemon --config nodemon.json",
     "test": "jest --ci",
     "test:watch": "jest --watch --coverage -u",
     "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'src/common/locales'"
@@ -29,17 +29,17 @@
     ]
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.98",
+    "@sradevski/translations": "0.0.101",
     "@types/agenda": "^2.0.9",
     "@types/bluebird": "^3.5.32",
     "@types/compression": "^1.7.0",
-    "@types/cors": "^2.8.7",
+    "@types/cors": "^2.8.8",
     "@types/feathersjs__socket-commons": "^3.1.5",
     "@types/got": "^9.6.11",
     "@types/helmet": "0.0.48",
     "@types/i18next-fs-backend": "^1.0.0",
     "@types/jest": "^26.0.14",
-    "@types/lodash": "^4.14.161",
+    "@types/lodash": "^4.14.162",
     "@types/mime-types": "^2.1.0",
     "@types/minio": "^7.0.6",
     "@types/mjml": "^4.0.4",
@@ -51,7 +51,6 @@
     "@types/yaml": "^1.9.7",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
-    "concurrently": "^5.3.0",
     "eslint": "^7.9.0",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
