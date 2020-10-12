@@ -1,6 +1,14 @@
+
 #!/bin/sh
 set -e
 
+#!/bin/sh
+set -e
+
+# Don't autoopen browser when running cra start.
+export BROWSER=none;
+# See https://github.com/facebook/create-react-app/issues/8956. We set CI=true so we can run CRA in the background.
+export CI=true;
 chksum1=""
 while [[ true ]]; do
     chksum2=$(cat package-lock.json | md5sum | cut -d " " -f 1);

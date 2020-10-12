@@ -1,5 +1,0 @@
-{
-  "watch": ["package-lock.json"],
-  "ext": "json",
-  "exec": "npm install && touch ./pages/index.tsx"
-}

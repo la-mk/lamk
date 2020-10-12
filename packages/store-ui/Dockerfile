@@ -2,15 +2,15 @@ FROM node:14.7.0-alpine as base
 ARG GPR_TOKEN
 
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY package*.json ./
 COPY .npmrc ./
 # Set the token for the private packages, and once the packages are installed, remove it straight away.
 # The token might still leak in the docker history, but it is not a threat for now: https://www.alexandraulsh.com/2018/06/25/docker-npmrc-security/
-RUN npm ci && rm -f .npmrc
+RUN npm install --silent && rm -f .npmrc
 
 FROM base as dev
 ENV NODE_ENV development
-CMD ["npm", "run", "dev"]
+CMD ["./entry.dev.sh"]
 
 FROM base as build
 COPY . .
