@@ -139,9 +139,9 @@ export const schema: JSONSchemaType<Product> = {
       maxItems: 63,
       items: variantSchema,
       uniqueOn: '/attributes',
-      equalSchema: '/attributes'
+      equalSchema: '/attributes',
     },
-    
+
     // The total stock of all variants
     totalStock: {
       nullable: true,
@@ -186,7 +186,7 @@ export const schema: JSONSchemaType<Product> = {
   },
 };
 
-const omittedOrderProductFields =   [
+const omittedOrderProductFields = [
   'variants',
   'totalStock',
   'minPrice',
@@ -200,9 +200,14 @@ const omittedOrderProductFields =   [
 export const orderProductSchema = {
   type: 'object',
   additionalProperties: false,
-  required: [...schema.required, ...variantSchema.required].filter(x => !omittedOrderProductFields.includes(x)),
-  properties: omit({...schema.properties, ...variantSchema.properties}, omittedOrderProductFields),
-}
+  required: [...schema.required, ...variantSchema.required].filter(
+    x => !omittedOrderProductFields.includes(x)
+  ),
+  properties: omit(
+    { ...schema.properties, ...variantSchema.properties },
+    omittedOrderProductFields
+  ),
+};
 
 export interface Attributes {
   color?: string;
@@ -284,6 +289,12 @@ const getQueryForSet = (productSet: ProductSetTag) => {
         $sort: {
           createdAt: -1,
         },
+      };
+    }
+
+    case 'group': {
+      return {
+        groups: productSet.value,
       };
     }
 
