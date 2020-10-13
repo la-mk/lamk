@@ -265,7 +265,7 @@ export interface ProductSet {
 }
 
 export interface ProductSetTag {
-  name: string;
+  name: 'category' | 'discounted' | 'latest' | 'group';
   value?: string;
 }
 

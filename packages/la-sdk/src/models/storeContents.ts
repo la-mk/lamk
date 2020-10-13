@@ -9,10 +9,7 @@ import { JSONSchemaType } from 'ajv';
 export const schema: JSONSchemaType<StoreContents> = {
   type: 'object',
   additionalProperties: false,
-  required: [
-    ...defaultSchemaEntries.required,
-    'forStore',
-  ],
+  required: [...defaultSchemaEntries.required, 'forStore'],
   properties: {
     ...defaultSchemaEntries.properties!,
     forStore: {
@@ -29,30 +26,67 @@ export const schema: JSONSchemaType<StoreContents> = {
           nullable: true,
           type: 'string',
           minLength: 2,
-          maxLength: 65535
-        }
-      }
+          maxLength: 65535,
+        },
+      },
     },
     landing: {
       nullable: true,
       type: 'object',
       additionalProperties: false,
-      required: [],
+      required: ['sets'],
       properties: {
         banner: {
           nullable: true,
           type: 'string',
           minLength: 2,
-          maxLength: 4095
+          maxLength: 4095,
         },
+        sets: {
+          type: 'array',
+          maxItems: 12,
+          items: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['title', 'type', 'value', 'isPromoted'],
+            properties: {
+              title: {
+                type: 'string',
+                minLength: 2,
+                maxLength: 511,
+              },
+              subtitle: {
+                nullable: true,
+                type: 'string',
+                minLength: 2,
+                maxLength: 511,
+              },
+              type: {
+                type: 'string',
+                enum: ['group', 'category'],
+                minLength: 2,
+                maxLength: 127,
+              },
+              value: {
+                type: 'string',
+                minLength: 2,
+                maxLength: 255,
+              },
+              isPromoted: {
+                type: 'boolean',
+              },
+            },
+          },
+        },
+
         hideSlogan: {
           nullable: true,
           type: 'boolean',
-        }
-      }
-    }
-  }
-}
+        },
+      },
+    },
+  },
+};
 
 export interface StoreContents extends DefaultSchema {
   forStore: string;
@@ -61,6 +95,13 @@ export interface StoreContents extends DefaultSchema {
   };
   landing?: {
     banner?: string;
+    sets: {
+      title: string;
+      subtitle?: string;
+      type: string;
+      value: string;
+      isPromoted?: boolean;
+    }[];
     hideSlogan?: boolean;
   };
 }
