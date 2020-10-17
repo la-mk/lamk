@@ -4,7 +4,6 @@ import { ProductSet } from '../sets/ProductSet';
 import { Flex, Spin, hooks, Box, Empty } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { ProductSet as ProductSetType } from '@sradevski/la-sdk/dist/models/product';
-import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
@@ -19,14 +18,12 @@ import { Banner } from './Banner';
 import { ProductDuo } from '../sets/ProductDuo';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { getLandingContent } from '../../state/modules/storeContents/storeContents.selector';
 
-export const Home = ({
-  landingContent = {},
-}: {
-  landingContent: StoreContents['landing'];
-}) => {
+export const Home = ({}: {}) => {
   const { t } = useTranslation();
   const store = useSelector(getStore);
+  const landingContent = useSelector(getLandingContent);
   const categories: Category[] = useSelector(getCategories);
   const promotedCampaign = useSelector(getPromotedCampaign);
 
@@ -59,6 +56,10 @@ export const Home = ({
 
     caller(
       sdk.product.getProductSetsForStore(store._id, [
+        ...(landingContent?.sets ?? []).map(set => ({
+          name: set.type,
+          value: set.value,
+        })),
         { name: 'latest' },
         { name: 'discounted' },
         ...categorySetTags,
@@ -74,9 +75,9 @@ export const Home = ({
   return (
     <>
       <Banner
-        banner={landingContent.banner}
+        banner={landingContent?.banner}
         // TODO: This is temporarily, manually added field, remove and find a proper strategy for handling the banner.
-        hideSlogan={(landingContent as any).hideSlogan}
+        hideSlogan={(landingContent as any)?.hideSlogan}
         store={store}
       />
 

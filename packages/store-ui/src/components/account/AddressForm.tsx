@@ -61,6 +61,7 @@ export const AddressForm = ({
       <FormItem selector='country' label={t('common.country')}>
         {(val, _onChange, onComplete) => (
           <Select size={'large'} value={val} onChange={onComplete}>
+            {/* For the time being we only support MK */}
             <Option key={'MK'} value={'MK'}>
               {t('countries.mk')}
             </Option>

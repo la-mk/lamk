@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { withTheme } from 'styled-components';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { User } from '@sradevski/la-sdk/dist/models/user';
+import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { AnalyticsEvents } from '@sradevski/analytics';
+import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import {
   message,
   Spin,
@@ -10,23 +17,16 @@ import {
   Title,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
-import { pickDiff } from '../../common/utils';
-import { useSelector, useDispatch } from 'react-redux';
 import { getAddresses } from '../../state/modules/user/user.selector';
 import { setAddresses } from '../../state/modules/user/user.module';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { useTranslation } from '../../common/i18n';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '@sradevski/analytics';
+import { useTranslation } from '../../common/i18n';
+import { pickDiff } from '../../common/utils';
 import { SelectableCard } from '../shared/SelectableCard';
 import { CustomCard } from '../shared/components/CustomCard';
-import { ShippingDescription } from '../shared/ShippingDescription';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { AddressModal } from './AddressModal';
 import { NoAddress } from '../shared/icons/NoAddress';
-import { withTheme } from 'styled-components';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { ShippingDescription } from '../shared/ShippingDescription';
+import { AddressModal } from './AddressModal';
 
 interface AddressesProps {
   user: User;
@@ -65,7 +65,7 @@ export const Addresses = withTheme(
     const handleAddAddress = (address: Address) => {
       caller(
         sdk.address.create({ addressFor: user._id, ...address }),
-        (address: Address) => {
+        address => {
           message.success(t('address.createAddressSuccess'));
           setShowAddModal(false);
 
@@ -92,18 +92,15 @@ export const Addresses = withTheme(
 
       const updatedFields = pickDiff(originalAddress, patchedAddress);
 
-      caller(
-        sdk.address.patch(patchedAddress._id, updatedFields),
-        (address: Address) => {
-          message.success(t('address.updateAddressSuccess'));
-          setShowAddModal(false);
-          setAddressToEdit(undefined);
-          return setAddresses([
-            ...addresses.filter(address => address._id !== patchedAddress._id),
-            address,
-          ]);
-        },
-      );
+      caller(sdk.address.patch(patchedAddress._id, updatedFields), address => {
+        message.success(t('address.updateAddressSuccess'));
+        setShowAddModal(false);
+        setAddressToEdit(undefined);
+        return setAddresses([
+          ...addresses.filter(address => address._id !== patchedAddress._id),
+          address,
+        ]);
+      });
     };
 
     const handleRemoveAddress = (addressId: string) => {

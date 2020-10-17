@@ -8,7 +8,6 @@ import { NextPageContext } from 'next';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { useTranslation } from '../../src/common/i18n';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { setCategoriesIfNone } from '../../src/common/initialProps/setCategoriesIfNone';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 function ProductsPage({
@@ -41,12 +40,8 @@ ProductsPage.getInitialProps = async (
   const parsedFilters = utils.filter.parseFiltersUrl(ctx.asPath);
   const query = utils.filter.filtersAsQuery(parsedFilters);
   try {
-    const res = await Promise.all([
-      sdk.product.findForStore(store._id, query),
-      setCategoriesIfNone(ctx),
-    ]);
-
-    return { store, products: res[0], filters: parsedFilters };
+    const products = await sdk.product.findForStore(store._id, query);
+    return { store, products: products, filters: parsedFilters };
   } catch (err) {
     console.log(err);
   }

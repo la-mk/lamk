@@ -100,7 +100,7 @@ export interface StoreContents extends DefaultSchema {
       subtitle?: string;
       type: string;
       value: string;
-      isPromoted?: boolean;
+      isPromoted: boolean;
     }[];
     hideSlogan?: boolean;
   };

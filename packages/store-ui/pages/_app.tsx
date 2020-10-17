@@ -21,6 +21,8 @@ import { initializeAnalytics } from '../src/common/analytics';
 import { BrandColorWrapper } from '../src/common/antdOverride/BrandColorWrapper';
 import { getTheme } from '../src/common/theme';
 import { StoreNotFound } from '../src/common/pageComponents/StoreNotFound';
+import { setLandingContent } from '../src/state/modules/storeContents/storeContents.module';
+import { setCategories } from '../src/state/modules/categories/categories.module';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
@@ -105,7 +107,19 @@ const setInitialDataInState = async (appCtx: any) => {
     }
 
     const laStore = await getStoreFromHost(host);
+    if (!laStore) {
+      return;
+    }
+
+    // These are shown in the navbar, so they are esentially needed on every page.
+    const [landingContent, categoriesResult] = await Promise.all([
+      sdk.storeContents.getLandingContentForStore(laStore._id),
+      sdk.storeCategory.findForStore(laStore._id),
+    ]);
+
     appCtx.ctx.store.dispatch(setStore(laStore));
+    appCtx.ctx.store.dispatch(setLandingContent(landingContent));
+    appCtx.ctx.store.dispatch(setCategories(categoriesResult.data));
   }
 };
 

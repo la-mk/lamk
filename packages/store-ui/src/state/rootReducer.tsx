@@ -5,6 +5,7 @@ import ui from './modules/ui/ui.module';
 import delivery from './modules/delivery/delivery.module';
 import campaigns from './modules/campaigns/campaigns.module';
 import categories from './modules/categories/categories.module';
+import storeContents from './modules/storeContents/storeContents.module';
 import { routerReducer } from 'connected-next-router';
 import { combineReducers } from 'redux';
 
@@ -16,6 +17,7 @@ const getReducersSet = () => ({
   delivery,
   campaigns,
   categories,
+  storeContents,
   router: routerReducer,
 });
 
@@ -39,6 +41,7 @@ export default (isServer: boolean) => {
       'delivery',
       'campaigns',
       'categories',
+      'storeContents',
       'router',
     ],
   };
