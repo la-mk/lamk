@@ -2,8 +2,12 @@ import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
 import { Flex, Spin, hooks, Box, Empty } from '@sradevski/blocks-ui';
-import { useTranslation } from '../../common/i18n';
-import { ProductSet as ProductSetType } from '@sradevski/la-sdk/dist/models/product';
+import {
+  getSubtitleForSet,
+  getTitleForSet,
+  useTranslation,
+} from '../../common/i18n';
+import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
@@ -28,7 +32,7 @@ export const Home = ({}: {}) => {
   const promotedCampaign = useSelector(getPromotedCampaign);
 
   const [caller, showSpinner] = hooks.useCall();
-  const [productSets, setProductSets] = useState<ProductSetType[]>([]);
+  const [productSets, setProductSets] = useState<ProductSetResult[]>([]);
   const [categoriesForSet, setCategoriesForSet] = useState<string[]>([]);
 
   useBreadcrumb([{ url: '/', title: t('pages.home') }]);
@@ -51,17 +55,31 @@ export const Home = ({}: {}) => {
       categorySetTags = sampleSize(categories, 3).map(category => ({
         name: 'category',
         value: category.level3,
+        title: t(getTitleForSet({ type: 'category', value: category.level3 })),
+        subtitle: t(
+          getSubtitleForSet({
+            type: 'category',
+            value: category.level3,
+          }),
+        ),
       }));
     }
 
     caller(
       sdk.product.getProductSetsForStore(store._id, [
-        ...(landingContent?.sets ?? []).map(set => ({
-          name: set.type,
-          value: set.value,
-        })),
-        { name: 'latest' },
-        { name: 'discounted' },
+        ...(landingContent?.sets ?? []),
+        {
+          type: 'discounted',
+          title: t(getTitleForSet({ type: 'discounted', value: undefined })),
+          subtitle: t(
+            getSubtitleForSet({ type: 'discounted', value: undefined }),
+          ),
+        },
+        {
+          type: 'latest',
+          title: t(getTitleForSet({ type: 'latest', value: undefined })),
+          subtitle: t(getSubtitleForSet({ type: 'latest', value: undefined })),
+        },
         ...categorySetTags,
       ]),
       setProductSets,
@@ -100,7 +118,7 @@ export const Home = ({}: {}) => {
         <Spin spinning={showSpinner}>
           <>
             {productSetsWithData.map((set, index) => (
-              <React.Fragment key={set.setTag.name + (set.setTag.value || '')}>
+              <React.Fragment key={set.setTag.type + (set.setTag.value || '')}>
                 <Box px={[2, 4, 5]} mb={7}>
                   {set.data.length <= 2 ? (
                     <ProductDuo set={set} storeId={store._id} />

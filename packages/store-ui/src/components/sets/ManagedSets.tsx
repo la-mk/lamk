@@ -2,7 +2,7 @@ import isEqual from 'lodash/isEqual';
 import React, { useState, useEffect } from 'react';
 import {
   ProductSet as ProductSetType,
-  ProductSetTag,
+  ProductSetResult,
 } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
 import { hooks, Box, Spin } from '@sradevski/blocks-ui';
@@ -15,10 +15,10 @@ export const ManagedSets = React.memo(
     ...props
   }: {
     storeId: string | null;
-    setTags: ProductSetTag[];
+    setTags: ProductSetType[];
   } & React.ComponentProps<typeof Box>) => {
     const [caller, showSpinner] = hooks.useCall();
-    const [productSets, setProductSets] = useState<ProductSetType[]>([]);
+    const [productSets, setProductSets] = useState<ProductSetResult[]>([]);
 
     useEffect(() => {
       if (!storeId) {
@@ -45,7 +45,7 @@ export const ManagedSets = React.memo(
                 <ProductSet
                   set={set}
                   storeId={storeId}
-                  key={set.setTag.name + (set.setTag.value || '')}
+                  key={set.setTag.type + (set.setTag.value || '')}
                 />
               </Box>
             ))}

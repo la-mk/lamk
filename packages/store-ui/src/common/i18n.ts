@@ -1,5 +1,5 @@
 import NextI18Next from 'next-i18next';
-import { ProductSetTag } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
 
 export const NextI18NextInstance = new NextI18Next({
   defaultNS: 'translation',
@@ -16,20 +16,22 @@ export const {
   withTranslation,
 } = NextI18NextInstance;
 
-export const getTitleForSet = (setTag: ProductSetTag) => {
-  switch (setTag.name) {
+export const getTitleForSet = (setTag: Pick<ProductSet, 'type' | 'value'>) => {
+  switch (setTag.type) {
     case 'category':
       return `categories.${setTag.value}`;
     default:
-      return `sets.${setTag.name}`;
+      return `sets.${setTag.type}`;
   }
 };
 
-export const getSubtitleForSet = (setTag: ProductSetTag) => {
-  switch (setTag.name) {
+export const getSubtitleForSet = (
+  setTag: Pick<ProductSet, 'type' | 'value'>,
+) => {
+  switch (setTag.type) {
     case 'category':
       return `sets.categoryExplanation`;
     default:
-      return `sets.${setTag.name}Explanation`;
+      return `sets.${setTag.type}Explanation`;
   }
 };

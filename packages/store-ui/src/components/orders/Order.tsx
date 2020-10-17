@@ -8,7 +8,11 @@ import { useDispatch } from 'react-redux';
 import { Summary } from '../shared/Summary';
 import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
-import { useTranslation } from '../../common/i18n';
+import {
+  getSubtitleForSet,
+  getTitleForSet,
+  useTranslation,
+} from '../../common/i18n';
 import { getStore } from '../../state/modules/store/store.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
@@ -161,7 +165,19 @@ export const Order = ({ orderId }: { orderId: string }) => {
         <ManagedSets
           mt={7}
           storeId={store._id}
-          setTags={[{ name: 'discounted' }]}
+          setTags={[
+            {
+              title: t(
+                getTitleForSet({ type: 'discounted', value: undefined }),
+              ),
+              subtitle: t(
+                getSubtitleForSet({ type: 'discounted', value: undefined }),
+              ),
+              type: 'discounted',
+              value: undefined,
+              isPromoted: false,
+            },
+          ]}
         />
       </Spin>
     </Page>

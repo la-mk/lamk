@@ -3,7 +3,7 @@ import isString from 'lodash/isString';
 import Router from 'next/router';
 import queryString from 'qs';
 import { FilterRouter } from '@sradevski/blocks-ui/dist/hooks/useFilter';
-import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 
 export const getFiltersFromSetQuery = (query: { [key: string]: any }) => {
@@ -31,7 +31,7 @@ export const filterRouter = {
   },
 } as FilterRouter;
 
-export const getSetHref = (set: ProductSet) =>
+export const getSetHref = (set: ProductSetResult) =>
   `/products?${queryString.stringify(
     getFiltersFromSetQuery(set.filter.query),
   )}`;

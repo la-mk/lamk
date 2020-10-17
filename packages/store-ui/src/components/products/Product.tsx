@@ -32,7 +32,11 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { getPreviousPage } from '../../state/modules/ui/ui.selector';
 import { getUser } from '../../state/modules/user/user.selector';
 import { Page } from '../shared/Page';
-import { useTranslation } from '../../common/i18n';
+import {
+  getSubtitleForSet,
+  getTitleForSet,
+  useTranslation,
+} from '../../common/i18n';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
@@ -420,10 +424,25 @@ export const Product = ({ product }: ProductProps) => {
         storeId={store._id}
         setTags={[
           {
-            name: 'category',
+            title: t(
+              getTitleForSet({ type: 'category', value: product.category }),
+            ),
+            subtitle: t(
+              getSubtitleForSet({ type: 'category', value: product.category }),
+            ),
+            type: 'category',
             value: product.category,
+            isPromoted: false,
           },
-          { name: 'discounted' },
+          {
+            title: t(getTitleForSet({ type: 'discounted', value: undefined })),
+            subtitle: t(
+              getSubtitleForSet({ type: 'discounted', value: undefined }),
+            ),
+            type: 'discounted',
+            value: undefined,
+            isPromoted: false,
+          },
         ]}
       />
 

@@ -7,28 +7,40 @@ import { HoverableLink } from '../../components/shared/components/HoverableLink'
 import { useSelector } from 'react-redux';
 import { useTranslation, getTitleForSet } from '../i18n';
 import { sdk } from '@sradevski/la-sdk';
-import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
 import { getSetHref } from '../filterUtils';
 import { getPromotedSets } from '../../state/modules/storeContents/storeContents.selector';
 
 export const SubMenu = withTheme(({ theme, ...otherProps }) => {
   const promotedSets = useSelector(getPromotedSets);
   const { t } = useTranslation();
-  const sets: Array<ProductSet & { title?: string }> = [
+  const sets: Array<ProductSetResult> = [
     ...promotedSets.map(set => ({
-      title: set.title,
-      setTag: { name: set.type, value: set.value },
+      setTag: set,
       filter: {
-        query: sdk.product.getQueryForSet({ name: set.type, value: set.value }),
+        query: sdk.product.getQueryForSet({ type: set.type, value: set.value }),
       },
     })),
     {
-      setTag: { name: 'discounted' },
-      filter: { query: sdk.product.getQueryForSet({ name: 'discounted' }) },
+      setTag: {
+        type: 'discounted',
+        title: t(getTitleForSet({ type: 'discounted', value: undefined })),
+      },
+      filter: {
+        query: sdk.product.getQueryForSet({
+          type: 'discounted',
+          value: undefined,
+        }),
+      },
     },
     {
-      setTag: { name: 'latest' },
-      filter: { query: sdk.product.getQueryForSet({ name: 'latest' }) },
+      setTag: {
+        type: 'latest',
+        title: t(getTitleForSet({ type: 'latest', value: undefined })),
+      },
+      filter: {
+        query: sdk.product.getQueryForSet({ type: 'latest', value: undefined }),
+      },
     },
   ];
 
@@ -60,9 +72,9 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
 
       {sets.map(set => {
         return (
-          <HoverableLink key={set.setTag.name} href={getSetHref(set)}>
+          <HoverableLink key={set.setTag.title} href={getSetHref(set)}>
             <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
-              {set.title ?? t(getTitleForSet({ name: set.setTag.name }))}
+              {set.setTag.title}
             </Text>
           </HoverableLink>
         );

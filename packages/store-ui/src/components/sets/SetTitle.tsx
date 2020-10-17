@@ -8,7 +8,7 @@ export const SetTitle = ({
 }: {
   emphasized?: boolean;
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }) => {
   return (
     <Flex
@@ -25,9 +25,11 @@ export const SetTitle = ({
       >
         {title.toUpperCase()}
       </Title>
-      <Text textAlign='center' fontSize={[2, 2, 3]} color='mutedText.dark'>
-        {subtitle}
-      </Text>
+      {subtitle && (
+        <Text textAlign='center' fontSize={[2, 2, 3]} color='mutedText.dark'>
+          {subtitle}
+        </Text>
+      )}
     </Flex>
   );
 };

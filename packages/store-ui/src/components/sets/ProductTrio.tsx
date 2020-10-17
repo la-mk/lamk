@@ -1,18 +1,14 @@
 import React from 'react';
-import { Product, ProductSet } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
 import { Flex, hooks, Box } from '@sradevski/blocks-ui';
 import { ProductCard } from '../shared/product/ProductCard';
 import { SeeAllLink } from './SeeAllLink';
-import {
-  useTranslation,
-  getTitleForSet,
-  getSubtitleForSet,
-} from '../../common/i18n';
+import { useTranslation } from '../../common/i18n';
 import { getSetHref } from '../../common/filterUtils';
 
 interface ProductSetProps {
-  set: ProductSet;
+  set: ProductSetResult;
   storeId: string;
 }
 
@@ -22,8 +18,6 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
 
   const allHref = getSetHref(set);
   const products = set.data;
-  const title = t(getTitleForSet(set.setTag));
-  const subtitle = t(getSubtitleForSet(set.setTag));
 
   const focusProduct = products[0];
   const productOne = products[1];
@@ -31,7 +25,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
 
   return (
     <>
-      <SetTitle title={title} subtitle={subtitle} />
+      <SetTitle title={set.setTag.title} subtitle={set.setTag.subtitle} />
       <Flex
         alignItems='center'
         justifyContent='center'

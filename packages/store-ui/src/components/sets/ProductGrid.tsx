@@ -1,18 +1,14 @@
 import React from 'react';
 import { FlexGrid, Box, hooks } from '@sradevski/blocks-ui';
 import { ProductCard } from '../shared/product/ProductCard';
-import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';
-import {
-  useTranslation,
-  getTitleForSet,
-  getSubtitleForSet,
-} from '../../common/i18n';
+import { useTranslation } from '../../common/i18n';
 import { getSetHref } from '../../common/filterUtils';
 
 interface ProductGridProps {
-  set: ProductSet;
+  set: ProductSetResult;
   storeId: string;
   horizontal?: boolean;
 }
@@ -24,9 +20,6 @@ export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
 
   const allHref = getSetHref(set);
   const products = set.data;
-  const title = t(getTitleForSet(set.setTag));
-  const subtitle = t(getSubtitleForSet(set.setTag));
-
   const productsToShow = products.slice(
     0,
     horizontal ? productCountHorizontal : productCount,
@@ -34,7 +27,7 @@ export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
 
   return (
     <>
-      <SetTitle title={title} subtitle={subtitle} />
+      <SetTitle title={set.setTag.title} subtitle={set.setTag.subtitle} />
       <FlexGrid
         loading={false}
         rowKey='_id'

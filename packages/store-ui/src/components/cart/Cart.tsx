@@ -14,7 +14,11 @@ import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { Page } from '../shared/Page';
 import { getUser } from '../../state/modules/user/user.selector';
-import { useTranslation } from '../../common/i18n';
+import {
+  getSubtitleForSet,
+  getTitleForSet,
+  useTranslation,
+} from '../../common/i18n';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
@@ -172,7 +176,21 @@ export const Cart = () => {
         </Flex>
       </Spin>
 
-      <ManagedSets mt={7} storeId={store._id} setTags={[{ name: 'latest' }]} />
+      <ManagedSets
+        mt={7}
+        storeId={store._id}
+        setTags={[
+          {
+            title: t(getTitleForSet({ type: 'latest', value: undefined })),
+            subtitle: t(
+              getSubtitleForSet({ type: 'latest', value: undefined }),
+            ),
+            type: 'latest',
+            value: undefined,
+            isPromoted: false,
+          },
+        ]}
+      />
     </Page>
   );
 };
