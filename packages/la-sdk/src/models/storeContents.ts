@@ -5,6 +5,7 @@ import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
+import { ProductSet } from './product';
 
 export const schema: JSONSchemaType<StoreContents> = {
   type: 'object',
@@ -95,13 +96,7 @@ export interface StoreContents extends DefaultSchema {
   };
   landing?: {
     banner?: string;
-    sets: {
-      title: string;
-      subtitle?: string;
-      type: string;
-      value: string;
-      isPromoted: boolean;
-    }[];
+    sets: ProductSet[];
     hideSlogan?: boolean;
   };
 }

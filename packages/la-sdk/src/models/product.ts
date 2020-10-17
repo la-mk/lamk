@@ -258,19 +258,22 @@ export interface OrderProduct
     Variant {}
 
 export interface ProductSet {
-  setTag: ProductSetTag;
+  title: string;
+  subtitle?: string;
+  type: 'category' | 'discounted' | 'latest' | 'group';
+  value: string;
+  isPromoted: boolean;
+}
+
+export interface ProductSetResult {
+  setTag: ProductSet;
   data?: Product[];
   error?: Error;
   filter?: { query: { [key: string]: any } };
 }
 
-export interface ProductSetTag {
-  name: 'category' | 'discounted' | 'latest' | 'group';
-  value?: string;
-}
-
-const getQueryForSet = (productSet: ProductSetTag) => {
-  switch (productSet.name) {
+const getQueryForSet = (productSet: Pick<ProductSet, 'type' | 'value'>) => {
+  switch (productSet.type) {
     case 'category':
       return {
         category: productSet.value,
@@ -384,18 +387,18 @@ export const getProductSdk = (client: Application) => {
 
     getProductSetsForStore: (
       storeId: string,
-      productSetTags: ProductSetTag[],
+      productSets: ProductSet[],
       params?: Params
-    ): Promise<ProductSet[]> => {
+    ): Promise<ProductSetResult[]> => {
       return Promise.all(
-        productSetTags.map(setTag => {
+        productSets.map(setTag => {
           const queryForSet = getQueryForSet(setTag);
 
           if (!queryForSet) {
             return Promise.resolve({
               setTag,
               error: new Error('Set not found'),
-            } as ProductSet);
+            } as ProductSetResult);
           }
 
           const options = { query: { $limit: 10 } };
