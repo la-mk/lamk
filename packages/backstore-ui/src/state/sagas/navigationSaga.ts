@@ -23,7 +23,7 @@ function* storeStateSaga(action: LocationChangeAction) {
     if (stores.total > 0) {
       yield put(setStore(stores.data[0]));
 
-      if (!isPathOnboarding) {
+      if (isPathOnboarding) {
         yield put(replaceTo('/dashboard'));
       }
     } else if (!isPathOnboarding) {

@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 
 # To speed up dev builds, check https://blog.rocketinsights.com/speeding-up-docker-development-on-the-mac/
 # Good article on reverse proxy and dnsmasq: https://ianduffy.ie/blog/2019/02/22/local-development-with-virtual-hosts-and-https/
@@ -7,7 +7,7 @@ networks:
     driver: bridge
 
 # We keep node modules in volumes for faster installs across container recreation and to prevent issue where installing a module would not be picked up immediately.
-volumes: 
+volumes:
   store-ui_node_modules:
   backstore-ui_node_modules:
   data-api_node_modules:
@@ -28,10 +28,10 @@ services:
       - --providers.file.directory=/configuration/
       - --providers.file.watch=true
     ports:
-       # The Web UI (enabled by --api.insecure=true)
-       - "8080:8080"
-       - "80:80"
-       - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./volumes/certs:/certs
@@ -46,10 +46,10 @@ services:
       - main-network
 
   object-store:
-    image: minio/minio:RELEASE.2020-01-16T22-40-29Z
+    image: minio/minio:RELEASE.2020-10-12T21-53-21Z
     container_name: object-store-dev
     command: server /data
-    expose: 
+    expose:
       - 9000
     volumes:
       - ./volumes/data:/data
@@ -103,10 +103,10 @@ services:
 
   data-api:
     image: lamk/data-api-dev
-    build: 
+    build:
       context: ./packages/data-api
       target: dev
-      args: 
+      args:
         - GPR_TOKEN=$GPR_TOKEN
     container_name: data-api-dev
     volumes:
@@ -114,14 +114,14 @@ services:
       - data-api_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
-    expose: 
+    expose:
       - 80
     ports:
       - 9229:9229 #debug port
     labels:
       - traefik.enable=true
       - traefik.http.middlewares.data-api-https.redirectscheme.scheme=https
-      
+
       - traefik.http.routers.data-api-http.priority=1000
       - traefik.http.routers.data-api-http.entrypoints=web
       - traefik.http.routers.data-api-http.rule=Host(`api.lamk.dev`)
@@ -129,10 +129,10 @@ services:
 
       - traefik.http.routers.data-api.priority=1000
       - traefik.http.routers.data-api.rule=Host(`api.lamk.dev`)
-      - traefik.http.services.data-api.loadbalancer.server.port=80 
+      - traefik.http.services.data-api.loadbalancer.server.port=80
       - traefik.http.routers.data-api.entrypoints=websecure
       - traefik.http.routers.data-api.tls=true
-    environment: 
+    environment:
       GPR_TOKEN: $GPR_TOKEN
       PORT: 80
       HOST: "lamk.dev"
@@ -155,20 +155,20 @@ services:
 
   store-ui:
     image: lamk/store-ui-dev
-    build: 
+    build:
       context: ./packages/store-ui
       target: dev
       args:
         - GPR_TOKEN=$GPR_TOKEN
     container_name: store-ui-dev
-    depends_on: 
+    depends_on:
       - data-api
     volumes:
       - ./packages/store-ui:/usr/src/app:delegated
       - store-ui_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
-    expose: 
+    expose:
       - 80
     labels:
       - traefik.enable=true
@@ -186,13 +186,13 @@ services:
       - traefik.http.routers.store-ui.service=store-ui
       - traefik.http.services.store-ui.loadbalancer.server.port=80
       - traefik.http.routers.store-ui.tls=true
-    environment: 
+    environment:
       GPR_TOKEN: $GPR_TOKEN
       API_ENDPOINT: "https://api.lamk.dev"
       # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
       ARTIFACTS_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
       IMAGES_PROXY_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
-      ANALYTICS_TRACKING_ID: '90f6dff8cd68254f0bcdedcc33ab7a14' 
+      ANALYTICS_TRACKING_ID: "90f6dff8cd68254f0bcdedcc33ab7a14"
       PORT: 80
       NESTPAY_GATEWAY_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate"
       # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.lamk.dev services from within the service it fails.
@@ -200,20 +200,20 @@ services:
 
   backstore-ui:
     image: lamk/backstore-ui-dev
-    build: 
+    build:
       context: ./packages/backstore-ui
       target: dev
-      args: 
+      args:
         - GPR_TOKEN=$GPR_TOKEN
     container_name: backstore-ui-dev
-    depends_on: 
+    depends_on:
       - data-api
     volumes:
       - ./packages/backstore-ui:/usr/src/app:delegated
       - backstore-ui_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
-    expose: 
+    expose:
       - 80
     labels:
       - traefik.enable=true
@@ -226,7 +226,7 @@ services:
 
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`admin.lamk.dev`)
-      - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
+      - traefik.http.services.backstore-ui.loadbalancer.server.port=80
       - traefik.http.routers.backstore-ui.entrypoints=websecure
       - traefik.http.routers.backstore-ui.tls=true
     environment:
@@ -234,6 +234,6 @@ services:
       REACT_APP_API_ENDPOINT: "https://api.lamk.dev"
       # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
       REACT_APP_ARTIFACTS_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
-      REACT_APP_IMAGES_PROXY_ENDPOINT:  "https://artifacts.lamk.dev/dev-bucket"
+      REACT_APP_IMAGES_PROXY_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
       REACT_APP_ENABLE_SIGNUP: "true"
       PORT: 80

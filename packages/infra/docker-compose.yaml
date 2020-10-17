@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 
 # This is an example setup that would work in production, although it is not really useful for multi-server setup.
 # To speed up dev builds, check https://blog.rocketinsights.com/speeding-up-docker-development-on-the-mac/
@@ -18,7 +18,7 @@ services:
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      
+
       # The DNS challenge requires you to have a DO_AUTH_TOKEN environment variable set.
       # - --certificatesresolvers.cert-resolve.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cert-resolve.acme.email=sradevski@live.com
@@ -33,8 +33,8 @@ services:
       - --certificatesresolvers.custom-certs.acme.httpChallenge=true
       - --certificatesResolvers.custom-certs.acme.httpChallenge.entryPoint=web
     ports:
-       - "80:80"
-       - "443:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /certs:/certs
@@ -81,17 +81,17 @@ services:
       TYPESENSE_API_KEY: $SEARCH_SERVICE_API_KEY
 
   data-api:
-    image: lamk/data-api:1.0.80
+    image: lamk/data-api:1.0.81
     container_name: data-api
     restart: always
     networks:
       - main-network
-    expose: 
+    expose:
       - 80
     labels:
       - traefik.enable=true
       - traefik.http.middlewares.data-api-https.redirectscheme.scheme=https
-      
+
       - traefik.http.routers.data-api-http.priority=1000
       - traefik.http.routers.data-api-http.entrypoints=web
       - traefik.http.routers.data-api-http.rule=Host(`api.${SYSTEM_TLD}`)
@@ -99,13 +99,13 @@ services:
 
       - traefik.http.routers.data-api.priority=1000
       - traefik.http.routers.data-api.rule=Host(`api.${SYSTEM_TLD}`)
-      - traefik.http.services.data-api.loadbalancer.server.port=80 
+      - traefik.http.services.data-api.loadbalancer.server.port=80
       - traefik.http.routers.data-api.entrypoints=websecure
       - traefik.http.routers.data-api.tls=true
       # The store-ui domain is more generic, so a single definition for all subdomains is enough for the cert.
       # - traefik.http.routers.data-api.tls.certresolver=cert-resolve
       # - traefik.http.routers.data-api.tls.domains[0].main=api.${SYSTEM_TLD}
-    environment: 
+    environment:
       PORT: 80
       HOST: ${SYSTEM_TLD}
       JWT_SECRET: $JWT_SECRET
@@ -124,19 +124,19 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: lamk/store-ui:1.0.108
+    image: lamk/store-ui:1.0.109
     container_name: store-ui
     restart: always
-    depends_on: 
+    depends_on:
       - data-api
     networks:
       - main-network
-    expose: 
+    expose:
       - 80
     labels:
       - traefik.enable=true
       - traefik.http.middlewares.store-ui-https.redirectscheme.scheme=https
-      
+
       - traefik.http.routers.store-ui-http.priority=1
       - traefik.http.routers.store-ui-http.entrypoints=web
       - traefik.http.routers.store-ui-http.rule=HostRegexp(`{subdomain:.+}.${SYSTEM_TLD}`)
@@ -181,29 +181,28 @@ services:
       - traefik.http.routers.custom-domain.tls.domains[0].main=demo.${SYSTEM_TLD}
       - traefik.http.routers.custom-domain.tls.domains[0].sans=${CUSTOM_DOMAINS}
 
-    environment: 
+    environment:
       API_ENDPOINT: https://api.${SYSTEM_TLD}
       ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
       IMAGES_PROXY_ENDPOINT: https://${IMAGES_PROXY_ENDPOINT}
-      ANALYTICS_TRACKING_ID: $ANALYTICS_TRACKING_ID 
+      ANALYTICS_TRACKING_ID: $ANALYTICS_TRACKING_ID
       PORT: 80
       NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
 
-
   backstore-ui:
-    image: lamk/backstore-ui:1.0.82
+    image: lamk/backstore-ui:1.0.83
     container_name: backstore-ui
     restart: always
-    depends_on: 
+    depends_on:
       - data-api
     networks:
       - main-network
-    expose: 
+    expose:
       - 80
     labels:
       - traefik.enable=true
       - traefik.http.middlewares.backstore-ui-https.redirectscheme.scheme=https
-      
+
       - traefik.http.routers.backstore-ui-http.priority=1000
       - traefik.http.routers.backstore-ui-http.entrypoints=web
       - traefik.http.routers.backstore-ui-http.rule=Host(`admin.${SYSTEM_TLD}`)
@@ -211,12 +210,12 @@ services:
 
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`admin.${SYSTEM_TLD}`)
-      - traefik.http.services.backstore-ui.loadbalancer.server.port=80 
+      - traefik.http.services.backstore-ui.loadbalancer.server.port=80
       - traefik.http.routers.backstore-ui.entrypoints=websecure
       - traefik.http.routers.backstore-ui.tls=true
       # - traefik.http.routers.backstore-ui.tls.certresolver=cert-resolve
       # - traefik.http.routers.backstore-ui.tls.domains[0].main=admin.${SYSTEM_TLD}
-    environment: 
+    environment:
       REACT_APP_API_ENDPOINT: https://api.${SYSTEM_TLD}
       REACT_APP_ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
       REACT_APP_IMAGES_PROXY_ENDPOINT: https://${IMAGES_PROXY_ENDPOINT}

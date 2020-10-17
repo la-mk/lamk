@@ -115,10 +115,14 @@ export const OrderDetailsModal = ({
                     order.delivery,
                     order.campaigns,
                   )}
-                  logoUrl={sdk.artifact.getUrlForImage(store.logo, store._id, {
-                    h: 64,
-                    dpr: 2,
-                  })}
+                  logoUrl={sdk.artifact.getUrlForImage(
+                    store?.logo,
+                    store?._id,
+                    {
+                      h: 64,
+                      dpr: 2,
+                    },
+                  )}
                 >
                   {t('actions.downloadInvoice')}
                 </InvoiceDownloadLink>,
@@ -205,7 +209,7 @@ export const OrderDetailsModal = ({
                             getSrc={params =>
                               sdk.artifact.getUrlForImage(
                                 orderItem.product.images[0],
-                                store._id,
+                                store?._id,
                                 params,
                               )
                             }
@@ -251,9 +255,10 @@ export const OrderDetailsModal = ({
                         </Text>
                         <Text strong>
                           {t('finance.total')}:{' '}
-                          {`${orderItem.quantity *
-                            (orderItem.product.calculatedPrice ?? 0)} ден` ||
-                            t('common.unknown')}
+                          {`${
+                            orderItem.quantity *
+                            (orderItem.product.calculatedPrice ?? 0)
+                          } ден` || t('common.unknown')}
                         </Text>
                       </Flex>
                     </Flex>

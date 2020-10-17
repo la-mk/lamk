@@ -23,8 +23,8 @@ export const AboutUs = () => {
   const [storeContents, setStoreContents] = useState<StoreContents>();
   const [externalState] = hooks.useFormState<StoreContents>(
     storeContents,
-    { forStore: store._id },
-    [storeContents, store._id],
+    { forStore: store?._id },
+    [storeContents, store?._id],
   );
 
   useEffect(() => {
@@ -33,10 +33,10 @@ export const AboutUs = () => {
     }
 
     caller<FindResult<StoreContents>>(
-      sdk.storeContents.findForStore(store._id),
+      sdk.storeContents.findForStore(store?._id),
       res => (res.total > 0 ? setStoreContents(res.data[0]) : undefined),
     );
-  }, [store, caller]);
+  }, [caller, store]);
 
   const handlePatchAboutUs = (data: Partial<StoreContents>) => {
     if (!storeContents) {

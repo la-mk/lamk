@@ -31,8 +31,8 @@ export const LandingPreferences = () => {
   const [storeContents, setStoreContents] = useState<StoreContents>();
   const [externalState] = hooks.useFormState<StoreContents>(
     storeContents,
-    { forStore: store._id },
-    [storeContents, store._id],
+    { forStore: store?._id, landing: { sets: [] } },
+    [storeContents, store?._id],
   );
 
   // TODO: We need ot make uploading work better with `fileList` instead of `defaultFilelist`, without keeping local state everywhere.
@@ -41,12 +41,12 @@ export const LandingPreferences = () => {
   useEffect(() => {
     if (storeContents && storeContents.landing) {
       setFileList(
-        getDefaultFileList(storeContents.landing.banner || [], store._id, {
+        getDefaultFileList(storeContents.landing.banner || [], store?._id, {
           h: 80,
         }),
       );
     }
-  }, [storeContents, store._id]);
+  }, [store, storeContents]);
 
   useEffect(() => {
     if (!store) {
