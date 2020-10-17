@@ -12,7 +12,11 @@ export const hooks = {
     find: [requireAnyQueryParam(['forStore'])],
     get: [],
     // We create store contents on store creation
-    create: [disallow('external')],
+    create: [
+      disallow('external'),
+      validate(sdk.storeContents.validate),
+      unique(['forStore']),
+    ],
     patch: [
       authenticate('jwt'),
       queryWithCurrentUser(['forStore']),
