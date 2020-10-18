@@ -9,9 +9,27 @@ export interface FormProps<T> extends RjsfFormProps<T> {
   getErrorMessage: (errorName: string, context: any) => string;
 }
 
+const recursiveSetUndefinedToValue = (data: any, value: any = null) => {
+  if (!data || !(typeof data === 'object')) {
+    return data;
+  }
+
+  Object.entries(data).forEach(([key, val]) => {
+    if (typeof data[key] === 'object') {
+      return recursiveSetUndefinedToValue(data[key], value);
+    }
+
+    if (val === undefined) {
+      data[key] = value;
+      return;
+    }
+  });
+};
+
 export const NewForm = <T extends any>({
   children,
   getErrorMessage,
+  onSubmit,
   ...props
 }: FormProps<T>) => {
   const transformErrors = (errors: AjvError[]) => {
@@ -35,6 +53,16 @@ export const NewForm = <T extends any>({
     <Form
       showErrorList={false}
       noHtml5Validate={true}
+      onSubmit={({ formData, ...rest }) => {
+        if (!onSubmit) {
+          return;
+        }
+
+        return onSubmit({
+          formData: recursiveSetUndefinedToValue(formData),
+          ...rest,
+        });
+      }}
       {...props}
       {...templates}
       fields={fields}
