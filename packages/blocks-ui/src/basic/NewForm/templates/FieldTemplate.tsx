@@ -21,7 +21,9 @@ export default ({
       {displayLabel ? label : null}
       {displayLabel && description ? description : null}
       {children}
-      <Text color="danger">{rawErrors?.[0]}</Text>
+      <Text fontSize={0} color="danger">
+        {rawErrors?.[0]}
+      </Text>
     </Box>
   );
 };

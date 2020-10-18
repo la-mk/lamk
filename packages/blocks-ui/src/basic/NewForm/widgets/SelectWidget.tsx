@@ -64,7 +64,7 @@ const SelectWidget = ({
 
   return (
     <Select
-      width="calc(100% - 24px)"
+      width="100%"
       autoFocus={autofocus}
       disabled={disabled || readonly}
       id={id}

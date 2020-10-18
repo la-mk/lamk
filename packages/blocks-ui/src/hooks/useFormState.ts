@@ -4,7 +4,7 @@ export const useFormState = <T extends any>(
   model: T | undefined | null,
   defaultValue: Partial<T>,
   parameters: any[]
-): [Partial<T> | {}] => {
+): [Partial<T> | {}, (formData: T) => void] => {
   const [externalState, setExternalState] = useState<Partial<T> | {}>(
     model || {}
   );
@@ -17,5 +17,5 @@ export const useFormState = <T extends any>(
     }
   }, parameters);
 
-  return [externalState];
+  return [externalState, setExternalState];
 };
