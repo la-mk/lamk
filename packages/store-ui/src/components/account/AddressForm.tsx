@@ -1,24 +1,15 @@
 import * as React from 'react';
-import {
-  Form,
-  FormItem,
-  Button,
-  formInput,
-  formTextArea,
-  Select,
-  Option,
-  hooks,
-  Flex,
-} from '@sradevski/blocks-ui';
+import { NewForm, Button, Box, Flex, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { useTranslation } from '../../common/i18n';
 
-interface AddAddressCardProps {
+interface AddAddressFormProps {
   userId: string;
   address?: Address;
   onAddAddress: (address: Address) => void;
   onPatchAddress: (address: Address) => void;
+  onCancel: () => void;
 }
 
 export const AddressForm = ({
@@ -26,77 +17,103 @@ export const AddressForm = ({
   address,
   onAddAddress,
   onPatchAddress,
-}: AddAddressCardProps) => {
+  onCancel,
+}: AddAddressFormProps) => {
   const { t } = useTranslation();
-  const [externalState] = hooks.useFormState<Address>(
+  const [formData, setFormData] = hooks.useFormState<Address>(
     address,
     { addressFor: userId },
     [address, userId],
   );
 
   return (
-    <Form
-      width='100%'
-      labelCol={{
-        xs: { span: 24 },
-      }}
-      wrapperCol={{
-        xs: { span: 24 },
-      }}
-      layout='vertical'
-      colon={false}
-      validate={data => {
-        return sdk.address.validate(data, Boolean(address));
-      }}
-      validateSingle={sdk.address.validateSingle}
-      externalState={externalState}
-      onFormCompleted={address ? onPatchAddress : onAddAddress}
-      getErrorMessage={(errorName, context) =>
-        t(`errors.${errorName}`, context)
-      }
-    >
-      <FormItem label={t('common.name')} selector='name'>
-        {formInput({ size: 'large', placeholder: t('common.addressExample') })}
-      </FormItem>
-      <FormItem selector='country' label={t('common.country')}>
-        {(val, _onChange, onComplete) => (
-          <Select size={'large'} value={val} onChange={onComplete}>
-            {/* For the time being we only support MK */}
-            <Option key={'MK'} value={'MK'}>
-              {t('countries.mk')}
-            </Option>
-          </Select>
-        )}
-      </FormItem>
-      <FormItem selector='city' label={t('common.city')}>
-        {formInput({ size: 'large' })}
-      </FormItem>
-      <FormItem selector='zip' label={t('common.zipcode')}>
-        {formInput({ size: 'large' })}
-      </FormItem>
-      <FormItem selector='street' label={t('common.street')}>
-        {formTextArea({
-          placeholder: t('common.streetExample'),
-          rows: 2,
-        })}
-      </FormItem>
-      <FormItem selector='person' label={t('common.addressee')}>
-        {formInput({ size: 'large' })}
-      </FormItem>
-      <FormItem mb={0} selector='phoneNumber' label={t('common.phoneNumber')}>
-        {formInput({ size: 'large' })}
-      </FormItem>
-
-      <Flex mt={4} justifyContent='center' alignItems='center'>
-        <Button width='100%' size={'large'} htmlType='submit' type='primary'>
-          {address ? t('actions.update') : t('actions.create')}
-        </Button>
-      </Flex>
-      <Flex mt={3} justifyContent='center' alignItems='center'>
-        <Button width='100%' size={'large'}>
-          {t('actions.cancel')}
-        </Button>
-      </Flex>
-    </Form>
+    <Box width='100%'>
+      <NewForm<Address>
+        schema={sdk.address.schema as any}
+        uiSchema={{
+          _id: {
+            'ui:widget': 'hidden',
+          },
+          createdAt: {
+            'ui:widget': 'hidden',
+          },
+          modifiedAt: {
+            'ui:widget': 'hidden',
+          },
+          addressFor: {
+            'ui:widget': 'hidden',
+          },
+          name: {
+            'ui:title': t('common.name'),
+            'ui:placeholder': t('common.addressExample'),
+            'ui:options': {
+              emphasized: true,
+            },
+          },
+          // We don't need the region for now
+          region: {
+            'ui:widget': 'hidden',
+          },
+          country: {
+            'ui:title': t('common.country'),
+            'ui:widget': 'select',
+            'ui:options': {
+              emphasized: true,
+              customEnumOptions: [{ value: 'MK', label: t('countries.mk') }],
+            },
+          },
+          city: {
+            'ui:title': t('common.city'),
+            'ui:options': {
+              emphasized: true,
+            },
+          },
+          zip: {
+            'ui:title': t('common.zipcode'),
+            'ui:options': {
+              emphasized: true,
+            },
+          },
+          street: {
+            'ui:title': t('common.street'),
+            'ui:placeholder': t('common.streetExample'),
+            'ui:widget': 'textarea',
+            'ui:options': {
+              emphasized: true,
+              rows: 2,
+            },
+          },
+          person: {
+            'ui:title': t('common.addressee'),
+            'ui:options': {
+              emphasized: true,
+            },
+          },
+          phoneNumber: {
+            'ui:title': t('common.phoneNumber'),
+            'ui:options': {
+              emphasized: true,
+            },
+          },
+        }}
+        formData={formData as Address}
+        onChange={({ formData }) => setFormData(formData)}
+        onSubmit={({ formData }) =>
+          address ? onPatchAddress(formData) : onAddAddress(formData)
+        }
+        getErrorMessage={(errorName, context) =>
+          t(`errors.${errorName}`, context)
+        }
+      >
+        <Flex width='100%' flexDirection='column'>
+          <Button width='100%' size={'large'} htmlType='submit' type='primary'>
+            {address ? t('actions.update') : t('actions.create')}
+          </Button>
+          <Button mt={3} width='100%' size={'large'} onClick={onCancel}>
+            {t('actions.cancel')}
+          </Button>
+        </Flex>
+      </NewForm>
+    </Box>
   );
 };

@@ -27,8 +27,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@sradevski/analytics": "0.0.9",
-    "@sradevski/blocks-ui": "0.0.120",
-    "@sradevski/la-sdk": "0.0.132",
+    "@sradevski/blocks-ui": "0.0.128",
+    "@sradevski/la-sdk": "0.0.134",
     "@sradevski/nlp": "0.0.3",
     "antd": "^4.6.5",
     "bezier-easing": "^2.1.0",
@@ -55,7 +55,7 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.101",
+    "@sradevski/translations": "0.0.102",
     "@types/express": "^4.17.8",
     "@types/next-redux-wrapper": "^3.0.0",
     "@types/node": "^14.11.8",

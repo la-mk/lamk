@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# When we run `npm install` or `npm run dev` the user is switched to `nobody`, and it can't read package.json or package-lock.json as a consequence. For development we can just run with unsafe-perm;
+npm config set unsafe-perm true
+
 chksum1=""
 while [[ true ]]; do
     chksum2=$(cat package-lock.json | md5sum | cut -d " " -f 1);
@@ -9,7 +12,7 @@ while [[ true ]]; do
         then 
           echo "Killing application and installing new dependencies...";
           pkill -f node;
-          npm install;
+          npm install --no-package-lock;
         fi
         echo "Starting application...";
         npm run dev &

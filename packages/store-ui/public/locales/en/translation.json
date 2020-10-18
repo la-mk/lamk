@@ -597,7 +597,7 @@
     "number": "Field should be a number",
     "object": "Field should be an object",
     "pattern": "Field should follow the following pattern: {{pattern}}",
-    "required": "{{missingProperty}} is missing but is required",
+    "required": "Field is required",
     "string": "Field should be a string",
     "uniqueItems": "Field should have unique values",
     "uniqueOn": "Field should have unique values",

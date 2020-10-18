@@ -26,9 +26,6 @@ import { setCategories } from '../src/state/modules/categories/categories.module
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
-    firstName: t('common.firstName'),
-    lastName: t('common.lastName'),
-    phoneNumber: t('common.phoneNumber'),
     email: t('common.email'),
     password: t('common.password'),
     currentPassword: t('common.currentPassword'),

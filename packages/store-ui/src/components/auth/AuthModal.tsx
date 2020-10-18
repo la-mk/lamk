@@ -28,9 +28,12 @@ export const AuthModal = () => {
   const [caller, showSpinner] = hooks.useCall();
   const [forgotPasswordDone, setForgotPasswordDone] = React.useState(false);
 
-  const handleForgotPasswordSubmitted = (data: any) => {
+  const handleForgotPasswordSubmitted = ({ formData }: any) => {
     caller(
-      sdk.authManagement.resetPassword(data.email.toLowerCase(), store?._id),
+      sdk.authManagement.resetPassword(
+        formData.email.toLowerCase(),
+        store?._id,
+      ),
       () => setForgotPasswordDone(true),
     );
   };
@@ -42,6 +45,11 @@ export const AuthModal = () => {
   const handleSignup = (data: any) => {
     dispatch(signup({ ...data, email: data.email?.toLowerCase() }, 'local'));
   };
+
+  const authSchema = sdk.utils.schema.pick(sdk.user.schema, [
+    'email',
+    'password',
+  ]);
 
   return (
     <Modal
@@ -65,12 +73,11 @@ export const AuthModal = () => {
       >
         {method === 'login' && (
           <LoginForm
+            schema={authSchema}
             logoUrl='/images/lamk-logo/horizontal.svg'
             login={handleLogin}
             onSignupNowClick={() => setMethod('signup')}
             onForgotPasswordClick={() => setMethod('forgotPassword')}
-            validate={data => sdk.user.validate(data as any, true) as any}
-            validateSingle={sdk.user.validateSingle as any}
             getErrorMessage={(errorName, context) =>
               t(`errors.${errorName}`, context)
             }
@@ -78,11 +85,10 @@ export const AuthModal = () => {
         )}
         {method === 'signup' && (
           <SignupForm
+            schema={authSchema}
             logoUrl='/images/lamk-logo/horizontal.svg'
             signup={handleSignup}
             onLoginNowClick={() => setMethod('login')}
-            validate={data => sdk.user.validate(data as any, true)}
-            validateSingle={sdk.user.validateSingle as any}
             getErrorMessage={(errorName, context) =>
               t(`errors.${errorName}`, context)
             }
@@ -91,11 +97,10 @@ export const AuthModal = () => {
         {method === 'forgotPassword' && (
           <Spin spinning={showSpinner}>
             <ForgotPasswordForm
+              schema={sdk.utils.schema.pick(sdk.user.schema, ['email'])}
               hasSubmitted={forgotPasswordDone}
               onLoginInstead={() => setMethod('login')}
-              onFormCompleted={handleForgotPasswordSubmitted}
-              validate={(data: any) => sdk.authManagement.validate(data, true)}
-              validateSingle={sdk.authManagement.validateSingle}
+              onSubmit={handleForgotPasswordSubmitted}
               getErrorMessage={(errorName, context) =>
                 t(`errors.${errorName}`, context)
               }

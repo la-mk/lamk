@@ -1,4 +1,4 @@
-import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 import React, { useState } from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import {
@@ -9,12 +9,12 @@ import {
   Tabs,
   TabPane,
   hooks,
-  UserForm,
+  NewForm,
   ChangePasswordForm,
+  Box,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
-import { pickDiff } from '../../common/utils';
 import { Addresses } from './Addresses';
 import { Page } from '../shared/Page';
 import { useTranslation } from '../../common/i18n';
@@ -28,6 +28,11 @@ export const Account = ({ user }: AccountProps) => {
   const [caller, showSpinner] = hooks.useCall();
   const [tab, setTab] = useState('personal');
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
+  const [userFormData, setUserFormData] = hooks.useFormState<Partial<User>>(
+    pick(user, ['firstName', 'lastName', 'phoneNumber']),
+    {},
+    [user],
+  );
   const { t } = useTranslation();
 
   useBreadcrumb([
@@ -35,13 +40,22 @@ export const Account = ({ user }: AccountProps) => {
     { url: '/account', title: t('pages.myAccount') },
   ]);
 
-  const handlePatchAccount = (updatedUser: User) => {
-    const updatedFields = pickDiff(user, updatedUser);
-    caller(sdk.user.patch(user._id, updatedFields), (user: User) => {
+  const handlePatchAccount = ({ formData }: { formData: Partial<User> }) => {
+    caller(sdk.user.patch(user._id, formData), (user: User) => {
       message.success(t('auth.accountUpdateSuccess'));
       return patchUser(user);
     });
   };
+
+  // currentPassword is a special field and is not part of the schema, but we want it to have the same characteristics as the standard password.
+  const changePasswordSchema = sdk.utils.schema.pick(sdk.user.schema, [
+    'password',
+  ]);
+  changePasswordSchema.properties = {
+    currentPassword: changePasswordSchema.properties.password,
+    password: changePasswordSchema.properties.password,
+  };
+  changePasswordSchema.required.push('currentPassword');
 
   return (
     <Page>
@@ -57,16 +71,50 @@ export const Account = ({ user }: AccountProps) => {
               minWidth={200}
               mx='auto'
             >
-              <UserForm
-                size='large'
-                onFormCompleted={handlePatchAccount}
-                externalState={user}
-                validate={data => sdk.user.validate(data, true)}
-                validateSingle={sdk.user.validateSingle}
-                getErrorMessage={(errorName, context) =>
-                  t(`errors.${errorName}`, context)
-                }
-              />
+              <Box width='100%'>
+                <NewForm<Pick<User, 'firstName' | 'lastName' | 'phoneNumber'>>
+                  schema={sdk.utils.schema.pick(sdk.user.schema, [
+                    'firstName',
+                    'lastName',
+                    'phoneNumber',
+                  ])}
+                  uiSchema={{
+                    firstName: {
+                      'ui:title': t('common.firstName'),
+                      'ui:options': {
+                        emphasized: true,
+                      },
+                    },
+                    lastName: {
+                      'ui:title': t('common.lastName'),
+                      'ui:options': {
+                        emphasized: true,
+                      },
+                    },
+                    phoneNumber: {
+                      'ui:title': t('common.phoneNumber'),
+                      'ui:options': {
+                        emphasized: true,
+                      },
+                    },
+                  }}
+                  onSubmit={handlePatchAccount}
+                  onChange={({ formData }) => setUserFormData(formData)}
+                  formData={userFormData}
+                  getErrorMessage={(errorName, context) =>
+                    t(`errors.${errorName}`, context)
+                  }
+                >
+                  <Button
+                    width='100%'
+                    type='primary'
+                    htmlType='submit'
+                    size='large'
+                  >
+                    {t('actions.update')}
+                  </Button>
+                </NewForm>
+              </Box>
             </Flex>
           </Spin>
         </TabPane>
@@ -82,19 +130,9 @@ export const Account = ({ user }: AccountProps) => {
               mx='auto'
             >
               <ChangePasswordForm
-                size='large'
-                onFormCompleted={handlePatchAccount}
-                externalState={user}
-                // We don't want to validate `currentPassword` as it is a special field that is only used for comparison
-                validate={data =>
-                  sdk.user.validate(omit(data, ['currentPassword']), true)
-                }
-                validateSingle={(val, selector) => {
-                  if (selector === 'currentPassword') {
-                    return;
-                  }
-                  return sdk.user.validateSingle(val, selector);
-                }}
+                schema={changePasswordSchema}
+                emphasized
+                onSubmit={handlePatchAccount}
                 getErrorMessage={(errorName, context) =>
                   t(`errors.${errorName}`, context)
                 }

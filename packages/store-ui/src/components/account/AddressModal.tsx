@@ -60,6 +60,7 @@ export const AddressModal = ({
           address={address}
           onAddAddress={onAddAddress}
           onPatchAddress={onPatchAddress}
+          onCancel={onClose}
         />
       </Flex>
     </Modal>
