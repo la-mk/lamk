@@ -70,13 +70,12 @@ export default (props: ArrayFieldTemplateProps) => {
 
       {props.items.map(element => {
         return (
-          <div className="rendition-form__array-item" key={element.index}>
+          <div key={element.index}>
             <Flex alignItems="flex-start">
               <Box flex="1">{element.children}</Box>
               <Box>
                 {orderable && props.items.length > 1 && (
                   <Button
-                    className="rendition-form-array-item__move-up"
                     py={1}
                     px={2}
                     disabled={
@@ -93,7 +92,6 @@ export default (props: ArrayFieldTemplateProps) => {
 
                 {orderable && props.items.length > 1 && (
                   <Button
-                    className="rendition-form-array-item__move-down"
                     py={1}
                     px={2}
                     disabled={
@@ -112,7 +110,6 @@ export default (props: ArrayFieldTemplateProps) => {
 
                 {element.hasRemove && (
                   <Button
-                    className="rendition-form-array-item__remove-item"
                     py={1}
                     px={2}
                     disabled={element.disabled || element.readonly}

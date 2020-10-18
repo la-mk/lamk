@@ -8,7 +8,7 @@ const TitleField = ({ title }: FieldProps) => {
   }
 
   return (
-    <Text mb={2} fontSize={1}>
+    <Text mb={1} fontSize={1}>
       {title}
     </Text>
   );

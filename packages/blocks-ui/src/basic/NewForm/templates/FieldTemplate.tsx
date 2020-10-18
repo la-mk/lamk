@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldTemplateProps } from '@rjsf/core';
 import { Box } from '../../Box';
-import { Paragraph, Text } from '../../Typography';
+import { Text } from '../../Typography';
 
 export default ({
   children,
@@ -10,7 +10,6 @@ export default ({
   displayLabel,
   rawErrors,
   hidden,
-  id,
   label,
 }: FieldTemplateProps) => {
   if (hidden) {
@@ -18,22 +17,9 @@ export default ({
   }
 
   return (
-    <Box mb={3} className={`${classNames || ''} rendition-form__field--${id}`}>
-      {displayLabel && (
-        <Box mb={2}>
-          <Text fontSize={0} id={id}>
-            {label}
-          </Text>
-        </Box>
-      )}
-
-      {displayLabel && description ? (
-        <Box mb={2}>
-          <Paragraph fontSize={0} id={id}>
-            {description}
-          </Paragraph>
-        </Box>
-      ) : null}
+    <Box mb={2} className={`${classNames || ''}`}>
+      {displayLabel ? label : null}
+      {displayLabel && description ? description : null}
       {children}
       <Text color="danger">{rawErrors?.[0]}</Text>
     </Box>

@@ -1,12 +1,12 @@
 import TextWidget from './TextWidget';
-import TextAreaWidget from './TextAreaWidget';
+import TextareaWidget from './TextareaWidget';
 import SelectWidget from './SelectWidget';
 import PasswordWidget from './PasswordWidget';
 import EmailWidget from './EmailWidget';
 
 export default {
   TextWidget,
-  TextAreaWidget,
+  TextareaWidget,
   SelectWidget,
   PasswordWidget,
   EmailWidget,

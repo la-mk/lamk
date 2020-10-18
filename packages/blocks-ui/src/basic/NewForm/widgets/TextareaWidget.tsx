@@ -2,7 +2,7 @@ import React from 'react';
 import { WidgetProps } from '@rjsf/core';
 import { TextArea } from '../../Input';
 
-const TextAreaWidget = ({
+const TextareaWidget = ({
   autofocus,
   disabled,
   id,
@@ -36,4 +36,4 @@ const TextAreaWidget = ({
   return <TextArea {...defaultProps} />;
 };
 
-export default TextAreaWidget;
+export default TextareaWidget;

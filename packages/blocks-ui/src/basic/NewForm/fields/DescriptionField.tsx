@@ -8,7 +8,7 @@ const DescriptionField = ({ description, id }: FieldProps) => {
   }
 
   return (
-    <Paragraph color="mutedText.dark" id={id}>
+    <Paragraph mb={1} color="mutedText.dark" id={id}>
       {description}
     </Paragraph>
   );
