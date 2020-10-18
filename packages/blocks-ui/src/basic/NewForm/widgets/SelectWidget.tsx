@@ -50,7 +50,7 @@ const SelectWidget = ({
   value,
   schema,
 }: WidgetProps) => {
-  const { enumOptions, enumDisabled } = options;
+  const { enumOptions, customEnumOptions, enumDisabled, emphasized } = options;
 
   const handleChange = (nextValue: any) =>
     onChange(processValue(schema, nextValue));
@@ -59,16 +59,14 @@ const SelectWidget = ({
 
   const handleFocus = () => onFocus(id, processValue(schema, value));
 
-  const getPopupContainer = (node: any) => node.parentNode;
-
   const stringify = (currentValue: any) =>
     Array.isArray(currentValue) ? value.map(String) : String(value);
 
   return (
     <Select
+      width="calc(100% - 24px)"
       autoFocus={autofocus}
       disabled={disabled || readonly}
-      getPopupContainer={getPopupContainer}
       id={id}
       mode={typeof multiple !== 'undefined' ? 'multiple' : undefined}
       onBlur={!readonly ? handleBlur : undefined}
@@ -76,8 +74,9 @@ const SelectWidget = ({
       onFocus={!readonly ? handleFocus : undefined}
       placeholder={placeholder}
       value={typeof value !== 'undefined' ? stringify(value) : undefined}
+      size={emphasized ? 'large' : undefined}
     >
-      {(enumOptions as any[])?.map(
+      {((customEnumOptions ?? enumOptions) as any[])?.map(
         ({ value: optionValue, label: optionLabel }) => (
           <Option
             disabled={

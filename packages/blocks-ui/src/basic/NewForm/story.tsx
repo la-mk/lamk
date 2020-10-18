@@ -89,6 +89,10 @@ const uiSchema = {
     description: {
       'ui:title': 'About you',
       'ui:description': 'Tell us more about yourself',
+      'ui:widget': 'textarea',
+      'ui:options': {
+        rows: 4,
+      },
     },
   },
   landing: {
@@ -102,6 +106,15 @@ const uiSchema = {
         title: {
           'ui:title': 'Set title',
         },
+        type: {
+          'ui:widget': 'select',
+          'ui:options': {
+            customEnumOptions: [
+              { value: 'group', label: 'Group' },
+              { value: 'category', label: 'Category' },
+            ],
+          },
+        },
       },
     },
   },
@@ -109,6 +122,6 @@ const uiSchema = {
 
 storiesOf('New Form', module).add('basic form', () => (
   <Provider>
-    <NewForm schema={schema} uiSchema={uiSchema} />
+    <NewForm schema={schema} uiSchema={uiSchema} getErrorMessage={() => ''} />
   </Provider>
 ));
