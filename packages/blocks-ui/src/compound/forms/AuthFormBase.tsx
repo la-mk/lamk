@@ -3,12 +3,12 @@ import { Flex } from '../../basic/Flex';
 import { Text, Title } from '../../basic/Typography';
 import { PoweredBy } from '../PoweredBy';
 import { Button } from '../../basic/Button';
-import { Form } from '../../basic/Form/Form';
+import { Box } from '../../basic/Box';
 import { LocalizationContext } from '../../basic/Provider';
 import { BaseSection } from './BaseSection';
+import { NewForm, FormProps } from '../../basic/NewForm/NewForm';
 
-interface AuthFormBaseProps {
-  children: React.ReactNode;
+interface AuthFormBaseProps extends FormProps<any> {
   logoUrl?: string;
   onPrimary: (data?: any) => void;
   onSecondary: (data?: any) => void;
@@ -19,7 +19,6 @@ interface AuthFormBaseProps {
 }
 
 export const AuthFormBase = ({
-  children,
   logoUrl,
   onPrimary,
   onSecondary,
@@ -42,24 +41,31 @@ export const AuthFormBase = ({
         </Text>
       )}
 
-      <Form
-        mt={3}
-        width="100%"
-        labelCol={{ xs: { span: 24 } }}
-        wrapperCol={{ xs: { span: 24 } }}
-        layout="vertical"
-        colon={false}
-        onFormCompleted={onPrimary}
-        {...otherProps}
-      >
-        {children}
-
-        <Flex mt={4} justifyContent="center" alignItems="center">
-          <Button width="100%" type="primary" htmlType="submit" size="large">
+      <Box mt={3} width="100%">
+        <NewForm<any>
+          {...otherProps}
+          onSubmit={({ formData }) => onPrimary(formData)}
+          uiSchema={{
+            email: {
+              'ui:title': localization.email || 'Email address',
+              'ui:options': {
+                emphasized: true,
+              },
+            },
+            password: {
+              'ui:title': localization.password || 'Password',
+              'ui:placeholder': '********',
+              'ui:options': {
+                emphasized: true,
+              },
+            },
+          }}
+        >
+          <Button width="100%" size="large" type="primary" htmlType="submit">
             {primaryText}
           </Button>
-        </Flex>
-      </Form>
+        </NewForm>
+      </Box>
 
       <Flex alignItems="center" justifyContent="center" my={3}>
         <Text color="mutedText.dark" fontSize={1}>

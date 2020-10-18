@@ -5,9 +5,6 @@ import { ThemeProvider } from 'styled-components';
 import { ConfigProvider } from 'antd';
 
 interface LocalizationContext {
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
   email?: string;
   password?: string;
   currentPassword?: string;

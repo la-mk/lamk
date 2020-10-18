@@ -69,7 +69,6 @@ export {
 } from './compound/FormHelpers';
 export { LoginForm } from './compound/forms/LoginForm';
 export { SignupForm } from './compound/forms/SignupForm';
-export { UserForm } from './compound/forms/UserForm';
 export { ChangePasswordForm } from './compound/forms/ChangePasswordForm';
 export { ForgotPasswordForm } from './compound/forms/ForgotPasswordForm';
 export { ResetPasswordForm } from './compound/forms/ResetPasswordForm';

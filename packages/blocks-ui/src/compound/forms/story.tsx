@@ -3,22 +3,33 @@ import * as React from 'react';
 import { Provider } from '../../basic/Provider';
 import { LoginForm } from './LoginForm';
 import { SignupForm } from './SignupForm';
-import { UserForm } from './UserForm';
 import { ChangePasswordForm } from './ChangePasswordForm';
-import { Box } from '../../basic/Box';
 import { ForgotPasswordForm } from './ForgotPasswordForm';
 import { ResetPasswordForm } from './ResetPasswordForm';
 import { FormProps } from '../../basic/NewForm/NewForm';
+
+const authSchema: FormProps<any>['schema'] = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['email', 'password'],
+  properties: {
+    email: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+    },
+  },
+};
 
 storiesOf('Forms', module)
   .add('Login form', () => (
     <Provider>
       <LoginForm
+        schema={authSchema}
         login={() => null}
         onSignupNowClick={() => null}
         onForgotPasswordClick={() => null}
-        validate={() => null}
-        validateSingle={() => null}
         getErrorMessage={(errorName: any, context: any) => {
           console.log(errorName, context);
           return '';
@@ -29,11 +40,10 @@ storiesOf('Forms', module)
   .add('Signup form', () => (
     <Provider>
       <SignupForm
+        schema={authSchema}
         logoUrl="/"
         signup={() => null}
         onLoginNowClick={() => null}
-        validate={() => null}
-        validateSingle={() => null}
         getErrorMessage={(errorName: any, context: any) => {
           console.log(errorName, context);
           return '';
@@ -41,38 +51,35 @@ storiesOf('Forms', module)
       />
     </Provider>
   ))
-  .add('Password form', () => (
-    <Provider>
-      <Box width="600px">
+  .add('Password form', () => {
+    const changePasswordSchema: FormProps<any>['schema'] = {
+      type: 'object',
+      additionalProperties: false,
+      required: ['currentPassword', 'newPassword'],
+      properties: {
+        currentPassword: {
+          type: 'string',
+        },
+        newPassword: {
+          type: 'string',
+        },
+      },
+    };
+
+    return (
+      <Provider>
         <ChangePasswordForm
-          size="large"
-          onFormCompleted={() => console.log('Form completed')}
-          validate={() => null}
-          validateSingle={() => null}
+          emphasized
+          schema={changePasswordSchema}
+          onSubmit={() => console.log('Form completed')}
           getErrorMessage={(errorName: any, context: any) => {
             console.log(errorName, context);
             return '';
           }}
         />
-      </Box>
-    </Provider>
-  ))
-  .add('User form', () => (
-    <Provider>
-      <Box width="600px">
-        <UserForm
-          size="large"
-          onFormCompleted={() => console.log('Form completed')}
-          validate={() => null}
-          validateSingle={() => null}
-          getErrorMessage={(errorName: any, context: any) => {
-            console.log(errorName, context);
-            return '';
-          }}
-        />
-      </Box>
-    </Provider>
-  ))
+      </Provider>
+    );
+  })
   .add('Forgot password form', () => {
     const forgotPasswordSchema: FormProps<any>['schema'] = {
       type: 'object',

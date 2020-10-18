@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { formInput, formPassword } from '../FormHelpers';
-import { FormItem, FormHandlers } from '../../basic/Form/Form';
 import { LocalizationContext } from '../../basic/Provider';
 import { AuthFormBase } from './AuthFormBase';
+import { FormProps } from 'basic/NewForm/NewForm';
 
-export interface LoginProps extends FormHandlers {
+export interface LoginProps extends FormProps<any> {
   login: (credentials: LoginCredentials) => void;
   onSignupNowClick: (data?: any) => void;
   onForgotPasswordClick: () => void;
@@ -27,6 +26,7 @@ export const LoginForm = ({
 
   return (
     <AuthFormBase
+      {...otherProps}
       logoUrl={logoUrl}
       onPrimary={login}
       primaryText={localization.login || 'Log in'}
@@ -36,15 +36,6 @@ export const LoginForm = ({
       }
       onSecondary={onSignupNowClick}
       onForgotPassword={onForgotPasswordClick}
-      {...otherProps}
-    >
-      <FormItem selector="email" label={localization.email || 'Email address'}>
-        {formInput({ size: 'large' })}
-      </FormItem>
-
-      <FormItem selector="password" label={localization.password || 'Password'}>
-        {formPassword({ size: 'large' })}
-      </FormItem>
-    </AuthFormBase>
+    />
   );
 };
