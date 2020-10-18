@@ -144,5 +144,6 @@ export const getOrderSdk = (client: Application) => {
 
     OrderStatus,
     orderStatusColor,
+    schema
   };
 };

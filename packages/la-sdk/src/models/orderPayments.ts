@@ -111,5 +111,6 @@ export const getOrderPaymentsSdk = (client: Application) => {
     },
 
     TransactionStatus,
+    schema
   };
 };

@@ -4,7 +4,7 @@ import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
 export const schema: JSONSchemaType<ContactUs> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
   required: [...defaultSchemaEntries.required, 'email', 'name', 'message'],
   properties: {
@@ -16,15 +16,15 @@ export const schema: JSONSchemaType<ContactUs> = {
     name: {
       type: 'string',
       minLength: 2,
-      maxLength: 255
+      maxLength: 255,
     },
     message: {
       type: 'string',
       minLength: 2,
-      maxLength: 511
+      maxLength: 511,
     },
-  }
-}
+  },
+};
 
 export interface ContactUs extends DefaultSchema {
   email: string;
@@ -40,5 +40,6 @@ export const getContactUsSdk = (_client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+    schema,
   };
 };

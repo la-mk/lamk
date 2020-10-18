@@ -50,5 +50,6 @@ export const getCategorySdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+    schema
   };
 };

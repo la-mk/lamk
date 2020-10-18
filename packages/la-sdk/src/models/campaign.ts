@@ -136,5 +136,6 @@ export const getCampaignSdk = (client: Application) => {
     RewardTypes,
     CampaignTypes,
     ProductRuleTypes,
+    schema
   };
 };

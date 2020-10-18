@@ -7,15 +7,25 @@ import { defaultSchemaEntries, DefaultSchema } from '../../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
 export const schema: JSONSchemaType<Address> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
   // All of these are created on the server and optional for the client.
-  required: [...defaultSchemaEntries.required, 'addressFor', 'name', 'country', 'city', 'zip', 'street', 'person', 'phoneNumber'],
+  required: [
+    ...defaultSchemaEntries.required,
+    'addressFor',
+    'name',
+    'country',
+    'city',
+    'zip',
+    'street',
+    'person',
+    'phoneNumber',
+  ],
   properties: {
     ...defaultSchemaEntries.properties!,
     addressFor: {
       type: 'string',
-      format: 'uuid'
+      format: 'uuid',
     },
     name: {
       type: 'string',
@@ -58,7 +68,7 @@ export const schema: JSONSchemaType<Address> = {
       minLength: 2,
       maxLength: 31,
     },
-  }
+  },
 };
 
 export interface Address extends DefaultSchema {
@@ -94,5 +104,6 @@ export const getAddressSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+    schema,
   };
 };

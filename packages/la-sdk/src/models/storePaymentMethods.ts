@@ -22,48 +22,44 @@ export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
   properties: {
     name: {
       type: 'string',
-      enum: Object.values(PaymentMethodNames)
+      enum: Object.values(PaymentMethodNames),
     },
     processor: {
       nullable: true,
       type: 'string',
-      enum: Object.values(PaymentProcessors)
+      enum: Object.values(PaymentProcessors),
     },
     clientId: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 63
+      maxLength: 63,
     },
     clientKey: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 63
+      maxLength: 63,
     },
     clientUsername: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 63
+      maxLength: 63,
     },
     clientPassword: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 63
+      maxLength: 63,
     },
-  }
-}
+  },
+};
 
 export const schema: JSONSchemaType<StorePaymentMethods> = {
   type: 'object',
   additionalProperties: false,
-  required: [
-    ...defaultSchemaEntries.required,
-    'forStore',
-    'methods'
-  ],
+  required: [...defaultSchemaEntries.required, 'forStore', 'methods'],
   properties: {
     ...defaultSchemaEntries.properties!,
     forStore: {
@@ -74,9 +70,9 @@ export const schema: JSONSchemaType<StorePaymentMethods> = {
       type: 'array',
       minItems: 1,
       items: paymentMethodSchema,
-      uniqueOn: '/name'
-    }
-  }
+      uniqueOn: '/name',
+    },
+  },
 };
 
 export interface PaymentMethod {
@@ -132,5 +128,6 @@ export const getStorePaymentMethodsSdk = (client: Application) => {
 
     PaymentMethodNames,
     PaymentProcessors,
+    schema,
   };
 };

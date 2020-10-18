@@ -72,5 +72,6 @@ export const getAuthManagementSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+    schema
   };
 };

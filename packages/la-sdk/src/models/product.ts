@@ -442,5 +442,6 @@ export const getProductSdk = (client: Application) => {
     },
 
     ProductUnit,
+    schema
   };
 };

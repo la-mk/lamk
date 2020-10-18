@@ -108,5 +108,6 @@ export const getStoreAnalyticsSdk = (client: Application) => {
 
     AnalyticsTypes,
     AnalyticsFrequency,
+    schema,
   };
 };

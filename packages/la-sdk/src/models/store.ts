@@ -25,56 +25,61 @@ export const schema: JSONSchemaType<Store> = {
     name: {
       type: 'string',
       minLength: 2,
-      maxLength: 511
+      maxLength: 511,
     },
     slug: {
       type: 'string',
       minLength: 4,
-      maxLength: 511
+      maxLength: 511,
     },
     color: {
       type: 'string',
-      format: 'hexColor'
+      format: 'hexColor',
     },
     slogan: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 255
+      maxLength: 255,
     },
     customDomain: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 511
+      maxLength: 511,
     },
     company: {
       nullable: true,
       type: 'object',
       additionalProperties: false,
-      required: ['companyName', 'companyAddress', 'registryNumber', 'taxNumber'],
+      required: [
+        'companyName',
+        'companyAddress',
+        'registryNumber',
+        'taxNumber',
+      ],
       properties: {
         companyName: {
           type: 'string',
           minLength: 2,
-          maxLength: 511
+          maxLength: 511,
         },
         companyAddress: {
           type: 'string',
           minLength: 2,
-          maxLength: 1023
+          maxLength: 1023,
         },
         registryNumber: {
           type: 'string',
           minLength: 2,
-          maxLength: 127
+          maxLength: 127,
         },
         taxNumber: {
           type: 'string',
           minLength: 2,
-          maxLength: 127
+          maxLength: 127,
         },
-      }
+      },
     },
     contact: {
       nullable: true,
@@ -84,32 +89,32 @@ export const schema: JSONSchemaType<Store> = {
       properties: {
         email: {
           type: 'string',
-          format: 'email'
+          format: 'email',
         },
         phoneNumber: {
           type: 'string',
           minLength: 4,
-          maxLength: 63
+          maxLength: 63,
         },
         alternatePhoneNumber: {
           nullable: true,
           type: 'string',
           minLength: 4,
-          maxLength: 63
+          maxLength: 63,
         },
-      }
+      },
     },
     logo: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 4095
+      maxLength: 4095,
     },
     isPublished: {
-      type: 'boolean'
-    }
-  }
-}
+      type: 'boolean',
+    },
+  },
+};
 
 export interface Store extends DefaultSchema {
   ownedBy: string;
@@ -169,5 +174,6 @@ export const getStoreSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+    schema,
   };
 };

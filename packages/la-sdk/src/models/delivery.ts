@@ -67,5 +67,6 @@ export const getDeliverySdk = (client: Application) => {
     },
 
     DeliveryMethods,
+    schema
   };
 };

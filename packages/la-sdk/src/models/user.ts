@@ -12,7 +12,7 @@ export const schema: JSONSchemaType<User> = {
     ...defaultSchemaEntries.required,
     'email',
     'password',
-    'isEmailVerified'
+    'isEmailVerified',
   ],
   properties: {
     ...defaultSchemaEntries.properties!,
@@ -23,10 +23,10 @@ export const schema: JSONSchemaType<User> = {
     password: {
       type: 'string',
       minLength: 8,
-      maxLength: 255
+      maxLength: 255,
     },
     isEmailVerified: {
-      type: 'boolean'
+      type: 'boolean',
     },
     firstName: {
       nullable: true,
@@ -38,16 +38,16 @@ export const schema: JSONSchemaType<User> = {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 255
+      maxLength: 255,
     },
     phoneNumber: {
       nullable: true,
       type: 'string',
       minLength: 2,
-      maxLength: 31
-    }
-  }
-}
+      maxLength: 31,
+    },
+  },
+};
 
 export interface User extends DefaultSchema {
   email: string;
@@ -71,5 +71,6 @@ export const getUserSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+    schema,
   };
 };

@@ -14,16 +14,15 @@ import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { uniq } from 'lodash';
 import { JSONSchemaType } from 'ajv';
 
-
 export const schema: JSONSchemaType<Cart> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
   required: [...defaultSchemaEntries.required, 'forUser', 'items'],
   properties: {
     ...defaultSchemaEntries.properties!,
     forUser: {
       type: 'string',
-      format: 'uuid'
+      format: 'uuid',
     },
     items: {
       type: 'array',
@@ -39,23 +38,23 @@ export const schema: JSONSchemaType<Cart> = {
             properties: {
               id: {
                 type: 'string',
-                format: 'uuid'
+                format: 'uuid',
               },
-              attributes: attributesSchema as any
-            }
+              attributes: attributesSchema as any,
+            },
           },
           fromStore: {
             type: 'string',
-            format: 'uuid'
+            format: 'uuid',
           },
           quantity: {
             type: 'integer',
             minimum: 1,
           },
-        }
-      }
+        },
+      },
     },
-  }
+  },
 };
 
 export interface CartItem {
@@ -119,26 +118,31 @@ export const getCartSdk = (client: Application) => {
 
       return {
         ...cart,
-        items: cart.items.map(item => {
-          const product = products.find(
-            product => product._id === item.product.id
-          );
-          if (!product) {
-            return null;
-          }
+        items: cart.items
+          .map(item => {
+            const product = products.find(
+              product => product._id === item.product.id
+            );
+            if (!product) {
+              return null;
+            }
 
-          const orderProduct = convertToOrderProduct(product, item.product.attributes)
-          if (!orderProduct) {
-            return null;
-          }
-          
-          return {
-            ...item,
-            product: orderProduct,
-          };
+            const orderProduct = convertToOrderProduct(
+              product,
+              item.product.attributes
+            );
+            if (!orderProduct) {
+              return null;
+            }
 
-        // If a product that is in the cart and it no longer exists, we simply ignore it from the results. We might want to patch the cart as well in the future, but this should be enough for now. 
-        }).filter(x => !!x),
+            return {
+              ...item,
+              product: orderProduct,
+            };
+
+            // If a product that is in the cart and it no longer exists, we simply ignore it from the results. We might want to patch the cart as well in the future, but this should be enough for now.
+          })
+          .filter(x => !!x),
       } as CartWithProducts;
     },
 
@@ -202,5 +206,6 @@ export const getCartSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
+    schema,
   };
 };
