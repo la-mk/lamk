@@ -1,23 +1,23 @@
 import React, { useContext } from 'react';
 import { Flex } from '../../basic/Flex';
+import { Box } from '../../basic/Box';
 import { Button } from '../../basic/Button';
 import { Title, Text } from '../../basic/Typography';
 import { Result } from '../../basic/Result';
-import { formInput } from '../FormHelpers';
-import { Form, FormHandlers, FormItem } from '../../basic/Form/Form';
 import { LocalizationContext } from '../../basic/Provider';
 import { BaseSection } from './BaseSection';
+import { FormProps, NewForm } from '../../basic/NewForm/NewForm';
 
-export interface ForgotPasswordFormProps extends FormHandlers {
+export interface ForgotPasswordFormProps<T> extends FormProps<T> {
   onLoginInstead: () => void;
   hasSubmitted?: boolean;
 }
 
-export const ForgotPasswordForm = ({
+export const ForgotPasswordForm = <T extends any>({
   onLoginInstead,
   hasSubmitted,
   ...props
-}: ForgotPasswordFormProps) => {
+}: ForgotPasswordFormProps<T>) => {
   const localization = useContext(LocalizationContext);
 
   return (
@@ -32,34 +32,29 @@ export const ForgotPasswordForm = ({
               'We will send you a email with a link to reset your password'}
           </Text>
 
-          <Form
-            mt={3}
-            width="100%"
-            labelCol={{ xs: { span: 24 } }}
-            wrapperCol={{ xs: { span: 24 } }}
-            layout="vertical"
-            colon={false}
-            {...props}
-          >
-            <FormItem
-              selector="email"
-              label={localization.email || 'Email address'}
+          <Box mt={3} width="100%">
+            <NewForm<T>
+              {...props}
+              uiSchema={{
+                email: {
+                  'ui:title': localization.email || 'Email address',
+                  'ui:options': {
+                    emphasized: true,
+                  },
+                },
+              }}
             >
-              {formInput({ size: 'large' })}
-            </FormItem>
-
-            <Flex mt={4} justifyContent="center" alignItems="center">
               <Button
                 width="100%"
+                size="large"
                 type="primary"
                 htmlType="submit"
-                size="large"
               >
                 {localization.sendPasswordResetLink ||
                   'Send password reset link'}
               </Button>
-            </Flex>
-          </Form>
+            </NewForm>
+          </Box>
 
           <Button mt={3} type="link" onClick={onLoginInstead}>
             {localization.loginInstead || 'Log in instead'}

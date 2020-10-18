@@ -8,6 +8,7 @@ import { ChangePasswordForm } from './ChangePasswordForm';
 import { Box } from '../../basic/Box';
 import { ForgotPasswordForm } from './ForgotPasswordForm';
 import { ResetPasswordForm } from './ResetPasswordForm';
+import { FormProps } from '../../basic/NewForm/NewForm';
 
 storiesOf('Forms', module)
   .add('Login form', () => (
@@ -72,45 +73,73 @@ storiesOf('Forms', module)
       </Box>
     </Provider>
   ))
-  .add('Forgot password form', () => (
-    <Provider>
-      <>
-        <ForgotPasswordForm
-          onLoginInstead={() => null}
-          onFormCompleted={() => console.log('Form completed')}
-          validate={() => null}
-          validateSingle={() => null}
-          getErrorMessage={(errorName: any, context: any) => {
-            console.log(errorName, context);
-            return '';
-          }}
-        />
+  .add('Forgot password form', () => {
+    const forgotPasswordSchema: FormProps<any>['schema'] = {
+      type: 'object',
+      additionalProperties: false,
+      required: ['email'],
+      properties: {
+        email: {
+          type: 'string',
+          format: 'email',
+        },
+      },
+    };
 
-        <ForgotPasswordForm
-          hasSubmitted
+    return (
+      <Provider>
+        <>
+          <ForgotPasswordForm
+            schema={forgotPasswordSchema}
+            onLoginInstead={() => null}
+            onSubmit={() => console.log('Form completed')}
+            getErrorMessage={(errorName, context) => {
+              console.log(errorName, context);
+              return '';
+            }}
+          />
+
+          <ForgotPasswordForm
+            schema={forgotPasswordSchema}
+            hasSubmitted
+            onLoginInstead={() => null}
+            onSubmit={() => console.log('Form completed')}
+            getErrorMessage={(errorName: any, context: any) => {
+              console.log(errorName, context);
+              return '';
+            }}
+          />
+        </>
+      </Provider>
+    );
+  })
+  .add('Reset password form', () => {
+    const resetPasswordSchema: FormProps<any>['schema'] = {
+      type: 'object',
+      additionalProperties: false,
+      required: ['email'],
+      properties: {
+        email: {
+          type: 'string',
+          format: 'email',
+        },
+        password: {
+          type: 'string',
+          minLength: 8,
+        },
+      },
+    };
+    return (
+      <Provider>
+        <ResetPasswordForm<any>
+          schema={resetPasswordSchema}
           onLoginInstead={() => null}
-          onFormCompleted={() => console.log('Form completed')}
-          validate={() => null}
-          validateSingle={() => null}
+          onSubmit={() => console.log('Form completed')}
           getErrorMessage={(errorName: any, context: any) => {
             console.log(errorName, context);
             return '';
           }}
         />
-      </>
-    </Provider>
-  ))
-  .add('Reset password form', () => (
-    <Provider>
-      <ResetPasswordForm
-        onLoginInstead={() => null}
-        onFormCompleted={() => console.log('Form completed')}
-        validate={() => null}
-        validateSingle={() => null}
-        getErrorMessage={(errorName: any, context: any) => {
-          console.log(errorName, context);
-          return '';
-        }}
-      />
-    </Provider>
-  ));
+      </Provider>
+    );
+  });

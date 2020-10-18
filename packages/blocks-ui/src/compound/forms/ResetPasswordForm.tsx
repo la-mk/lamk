@@ -1,20 +1,19 @@
 import React, { useContext } from 'react';
-import { Flex } from '../../basic/Flex';
 import { Button } from '../../basic/Button';
+import { Box } from '../../basic/Box';
 import { Title, Text } from '../../basic/Typography';
-import { formInput, formPassword } from '../FormHelpers';
-import { Form, FormHandlers, FormItem } from '../../basic/Form/Form';
 import { LocalizationContext } from '../../basic/Provider';
 import { BaseSection } from './BaseSection';
+import { FormProps, NewForm } from '../../basic/NewForm/NewForm';
 
-export interface ResetPasswordFormProps extends FormHandlers {
+export interface ResetPasswordFormProps<T> extends FormProps<T> {
   onLoginInstead: () => void;
 }
 
-export const ResetPasswordForm = ({
+export const ResetPasswordForm = <T extends any>({
   onLoginInstead,
   ...props
-}: ResetPasswordFormProps) => {
+}: ResetPasswordFormProps<T>) => {
   const localization = useContext(LocalizationContext);
 
   return (
@@ -27,40 +26,31 @@ export const ResetPasswordForm = ({
           'Set your email and new password in the form below'}
       </Text>
 
-      <Form
-        mt={3}
-        width="100%"
-        labelCol={{ xs: { span: 24 } }}
-        wrapperCol={{ xs: { span: 24 } }}
-        layout="vertical"
-        colon={false}
-        {...props}
-      >
-        <FormItem
-          selector="email"
-          label={localization.email || 'Email address'}
+      <Box mt={3} width="100%">
+        <NewForm<T>
+          {...props}
+          uiSchema={{
+            email: {
+              'ui:title': localization.email || 'Email address',
+              'ui:options': {
+                emphasized: true,
+              },
+            },
+            password: {
+              'ui:title': localization.newPassword || 'New password',
+              'ui:options': {
+                emphasized: true,
+              },
+              'ui:widget': 'password',
+              'ui:placeholder': '**********',
+            },
+          }}
         >
-          {formInput({
-            size: 'large',
-          })}
-        </FormItem>
-
-        <FormItem
-          selector="password"
-          label={localization.newPassword || 'New password'}
-        >
-          {formPassword({
-            size: 'large',
-            placeholder: '********',
-          })}
-        </FormItem>
-
-        <Flex mt={4} justifyContent="center" alignItems="center">
-          <Button width="100%" type="primary" htmlType="submit" size="large">
+          <Button width="100%" size="large" type="primary" htmlType="submit">
             {localization.resetPassword || 'Reset password'}
           </Button>
-        </Flex>
-      </Form>
+        </NewForm>
+      </Box>
 
       <Button mt={3} type="link" onClick={onLoginInstead}>
         {localization.loginInstead || 'Log in instead'}

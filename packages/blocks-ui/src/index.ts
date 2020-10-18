@@ -26,6 +26,7 @@ export { Empty } from './basic/Empty';
 export { Flex } from './basic/Flex';
 export { FlexGrid } from './basic/FlexGrid/FlexGrid';
 export { Form, FormItem, FormList } from './basic/Form/Form';
+export { NewForm } from './basic/NewForm/NewForm';
 export { Row, Col } from './basic/Grid';
 export { Image } from './basic/Image/Image';
 export { ImageMagnifier } from './basic/Image/ImageMagnifier';
