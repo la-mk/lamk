@@ -27,7 +27,7 @@ storiesOf('Forms', module)
     <Provider>
       <LoginForm
         schema={authSchema}
-        login={() => null}
+        login={console.log}
         onSignupNowClick={() => null}
         onForgotPasswordClick={() => null}
         getErrorMessage={(errorName: any, context: any) => {
@@ -42,7 +42,7 @@ storiesOf('Forms', module)
       <SignupForm
         schema={authSchema}
         logoUrl="/"
-        signup={() => null}
+        signup={console.log}
         onLoginNowClick={() => null}
         getErrorMessage={(errorName: any, context: any) => {
           console.log(errorName, context);

@@ -24,6 +24,8 @@ const recursiveSetUndefinedToValue = (data: any, value: any = null) => {
       return;
     }
   });
+
+  return data;
 };
 
 export const NewForm = <T extends any>({

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { LocalizationContext } from '../../basic/Provider';
 import { AuthFormBase } from './AuthFormBase';
-import { FormProps } from 'basic/NewForm/NewForm';
+import { FormProps } from '../../basic/NewForm/NewForm';
 
 export interface LoginProps extends FormProps<any> {
   signup: (credentials: SignupCredentials) => void;

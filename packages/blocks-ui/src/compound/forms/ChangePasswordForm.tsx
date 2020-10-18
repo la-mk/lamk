@@ -24,13 +24,15 @@ export const ChangePasswordForm = <T extends any>({
             currentPassword: {
               'ui:title': localization.currentPassword || 'Current password',
               'ui:placeholder': '********',
+              'ui:widget': 'password',
               'ui:options': {
                 emphasized,
               },
             },
-            newPassword: {
+            password: {
               'ui:title': localization.newPassword || 'New password',
               'ui:placeholder': '********',
+              'ui:widget': 'password',
               'ui:options': {
                 emphasized,
               },
