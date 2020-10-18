@@ -44,7 +44,7 @@ export const AuthFormBase = ({
       <Box mt={3} width="100%">
         <NewForm<any>
           {...otherProps}
-          onSubmit={formData => onPrimary(formData)}
+          onSubmit={({ formData }) => onPrimary(formData)}
           uiSchema={{
             email: {
               'ui:title': localization.email || 'Email address',
