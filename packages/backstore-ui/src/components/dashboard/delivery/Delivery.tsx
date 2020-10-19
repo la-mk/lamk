@@ -31,14 +31,18 @@ export const Delivery = () => {
     }
   }, [caller, storeId]);
 
-  const handleSetupDeliveryDone = (newDelivery?: DeliveryType) => {
-    if (!newDelivery || isEqual(delivery, newDelivery)) {
+  const handleSetupDeliveryDone = ({
+    formData,
+  }: {
+    formData: DeliveryType;
+  }) => {
+    if (!formData || isEqual(delivery, formData)) {
       return;
     }
 
     const handler = !!delivery?._id
-      ? sdk.delivery.patch(delivery._id, newDelivery)
-      : sdk.delivery.create(newDelivery);
+      ? sdk.delivery.patch(delivery._id, formData)
+      : sdk.delivery.create(formData);
 
     caller<DeliveryType>(handler, updatedDelivery => {
       message.success(t('common.success'));
@@ -56,7 +60,7 @@ export const Delivery = () => {
           <DeliveryForm
             storeId={storeId}
             delivery={delivery}
-            onDone={handleSetupDeliveryDone}
+            onSubmit={handleSetupDeliveryDone}
           />
         </Spin>
       </Col>

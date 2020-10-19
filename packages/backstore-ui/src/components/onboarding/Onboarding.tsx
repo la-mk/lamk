@@ -122,15 +122,15 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     setStep(2);
   };
 
-  const handleSetupDeliveryDone = (newDelivery?: Delivery) => {
-    if (!newDelivery || isEqual(delivery, newDelivery)) {
+  const handleSetupDeliveryDone = ({ formData }: { formData: Delivery }) => {
+    if (!formData || isEqual(delivery, formData)) {
       handlePublishDone(true);
       return setStep(3);
     }
 
-    const handler = newDelivery._id
-      ? sdk.delivery.patch(newDelivery._id, newDelivery)
-      : sdk.delivery.create(newDelivery);
+    const handler = formData._id
+      ? sdk.delivery.patch(formData._id, formData)
+      : sdk.delivery.create(formData);
 
     caller<Delivery>(handler, delivery => {
       handlePublishDone(true);

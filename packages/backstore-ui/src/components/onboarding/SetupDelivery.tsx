@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 
 interface SetupDeliveryProps {
-  onDone: (newDelivery?: Delivery) => void;
+  onDone: ({ formData }: { formData: Delivery }) => void;
   delivery: Delivery | null;
   storeId: Store['_id'] | undefined;
 }
@@ -24,7 +24,7 @@ export const SetupDelivery = ({
         <Title level={3}>{t('onboarding.setupDeliveryTitle')}</Title>
         <Text color='secondary'>{t('onboarding.setupDeliverySubtitle')}</Text>
       </Flex>
-      <DeliveryForm storeId={storeId} delivery={delivery} onDone={onDone} />
+      <DeliveryForm storeId={storeId} delivery={delivery} onSubmit={onDone} />
     </Col>
   );
 };

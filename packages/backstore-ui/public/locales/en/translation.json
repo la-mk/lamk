@@ -580,7 +580,6 @@
     "deliveryMethod": "Delivery method",
     "freeDelivery": "Free delivery",
     "freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
-    "overPrice": "Over price",
     "priceExplanation": "This can be the average delivery cost.",
     "updatingDeliveryTip": "Updating delivery..."
   },

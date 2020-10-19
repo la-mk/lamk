@@ -1,14 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  FormItem,
-  formInput,
-  Form,
-  Flex,
-  Button,
-  Select,
-  Option,
-  parsers,
-} from '@sradevski/blocks-ui';
+import React from 'react';
+import { Button, hooks, NewForm, Flex, Box } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { useTranslation } from 'react-i18next';
@@ -17,86 +8,83 @@ import { Store } from '@sradevski/la-sdk/dist/models/store';
 interface DeliveryFormProps {
   storeId: Store['_id'] | undefined;
   delivery: Delivery | null;
-  onDone: (delivery: Delivery) => void;
+  onSubmit: (formData: { formData: Delivery }) => void;
 }
 
 export const DeliveryForm = ({
   storeId,
   delivery,
-  onDone,
+  onSubmit,
 }: DeliveryFormProps) => {
-  const [externalState, setExternalState] = useState<Partial<Delivery> | null>(
-    delivery,
-  );
   const { t } = useTranslation();
-
-  useEffect(() => {
-    if (!delivery) {
-      setExternalState({ forStore: storeId });
-    } else {
-      setExternalState(delivery);
-    }
-  }, [delivery, storeId]);
+  const [deliveryFormData, setDeliveryFormData] = hooks.useFormState<Delivery>(
+    delivery,
+    {
+      forStore: storeId,
+    },
+    [delivery, storeId],
+  );
 
   return (
-    <Form
-      labelCol={{
-        xs: { span: 24 },
-        md: { span: 6 },
-      }}
-      wrapperCol={{
-        xs: { span: 24 },
-        md: { span: 12 },
-      }}
-      layout='horizontal'
-      colon={false}
-      onFormCompleted={onDone}
-      externalState={externalState}
-      validate={data => sdk.delivery.validate(data, Boolean(delivery))}
-      validateSingle={sdk.delivery.validateSingle}
-      getErrorMessage={(errorName, context) =>
-        t(`errors.${errorName}`, context)
-      }
+    <Flex
+      alignItems='center'
+      justifyContent='center'
+      flexDirection='column'
+      width={'100%'}
+      maxWidth={800}
+      minWidth={300}
+      mx='auto'
     >
-      <FormItem selector='method' label={t('delivery.deliveryMethod')}>
-        {(val, _onChange, onComplete) => (
-          <Select value={val} onChange={onComplete}>
-            {Object.values(sdk.delivery.DeliveryMethods).map(option => {
-              return (
-                <Option key={option} value={option}>
-                  {t(`deliveryMethods.${option}`)}
-                </Option>
-              );
-            })}
-          </Select>
-        )}
-      </FormItem>
-      <FormItem
-        extra={t('delivery.priceExplanation')}
-        selector='price'
-        parser={parsers.number}
-        label={t('common.price')}
-      >
-        {formInput({ placeholder: t('common.price'), addonBefore: 'Ден' })}
-      </FormItem>
+      <Box width='100%'>
+        <NewForm<Delivery>
+          schema={sdk.delivery.schema as any}
+          uiSchema={{
+            _id: {
+              'ui:widget': 'hidden',
+            },
+            createdAt: {
+              'ui:widget': 'hidden',
+            },
+            modifiedAt: {
+              'ui:widget': 'hidden',
+            },
+            forStore: {
+              'ui:widget': 'hidden',
+            },
 
-      <FormItem
-        extra={t('delivery.freeDeliveryExplanation')}
-        selector='freeDeliveryOver'
-        parser={parsers.number}
-        label={t('delivery.freeDelivery')}
-      >
-        {formInput({
-          placeholder: t('delivery.overPrice'),
-          addonBefore: 'Ден',
-        })}
-      </FormItem>
-
-      <Flex justifyContent='center' alignItems='center'>
-        <Button mr={2} type='primary' htmlType='submit' size='large'>
-          {delivery ? t('actions.update') : t('actions.save')}
-        </Button>
-      </Flex>
-    </Form>
+            method: {
+              'ui:title': t('delivery.deliveryMethod'),
+              'ui:widget': 'select',
+              'ui:options': {
+                customEnumOptions: Object.values(
+                  sdk.delivery.DeliveryMethods,
+                ).map(method => ({
+                  value: method,
+                  label: t(`deliveryMethods.${method}`),
+                })),
+              },
+            },
+            price: {
+              'ui:title': t('common.price'),
+              'ui:description': t('delivery.priceExplanation'),
+            },
+            freeDeliveryOver: {
+              'ui:title': t('delivery.freeDelivery'),
+              'ui:description': t('delivery.freeDeliveryExplanation'),
+            },
+          }}
+          onSubmit={onSubmit}
+          onChange={({ formData }) => setDeliveryFormData(formData)}
+          formData={deliveryFormData as Delivery}
+          getErrorMessage={(errorName, context) =>
+            t(`errors.${errorName}`, context)
+          }
+        >
+          <Button type='primary' htmlType='submit' size='large'>
+            {delivery ? t('actions.update') : t('actions.save')}
+          </Button>
+        </NewForm>
+      </Box>
+    </Flex>
   );
 };
