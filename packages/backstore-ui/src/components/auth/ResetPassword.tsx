@@ -15,12 +15,12 @@ export const ResetPassword = ({
   const [caller, showSpinner] = hooks.useCall();
   const dispatch = useDispatch();
 
-  const handleResetPasswordSubmitted = async (data: any) => {
+  const handleResetPasswordSubmitted = async ({ formData }: any) => {
     caller(
       sdk.user.patch(
         null,
-        { password: data.password },
-        { query: { email: data.email.toLowerCase(), resetToken } },
+        { password: formData.password },
+        { query: { email: formData.email.toLowerCase(), resetToken } },
       ),
       () => {
         message.success(t('auth.resetPasswordSuccess'));
@@ -33,10 +33,11 @@ export const ResetPassword = ({
     <Spin spinning={showSpinner}>
       <AuthBase>
         <ResetPasswordForm
+          schema={
+            sdk.utils.schema.pick(sdk.user.schema, ['email', 'password']) as any
+          }
           onLoginInstead={() => dispatch(goTo('/login'))}
-          onFormCompleted={handleResetPasswordSubmitted}
-          validate={(data: any) => sdk.user.validate(data, true)}
-          validateSingle={sdk.user.validateSingle}
+          onSubmit={handleResetPasswordSubmitted}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }

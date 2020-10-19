@@ -14,8 +14,8 @@ export const ForgotPassword = () => {
     false,
   );
 
-  const handleForgotPasswordSubmitted = async (data: any) => {
-    caller(sdk.authManagement.resetPassword(data.email.toLowerCase()), () =>
+  const handleForgotPasswordSubmitted = async ({ formData }: any) => {
+    caller(sdk.authManagement.resetPassword(formData.email.toLowerCase()), () =>
       setSubmitttedSuccessfully(true),
     );
   };
@@ -24,11 +24,10 @@ export const ForgotPassword = () => {
     <Spin spinning={showSpinner}>
       <AuthBase>
         <ForgotPasswordForm
+          schema={sdk.utils.schema.pick(sdk.user.schema, ['email'])}
           hasSubmitted={submittedSuccessfully}
           onLoginInstead={() => dispatch(goTo('/login'))}
-          onFormCompleted={handleForgotPasswordSubmitted}
-          validate={(data: any) => sdk.authManagement.validate(data, true)}
-          validateSingle={sdk.authManagement.validateSingle}
+          onSubmit={handleForgotPasswordSubmitted}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }

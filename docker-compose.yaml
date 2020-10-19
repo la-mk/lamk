@@ -110,7 +110,7 @@ services:
         - GPR_TOKEN=$GPR_TOKEN
     container_name: data-api-dev
     volumes:
-      - ./packages/data-api:/usr/src/app:delegated
+      - ./packages/data-api:/usr/src/app:cached
       - data-api_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
@@ -164,7 +164,7 @@ services:
     depends_on:
       - data-api
     volumes:
-      - ./packages/store-ui:/usr/src/app:delegated
+      - ./packages/store-ui:/usr/src/app:cached
       - store-ui_node_modules:/usr/src/app/node_modules
     networks:
       - main-network
@@ -209,7 +209,7 @@ services:
     depends_on:
       - data-api
     volumes:
-      - ./packages/backstore-ui:/usr/src/app:delegated
+      - ./packages/backstore-ui:/usr/src/app:cached
       - backstore-ui_node_modules:/usr/src/app/node_modules
     networks:
       - main-network

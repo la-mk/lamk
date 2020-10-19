@@ -15,18 +15,22 @@ export const Login = () => {
     dispatch(login({ ...data, email: data.email?.toLowerCase() }, 'local'));
   };
 
+  const authSchema = sdk.utils.schema.pick(sdk.user.schema, [
+    'email',
+    'password',
+  ]);
+
   return (
     <AuthBase>
       <LoginForm
+        schema={authSchema}
         logoUrl='/logo-horizontal.svg'
         login={handleLogin}
-        validate={(data: Credentials) => sdk.user.validate(data as any, true)}
-        validateSingle={sdk.user.validateSingle}
+        onSignupNowClick={() => dispatch(goTo('/signup'))}
+        onForgotPasswordClick={() => dispatch(goTo('/forgotPassword'))}
         getErrorMessage={(errorName, context) =>
           t(`errors.${errorName}`, context)
         }
-        onSignupNowClick={() => dispatch(goTo('/signup'))}
-        onForgotPasswordClick={() => dispatch(goTo('/forgotPassword'))}
       />
     </AuthBase>
   );

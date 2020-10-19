@@ -120,24 +120,14 @@ export const Account = ({ user }: AccountProps) => {
         </TabPane>
         <TabPane pt={4} tab={t('common.password')} key='password'>
           <Spin spinning={showSpinner}>
-            <Flex
-              alignItems='center'
-              justifyContent='center'
-              flexDirection='column'
-              width={'100%'}
-              maxWidth={600}
-              minWidth={200}
-              mx='auto'
-            >
-              <ChangePasswordForm
-                schema={changePasswordSchema}
-                emphasized
-                onSubmit={handlePatchAccount}
-                getErrorMessage={(errorName, context) =>
-                  t(`errors.${errorName}`, context)
-                }
-              />
-            </Flex>
+            <ChangePasswordForm
+              schema={changePasswordSchema}
+              emphasized
+              onSubmit={handlePatchAccount}
+              getErrorMessage={(errorName, context) =>
+                t(`errors.${errorName}`, context)
+              }
+            />
           </Spin>
         </TabPane>
         <TabPane pt={4} tab={t('common.address_plural')} key='addresses'>

@@ -15,6 +15,11 @@ export const Signup = () => {
     dispatch(signup({ ...data, email: data.email?.toLowerCase() }, 'local'));
   };
 
+  const authSchema = sdk.utils.schema.pick(sdk.user.schema, [
+    'email',
+    'password',
+  ]);
+
   return (
     <AuthBase>
       {!env.ENABLE_SIGNUP && (
@@ -30,14 +35,13 @@ export const Signup = () => {
 
       {env.ENABLE_SIGNUP && (
         <SignupForm
+          schema={authSchema}
           logoUrl='/logo-horizontal.svg'
           signup={handleSignup}
-          validate={(data: Credentials) => sdk.user.validate(data as any, true)}
-          validateSingle={sdk.user.validateSingle}
+          onLoginNowClick={() => dispatch(goTo('/login'))}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }
-          onLoginNowClick={() => dispatch(goTo('/login'))}
         />
       )}
     </AuthBase>

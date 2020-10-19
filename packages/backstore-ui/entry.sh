@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# When we run `npm install` or `npm run dev` the user is switched to `nobody`, and it can't read package.json or package-lock.json as a consequence. For development we can just run with unsafe-perm;
+npm config set unsafe-perm true
+
 # Add any environment variables that you want to be available during runtime.
 RUNTIME_ENVVARS=$(cat <<RUNTIME_ENVVAR_TPL
 window._env.API_ENDPOINT = \'$REACT_APP_API_ENDPOINT\';

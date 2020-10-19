@@ -17,7 +17,7 @@ while [[ true ]]; do
         then 
           echo "Killing application and installing new dependencies...";
           pkill -f node;
-          npm install;
+          npm install --no-package-lock;
         fi
         echo "Starting application...";
         npm run dev &

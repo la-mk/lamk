@@ -1,17 +1,29 @@
+import pick from 'lodash/pick';
 import React from 'react';
-import { Spin, Flex, UserForm, hooks, message } from '@sradevski/blocks-ui';
+import {
+  Spin,
+  Flex,
+  hooks,
+  message,
+  Box,
+  NewForm,
+  Button,
+} from '@sradevski/blocks-ui';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { sdk } from '@sradevski/la-sdk';
 import { patchUser } from '../../../state/modules/user/user.module';
 import { TFunction } from 'i18next';
-import { pickDiff } from '../../../common/utils';
 
 export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
   const [caller, showSpinner] = hooks.useCall();
+  const [userFormData, setUserFormData] = hooks.useFormState<Partial<User>>(
+    pick(user, ['firstName', 'lastName', 'phoneNumber']),
+    {},
+    [user],
+  );
 
-  const handlePatchAccount = (updatedUser: User) => {
-    const updatedFields = pickDiff(user, updatedUser);
-    caller(sdk.user.patch(user._id, updatedFields), (user: User) => {
+  const handlePatchAccount = ({ formData }: { formData: Partial<User> }) => {
+    caller(sdk.user.patch(user._id, formData), (user: User) => {
       message.success(t('auth.accountUpdateSuccess'));
       return patchUser(user);
     });
@@ -19,6 +31,7 @@ export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
 
   return (
     <Spin spinning={showSpinner}>
+      {/* TODO: Add to blocks ui */}
       <Flex
         alignItems='center'
         justifyContent='center'
@@ -28,16 +41,45 @@ export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
         minWidth={200}
         mx='auto'
       >
-        <UserForm
-          size='large'
-          onFormCompleted={handlePatchAccount}
-          externalState={user}
-          validate={(data: any) => sdk.user.validate(data, true)}
-          validateSingle={sdk.user.validateSingle}
-          getErrorMessage={(errorName: any, context: any) =>
-            t(`errors.${errorName}`, context)
-          }
-        />
+        <Box width='100%'>
+          <NewForm<Pick<User, 'firstName' | 'lastName' | 'phoneNumber'>>
+            schema={sdk.utils.schema.pick(sdk.user.schema, [
+              'firstName',
+              'lastName',
+              'phoneNumber',
+            ])}
+            uiSchema={{
+              firstName: {
+                'ui:title': t('common.firstName'),
+                'ui:options': {
+                  emphasized: true,
+                },
+              },
+              lastName: {
+                'ui:title': t('common.lastName'),
+                'ui:options': {
+                  emphasized: true,
+                },
+              },
+              phoneNumber: {
+                'ui:title': t('common.phoneNumber'),
+                'ui:options': {
+                  emphasized: true,
+                },
+              },
+            }}
+            onSubmit={handlePatchAccount}
+            onChange={({ formData }) => setUserFormData(formData)}
+            formData={userFormData}
+            getErrorMessage={(errorName, context) =>
+              t(`errors.${errorName}`, context)
+            }
+          >
+            <Button width='100%' type='primary' htmlType='submit' size='large'>
+              {t('actions.update')}
+            </Button>
+          </NewForm>
+        </Box>
       </Flex>
     </Spin>
   );
