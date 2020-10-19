@@ -41,12 +41,14 @@ const TextWidget = ({
   return schema.type === 'number' || schema.type === 'integer' ? (
     <InputNumber
       {...defaultProps}
+      width="100%"
       onChange={!readonly ? handleNumberChange : undefined}
       type="number"
     />
   ) : (
     <Input
       {...defaultProps}
+      width="100%"
       type={(options.inputType as string) || 'text'}
       onChange={!readonly ? handleTextChange : undefined}
     />

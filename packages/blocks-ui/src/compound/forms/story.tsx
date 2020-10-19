@@ -55,12 +55,12 @@ storiesOf('Forms', module)
     const changePasswordSchema: FormProps<any>['schema'] = {
       type: 'object',
       additionalProperties: false,
-      required: ['currentPassword', 'newPassword'],
+      required: ['currentPassword', 'password'],
       properties: {
         currentPassword: {
           type: 'string',
         },
-        newPassword: {
+        password: {
           type: 'string',
         },
       },
