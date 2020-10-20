@@ -27,8 +27,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
         flexDirection={responsive ? 'row' : 'column'}
         flexWrap={responsive ? 'wrap' : 'nowrap'}
       >
-        {props.properties.map((prop: any) => (
-          <Box>{prop.content}</Box>
+        {props.properties.map((prop: any, i) => (
+          <Box key={i}>{prop.content}</Box>
         ))}
       </Flex>
     </section>

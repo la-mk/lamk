@@ -53,6 +53,8 @@ export const NewForm = <T extends any>({
 
   return (
     <Form
+      customFormats={{ hexColor: /^#[0-9A-F]{6}$/i }}
+      omitExtraData
       showErrorList={false}
       noHtml5Validate={true}
       onSubmit={({ formData, ...rest }) => {

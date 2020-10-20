@@ -12,6 +12,7 @@ export { Card, CardMeta } from './basic/Card';
 export { Cascader } from './basic/Cascader';
 export { Checkbox, CheckboxGroup } from './basic/Checkbox';
 export { Collapse, CollapsePanel } from './basic/Collapse';
+export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
 export {
   DatePicker,
   RangePicker,

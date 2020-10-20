@@ -38,6 +38,10 @@ export const schema: any = {
           minLength: 2,
           maxLength: 4095,
         },
+        color: {
+          type: 'string',
+          format: 'hexColor',
+        },
         sets: {
           type: 'array',
           maxItems: 12,
@@ -98,6 +102,9 @@ const uiSchema = {
   landing: {
     banner: {
       'ui:title': 'Banner',
+    },
+    color: {
+      'ui:widget': 'color',
     },
     sets: {
       'ui:title': 'Product sets',
