@@ -22,6 +22,8 @@ interface LocalizationContext {
   or?: string;
   authSameAccount?: string;
   update?: string;
+  upload?: string;
+  uploadHint?: string;
 }
 
 export const LocalizationContext = React.createContext<LocalizationContext>({});

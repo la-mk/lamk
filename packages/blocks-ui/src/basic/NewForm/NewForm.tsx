@@ -4,8 +4,9 @@ import fields from './fields';
 import widgets from './widgets';
 import templates from './templates';
 import { Flex } from '../Flex';
+import { FormContext, FormContextProps } from './Context';
 
-export interface FormProps<T> extends RjsfFormProps<T> {
+export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
 }
 
@@ -30,8 +31,9 @@ const recursiveSetUndefinedToValue = (data: any, value: any = null) => {
 
 export const NewForm = <T extends any>({
   children,
-  getErrorMessage,
   onSubmit,
+  getErrorMessage,
+  imageUpload,
   ...props
 }: FormProps<T>) => {
   const transformErrors = (errors: AjvError[]) => {
@@ -52,30 +54,32 @@ export const NewForm = <T extends any>({
   };
 
   return (
-    <Form
-      customFormats={{ hexColor: /^#[0-9A-F]{6}$/i }}
-      omitExtraData
-      showErrorList={false}
-      noHtml5Validate={true}
-      onSubmit={({ formData, ...rest }) => {
-        if (!onSubmit) {
-          return;
-        }
+    <FormContext.Provider value={{ imageUpload }}>
+      <Form
+        customFormats={{ hexColor: /^#[0-9A-F]{6}$/i }}
+        omitExtraData
+        showErrorList={false}
+        noHtml5Validate={true}
+        onSubmit={({ formData, ...rest }) => {
+          if (!onSubmit) {
+            return;
+          }
 
-        return onSubmit({
-          formData: recursiveSetUndefinedToValue(formData),
-          ...rest,
-        });
-      }}
-      {...props}
-      {...templates}
-      fields={fields}
-      widgets={widgets}
-      transformErrors={transformErrors}
-    >
-      <Flex mt={3} justifyContent="center" alignItems="center">
-        {children}
-      </Flex>
-    </Form>
+          return onSubmit({
+            formData: recursiveSetUndefinedToValue(formData),
+            ...rest,
+          });
+        }}
+        {...props}
+        {...templates}
+        fields={fields}
+        widgets={widgets}
+        transformErrors={transformErrors}
+      >
+        <Flex mt={3} justifyContent="center" alignItems="center">
+          {children}
+        </Flex>
+      </Form>
+    </FormContext.Provider>
   );
 };

@@ -31,6 +31,7 @@ export { NewForm } from './basic/NewForm/NewForm';
 export { Row, Col } from './basic/Grid';
 export { Image } from './basic/Image/Image';
 export { ImageMagnifier } from './basic/Image/ImageMagnifier';
+export { ImageUploader, ImageUploaderProps } from './basic/ImageUploader';
 export { Input, InputGroup, TextArea, Password, Search } from './basic/Input';
 export { InputNumber } from './basic/InputNumber';
 export { Layout, Header, Footer, Sider, Content } from './basic/Layout';
