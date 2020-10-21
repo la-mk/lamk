@@ -26,6 +26,9 @@ export const schema: any = {
         },
       },
     },
+    isPromoted: {
+      type: 'boolean',
+    },
     landing: {
       nullable: true,
       type: 'object',
@@ -99,10 +102,16 @@ const uiSchema = {
       },
     },
   },
+  isPromoted: {
+    'ui:options': {
+      label: 'Is promoted?',
+    },
+  },
   landing: {
     banner: {
       'ui:title': 'Banner',
     },
+
     color: {
       'ui:widget': 'color',
     },
