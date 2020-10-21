@@ -40,7 +40,6 @@ export interface ValidationErrorResponse {
   [key: string]: SingleValidationErrorResponse | ValidationErrorResponse;
 }
 
-
 export interface FormHandlers {
   onInputChanged?: (state: any, val: any, selector: string) => void;
   onInputCompleted?: (state: any, val: any, selector: string) => void;

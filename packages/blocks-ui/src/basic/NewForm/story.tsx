@@ -69,6 +69,7 @@ export const schema: any = {
                 enum: ['group', 'category'],
                 minLength: 2,
                 maxLength: 127,
+                default: 'group',
               },
               value: {
                 type: 'string',
@@ -118,6 +119,7 @@ const uiSchema = {
     sets: {
       'ui:title': 'Product sets',
       'ui:description': 'The sets that should be shown in the home page',
+      'ui:widget': 'tabs',
       items: {
         title: {
           'ui:title': 'Set title',

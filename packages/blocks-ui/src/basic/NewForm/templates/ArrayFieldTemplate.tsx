@@ -9,6 +9,7 @@ import { ArrayFieldTemplateProps } from '@rjsf/core';
 import { Flex } from '../../Flex';
 import { Box } from '../../Box';
 import { Button } from '../../Button';
+import { Tabs, TabPane } from '../../Tabs';
 
 interface ArrayFieldTitleProps {
   TitleField: ArrayFieldTemplateProps['TitleField'];
@@ -48,86 +49,156 @@ const ArrayFieldDescription = ({
   return <DescriptionField id={id} description={description} />;
 };
 
-export default (props: ArrayFieldTemplateProps) => {
-  const orderable = props.uiSchema['ui:options']?.orderable ?? true;
+export default ({
+  TitleField,
+  DescriptionField,
+  idSchema,
+  uiSchema,
+  title,
+  required,
+  items,
+  canAdd,
+  onAddClick,
+  schema,
+}: ArrayFieldTemplateProps) => {
+  const orderable = uiSchema['ui:options']?.orderable ?? true;
+  const hidden = uiSchema['ui:widget'] === 'hidden';
+  const asTabs = uiSchema['ui:widget'] === 'tabs';
+  const { minItems = 0, maxItems = Number.POSITIVE_INFINITY } = schema;
+  const [activeItem, setActiveItem] = React.useState('0');
+
+  if (hidden) {
+    return null;
+  }
+
+  const onEdit = (
+    targetKey: React.MouseEvent | React.KeyboardEvent | string,
+    action: 'add' | 'remove'
+  ) => {
+    switch (action) {
+      case 'add': {
+        onAddClick();
+        setActiveItem(items.length.toString());
+        return;
+      }
+
+      case 'remove': {
+        const item = items[parseInt(targetKey as string)];
+        if (!item) {
+          return;
+        }
+
+        item.onDropIndexClick(item.index)();
+        setActiveItem(Math.max(item.index - 1, 0).toString());
+      }
+    }
+  };
 
   return (
-    <div className={props.uiSchema.classNames}>
+    <div>
       <ArrayFieldTitle
-        TitleField={props.TitleField}
-        idSchema={props.idSchema}
-        title={props.uiSchema['ui:title'] || props.title}
-        required={props.required}
+        TitleField={TitleField}
+        idSchema={idSchema}
+        title={uiSchema['ui:title']}
+        required={required}
       />
 
       <ArrayFieldDescription
-        DescriptionField={props.DescriptionField}
-        idSchema={props.idSchema}
-        description={
-          props.uiSchema['ui:description'] || props.schema.description
-        }
+        DescriptionField={DescriptionField}
+        idSchema={idSchema}
+        description={uiSchema['ui:description']}
       />
 
-      {props.items.map(element => {
-        return (
-          <div key={element.index}>
-            <Flex alignItems="flex-start">
-              <Box flex="1">{element.children}</Box>
-              <Box>
-                {orderable && props.items.length > 1 && (
-                  <Button
-                    py={1}
-                    px={2}
-                    disabled={
-                      element.disabled || element.readonly || !element.hasMoveUp
-                    }
-                    onClick={element.onReorderClick(
-                      element.index,
-                      element.index - 1
+      {asTabs && (
+        <Tabs
+          activeKey={activeItem}
+          onChange={setActiveItem}
+          type="editable-card"
+          onEdit={onEdit}
+          hideAdd={items.length >= maxItems}
+        >
+          {items.map((entry, index) => {
+            // const title = getItemTitle(entry, context.state);
+            return (
+              <TabPane
+                disabled={entry.disabled || entry.readonly}
+                tab={title}
+                key={index.toString()}
+                closable={index >= minItems}
+              >
+                {entry.children}
+              </TabPane>
+            );
+          })}
+        </Tabs>
+      )}
+
+      {!asTabs && (
+        <>
+          {items.map(element => {
+            return (
+              <div key={element.index}>
+                <Flex alignItems="flex-start">
+                  <Box flex="1">{element.children}</Box>
+                  <Box>
+                    {orderable && items.length > 1 && (
+                      <Button
+                        py={1}
+                        px={2}
+                        disabled={
+                          element.disabled ||
+                          element.readonly ||
+                          !element.hasMoveUp
+                        }
+                        onClick={element.onReorderClick(
+                          element.index,
+                          element.index - 1
+                        )}
+                      >
+                        <ArrowUpOutlined />
+                      </Button>
                     )}
-                  >
-                    <ArrowUpOutlined />
-                  </Button>
-                )}
 
-                {orderable && props.items.length > 1 && (
-                  <Button
-                    py={1}
-                    px={2}
-                    disabled={
-                      element.disabled ||
-                      element.readonly ||
-                      !element.hasMoveDown
-                    }
-                    onClick={element.onReorderClick(
-                      element.index,
-                      element.index + 1
+                    {orderable && items.length > 1 && (
+                      <Button
+                        py={1}
+                        px={2}
+                        disabled={
+                          element.disabled ||
+                          element.readonly ||
+                          !element.hasMoveDown
+                        }
+                        onClick={element.onReorderClick(
+                          element.index,
+                          element.index + 1
+                        )}
+                      >
+                        <ArrowDownOutlined />
+                      </Button>
                     )}
-                  >
-                    <ArrowDownOutlined />
-                  </Button>
-                )}
 
-                {element.hasRemove && (
-                  <Button
-                    py={1}
-                    px={2}
-                    disabled={element.disabled || element.readonly}
-                    onClick={element.onDropIndexClick(element.index)}
-                  >
-                    <DeleteOutlined />
-                  </Button>
-                )}
-              </Box>
-            </Flex>
-          </div>
-        );
-      })}
+                    {element.hasRemove && (
+                      <Button
+                        py={1}
+                        px={2}
+                        disabled={element.disabled || element.readonly}
+                        onClick={element.onDropIndexClick(element.index)}
+                      >
+                        <DeleteOutlined />
+                      </Button>
+                    )}
+                  </Box>
+                </Flex>
+              </div>
+            );
+          })}
 
-      {props.canAdd && (
-        <Button mt={3} onClick={props.onAddClick}>
-          <PlusOutlined />
-        </Button>
+          {canAdd && (
+            <Button mt={3} onClick={onAddClick}>
+              <PlusOutlined />
+            </Button>
+          )}
+        </>
       )}
     </div>
   );
