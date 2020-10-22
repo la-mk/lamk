@@ -19,39 +19,59 @@ export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
   type: 'object',
   additionalProperties: false,
   required: ['name'],
+  // @ts-ignore the typings don't understand dependencies
   properties: {
     name: {
       type: 'string',
       enum: Object.values(PaymentMethodNames),
     },
-    processor: {
-      nullable: true,
-      type: 'string',
-      enum: Object.values(PaymentProcessors),
-    },
-    clientId: {
-      nullable: true,
-      type: 'string',
-      minLength: 2,
-      maxLength: 63,
-    },
-    clientKey: {
-      nullable: true,
-      type: 'string',
-      minLength: 2,
-      maxLength: 63,
-    },
-    clientUsername: {
-      nullable: true,
-      type: 'string',
-      minLength: 2,
-      maxLength: 63,
-    },
-    clientPassword: {
-      nullable: true,
-      type: 'string',
-      minLength: 2,
-      maxLength: 63,
+  },
+
+  dependencies: {
+    // @ts-ignore the typings don't understand dependencies
+    name: {
+      oneOf: Object.values(PaymentMethodNames).map(name => {
+        return {
+          properties: {
+            name: {
+              enum: [name],
+            },
+            ...(name === PaymentMethodNames.PAY_ON_DELIVERY
+              ? {}
+              : {
+                  processor: {
+                    nullable: true,
+                    type: 'string',
+                    enum: Object.values(PaymentProcessors),
+                  },
+                  clientId: {
+                    nullable: true,
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 63,
+                  },
+                  clientKey: {
+                    nullable: true,
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 63,
+                  },
+                  clientUsername: {
+                    nullable: true,
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 63,
+                  },
+                  clientPassword: {
+                    nullable: true,
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 63,
+                  },
+                }),
+          },
+        };
+      }),
     },
   },
 };
