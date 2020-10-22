@@ -29,20 +29,29 @@ export const orderStatusColor: { [key in OrderStatus]: string } = {
   [OrderStatus.COMPLETED]: '#4CD137',
 };
 
-
 export const schema: JSONSchemaType<Order> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
-  required: [...defaultSchemaEntries.required, 'orderedFrom', 'orderedBy', 'ordered', 'status', 'campaigns', 'delivery', 'deliverTo', 'paymentMethod'],
+  required: [
+    ...defaultSchemaEntries.required,
+    'orderedFrom',
+    'orderedBy',
+    'ordered',
+    'status',
+    'campaigns',
+    'delivery',
+    'deliverTo',
+    'paymentMethod',
+  ],
   properties: {
     ...defaultSchemaEntries.properties!,
     orderedFrom: {
       type: 'string',
-      format: 'uuid'
+      format: 'uuid',
     },
     orderedBy: {
       type: 'string',
-      format: 'uuid'
+      format: 'uuid',
     },
     ordered: {
       type: 'array',
@@ -54,32 +63,33 @@ export const schema: JSONSchemaType<Order> = {
           product: orderProductSchema as any,
           quantity: {
             type: 'integer',
-            minimum: 1
-          }
-        }
-      }
+            minimum: 1,
+          },
+        },
+      },
     },
     status: {
       type: 'string',
-      enum: Object.values(OrderStatus)
+      enum: Object.values(OrderStatus),
     },
     campaigns: {
       type: 'array',
-      items: campaignSchema
+      items: campaignSchema,
     },
     delivery: deliverySchema,
     deliverTo: addressSchema as any,
     paymentMethod: {
       type: 'string',
-      enum: Object.values(PaymentMethodNames)
+      enum: Object.values(PaymentMethodNames),
+      default: PaymentMethodNames.CREDIT_CARD,
     },
     // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
     calculatedTotal: {
       type: 'number',
-      exclusiveMinimum: 0
-    }
-  }
-}
+      exclusiveMinimum: 0,
+    },
+  },
+};
 
 export interface OrderItem {
   // We want to store a variant of the actual product, so if the product is modified they can still see the exact thing that was ordered
@@ -144,6 +154,6 @@ export const getOrderSdk = (client: Application) => {
 
     OrderStatus,
     orderStatusColor,
-    schema
+    schema,
   };
 };

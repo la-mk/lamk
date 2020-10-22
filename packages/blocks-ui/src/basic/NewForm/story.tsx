@@ -1,4 +1,6 @@
 import { storiesOf } from '@storybook/react';
+import { Flex } from '../Flex';
+import { TextArea } from '../Input';
 import * as React from 'react';
 import { Provider } from '../Provider';
 import { NewForm } from './NewForm';
@@ -104,6 +106,7 @@ const uiSchema = {
     },
   },
   isPromoted: {
+    'ui:help': 'Choose whether to promote it or not',
     'ui:options': {
       label: 'Is promoted?',
     },
@@ -138,8 +141,34 @@ const uiSchema = {
   },
 };
 
-storiesOf('New Form', module).add('basic form', () => (
-  <Provider>
-    <NewForm schema={schema} uiSchema={uiSchema} getErrorMessage={() => ''} />
-  </Provider>
-));
+storiesOf('New Form', module)
+  .add('basic form', () => (
+    <Provider>
+      <NewForm schema={schema} uiSchema={uiSchema} getErrorMessage={() => ''} />
+    </Provider>
+  ))
+  .add('custom form', () => {
+    const [schema, setSchema] = React.useState('');
+    let parsedSchema = {};
+    try {
+      parsedSchema = eval(`(${schema})`);
+    } catch (e) {}
+
+    return (
+      <Provider>
+        <Flex flexDirection="row">
+          <TextArea
+            width="50%"
+            rows={12}
+            onChange={e => setSchema(e.target.value)}
+            value={schema}
+          />
+          <NewForm
+            schema={parsedSchema}
+            uiSchema={{}}
+            getErrorMessage={() => ''}
+          />
+        </Flex>
+      </Provider>
+    );
+  });

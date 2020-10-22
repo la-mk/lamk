@@ -20,68 +20,135 @@ export enum ProductRuleTypes {
   GROUP = 'group',
 }
 
-
 export const schema: JSONSchemaType<Campaign> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
-  required: [...defaultSchemaEntries.required, 'forStore', 'name', 'isActive', 'isPromoted', 'type', 'reward', 'productRules'],
+  required: [
+    ...defaultSchemaEntries.required,
+    'forStore',
+    'name',
+    'isActive',
+    'isPromoted',
+    'type',
+    'reward',
+    'productRules',
+  ],
   properties: {
     ...defaultSchemaEntries.properties!,
     forStore: {
       type: 'string',
-      format: 'uuid'
+      format: 'uuid',
     },
     name: {
       type: 'string',
       minLength: 2,
-      maxLength: 255
+      maxLength: 255,
     },
     isActive: {
-      type: 'boolean'
+      type: 'boolean',
+      default: false,
     },
     isPromoted: {
-      type: 'boolean'
+      type: 'boolean',
+      default: false,
     },
     type: {
       type: 'string',
-      enum: Object.values(CampaignTypes)
+      enum: Object.values(CampaignTypes),
+      default: CampaignTypes.CART_DISCOUNT,
     },
     reward: {
       type: 'object',
       additionalProperties: false,
       required: ['type', 'value'],
+      // @ts-ignore the typings don't understand dependencies
       properties: {
         type: {
           type: 'string',
-          enum: Object.values(RewardTypes)
+          enum: Object.values(RewardTypes),
+          default: RewardTypes.PERCENTAGE_DISCOUNT,
         },
-        value: {
-          type: 'number',
-          exclusiveMinimum: 0,
-        }
-      }
+      },
+      dependencies: {
+        // @ts-ignore the typings don't understand dependencies
+        type: {
+          oneOf: Object.values(RewardTypes).map(type => {
+            return {
+              properties: {
+                type: {
+                  enum: [type],
+                },
+                ...(type === RewardTypes.PERCENTAGE_DISCOUNT
+                  ? {
+                      value: {
+                        type: 'number',
+                        exclusiveMinimum: 0,
+                        exclusiveMaximum: 100,
+                      },
+                    }
+                  : {
+                      value: {
+                        type: 'number',
+                        exclusiveMinimum: 0,
+                      },
+                    }),
+              },
+            };
+          }),
+        },
+      },
     },
     productRules: {
       type: 'array',
+      // For now we only allow a single rule
+      minItems: 1,
+      maxItems: 1,
       items: {
         type: 'object',
         additionalProperties: false,
         required: ['type', 'value'],
+        // @ts-ignore the typings don't understand dependencies
         properties: {
           type: {
             type: 'string',
-            enum: Object.values(ProductRuleTypes)
+            enum: Object.values(ProductRuleTypes),
+            default: ProductRuleTypes.ALL,
           },
-          value: {
-            type: 'string',
-            minLength: 2,
-            maxLength: 127,
-          }
-        }
-      }
-    }
-  }
-}
+        },
+        dependencies: {
+          // @ts-ignore the typings don't understand dependencies
+          type: {
+            oneOf: Object.values(ProductRuleTypes).map(type => {
+              return {
+                properties: {
+                  type: {
+                    enum: [type],
+                  },
+                  ...(type === ProductRuleTypes.ALL
+                    ? {
+                        value: {
+                          type: 'string',
+                          minLength: 2,
+                          maxLength: 127,
+                          enum: ['all'],
+                        },
+                      }
+                    : {
+                        value: {
+                          type: 'string',
+                          minLength: 2,
+                          maxLength: 127,
+                        },
+                      }),
+                },
+              };
+            }),
+          },
+        },
+      },
+    },
+  },
+};
 
 export interface Campaign extends DefaultSchema {
   forStore: string;
@@ -136,6 +203,6 @@ export const getCampaignSdk = (client: Application) => {
     RewardTypes,
     CampaignTypes,
     ProductRuleTypes,
-    schema
+    schema,
   };
 };

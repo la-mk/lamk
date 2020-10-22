@@ -9,6 +9,7 @@ export default ({
   description,
   displayLabel,
   rawErrors,
+  rawHelp,
   hidden,
   label,
 }: FieldTemplateProps) => {
@@ -21,9 +22,19 @@ export default ({
       {displayLabel ? label : null}
       {displayLabel && description ? description : null}
       {children}
-      <Text fontSize={0} color="danger">
-        {rawErrors?.[0]}
-      </Text>
+      <Box>
+        {rawErrors?.[0] && (
+          <Text fontSize={0} color="danger">
+            {rawErrors?.[0]}
+          </Text>
+        )}
+
+        {!rawErrors?.[0] && rawHelp && (
+          <Text fontSize={0} color="mutedText.dark">
+            {rawHelp}
+          </Text>
+        )}
+      </Box>
     </Box>
   );
 };

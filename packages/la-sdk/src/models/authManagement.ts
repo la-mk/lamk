@@ -7,14 +7,14 @@ import pick from 'lodash/pick';
 import { JSONSchemaType } from 'ajv';
 
 export const schema: JSONSchemaType<AuthManagement> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
   required: [...defaultSchemaEntries.required, 'email'],
   properties: {
     ...defaultSchemaEntries.properties!,
     email: {
       type: 'string',
-      format: 'email'
+      format: 'email',
     },
     verifyToken: {
       nullable: true,
@@ -38,7 +38,7 @@ export const schema: JSONSchemaType<AuthManagement> = {
       type: 'string',
       format: 'date-time',
     },
-  }
+  },
 };
 
 export interface AuthManagement extends DefaultSchema {
@@ -63,7 +63,11 @@ export const getAuthManagementSdk = (client: Application) => {
 
     resetPassword: (email: string, storeId?: string) => {
       // The actual tokens are created on the server side, so we just send one so we know what we want to patch
-      return crudMethods.patch(null, {resetToken: '!'}, { query: { email, storeId } });
+      return crudMethods.patch(
+        null,
+        { resetToken: '!' },
+        { query: { email, storeId } }
+      );
     },
 
     validate: (data: AuthManagement, ignoreRequired = false) => {
@@ -72,6 +76,6 @@ export const getAuthManagementSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
-    schema
+    schema,
   };
 };

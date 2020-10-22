@@ -25,6 +25,7 @@ export const schema: JSONSchemaType<Delivery> = {
     method: {
       type: 'string',
       enum: Object.values(DeliveryMethods),
+      default: DeliveryMethods.DOOR_TO_DOOR
     },
     price: {
       type: 'number',

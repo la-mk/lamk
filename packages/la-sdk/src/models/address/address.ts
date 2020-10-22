@@ -36,6 +36,8 @@ export const schema: JSONSchemaType<Address> = {
       type: 'string',
       minLength: 2,
       maxLength: 255,
+      enum: ['MK'],
+      default: 'MK',
     },
     region: {
       nullable: true,

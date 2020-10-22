@@ -35,6 +35,7 @@ export const schema: JSONSchemaType<Store> = {
     color: {
       type: 'string',
       format: 'hexColor',
+      default: '#7859d1',
     },
     slogan: {
       nullable: true,

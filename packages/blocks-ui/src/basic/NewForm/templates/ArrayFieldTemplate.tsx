@@ -137,63 +137,60 @@ export default ({
         <>
           {items.map(element => {
             return (
-              <div key={element.index}>
-                <Flex alignItems="flex-start">
-                  <Box flex="1">{element.children}</Box>
-                  <Box>
-                    {orderable && items.length > 1 && (
-                      <Button
-                        py={1}
-                        px={2}
-                        disabled={
-                          element.disabled ||
-                          element.readonly ||
-                          !element.hasMoveUp
-                        }
-                        onClick={element.onReorderClick(
-                          element.index,
-                          element.index - 1
-                        )}
-                      >
-                        <ArrowUpOutlined />
-                      </Button>
-                    )}
+              <Flex key={element.index} flexDirection="row" alignItems="center">
+                <Box mr={2} flex="1">
+                  {element.children}
+                </Box>
+                <Flex ml={2} alignItems="center" justifyContent="center">
+                  {orderable && items.length > 1 && (
+                    <Button
+                      mx={1}
+                      disabled={
+                        element.disabled ||
+                        element.readonly ||
+                        !element.hasMoveUp
+                      }
+                      onClick={element.onReorderClick(
+                        element.index,
+                        element.index - 1
+                      )}
+                    >
+                      <ArrowUpOutlined />
+                    </Button>
+                  )}
 
-                    {orderable && items.length > 1 && (
-                      <Button
-                        py={1}
-                        px={2}
-                        disabled={
-                          element.disabled ||
-                          element.readonly ||
-                          !element.hasMoveDown
-                        }
-                        onClick={element.onReorderClick(
-                          element.index,
-                          element.index + 1
-                        )}
-                      >
-                        <ArrowDownOutlined />
-                      </Button>
-                    )}
+                  {orderable && items.length > 1 && (
+                    <Button
+                      mx={1}
+                      disabled={
+                        element.disabled ||
+                        element.readonly ||
+                        !element.hasMoveDown
+                      }
+                      onClick={element.onReorderClick(
+                        element.index,
+                        element.index + 1
+                      )}
+                    >
+                      <ArrowDownOutlined />
+                    </Button>
+                  )}
 
-                    {element.hasRemove && (
-                      <Button
-                        py={1}
-                        px={2}
-                        disabled={element.disabled || element.readonly}
-                        onClick={element.onDropIndexClick(element.index)}
-                      >
-                        <DeleteOutlined />
-                      </Button>
-                    )}
-                  </Box>
+                  {element.hasRemove && items.length > minItems && (
+                    <Button
+                      mx={1}
+                      disabled={element.disabled || element.readonly}
+                      onClick={element.onDropIndexClick(element.index)}
+                    >
+                      <DeleteOutlined />
+                    </Button>
+                  )}
                 </Flex>
-              </div>
+              </Flex>
             );
           })}
 
-          {canAdd && (
+          {canAdd && items.length < maxItems && (
             <Button mt={3} onClick={onAddClick}>
               <PlusOutlined />
             </Button>

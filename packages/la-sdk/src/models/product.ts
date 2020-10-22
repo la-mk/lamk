@@ -48,6 +48,7 @@ export const variantSchema: JSONSchemaType<Variant> = {
     price: {
       type: 'number',
       exclusiveMinimum: 0,
+      default: 0,
     },
     // Discount is always a value in the base currency, even if we allow the user to input in % (we can just convert to a currency value).
     discount: {
@@ -103,6 +104,7 @@ export const schema: JSONSchemaType<Product> = {
     unit: {
       type: 'string',
       enum: Object.values(ProductUnit),
+      default: ProductUnit.ITEM,
     },
     images: {
       type: 'array',
