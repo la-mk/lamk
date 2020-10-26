@@ -438,9 +438,11 @@
     "returnPolicyExplanation": "Return what you don't like, risk-free"
   },
   "sets": {
+    "sets": "Sets",
     "setTitle": "Set title",
     "setSubtitle": "Set subtitle",
     "setType": "Set type",
+    "value": "Value",
     "setPromoted": "Promoted"
   },
   "store": {

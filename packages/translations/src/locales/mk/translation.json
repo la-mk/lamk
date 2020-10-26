@@ -439,9 +439,11 @@
     "returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни"
   },
   "sets": {
+    "sets": "Сетови",
     "setTitle": "Наслов на сет",
     "setSubtitle": "Поднаслов на сет",
     "setType": "Тип на сет",
+    "value": "Вредност",
     "setPromoted": "Се промовира"
   },
   "store": {
