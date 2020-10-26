@@ -54,18 +54,23 @@ export default ({
   DescriptionField,
   idSchema,
   uiSchema,
-  title,
   required,
   items,
   canAdd,
   onAddClick,
   schema,
 }: ArrayFieldTemplateProps) => {
+  const [activeItem, setActiveItem] = React.useState('0');
   const orderable = uiSchema['ui:options']?.orderable ?? true;
   const hidden = uiSchema['ui:widget'] === 'hidden';
   const asTabs = uiSchema['ui:widget'] === 'tabs';
+
   const { minItems = 0, maxItems = Number.POSITIVE_INFINITY } = schema;
-  const [activeItem, setActiveItem] = React.useState('0');
+  const showSort = orderable && items.length > 1;
+  const showRemove = /*element.hasRemove  &&*/ items.length > minItems;
+  const showAdd = canAdd && items.length < maxItems;
+  const shouldShowActions = showSort || showRemove;
+  const itemTitles = uiSchema['ui:options']?.itemTitles as any[];
 
   if (hidden) {
     return null;
@@ -118,11 +123,10 @@ export default ({
           hideAdd={items.length >= maxItems}
         >
           {items.map((entry, index) => {
-            // const title = getItemTitle(entry, context.state);
             return (
               <TabPane
                 disabled={entry.disabled || entry.readonly}
-                tab={title}
+                tab={itemTitles?.[index] ?? index}
                 key={index.toString()}
                 closable={index >= minItems}
               >
@@ -137,60 +141,64 @@ export default ({
         <>
           {items.map(element => {
             return (
-              <Flex key={element.index} flexDirection="row" alignItems="center">
-                <Box mr={2} flex="1">
-                  {element.children}
-                </Box>
-                <Flex ml={2} alignItems="center" justifyContent="center">
-                  {orderable && items.length > 1 && (
-                    <Button
-                      mx={1}
-                      disabled={
-                        element.disabled ||
-                        element.readonly ||
-                        !element.hasMoveUp
-                      }
-                      onClick={element.onReorderClick(
-                        element.index,
-                        element.index - 1
-                      )}
-                    >
-                      <ArrowUpOutlined />
-                    </Button>
-                  )}
+              <Flex
+                key={element.index}
+                flexDirection="row"
+                alignItems="flex-start"
+              >
+                <Box flex="1">{element.children}</Box>
+                {shouldShowActions && (
+                  <Flex ml={3} alignItems="center" justifyContent="center">
+                    {showSort && (
+                      <Button
+                        mx={1}
+                        disabled={
+                          element.disabled ||
+                          element.readonly ||
+                          !element.hasMoveUp
+                        }
+                        onClick={element.onReorderClick(
+                          element.index,
+                          element.index - 1
+                        )}
+                      >
+                        <ArrowUpOutlined />
+                      </Button>
+                    )}
 
-                  {orderable && items.length > 1 && (
-                    <Button
-                      mx={1}
-                      disabled={
-                        element.disabled ||
-                        element.readonly ||
-                        !element.hasMoveDown
-                      }
-                      onClick={element.onReorderClick(
-                        element.index,
-                        element.index + 1
-                      )}
-                    >
-                      <ArrowDownOutlined />
-                    </Button>
-                  )}
+                    {showSort && (
+                      <Button
+                        mx={1}
+                        disabled={
+                          element.disabled ||
+                          element.readonly ||
+                          !element.hasMoveDown
+                        }
+                        onClick={element.onReorderClick(
+                          element.index,
+                          element.index + 1
+                        )}
+                      >
+                        <ArrowDownOutlined />
+                      </Button>
+                    )}
 
-                  {element.hasRemove && items.length > minItems && (
-                    <Button
-                      mx={1}
-                      disabled={element.disabled || element.readonly}
-                      onClick={element.onDropIndexClick(element.index)}
-                    >
-                      <DeleteOutlined />
-                    </Button>
-                  )}
-                </Flex>
+                    {showRemove && (
+                      <Button
+                        mx={1}
+                        disabled={element.disabled || element.readonly}
+                        onClick={element.onDropIndexClick(element.index)}
+                      >
+                        <DeleteOutlined />
+                      </Button>
+                    )}
+                  </Flex>
+                )}
               </Flex>
             );
           })}
 
-          {canAdd && items.length < maxItems && (
+          {showAdd && (
             <Button mt={3} onClick={onAddClick}>
               <PlusOutlined />
             </Button>

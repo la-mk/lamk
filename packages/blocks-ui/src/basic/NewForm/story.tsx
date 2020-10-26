@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import { Flex } from '../Flex';
+import { Box } from '../Box';
 import { TextArea } from '../Input';
 import * as React from 'react';
 import { Provider } from '../Provider';
@@ -123,6 +124,9 @@ const uiSchema = {
       'ui:title': 'Product sets',
       'ui:description': 'The sets that should be shown in the home page',
       'ui:widget': 'tabs',
+      'ui:options': {
+        itemTitles: ['Hey', <strong>There</strong>],
+      },
       items: {
         title: {
           'ui:title': 'Set title',
@@ -149,26 +153,54 @@ storiesOf('New Form', module)
   ))
   .add('custom form', () => {
     const [schema, setSchema] = React.useState('');
+    const [uiSchema, setUiSchema] = React.useState('');
+    const [data, setData] = React.useState();
+
     let parsedSchema = {};
+    let parsedUiSchema = {};
     try {
       parsedSchema = eval(`(${schema})`);
+      parsedUiSchema = eval(`(${uiSchema})`);
     } catch (e) {}
 
     return (
       <Provider>
-        <Flex flexDirection="row">
-          <TextArea
-            width="50%"
-            rows={12}
-            onChange={e => setSchema(e.target.value)}
-            value={schema}
-          />
+        <>
+          <Flex mb={4} flexDirection="row">
+            <Box mr={3} flex={1}>
+              <p>Schema</p>
+              <TextArea
+                rows={12}
+                onChange={e => setSchema(e.target.value)}
+                value={schema}
+              />
+            </Box>
+            <Box ml={3} flex={1}>
+              <p>UI Schema</p>
+              <TextArea
+                rows={12}
+                onChange={e => setUiSchema(e.target.value)}
+                value={uiSchema}
+              />
+            </Box>
+            <Box ml={3} flex={1}>
+              <p>Data</p>
+              <TextArea rows={12} value={JSON.stringify(data ?? {}, null, 2)} />
+            </Box>
+          </Flex>
           <NewForm
+            imageUpload={{
+              getImageUrl: () => 'hey',
+              uploadImage: () => Promise.resolve(),
+              removeImage: () => Promise.resolve(),
+            }}
             schema={parsedSchema}
-            uiSchema={{}}
+            uiSchema={parsedUiSchema}
+            formData={data}
+            onChange={({ formData }) => setData(formData)}
             getErrorMessage={() => ''}
           />
-        </Flex>
+        </>
       </Provider>
     );
   });
