@@ -40,31 +40,26 @@ export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
               ? {}
               : {
                   processor: {
-                    nullable: true,
-                    type: 'string',
+                    type: ['string', 'null'],
                     enum: Object.values(PaymentProcessors),
                   },
                   clientId: {
-                    nullable: true,
-                    type: 'string',
+                    type: ['string', 'null'],
                     minLength: 2,
                     maxLength: 63,
                   },
                   clientKey: {
-                    nullable: true,
-                    type: 'string',
+                    type: ['string', 'null'],
                     minLength: 2,
                     maxLength: 63,
                   },
                   clientUsername: {
-                    nullable: true,
-                    type: 'string',
+                    type: ['string', 'null'],
                     minLength: 2,
                     maxLength: 63,
                   },
                   clientPassword: {
-                    nullable: true,
-                    type: 'string',
+                    type: ['string', 'null'],
                     minLength: 2,
                     maxLength: 63,
                   },

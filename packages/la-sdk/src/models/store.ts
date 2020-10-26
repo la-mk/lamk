@@ -38,20 +38,20 @@ export const schema: JSONSchemaType<Store> = {
       default: '#7859d1',
     },
     slogan: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,
     },
     customDomain: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 511,
     },
     company: {
-      nullable: true,
-      type: 'object',
+      // @ts-ignore the typings are wrong
+      type: ['object', 'null'],
       additionalProperties: false,
       required: [
         'companyName',
@@ -83,8 +83,8 @@ export const schema: JSONSchemaType<Store> = {
       },
     },
     contact: {
-      nullable: true,
-      type: 'object',
+      // @ts-ignore the typings are wrong
+      type: ['object', 'null'],
       additionalProperties: false,
       required: ['email', 'phoneNumber'],
       properties: {
@@ -98,16 +98,16 @@ export const schema: JSONSchemaType<Store> = {
           maxLength: 63,
         },
         alternatePhoneNumber: {
-          nullable: true,
-          type: 'string',
+          // @ts-ignore the typings are wrong
+          type: ['string', 'null'],
           minLength: 4,
           maxLength: 63,
         },
       },
     },
     logo: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 4095,
     },

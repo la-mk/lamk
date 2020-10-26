@@ -27,13 +27,13 @@ export const attributesSchema: JSONSchemaType<Attributes> = {
   required: [],
   properties: {
     color: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       format: 'hexColor',
     },
     size: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 1,
       maxLength: 31,
     },
@@ -52,26 +52,26 @@ export const variantSchema: JSONSchemaType<Variant> = {
     },
     // Discount is always a value in the base currency, even if we allow the user to input in % (we can just convert to a currency value).
     discount: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       minimum: 0,
     },
     // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
     calculatedPrice: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     attributes: attributesSchema as any,
     sku: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 63,
     },
     stock: {
-      nullable: true,
-      type: 'integer',
+      // @ts-ignore the typings are wrong
+      type: ['integer', 'null'],
       minimum: 0,
     },
   },
@@ -130,8 +130,8 @@ export const schema: JSONSchemaType<Product> = {
       maxLength: 255,
     },
     description: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 4095,
     },
@@ -146,43 +146,43 @@ export const schema: JSONSchemaType<Product> = {
 
     // The total stock of all variants
     totalStock: {
-      nullable: true,
-      type: 'integer',
+      // @ts-ignore the typings are wrong
+      type: ['integer', 'null'],
       minimum: 0,
     },
     // If variants have different prices, this is the minimum
     minPrice: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     // If variants have different prices, this is the maximum, otherwise min and max will be he same.
     maxPrice: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     // Same as min and max price
     minDiscount: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       minimum: 0,
     },
     // If variants have different prices, this is the maximum, otherwise min and max will be he same.
     maxDiscount: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       minimum: 0,
     },
     // Same as min and max price
     minCalculatedPrice: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     maxCalculatedPrice: {
-      nullable: true,
-      type: 'number',
+      // @ts-ignore the typings are wrong
+      type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
   },
@@ -444,6 +444,6 @@ export const getProductSdk = (client: Application) => {
     },
 
     ProductUnit,
-    schema
+    schema,
   };
 };

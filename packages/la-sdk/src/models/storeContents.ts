@@ -18,28 +18,28 @@ export const schema: JSONSchemaType<StoreContents> = {
       format: 'uuid',
     },
     aboutUs: {
-      nullable: true,
-      type: 'object',
+      // @ts-ignore the typings are wrong
+      type: ['object', 'null'],
       additionalProperties: false,
       required: [],
       properties: {
         description: {
-          nullable: true,
-          type: 'string',
+          // @ts-ignore the typings are wrong
+          type: ['string', 'null'],
           minLength: 2,
           maxLength: 65535,
         },
       },
     },
     landing: {
-      nullable: true,
-      type: 'object',
+      // @ts-ignore the typings are wrong
+      type: ['object', 'null'],
       additionalProperties: false,
       required: ['sets'],
       properties: {
         banner: {
-          nullable: true,
-          type: 'string',
+          // @ts-ignore the typings are wrong
+          type: ['string', 'null'],
           minLength: 2,
           maxLength: 4095,
         },
@@ -57,8 +57,8 @@ export const schema: JSONSchemaType<StoreContents> = {
                 maxLength: 511,
               },
               subtitle: {
-                nullable: true,
-                type: 'string',
+                // @ts-ignore the typings are wrong
+                type: ['string', 'null'],
                 minLength: 2,
                 maxLength: 511,
               },
@@ -81,8 +81,8 @@ export const schema: JSONSchemaType<StoreContents> = {
         },
 
         hideSlogan: {
-          nullable: true,
-          type: 'boolean',
+          // @ts-ignore the typings are wrong
+          type: ['boolean', 'null'],
         },
       },
     },

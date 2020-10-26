@@ -175,12 +175,10 @@ describe('Custom formats', () => {
         type: 'object',
         properties: {
           a: {
-            nullable: true,
-            type: 'string',
+            type: ['string', 'null'],
           },
           b: {
-            nullable: true,
-            type: 'string',
+            type: ['string', 'null'],
           },
         },
       },

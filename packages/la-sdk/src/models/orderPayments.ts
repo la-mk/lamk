@@ -13,66 +13,71 @@ export enum TransactionStatus {
 }
 
 export const paymentTransactionSchema: JSONSchemaType<PaymentTransaction> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
   required: ['status', 'amount', 'date'],
   properties: {
     status: {
       type: 'string',
-      enum: Object.values(TransactionStatus)
+      enum: Object.values(TransactionStatus),
     },
     amount: {
       type: 'number',
-      exclusiveMinimum: 0
+      exclusiveMinimum: 0,
     },
     message: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
-      maxLength: 511
+      maxLength: 511,
     },
     processorId: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
-      maxLength: 63
+      maxLength: 63,
     },
     userIp: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
-      maxLength: 31
+      maxLength: 31,
     },
     date: {
       type: 'string',
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const schema: JSONSchemaType<OrderPayments> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
-  required: [...defaultSchemaEntries.required, 'forOrder', 'transactions', 'isSuccessful'],
+  required: [
+    ...defaultSchemaEntries.required,
+    'forOrder',
+    'transactions',
+    'isSuccessful',
+  ],
   properties: {
     ...defaultSchemaEntries.properties!,
     forOrder: {
       type: 'string',
       format: 'uuid',
     },
-  // We put a very high upper-limit just to not get spammed here.
+    // We put a very high upper-limit just to not get spammed here.
     transactions: {
       type: 'array',
       minItems: 1,
       maxItems: 100,
-      items: paymentTransactionSchema
+      items: paymentTransactionSchema,
     },
-  // Calculated field based on all transactions.
+    // Calculated field based on all transactions.
     isSuccessful: {
-      type: 'boolean'
-    }
-  }
-}
+      type: 'boolean',
+    },
+  },
+};
 
 export interface PaymentTransaction {
   status: TransactionStatus;
@@ -111,6 +116,6 @@ export const getOrderPaymentsSdk = (client: Application) => {
     },
 
     TransactionStatus,
-    schema
+    schema,
   };
 };

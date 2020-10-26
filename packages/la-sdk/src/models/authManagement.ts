@@ -17,25 +17,25 @@ export const schema: JSONSchemaType<AuthManagement> = {
       format: 'email',
     },
     verifyToken: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 8,
       maxLength: 255,
     },
     verifyTokenCreatedAt: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       format: 'date-time',
     },
     resetToken: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 8,
       maxLength: 255,
     },
     resetTokenCreatedAt: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       format: 'date-time',
     },
   },

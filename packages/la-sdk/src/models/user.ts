@@ -29,20 +29,20 @@ export const schema: JSONSchemaType<User> = {
       type: 'boolean',
     },
     firstName: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,
     },
     lastName: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,
     },
     phoneNumber: {
-      nullable: true,
-      type: 'string',
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
       minLength: 2,
       maxLength: 31,
     },
