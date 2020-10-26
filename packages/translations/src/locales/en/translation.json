@@ -437,6 +437,12 @@
     "returnPolicy": "Return policy",
     "returnPolicyExplanation": "Return what you don't like, risk-free"
   },
+  "sets": {
+    "setTitle": "Set title",
+    "setSubtitle": "Set subtitle",
+    "setType": "Set type",
+    "setPromoted": "Promoted"
+  },
   "store": {
     "aboutUs": "About us",
     "aboutUsExample": "eg. We are a multinational company with 20 years of manufacturing experience...",

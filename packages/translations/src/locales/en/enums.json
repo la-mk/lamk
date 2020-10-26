@@ -558,7 +558,7 @@
     "halkbank": "Halkbank"
   },
 
-  "sets": {
+  "chosenSets": {
     "categoryExplanation": "Categories you might like",
     "discounted": "Products on sale",
     "discountedExplanation": "Get it at the best price",
@@ -566,5 +566,9 @@
     "latestExplanation": "Products that just have arrived",
     "selectedCategories": "Picked categories",
     "selectedCategoriesExplanation": "Categories picked just for you"
+  },
+  "setTypes": {
+    "group": "Group",
+    "category": "Category"
   }
 }

@@ -558,7 +558,7 @@
     "halkbank": "Халкбанк"
   },
 
-  "sets": {
+  "chosenSets": {
     "categoryExplanation": "Категории кои ќе ви се допаднат",
     "discounted": "Производи на попуст",
     "discountedExplanation": "Производи по најдобри цени",
@@ -566,5 +566,9 @@
     "latestExplanation": "Производи кои штотоку ги добивме",
     "selectedCategories": "Одбрани категории",
     "selectedCategoriesExplanation": "Категории одбрани само за вас"
+  },
+  "setTypes": {
+    "group": "Група",
+    "category": "Категорија"
   }
 }
