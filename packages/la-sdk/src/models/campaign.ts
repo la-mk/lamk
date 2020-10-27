@@ -61,40 +61,15 @@ export const schema: JSONSchemaType<Campaign> = {
       type: 'object',
       additionalProperties: false,
       required: ['type', 'value'],
-      // @ts-ignore the typings don't understand dependencies
       properties: {
         type: {
           type: 'string',
           enum: Object.values(RewardTypes),
           default: RewardTypes.PERCENTAGE_DISCOUNT,
         },
-      },
-      dependencies: {
-        // @ts-ignore the typings don't understand dependencies
-        type: {
-          oneOf: Object.values(RewardTypes).map(type => {
-            return {
-              properties: {
-                type: {
-                  enum: [type],
-                },
-                ...(type === RewardTypes.PERCENTAGE_DISCOUNT
-                  ? {
-                      value: {
-                        type: 'number',
-                        exclusiveMinimum: 0,
-                        exclusiveMaximum: 100,
-                      },
-                    }
-                  : {
-                      value: {
-                        type: 'number',
-                        exclusiveMinimum: 0,
-                      },
-                    }),
-              },
-            };
-          }),
+        value: {
+          type: 'number',
+          exclusiveMinimum: 0,
         },
       },
     },
@@ -107,42 +82,16 @@ export const schema: JSONSchemaType<Campaign> = {
         type: 'object',
         additionalProperties: false,
         required: ['type', 'value'],
-        // @ts-ignore the typings don't understand dependencies
         properties: {
           type: {
             type: 'string',
             enum: Object.values(ProductRuleTypes),
             default: ProductRuleTypes.ALL,
           },
-        },
-        dependencies: {
-          // @ts-ignore the typings don't understand dependencies
-          type: {
-            oneOf: Object.values(ProductRuleTypes).map(type => {
-              return {
-                properties: {
-                  type: {
-                    enum: [type],
-                  },
-                  ...(type === ProductRuleTypes.ALL
-                    ? {
-                        value: {
-                          type: 'string',
-                          minLength: 2,
-                          maxLength: 127,
-                          enum: ['all'],
-                        },
-                      }
-                    : {
-                        value: {
-                          type: 'string',
-                          minLength: 2,
-                          maxLength: 127,
-                        },
-                      }),
-                },
-              };
-            }),
+          value: {
+            type: 'string',
+            minLength: 2,
+            maxLength: 127,
           },
         },
       },
