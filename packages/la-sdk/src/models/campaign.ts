@@ -68,6 +68,7 @@ export const schema: JSONSchemaType<Campaign> = {
             type: {
               type: 'string',
               const: RewardTypes.PERCENTAGE_DISCOUNT,
+              default: RewardTypes.PERCENTAGE_DISCOUNT,
             },
             value: {
               type: 'number',
@@ -84,6 +85,7 @@ export const schema: JSONSchemaType<Campaign> = {
             type: {
               type: 'string',
               const: RewardTypes.CONSTANT_DISCOUNT,
+              default: RewardTypes.CONSTANT_DISCOUNT,
             },
             value: {
               type: 'number',
@@ -105,11 +107,10 @@ export const schema: JSONSchemaType<Campaign> = {
             type: 'object',
             additionalProperties: false,
             required: ['type', 'value'],
-            // @ts-ignore the typings don't understand dependencies
             properties: {
               type: {
                 type: 'string',
-                enum: Object.values(ProductRuleTypes),
+                const: ProductRuleTypes.ALL,
                 default: ProductRuleTypes.ALL,
               },
               value: {
@@ -127,8 +128,8 @@ export const schema: JSONSchemaType<Campaign> = {
             properties: {
               type: {
                 type: 'string',
-                enum: Object.values(ProductRuleTypes),
-                default: ProductRuleTypes.ALL,
+                const: ProductRuleTypes.GROUP,
+                default: ProductRuleTypes.GROUP,
               },
               value: {
                 type: 'string',

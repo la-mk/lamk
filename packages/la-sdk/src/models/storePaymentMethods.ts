@@ -16,7 +16,7 @@ export enum PaymentProcessors {
 }
 
 export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
-  anyOf: [
+  oneOf: [
     {
       type: 'object',
       additionalProperties: false,
