@@ -4,7 +4,6 @@
     "cancel": "Cancel",
     "create": "Create",
     "createStoreNow": "Create store now",
-    "delete": "Delete",
     "goBack": "Go back",
     "goToCart": "Go to Cart",
     "loginInstead": "Log in instead",
@@ -526,6 +525,15 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
+  "chosenSets": {
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
+  },
   "commerce": {
     "delivery": "Delivery",
     "product": "Product",
@@ -711,14 +719,9 @@
     "securePayments": "Secure payments",
     "securePaymentsExplanation": "Fast and easy ways to pay"
   },
-  "sets": {
-    "categoryExplanation": "Categories you might like",
-    "discounted": "Products on sale",
-    "discountedExplanation": "Get it at the best price",
-    "latest": "Latest products",
-    "latestExplanation": "Products that just have arrived",
-    "selectedCategories": "Picked categories",
-    "selectedCategoriesExplanation": "Categories picked just for you"
+  "setTypes": {
+    "category": "Category",
+    "group": "Group"
   },
   "store": {
     "emptyStoreExplanation": "We are still preparing our store, visit us again soon.",

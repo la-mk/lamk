@@ -21,7 +21,7 @@ export const getTitleForSet = (setTag: Pick<ProductSet, 'type' | 'value'>) => {
     case 'category':
       return `categories.${setTag.value}`;
     default:
-      return `sets.${setTag.type}`;
+      return `chosenSets.${setTag.type}`;
   }
 };
 
@@ -30,8 +30,8 @@ export const getSubtitleForSet = (
 ) => {
   switch (setTag.type) {
     case 'category':
-      return `sets.categoryExplanation`;
+      return `chosenSets.categoryExplanation`;
     default:
-      return `sets.${setTag.type}Explanation`;
+      return `chosenSets.${setTag.type}Explanation`;
   }
 };

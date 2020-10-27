@@ -53,7 +53,7 @@ export const Home = ({}: {}) => {
 
     if (categories.length) {
       categorySetTags = sampleSize(categories, 3).map(category => ({
-        name: 'category',
+        type: 'category',
         value: category.level3,
         title: t(getTitleForSet({ type: 'category', value: category.level3 })),
         subtitle: t(
@@ -105,8 +105,8 @@ export const Home = ({}: {}) => {
             <CategorySet
               categoriesToShow={categoriesForSet}
               categories={categories}
-              title={t('sets.selectedCategories')}
-              subtitle={t('sets.selectedCategoriesExplanation')}
+              title={t('chosenSets.selectedCategories')}
+              subtitle={t('chosenSets.selectedCategoriesExplanation')}
             />
           </Box>
         )}

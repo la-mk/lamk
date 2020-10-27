@@ -4,7 +4,6 @@
     "cancel": "Откажете",
     "create": "Создадете",
     "createStoreNow": "Отворете продавница сега",
-    "delete": "Избришете",
     "goBack": "Одете назад",
     "goToCart": "Прегледај корпа",
     "loginInstead": "Или логирајте се",
@@ -526,6 +525,15 @@
     "worksuit": "Комбилизони",
     "yoghurt": "Јогурт"
   },
+  "chosenSets": {
+    "categoryExplanation": "Категории кои ќе ви се допаднат",
+    "discounted": "Производи на попуст",
+    "discountedExplanation": "Производи по најдобри цени",
+    "latest": "Најнови производи",
+    "latestExplanation": "Производи кои штотоку ги добивме",
+    "selectedCategories": "Одбрани категории",
+    "selectedCategoriesExplanation": "Категории одбрани само за вас"
+  },
   "commerce": {
     "delivery": "Достава",
     "product": "Производ",
@@ -711,14 +719,9 @@
     "securePayments": "Безбедно плаќање",
     "securePaymentsExplanation": "Брзи и лесни начини на плаќање"
   },
-  "sets": {
-    "categoryExplanation": "Категории кои ќе ви се допаднат",
-    "discounted": "Производи на попуст",
-    "discountedExplanation": "Производи по најдобри цени",
-    "latest": "Најнови производи",
-    "latestExplanation": "Производи кои штотоку ги добивме",
-    "selectedCategories": "Одбрани категории",
-    "selectedCategoriesExplanation": "Категории одбрани само за вас"
+  "setTypes": {
+    "category": "Категорија",
+    "group": "Група"
   },
   "store": {
     "emptyStoreExplanation": "Сеуште ја подготвуваме продавницата, посетете нѐ повторно наскоро",
