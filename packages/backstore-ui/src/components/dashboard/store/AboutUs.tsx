@@ -3,11 +3,9 @@ import {
   Flex,
   Button,
   Spin,
-  Form,
-  FormItem,
-  formTextArea,
   message,
   hooks,
+  NewForm,
 } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import { sdk } from '@sradevski/la-sdk';
@@ -21,11 +19,12 @@ export const AboutUs = () => {
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
-  const [externalState] = hooks.useFormState<StoreContents>(
+  const [storeContentsFormData, setStoreContentsFormData] = hooks.useFormState<
+    StoreContents
+  >(storeContents, { forStore: store?._id, landing: { sets: [] } }, [
     storeContents,
-    { forStore: store?._id },
-    [storeContents, store?._id],
-  );
+    store?._id,
+  ]);
 
   useEffect(() => {
     if (!store) {
@@ -38,13 +37,17 @@ export const AboutUs = () => {
     );
   }, [caller, store]);
 
-  const handlePatchAboutUs = (data: Partial<StoreContents>) => {
+  const handlePatchAboutUs = ({
+    formData,
+  }: {
+    formData: Partial<StoreContents>;
+  }) => {
     if (!storeContents) {
       return;
     }
 
     caller<StoreContents>(
-      sdk.storeContents.patch(storeContents._id, { aboutUs: data.aboutUs }),
+      sdk.storeContents.patch(storeContents._id, { aboutUs: formData.aboutUs }),
       () => {
         message.success(t('common.success'));
       },
@@ -54,29 +57,36 @@ export const AboutUs = () => {
   return (
     <Flex mt={3} flexDirection='column'>
       <Spin spinning={showSpinner}>
-        <Form
-          colon={false}
-          externalState={externalState}
+        <NewForm
+          schema={
+            sdk.utils.schema.pick(sdk.storeContents.schema, ['aboutUs']) as any
+          }
+          uiSchema={{
+            aboutUs: {
+              'ui:options': {
+                label: false,
+              },
+              description: {
+                'ui:widget': 'textarea',
+                'ui:title': t('store.aboutUs'),
+                'ui:placeholder': t('store.aboutUsExample'),
+                'ui:options': {
+                  rows: 14,
+                },
+              },
+            },
+          }}
+          onSubmit={handlePatchAboutUs}
+          onChange={({ formData }) => setStoreContentsFormData(formData)}
+          formData={storeContentsFormData as StoreContents}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }
-          validate={data => sdk.storeContents.validate(data, true)}
-          // TODO: Add single validation when the validation library can handle nested schemas/selectors.
-          onFormCompleted={handlePatchAboutUs}
-          layout='vertical'
         >
-          <FormItem label={t('store.aboutUs')} selector='aboutUs.description'>
-            {formTextArea({
-              placeholder: t('store.aboutUsExample'),
-              autoSize: { minRows: 8, maxRows: 16 },
-            })}
-          </FormItem>
-          <Flex mt={3} justifyContent='center'>
-            <Button ml={2} htmlType='submit' type='primary'>
-              {t('actions.update')}
-            </Button>
-          </Flex>
-        </Form>
+          <Button type='primary' htmlType='submit' size='large'>
+            {t('actions.update')}
+          </Button>
+        </NewForm>
       </Spin>
     </Flex>
   );

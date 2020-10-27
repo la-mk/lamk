@@ -37,21 +37,14 @@ export const DeliveryForm = ({
     >
       <Box width='100%'>
         <NewForm<Delivery>
-          schema={sdk.delivery.schema as any}
+          schema={
+            sdk.utils.schema.pick(sdk.delivery.schema, [
+              'method',
+              'price',
+              'freeDeliveryOver',
+            ]) as any
+          }
           uiSchema={{
-            _id: {
-              'ui:widget': 'hidden',
-            },
-            createdAt: {
-              'ui:widget': 'hidden',
-            },
-            modifiedAt: {
-              'ui:widget': 'hidden',
-            },
-            forStore: {
-              'ui:widget': 'hidden',
-            },
-
             method: {
               'ui:title': t('delivery.deliveryMethod'),
               'ui:widget': 'select',

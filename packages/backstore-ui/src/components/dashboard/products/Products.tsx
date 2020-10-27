@@ -97,7 +97,6 @@ const getColumns = (
       title: t('product.sku'),
       dataIndex: 'variants',
       render: (val: Variant[], record) => {
-        console.log(val);
         return (
           <Text maxWidth={140} ellipsis>
             {val

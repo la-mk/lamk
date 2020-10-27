@@ -1,20 +1,13 @@
+import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import {
   Button,
   Flex,
-  Col,
-  Row,
   message,
   Spin,
   Modal,
-  Form,
-  FormItem,
-  formInput,
   hooks,
-  Checkbox,
-  Option,
-  Select,
-  InputNumber,
+  NewForm,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
@@ -37,9 +30,6 @@ interface ProductFormModalProps {
   visible: boolean;
 }
 
-const currencyParser = (value?: string) =>
-  (value ?? '').replace(/[^0-9.]/g, '');
-
 export const CampaignFormModal = ({
   campaign,
   onClose,
@@ -51,7 +41,7 @@ export const CampaignFormModal = ({
   const [groupsCaller] = hooks.useCall();
   const groups: string[] | undefined = useSelector(getGroups);
   const storeId = store ? store._id : undefined;
-  const [externalState] = hooks.useFormState<Campaign>(
+  const [campaignFormData, setCampaignFormData] = hooks.useFormState<Campaign>(
     campaign,
     {
       isActive: false,
@@ -76,19 +66,22 @@ export const CampaignFormModal = ({
     }
   }, [groups, groupsCaller, storeId]);
 
-  const handlePatchCampaign = (campaign: Campaign) => {
-    caller<Campaign>(sdk.campaign.patch(campaign._id, campaign), campaign => {
-      message.success(
-        t('campaign.updateCampaignSuccess', { campaignName: campaign.name }),
+  const handleUpsertCampaign = ({ formData }: { formData: Campaign }) => {
+    if (campaign?._id) {
+      caller<Campaign>(
+        sdk.campaign.patch(campaign._id, formData),
+        updatedCampaign => {
+          message.success(
+            t('campaign.updateCampaignSuccess', {
+              campaignName: updatedCampaign.name,
+            }),
+          );
+          onClose();
+          return patchCampaign(updatedCampaign);
+        },
       );
-      onClose();
-      return patchCampaign(campaign);
-    });
-  };
-
-  const handleCreateCampaign = (newCampaign: Campaign) => {
-    if (store) {
-      caller<Campaign>(sdk.campaign.create(newCampaign), campaign => {
+    } else {
+      caller<Campaign>(sdk.campaign.create(formData), campaign => {
         message.success(t('campaign.addCampaignSuccess'));
         onClose();
         return addCampaign(campaign);
@@ -109,6 +102,19 @@ export const CampaignFormModal = ({
       });
     }
   };
+
+  const pickedSchema = cloneDeep(
+    sdk.utils.schema.pick(sdk.campaign.schema, [
+      'name',
+      'isActive',
+      'isPromoted',
+      'reward',
+      'productRules',
+    ]),
+  );
+  // See https://github.com/rjsf-team/react-jsonschema-form/issues/902 why we can't use additionalProperties here.
+  delete pickedSchema.properties.reward.additionalProperties;
+  delete pickedSchema.properties.productRules.items.additionalProperties;
 
   return (
     <Modal
@@ -136,169 +142,88 @@ export const CampaignFormModal = ({
           </Flex>
         )}
 
-        <Form
-          colon={false}
-          externalState={externalState}
-          validate={data => sdk.campaign.validate(data, Boolean(campaign))}
-          // TODO: Add single validation when the validation library can handle nested schemas/selectors.
+        <NewForm
+          schema={pickedSchema as any}
+          uiSchema={{
+            'ui:order': [
+              'name',
+              'reward',
+              'productRules',
+              'isActive',
+              'isPromoted',
+              '*',
+            ],
+            name: {
+              'ui:title': t('common.name'),
+              'ui:placeholder': t('campaign.nameExample'),
+            },
+            isActive: {
+              'ui:options': {
+                label: t('campaign.active'),
+              },
+            },
+            isPromoted: {
+              'ui:help': t('campaign.promotedTip'),
+              'ui:options': {
+                label: t('campaign.promoted'),
+              },
+            },
+            reward: {
+              type: {
+                'ui:title': t('campaign.reward'),
+                'ui:widget': 'select',
+                'ui:options': {
+                  customEnumOptions: Object.values(
+                    sdk.campaign.RewardTypes,
+                  ).map(rewardType => ({
+                    value: rewardType,
+                    label: t(`campaignRewardTypes.${rewardType}`),
+                  })),
+                },
+              },
+              value: {
+                'ui:title': t('campaign.rewardValue'),
+              },
+            },
+            productRules: {
+              items: {
+                type: {
+                  'ui:title': t('campaign.targetProductType'),
+                  'ui:widget': 'select',
+                  'ui:options': {
+                    customEnumOptions: Object.values(
+                      sdk.campaign.ProductRuleTypes,
+                    ).map(ruleType => ({
+                      value: ruleType,
+                      label: t(`productRuleTypes.${ruleType}`),
+                    })),
+                  },
+                },
+                // TODO: When the type changes, the value should reset to whatever is possible. See https://github.com/rjsf-team/react-jsonschema-form/pull/1564
+                value: {
+                  'ui:title': t('campaign.productsTarget'),
+                  'ui:widget': 'select',
+                  'ui:options': {
+                    customEnumOptions:
+                      (campaignFormData as any)?.productRules?.[0]?.type ===
+                      sdk.campaign.ProductRuleTypes.ALL
+                        ? [{ value: 'all', label: t('productRuleTypes.all') }]
+                        : groups?.map(group => ({
+                            label: group,
+                            value: group,
+                          })),
+                  },
+                },
+              },
+            },
+          }}
+          onSubmit={handleUpsertCampaign}
+          onChange={({ formData }) => setCampaignFormData(formData)}
+          formData={campaignFormData as Campaign}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }
-          onFormCompleted={
-            campaign ? handlePatchCampaign : handleCreateCampaign
-          }
-          layout='vertical'
         >
-          <Row gutter={24}>
-            <Col md={12} span={24}>
-              <FormItem label={t('common.name')} selector='name'>
-                {formInput({ placeholder: t('campaign.nameExample') })}
-              </FormItem>
-            </Col>
-            <Col md={6} span={12}>
-              <FormItem label={t('campaign.reward')} selector='reward.value'>
-                {(val: any, onChange, onComplete, newCampaign) => {
-                  const isPercentage =
-                    newCampaign.reward?.type ===
-                    sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT;
-                  const suffix = isPercentage ? '%' : 'ден';
-
-                  return (
-                    <InputNumber
-                      placeholder={t('campaign.reward')}
-                      formatter={value => {
-                        return value ? `${value} ${suffix}` : '';
-                      }}
-                      parser={currencyParser}
-                      width='100%'
-                      min={0}
-                      max={isPercentage ? 100 : 99999999}
-                      decimalSeparator='.'
-                      value={val}
-                      onChange={onChange}
-                      onBlur={() => {
-                        onComplete(val);
-                      }}
-                    />
-                  );
-                }}
-              </FormItem>
-            </Col>
-            <Col md={6} span={12}>
-              <FormItem label={t('campaign.reward')} selector='reward.type'>
-                {(val: any, _onChange, onComplete) => {
-                  return (
-                    <Select value={val} onChange={onComplete}>
-                      {Object.values(sdk.campaign.RewardTypes).map(option => {
-                        return (
-                          <Option key={option} value={option}>
-                            {t(`campaignRewardTypes.${option}`)}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  );
-                }}
-              </FormItem>
-            </Col>
-          </Row>
-          <Row gutter={24}>
-            <Col md={12} span={24}>
-              <FormItem
-                label={t('campaign.targetProductType')}
-                selector='productRules'
-              >
-                {(val, _onChange, onComplete) => {
-                  return (
-                    <Select
-                      value={val[0].type}
-                      onChange={type =>
-                        onComplete([{ value: val[0].value, type }])
-                      }
-                    >
-                      {Object.values(sdk.campaign.ProductRuleTypes).map(
-                        option => {
-                          return (
-                            <Option key={option} value={option}>
-                              {t(`productRuleTypes.${option}`)}
-                            </Option>
-                          );
-                        },
-                      )}
-                    </Select>
-                  );
-                }}
-              </FormItem>
-            </Col>
-            <Col md={12} span={24}>
-              <FormItem
-                label={t('campaign.productsTarget')}
-                selector='productRules'
-              >
-                {(val, _onChange, onComplete) => {
-                  const isGroupType =
-                    val[0].type === sdk.campaign.ProductRuleTypes.GROUP;
-                  const opts = isGroupType ? groups ?? [] : ['all'];
-
-                  if (opts.length > 0 && !opts.includes(val[0].value)) {
-                    onComplete([{ ...val[0], value: opts[0] }]);
-                  }
-
-                  return (
-                    <Select
-                      value={val[0].value}
-                      onChange={value =>
-                        onComplete([{ type: val[0].type, value }])
-                      }
-                    >
-                      {opts.map(option => {
-                        return (
-                          <Option key={option} value={option}>
-                            {option === 'all'
-                              ? t('productRuleTypes.all')
-                              : option}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  );
-                }}
-              </FormItem>
-            </Col>
-          </Row>
-          <Row gutter={24}>
-            <Col md={12} span={24}>
-              <FormItem label={t('campaign.active')} selector='isActive'>
-                {(val: any, _onChange, onComplete) => (
-                  <Checkbox
-                    mr={3}
-                    checked={val}
-                    onChange={e => onComplete(e.target.checked)}
-                  >
-                    {t('campaign.active')}
-                  </Checkbox>
-                )}
-              </FormItem>
-            </Col>
-            <Col md={12} span={24}>
-              <FormItem
-                help={t('campaign.promotedTip')}
-                label={t('campaign.promoted')}
-                selector='isPromoted'
-              >
-                {(val: any, _onChange, onComplete) => (
-                  <Checkbox
-                    mr={3}
-                    checked={val}
-                    onChange={e => onComplete(e.target.checked)}
-                  >
-                    {t('campaign.promoted')}
-                  </Checkbox>
-                )}
-              </FormItem>
-            </Col>
-          </Row>
-
           <Flex mt={3} justifyContent='center'>
             <Button type='ghost' mr={2} onClick={onClose}>
               {t('actions.cancel')}
@@ -307,7 +232,7 @@ export const CampaignFormModal = ({
               {campaign ? t('actions.update') : t('actions.add')}
             </Button>
           </Flex>
-        </Form>
+        </NewForm>
       </Spin>
     </Modal>
   );

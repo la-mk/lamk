@@ -3,12 +3,9 @@ import {
   Flex,
   Button,
   Spin,
-  Form,
-  FormItem,
-  UploadContent,
-  UploadDragger,
   message,
   hooks,
+  NewForm,
 } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import { sdk } from '@sradevski/la-sdk';
@@ -16,37 +13,32 @@ import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import {
-  handleArtifactUploadStatus,
-  getDefaultFileList,
-  getImageUploader,
-} from '../../shared/utils/artifacts';
-import { UploadChangeParam } from 'antd/lib/upload';
-import { UploadFile } from 'antd/lib/upload/interface';
+import { getImageUploader } from '../../shared/utils/artifacts';
 
 export const LandingPreferences = () => {
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
-  const [externalState] = hooks.useFormState<StoreContents>(
+  const [storeContentsFormData, setStoreContentsFormData] = hooks.useFormState<
+    StoreContents
+  >(storeContents, { forStore: store?._id, landing: { sets: [] } }, [
     storeContents,
-    { forStore: store?._id, landing: { sets: [] } },
-    [storeContents, store?._id],
-  );
+    store?._id,
+  ]);
 
   // TODO: We need ot make uploading work better with `fileList` instead of `defaultFilelist`, without keeping local state everywhere.
-  const [fileList, setFileList] = useState<UploadFile<any>[] | undefined>();
+  // const [fileList, setFileList] = useState<UploadFile<any>[] | undefined>();
 
-  useEffect(() => {
-    if (storeContents && storeContents.landing) {
-      setFileList(
-        getDefaultFileList(storeContents.landing.banner || [], store?._id, {
-          h: 80,
-        }),
-      );
-    }
-  }, [store, storeContents]);
+  // useEffect(() => {
+  //   if (storeContents && storeContents.landing) {
+  //     setFileList(
+  //       getDefaultFileList(storeContents.landing.banner || [], store?._id, {
+  //         h: 80,
+  //       }),
+  //     );
+  //   }
+  // }, [store, storeContents]);
 
   useEffect(() => {
     if (!store) {
@@ -57,15 +49,19 @@ export const LandingPreferences = () => {
       sdk.storeContents.findForStore(store._id),
       res => (res.total > 0 ? setStoreContents(res.data[0]) : undefined),
     );
-  }, [store, caller]);
+  }, [caller, store]);
 
-  const handlePatchBanner = (data: Partial<StoreContents>) => {
+  const handlePatchBanner = ({
+    formData,
+  }: {
+    formData: Partial<StoreContents>;
+  }) => {
     if (!storeContents) {
       return;
     }
 
     caller<StoreContents>(
-      sdk.storeContents.patch(storeContents._id, { landing: data.landing }),
+      sdk.storeContents.patch(storeContents._id, { landing: formData.landing }),
       () => {
         message.success(t('common.success'));
       },
@@ -75,53 +71,84 @@ export const LandingPreferences = () => {
   return (
     <Flex mt={3} flexDirection='column'>
       <Spin spinning={showSpinner}>
-        <Form
-          colon={false}
-          externalState={externalState}
+        <NewForm
+          imageUpload={{
+            getImageUrl: imageId =>
+              sdk.artifact.getUrlForImage(imageId, store?._id ?? '', {
+                h: 80,
+              }) ?? '',
+            uploadImage: getImageUploader({
+              maxHeight: 1600,
+              maxWidth: 2000,
+            }),
+            removeImage: imageId => sdk.artifact.remove(imageId as any) as any,
+          }}
+          schema={
+            sdk.utils.schema.pick(sdk.storeContents.schema, ['landing']) as any
+          }
+          uiSchema={{
+            landing: {
+              'ui:options': {
+                label: false,
+              },
+              banner: {
+                'ui:title': t('store.storeBanner'),
+                'ui:widget': 'imageUpload',
+                'ui:options': {
+                  name: 'landing-page-banner',
+                },
+              },
+              sets: {
+                'ui:title': t('sets.sets'),
+                'ui:widget': 'tabs',
+                'ui:options': {
+                  itemTitles: (storeContentsFormData as StoreContents)?.landing?.sets?.map(
+                    set => set.title ?? '...',
+                  ),
+                },
+                items: {
+                  title: {
+                    'ui:title': t(`sets.setTitle`),
+                  },
+                  subtitle: {
+                    'ui:title': t(`sets.setSubtitle`),
+                  },
+                  type: {
+                    'ui:title': t(`sets.setType`),
+                    'ui:widget': 'select',
+                    'ui:options': {
+                      customEnumOptions: ['group', 'category'].map(val => ({
+                        value: val,
+                        label: t(`setTypes.${val}`),
+                      })),
+                    },
+                  },
+                  value: {
+                    'ui:title': t('sets.value'),
+                  },
+                  isPromoted: {
+                    'ui:options': {
+                      label: t(`sets.setPromoted`),
+                    },
+                  },
+                },
+              },
+              hideSlogan: {
+                'ui:widget': 'hidden',
+              },
+            },
+          }}
+          onSubmit={handlePatchBanner}
+          onChange={({ formData }) => setStoreContentsFormData(formData)}
+          formData={storeContentsFormData as StoreContents}
           getErrorMessage={(errorName, context) =>
             t(`errors.${errorName}`, context)
           }
-          validate={data => sdk.storeContents.validate(data, true)}
-          // TODO: Add single validation when the validation library can handle nested schemas/selectors.
-          onFormCompleted={handlePatchBanner}
-          layout='vertical'
         >
-          <FormItem selector='landing.banner' label={t('store.storeBanner')}>
-            {(val, _onChange, onComplete) => (
-              <UploadDragger
-                customRequest={getImageUploader({
-                  maxHeight: 1600,
-                  maxWidth: 2000,
-                })}
-                accept='.png, .jpg, .jpeg'
-                onChange={(info: UploadChangeParam) => {
-                  setFileList([...(info.fileList || [])]);
-                  handleArtifactUploadStatus(
-                    info,
-                    val,
-                    true,
-                    onComplete,
-                    message.error,
-                  );
-                }}
-                fileList={fileList}
-                listType='picture'
-                name='landing-page-banner'
-              >
-                <UploadContent
-                  text={t('actions.addBanner')}
-                  hint={t('uploads.hint')}
-                />
-              </UploadDragger>
-            )}
-          </FormItem>
-
-          <Flex mt={3} justifyContent='center'>
-            <Button ml={2} htmlType='submit' type='primary'>
-              {t('actions.update')}
-            </Button>
-          </Flex>
-        </Form>
+          <Button type='primary' htmlType='submit' size='large'>
+            {t('actions.update')}
+          </Button>
+        </NewForm>
       </Spin>
     </Flex>
   );

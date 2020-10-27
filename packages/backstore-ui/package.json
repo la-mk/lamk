@@ -40,11 +40,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
-    "@jaames/iro": "^5.2.3",
     "@react-pdf/renderer": "^2.0.0-beta.6",
     "@sradevski/analytics": "0.0.9",
-    "@sradevski/blocks-ui": "0.0.129",
-    "@sradevski/la-sdk": "0.0.134",
+    "@sradevski/blocks-ui": "0.0.136",
+    "@sradevski/la-sdk": "0.0.137",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.162",
     "@types/node": "^14.11.8",
@@ -87,7 +86,7 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.102",
+    "@sradevski/translations": "0.0.105",
     "@types/recharts": "^1.8.15",
     "@types/socket.io-client": "^1.4.33",
     "babel-plugin-import": "^1.13.0",

@@ -4,7 +4,6 @@ import { Delivery as DeliveryType } from '@sradevski/la-sdk/dist/models/delivery
 import { sdk } from '@sradevski/la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
 import { useSelector } from 'react-redux';
-import isEqual from 'lodash/isEqual';
 import { setDelivery } from '../../../state/modules/delivery/delivery.module';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { DeliveryForm } from '../../shared/forms/DeliveryForm';
@@ -36,7 +35,7 @@ export const Delivery = () => {
   }: {
     formData: DeliveryType;
   }) => {
-    if (!formData || isEqual(delivery, formData)) {
+    if (!formData) {
       return;
     }
 

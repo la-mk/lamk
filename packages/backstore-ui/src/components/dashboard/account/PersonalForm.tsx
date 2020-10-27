@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import React from 'react';
 import {
   Spin,
@@ -17,7 +16,7 @@ import { TFunction } from 'i18next';
 export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
   const [caller, showSpinner] = hooks.useCall();
   const [userFormData, setUserFormData] = hooks.useFormState<Partial<User>>(
-    pick(user, ['firstName', 'lastName', 'phoneNumber']),
+    user,
     {},
     [user],
   );

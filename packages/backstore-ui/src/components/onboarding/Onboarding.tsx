@@ -77,13 +77,13 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     );
   }, [caller, categories]);
 
-  const handleSetupStoreDone = (newStore?: Store) => {
-    if (!newStore || isEqual(store, newStore)) {
+  const handleSetupStoreDone = ({ formData }: { formData: Store }) => {
+    if (!formData) {
       return setStep(1);
     }
-    const handler = newStore._id
-      ? sdk.store.patch(newStore._id, newStore)
-      : sdk.store.create(newStore);
+    const handler = store?._id
+      ? sdk.store.patch(store._id, formData)
+      : sdk.store.create(formData);
 
     caller<Store>(handler, store => {
       setStep(1);
@@ -123,13 +123,13 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   };
 
   const handleSetupDeliveryDone = ({ formData }: { formData: Delivery }) => {
-    if (!formData || isEqual(delivery, formData)) {
+    if (!formData) {
       handlePublishDone(true);
       return setStep(3);
     }
 
-    const handler = formData._id
-      ? sdk.delivery.patch(formData._id, formData)
+    const handler = delivery?._id
+      ? sdk.delivery.patch(delivery._id, formData)
       : sdk.delivery.create(formData);
 
     caller<Delivery>(handler, delivery => {

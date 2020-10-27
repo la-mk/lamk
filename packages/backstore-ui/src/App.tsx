@@ -36,6 +36,8 @@ const getCompoundLocale = (t: (key: string) => string) => {
     or: t('common.or'),
     authSameAccount: t('auth.authSameAccount'),
     update: t('actions.update'),
+    upload: t('actions.add'),
+    uploadHint: t('uploads.hint'),
   };
 };
 

@@ -1,9 +1,8 @@
-import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { hooks, message, Spin } from '@sradevski/blocks-ui';
+import { Box, Flex, hooks, message, Spin } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { setStore } from '../../../state/modules/store/store.module';
 import { sdk } from '@sradevski/la-sdk';
@@ -14,12 +13,16 @@ export const Company = () => {
   const store = useSelector(getStore);
   const { t } = useTranslation();
 
-  const handleSetupCompanyDone = (newStore?: Partial<Store>) => {
-    if (!newStore || isEqual(store, newStore)) {
+  const handleSetupCompanyDone = ({
+    formData,
+  }: {
+    formData: Partial<Store>;
+  }) => {
+    if (!formData) {
       return;
     }
 
-    caller<Store>(sdk.store.patch(newStore._id!, newStore), res => {
+    caller<Store>(sdk.store.patch(store._id, formData), res => {
       message.success(t('common.success'));
       return setStore(res);
     });
@@ -27,7 +30,19 @@ export const Company = () => {
 
   return (
     <Spin spinning={showSpinner} tip={t('store.updatingStoreTip')}>
-      <CompanyForm store={store} onDone={handleSetupCompanyDone} />
+      <Flex
+        alignItems='center'
+        justifyContent='center'
+        flexDirection='column'
+        width={'100%'}
+        maxWidth={800}
+        minWidth={300}
+        mx='auto'
+      >
+        <Box width='100%'>
+          <CompanyForm store={store} onDone={handleSetupCompanyDone} />
+        </Box>
+      </Flex>
     </Spin>
   );
 };

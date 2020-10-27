@@ -1,8 +1,6 @@
 {
   "actions": {
     "add": "Додадете",
-    "addBanner": "Додадете банер",
-    "addLogo": "Додадете лого",
     "addProductImages": "Додадете слики од производот",
     "cancel": "Откажете",
     "continue": "Продолжи",
@@ -62,6 +60,7 @@
     "promoted": "Се промовира",
     "promotedTip": "Дали да се прикаже банер за кампањата",
     "reward": "Награда",
+    "rewardValue": "Вредност на награда",
     "targetProductType": "Тип на таргетирани производи",
     "updateCampaignSuccess": "Кампањата {{campaignName}} е успешно обновена",
     "updatingCampaignTip": "Кампањата се обновува..."
@@ -531,6 +530,15 @@
     "worksuit": "Комбилизони",
     "yoghurt": "Јогурт"
   },
+  "chosenSets": {
+    "categoryExplanation": "Категории кои ќе ви се допаднат",
+    "discounted": "Производи на попуст",
+    "discountedExplanation": "Производи по најдобри цени",
+    "latest": "Најнови производи",
+    "latestExplanation": "Производи кои штотоку ги добивме",
+    "selectedCategories": "Одбрани категории",
+    "selectedCategoriesExplanation": "Категории одбрани само за вас"
+  },
   "commerce": {
     "buyer": "Купувач",
     "campaign_plural": "Кампањи",
@@ -707,14 +715,17 @@
     "genericError": "Се појави грешка",
     "serverErrorExplanation": "Се појави грешка при вашето барање, пробајте повторно. Доколку сеуште имате проблем, контактирајте не"
   },
+  "setTypes": {
+    "category": "Категорија",
+    "group": "Група"
+  },
   "sets": {
-    "categoryExplanation": "Категории кои ќе ви се допаднат",
-    "discounted": "Производи на попуст",
-    "discountedExplanation": "Производи по најдобри цени",
-    "latest": "Најнови производи",
-    "latestExplanation": "Производи кои штотоку ги добивме",
-    "selectedCategories": "Одбрани категории",
-    "selectedCategoriesExplanation": "Категории одбрани само за вас"
+    "setPromoted": "Се промовира",
+    "setSubtitle": "Поднаслов на сет",
+    "setTitle": "Наслов на сет",
+    "setType": "Тип на сет",
+    "sets": "Сетови",
+    "value": "Вредност"
   },
   "store": {
     "aboutUs": "За нас",

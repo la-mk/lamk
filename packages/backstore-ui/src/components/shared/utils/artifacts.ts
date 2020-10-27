@@ -24,7 +24,7 @@ export const getImageUploader = (
   options: {
     maxWidth: number;
     maxHeight: number;
-  } = { maxWidth: 1200, maxHeight: 1200 },
+  } = { maxWidth: 1600, maxHeight: 1600 },
 ) => async ({ file, onSuccess, onError }: any) => {
   new Compressor(file, {
     ...options,
@@ -32,10 +32,7 @@ export const getImageUploader = (
     success: async compressedFile => {
       const base64 = await toBase64(compressedFile);
 
-      sdk.artifact
-        .create({ uri: base64 })
-        .then(onSuccess)
-        .catch(onError);
+      sdk.artifact.create({ uri: base64 }).then(onSuccess).catch(onError);
     },
     error: onError,
   });

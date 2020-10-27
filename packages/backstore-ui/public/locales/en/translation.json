@@ -1,8 +1,6 @@
 {
   "actions": {
     "add": "Add",
-    "addBanner": "Add banner",
-    "addLogo": "Add logo",
     "addProductImages": "Add product images",
     "cancel": "Cancel",
     "continue": "Continue",
@@ -62,6 +60,7 @@
     "promoted": "Promoted",
     "promotedTip": "Show a banner to promote the campaign",
     "reward": "Reward",
+    "rewardValue": "Reward value",
     "targetProductType": "Targeted product type",
     "updateCampaignSuccess": "Successfully updated {{campaignName}}",
     "updatingCampaignTip": "Updating product..."
@@ -531,6 +530,15 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
+  "chosenSets": {
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
+  },
   "commerce": {
     "buyer": "Buyer",
     "campaign_plural": "Campaigns",
@@ -707,14 +715,17 @@
     "genericError": "Error occured",
     "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
   },
+  "setTypes": {
+    "category": "Category",
+    "group": "Group"
+  },
   "sets": {
-    "categoryExplanation": "Categories you might like",
-    "discounted": "Products on sale",
-    "discountedExplanation": "Get it at the best price",
-    "latest": "Latest products",
-    "latestExplanation": "Products that just have arrived",
-    "selectedCategories": "Picked categories",
-    "selectedCategoriesExplanation": "Categories picked just for you"
+    "setPromoted": "Promoted",
+    "setSubtitle": "Set subtitle",
+    "setTitle": "Set title",
+    "setType": "Set type",
+    "sets": "Sets",
+    "value": "Value"
   },
   "store": {
     "aboutUs": "About us",
