@@ -57,43 +57,87 @@ export const schema: JSONSchemaType<Campaign> = {
       enum: Object.values(CampaignTypes),
       default: CampaignTypes.CART_DISCOUNT,
     },
+    // @ts-ignore
     reward: {
-      type: 'object',
-      additionalProperties: false,
-      required: ['type', 'value'],
-      properties: {
-        type: {
-          type: 'string',
-          enum: Object.values(RewardTypes),
-          default: RewardTypes.PERCENTAGE_DISCOUNT,
+      oneOf: [
+        {
+          type: 'object',
+          additionalProperties: false,
+          required: ['type', 'value'],
+          properties: {
+            type: {
+              type: 'string',
+              const: RewardTypes.PERCENTAGE_DISCOUNT,
+            },
+            value: {
+              type: 'number',
+              exclusiveMinimum: 0,
+              exclusiveMaximum: 100,
+            },
+          },
         },
-        value: {
-          type: 'number',
-          exclusiveMinimum: 0,
+        {
+          type: 'object',
+          additionalProperties: false,
+          required: ['type', 'value'],
+          properties: {
+            type: {
+              type: 'string',
+              const: RewardTypes.CONSTANT_DISCOUNT,
+            },
+            value: {
+              type: 'number',
+              exclusiveMinimum: 0,
+            },
+          },
         },
-      },
+      ],
     },
     productRules: {
       type: 'array',
       // For now we only allow a single rule
       minItems: 1,
       maxItems: 1,
+      //@ts-ignore
       items: {
-        type: 'object',
-        additionalProperties: false,
-        required: ['type', 'value'],
-        properties: {
-          type: {
-            type: 'string',
-            enum: Object.values(ProductRuleTypes),
-            default: ProductRuleTypes.ALL,
+        oneOf: [
+          {
+            type: 'object',
+            additionalProperties: false,
+            required: ['type', 'value'],
+            // @ts-ignore the typings don't understand dependencies
+            properties: {
+              type: {
+                type: 'string',
+                enum: Object.values(ProductRuleTypes),
+                default: ProductRuleTypes.ALL,
+              },
+              value: {
+                type: 'string',
+                enum: ['all'],
+                default: 'all',
+              },
+            },
           },
-          value: {
-            type: 'string',
-            minLength: 2,
-            maxLength: 127,
+          {
+            type: 'object',
+            additionalProperties: false,
+            required: ['type', 'value'],
+            // @ts-ignore the typings don't understand dependencies
+            properties: {
+              type: {
+                type: 'string',
+                enum: Object.values(ProductRuleTypes),
+                default: ProductRuleTypes.ALL,
+              },
+              value: {
+                type: 'string',
+                minLength: 2,
+                maxLength: 127,
+              },
+            },
           },
-        },
+        ],
       },
     },
   },

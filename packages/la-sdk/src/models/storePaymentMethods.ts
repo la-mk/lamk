@@ -16,59 +16,59 @@ export enum PaymentProcessors {
 }
 
 export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
-  type: 'object',
-  additionalProperties: false,
-  required: ['name'],
-  // @ts-ignore the typings don't understand dependencies
-  properties: {
-    name: {
-      type: 'string',
-      enum: Object.values(PaymentMethodNames),
+  anyOf: [
+    {
+      type: 'object',
+      additionalProperties: false,
+      required: ['name'],
+      properties: {
+        name: {
+          type: 'string',
+          const: PaymentMethodNames.PAY_ON_DELIVERY,
+        },
+      },
     },
-  },
-
-  dependencies: {
-    // @ts-ignore the typings don't understand dependencies
-    name: {
-      oneOf: Object.values(PaymentMethodNames).map(name => {
-        return {
-          properties: {
-            name: {
-              enum: [name],
-            },
-            ...(name === PaymentMethodNames.PAY_ON_DELIVERY
-              ? {}
-              : {
-                  processor: {
-                    type: ['string', 'null'],
-                    enum: Object.values(PaymentProcessors),
-                  },
-                  clientId: {
-                    type: ['string', 'null'],
-                    minLength: 2,
-                    maxLength: 63,
-                  },
-                  clientKey: {
-                    type: ['string', 'null'],
-                    minLength: 2,
-                    maxLength: 63,
-                  },
-                  clientUsername: {
-                    type: ['string', 'null'],
-                    minLength: 2,
-                    maxLength: 63,
-                  },
-                  clientPassword: {
-                    type: ['string', 'null'],
-                    minLength: 2,
-                    maxLength: 63,
-                  },
-                }),
-          },
-        };
-      }),
+    {
+      type: 'object',
+      additionalProperties: false,
+      required: ['name'],
+      properties: {
+        name: {
+          type: 'string',
+          const: PaymentMethodNames.CREDIT_CARD,
+        },
+        // @ts-ignore ignore for now until we specify type dependencies for TS
+        processor: {
+          type: 'string',
+          enum: Object.values(PaymentProcessors),
+        },
+        // @ts-ignore ignore for now until we specify type dependencies for TS
+        clientId: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 63,
+        },
+        // @ts-ignore ignore for now until we specify type dependencies for TS
+        clientKey: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 63,
+        },
+        // @ts-ignore ignore for now until we specify type dependencies for TS
+        clientUsername: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 63,
+        },
+        // @ts-ignore ignore for now until we specify type dependencies for TS
+        clientPassword: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 63,
+        },
+      },
     },
-  },
+  ],
 };
 
 export const schema: JSONSchemaType<StorePaymentMethods> = {
