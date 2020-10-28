@@ -25,6 +25,7 @@ export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
         name: {
           type: 'string',
           const: PaymentMethodNames.PAY_ON_DELIVERY,
+          default: PaymentMethodNames.PAY_ON_DELIVERY,
         },
       },
     },
@@ -36,6 +37,7 @@ export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
         name: {
           type: 'string',
           const: PaymentMethodNames.CREDIT_CARD,
+          default: PaymentMethodNames.CREDIT_CARD,
         },
         // @ts-ignore ignore for now until we specify type dependencies for TS
         processor: {
