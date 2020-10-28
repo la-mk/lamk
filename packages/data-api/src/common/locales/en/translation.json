@@ -482,6 +482,15 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
+  "chosenSets": {
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",
@@ -544,14 +553,9 @@
     "all": "All",
     "group": "Group"
   },
-  "sets": {
-    "categoryExplanation": "Categories you might like",
-    "discounted": "Products on sale",
-    "discountedExplanation": "Get it at the best price",
-    "latest": "Latest products",
-    "latestExplanation": "Products that just have arrived",
-    "selectedCategories": "Picked categories",
-    "selectedCategoriesExplanation": "Categories picked just for you"
+  "setTypes": {
+    "category": "Category",
+    "group": "Group"
   },
   "store": {
     "storeEnabledBy": "Store enabled by"
