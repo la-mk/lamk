@@ -11,7 +11,7 @@ export const pick = (schema: any, selectors: string[]) => {
   selectors.forEach(selector => {
     set(res, `properties.${selector}`, get(schema.properties, selector));
   });
-  res.required = res.required.filter((requiredField: any) =>
+  res.required = schema.required.filter((requiredField: any) =>
     selectors.includes(requiredField)
   );
 
@@ -24,7 +24,7 @@ export const omit = (schema: any, selectors: string[]) => {
     unset(res, `properties.${selector}`);
   });
 
-  res.required = res.required.filter(
+  res.required = schema.required.filter(
     (requiredField: any) => !selectors.includes(requiredField)
   );
 
