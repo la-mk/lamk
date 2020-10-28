@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
+import pick from 'lodash/pick';
 import React from 'react';
 import {
   Button,
@@ -41,8 +42,17 @@ export const CampaignFormModal = ({
   const [groupsCaller] = hooks.useCall();
   const groups: string[] | undefined = useSelector(getGroups);
   const storeId = store ? store._id : undefined;
+  // TODO: omitExtraData doesn't work correctly with oneOfss
   const [campaignFormData, setCampaignFormData] = hooks.useFormState<Campaign>(
-    campaign,
+    pick(campaign, [
+      'forStore',
+      'type',
+      'name',
+      'isActive',
+      'isPromoted',
+      'reward',
+      'productRules',
+    ]) as any,
     {
       isActive: false,
       isPromoted: false,
@@ -105,6 +115,8 @@ export const CampaignFormModal = ({
 
   const pickedSchema = cloneDeep(
     sdk.utils.schema.pick(sdk.campaign.schema, [
+      'forStore',
+      'type',
       'name',
       'isActive',
       'isPromoted',
@@ -112,9 +124,15 @@ export const CampaignFormModal = ({
       'productRules',
     ]),
   );
-  // See https://github.com/rjsf-team/react-jsonschema-form/issues/902 why we can't use additionalProperties here.
-  delete pickedSchema.properties.reward.additionalProperties;
-  delete pickedSchema.properties.productRules.items.additionalProperties;
+
+  //TODO: See https://github.com/rjsf-team/react-jsonschema-form/issues/902 why we can't use additionalProperties here.
+  pickedSchema.properties.reward.oneOf.forEach((entry: any) => {
+    entry.title = t(`campaignRewardTypes.${entry.properties.type.const}`);
+  });
+
+  pickedSchema.properties.productRules.items.oneOf.forEach((entry: any) => {
+    entry.title = t(`productRuleTypes.${entry.properties.type.const}`);
+  });
 
   return (
     <Modal
@@ -143,6 +161,7 @@ export const CampaignFormModal = ({
         )}
 
         <NewForm
+          omitExtraData={false}
           schema={pickedSchema as any}
           uiSchema={{
             'ui:order': [
@@ -153,6 +172,12 @@ export const CampaignFormModal = ({
               'isPromoted',
               '*',
             ],
+            forStore: {
+              'ui:widget': 'hidden',
+            },
+            type: {
+              'ui:widget': 'hidden',
+            },
             name: {
               'ui:title': t('common.name'),
               'ui:placeholder': t('campaign.nameExample'),
@@ -169,37 +194,20 @@ export const CampaignFormModal = ({
               },
             },
             reward: {
+              'ui:title': t('campaign.reward'),
               type: {
-                'ui:title': t('campaign.reward'),
-                'ui:widget': 'select',
-                'ui:options': {
-                  customEnumOptions: Object.values(
-                    sdk.campaign.RewardTypes,
-                  ).map(rewardType => ({
-                    value: rewardType,
-                    label: t(`campaignRewardTypes.${rewardType}`),
-                  })),
-                },
+                'ui:widget': 'hidden',
               },
               value: {
                 'ui:title': t('campaign.rewardValue'),
               },
             },
             productRules: {
+              'ui:title': t('campaign.targetProductType'),
               items: {
                 type: {
-                  'ui:title': t('campaign.targetProductType'),
-                  'ui:widget': 'select',
-                  'ui:options': {
-                    customEnumOptions: Object.values(
-                      sdk.campaign.ProductRuleTypes,
-                    ).map(ruleType => ({
-                      value: ruleType,
-                      label: t(`productRuleTypes.${ruleType}`),
-                    })),
-                  },
+                  'ui:widget': 'hidden',
                 },
-                // TODO: When the type changes, the value should reset to whatever is possible. See https://github.com/rjsf-team/react-jsonschema-form/pull/1564
                 value: {
                   'ui:title': t('campaign.productsTarget'),
                   'ui:widget': 'select',

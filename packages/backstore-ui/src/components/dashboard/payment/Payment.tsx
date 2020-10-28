@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
+import pick from 'lodash/pick';
 import React, { useEffect, useState } from 'react';
 import {
   Spin,
@@ -29,9 +30,11 @@ export const Payment = () => {
   const [
     paymentMethodsFormData,
     setPaymentMethodsFormData,
-  ] = hooks.useFormState(paymentMethods, { forStore: storeId, methods: [] }, [
-    paymentMethods,
-  ]);
+  ] = hooks.useFormState(
+    pick(paymentMethods, ['forStore', 'methods']),
+    { forStore: storeId, methods: [] },
+    [paymentMethods],
+  );
 
   useEffect(() => {
     if (storeId) {
@@ -71,7 +74,12 @@ export const Payment = () => {
     ]),
   );
   // See https://github.com/rjsf-team/react-jsonschema-form/issues/902 why we can't use additionalProperties here.
-  delete pickedSchema.properties.methods.items.additionalProperties;
+  // delete pickedSchema.properties.methods.items.additionalProperties;
+
+  pickedSchema.properties.methods.items.oneOf.forEach((entry: any) => {
+    entry.title = t(`paymentMethodNames.${entry.properties.name.const}`);
+    delete entry.additionaProperties;
+  });
 
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
@@ -90,6 +98,7 @@ export const Payment = () => {
         >
           <Box width='100%'>
             <NewForm<StorePaymentMethods>
+              omitExtraData={false}
               schema={pickedSchema as any}
               uiSchema={{
                 forStore: {
@@ -98,6 +107,9 @@ export const Payment = () => {
                 methods: {
                   'ui:widget': 'checkboxes',
                   items: {
+                    name: {
+                      'ui:widget': 'hidden',
+                    },
                     processor: {
                       'ui:widget': 'select',
                       'ui:title': t('payment.processor'),

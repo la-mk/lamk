@@ -14,6 +14,9 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { getImageUploader } from '../../shared/utils/artifacts';
+// import { getGroups } from '../../../state/modules/products/products.selector';
+// import { setGroups } from '../../../state/modules/products/products.module';
+// import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
 
 export const LandingPreferences = () => {
   const { t } = useTranslation();
@@ -26,19 +29,17 @@ export const LandingPreferences = () => {
     storeContents,
     store?._id,
   ]);
+  // const [groupsCaller] = hooks.useCall();
+  // const groups: string[] | undefined = useSelector(getGroups);
 
-  // TODO: We need ot make uploading work better with `fileList` instead of `defaultFilelist`, without keeping local state everywhere.
-  // const [fileList, setFileList] = useState<UploadFile<any>[] | undefined>();
-
-  // useEffect(() => {
-  //   if (storeContents && storeContents.landing) {
-  //     setFileList(
-  //       getDefaultFileList(storeContents.landing.banner || [], store?._id, {
-  //         h: 80,
-  //       }),
+  // React.useEffect(() => {
+  //   if (!groups && store?._id) {
+  //     groupsCaller<FindResult<ProductGroup>>(
+  //       sdk.productGroup.findForStore(store._id),
+  //       productGroups => setGroups(productGroups.data.map(x => x.groupName)),
   //     );
   //   }
-  // }, [store, storeContents]);
+  // }, [groups, groupsCaller, store]);
 
   useEffect(() => {
     if (!store) {
