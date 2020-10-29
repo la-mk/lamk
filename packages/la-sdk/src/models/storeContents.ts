@@ -75,6 +75,7 @@ export const schema: JSONSchemaType<StoreContents> = {
               },
               isPromoted: {
                 type: 'boolean',
+                default: false,
               },
             },
           },

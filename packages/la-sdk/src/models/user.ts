@@ -27,6 +27,7 @@ export const schema: JSONSchemaType<User> = {
     },
     isEmailVerified: {
       type: 'boolean',
+      default: false,
     },
     firstName: {
       // @ts-ignore the typings are wrong
