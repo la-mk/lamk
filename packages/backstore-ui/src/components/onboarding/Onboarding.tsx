@@ -1,36 +1,24 @@
-import isEqual from 'lodash/isEqual';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SetupStore } from './SetupStore';
-import { SetupProducts } from './SetupProducts';
+import { SetupCompany } from './SetupCompany';
 import { SetupDelivery } from './SetupDelivery';
 
 import { Step, Flex, Spin, hooks } from '@sradevski/blocks-ui';
 // import { Publish } from './Publish';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { sdk } from '@sradevski/la-sdk';
 import { getStore } from '../../state/modules/store/store.selector';
 import { setStore } from '../../state/modules/store/store.module';
-import {
-  setProducts,
-  addProduct,
-  removeProduct,
-  patchProduct,
-} from '../../state/modules/products/products.module';
-import { getProducts } from '../../state/modules/products/products.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Redirect } from 'react-router';
 import { StickySteps } from '../shared/components/StickySteps';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
-import { setCategories } from '../../state/modules/categories/categories.module';
 import { useTranslation } from 'react-i18next';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { getUser } from '../../state/modules/user/user.selector';
-import { useCategories } from '../shared/hooks/useCategories';
 
 interface OnboardingProps {
   step: number;
@@ -43,19 +31,13 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const [caller, showSpinner] = hooks.useCall();
   const user: User | null = useSelector(getUser);
   const store: Store | null = useSelector(getStore);
-  const products: Product[] = useSelector(getProducts);
   const delivery: Delivery | null = useSelector(getDelivery);
-  const [categories, groupedCategories] = useCategories(t);
 
   const storeId = store ? store._id : undefined;
   const userId = user ? user._id : undefined;
 
   useEffect(() => {
     if (storeId) {
-      caller<FindResult<Product>>(sdk.product.findForStore(storeId), products =>
-        setProducts(products.data),
-      );
-
       caller<FindResult<Delivery>>(
         sdk.delivery.findForStore(storeId),
         deliveries => {
@@ -66,16 +48,6 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       );
     }
   }, [caller, storeId]);
-
-  useEffect(() => {
-    if (categories) {
-      return;
-    }
-
-    caller<FindResult<Category>>(sdk.category.find(), categories =>
-      setCategories(categories.data),
-    );
-  }, [caller, categories]);
 
   const handleSetupStoreDone = ({ formData }: { formData: Store }) => {
     if (!formData) {
@@ -91,35 +63,23 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     });
   };
 
-  const handleAddProduct = (newProduct: Product) => {
-    caller<Product>(sdk.product.create(newProduct), addProduct);
-  };
-
-  const handlePatchProduct = (newProduct: Product) => {
-    const storeProduct = products.find(
-      product => product._id === newProduct._id,
-    );
-
-    if (!storeProduct || isEqual(storeProduct, newProduct)) {
+  const handleSetupCompanyDone = ({
+    formData,
+  }: {
+    formData: Pick<Store, 'company' | 'contact'> | null;
+  }) => {
+    if (!store?._id) {
       return;
     }
 
-    caller<Product>(
-      sdk.product.patch(newProduct._id, newProduct),
-      patchProduct,
-    );
-  };
-
-  const handleRemoveProduct = (id: string) => {
-    if (!id) {
-      return;
+    if (!formData) {
+      return setStep(2);
     }
 
-    caller<Product>(sdk.product.remove(id), () => removeProduct(id));
-  };
-
-  const handleAddProductsDone = () => {
-    setStep(2);
+    caller<Store>(sdk.store.patch(store?._id, formData), updatedStore => {
+      setStep(2);
+      return setStore(updatedStore);
+    });
   };
 
   const handleSetupDeliveryDone = ({ formData }: { formData: Delivery }) => {
@@ -166,7 +126,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
               onChange={setStep}
             >
               <Step title={t('commerce.store')} />
-              <Step title={t('commerce.product_plural')} />
+              <Step title={t('common.company')} />
               <Step title={t('commerce.delivery')} />
             </StickySteps>
 
@@ -178,16 +138,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
               />
             )}
             {step === 1 && (
-              <SetupProducts
-                storeId={storeId}
-                products={products}
-                categories={categories}
-                groupedCategories={groupedCategories}
-                onAddProduct={handleAddProduct}
-                onPatchProduct={handlePatchProduct}
-                onRemoveProduct={handleRemoveProduct}
-                onDone={handleAddProductsDone}
-              />
+              <SetupCompany store={store} onDone={handleSetupCompanyDone} />
             )}
             {step === 2 && (
               <SetupDelivery

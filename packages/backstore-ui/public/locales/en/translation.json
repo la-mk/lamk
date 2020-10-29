@@ -568,7 +568,6 @@
     "image_plural": "Images",
     "interface": "Interface",
     "lastName": "Last name",
-    "more": "More",
     "name": "Name",
     "newPassword": "New password",
     "optional": "Optional",
@@ -634,10 +633,10 @@
     "total": "Total"
   },
   "onboarding": {
+    "setupCompanySubtitle": "Don't worry, you can modify things later as well.",
+    "setupCompanyTitle": "Let's add more information about the company",
     "setupDeliverySubtitle": "Don't worry, you can modify things later as well.",
     "setupDeliveryTitle": "Finally, let's tell users about our delivery",
-    "setupProductSubtitle": "Don't worry, you can modify things later as well.",
-    "setupProductTitle": "Let's add some products",
     "setupStoreSubtitle": "Don't worry, you can modify things later as well.",
     "setupStoreTitle": "Let's kick things off by creating our store"
   },

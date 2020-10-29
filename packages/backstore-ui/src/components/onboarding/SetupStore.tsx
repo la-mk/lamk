@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Title, Flex, Text, Box } from '@sradevski/blocks-ui';
+import { Title, Flex, Text, Box } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { StoreForm } from '../shared/forms/StoreForm';
 import { useTranslation } from 'react-i18next';
@@ -14,10 +14,14 @@ interface SetupStoreProps {
 export const SetupStore = ({ onDone, store, userId }: SetupStoreProps) => {
   const { t } = useTranslation();
   return (
-    <Col>
+    <>
       <Flex mb={6} alignItems='center' flexDirection='column'>
-        <Title level={3}>{t('onboarding.setupStoreTitle')}</Title>
-        <Text color='secondary'>{t('onboarding.setupStoreSubtitle')}</Text>
+        <Title textAlign='center' level={3}>
+          {t('onboarding.setupStoreTitle')}
+        </Title>
+        <Text textAlign='center' color='secondary'>
+          {t('onboarding.setupStoreSubtitle')}
+        </Text>
       </Flex>
       <Flex
         alignItems='center'
@@ -32,6 +36,6 @@ export const SetupStore = ({ onDone, store, userId }: SetupStoreProps) => {
           <StoreForm store={store} userId={userId} onDone={onDone} />
         </Box>
       </Flex>
-    </Col>
+    </>
   );
 };
