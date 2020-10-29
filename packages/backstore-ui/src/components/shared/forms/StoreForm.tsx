@@ -46,7 +46,9 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
         },
         slug: {
           'ui:title': t('store.storeUrl'),
-          // addonAfter: '.la.mk'
+          'ui:options': {
+            suffix: '.la.mk',
+          },
         },
         color: {
           'ui:title': t('store.brandColor'),

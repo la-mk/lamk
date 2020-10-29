@@ -43,7 +43,7 @@ export const CampaignFormModal = ({
   const [groupsCaller] = hooks.useCall();
   const groups: string[] | undefined = useSelector(getGroups);
   const storeId = store ? store._id : undefined;
-  // TODO: omitExtraData doesn't work correctly with oneOfss
+  // TODO: omitExtraData doesn't work correctly with oneOfs
   const [campaignFormData, setCampaignFormData] = hooks.useFormState<Campaign>(
     pick(campaign, [
       'forStore',
@@ -206,6 +206,11 @@ export const CampaignFormModal = ({
                 'ui:title': t('campaign.rewardValue'),
                 'ui:options': {
                   mt: 2,
+                  suffix:
+                    (campaignFormData as any)?.reward?.type ===
+                    sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT
+                      ? '%'
+                      : 'ден',
                 },
               },
             },
