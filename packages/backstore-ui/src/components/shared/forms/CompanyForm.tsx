@@ -52,6 +52,9 @@ export const CompanyForm = ({
           },
           email: {
             'ui:title': t('common.email'),
+            'ui:options': {
+              mt: 3,
+            },
           },
           phoneNumber: {
             'ui:title': t('common.phoneNumber'),

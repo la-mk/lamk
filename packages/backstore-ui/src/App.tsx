@@ -2,7 +2,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 // @ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-import { Provider as BlocksUiProvider } from '@sradevski/blocks-ui';
+import {
+  hooks,
+  Provider as BlocksUiProvider,
+  theme,
+} from '@sradevski/blocks-ui';
 import { setupSdk } from '@sradevski/la-sdk';
 import { ConnectedRouter } from 'connected-react-router';
 import { Root } from './components/Root';
@@ -68,9 +72,13 @@ export const App = () => {
           basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
           compoundLocale={compoundLocale}
         >
-          <ConnectedRouter history={history}>
-            <Root />
-          </ConnectedRouter>
+          <hooks.BreakpointProvider
+            breakpoints={theme.breakpoints.map(x => parseInt(x))}
+          >
+            <ConnectedRouter history={history}>
+              <Root />
+            </ConnectedRouter>
+          </hooks.BreakpointProvider>
         </BlocksUiProvider>
       </PersistGate>
     </Provider>

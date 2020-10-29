@@ -38,6 +38,7 @@ export const CampaignFormModal = ({
 }: ProductFormModalProps) => {
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
+  const modalWidth = hooks.useBreakpoint(['100%', '60%', '40%']);
   const store = useSelector(getStore);
   const [groupsCaller] = hooks.useCall();
   const groups: string[] | undefined = useSelector(getGroups);
@@ -136,7 +137,7 @@ export const CampaignFormModal = ({
 
   return (
     <Modal
-      width={'80%'}
+      width={modalWidth}
       centered
       destroyOnClose
       visible={visible}
@@ -195,16 +196,25 @@ export const CampaignFormModal = ({
             },
             reward: {
               'ui:title': t('campaign.reward'),
+              'ui:options': {
+                asOneOf: true,
+              },
               type: {
                 'ui:widget': 'hidden',
               },
               value: {
                 'ui:title': t('campaign.rewardValue'),
+                'ui:options': {
+                  mt: 2,
+                },
               },
             },
             productRules: {
               'ui:title': t('campaign.targetProductType'),
               items: {
+                'ui:options': {
+                  asOneOf: true,
+                },
                 type: {
                   'ui:widget': 'hidden',
                 },
@@ -212,6 +222,8 @@ export const CampaignFormModal = ({
                   'ui:title': t('campaign.productsTarget'),
                   'ui:widget': 'select',
                   'ui:options': {
+                    mt: 2,
+                    // TODO: This won't work for multiple rules
                     customEnumOptions:
                       (campaignFormData as any)?.productRules?.[0]?.type ===
                       sdk.campaign.ProductRuleTypes.ALL
