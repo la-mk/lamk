@@ -31,7 +31,7 @@ export const Payment = () => {
     paymentMethodsFormData,
     setPaymentMethodsFormData,
   ] = hooks.useFormState(
-    pick(paymentMethods, ['forStore', 'methods']),
+    paymentMethods ? pick(paymentMethods, ['forStore', 'methods']) : undefined,
     { forStore: storeId, methods: [] },
     [paymentMethods],
   );

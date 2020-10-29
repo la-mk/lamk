@@ -45,15 +45,17 @@ export const CampaignFormModal = ({
   const storeId = store ? store._id : undefined;
   // TODO: omitExtraData doesn't work correctly with oneOfs
   const [campaignFormData, setCampaignFormData] = hooks.useFormState<Campaign>(
-    pick(campaign, [
-      'forStore',
-      'type',
-      'name',
-      'isActive',
-      'isPromoted',
-      'reward',
-      'productRules',
-    ]) as any,
+    campaign
+      ? (pick(campaign, [
+          'forStore',
+          'type',
+          'name',
+          'isActive',
+          'isPromoted',
+          'reward',
+          'productRules',
+        ]) as any)
+      : undefined,
     {
       isActive: false,
       isPromoted: false,
