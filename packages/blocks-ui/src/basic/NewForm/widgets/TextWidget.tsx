@@ -17,7 +17,7 @@ const TextWidget = ({
   schema,
   value,
 }: WidgetProps) => {
-  const { emphasized } = options;
+  const { emphasized, suffix, prefix } = options;
   const handleNumberChange = (nextValue: any) => onChange(nextValue);
 
   const handleTextChange = ({ target }: any) =>
@@ -26,6 +26,7 @@ const TextWidget = ({
   const handleBlur = ({ target }: any) => onBlur(id, target.value);
 
   const handleFocus = ({ target }: any) => onFocus(id, target.value);
+
   const defaultProps = {
     autoFocus: autofocus,
     disabled: disabled || readonly,
@@ -38,12 +39,31 @@ const TextWidget = ({
     size: (emphasized ? 'large' : 'default') as SizeType,
   };
 
+  const numberFix = React.useMemo(
+    () =>
+      prefix || suffix
+        ? {
+            formatter: (value: string | number | undefined) => {
+              if (!value) {
+                return '';
+              }
+              return `${prefix ?? ''} ${value} ${suffix ?? ''}`.trim();
+            },
+
+            parser: (value: string | number | undefined) =>
+              (value || '').toString().replace(/[^0-9.]/g, ''),
+          }
+        : {},
+    [prefix, suffix]
+  );
+
   return schema.type === 'number' || schema.type === 'integer' ? (
     <InputNumber
       {...defaultProps}
       width="100%"
       onChange={!readonly ? handleNumberChange : undefined}
-      type="number"
+      decimalSeparator="."
+      {...numberFix}
     />
   ) : (
     <Input
@@ -51,6 +71,8 @@ const TextWidget = ({
       width="100%"
       type={(options.inputType as string) || 'text'}
       onChange={!readonly ? handleTextChange : undefined}
+      addonAfter={suffix}
+      addonBefore={prefix}
     />
   );
 };

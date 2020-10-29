@@ -248,7 +248,12 @@ storiesOf('New Form', module)
       type: {
         'ui:widget': 'hidden',
       },
-      name: {},
+      name: {
+        'ui:options': {
+          suffix: '.com',
+          prefix: 'https://'
+        }
+      },
       isActive: {},
       isPromoted: {
       },
@@ -261,6 +266,11 @@ storiesOf('New Form', module)
           'ui:widget': 'hidden',
         },
         value: {
+          'ui:options': {
+            mt: 2,
+            suffix: 'EUR',
+            prefix: '%'
+          },
           'ui:title': "Value",
         },
       },
