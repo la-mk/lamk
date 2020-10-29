@@ -103,7 +103,7 @@ export function* watchSignupSaga() {
   yield takeEvery(SIGNUP, signupSaga);
 }
 
-export default {
+export const authSagas = {
   watchAuthenticationCheckSaga,
   watchLogoutSaga,
   watchLoginSaga,

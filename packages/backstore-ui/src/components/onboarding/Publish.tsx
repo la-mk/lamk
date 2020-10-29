@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Flex, Button } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
-// import env from '../../common/env';
+// import {env} from '../../common/env';
 
 // const ShopIframe = styled.iframe`
 //   border: 0;

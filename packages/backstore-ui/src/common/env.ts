@@ -27,30 +27,21 @@ const vars = {
 
 const envvar = from(vars as any);
 
-export default {
+export const env = {
   // This is pre-defined by CRA and cannot be changed
   NODE_ENV: envvar
     .get('NODE_ENV')
     .required()
     .asEnum(['test', 'development', 'production']),
 
-  API_ENDPOINT: envvar
-    .get('API_ENDPOINT')
-    .required()
-    .asString(),
+  API_ENDPOINT: envvar.get('API_ENDPOINT').required().asString(),
 
-  ARTIFACTS_ENDPOINT: envvar
-    .get('ARTIFACTS_ENDPOINT')
-    .required()
-    .asString(),
+  ARTIFACTS_ENDPOINT: envvar.get('ARTIFACTS_ENDPOINT').required().asString(),
 
   IMAGES_PROXY_ENDPOINT: envvar
     .get('IMAGES_PROXY_ENDPOINT')
     .required()
     .asString(),
 
-  ENABLE_SIGNUP: envvar
-    .get('ENABLE_SIGNUP')
-    .required()
-    .asBool(),
+  ENABLE_SIGNUP: envvar.get('ENABLE_SIGNUP').required().asBool(),
 };

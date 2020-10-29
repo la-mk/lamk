@@ -32,5 +32,5 @@ const getReducersSet = (history: History) => ({
   router: connectRouter(history),
 });
 
-export default (history: History) =>
+export const registerReducers = (history: History) =>
   persistCombineReducers(storageConfig, getReducersSet(history) as any);

@@ -12,7 +12,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Root } from './components/Root';
 import { FullScreenSpinner } from './components/shared/components/FullScreenSpinner';
 import configureStore, { history } from './state/configureStore';
-import env from './common/env';
+import { env } from './common/env';
 import { useTranslation } from 'react-i18next';
 import mk_MK from 'antd/es/locale/mk_MK';
 

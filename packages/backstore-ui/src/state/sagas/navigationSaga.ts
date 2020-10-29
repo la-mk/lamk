@@ -41,4 +41,4 @@ export function* watchStoreStateSaga() {
   yield takeLeading([LOCATION_CHANGE, SET_USER], storeStateSaga);
 }
 
-export default { watchStoreStateSaga };
+export const navigationSagas = { watchStoreStateSaga };

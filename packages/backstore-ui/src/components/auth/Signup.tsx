@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { signup, Credentials } from '../../state/modules/auth/auth.module';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { useTranslation } from 'react-i18next';
-import env from '../../common/env';
+import { env } from '../../common/env';
 import { AuthBase } from './AuthBase';
 
 export const Signup = () => {

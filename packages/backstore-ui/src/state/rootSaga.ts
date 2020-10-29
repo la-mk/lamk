@@ -1,10 +1,10 @@
-import authSaga from './sagas/authSaga';
-import navigationSaga from './sagas/navigationSaga';
+import { authSagas } from './sagas/authSaga';
+import { navigationSagas } from './sagas/navigationSaga';
 import { SagaMiddleware } from 'redux-saga';
 
 const sagas = {
-  ...authSaga,
-  ...navigationSaga,
+  ...authSagas,
+  ...navigationSagas,
 };
 
 export default function registerSagas(middleware: SagaMiddleware) {
