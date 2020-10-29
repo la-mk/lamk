@@ -329,8 +329,8 @@
   "onboarding": {
     "setupDeliverySubtitle": "Don't worry, you can modify things later as well.",
     "setupDeliveryTitle": "Finally, let's tell users about our delivery",
-    "setupProductSubtitle": "Don't worry, you can modify things later as well.",
-    "setupProductTitle": "Let's add some products",
+    "setupCompanySubtitle": "Don't worry, you can modify things later as well.",
+    "setupCompanyTitle": "Let's add more information about the company",
     "setupStoreSubtitle": "Don't worry, you can modify things later as well.",
     "setupStoreTitle": "Let's kick things off by creating our store"
   },
