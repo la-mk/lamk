@@ -5,33 +5,33 @@ import { Box } from '../../Box';
 
 const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
   const { TitleField, DescriptionField } = props;
-  const responsive = !!props.uiSchema['ui:options']?.responsive;
+  const { mt, asOneOf } = (props.uiSchema['ui:options'] ?? {}) as {
+    mt: string | number | string[] | number[] | undefined;
+    asOneOf: boolean | undefined;
+  };
 
   return (
-    <section>
-      {props.schema.title && (props.uiSchema['ui:title'] || props.title) && (
+    <Box mt={asOneOf ? undefined : mt}>
+      {!asOneOf && props.uiSchema['ui:title'] && (
         <TitleField
           id={`${props.idSchema.$id}__title`}
-          title={props.title || props.uiSchema['ui:title']}
+          title={props.uiSchema['ui:title']}
           required={props.required}
         />
       )}
-      {props.description && (
+      {!asOneOf && props.uiSchema['ui:description'] && (
         <DescriptionField
           id={`${props.idSchema.$id}__description`}
-          description={props.description}
+          description={props.uiSchema['ui:description']}
         />
       )}
 
-      <Flex
-        flexDirection={responsive ? 'row' : 'column'}
-        flexWrap={responsive ? 'wrap' : 'nowrap'}
-      >
+      <Flex flexDirection={'column'} flexWrap={'nowrap'}>
         {props.properties.map((prop: any, i) => (
           <Box key={i}>{prop.content}</Box>
         ))}
       </Flex>
-    </section>
+    </Box>
   );
 };
 

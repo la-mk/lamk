@@ -12,13 +12,19 @@ export default ({
   rawHelp,
   hidden,
   label,
+  uiSchema,
 }: FieldTemplateProps) => {
   if (hidden) {
     return children;
   }
 
+  const { mt, mb } = (uiSchema['ui:options'] ?? {}) as {
+    mt: string | number | string[] | number[] | undefined;
+    mb: string | number | string[] | number[] | undefined;
+  };
+
   return (
-    <Box mb={2} className={`${classNames || ''}`}>
+    <Box mb={mb ?? 2} className={`${classNames || ''}`} mt={mt}>
       {displayLabel ? label : null}
       {displayLabel && description ? description : null}
       {children}

@@ -152,8 +152,131 @@ storiesOf('New Form', module)
     </Provider>
   ))
   .add('custom form', () => {
-    const [schema, setSchema] = React.useState('');
-    const [uiSchema, setUiSchema] = React.useState('');
+    const [schema, setSchema] = React.useState(
+      `
+    {
+      type: 'object',
+      additionalProperties: false,
+      required: [
+        'forStore',
+        'name',
+        'isActive',
+        'isPromoted',
+        'type',
+        'reward',
+        'productRules',
+      ],
+      properties: {
+        forStore: {
+          type: 'string',
+          format: 'uuid',
+        },
+        name: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 255,
+        },
+        isActive: {
+          type: 'boolean',
+          default: false,
+        },
+        isPromoted: {
+          type: 'boolean',
+          default: false,
+        },
+        type: {
+          type: 'string',
+          enum: ['first', 'second'],
+          default: 'first',
+        },
+        reward: {
+          oneOf: [
+            {
+              title: "First",
+              type: 'object',
+              additionalProperties: false,
+              required: ['type', 'value'],
+              properties: {
+                type: {
+                  type: 'string',
+                  const: 'first',
+                  default: 'first',
+                },
+                value: {
+                  type: 'number',
+                  exclusiveMinimum: 0,
+                  exclusiveMaximum: 100,
+                },
+              },
+            },
+            {
+              type: 'object',
+              title: "Second",
+              additionalProperties: false,
+              required: ['type', 'value'],
+              properties: {
+                type: {
+                  type: 'string',
+                  const: 'second',
+                  default: 'second',
+                },
+                value: {
+                  type: 'number',
+                  exclusiveMinimum: 0,
+                },
+              },
+            },
+          ],
+        },
+      },
+    }
+    `
+    );
+    const [uiSchema, setUiSchema] = React.useState(`
+    {
+      'ui:order': [
+        'name',
+        'reward',
+        'productRules',
+        'isActive',
+        'isPromoted',
+        '*',
+      ],
+      forStore: {
+        'ui:widget': 'hidden',
+      },
+      type: {
+        'ui:widget': 'hidden',
+      },
+      name: {},
+      isActive: {},
+      isPromoted: {
+      },
+      reward: {
+        'ui:title': "Reward",
+        'ui:options': {
+          asOneOf: true,
+        },
+        type: {
+          'ui:widget': 'hidden',
+        },
+        value: {
+          'ui:title': "Value",
+        },
+      },
+      productRules: {
+        'ui:title': "RuleTitle",
+        items: {
+          type: {
+            'ui:widget': 'hidden',
+          },
+          value: {
+            'ui:title': "Value"
+          },
+        },
+      },
+    }
+    `);
     const [data, setData] = React.useState();
 
     let parsedSchema = {};
@@ -161,7 +284,9 @@ storiesOf('New Form', module)
     try {
       parsedSchema = eval(`(${schema})`);
       parsedUiSchema = eval(`(${uiSchema})`);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
 
     return (
       <Provider>
