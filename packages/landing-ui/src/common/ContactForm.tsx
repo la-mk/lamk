@@ -1,20 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Form,
-  FormItem,
-  formInput,
-  Flex,
-  Button,
-  Result,
-  formTextArea,
-  message,
-  Box,
-} from '@sradevski/blocks-ui';
+import { Button, Result, message, Box, NewForm } from '@sradevski/blocks-ui';
 import { track } from './analytics';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useTranslation } from './i18n';
-import { TFunction } from 'next-i18next';
 
 interface ContactUs {
   email: string;
@@ -22,73 +10,39 @@ interface ContactUs {
   message: string;
 }
 
-// Email validation from SDK, we don't use the SDK to keep the bundle small.
-const regex =
-  '[^\\.\\s@:](?:[^\\s@:]*[^\\s@:\\.])?@[^\\.\\s@]+(?:\\.[^\\.\\s@]+)*';
-const tester = new RegExp(`^${regex}$`);
-
-const validator = ({ email, name, message }: ContactUs, t: TFunction) => {
-  const res: any = {};
-
-  if (!name) {
-    res.name = { name: 'name', message: t(`errors.minLength`, [2]) };
-  }
-
-  if (!message) {
-    res.message = { name: 'message', message: t(`errors.minLength`, [2]) };
-  }
-
-  if (!email) {
-    res.email = { name: 'email', message: t(`errors.minLength`, [2]) };
-  }
-
-  if (!tester.test(email)) {
-    res.email = {
-      name: 'email',
-      message: t('errors.email'),
-    };
-  }
-
-  if (Object.keys(res).length <= 0) {
-    return null;
-  }
-
-  return res;
-};
-
 export const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const { t } = useTranslation();
 
-  const handleSubmit = (data: ContactUs) => {
+  const handleSubmit = ({ formData, ...rest }: { formData: ContactUs }) => {
     setIsSubmitting(true);
     track(AnalyticsEvents.submitContactUs, {
-      email: data.email,
+      email: formData.email,
     });
 
     fetch('https://api.la.mk/contactUs', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
       headers: {
         'content-type': 'application/json',
       },
     })
-      .then((resp) => resp.json())
-      .then((resp) => {
+      .then(resp => resp.json())
+      .then(resp => {
         if (resp.code > 200) {
           message.error(resp.message);
         } else {
           setHasSubmitted(true);
         }
       })
-      .catch((err) => message.error(err.message))
+      .catch(err => message.error(err.message))
       .finally(() => setIsSubmitting(false));
   };
 
   return (
     <>
-      <Col width={['90%', '60%', '40%']} mx='auto' style={{ zIndex: 3 }}>
+      <Box width={['90%', '60%', '40%']} mx='auto' style={{ zIndex: 3 }}>
         {hasSubmitted && (
           <Box bg='background.light' style={{ borderRadius: 12 }}>
             <Result
@@ -100,49 +54,62 @@ export const ContactForm = () => {
         )}
 
         {!hasSubmitted && (
-          <Form
-            labelCol={{
-              xs: { span: 24 },
+          <NewForm
+            schema={{
+              // We don't use the SDK here just to keep the bundle smaller
+              type: 'object',
+              required: ['name', 'email', 'message'],
+              properties: {
+                name: {
+                  type: 'string',
+                  minLength: 2,
+                  maxLength: 255,
+                },
+                email: {
+                  type: 'string',
+                  format: 'email',
+                },
+                message: {
+                  type: 'string',
+                  minLength: 8,
+                  maxLength: 4095,
+                },
+              },
             }}
-            wrapperCol={{
-              xs: { span: 24 },
+            uiSchema={{
+              name: {
+                'ui:title': t('common.fullName'),
+                'ui:placeholder': t('landingContact.fullNameExample'),
+              },
+              email: {
+                'ui:title': t('common.email'),
+                'ui:placeholder': t('landingContact.emailExample'),
+              },
+              message: {
+                'ui:widget': 'textarea',
+                'ui:title': t('common.message'),
+                'ui:placeholder': t('landingContact.messageExplanation'),
+                'ui:options': {
+                  rows: 6,
+                },
+              },
             }}
-            layout='vertical'
-            colon={false}
-            onFormCompleted={handleSubmit}
-            validate={(vals) => validator(vals, t)}
-            validateSingle={(val, selector) =>
-              validator({ [selector]: val } as any, t)[selector]
+            onSubmit={handleSubmit}
+            getErrorMessage={(errorName, context) =>
+              t(`errors.${errorName}`, context)
             }
           >
-            <FormItem selector='name' label={t('common.fullName')}>
-              {formInput({ placeholder: t('landingContact.fullNameExample') })}
-            </FormItem>
-
-            <FormItem selector='email' label={t('common.email')}>
-              {formInput({ placeholder: t('landingContact.emailExample') })}
-            </FormItem>
-
-            <FormItem selector='message' label={t('common.message')}>
-              {formTextArea({
-                placeholder: t('landingContact.messageExplanation'),
-                autoSize: { minRows: 4, maxRows: 8 },
-              })}
-            </FormItem>
-
-            <Flex justifyContent='center' alignItems='center'>
-              <Button
-                loading={isSubmitting}
-                mr={2}
-                type='primary'
-                htmlType='submit'
-              >
-                {t('actions.contactUs')}
-              </Button>
-            </Flex>
-          </Form>
+            <Button
+              loading={isSubmitting}
+              mr={2}
+              type='primary'
+              htmlType='submit'
+            >
+              {t('actions.contactUs')}
+            </Button>
+          </NewForm>
         )}
-      </Col>
+      </Box>
     </>
   );
 };
