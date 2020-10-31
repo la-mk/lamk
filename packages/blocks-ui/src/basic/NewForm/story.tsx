@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react';
 import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { TextArea } from '../Input';
+import { Title } from '../Typography';
 import * as React from 'react';
 import { Provider } from '../Provider';
 import { NewForm } from './NewForm';
@@ -96,6 +97,26 @@ export const schema: any = {
 };
 
 const uiSchema = {
+  'ui:options': {
+    sections: [
+      {
+        sectionTitle: (
+          <Title m={0} level={3}>
+            Hey there
+          </Title>
+        ),
+        properties: ['aboutUs', 'isPromoted'],
+      },
+      {
+        sectionTitle: (
+          <Title m={0} level={3}>
+            This is new
+          </Title>
+        ),
+        properties: ['landing'],
+      },
+    ],
+  },
   aboutUs: {
     description: {
       'ui:title': 'About you',
