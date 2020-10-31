@@ -2,8 +2,8 @@
 #!/bin/sh
 set -e
 
-#!/bin/sh
-set -e
+# When we run `npm install` or `npm run dev` the user is switched to `nobody`, and it can't read package.json or package-lock.json as a consequence. For development we can just run with unsafe-perm;
+npm config set unsafe-perm true
 
 # Don't autoopen browser when running cra start.
 export BROWSER=none;
