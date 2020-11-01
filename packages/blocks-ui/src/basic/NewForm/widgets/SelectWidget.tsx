@@ -1,6 +1,8 @@
 import React from 'react';
 import { WidgetProps, utils } from '@rjsf/core';
 import { Select, Option } from '../../Select';
+import { Spin } from '../../Spin';
+import { isSchemaOfType } from '../utils';
 
 const nums = new Set(['number', 'integer']);
 const { asNumber, guessType } = utils;
@@ -10,16 +12,17 @@ const { asNumber, guessType } = utils;
  * always retrieved as strings.
  */
 const processValue = (schema: WidgetProps['schema'], value: any) => {
-  // "enum" is a reserved word, so only "type" and "items" can be destructured
-  const { type, items } = schema;
-
   if (value === '') {
     return undefined;
-  } else if (type === 'array' && items && nums.has((items as any).type)) {
+  } else if (
+    isSchemaOfType(schema, 'array') &&
+    schema.items &&
+    nums.has((schema.items as any).type)
+  ) {
     return value.map(asNumber);
-  } else if (type === 'boolean') {
+  } else if (isSchemaOfType(schema, 'boolean')) {
     return value === 'true';
-  } else if (type === 'number') {
+  } else if (isSchemaOfType(schema, 'number')) {
     return asNumber(value);
   }
 
@@ -49,8 +52,10 @@ const SelectWidget = ({
   readonly,
   value,
   schema,
+  uiSchema,
 }: WidgetProps) => {
   const { enumOptions, customEnumOptions, enumDisabled, emphasized } = options;
+  const { mode, loading } = uiSchema?.['ui:options'] ?? {};
 
   const handleChange = (nextValue: any) =>
     onChange(processValue(schema, nextValue));
@@ -68,13 +73,14 @@ const SelectWidget = ({
       autoFocus={autofocus}
       disabled={disabled || readonly}
       id={id}
-      mode={typeof multiple !== 'undefined' ? 'multiple' : undefined}
+      mode={typeof multiple !== 'undefined' ? 'multiple' : (mode as any)}
       onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}
       onFocus={!readonly ? handleFocus : undefined}
       placeholder={placeholder}
       value={typeof value !== 'undefined' ? stringify(value) : undefined}
       size={emphasized ? 'large' : undefined}
+      notFoundContent={loading ? <Spin size="small" /> : undefined}
     >
       {((customEnumOptions ?? enumOptions) as any[])?.map(
         ({ value: optionValue, label: optionLabel }) => (

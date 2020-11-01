@@ -3,14 +3,7 @@ import { WidgetProps } from '@rjsf/core';
 import { Input } from '../../Input';
 import { InputNumber } from '../../InputNumber';
 import { SizeType } from 'antd/lib/config-provider/SizeContext';
-
-const isSchemaOfType = (schema: any, type: string) => {
-  if (Array.isArray(schema.type)) {
-    return schema.type.includes(type);
-  } else {
-    return schema.type === type;
-  }
-};
+import { isSchemaOfType } from '../utils';
 
 const TextWidget = ({
   autofocus,

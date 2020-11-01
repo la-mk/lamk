@@ -118,6 +118,7 @@ export const schema: JSONSchemaType<Product> = {
     groups: {
       type: 'array',
       maxItems: 10,
+      uniqueItems: true,
       items: {
         type: 'string',
         minLength: 2,

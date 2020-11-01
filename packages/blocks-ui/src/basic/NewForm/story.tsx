@@ -33,6 +33,17 @@ export const schema: any = {
     isPromoted: {
       type: 'boolean',
     },
+    groups: {
+      type: 'array',
+      maxItems: 10,
+      uniqueItems: true,
+      items: {
+        type: 'string',
+        enum: ['1', '2', '3'],
+        minLength: 2,
+        maxLength: 127,
+      },
+    },
     landing: {
       nullable: true,
       type: 'object',
@@ -113,7 +124,7 @@ const uiSchema = {
             This is new
           </Title>
         ),
-        properties: ['landing'],
+        properties: ['groups', 'landing'],
       },
     ],
   },
@@ -131,6 +142,12 @@ const uiSchema = {
     'ui:help': 'Choose whether to promote it or not',
     'ui:options': {
       label: 'Is promoted?',
+    },
+  },
+  groups: {
+    'ui:options': {
+      mode: 'tags',
+      loading: true,
     },
   },
   landing: {
