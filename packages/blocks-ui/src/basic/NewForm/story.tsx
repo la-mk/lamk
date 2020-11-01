@@ -236,12 +236,13 @@ storiesOf('New Form', module)
     <Provider>
       <NewForm
         imageUpload={{
-          getImageUrl: () => 'https://test.com',
+          getImageUrl: () => 'https://picsum.photos/200/300',
           uploadImage: () => {
             return Promise.resolve();
           },
           removeImage: () => Promise.resolve(),
         }}
+        formData={{ files: ['hey'] }}
         schema={schema}
         uiSchema={uiSchema}
         getErrorMessage={() => ''}
