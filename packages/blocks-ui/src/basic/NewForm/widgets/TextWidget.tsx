@@ -4,6 +4,14 @@ import { Input } from '../../Input';
 import { InputNumber } from '../../InputNumber';
 import { SizeType } from 'antd/lib/config-provider/SizeContext';
 
+const isSchemaOfType = (schema: any, type: string) => {
+  if (Array.isArray(schema.type)) {
+    return schema.type.includes(type);
+  } else {
+    return schema.type === type;
+  }
+};
+
 const TextWidget = ({
   autofocus,
   disabled,
@@ -57,7 +65,8 @@ const TextWidget = ({
     [prefix, suffix]
   );
 
-  return schema.type === 'number' || schema.type === 'integer' ? (
+  return isSchemaOfType(schema, 'number') ||
+    isSchemaOfType(schema, 'integer') ? (
     <InputNumber
       {...defaultProps}
       width="100%"

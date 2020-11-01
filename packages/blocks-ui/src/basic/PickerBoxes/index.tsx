@@ -1,7 +1,7 @@
 import React from 'react';
-import { Flex } from '../../basic/Flex';
-import { Button } from '../../basic/Button';
-import { Text } from '../../basic/Typography';
+import { Flex } from '../Flex';
+import { Button } from '../Button';
+import { Text } from '../Typography';
 import styled, { withTheme } from 'styled-components';
 import { BlocksTheme } from 'theme';
 
@@ -87,7 +87,7 @@ export interface PickerBoxesProps {
   onSelect: (color: string | undefined) => void;
   selected: string | undefined;
   size?: 'small' | 'default';
-  type?: 'color' | 'color-picker' | 'text';
+  type?: 'color' | 'text';
 }
 
 export const PickerBoxes = ({

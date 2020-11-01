@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import { Provider } from '../../basic/Provider';
-import { Box } from '../../basic/Box';
-import { PickerBox, PickerBoxes } from './PickerBoxes';
+import { Provider } from '../Provider';
+import { Box } from '../Box';
+import { PickerBox, PickerBoxes } from '.';
 
 storiesOf('PickerBoxes', module)
   .add('Color boxes picker', () => {
