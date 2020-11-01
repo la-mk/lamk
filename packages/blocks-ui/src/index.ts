@@ -26,7 +26,6 @@ export { Dropdown } from './basic/Dropdown';
 export { Empty } from './basic/Empty';
 export { Flex } from './basic/Flex';
 export { FlexGrid } from './basic/FlexGrid/FlexGrid';
-export { Form, FormItem, FormList } from './basic/Form/Form';
 export { NewForm } from './basic/NewForm/NewForm';
 export { Row, Col } from './basic/Grid';
 export { Image } from './basic/Image/Image';
@@ -62,13 +61,6 @@ export { Tag } from './basic/Tag';
 export { Tooltip } from './basic/Tooltip';
 export { Text, Title, Paragraph } from './basic/Typography';
 export { Upload, UploadDragger } from './basic/Upload';
-
-export {
-  formInput,
-  formTextArea,
-  formPassword,
-  parsers,
-} from './compound/FormHelpers';
 export { LoginForm } from './compound/forms/LoginForm';
 export { SignupForm } from './compound/forms/SignupForm';
 export { ChangePasswordForm } from './compound/forms/ChangePasswordForm';
