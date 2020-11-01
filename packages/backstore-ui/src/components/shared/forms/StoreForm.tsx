@@ -60,7 +60,7 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
         },
         logo: {
           'ui:title': t('store.storeLogo'),
-          'ui:widget': 'imageUpload',
+          'ui:widget': 'file',
           'ui:options': {
             name: 'company-logo',
           },

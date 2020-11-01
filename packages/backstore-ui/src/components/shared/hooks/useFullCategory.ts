@@ -6,12 +6,12 @@ export type FullCategory = [string, string, string];
 export const useFullCategory = (
   categories: Category[] | null,
   productCategory: string | null | undefined,
-): [FullCategory | undefined, Dispatch<FullCategory | undefined>] => {
-  const [fullCategory, setFullCategory] = useState<FullCategory | undefined>();
+): [FullCategory | [], Dispatch<FullCategory | []>] => {
+  const [fullCategory, setFullCategory] = useState<FullCategory | []>([]);
 
   useEffect(() => {
     if (!categories || !productCategory) {
-      setFullCategory(undefined);
+      setFullCategory([]);
       return;
     }
 
@@ -20,7 +20,7 @@ export const useFullCategory = (
     );
 
     if (!categorySet) {
-      setFullCategory(undefined);
+      setFullCategory([]);
       return;
     }
 

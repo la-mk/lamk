@@ -5,11 +5,17 @@ import { TFunction } from 'i18next';
 
 export const VariantName = ({
   attributes,
+  shouldShowAttributes,
   t,
 }: {
-  attributes: Attributes;
+  attributes?: Attributes;
+  shouldShowAttributes?: boolean;
   t: TFunction;
 }) => {
+  if (!shouldShowAttributes) {
+    return null;
+  }
+
   const values = Object.entries(attributes ?? {})
     .filter(([_, val]) => !!val)
     .map(([key, value], index) => {

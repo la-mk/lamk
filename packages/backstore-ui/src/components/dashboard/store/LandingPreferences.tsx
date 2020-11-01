@@ -94,7 +94,7 @@ export const LandingPreferences = () => {
               },
               banner: {
                 'ui:title': t('store.storeBanner'),
-                'ui:widget': 'imageUpload',
+                'ui:widget': 'file',
                 'ui:options': {
                   name: 'landing-page-banner',
                 },
