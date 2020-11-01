@@ -218,7 +218,7 @@ export const ProductFormModal = ({
                 },
                 {
                   sectionTitle: (
-                    <Flex mt={4} mb={2} alignItems='center'>
+                    <Flex mt={3} mb={2} alignItems='center'>
                       <Title m={0} level={3}>
                         {t('product.variant_plural')}
                       </Title>
@@ -234,7 +234,7 @@ export const ProductFormModal = ({
                 },
                 {
                   sectionTitle: (
-                    <Title mt={4} mb={2} level={3}>
+                    <Title mt={3} mb={2} level={3}>
                       {t('common.details')}
                     </Title>
                   ),
@@ -258,19 +258,25 @@ export const ProductFormModal = ({
             name: {
               'ui:title': t('common.name'),
               'ui:placeholder': t('product.nameExample'),
+              'ui:options': {
+                minWidth: ['100%', '50%', '50%'],
+              },
             },
             category: {
               'ui:widget': 'cascader',
               'ui:options': {
+                minWidth: ['100%', '50%', '50%'],
                 cascadeOptions: groupedCategories ?? [],
                 fullValue: fullCategory,
               },
               'ui:title': t('common.category'),
-              'ui:description': t('product.categoryTip'),
+              'ui:help': t('product.categoryTip'),
               'ui:placeholder': `${t('common.polite')} ${t('actions.select')}`,
             },
             images: {
               'ui:widget': 'files',
+              // TODO: Handle files title better
+              'ui:title': ' ',
             },
             variants: {
               'ui:title': t('sets.sets'),
@@ -300,32 +306,44 @@ export const ProductFormModal = ({
                     'ui:title': t('attributes.color'),
                     'ui:widget': showVariants ? 'pickerBoxes' : 'hidden',
                     'ui:options': {
+                      minWidth: ['100%', '50%', '50%'],
                       values: COLORS,
                       type: 'color',
                     },
                   },
                   size: {
+                    'ui:options': {
+                      minWidth: '100px',
+                    },
                     'ui:widget': showVariants ? undefined : 'hidden',
                     'ui:title': t('attributes.size'),
                   },
                 },
                 price: {
-                  'ui:title': t(`common.price`),
                   'ui:options': {
+                    minWidth: ['100%', '50%', '50%'],
                     suffix: 'ден',
                   },
+                  'ui:title': t(`common.price`),
                 },
                 discount: {
-                  'ui:title': t(`product.discount`),
                   'ui:options': {
+                    minWidth: ['100%', '50%', '50%'],
                     suffix: 'ден',
                   },
+                  'ui:title': t(`product.discount`),
                 },
                 stock: {
+                  'ui:options': {
+                    minWidth: ['100%', '50%', '50%'],
+                  },
                   'ui:title': t(`product.stock`),
-                  'ui:description': t('product.stockTip'),
+                  'ui:help': t('product.stockTip'),
                 },
                 sku: {
+                  'ui:options': {
+                    minWidth: ['100%', '50%', '50%'],
+                  },
                   'ui:title': t(`product.sku`),
                   'ui:placeholder': t('product.skuExample'),
                 },
@@ -335,20 +353,34 @@ export const ProductFormModal = ({
               },
             },
             unit: {
+              'ui:widget': 'select',
               'ui:title': t('product.unit'),
+              'ui:options': {
+                minWidth: '150px',
+                maxWidth: '300px',
+                customEnumOptions: Object.values(sdk.product.ProductUnit).map(
+                  unit => ({
+                    value: unit,
+                    label: t(`units.${unit}`),
+                  }),
+                ),
+              },
             },
             groups: {
               'ui:options': {
+                minWidth: ['200px', '50%', '50%'],
                 mode: 'tags',
                 loading: groupsLoading,
               },
               'ui:title': t('product.groups'),
-              'ui:description': t('product.groupsTip'),
+              'ui:help': t('product.groupsTip'),
             },
             description: {
               'ui:widget': 'textarea',
-              'ui:title': t('store.aboutUs'),
-              'ui:placeholder': t('store.aboutUsExample'),
+              'ui:title': t('common.description'),
+              'ui:placeholder': `${t('product.descriptionExample')} (${t(
+                'common.optional',
+              )})`,
               'ui:options': {
                 rows: 3,
               },
