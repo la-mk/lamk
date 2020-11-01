@@ -42,22 +42,18 @@ export const ImageUploader = ({
         } as UploadFile)
     );
 
-    const fileIds = files
-      .filter(x => x.status === 'done' || x.status === 'success')
-      .map(file => file.uid)
-      .sort();
-    const sortedValues =
-      (multiple ? [...(value as string[])] : [value as string]) ?? [].sort();
-
+    const fileIds = files.map(file => file.uid).sort();
+    const sortedValues = mappedVal.map(x => x.uid).sort();
     if (isEqual(fileIds, sortedValues)) {
       return;
     }
 
-    const newFiles = [...files, ...mappedVal];
-    uniqBy(newFiles, x => x.uid);
-    onChange(newFiles.map(x => x.uid));
-    setFiles(newFiles);
-  }, [value, files]);
+    setFiles(currentFiles => {
+      const newFiles = [...currentFiles, ...mappedVal];
+      uniqBy(newFiles, x => x.uid);
+      return newFiles;
+    });
+  }, [value]);
 
   const onChangeHanlder = (info: UploadChangeParam) => {
     switch (info.file.status) {
@@ -67,7 +63,9 @@ export const ImageUploader = ({
             console.error('Failed to remove file');
           })
           .then(() => {
-            setFiles(files.filter(x => x.uid !== info.file.uid));
+            const newFiles = files.filter(x => x.uid !== info.file.uid);
+            setFiles(newFiles);
+            onChange(newFiles.map(x => x.uid));
           });
         break;
       }
@@ -76,7 +74,7 @@ export const ImageUploader = ({
       case 'done': {
         const newFiles = [...files, info.file];
         uniqBy(newFiles, x => x.uid);
-        setFiles(newFiles);
+        onChange(newFiles.map(x => x.uid));
         break;
       }
 
