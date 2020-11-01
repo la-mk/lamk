@@ -44,6 +44,9 @@ export const schema: any = {
         maxLength: 127,
       },
     },
+    category: {
+      type: 'string',
+    },
     landing: {
       nullable: true,
       type: 'object',
@@ -124,7 +127,7 @@ const uiSchema = {
             This is new
           </Title>
         ),
-        properties: ['groups', 'landing'],
+        properties: ['groups', 'category', 'landing'],
       },
     ],
   },
@@ -162,6 +165,28 @@ const uiSchema = {
           value: '3',
         },
       ],
+    },
+  },
+  category: {
+    'ui:widget': 'cascader',
+    'ui:options': {
+      cascadeOptions: [
+        {
+          label: 'a',
+          value: 'a',
+          children: [
+            {
+              label: 'b',
+              value: 'b',
+              children: [
+                { label: 'c', value: 'c', children: undefined },
+                { label: 'd', value: 'd', children: undefined },
+              ],
+            },
+          ],
+        },
+      ],
+      customValue: ['a', 'b', 'c'],
     },
   },
   landing: {

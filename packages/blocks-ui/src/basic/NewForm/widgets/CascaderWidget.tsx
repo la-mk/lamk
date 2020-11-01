@@ -16,7 +16,7 @@ const CascaderWidget = ({ onChange, value, options }: WidgetProps) => {
       width="100%"
       options={(cascadeOptions as any) || []}
       onChange={val => {
-        fullValue ? onChange(val[value.length - 1]) : onChange(val);
+        fullValue ? onChange(val[val.length - 1]) : onChange(val);
       }}
       showSearch={{ filter: cascaderFilter }}
       // The cascader expects a full array of all values, but we want to store only the last value, so we pass a custom value to the component
