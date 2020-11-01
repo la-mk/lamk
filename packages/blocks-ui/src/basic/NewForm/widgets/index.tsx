@@ -4,6 +4,7 @@ import SelectWidget from './SelectWidget';
 import PasswordWidget from './PasswordWidget';
 import EmailWidget from './EmailWidget';
 import ColorWidget from './ColorWidget';
+import FileWidget from './FileWidget';
 import CascaderWidget from './CascaderWidget';
 import PickerBoxesWidget from './PickerBoxesWidget';
 import CheckboxWidget from './CheckboxWidget';
@@ -17,6 +18,7 @@ export default {
   EmailWidget,
   ColorWidget,
   CheckboxWidget,
+  FileWidget,
   // Custom widgets are named differently.
   imageUpload: ImageUploadWidget,
   pickerBoxes: PickerBoxesWidget,

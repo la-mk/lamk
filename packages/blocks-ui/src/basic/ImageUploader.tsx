@@ -14,6 +14,7 @@ export interface ImageUploaderProps {
   getImageUrl: (imageId: string) => string;
   remove: (imageId: string) => Promise<void>;
   upload: ({ file, onSuccess, onError }: any) => Promise<void>;
+  multiple?: boolean;
 }
 
 const handleArtifactUploadStatus = (
@@ -105,13 +106,15 @@ export const ImageUploader = ({
   getImageUrl,
   upload,
   remove,
+  multiple,
 }: ImageUploaderProps) => {
   const localization = useContext(LocalizationContext);
 
   return (
     <UploadDragger
+      multiple={multiple}
       accept=".png, .jpg, .jpeg"
-      listType="picture"
+      listType={multiple ? 'picture-card' : 'picture'}
       name={name}
       defaultFileList={getDefaultFileList(value, getImageUrl)}
       customRequest={upload}

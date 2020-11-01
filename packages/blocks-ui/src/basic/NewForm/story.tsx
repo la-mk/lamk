@@ -44,6 +44,12 @@ export const schema: any = {
         maxLength: 127,
       },
     },
+    files: {
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
     category: {
       type: 'string',
     },
@@ -119,7 +125,7 @@ const uiSchema = {
             Hey there
           </Title>
         ),
-        properties: ['aboutUs', 'isPromoted'],
+        properties: ['aboutUs', 'isPromoted', 'files'],
       },
       {
         sectionTitle: (
@@ -166,6 +172,9 @@ const uiSchema = {
         },
       ],
     },
+  },
+  files: {
+    'ui:widget': 'files',
   },
   category: {
     'ui:widget': 'cascader',
@@ -225,7 +234,18 @@ const uiSchema = {
 storiesOf('New Form', module)
   .add('basic form', () => (
     <Provider>
-      <NewForm schema={schema} uiSchema={uiSchema} getErrorMessage={() => ''} />
+      <NewForm
+        imageUpload={{
+          getImageUrl: () => 'https://test.com',
+          uploadImage: () => {
+            return Promise.resolve();
+          },
+          removeImage: () => Promise.resolve(),
+        }}
+        schema={schema}
+        uiSchema={uiSchema}
+        getErrorMessage={() => ''}
+      />
     </Provider>
   ))
   .add('custom form', () => {
