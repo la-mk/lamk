@@ -18,13 +18,25 @@ export default ({
     return children;
   }
 
-  const { mt, mb } = (uiSchema['ui:options'] ?? {}) as {
+  const { mt, mb, minWidth, maxWidth, flex } = (uiSchema['ui:options'] ??
+    {}) as {
     mt: string | number | string[] | number[] | undefined;
     mb: string | number | string[] | number[] | undefined;
+    minWidth: string | number | string[] | number[] | undefined;
+    maxWidth: string | number | string[] | number[] | undefined;
+    flex: number | string;
   };
 
   return (
-    <Box mb={mb ?? 2} className={`${classNames || ''}`} mt={mt}>
+    <Box
+      mb={mb ?? 2}
+      mt={mt}
+      pr={3}
+      className={`${classNames || ''}`}
+      flex={flex ?? 1}
+      minWidth={minWidth ?? '100%'}
+      maxWidth={maxWidth ?? '100%'}
+    >
       {displayLabel ? label : null}
       {displayLabel && description ? description : null}
       {children}

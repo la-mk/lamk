@@ -155,6 +155,8 @@ const uiSchema = {
   },
   groups: {
     'ui:options': {
+      minWidth: '200px',
+      flex: 1,
       mode: 'tags',
       loading: true,
       customEnumOptions: [
@@ -179,6 +181,8 @@ const uiSchema = {
   category: {
     'ui:widget': 'cascader',
     'ui:options': {
+      minWidth: '200px',
+      flex: 1,
       cascadeOptions: [
         {
           label: 'a',
