@@ -39,7 +39,7 @@ export const schema: any = {
       uniqueItems: true,
       items: {
         type: 'string',
-        enum: ['1', '2', '3'],
+        enum: [],
         minLength: 2,
         maxLength: 127,
       },
@@ -148,6 +148,20 @@ const uiSchema = {
     'ui:options': {
       mode: 'tags',
       loading: true,
+      customEnumOptions: [
+        {
+          label: '1',
+          value: '1',
+        },
+        {
+          label: '2',
+          value: '2',
+        },
+        {
+          label: '3',
+          value: '3',
+        },
+      ],
     },
   },
   landing: {

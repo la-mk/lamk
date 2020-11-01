@@ -2,8 +2,8 @@ import React from 'react';
 import { WidgetProps } from '@rjsf/core';
 import { PickerBoxes } from '../../PickerBoxes';
 
-const PickerBoxesWidget = ({ onChange, value, uiSchema }: WidgetProps) => {
-  const { values, type, size } = uiSchema['ui:options'] ?? {};
+const PickerBoxesWidget = ({ onChange, value, options }: WidgetProps) => {
+  const { values, type, size } = options;
 
   return (
     <PickerBoxes

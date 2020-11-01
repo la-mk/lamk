@@ -47,15 +47,20 @@ const SelectWidget = ({
   onChange,
   onFocus,
   options,
-  multiple,
+  // multiple,
   placeholder,
   readonly,
   value,
   schema,
-  uiSchema,
 }: WidgetProps) => {
-  const { enumOptions, customEnumOptions, enumDisabled, emphasized } = options;
-  const { mode, loading } = uiSchema?.['ui:options'] ?? {};
+  const {
+    enumOptions,
+    customEnumOptions,
+    enumDisabled,
+    emphasized,
+    mode,
+    loading,
+  } = options;
 
   const handleChange = (nextValue: any) =>
     onChange(processValue(schema, nextValue));
@@ -73,11 +78,12 @@ const SelectWidget = ({
       autoFocus={autofocus}
       disabled={disabled || readonly}
       id={id}
-      mode={typeof multiple !== 'undefined' ? 'multiple' : (mode as any)}
+      mode={mode as any}
       onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}
       onFocus={!readonly ? handleFocus : undefined}
       placeholder={placeholder}
+      tokenSeparators={[',']}
       value={typeof value !== 'undefined' ? stringify(value) : undefined}
       size={emphasized ? 'large' : undefined}
       notFoundContent={loading ? <Spin size="small" /> : undefined}
