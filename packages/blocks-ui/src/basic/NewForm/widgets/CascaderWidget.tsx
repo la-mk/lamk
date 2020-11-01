@@ -13,6 +13,7 @@ const CascaderWidget = ({ onChange, value, options }: WidgetProps) => {
 
   return (
     <Cascader
+      width="100%"
       options={(cascadeOptions as any) || []}
       onChange={val => {
         fullValue ? onChange(val[value.length - 1]) : onChange(val);
