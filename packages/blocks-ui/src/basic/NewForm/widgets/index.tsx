@@ -8,7 +8,6 @@ import FileWidget from './FileWidget';
 import CascaderWidget from './CascaderWidget';
 import PickerBoxesWidget from './PickerBoxesWidget';
 import CheckboxWidget from './CheckboxWidget';
-import ImageUploadWidget from './ImageUploadWidget';
 
 export default {
   TextWidget,
@@ -20,7 +19,6 @@ export default {
   CheckboxWidget,
   FileWidget,
   // Custom widgets are named differently.
-  imageUpload: ImageUploadWidget,
   pickerBoxes: PickerBoxesWidget,
   cascader: CascaderWidget,
 };
