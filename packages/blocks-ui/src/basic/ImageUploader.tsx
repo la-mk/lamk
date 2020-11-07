@@ -59,7 +59,9 @@ export const ImageUploader = ({
     }
 
     setUnprocessedFiles(files =>
-      files.filter(file => !successfulFileIds.includes(file.uid))
+      files.filter(
+        file => !successfulFileIds.includes(file.response._id ?? file.uid)
+      )
     );
 
     if (multiple) {
