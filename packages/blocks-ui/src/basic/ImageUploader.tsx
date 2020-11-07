@@ -27,8 +27,10 @@ export const ImageUploader = ({
 }: ImageUploaderProps) => {
   const localization = useContext(LocalizationContext);
   const [files, setFiles] = React.useState<UploadFile[]>([]);
-  const normalizedValue =
-    (multiple ? (value as string[]) : [value as string]) ?? [];
+  const normalizedValue = React.useMemo(
+    () => (multiple ? (value as string[]) : [value as string]) ?? [],
+    [value]
+  );
 
   React.useEffect(() => {
     const mappedVal = normalizedValue.map(
