@@ -69,7 +69,7 @@ export const ImageUploader = ({
 
       // There will be a response only if the image upload succeeded
       case 'done': {
-        onChange([...normalizedValue, info.file.uid]);
+        onChange([...normalizedValue, info.file.response._id]);
         break;
       }
 
