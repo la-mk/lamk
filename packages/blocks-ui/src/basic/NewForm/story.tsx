@@ -240,13 +240,18 @@ storiesOf('New Form', module)
     <Provider>
       <NewForm
         imageUpload={{
-          getImageUrl: () => 'https://picsum.photos/200/300',
-          uploadImage: () => {
-            return Promise.resolve();
+          getImageUrl: id => id,
+          uploadImage: ({ file, onSuccess, onError }) => {
+            return Math.random() > 0.5 ? onSuccess(file) : onError(file);
           },
           removeImage: () => Promise.resolve(),
         }}
-        formData={{ files: ['hey'] }}
+        formData={{
+          files: [
+            'https://picsum.photos/200/300',
+            'https://picsum.photos/300/400',
+          ],
+        }}
         schema={schema}
         uiSchema={uiSchema}
         getErrorMessage={() => ''}

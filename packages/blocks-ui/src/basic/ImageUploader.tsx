@@ -5,34 +5,33 @@ import { UploadDragger } from './Upload';
 import { UploadContent } from '../compound/UploadContent';
 import { UploadFile } from 'antd/lib/upload/interface';
 import { LocalizationContext } from './Provider';
-import { isEqual } from 'lodash';
 
 export interface ImageUploaderProps {
   value: string | string[];
-  onChange: (val: string | string[]) => void;
   name: string;
+  multiple?: boolean;
+  onChange: (val: string | string[]) => void;
   getImageUrl: (imageId: string) => string;
   remove: (imageId: string) => Promise<void>;
   upload: ({ file, onSuccess, onError }: any) => Promise<void>;
-  multiple?: boolean;
 }
 
 export const ImageUploader = ({
   value,
-  onChange,
   name,
+  multiple,
+  onChange,
   getImageUrl,
   upload,
   remove,
-  multiple,
 }: ImageUploaderProps) => {
   const localization = useContext(LocalizationContext);
   const [files, setFiles] = React.useState<UploadFile[]>([]);
+  const normalizedValue =
+    (multiple ? (value as string[]) : [value as string]) ?? [];
 
   React.useEffect(() => {
-    const mappedVal = (
-      (multiple ? (value as string[]) : [value as string]) ?? []
-    ).map(
+    const mappedVal = normalizedValue.map(
       (fileId: string) =>
         ({
           uid: fileId,
@@ -42,18 +41,16 @@ export const ImageUploader = ({
         } as UploadFile)
     );
 
-    const fileIds = files.map(file => file.uid).sort();
-    const sortedValues = mappedVal.map(x => x.uid).sort();
-    if (isEqual(fileIds, sortedValues)) {
-      return;
-    }
-
     setFiles(currentFiles => {
-      const newFiles = [...currentFiles, ...mappedVal];
-      uniqBy(newFiles, x => x.uid);
+      const newFiles = [
+        ...mappedVal,
+        ...currentFiles.filter(
+          file => file.status !== 'success' && file.status !== 'done'
+        ),
+      ];
       return newFiles;
     });
-  }, [value]);
+  }, [normalizedValue]);
 
   const onChangeHanlder = (info: UploadChangeParam) => {
     switch (info.file.status) {
@@ -63,24 +60,21 @@ export const ImageUploader = ({
             console.error('Failed to remove file');
           })
           .then(() => {
-            const newFiles = files.filter(x => x.uid !== info.file.uid);
-            setFiles(newFiles);
-            onChange(newFiles.map(x => x.uid));
+            onChange(normalizedValue.filter(x => x !== info.file.uid));
           });
         break;
       }
 
       // There will be a response only if the image upload succeeded
       case 'done': {
-        const newFiles = [...files, info.file];
-        uniqBy(newFiles, x => x.uid);
-        onChange(newFiles.map(x => x.uid));
+        onChange([...normalizedValue, info.file.uid]);
         break;
       }
 
+      // We want to keep the errored files locally so we can show them, but they are not stored in the data.
       case 'error': {
         const newFiles = [...files, info.file];
-        uniqBy(newFiles, x => x.uid);
+        uniqBy(newFiles, file => file.uid);
         setFiles(newFiles);
         console.log(
           `${info.file.name} file upload failed. - ${info.file.error}`
