@@ -52,7 +52,7 @@ export const ImageUploader = ({
   React.useEffect(() => {
     const successfulFileIds = unprocesssedFiles
       .filter(file => file.status === 'done' || file.status === 'success')
-      .map(file => file.response._id ?? file.uid);
+      .map(file => file.response?._id ?? file.uid);
 
     if (!successfulFileIds.length) {
       return;
@@ -60,7 +60,7 @@ export const ImageUploader = ({
 
     setUnprocessedFiles(files =>
       files.filter(
-        file => !successfulFileIds.includes(file.response._id ?? file.uid)
+        file => !successfulFileIds.includes(file.response?._id ?? file.uid)
       )
     );
 
@@ -120,7 +120,10 @@ export const ImageUploader = ({
       accept=".png, .jpg, .jpeg"
       listType={multiple ? 'picture-card' : 'picture'}
       name={name}
-      fileList={[...existingFiles, ...unprocesssedFiles]}
+      fileList={uniqBy(
+        [...existingFiles, ...unprocesssedFiles],
+        file => file.uid
+      )}
       customRequest={upload}
       onChange={onChangeHanlder}
     >
