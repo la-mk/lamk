@@ -1,3 +1,4 @@
+import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import { UploadChangeParam } from 'antd/lib/upload';
 import React, { useContext } from 'react';
@@ -10,7 +11,7 @@ export interface ImageUploaderProps {
   value: string | string[];
   name: string;
   multiple?: boolean;
-  onChange: (val: string | string[]) => void;
+  onChange: (val: string | string[] | null | undefined) => void;
   getImageUrl: (imageId: string) => string;
   remove: (imageId: string) => Promise<void>;
   upload: ({ file, onSuccess, onError }: any) => Promise<void>;
@@ -26,68 +27,90 @@ export const ImageUploader = ({
   remove,
 }: ImageUploaderProps) => {
   const localization = useContext(LocalizationContext);
-  const [files, setFiles] = React.useState<UploadFile[]>([]);
-  const normalizedValue = React.useMemo(
-    () => (multiple ? (value as string[]) : [value as string]) ?? [],
-    [value]
+  const [unprocesssedFiles, setUnprocessedFiles] = React.useState<UploadFile[]>(
+    []
+  );
+
+  const normalizedExistingFileIds = React.useMemo(() => {
+    if (!value) {
+      return [];
+    }
+
+    return multiple ? (value as string[]) : [value as string];
+  }, [value]);
+
+  const existingFiles = normalizedExistingFileIds.map(
+    (fileId: string) =>
+      ({
+        uid: fileId,
+        name: fileId,
+        status: 'done',
+        url: getImageUrl(fileId),
+      } as UploadFile)
   );
 
   React.useEffect(() => {
-    const mappedVal = normalizedValue.map(
-      (fileId: string) =>
-        ({
-          uid: fileId,
-          name: fileId,
-          status: 'done',
-          url: getImageUrl(fileId),
-        } as UploadFile)
+    const successfulFileIds = unprocesssedFiles
+      .filter(file => file.status === 'done' || file.status === 'success')
+      .map(file => file.response._id ?? file.uid);
+
+    if (!successfulFileIds.length) {
+      return;
+    }
+
+    setUnprocessedFiles(files =>
+      files.filter(file => !successfulFileIds.includes(file.uid))
     );
 
-    setFiles(currentFiles => {
-      const newFiles = [
-        ...mappedVal,
-        ...currentFiles.filter(
-          file => file.status !== 'success' && file.status !== 'done'
-        ),
-      ];
-      return newFiles;
-    });
-  }, [normalizedValue]);
-
-  const onChangeHanlder = (info: UploadChangeParam) => {
-    switch (info.file.status) {
-      case 'removed': {
-        remove(info.file.uid)
-          .catch(() => {
-            console.error('Failed to remove file');
-          })
-          .then(() => {
-            onChange(normalizedValue.filter(x => x !== info.file.uid));
-          });
-        break;
-      }
-
-      // There will be a response only if the image upload succeeded
-      case 'done': {
-        onChange([
-          ...normalizedValue,
-          info.file.response._id ?? info.file.response.name,
-        ]);
-        break;
-      }
-
-      // We want to keep the errored files locally so we can show them, but they are not stored in the data.
-      case 'error': {
-        const newFiles = [...files, info.file];
-        uniqBy(newFiles, file => file.uid);
-        setFiles(newFiles);
-        console.log(
-          `${info.file.name} file upload failed. - ${info.file.error}`
-        );
-        break;
-      }
+    if (multiple) {
+      onChange(uniq([...normalizedExistingFileIds, ...successfulFileIds]));
+    } else {
+      onChange(successfulFileIds[0] ?? value);
     }
-  };
+  }, [unprocesssedFiles]);
+
+  const onChangeHanlder = React.useCallback(
+    (info: UploadChangeParam) => {
+      switch (info.file.status) {
+        case 'uploading':
+        case 'done':
+        case 'success':
+        case 'error': {
+          setUnprocessedFiles(files => {
+            if (multiple) {
+              return uniqBy([...files, info.file], file => file.uid);
+            }
+            return [info.file];
+          });
+          break;
+        }
+
+        case 'removed': {
+          remove(info.file.uid)
+            .catch(() => {
+              console.error('Failed to remove file');
+            })
+            .then(() => {
+              if (normalizedExistingFileIds.includes(info.file.uid)) {
+                if (multiple) {
+                  onChange(
+                    normalizedExistingFileIds.filter(x => x !== info.file.uid)
+                  );
+                } else {
+                  onChange(null);
+                }
+              } else {
+                setUnprocessedFiles(files =>
+                  files.filter(x => x.uid !== info.file.uid)
+                );
+              }
+            });
+          break;
+        }
+      }
+    },
+    [multiple, normalizedExistingFileIds]
+  );
 
   return (
     <UploadDragger
@@ -95,7 +118,7 @@ export const ImageUploader = ({
       accept=".png, .jpg, .jpeg"
       listType={multiple ? 'picture-card' : 'picture'}
       name={name}
-      fileList={files}
+      fileList={[...existingFiles, ...unprocesssedFiles]}
       customRequest={upload}
       onChange={onChangeHanlder}
     >

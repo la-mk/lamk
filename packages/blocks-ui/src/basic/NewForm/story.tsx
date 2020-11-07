@@ -236,28 +236,28 @@ const uiSchema = {
 };
 
 storiesOf('New Form', module)
-  .add('basic form', () => (
-    <Provider>
-      <NewForm
-        imageUpload={{
-          getImageUrl: id => id,
-          uploadImage: ({ file, onSuccess, onError }) => {
-            return Math.random() > 0.5 ? onSuccess(file) : onError(file);
-          },
-          removeImage: () => Promise.resolve(),
-        }}
-        formData={{
-          files: [
-            'https://picsum.photos/200/300',
-            'https://picsum.photos/300/400',
-          ],
-        }}
-        schema={schema}
-        uiSchema={uiSchema}
-        getErrorMessage={() => ''}
-      />
-    </Provider>
-  ))
+  .add('basic form', () => {
+    const [formData, setFormData] = React.useState({});
+
+    return (
+      <Provider>
+        <NewForm
+          imageUpload={{
+            getImageUrl: id => id,
+            uploadImage: ({ file, onSuccess, onError }) => {
+              return Math.random() > 0.5 ? onSuccess(file) : onError(file);
+            },
+            removeImage: () => Promise.resolve(),
+          }}
+          formData={formData}
+          schema={schema}
+          uiSchema={uiSchema}
+          onChange={({ formData }) => setFormData(formData)}
+          getErrorMessage={() => ''}
+        />
+      </Provider>
+    );
+  })
   .add('custom form', () => {
     const [schema, setSchema] = React.useState(
       `
