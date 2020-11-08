@@ -39,9 +39,9 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
       )}
 
       {sections &&
-        sections.map(section => {
+        sections.map((section, i) => {
           return (
-            <Flex flexDirection={'column'} flexWrap={'nowrap'}>
+            <Flex key={i} flexDirection={'column'} flexWrap={'nowrap'}>
               {section.sectionTitle}
               <Flex flexWrap="wrap">
                 {props.properties

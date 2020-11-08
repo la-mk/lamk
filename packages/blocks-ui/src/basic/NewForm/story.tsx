@@ -53,6 +53,9 @@ export const schema: any = {
     category: {
       type: 'string',
     },
+    total: {
+      type: 'number',
+    },
     landing: {
       nullable: true,
       type: 'object',
@@ -133,7 +136,7 @@ const uiSchema = {
             This is new
           </Title>
         ),
-        properties: ['groups', 'category', 'landing'],
+        properties: ['groups', 'category', 'total', 'landing'],
       },
     ],
   },
@@ -200,6 +203,30 @@ const uiSchema = {
         },
       ],
       customValue: ['a', 'b', 'c'],
+    },
+  },
+  total: {
+    'ui:options': {
+      numberInputModes: [
+        {
+          id: 'value',
+          previewSuffix: '%',
+          suffix: 'EUR',
+          baseConverter: (val: number) => val,
+          previewConverter: (val: number) => 1000 - (val ?? 0),
+          min: 0,
+          max: 1000,
+        },
+        {
+          id: 'percentage',
+          previewSuffix: 'EUR',
+          suffix: '%',
+          baseConverter: (percentage: number) => percentage * 1000,
+          previewConverter: (val: number) => val ?? 0,
+          min: 0,
+          max: 100,
+        },
+      ],
     },
   },
   landing: {

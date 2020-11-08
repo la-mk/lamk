@@ -1,9 +1,73 @@
 import React from 'react';
 import { WidgetProps } from '@rjsf/core';
-import { Input } from '../../Input';
+import { Input, InputGroup } from '../../Input';
+import { Select, Option } from '../../Select';
 import { InputNumber } from '../../InputNumber';
 import { SizeType } from 'antd/lib/config-provider/SizeContext';
 import { isSchemaOfType } from '../utils';
+
+interface InputMode {
+  id: string;
+  previewSuffix: string;
+  suffix: string;
+  baseConverter: (val: number) => number;
+  previewConverter: (val: number) => number;
+  min?: number;
+  max?: number;
+}
+
+const InputWithLenses = ({
+  inputModes,
+  onChange,
+  value,
+  ...props
+}: {
+  inputModes: InputMode[];
+} & React.ComponentProps<typeof InputNumber>) => {
+  const [selectedModeId, setSelectedModeId] = React.useState(
+    inputModes?.[0]?.id
+  );
+  const selectedMode = inputModes?.find(mode => mode.id === selectedModeId);
+
+  if (!selectedMode) {
+    return null;
+  }
+
+  const selectedProps = {
+    width: 'calc(100% - 210px)',
+    suffix: selectedMode.suffix,
+    min: selectedMode.min,
+    max: selectedMode.max,
+    onChange: (val: number) => {
+      const baseValue = selectedMode.baseConverter(val);
+      onChange?.(baseValue);
+    },
+    value,
+  };
+
+  const previewProps = {
+    width: 120,
+    disabled: true,
+    value: selectedMode.previewConverter(value),
+    suffix: selectedMode.previewSuffix,
+  };
+
+  return (
+    <InputGroup compact width="100%">
+      <InputNumber {...props} {...selectedProps} />
+      <Select
+        style={{ width: 90 }}
+        onChange={val => setSelectedModeId(val)}
+        value={selectedModeId}
+      >
+        {inputModes.map(mode => {
+          return <Option value={mode.id}>{mode.suffix}</Option>;
+        })}
+      </Select>
+      <InputNumber {...props} {...previewProps} />
+    </InputGroup>
+  );
+};
 
 const TextWidget = ({
   autofocus,
@@ -18,7 +82,7 @@ const TextWidget = ({
   schema,
   value,
 }: WidgetProps) => {
-  const { emphasized, suffix, prefix } = options;
+  const { emphasized, suffix, prefix, numberInputModes } = options;
   const handleNumberChange = (nextValue: any) => onChange(nextValue);
 
   const handleTextChange = ({ target }: any) =>
@@ -29,6 +93,7 @@ const TextWidget = ({
   const handleFocus = ({ target }: any) => onFocus(id, target.value);
 
   const defaultProps = {
+    width: '100%',
     autoFocus: autofocus,
     disabled: disabled || readonly,
     id: id,
@@ -40,37 +105,29 @@ const TextWidget = ({
     size: (emphasized ? 'large' : 'default') as SizeType,
   };
 
-  const numberFix = React.useMemo(
-    () =>
-      prefix || suffix
-        ? {
-            formatter: (value: string | number | undefined) => {
-              if (!value) {
-                return '';
-              }
-              return `${prefix ?? ''} ${value} ${suffix ?? ''}`.trim();
-            },
-
-            parser: (value: string | number | undefined) =>
-              (value || '').toString().replace(/[^0-9.]/g, ''),
-          }
-        : {},
-    [prefix, suffix]
-  );
+  if (numberInputModes) {
+    return (
+      <InputWithLenses
+        inputModes={numberInputModes as InputMode[]}
+        onChange={!readonly ? handleNumberChange : undefined}
+        decimalSeparator="."
+        {...defaultProps}
+      />
+    );
+  }
 
   return isSchemaOfType(schema, 'number') ||
     isSchemaOfType(schema, 'integer') ? (
     <InputNumber
       {...defaultProps}
-      width="100%"
       onChange={!readonly ? handleNumberChange : undefined}
       decimalSeparator="."
-      {...numberFix}
+      suffix={suffix as string}
+      prefix={prefix as string}
     />
   ) : (
     <Input
       {...defaultProps}
-      width="100%"
       type={(options.inputType as string) || 'text'}
       onChange={!readonly ? handleTextChange : undefined}
       addonAfter={suffix}
