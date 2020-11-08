@@ -1,4 +1,5 @@
 import throttle from 'lodash/throttle';
+import round from 'lodash/round';
 import React, { useEffect } from 'react';
 import {
   Button,
@@ -51,11 +52,54 @@ const COLORS = [
   '#808080',
 ];
 
+enum DiscountInputMode {
+  percentage,
+  value,
+}
+
 interface ProductFormModalProps {
   product: Product | undefined;
   onClose: () => void;
   visible: boolean;
 }
+
+const getVariantIndex = (id: string) => {
+  const parts = id.split('_');
+  const variantIndex = parts.findIndex(x => x === 'variants') + 1;
+  return parseInt(parts[variantIndex]);
+};
+
+const valueToPercentage = (
+  product: Product | undefined,
+  variantIndex: number,
+  value: number,
+) => {
+  const variantPrice = product?.variants?.[variantIndex]?.price;
+  if (!variantPrice) {
+    return 0;
+  }
+
+  return round(
+    variantPrice === 0 ? 0 : ((value ?? 0) / (variantPrice ?? 1)) * 100,
+    3,
+  );
+};
+
+const percentageToValue = (
+  product: Product | undefined,
+  variantIndex: number,
+  percentage: number,
+) => {
+  const variantPrice = product?.variants?.[variantIndex]?.price;
+  if (!variantPrice) {
+    return 0;
+  }
+
+  return round(
+    percentage > 100 ? variantPrice : (percentage * variantPrice) / 100,
+    3,
+  );
+};
 
 export const ProductFormModal = ({
   product,
@@ -332,7 +376,48 @@ export const ProductFormModal = ({
                 discount: {
                   'ui:options': {
                     minWidth: ['100%', '50%', '50%'],
-                    suffix: 'ден',
+                    // TODO: This is quite hacky, find a better way to handle input modes.
+                    numberInputModes: [
+                      {
+                        id: DiscountInputMode.percentage,
+                        suffix: '%',
+                        previewSuffix: 'ден',
+                        baseConverter: (percentage: number, id: string) => {
+                          const variantIndex = getVariantIndex(id);
+                          return percentageToValue(
+                            productFormData as Product,
+                            variantIndex,
+                            percentage,
+                          );
+                        },
+                        inputConverter: (val: number, id: string) => {
+                          const variantIndex = getVariantIndex(id);
+                          return valueToPercentage(
+                            productFormData as Product,
+                            variantIndex,
+                            val,
+                          );
+                        },
+                        previewConverter: (val: number) => val ?? 0,
+                        min: 0,
+                        max: 100,
+                      },
+                      {
+                        id: DiscountInputMode.value,
+                        suffix: 'ден',
+                        previewSuffix: '%',
+                        baseConverter: (val: number) => val,
+                        inputConverter: (val: number) => val,
+                        previewConverter: (val: number, id: string) => {
+                          const variantIndex = getVariantIndex(id);
+                          return valueToPercentage(
+                            productFormData as Product,
+                            variantIndex,
+                            val,
+                          );
+                        },
+                      },
+                    ],
                   },
                   'ui:title': t(`product.discount`),
                 },
