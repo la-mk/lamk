@@ -10,8 +10,9 @@ interface InputMode {
   id: string;
   previewSuffix: string;
   suffix: string;
-  baseConverter: (val: number) => number;
-  previewConverter: (val: number) => number;
+  baseConverter: (val: number, id: string) => number;
+  inputConverter: (val: number, id: string) => number;
+  previewConverter: (val: number, id: string) => number;
   min?: number;
   max?: number;
 }
@@ -39,16 +40,16 @@ const InputWithLenses = ({
     min: selectedMode.min,
     max: selectedMode.max,
     onChange: (val: number) => {
-      const baseValue = selectedMode.baseConverter(val);
+      const baseValue = selectedMode.baseConverter(val, props.id);
       onChange?.(baseValue);
     },
-    value,
+    value: selectedMode.inputConverter(value, props.id),
   };
 
   const previewProps = {
     width: 120,
     disabled: true,
-    value: selectedMode.previewConverter(value),
+    value: selectedMode.previewConverter(value, props.id),
     suffix: selectedMode.previewSuffix,
   };
 
