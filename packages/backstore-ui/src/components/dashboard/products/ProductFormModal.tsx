@@ -329,7 +329,7 @@ export const ProductFormModal = ({
               'ui:title': t('common.name'),
               'ui:placeholder': t('product.nameExample'),
               'ui:options': {
-                minWidth: ['100%', '50%', '50%'],
+                minWidth: ['calc(100% - 32px)', '50%', '50%'],
               },
             },
             category: {
