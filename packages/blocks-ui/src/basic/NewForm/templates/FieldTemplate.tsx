@@ -29,11 +29,11 @@ export default ({
 
   const normalizedMinWidth = Array.isArray(minWidth)
     ? minWidth.map(x => `calc(${x} - 32px)`)
-    : `calc(${minWidth ?? '100%'})`;
+    : `calc(${minWidth ?? '100%'} - 32px)`;
 
   const normalizedMaxWidth = Array.isArray(maxWidth)
     ? maxWidth.map(x => `calc(${x} - 32px)`)
-    : `calc(${maxWidth ?? '100%'})`;
+    : `calc(${maxWidth ?? '100%'} - 32px)`;
 
   return (
     <Box
