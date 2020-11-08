@@ -206,7 +206,7 @@ export const ProductFormModal = ({
           schema={schemaWithEnum}
           uiSchema={{
             'ui:options': {
-              // TODO: Maybe we can make section titles serializible somehow, not that important for now though.
+              // FUTURE: Maybe we can make section titles serializible somehow, not that important for now though.
               sections: [
                 {
                   sectionTitle: (
@@ -302,6 +302,9 @@ export const ProductFormModal = ({
                   '*',
                 ],
                 attributes: {
+                  'ui:options': {
+                    mb: 3,
+                  },
                   color: {
                     'ui:title': t('attributes.color'),
                     'ui:widget': showVariants ? 'pickerBoxes' : 'hidden',
