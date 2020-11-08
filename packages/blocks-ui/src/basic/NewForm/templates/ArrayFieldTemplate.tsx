@@ -146,7 +146,9 @@ export default ({
                 flexDirection="row"
                 alignItems="flex-start"
               >
-                <Box flex="1">{element.children}</Box>
+                <Box flex="1" mx="-16px" style={{ overflow: 'hidden' }}>
+                  {element.children}
+                </Box>
                 {shouldShowActions && (
                   <Flex ml={3} alignItems="center" justifyContent="center">
                     {showSort && (

@@ -116,6 +116,49 @@ export const schema: any = {
         },
       },
     },
+    productRules: {
+      type: 'array',
+      minItems: 1,
+      maxItems: 1,
+      items: {
+        oneOf: [
+          {
+            type: 'object',
+            additionalProperties: false,
+            required: ['type', 'value'],
+            properties: {
+              type: {
+                type: 'string',
+                const: 'all',
+                default: 'all',
+              },
+              value: {
+                type: 'string',
+                enum: ['all'],
+                default: 'all',
+              },
+            },
+          },
+          {
+            type: 'object',
+            additionalProperties: false,
+            required: ['type', 'value'],
+            properties: {
+              type: {
+                type: 'string',
+                const: 'group',
+                default: 'group',
+              },
+              value: {
+                type: 'string',
+                minLength: 2,
+                maxLength: 127,
+              },
+            },
+          },
+        ],
+      },
+    },
   },
 };
 
@@ -136,7 +179,7 @@ const uiSchema = {
             This is new
           </Title>
         ),
-        properties: ['groups', 'category', 'total', 'landing'],
+        properties: ['groups', 'category', 'total', 'landing', 'productRules'],
       },
     ],
   },
@@ -258,6 +301,24 @@ const uiSchema = {
               { value: 'category', label: 'Category' },
             ],
           },
+        },
+      },
+    },
+  },
+  productRules: {
+    'ui:title': 'Type',
+    items: {
+      'ui:options': {
+        asOneOf: true,
+      },
+      type: {
+        'ui:widget': 'hidden',
+      },
+      value: {
+        'ui:title': 'Target',
+        'ui:widget': 'select',
+        'ui:options': {
+          mt: 2,
         },
       },
     },

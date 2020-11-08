@@ -11,7 +11,7 @@ export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
 }
 
-// Here, in ObjectFieldTemplate, and FieldTemplate we apply certain margins as a way to provide a gutter to a flex-based grid.
+// Here, in ObjectFieldTemplate, ArrayFieldTemplate, and FieldTemplate we apply certain margins as a way to provide a gutter to a flex-based grid.
 const StyledForm = (styled(Form)`
   margin-left: -16px;
   margin-right: -16px;

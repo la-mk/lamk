@@ -22,10 +22,18 @@ export default ({
     {}) as {
     mt: string | number | string[] | number[] | undefined;
     mb: string | number | string[] | number[] | undefined;
-    minWidth: string | number | string[] | number[] | undefined;
-    maxWidth: string | number | string[] | number[] | undefined;
+    minWidth: string | string[] | undefined;
+    maxWidth: string | string[] | undefined;
     flex: number | string;
   };
+
+  const normalizedMinWidth = Array.isArray(minWidth)
+    ? minWidth.map(x => `calc(${x} - 32px)`)
+    : `calc(${minWidth ?? '100%'})`;
+
+  const normalizedMaxWidth = Array.isArray(maxWidth)
+    ? maxWidth.map(x => `calc(${x} - 32px)`)
+    : `calc(${maxWidth ?? '100%'})`;
 
   return (
     <Box
@@ -35,8 +43,8 @@ export default ({
       width={'calc(100% - 32px)'}
       className={`${classNames || ''}`}
       flex={flex ?? 1}
-      minWidth={minWidth ?? 'calc(100% - 32px)'}
-      maxWidth={maxWidth ?? 'calc(100% - 32px)'}
+      minWidth={normalizedMinWidth}
+      maxWidth={normalizedMaxWidth}
     >
       {displayLabel ? label : null}
       {displayLabel && description ? description : null}
