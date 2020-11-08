@@ -1,4 +1,5 @@
 import throttle from 'lodash/throttle';
+import cloneDeep from 'lodash/cloneDeep';
 import round from 'lodash/round';
 import React, { useEffect } from 'react';
 import {
@@ -159,6 +160,17 @@ export const ProductFormModal = ({
   );
 
   const handleProductFormCompleted = ({ formData }: { formData: Product }) => {
+    // It is possible that all attributes are falsy (eg. one is set to null) but they still exist, so we want to remove them.
+    // This mutates the form data but it doesn't matter here.
+    formData.variants.forEach(variant => {
+      const hasNonNullAttributes =
+        Object.values(variant.attributes ?? {}).filter(x => !!x).length > 0;
+
+      if (!hasNonNullAttributes) {
+        variant.attributes = {};
+      }
+    });
+
     if (product?._id) {
       caller<Product>(
         sdk.product.patch(product._id, formData),
@@ -196,18 +208,32 @@ export const ProductFormModal = ({
     }
   };
 
-  const schemaWithEnum = sdk.utils.schema.pick(sdk.product.schema, [
-    'soldBy',
-    'name',
-    'unit',
-    'images',
-    'groups',
-    'category',
-    'description',
-    'variants',
-  ]) as any;
-  // We have to force set the enum here so the form knows to render a multiselect field
-  (schemaWithEnum.properties!.groups as any).items!.enum = groups;
+  const schemaWithEnum = React.useMemo(() => {
+    const modifiedSchema = cloneDeep(
+      sdk.utils.schema.pick(sdk.product.schema, [
+        'soldBy',
+        'name',
+        'unit',
+        'images',
+        'groups',
+        'category',
+        'description',
+        'variants',
+      ]),
+    ) as any;
+    // We have to force set the enum here so the form knows to render a multiselect field
+    (modifiedSchema.properties!.groups as any).items!.enum = groups;
+
+    // Set max items to 1 if the product doesn't have variants
+    if (!showVariants) {
+      modifiedSchema.properties!.variants.maxItems = 1;
+    } else {
+      modifiedSchema.properties!.variants.maxItems = (sdk.product.schema
+        .properties!.variants as any).maxItems;
+    }
+
+    return modifiedSchema;
+  }, [groups, showVariants]);
 
   return (
     <Modal
