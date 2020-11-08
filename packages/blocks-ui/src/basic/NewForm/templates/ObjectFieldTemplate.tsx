@@ -31,7 +31,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
       )}
 
       {!sections && (
-        <Flex flexDirection={'row'} flexWrap={'wrap'}>
+        <Flex flexWrap={'wrap'} mx={'-16px'} style={{ overflow: 'hidden' }}>
           {props.properties.map((prop: any, i) => (
             <React.Fragment key={i}>{prop.content}</React.Fragment>
           ))}
@@ -43,7 +43,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
           return (
             <Flex key={i} flexDirection={'column'} flexWrap={'nowrap'}>
               {section.sectionTitle}
-              <Flex flexWrap="wrap">
+              <Flex flexWrap="wrap" mx={'-16px'} style={{ overflow: 'hidden' }}>
                 {props.properties
                   .filter(property =>
                     section.properties.includes(property.name)

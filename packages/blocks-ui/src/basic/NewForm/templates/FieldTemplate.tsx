@@ -31,11 +31,12 @@ export default ({
     <Box
       mb={mb ?? 2}
       mt={mt}
-      pr={3}
+      mx={3}
+      width={'calc(100% - 32px)'}
       className={`${classNames || ''}`}
       flex={flex ?? 1}
-      minWidth={minWidth ?? '100%'}
-      maxWidth={maxWidth ?? '100%'}
+      minWidth={minWidth ?? 'calc(100% - 32px)'}
+      maxWidth={maxWidth ?? 'calc(100% - 32px)'}
     >
       {displayLabel ? label : null}
       {displayLabel && description ? description : null}

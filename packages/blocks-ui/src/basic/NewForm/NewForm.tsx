@@ -5,10 +5,18 @@ import widgets from './widgets';
 import templates from './templates';
 import { Flex } from '../Flex';
 import { FormContext, FormContextProps } from './Context';
+import styled from 'styled-components';
 
 export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
 }
+
+// Here, in ObjectFieldTemplate, and FieldTemplate we apply certain margins as a way to provide a gutter to a flex-based grid.
+const StyledForm = (styled(Form)`
+  margin-left: -16px;
+  margin-right: -16px;
+  overflow: hidden;
+` as React.ComponentType) as new <T>() => Form<T>;
 
 const recursiveSetUndefinedToValue = (data: any, value: any = null) => {
   if (!data || !(typeof data === 'object')) {
@@ -55,7 +63,7 @@ export const NewForm = <T extends any>({
 
   return (
     <FormContext.Provider value={{ imageUpload }}>
-      <Form
+      <StyledForm
         customFormats={{ hexColor: /^#[0-9A-F]{6}$/i }}
         omitExtraData
         showErrorList={false}
@@ -76,10 +84,10 @@ export const NewForm = <T extends any>({
         widgets={widgets}
         transformErrors={transformErrors}
       >
-        <Flex mt={3} justifyContent="center" alignItems="center">
+        <Flex mx={3} mt={3} justifyContent="center" alignItems="center">
           {children}
         </Flex>
-      </Form>
+      </StyledForm>
     </FormContext.Provider>
   );
 };
