@@ -262,7 +262,7 @@ export const Product = ({ product }: ProductProps) => {
             justifyContent='flex-start'
             flexDirection='column'
           >
-            <Box height={280} minWidth={180} style={{ position: 'relative' }}>
+            <Box height={420} minWidth={180} style={{ position: 'relative' }}>
               <ImageMagnifier
                 magnifierSize={180}
                 zoomFactor={1.15}
@@ -278,7 +278,7 @@ export const Product = ({ product }: ProductProps) => {
                         params,
                       )
                     }
-                    height={280}
+                    height={420}
                     alt={product.name}
                   />
                 )}
