@@ -26,7 +26,7 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
         getImageUrl: imageId =>
           sdk.artifact.getUrlForImage(imageId, store?._id ?? '', { h: 80 }) ??
           '',
-        uploadImage: getImageUploader({ maxHeight: 480, maxWidth: 480 }),
+        uploadImage: getImageUploader({ maxHeight: 800, maxWidth: 800 }),
         removeImage: imageId => sdk.artifact.remove(imageId as any) as any,
       }}
       customFormats={{ hexColor: /^#[0-9A-F]{6}$/i }}
