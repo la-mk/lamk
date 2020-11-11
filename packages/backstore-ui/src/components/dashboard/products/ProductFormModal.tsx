@@ -221,9 +221,6 @@ export const ProductFormModal = ({
         'variants',
       ]),
     ) as any;
-    // We have to force set the enum here so the form knows to render a multiselect field
-    (modifiedSchema.properties!.groups as any).items!.enum = groups;
-
     // Set max items to 1 if the product doesn't have variants
     if (!showVariants) {
       modifiedSchema.properties!.variants.maxItems = 1;
@@ -233,7 +230,7 @@ export const ProductFormModal = ({
     }
 
     return modifiedSchema;
-  }, [groups, showVariants]);
+  }, [showVariants]);
 
   return (
     <Modal
@@ -480,11 +477,18 @@ export const ProductFormModal = ({
                 ),
               },
             },
+            // TODO: This will render as an array, fix once https://github.com/rjsf-team/react-jsonschema-form/pull/2125 is merged.
+
             groups: {
+              'ui:widget': 'select',
               'ui:options': {
                 minWidth: ['200px', '50%', '50%'],
                 mode: 'tags',
                 loading: groupsLoading,
+                customEnumOptions: (groups ?? []).map(group => ({
+                  value: group,
+                  label: group,
+                })),
               },
               'ui:title': t('product.groups'),
               'ui:help': t('product.groupsTip'),
