@@ -23,7 +23,7 @@ import {
   textAlign,
   TextAlignProps,
 } from 'styled-system';
-import { Theme } from 'baseui/theme';
+import { InternalBlocksTheme } from './theme';
 
 export interface SystemProps
   extends SpaceProps,
@@ -38,7 +38,7 @@ export interface SystemProps
     // FontSizeProps,
     DisplayProps {}
 
-const getSystemTheme = (baseTheme: Theme & { space: string[] }) => {
+const getSystemTheme = (baseTheme: InternalBlocksTheme) => {
   return {
     breakpoints: [
       `${baseTheme.breakpoints.small}px`,

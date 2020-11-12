@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { Button } from '.';
-import { Provider } from '../Provider';
+import { Provider } from '../';
 
 storiesOf('New/Button', module).add('standard', () => {
   return (

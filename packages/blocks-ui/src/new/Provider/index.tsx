@@ -2,11 +2,10 @@ import React from 'react';
 import { Client, Server } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { BaseProvider } from 'baseui';
-import { theme } from './theme';
-import { BreakpointProvider } from '../hooks/useBreakpoint';
+import { getTheme } from '../theme';
+import { BreakpointProvider } from '../../hooks/useBreakpoint';
+import { BlocksTheme } from '../theme';
 
-const getHydrateClass = () =>
-  document.getElementsByClassName('_styletron_hydrate_');
 // interface LocalizationContext {
 //   email?: string;
 //   password?: string;
@@ -32,6 +31,9 @@ const getHydrateClass = () =>
 // export const LocalizationContext = React.createContext<LocalizationContext>({});
 
 // This adds support for server-side rendering, see https://github.com/vercel/next.js/tree/canary/examples/with-styletron
+const getHydrateClass = () =>
+  document.getElementsByClassName('_styletron_hydrate_');
+
 export const styletron =
   typeof window === 'undefined'
     ? new Server()
@@ -41,24 +43,26 @@ export const styletron =
       });
 
 export const Provider = ({
-  // theme,
+  theme,
   // basicLocale,
   // compoundLocale,
   children,
 }: {
-  // theme?: any;
+  theme?: BlocksTheme;
   // basicLocale?: any;
   // compoundLocale?: LocalizationContext;
   children: React.ReactElement;
 }) => {
+  const finalTheme = getTheme(theme);
+
   return (
     <StyletronProvider value={styletron}>
-      <BaseProvider theme={theme}>
+      <BaseProvider theme={finalTheme}>
         <BreakpointProvider
           breakpoints={[
-            theme.breakpoints.small,
-            theme.breakpoints.medium,
-            theme.breakpoints.large,
+            finalTheme.breakpoints.small,
+            finalTheme.breakpoints.medium,
+            finalTheme.breakpoints.large,
           ]}
         >
           {children}
