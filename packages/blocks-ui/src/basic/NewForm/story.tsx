@@ -39,7 +39,6 @@ export const schema: any = {
       uniqueItems: true,
       items: {
         type: 'string',
-        enum: [],
         minLength: 2,
         maxLength: 127,
       },
@@ -200,6 +199,7 @@ const uiSchema = {
     },
   },
   groups: {
+    'ui:widget': 'select',
     'ui:options': {
       minWidth: '200px',
       flex: 1,
@@ -327,7 +327,7 @@ const uiSchema = {
 
 storiesOf('New Form', module)
   .add('basic form', () => {
-    const [formData, setFormData] = React.useState({});
+    const [formData, setFormData] = React.useState({ groups: ['gro'] });
 
     return (
       <Provider>
