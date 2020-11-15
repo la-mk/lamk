@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button } from '../../basic/Button';
 import { Box } from '../../basic/Box';
-import { Title, Text } from '../../basic/Typography';
+import { Heading, Paragraph } from '../../basic/Typography';
 import { LocalizationContext } from '../../basic/Provider';
 import { BaseSection } from './BaseSection';
 import { FormProps, NewForm } from '../../basic/NewForm/NewForm';
@@ -18,13 +18,13 @@ export const ResetPasswordForm = <T extends any>({
 
   return (
     <BaseSection>
-      <Title textAlign="center" level={2} mb={3} fontSize={6}>
+      <Heading textAlign="center" size="large" as="h1" mb={2}>
         {localization.resetPassword || 'Reset password'}
-      </Title>
-      <Text color="mutedText.dark" textAlign="center" fontSize={1}>
+      </Heading>
+      <Paragraph color="contentTertiary" textAlign="center" size="small">
         {localization.resetPasswordExplanation ||
           'Set your email and new password in the form below'}
-      </Text>
+      </Paragraph>
 
       <Box mt={3} width="100%">
         <NewForm<T>
@@ -46,13 +46,13 @@ export const ResetPasswordForm = <T extends any>({
             },
           }}
         >
-          <Button width="100%" size="large" type="primary" htmlType="submit">
+          <Button width="100%" type="submit">
             {localization.resetPassword || 'Reset password'}
           </Button>
         </NewForm>
       </Box>
 
-      <Button mt={3} type="link" onClick={onLoginInstead}>
+      <Button mt={3} kind="minimal" onClick={onLoginInstead}>
         {localization.loginInstead || 'Log in instead'}
       </Button>
     </BaseSection>

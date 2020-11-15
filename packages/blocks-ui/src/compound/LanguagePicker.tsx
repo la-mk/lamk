@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown } from '../basic/Dropdown';
-import { Text } from '../basic/Typography';
+import { Label } from '../basic/Typography';
 import { Button } from '../basic/Button';
 import { Flex } from '../basic/Flex';
 import { Menu, MenuItem } from '../basic/Menu';
@@ -26,16 +26,16 @@ export const LanguagePicker = ({
           }}
         >
           <MenuItem key="mk">
-            <Text>Македонски</Text>
+            <Label>Македонски</Label>
           </MenuItem>
           <MenuItem key="en">
-            <Text>English</Text>
+            <Label>English</Label>
           </MenuItem>
         </Menu>
       }
     >
       <Flex alignItems="center" height="100%">
-        <Button p={0} display="block" type="link" style={{ color: 'inherit' }}>
+        <Button kind="minimal">
           <GlobalOutlined style={{ marginRight: 0 }} />{' '}
           {languageCode.toUpperCase()}
         </Button>

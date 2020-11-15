@@ -12,7 +12,6 @@ type SetProps<T> = {
   renderItem: (item: T) => React.ReactNode;
   itemKey: string;
   gutter?: number | string | (number | string)[];
-  footer?: React.ReactNode;
 } & React.ComponentProps<typeof Box>;
 
 const SetContainer = styled(Box)`
@@ -21,14 +20,28 @@ const SetContainer = styled(Box)`
   position: relative;
 `;
 
-const ArrowButton = styled(Button)<{ direction: ArrowDirection }>`
-  position: absolute !important;
-  top: 0;
-  bottom: 0;
-  ${props => (props.direction === 'left' ? 'left: 0' : 'right: 0')};
-  margin-top: auto;
-  margin-bottom: auto;
-`;
+const ArrowButton = ({
+  direction,
+  ...props
+}: {
+  direction: ArrowDirection;
+} & React.ComponentProps<typeof Button>) => {
+  return (
+    <Button
+      {...props}
+      size="compact"
+      $style={{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: direction === 'left' ? 0 : undefined,
+        right: direction === 'right' ? 0 : undefined,
+        marginTop: 'auto',
+        marginBottom: 'auto',
+      }}
+    />
+  );
+};
 
 // scroll-behavior has no support on Safari and iOS browser as of September 2019.
 const SetList = styled.ul`
@@ -96,17 +109,19 @@ function SetBase<T>({
         })}
       </SetList>
       <ArrowButton
-        type="ghost"
+        kind="tertiary"
         onClick={() => handleArrowClick('left')}
-        icon={<LeftOutlined />}
         direction="left"
-      />
+      >
+        <LeftOutlined />
+      </ArrowButton>
       <ArrowButton
-        type="ghost"
+        kind="tertiary"
         onClick={() => handleArrowClick('right')}
-        icon={<RightOutlined />}
         direction="right"
-      />
+      >
+        <RightOutlined />
+      </ArrowButton>
     </SetContainer>
   );
 }

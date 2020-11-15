@@ -1,9 +1,9 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import * as Typography from '.';
-import { Provider } from '../';
+import * as Typography from './';
+import { Provider } from '../Provider';
 
-storiesOf('New/Typography', module).add('standard', () => {
+storiesOf('Typography', module).add('standard', () => {
   return (
     <Provider>
       <>

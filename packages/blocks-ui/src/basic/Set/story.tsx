@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Set } from './Set';
 import { Provider } from '../Provider';
 import { Card } from '../Card';
-import { Button } from '../Button';
 
 const items = [
   {
@@ -46,11 +45,6 @@ storiesOf('Set', module).add('with text', () => (
           {item.name}
         </Card>
       )}
-      footer={
-        <Button type="link" href="#">
-          See all
-        </Button>
-      }
     />
   </Provider>
 ));

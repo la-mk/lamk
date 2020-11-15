@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldProps } from '@rjsf/core';
-import { Text } from '../../Typography';
+import { Label } from '../../Typography';
 
 const TitleField = ({ title, required }: FieldProps) => {
   if (!title) {
@@ -8,10 +8,14 @@ const TitleField = ({ title, required }: FieldProps) => {
   }
 
   return (
-    <Text mb={1} fontSize={1}>
+    <Label mb={1} size="small">
       {title}
-      {required ? <Text color="danger">*</Text> : null}
-    </Text>
+      {required ? (
+        <Label display="inline" color="contentNegative">
+          *
+        </Label>
+      ) : null}
+    </Label>
   );
 };
 

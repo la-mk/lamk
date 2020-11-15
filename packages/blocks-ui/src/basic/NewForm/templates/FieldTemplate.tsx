@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldTemplateProps } from '@rjsf/core';
 import { Box } from '../../Box';
-import { Text } from '../../Typography';
+import { Paragraph } from '../../Typography';
 
 export default ({
   children,
@@ -51,15 +51,15 @@ export default ({
       {children}
       <Box>
         {rawErrors?.[0] && (
-          <Text fontSize={0} color="danger">
+          <Paragraph size="xsmall" color="danger">
             {rawErrors?.[0]}
-          </Text>
+          </Paragraph>
         )}
 
         {!rawErrors?.[0] && rawHelp && (
-          <Text fontSize={0} color="mutedText.dark">
+          <Paragraph size="xsmall" color="mutedText.dark">
             {rawHelp}
-          </Text>
+          </Paragraph>
         )}
       </Box>
     </Box>

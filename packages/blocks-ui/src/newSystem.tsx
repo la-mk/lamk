@@ -16,13 +16,10 @@ import {
   MinWidthProps,
   MinHeightProps,
   DisplayProps,
-  // color,
-  // ColorProps,
-  // fontSize,
-  // FontSizeProps,
   textAlign,
   TextAlignProps,
 } from 'styled-system';
+import { $StyleProp } from 'styletron-react';
 import { InternalBlocksTheme } from './theme';
 
 export interface SystemProps
@@ -33,9 +30,7 @@ export interface SystemProps
     MaxHeightProps,
     MinWidthProps,
     MinHeightProps,
-    // ColorProps,
     TextAlignProps,
-    // FontSizeProps,
     DisplayProps {}
 
 const getSystemTheme = (baseTheme: InternalBlocksTheme) => {
@@ -50,16 +45,43 @@ const getSystemTheme = (baseTheme: InternalBlocksTheme) => {
   };
 };
 
+export type SystemComponentProps<T> = T & {
+  $style?: $StyleProp<T & { $theme: InternalBlocksTheme }>;
+};
+
 // BaseWeb already supports props as CSS but they are verbose (paddingLeft instead of pl), and they take `scalexxx` values instead of indices.
-export const system = function<T>(
-  Component: React.FunctionComponent<T>,
+export const system = function<T extends object>(
+  Component: React.FunctionComponent<SystemComponentProps<T & SystemProps>>,
   additionalProps?: string[]
-): React.FunctionComponent<T> {
-  return (p: T) => {
+) {
+  return (p: SystemComponentProps<T & SystemProps>) => {
     return (
       <Component
-        $style={(props: any) => {
-          const systemProps = { ...props, theme: getSystemTheme(props.$theme) };
+        {...p}
+        $style={props => {
+          // Mutating the props is fine as we don't want to cause unnecessary rerenders.
+          const systemProps = {
+            ...props,
+            theme: getSystemTheme(props.$theme),
+          };
+
+          // Styletron doesn't like mixing shorthand `margin` and longhand `marginTop`, so we rewrite everything to longhand.
+          if (systemProps.m != null) {
+            systemProps.mx = systemProps.m;
+            systemProps.my = systemProps.m;
+            delete systemProps.m;
+          }
+
+          if (systemProps.p != null) {
+            systemProps.px = systemProps.p;
+            systemProps.py = systemProps.p;
+            delete systemProps.p;
+          }
+
+          let passedStyles = p.$style ?? {};
+          if (typeof p.$style === 'function') {
+            passedStyles = p.$style(props);
+          }
 
           return {
             ...space(systemProps),
@@ -70,17 +92,12 @@ export const system = function<T>(
             ...maxWidth(systemProps),
             ...maxHeight(systemProps),
             ...display(systemProps),
-            // ...(additionalProps?.includes('color') ? color(systemProps) : {}),
             ...(additionalProps?.includes('textAlign')
               ? textAlign(systemProps)
               : {}),
-            // ...(additionalProps?.includes('fontSize')
-            //   ? fontSize(systemProps)
-            //   : {}),
-            ...(props.$style ?? {}),
+            ...passedStyles,
           };
         }}
-        {...p}
       />
     );
   };

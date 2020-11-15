@@ -7,6 +7,7 @@ import { ChangePasswordForm } from './ChangePasswordForm';
 import { ForgotPasswordForm } from './ForgotPasswordForm';
 import { ResetPasswordForm } from './ResetPasswordForm';
 import { FormProps } from '../../basic/NewForm/NewForm';
+import { LanguagePicker } from '../LanguagePicker';
 
 const authSchema: FormProps<any>['schema'] = {
   type: 'object',
@@ -25,16 +26,19 @@ const authSchema: FormProps<any>['schema'] = {
 storiesOf('Forms', module)
   .add('Login form', () => (
     <Provider>
-      <LoginForm
-        schema={authSchema}
-        login={console.log}
-        onSignupNowClick={() => null}
-        onForgotPasswordClick={() => null}
-        getErrorMessage={(errorName: any, context: any) => {
-          console.log(errorName, context);
-          return '';
-        }}
-      />
+      <>
+        <LanguagePicker languageCode="mk" onChangeLanguageCode={() => null} />
+        <LoginForm
+          schema={authSchema}
+          login={console.log}
+          onSignupNowClick={() => null}
+          onForgotPasswordClick={() => null}
+          getErrorMessage={(errorName: any, context: any) => {
+            console.log(errorName, context);
+            return '';
+          }}
+        />
+      </>
     </Provider>
   ))
   .add('Signup form', () => (

@@ -59,7 +59,7 @@ export { Table } from './basic/Table';
 export { Tabs, TabPane } from './basic/Tabs';
 export { Tag } from './basic/Tag';
 export { Tooltip } from './basic/Tooltip';
-export { Text, Title, Paragraph } from './basic/Typography';
+export { Heading, Display, Paragraph, Label } from './basic/Typography';
 export { Upload, UploadDragger } from './basic/Upload';
 export { LoginForm } from './compound/forms/LoginForm';
 export { SignupForm } from './compound/forms/SignupForm';
@@ -79,6 +79,4 @@ export { default as hooks } from './hooks';
 export { default as utils } from './utils';
 
 export { system } from './system';
-export { default as theme } from './theme';
-
-export * as New from './new'
+export { default as theme, getTheme, getBrandTheme } from './theme';

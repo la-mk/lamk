@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Flex } from '../../basic/Flex';
-import { Text, Title } from '../../basic/Typography';
+import { Label, Heading, Paragraph } from '../../basic/Typography';
 import { PoweredBy } from '../PoweredBy';
 import { Button } from '../../basic/Button';
 import { Box } from '../../basic/Box';
@@ -32,13 +32,13 @@ export const AuthFormBase = ({
 
   return (
     <BaseSection>
-      <Title level={2} mb={3} fontSize={6}>
+      <Heading textAlign="center" size="large" as="h1" mb={3}>
         {primaryText}
-      </Title>
+      </Heading>
       {logoUrl && (
-        <Text color="mutedText.dark" textAlign="center" fontSize={1}>
+        <Paragraph color="mutedText.dark" textAlign="center" size="small">
           {localization.authSameAccount} <PoweredBy logoUrl={logoUrl} />
-        </Text>
+        </Paragraph>
       )}
 
       <Box mt={3} width="100%">
@@ -62,24 +62,22 @@ export const AuthFormBase = ({
             },
           }}
         >
-          <Button width="100%" size="large" type="primary" htmlType="submit">
+          <Button width="100%" type="submit">
             {primaryText}
           </Button>
         </NewForm>
       </Box>
 
       <Flex alignItems="center" justifyContent="center" my={3}>
-        <Text color="mutedText.dark" fontSize={1}>
-          {localization.or || 'or'}
-        </Text>
+        <Label color="contentTertiary">{localization.or || 'or'}</Label>
       </Flex>
 
-      <Button size="large" width="100%" type="default" onClick={onSecondary}>
+      <Button width="100%" kind="secondary" onClick={onSecondary}>
         {secondaryText}
       </Button>
 
       {onForgotPassword && (
-        <Button mt={3} type="link" onClick={onForgotPassword}>
+        <Button mt={3} kind="minimal" onClick={onForgotPassword}>
           {forgotPasswordText}
         </Button>
       )}

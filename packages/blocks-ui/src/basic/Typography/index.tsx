@@ -19,7 +19,7 @@ import {
 } from 'baseui/typography';
 
 import { BlockProps } from 'baseui/block';
-import { system, SystemProps } from '../system';
+import { system, SystemProps } from '../../newSystem';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 
 export type TypographySize = 'large' | 'medium' | 'small' | 'xsmall';
@@ -27,7 +27,7 @@ export type TypographySize = 'large' | 'medium' | 'small' | 'xsmall';
 export const Display = ({
   size,
   ...props
-}: BlockProps & { size: TypographySize | TypographySize[] } & SystemProps) => {
+}: BlockProps & { size?: TypographySize | TypographySize[] } & SystemProps) => {
   const selectedSize = useBreakpoint(
     Array.isArray(size) ? size : [size, size, size]
   );
@@ -36,11 +36,11 @@ export const Display = ({
     case 'large':
       return system(BaseDisplayLarge, ['textAlign'])(props);
     case 'medium':
+    default:
       return system(BaseDisplayMedium, ['textAlign'])(props);
     case 'small':
       return system(BaseDisplaySmall, ['textAlign'])(props);
     case 'xsmall':
-    default:
       return system(BaseDisplayXSmall, ['textAlign'])(props);
   }
 };
@@ -48,7 +48,7 @@ export const Display = ({
 export const Paragraph = ({
   size,
   ...props
-}: BlockProps & { size: TypographySize | TypographySize[] } & SystemProps) => {
+}: BlockProps & { size?: TypographySize | TypographySize[] } & SystemProps) => {
   const selectedSize = useBreakpoint(
     Array.isArray(size) ? size : [size, size, size]
   );
@@ -57,11 +57,11 @@ export const Paragraph = ({
     case 'large':
       return system(BaseParagraphLarge, ['textAlign'])(props);
     case 'medium':
+    default:
       return system(BaseParagraphMedium, ['textAlign'])(props);
     case 'small':
       return system(BaseParagraphSmall, ['textAlign'])(props);
     case 'xsmall':
-    default:
       return system(BaseParagraphXSmall, ['textAlign'])(props);
   }
 };
@@ -69,7 +69,7 @@ export const Paragraph = ({
 export const Label = ({
   size,
   ...props
-}: BlockProps & { size: TypographySize | TypographySize[] } & SystemProps) => {
+}: BlockProps & { size?: TypographySize | TypographySize[] } & SystemProps) => {
   const selectedSize = useBreakpoint(
     Array.isArray(size) ? size : [size, size, size]
   );
@@ -78,11 +78,11 @@ export const Label = ({
     case 'large':
       return system(BaseLabelLarge, ['textAlign'])(props);
     case 'medium':
+    default:
       return system(BaseLabelMedium, ['textAlign'])(props);
     case 'small':
       return system(BaseLabelSmall, ['textAlign'])(props);
     case 'xsmall':
-    default:
       return system(BaseLabelXSmall, ['textAlign'])(props);
   }
 };
@@ -90,7 +90,7 @@ export const Label = ({
 export const Heading = ({
   size,
   ...props
-}: BlockProps & { size: TypographySize | TypographySize[] } & SystemProps) => {
+}: BlockProps & { size?: TypographySize | TypographySize[] } & SystemProps) => {
   const selectedSize = useBreakpoint(
     Array.isArray(size) ? size : [size, size, size]
   );
@@ -99,11 +99,11 @@ export const Heading = ({
     case 'large':
       return system(BaseHeadingLarge, ['textAlign'])(props);
     case 'medium':
+    default:
       return system(BaseHeadingMedium, ['textAlign'])(props);
     case 'small':
       return system(BaseHeadingSmall, ['textAlign'])(props);
     case 'xsmall':
-    default:
       return system(BaseHeadingXSmall, ['textAlign'])(props);
   }
 };

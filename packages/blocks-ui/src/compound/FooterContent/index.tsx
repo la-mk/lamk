@@ -1,6 +1,6 @@
 import React from 'react';
 import { CollapsePanel, Collapse } from '../../basic/Collapse';
-import { Text, Title } from '../../basic/Typography';
+import { Label, Heading } from '../../basic/Typography';
 import { Button } from '../../basic/Button';
 import { Flex } from '../../basic/Flex';
 import { Box } from '../../basic/Box';
@@ -23,11 +23,11 @@ const Submenu = ({ submenus, Link }: { submenus: Submenu[]; Link: any }) => {
       {submenus.map(submenu => {
         return (
           <Link key={submenu.link} href={submenu.link} passHref>
-            <Button my={2} type="link">
+            <Button my={2} kind="minimal">
               {
-                <Text fontSize={0} color="text.light">
+                <Label size="xsmall" color="text.light">
                   {submenu.text}
-                </Text>
+                </Label>
               }
             </Button>
           </Link>
@@ -39,9 +39,9 @@ const Submenu = ({ submenus, Link }: { submenus: Submenu[]; Link: any }) => {
 
 const SubmenuTitle = ({ menu, Link }: { menu: Menu; Link: any }) => {
   const title = (
-    <Title mx={3} mb={3} fontSize={1} color="text.light" level={4}>
+    <Heading as="h4" size="small" mx={3} mb={3} color="text.light">
       {menu.text.toUpperCase()}
-    </Title>
+    </Heading>
   );
   return (
     <>
@@ -103,7 +103,7 @@ export const FooterContent = ({
             return (
               <CollapsePanel
                 key={menu.text}
-                header={<Text color="text.light">{menu.text}</Text>}
+                header={<Label color="text.light">{menu.text}</Label>}
               >
                 <Submenu Link={Link} submenus={menu.submenus} />
               </CollapsePanel>

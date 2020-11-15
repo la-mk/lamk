@@ -39,7 +39,7 @@ export const ChangePasswordForm = <T extends any>({
             },
           }}
         >
-          <Button width="100%" size="large" type="primary" htmlType="submit">
+          <Button width="100%" type="submit">
             {localization.update || 'Update'}
           </Button>
         </NewForm>

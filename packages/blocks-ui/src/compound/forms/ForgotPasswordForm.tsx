@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Flex } from '../../basic/Flex';
 import { Box } from '../../basic/Box';
 import { Button } from '../../basic/Button';
-import { Title, Text } from '../../basic/Typography';
+import { Heading, Paragraph } from '../../basic/Typography';
 import { Result } from '../../basic/Result';
 import { LocalizationContext } from '../../basic/Provider';
 import { BaseSection } from './BaseSection';
@@ -24,13 +24,13 @@ export const ForgotPasswordForm = <T extends any>({
     <BaseSection>
       {!hasSubmitted && (
         <>
-          <Title textAlign="center" level={2} mb={3} fontSize={6}>
+          <Heading textAlign="center" size="large" as="h1" mb={3}>
             {localization.forgotPassword || 'Forgot your password?'}
-          </Title>
-          <Text color="mutedText.dark" textAlign="center" fontSize={1}>
+          </Heading>
+          <Paragraph color="mutedText.dark" textAlign="center" size="small">
             {localization.forgotPasswordExplanation ||
               'We will send you a email with a link to reset your password'}
-          </Text>
+          </Paragraph>
 
           <Box mt={3} width="100%">
             <NewForm<T>
@@ -44,19 +44,14 @@ export const ForgotPasswordForm = <T extends any>({
                 },
               }}
             >
-              <Button
-                width="100%"
-                size="large"
-                type="primary"
-                htmlType="submit"
-              >
+              <Button width="100%" type="submit">
                 {localization.sendPasswordResetLink ||
                   'Send password reset link'}
               </Button>
             </NewForm>
           </Box>
 
-          <Button mt={3} type="link" onClick={onLoginInstead}>
+          <Button mt={3} kind="minimal" onClick={onLoginInstead}>
             {localization.loginInstead || 'Log in instead'}
           </Button>
         </>

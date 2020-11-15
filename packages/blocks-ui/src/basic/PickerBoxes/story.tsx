@@ -19,13 +19,13 @@ storiesOf('PickerBoxes', module)
           <PickerBox value={selected} type="color" />
 
           <PickerBoxes
-            size={'small'}
+            size={'compact'}
             values={['green', 'blue', 'yellow', 'white', 'black']}
             type="color"
             selected={selected}
             onSelect={setSelected}
           />
-          <PickerBox size={'small'} value={selected} type="color" />
+          <PickerBox size={'compact'} value={selected} type="color" />
         </Box>
       </Provider>
     );
@@ -51,12 +51,12 @@ storiesOf('PickerBoxes', module)
           <PickerBox highlight={true} value={size} />
 
           <PickerBoxes
-            size={'small'}
+            size={'compact'}
             values={['green', 'blue', 'yellow', 'white', 'black']}
             selected={selected}
             onSelect={setSelected}
           />
-          <PickerBox size={'small'} value={selected} />
+          <PickerBox size={'compact'} value={selected} />
         </Box>
       </Provider>
     );

@@ -1,92 +1,70 @@
 import React from 'react';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
-import { Text } from '../Typography';
-import styled, { withTheme } from 'styled-components';
-import { BlocksTheme } from 'theme';
+import { ButtonProps } from '../Button';
 
-const ButtonWrapper = styled(Button)<{
-  highlight: boolean;
-  pickerType: PickerBoxProps['type'];
-}>`
-  border-radius: ${props => props.theme.radii[0]}px;
-  border: ${props =>
-    props.highlight
-      ? `solid 2px ${props.theme.colors.primary}`
-      : `solid 2px ${props.theme.colors.background.light}`};
-
-  &:focus,
-  &:active,
-  &:hover {
-    border: ${props => `solid 2px ${props.theme.colors.primary}`};
-  }
-
-  &:not([disabled]) {
-    ${props =>
-      props.pickerType === 'color' ? `background: ${props.value}` : ''};
-  }
-
-  &:disabled,
-  &:disabled:hover {
-    ${props =>
-      props.pickerType === 'color'
-        ? `background: ${props.value}; opacity: 0.5;`
-        : ''};
-  }
-`;
-
-export type PickerBoxProps = React.ComponentProps<typeof Button> & {
-  value: string;
-  disabled?: boolean;
-  highlight: boolean;
+export type PickerBoxProps = Omit<
+  React.ComponentProps<typeof Button>,
+  'type'
+> & {
+  value?: string;
+  highlight?: boolean;
   size?: PickerBoxesProps['size'];
   type?: PickerBoxesProps['type'];
-  theme: BlocksTheme;
 };
 
 // TODO: Add aria label for the color or text name and show on hover.
-export const PickerBox = withTheme(
-  ({
-    value,
-    highlight,
-    disabled,
-    type = 'text',
-    size = 'default',
-    theme,
-    ...otherProps
-  }: PickerBoxProps) => {
-    const boxSize =
-      size === 'small' ? theme.baseHeight[0] : theme.baseHeight[1];
-
-    return (
-      <ButtonWrapper
-        size={size}
-        highlight={highlight}
-        pickerType={type}
-        value={value}
-        height={boxSize}
-        width={type === 'color' ? boxSize : 'fit-content'}
-        disabled={disabled}
-        {...otherProps}
-      >
-        {type === 'text' ? (
-          <Flex alignItems="center" justifyContent="center">
-            <Text fontSize={0}>{value}</Text>{' '}
-          </Flex>
-        ) : (
-          ' '
-        )}
-      </ButtonWrapper>
-    );
-  }
-);
+export const PickerBox = ({
+  value,
+  highlight,
+  disabled,
+  type = 'text',
+  ...otherProps
+}: PickerBoxProps) => {
+  return (
+    <Button
+      {...otherProps}
+      kind="tertiary"
+      // @ts-ignore
+      $style={({ $theme }: any) => {
+        return {
+          whitespace: 'pre',
+          boxSizing: 'border-box',
+          border:
+            highlight && !disabled
+              ? `solid ${$theme.sizing.scale0} ${$theme.colors.primary}`
+              : `solid ${$theme.sizing.scale0} ${$theme.colors.borderTransparent}`,
+          ...(type === 'color'
+            ? {
+                backgroundColor: value,
+                ':hover': {
+                  backgroundColor: value,
+                  border: `solid ${$theme.sizing.scale0} ${$theme.colors.primary}`,
+                },
+                ':disabled': {
+                  backgroundColor: `${value}; opacity: 0.5`,
+                },
+                ':disabled:hover': {
+                  border: `solid ${$theme.sizing.scale0} ${$theme.colors.borderTransparent}`,
+                },
+              }
+            : {}),
+        };
+      }}
+      disabled={disabled}
+    >
+      {/* TODO: A hacky way to make the box squarish, fix it. */}
+      {type === 'text' ? value : <div style={{ padding: '0 6px' }}>&nbsp;</div>}
+    </Button>
+  );
+};
 
 export interface PickerBoxesProps {
   values: string[];
   disabled?: string[];
   onSelect: (color: string | undefined) => void;
   selected: string | undefined;
-  size?: 'small' | 'default';
+  size?: ButtonProps['size'];
   type?: 'color' | 'text';
 }
 
