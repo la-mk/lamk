@@ -7,7 +7,6 @@ import {
   Flex,
   message,
   Spin,
-  Modal,
   hooks,
   Title,
   Switch,
@@ -58,10 +57,9 @@ enum DiscountInputMode {
   value,
 }
 
-interface ProductFormModalProps {
+interface ProductFormProps {
   product: Product | undefined;
   onClose: () => void;
-  visible: boolean;
 }
 
 const getVariantIndex = (id: string) => {
@@ -102,17 +100,14 @@ const percentageToValue = (
   );
 };
 
-export const ProductFormModal = ({
-  product,
-  onClose,
-  visible,
-}: ProductFormModalProps) => {
+export const ProductForm = ({ product, onClose }: ProductFormProps) => {
   const { t } = useTranslation();
   // If the product has at least one attribute, it means it has variants.
   const hasAttributes = sdk.product.hasVariants(product);
   const [showVariants, setShowVariants] = React.useState(hasAttributes);
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, productLoading] = hooks.useCall();
   const [groupsCaller, groupsLoading] = hooks.useCall();
+  const [categoriesCaller, categoriesLoading] = hooks.useCall();
   const groups: string[] = useSelector(getGroups);
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;
@@ -143,10 +138,10 @@ export const ProductFormModal = ({
       return;
     }
 
-    caller<FindResult<Category>>(sdk.category.find(), categories =>
+    categoriesCaller<FindResult<Category>>(sdk.category.find(), categories =>
       setCategories(categories.data),
     );
-  }, [caller, categories]);
+  }, [categoriesCaller, categories]);
 
   const fetchProductGroups = throttle(
     () => {
@@ -155,7 +150,7 @@ export const ProductFormModal = ({
         productGroups => setGroups(productGroups.data.map(x => x.groupName)),
       );
     },
-    5000,
+    30000,
     { leading: true, trailing: false },
   );
 
@@ -229,23 +224,19 @@ export const ProductFormModal = ({
         .properties!.variants as any).maxItems;
     }
 
+    modifiedSchema.properties!.groups.items.examples = groups;
+
     return modifiedSchema;
-  }, [showVariants]);
+  }, [showVariants, groups]);
 
   return (
-    <Modal
-      width={'80%'}
-      centered
-      destroyOnClose
-      visible={visible}
-      footer={null}
-      onCancel={onClose}
-      title={product ? t('actions.update') : t('actions.add')}
-    >
+    <>
       <Spin
-        spinning={showSpinner}
+        spinning={productLoading || categoriesLoading}
         tip={
-          product
+          categoriesLoading
+            ? undefined
+            : product
             ? t('product.updatingProductTip')
             : t('product.addingProductTip')
         }
@@ -526,6 +517,6 @@ export const ProductFormModal = ({
           </Flex>
         </NewForm>
       </Spin>
-    </Modal>
+    </>
   );
 };

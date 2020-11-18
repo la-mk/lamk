@@ -13,9 +13,9 @@ import {
   Box,
   Tag,
   Text,
+  Modal,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
-import { ProductFormModal } from './ProductFormModal';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import {
@@ -36,6 +36,7 @@ import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
 import { TFunction } from 'i18next';
+import { ProductForm } from './ProductForm';
 
 const searchSupportedFields = [
   'name',
@@ -262,6 +263,11 @@ export const Products = () => {
     );
   }, [storeId, groupsCaller]);
 
+  const onClose = () => {
+    setShowModal(false);
+    setEditingProduct(undefined);
+  };
+
   return (
     <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
@@ -371,14 +377,17 @@ export const Products = () => {
         })}
       />
 
-      <ProductFormModal
-        product={editingProduct}
+      <Modal
+        width={'80%'}
+        centered
+        destroyOnClose
         visible={showModal}
-        onClose={() => {
-          setShowModal(false);
-          setEditingProduct(undefined);
-        }}
-      />
+        footer={null}
+        onCancel={onClose}
+        title={editingProduct ? t('actions.update') : t('actions.add')}
+      >
+        <ProductForm product={editingProduct} onClose={onClose} />
+      </Modal>
     </Flex>
   );
 };
