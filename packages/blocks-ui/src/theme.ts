@@ -42,33 +42,89 @@ export const getTheme = (
 //       dark: tinycolor({ h: brand.h, s: 0.92, l: 0.08 }).toHexString(),
 //     },
 
-// Calculation copied from https://github.com/mbitson/mcg/blob/master/scripts/controllers/ColorGeneratorCtrl.js
-const calculateShades = (color: string, pre: string) => {
-  return {
-    [pre]: color,
-    [`${pre}50`]: tinycolor(color)
-      .lighten(46)
-      .toHexString(),
-    [`${pre}100`]: tinycolor(color)
-      .lighten(32)
-      .toHexString(),
-    [`${pre}200`]: tinycolor(color)
-      .lighten(18)
-      .toHexString(),
-    [`${pre}300`]: tinycolor(color)
-      .lighten(8)
-      .toHexString(),
-    [`${pre}400`]: color,
-    [`${pre}500`]: tinycolor(color)
+const isColorExtreme = (color: string) => {
+  const brightness = tinycolor(color).getBrightness();
+  return brightness > 250 || brightness < 5;
+};
+
+const getBalancedColor = (color: string) => {
+  const brightness = tinycolor(color).getBrightness();
+
+  let base = color;
+  if (brightness > 250) {
+    base = tinycolor(color)
       .darken(8)
-      .toHexString(),
-    [`${pre}600`]: tinycolor(color)
-      .darken(18)
-      .toHexString(),
-    [`${pre}700`]: tinycolor(color)
-      .darken(28)
-      .toHexString(),
+      .toHexString();
+  }
+
+  if (brightness < 5) {
+    base = tinycolor(color)
+      .lighten(8)
+      .toHexString();
+  }
+
+  return base;
+};
+
+const calculateShades = (color: string, pre: string): any => {
+  let iterations = 0;
+
+  const optimizeColors = (base: string): any => {
+    iterations += 1;
+    if (iterations > 10) {
+      return;
+    }
+
+    if (isColorExtreme(base)) {
+      return optimizeColors(getBalancedColor(base));
+    }
+
+    const lightnessCoefficient = Math.floor(
+      tinycolor(base).getBrightness() / 2.55
+    );
+
+    const darknessCoefficient = Math.floor(
+      (255 - tinycolor(base).getBrightness()) / 2.55
+    );
+
+    const variants = {
+      [pre]: color,
+      [`${pre}50`]: tinycolor(base)
+        .lighten(0.84 * darknessCoefficient)
+        .toHexString(),
+      [`${pre}100`]: tinycolor(base)
+        .lighten(0.76 * darknessCoefficient)
+        .toHexString(),
+      [`${pre}200`]: tinycolor(base)
+        .lighten(0.5 * darknessCoefficient)
+        .toHexString(),
+      [`${pre}300`]: tinycolor(base)
+        .lighten(0.25 * darknessCoefficient)
+        .toHexString(),
+      [`${pre}400`]: color,
+      [`${pre}500`]: tinycolor(base)
+        .darken(0.05 * lightnessCoefficient)
+        .toHexString(),
+      [`${pre}600`]: tinycolor(base)
+        .darken(0.15 * lightnessCoefficient)
+        .toHexString(),
+      [`${pre}700`]: tinycolor(base)
+        .darken(0.25 * lightnessCoefficient)
+        .toHexString(),
+    };
+
+    const extremeVariant = Object.entries(variants)
+      .filter(([key]) => key !== `${pre}400`)
+      .find(([_key, value]) => isColorExtreme(value));
+
+    if (extremeVariant) {
+      return optimizeColors(getBalancedColor(extremeVariant[1]));
+    }
+
+    return variants;
   };
+
+  return optimizeColors(color);
 };
 
 export const getBrandTheme = (

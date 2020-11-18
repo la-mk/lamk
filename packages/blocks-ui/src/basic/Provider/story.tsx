@@ -1,23 +1,43 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { Provider } from '.';
-import { Button, Display, Heading } from '../../';
+import { Button } from '../../';
 import { getBrandTheme } from '../../theme';
 
 storiesOf('Provider', module).add('standard', () => {
+  const colors = [
+    '#ffffff',
+    '#11FFAC',
+    '#123456',
+    'maroon',
+    '#276EF1',
+    '#05944F',
+    '#FFC043',
+    '#E11900',
+    '#000000',
+  ];
+
   return (
-    <Provider baseTheme={getBrandTheme('#11FFAC')}>
-      <div>
-        <Display size={['large', 'small', 'medium']} mt={[2, 3, 4]}>
-          Hey
-        </Display>
+    <>
+      {colors.map(color => (
+        <Provider baseTheme={getBrandTheme(color)}>
+          <div>
+            <Button>Hey there</Button>
 
-        <Heading size={'xsmall'} mt={4}>
-          Hey there, how are you doing I hope it's all good
-        </Heading>
+            <Button kind="secondary" ml={3}>
+              Hi.
+            </Button>
 
-        <Button>Hey there</Button>
-      </div>
-    </Provider>
+            <Button kind="tertiary" ml={3}>
+              How are you?
+            </Button>
+
+            <Button disabled kind="tertiary" ml={3}>
+              How are you?
+            </Button>
+          </div>
+        </Provider>
+      ))}
+    </>
   );
 });
