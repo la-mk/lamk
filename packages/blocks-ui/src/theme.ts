@@ -43,23 +43,23 @@ export const getTheme = (
 //     },
 
 const isColorExtreme = (color: string) => {
-  const brightness = tinycolor(color).getBrightness();
-  return brightness > 250 || brightness < 5;
+  const brightness = tinycolor(color).getLuminance() * 100;
+  return brightness > 98 || brightness < 2;
 };
 
 const getBalancedColor = (color: string) => {
-  const brightness = tinycolor(color).getBrightness();
+  const brightness = tinycolor(color).getLuminance() * 100;
 
   let base = color;
-  if (brightness > 250) {
+  if (brightness > 98) {
     base = tinycolor(color)
-      .darken(8)
+      .darken(5)
       .toHexString();
   }
 
-  if (brightness < 5) {
+  if (brightness < 2) {
     base = tinycolor(color)
-      .lighten(8)
+      .lighten(5)
       .toHexString();
   }
 
@@ -79,37 +79,32 @@ const calculateShades = (color: string, pre: string): any => {
       return optimizeColors(getBalancedColor(base));
     }
 
-    const lightnessCoefficient = Math.floor(
-      tinycolor(base).getBrightness() / 2.55
-    );
-
-    const darknessCoefficient = Math.floor(
-      (255 - tinycolor(base).getBrightness()) / 2.55
-    );
+    const lightnessCoefficient = tinycolor(base).getLuminance() * 100;
+    const darknessCoefficient = 100 - tinycolor(base).getLuminance() * 100;
 
     const variants = {
       [pre]: color,
       [`${pre}50`]: tinycolor(base)
-        .lighten(0.84 * darknessCoefficient)
+        .lighten(0.52 * darknessCoefficient)
         .toHexString(),
       [`${pre}100`]: tinycolor(base)
-        .lighten(0.76 * darknessCoefficient)
+        .lighten(0.43 * darknessCoefficient)
         .toHexString(),
       [`${pre}200`]: tinycolor(base)
-        .lighten(0.5 * darknessCoefficient)
+        .lighten(0.35 * darknessCoefficient)
         .toHexString(),
       [`${pre}300`]: tinycolor(base)
-        .lighten(0.25 * darknessCoefficient)
+        .lighten(0.2 * darknessCoefficient)
         .toHexString(),
       [`${pre}400`]: color,
       [`${pre}500`]: tinycolor(base)
-        .darken(0.05 * lightnessCoefficient)
+        .darken(0.1 * lightnessCoefficient)
         .toHexString(),
       [`${pre}600`]: tinycolor(base)
-        .darken(0.15 * lightnessCoefficient)
+        .darken(0.2 * lightnessCoefficient)
         .toHexString(),
       [`${pre}700`]: tinycolor(base)
-        .darken(0.25 * lightnessCoefficient)
+        .darken(0.3 * lightnessCoefficient)
         .toHexString(),
     };
 
