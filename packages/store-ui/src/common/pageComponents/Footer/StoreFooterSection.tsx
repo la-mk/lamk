@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Box, Title, Image } from '@sradevski/blocks-ui';
+import { Flex, Paragraph, Box, Heading, Image } from '@sradevski/blocks-ui';
 import { PhoneFilled, MailFilled } from '@ant-design/icons';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { sdk } from '@sradevski/la-sdk';
@@ -17,12 +17,12 @@ const ContactEntry = ({
   }
 
   return (
-    <Text my={1} color='text.light'>
+    <Paragraph as='span' my={1} color='contentInverseSecondary'>
       {icon}
-      <Text fontSize={0} color='text.light' ml={4}>
+      <Paragraph as='span' color='contentInverseSecondary' ml={4}>
         {value}
-      </Text>
-    </Text>
+      </Paragraph>
+    </Paragraph>
   );
 };
 
@@ -45,9 +45,9 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
         />
       </Box>
 
-      <Title mb={3} color='heading.light' level={4} fontSize={1}>
+      <Heading mb={3} color='contentInversePrimary' as='h4' size='xsmall'>
         {t('common.contactDetails').toUpperCase()}
-      </Title>
+      </Heading>
 
       {phoneNumber && (
         <ContactEntry icon={<PhoneFilled />} value={phoneNumber} />

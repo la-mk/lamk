@@ -7,7 +7,7 @@ import {
   Button,
   Dropdown,
   Divider,
-  Text,
+  Label,
 } from '@sradevski/blocks-ui';
 import {
   ShoppingOutlined,
@@ -31,39 +31,43 @@ export const TopMenu = withTheme(
         <Flex alignItems='center' justifyContent='center'>
           <HoverableLink href='/products'>
             <Flex alignItems='center' justifyContent='center' mx={3}>
-              <Text
-                color={selectedKey === 'products' ? 'primary' : 'text.dark'}
-                fontSize={4}
+              <Label
+                $style={{ fontSize: '26px' }}
+                color={
+                  selectedKey === 'products' ? 'primary' : 'contentTertiary'
+                }
               >
                 <ShoppingOutlined />
-              </Text>
-              <Text
-                color={selectedKey === 'products' ? 'primary' : 'text.dark'}
+              </Label>
+              <Label
+                size='xsmall'
+                color={
+                  selectedKey === 'products' ? 'primary' : 'contentTertiary'
+                }
                 ml={2}
-                fontSize={0}
                 display={['none', 'none', 'initial']}
               >
                 {t('pages.product_plural')}
-              </Text>
+              </Label>
             </Flex>
           </HoverableLink>
 
           <HoverableLink href='/about'>
             <Flex alignItems='center' justifyContent='center' mx={3}>
-              <Text
-                color={selectedKey === 'about' ? 'primary' : 'text.dark'}
-                fontSize={4}
+              <Label
+                $style={{ fontSize: '26px' }}
+                color={selectedKey === 'about' ? 'primary' : 'contentTertiary'}
               >
                 <ShopOutlined />
-              </Text>
-              <Text
-                color={selectedKey === 'about' ? 'primary' : 'text.dark'}
+              </Label>
+              <Label
+                size='xsmall'
+                color={selectedKey === 'about' ? 'primary' : 'contentTertiary'}
                 ml={2}
-                fontSize={0}
                 display={['none', 'none', 'initial']}
               >
                 {t('pages.aboutUs')}
-              </Text>
+              </Label>
             </Flex>
           </HoverableLink>
 
@@ -75,12 +79,12 @@ export const TopMenu = withTheme(
                 offset={[2, 2]}
                 count={cartCount ?? 0}
               >
-                <Text
-                  color={selectedKey === 'cart' ? 'primary' : 'text.dark'}
-                  fontSize={4}
+                <Label
+                  $style={{ fontSize: '26px' }}
+                  color={selectedKey === 'cart' ? 'primary' : 'contentTertiary'}
                 >
                   <ShoppingCartOutlined />
-                </Text>
+                </Label>
               </Badge>
             </Flex>
           </HoverableLink>
@@ -91,25 +95,39 @@ export const TopMenu = withTheme(
             overlay={
               user ? (
                 <Menu>
-                  <MenuItem key='account'>
-                    <Link href='/account' passHref>
-                      <Button type='link' icon={<UserOutlined />}>
-                        {t('pages.myAccount')}
-                      </Button>
-                    </Link>
+                  <MenuItem
+                    key='account'
+                    style={{ backgroundColor: 'white', padding: '0 8px' }}
+                  >
+                    <Button
+                      size='compact'
+                      kind='tertiary'
+                      startEnhancer={() => <UserOutlined />}
+                    >
+                      <Link href='/account'>{t('pages.myAccount')}</Link>
+                    </Button>
                   </MenuItem>
-                  <MenuItem key='orders'>
-                    <Link href='/orders' passHref>
-                      <Button type='link' icon={<ShoppingOutlined />}>
-                        {t('pages.myOrders')}
-                      </Button>
-                    </Link>
+                  <MenuItem
+                    key='orders'
+                    style={{ backgroundColor: 'white', padding: '0 8px' }}
+                  >
+                    <Button
+                      size='compact'
+                      kind='tertiary'
+                      startEnhancer={() => <ShoppingOutlined />}
+                    >
+                      <Link href='/orders'>{t('pages.myOrders')}</Link>
+                    </Button>
                   </MenuItem>
                   <Divider mt={2} mb={0} />
-                  <MenuItem key='logout'>
+                  <MenuItem
+                    key='logout'
+                    style={{ backgroundColor: 'white', padding: '0 8px' }}
+                  >
                     <Button
-                      type='link'
-                      icon={<LogoutOutlined />}
+                      size='compact'
+                      kind='tertiary'
+                      startEnhancer={() => <LogoutOutlined />}
                       onClick={handleLogout}
                     >
                       {t('auth.logout')}
@@ -118,10 +136,14 @@ export const TopMenu = withTheme(
                 </Menu>
               ) : (
                 <Menu>
-                  <MenuItem key='login'>
+                  <MenuItem
+                    key='login'
+                    style={{ backgroundColor: 'white', padding: '0 8px' }}
+                  >
                     <Button
-                      type='link'
-                      icon={<LoginOutlined />}
+                      size='compact'
+                      kind='tertiary'
+                      startEnhancer={() => <LoginOutlined />}
                       onClick={handleLogin}
                     >
                       {t('auth.login')}
@@ -132,11 +154,9 @@ export const TopMenu = withTheme(
             }
           >
             <Flex>
-              <Button
-                mx={3}
-                type='primary'
-                icon={<UserOutlined style={{ margin: 0 }} />}
-              />
+              <Button mx={3}>
+                <UserOutlined style={{ margin: 0 }} />
+              </Button>
             </Flex>
           </Dropdown>
         </Flex>

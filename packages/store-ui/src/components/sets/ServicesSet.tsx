@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Text, hooks } from '@sradevski/blocks-ui';
+import { Flex, Paragraph, hooks, Label, Heading } from '@sradevski/blocks-ui';
 import { useSelector } from 'react-redux';
 import { DeliveryTruck } from '../shared/icons/DeliveryTruck';
 import { SecurePayment } from '../shared/icons/SecurePayment';
@@ -75,16 +75,31 @@ export const ServicesSet = () => {
             justifyContent='center'
             px={[3, 4, 4]}
           >
-            <Text style={{ lineHeight: 1 }} mr={3} color='text.light'>
+            <Paragraph
+              $style={{ lineHeight: 1 }}
+              mr={3}
+              color='contentInversePrimary'
+            >
               {!!service.icon && service.icon}
-            </Text>
+            </Paragraph>
             <Flex ml={2} py={4} flexDirection='column'>
-              <Text fontSize={[3, 3, 4]} color='text.light'>
+              <Heading
+                textAlign='center'
+                $style={{ lineHeight: 1 }}
+                as='p'
+                mb={2}
+                size={['small', 'small', 'medium']}
+                color='contentInversePrimary'
+              >
                 {service.title}
-              </Text>
-              <Text fontSize={[0, 0, 1]} color='mutedText.light'>
+              </Heading>
+              <Paragraph
+                textAlign='center'
+                size={['small', 'small', 'medium']}
+                color='contentInverseSecondary'
+              >
                 {service.subtitle}
-              </Text>
+              </Paragraph>
             </Flex>
           </Flex>
         );

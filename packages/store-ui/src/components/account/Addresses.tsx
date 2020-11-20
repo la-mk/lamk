@@ -6,15 +6,16 @@ import { User } from '@sradevski/la-sdk/dist/models/user';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { AnalyticsEvents } from '@sradevski/analytics';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { OldBlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import {
   message,
   Spin,
   hooks,
   Flex,
   Button,
-  Text,
-  Title,
+  Paragraph,
+  Heading,
+  Label,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { getAddresses } from '../../state/modules/user/user.selector';
@@ -34,7 +35,7 @@ interface AddressesProps {
   setShowAddModal: (show: boolean) => void;
   onSelected?: (address: Address) => void;
   selectedAddress?: Address;
-  theme: BlocksTheme;
+  theme: OldBlocksTheme;
 }
 
 export const Addresses = withTheme(
@@ -141,16 +142,17 @@ export const Addresses = withTheme(
                               setAddressToEdit(address);
                               setShowAddModal(true);
                             }}
-                            type='link'
+                            kind='minimal'
                           >
-                            <Text
-                              fontSize={2}
+                            <Label
                               color={
-                                isChecked ? 'heading.light' : 'heading.dark'
+                                isChecked
+                                  ? 'contentInversePrimary'
+                                  : 'contentPrimary'
                               }
                             >
                               <EditOutlined />
-                            </Text>
+                            </Label>
                           </Button>
 
                           <Button
@@ -158,16 +160,17 @@ export const Addresses = withTheme(
                               e.stopPropagation();
                               handleRemoveAddress(address._id);
                             }}
-                            type='link'
+                            kind='minimal'
                           >
-                            <Text
-                              fontSize={2}
+                            <Label
                               color={
-                                isChecked ? 'heading.light' : 'heading.dark'
+                                isChecked
+                                  ? 'contentInversePrimary'
+                                  : 'contentPrimary'
                               }
                             >
                               <DeleteOutlined />
-                            </Text>
+                            </Label>
                           </Button>
                         </Flex>
                       }
@@ -187,10 +190,12 @@ export const Addresses = withTheme(
                   primary={theme.colors.primary}
                   background={theme.colors.background.dark}
                 />
-                <Title color='text.dark' mt={3} level={3} fontSize={3}>
+                <Heading as='h2' color='contentPrimary' mt={3} size='large'>
                   {t('address.noAddress')}
-                </Title>
-                <Text fontSize={0}>{t('address.noAddressExplanation')}</Text>
+                </Heading>
+                <Paragraph size='small'>
+                  {t('address.noAddressExplanation')}
+                </Paragraph>
               </Flex>
             )}
           </Flex>

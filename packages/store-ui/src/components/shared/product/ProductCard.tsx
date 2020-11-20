@@ -1,7 +1,14 @@
 import React from 'react';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { Title, Flex, Box, Paragraph, Image } from '@sradevski/blocks-ui';
+import {
+  Heading,
+  Flex,
+  Box,
+  Paragraph,
+  Image,
+  Label,
+} from '@sradevski/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 
@@ -22,15 +29,20 @@ const ProductDescription = ({
 }) => {
   return (
     <Box py={horizontal ? 3 : 0}>
-      <Title mb={2} level={3} fontSize={[1, 2, 2]} ellipsis={{ rows: 2 }}>
+      <Label
+        mb={2}
+        as='h3'
+        size={['small', 'medium', 'medium']}
+        // ellipsis={{ rows: 2 }}
+      >
         {product.name}
-      </Title>
+      </Label>
 
       {detailed && (
         <Paragraph
-          color='mutedText.dark'
-          style={{ whiteSpace: 'pre-wrap' }}
-          ellipsis={{ rows: 3 }}
+          color='contentSecondary'
+          $style={{ whiteSpace: 'pre-wrap' }}
+          // ellipsis={{ rows: 3 }}
         >
           {product.description}
         </Paragraph>
@@ -109,11 +121,11 @@ const ProductImage = ({
 //   return (
 //     <Fixed alignItems='center' justifyContent='center'>
 //       <Overlay />
-//       <Button size='large' mr={1} icon={<ZoomInOutlined />} />
+//       <Button size='large' mr={1} startEnhancer={() => <ZoomInOutlined />} />
 //       <Button
 //         size='large'
 //         ml={1}
-//         icon={<ShoppingCartOutlined />}
+//         startEnhancer={() => <ShoppingCartOutlined />}
 //         type='primary'
 //       />
 //     </Fixed>

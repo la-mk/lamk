@@ -25,12 +25,12 @@ import { FooterContent } from './Footer/FooterContent';
 import { getFiltersFromSearch } from '../filterUtils';
 import { TopMenu } from './TopMenu';
 import { SubMenu } from './SubMenu';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { OldBlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import { Breadcrumbs } from './Breadcrumbs';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
-  theme: BlocksTheme;
+  theme: OldBlocksTheme;
 }
 
 const StyledContent = styled(Content)`

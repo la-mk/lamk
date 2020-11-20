@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Menu, MenuItem, Text, Button, SubMenu } from '@sradevski/blocks-ui';
+import { Menu, MenuItem, Label, Button, SubMenu } from '@sradevski/blocks-ui';
 import {
   getCategories,
   GroupedCategories,
@@ -12,6 +12,7 @@ import { MenuProps } from 'antd/es/menu';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { getQueryForCategories } from '../../common/filterUtils';
 import { CheckOutlined } from '@ant-design/icons';
+import { HoverableLink } from './components/HoverableLink';
 
 export interface CategoriesMenuProps {
   mode: MenuProps['mode'];
@@ -79,36 +80,35 @@ export const CategoriesMenu = ({
 
                     return (
                       <MenuItem
+                        style={{ display: 'flex', alignItems: 'center' }}
                         key={level3Category.value}
                         title={level3Category.label}
                       >
                         {/* Compensate for the checkmark by moving the button to the left */}
                         {onSelect && (
-                          <Button ml={-20} type='link'>
-                            <Text
-                              fontSize={0}
-                              color={isSelected ? 'primary' : 'text.dark'}
-                            >
-                              <CheckOutlined
-                                style={{
-                                  color: isSelected ? 'inherit' : 'transparent',
-                                }}
-                              />
-                              {level3Category.label}
-                            </Text>
-                          </Button>
+                          <Label
+                            ml={-20}
+                            size='xsmall'
+                            color={isSelected ? 'primary' : 'contentPrimary'}
+                          >
+                            <CheckOutlined
+                              style={{
+                                color: isSelected ? 'inherit' : 'transparent',
+                              }}
+                            />
+                            {level3Category.label}
+                          </Label>
                         )}
                         {!onSelect && (
-                          <Link
+                          <HoverableLink
+                            passHref
                             key={level3Category.value}
                             href={`/products?${getQueryForCategories([
                               level3Category.value as string,
                             ])}`}
                           >
-                            <Button type='link'>
-                              <Text fontSize={0}>{level3Category.label}</Text>
-                            </Button>
-                          </Link>
+                            <Label size='xsmall'>{level3Category.label}</Label>
+                          </HoverableLink>
                         )}
                       </MenuItem>
                     );

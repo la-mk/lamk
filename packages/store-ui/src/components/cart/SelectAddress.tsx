@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Title, Button, Flex } from '@sradevski/blocks-ui';
+import { Heading, Button, Flex } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
@@ -23,13 +23,18 @@ export const SelectAddress = ({
   return (
     <>
       <Flex alignItems='center' justifyContent='space-between'>
-        <Title level={3} fontSize={3} color='text.dark'>
+        <Heading
+          as='h3'
+          size={['xsmall', 'small', 'small']}
+          color='contentSecondary'
+        >
           {t('address.chooseShippingAddress')}
-        </Title>
+        </Heading>
         <Button
-          type='link'
+          kind='minimal'
+          size='compact'
           onClick={() => setAddressModalVisible(true)}
-          icon={<PlusOutlined />}
+          startEnhancer={() => <PlusOutlined />}
         >
           {t('address.addNewAddress')}
         </Button>

@@ -8,10 +8,10 @@ import {
   Spin,
   hooks,
   Alert,
-  Title,
+  Heading,
   Button,
-  Text,
   Result,
+  Paragraph,
 } from '@sradevski/blocks-ui';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
@@ -138,16 +138,11 @@ export const Payment = ({ orderId }: PaymentProps) => {
         title={t('payment.paymentDisabled')}
         subTitle={t('order.orderAlreadyPaid')}
         extra={
-          <Link
-            passHref
-            replace
-            href='/orders/[pid]'
-            as={`/orders/${order._id}`}
-          >
-            <Button mt={2} mx={2} type='primary' key='console'>
+          <Button mt={2} mx={2} key='console'>
+            <Link replace href='/orders/[pid]' as={`/orders/${order._id}`}>
               {t('order.seeOrder')}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         }
       />
     );
@@ -174,11 +169,11 @@ export const Payment = ({ orderId }: PaymentProps) => {
           flexDirection='column'
         >
           {order && (
-            <Title level={3} fontSize={4}>
+            <Heading as='h3' size='medium'>
               {t('payment.payAmountTip', {
                 amountWithCurrency: `${order.calculatedTotal} ден`,
               })}
-            </Title>
+            </Heading>
           )}
           {paymentResponse?.error && (
             <Alert
@@ -205,8 +200,6 @@ export const Payment = ({ orderId }: PaymentProps) => {
             <>
               <Button
                 mt={4}
-                size='large'
-                type='primary'
                 onClick={() => {
                   setPaymentResponse(null);
                   setIsLoadingPayment(true);
@@ -214,9 +207,9 @@ export const Payment = ({ orderId }: PaymentProps) => {
               >
                 {t('actions.retry')}
               </Button>
-              <Text mt={2} color='mutedText.dark'>
+              <Paragraph mt={2} color='contentSecondary'>
                 {t('order.retryFromOrdersTip')}
-              </Text>
+              </Paragraph>
             </>
           )}
 

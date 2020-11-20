@@ -12,11 +12,9 @@ export const SeeAllLink = ({
 }) => {
   return (
     <Flex mt={3} alignItems='center' justifyContent='center'>
-      <Link href={allHref} passHref>
-        <Button size='large' type='primary'>
-          {t('common.seeAll')}
-        </Button>
-      </Link>
+      <Button>
+        <Link href={allHref}>{t('common.seeAll')}</Link>
+      </Button>
     </Flex>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Dropdown } from '@sradevski/blocks-ui';
+import { Flex, Dropdown, Label } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { DownOutlined } from '@ant-design/icons';
 import { CategoriesMenu } from '../../components/shared/CategoriesMenu';
@@ -61,21 +61,31 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
         overlay={<CategoriesMenu mode='horizontal' />}
       >
         <a style={{ textDecoration: 'none' }}>
-          <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
+          <Label
+            size={'small'}
+            mx={3}
+            color='contentInversePrimary'
+            $style={{ whiteSpace: 'nowrap' }}
+          >
             {t('common.category_plural')}
             <DownOutlined
               style={{ margin: 0, marginLeft: 8, fontSize: '0.8em' }}
             />
-          </Text>
+          </Label>
         </a>
       </Dropdown>
 
       {sets.map(set => {
         return (
           <HoverableLink key={set.setTag.title} href={getSetHref(set)}>
-            <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
+            <Label
+              size={'small'}
+              color='contentInversePrimary'
+              mx={3}
+              $style={{ whiteSpace: 'nowrap' }}
+            >
               {set.setTag.title}
-            </Text>
+            </Label>
           </HoverableLink>
         );
       })}

@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  a, a:hover {
+    text-decoration: none;
+  }
+
   .ant-menu i {
     margin-right: 0 !important;
   }

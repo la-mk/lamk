@@ -2,7 +2,7 @@ import isString from 'lodash/isString';
 import React from 'react';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { CategoriesMenu, CategoriesMenuProps } from '../CategoriesMenu';
-import { utils, Box, Button, Text } from '@sradevski/blocks-ui';
+import { utils, Box, Button, Label } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import styled from 'styled-components';
 import { CustomCard } from '../components/CustomCard';
@@ -62,13 +62,17 @@ export const CategoriesFilter = ({
       headerAction={
         <Button
           p={0}
-          type='link'
+          kind='minimal'
           onClick={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
+          startEnhancer={() => (
+            <Label size='small' color='contentInversePrimary'>
+              <ReloadOutlined />
+            </Label>
+          )}
         >
-          <Text fontSize={0} color='mutedText.light'>
-            <ReloadOutlined style={{ marginRight: 8 }} />
+          <Label size='small' color='contentInversePrimary'>
             {t('actions.reset')}
-          </Text>
+          </Label>
         </Button>
       }
     >

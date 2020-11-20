@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Flex } from '@sradevski/blocks-ui';
+import { Flex, Heading, Label, Paragraph } from '@sradevski/blocks-ui';
 import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from '../../../common/i18n';
@@ -37,10 +37,11 @@ export const DiscountCampaign = withTheme(
           borderRadius={0}
           p={3}
         >
-          <Text
+          <Heading
+            as='p'
             mb={2}
-            fontSize={[3, 3, 4]}
-            color='text.light'
+            size={['small', 'small', 'medium']}
+            color='contentInversePrimary'
             textAlign='center'
           >
             {t('campaignBanners.setDiscountTitle', {
@@ -51,10 +52,14 @@ export const DiscountCampaign = withTheme(
                 : t('common.selected')
               ).toLowerCase(),
             })}
-          </Text>
-          <Text fontSize={[0, 0, 1]} color='mutedText.light' textAlign='center'>
+          </Heading>
+          <Paragraph
+            size={['small', 'small', 'medium']}
+            color='contentInverseSecondary'
+            textAlign='center'
+          >
             {t('campaignBanners.setDiscountSubtitle')}
-          </Text>
+          </Paragraph>
         </Flex>
       </Flex>
     );

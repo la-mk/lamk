@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TabPane, Paragraph, Text } from '@sradevski/blocks-ui';
+import { TabPane, Paragraph, Label } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { BorderlessTabs } from '../shared/components/BorderlessTabs';
@@ -23,39 +23,31 @@ export const ProductDetails = ({
       <TabPane
         pt={2}
         tab={
-          <Text
-            fontSize={3}
-            style={{ fontWeight: 400 }}
-            color={tab === 'description' ? 'primary' : 'text.dark'}
-          >
+          <Label color={tab === 'description' ? 'primary' : 'contentPrimary'}>
             {t('common.description')}
-          </Text>
+          </Label>
         }
         key='description'
       >
-        <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+        <Paragraph $style={{ whiteSpace: 'pre-wrap' }}>
           {product.description?.trim()}
         </Paragraph>
       </TabPane>
       <TabPane
         pt={2}
         tab={
-          <Text
-            fontSize={3}
-            style={{ fontWeight: 400 }}
-            color={tab === 'delivery' ? 'primary' : 'text.dark'}
-          >
-            {t('commerce.delivery')}{' '}
-          </Text>
+          <Label color={tab === 'delivery' ? 'primary' : 'contentPrimary'}>
+            {t('commerce.delivery')}
+          </Label>
         }
         key='delivery'
       >
         {!!delivery?.method && (
-          <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+          <Paragraph $style={{ whiteSpace: 'pre-wrap' }}>
             {t(`deliveryMethods.${delivery.method}`)}: {`${deliveryPrice} ден`}
           </Paragraph>
         )}
-        <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+        <Paragraph $style={{ whiteSpace: 'pre-wrap' }}>
           {t('delivery.productFreeDeliveryExplanation', {
             freeDeliveryPrice: `${freeDeliveryPrice} ден`,
           })}

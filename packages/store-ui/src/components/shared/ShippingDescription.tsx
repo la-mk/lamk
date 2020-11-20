@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Title } from '@sradevski/blocks-ui';
+import { Flex, Paragraph, Heading, Label } from '@sradevski/blocks-ui';
 import {
   UserOutlined,
   EnvironmentOutlined,
@@ -17,11 +17,20 @@ const DescriptionEntry = ({
   inverse?: boolean;
 } & React.ComponentProps<typeof Flex>) => {
   return (
-    <Flex alignItems='center' {...props}>
-      <Text color={inverse ? 'text.light' : 'text.dark'}>{title}</Text>
-      <Text ml={2} color={inverse ? 'mutedText.light' : 'mutedText.dark'}>
+    <Flex mb={3} alignItems='center' {...props}>
+      <Label
+        size='small'
+        color={inverse ? 'contentInversePrimary' : 'contentPrimary'}
+      >
+        {title}
+      </Label>
+      <Label
+        size='small'
+        ml={2}
+        color={inverse ? 'contentInverseSecondary' : 'contentSecondary'}
+      >
         {item}
-      </Text>
+      </Label>
     </Flex>
   );
 };
@@ -30,28 +39,26 @@ export const ShippingDescription = ({ address, inverse, actions }: any) => {
   return (
     <>
       <Flex mb={3} alignItems='center' justifyContent='space-between'>
-        <Title
-          ellipsis={true}
+        <Heading
+          // ellipsis={true}
           m={0}
-          level={4}
-          fontSize={2}
-          color={inverse ? 'heading.light' : 'heading.dark'}
+          as='h4'
+          size='xsmall'
+          color={inverse ? 'contentInversePrimary' : 'contentPrimary'}
         >
           {address.name}
-        </Title>
+        </Heading>
         {!!actions && actions}
       </Flex>
 
       <Flex flexDirection='column'>
         <DescriptionEntry
-          mb={3}
           title={<UserOutlined />}
           item={address.person}
           inverse={inverse}
         />
 
         <DescriptionEntry
-          mb={3}
           title={<EnvironmentOutlined />}
           item={`${address.street}, ${address.city}, ${address.country}`}
           inverse={inverse}

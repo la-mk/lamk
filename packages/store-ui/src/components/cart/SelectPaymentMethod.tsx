@@ -1,5 +1,12 @@
 import React from 'react';
-import { Title, Row, Col, Text, Flex } from '@sradevski/blocks-ui';
+import {
+  Heading,
+  Row,
+  Col,
+  Paragraph,
+  Flex,
+  Label,
+} from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import {
   StorePaymentMethods,
@@ -32,9 +39,13 @@ export const SelectPaymentMethod = ({
 
   return (
     <>
-      <Title level={3} fontSize={3} color='text.dark'>
+      <Heading
+        as='h3'
+        size={['xsmall', 'small', 'small']}
+        color='contentSecondary'
+      >
         {t('payment.choosePaymentMethod')}
-      </Title>
+      </Heading>
       <Row mt={3} align='top' justify='start' gutter={{ xs: 16, sm: 32 }}>
         {storePaymentMethods?.methods &&
           storePaymentMethods.methods.map(method => {
@@ -44,7 +55,7 @@ export const SelectPaymentMethod = ({
                 <SelectableCard
                   isChecked={isChecked}
                   onClick={() => setPaymentMethod(method.name)}
-                  minWidth={[300, 360, 360]}
+                  minWidth={[300, 380, 380]}
                   maxWidth={480}
                   width={`${100 / storePaymentMethods.methods.length}%`}
                 >
@@ -54,9 +65,13 @@ export const SelectPaymentMethod = ({
                     alignItems='center'
                     justifyContent='center'
                   >
-                    <Text color={isChecked ? 'heading.light' : 'heading.dark'}>
+                    <Label
+                      color={
+                        isChecked ? 'contentInversePrimary' : 'contentPrimary'
+                      }
+                    >
                       {iconsMap[method.name]}
-                    </Text>
+                    </Label>
 
                     <Flex
                       ml={[3, 4, 4]}
@@ -64,22 +79,27 @@ export const SelectPaymentMethod = ({
                       alignItems='center'
                       justifyContent='center'
                     >
-                      <Title
+                      <Heading
+                        as='h4'
+                        $style={{ lineHeight: 1 }}
                         m={0}
-                        mb={2}
+                        mb={3}
                         textAlign='center'
-                        level={4}
-                        fontSize={[2, 3, 3]}
-                        color={isChecked ? 'heading.light' : 'heading.dark'}
+                        size={'small'}
+                        color={
+                          isChecked ? 'contentInversePrimary' : 'contentPrimary'
+                        }
                       >
                         {t(`paymentMethodNames.${method.name}`)}
-                      </Title>
-                      <Text
-                        fontSize={[0, 1, 1]}
-                        color={isChecked ? 'heading.light' : 'heading.dark'}
+                      </Heading>
+                      <Paragraph
+                        size={['xsmall', 'small', 'small']}
+                        color={
+                          isChecked ? 'contentInversePrimary' : 'contentPrimary'
+                        }
                       >
                         {t(`paymentMethodNames.${method.name}Explanation`)}
-                      </Text>
+                      </Paragraph>
                     </Flex>
                   </Flex>
                 </SelectableCard>

@@ -15,7 +15,7 @@ export const LegalContent = ({ url, title, body }) => {
 
   return (
     <Page maxWidth={1280} title={title}>
-      <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{body}</Paragraph>
+      <Paragraph $style={{ whiteSpace: 'pre-wrap' }}>{body}</Paragraph>
     </Page>
   );
 };

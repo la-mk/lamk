@@ -1,6 +1,6 @@
 import { createGlobalStyle, withTheme } from 'styled-components';
 import { getHoverColor, getActiveColor, getShadowColor } from './utils';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { OldBlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
 // This has been copied from https://github.com/luffyZh/dynamic-antd-theme/blob/master/src/theme.js and I only took the bits we needed and added it as a styled component so there is no style flash on load.
 /* TODO: This is a hacky way of overriding the theme, and it's due to antd limitations. Find a better alternative to antd. */
@@ -1120,7 +1120,7 @@ const StyleHolder = createGlobalStyle<{
 `;
 
 export const BrandColorWrapper = withTheme(
-  ({ theme, brandColor }: { theme: BlocksTheme; brandColor?: string }) => {
+  ({ theme, brandColor }: { theme: OldBlocksTheme; brandColor?: string }) => {
     const color = brandColor ?? theme.colors.primary;
     const hoverColor = getHoverColor(color);
     const activeColor = getActiveColor(color);

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from '../../common/i18n';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Page } from '../shared/Page';
-import { FlexGrid, Flex, Box, Paragraph, Text } from '@sradevski/blocks-ui';
+import { Flex, Box, Paragraph, Label } from '@sradevski/blocks-ui';
 import { HoverableLink } from '../shared/components/HoverableLink';
 import { CustomCard } from '../shared/components/CustomCard';
 
@@ -43,7 +43,7 @@ export const Legal = () => {
               <HoverableLink key={submenu.link} href={submenu.link}>
                 <CustomCard minWidth={260}>
                   <Flex alignItems='center' justifyContent='center'>
-                    <Text>{submenu.text}</Text>
+                    <Label color='contentSecondary'>{submenu.text}</Label>
                   </Flex>
                 </CustomCard>
               </HoverableLink>

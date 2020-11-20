@@ -1,5 +1,12 @@
 import React from 'react';
-import { Flex, Box, Title, Text, Button } from '@sradevski/blocks-ui';
+import {
+  Flex,
+  Box,
+  Heading,
+  Paragraph,
+  Button,
+  Label,
+} from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
@@ -30,9 +37,15 @@ export const OrderDescription = ({
       >
         <Flex alignItems='center' justifyContent='center'>
           <Box display={['none', 'initial', 'initial']}>
-            <Title m={0} mr={3} level={2} fontSize={2}>
+            <Heading
+              my={0}
+              mr={3}
+              as='h2'
+              size='xsmall'
+              color='contentSecondary'
+            >
               {`${t('pages.order')} - ${sdk.utils.getShortId(order._id)}`}
-            </Title>
+            </Heading>
           </Box>
           <svg width='6' height='6' viewBox='0 0 6 6' fill='none'>
             <circle
@@ -42,20 +55,20 @@ export const OrderDescription = ({
               fill={sdk.order.orderStatusColor[order.status]}
             />
           </svg>
-          <Text
+          <Label
             color={sdk.order.orderStatusColor[order.status]}
             ml={1}
-            fontSize={0}
+            size='xsmall'
           >
             {t(`orderStatus.${order.status}`)}
-          </Text>
+          </Label>
         </Flex>
         {!hideDetailsButton && (
-          <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
-            <Button type='link'>
-              <EyeFilled /> {t('common.details')}
-            </Button>
-          </Link>
+          <Button startEnhancer={<EyeFilled />} size='compact' kind='minimal'>
+            <Link href='/orders/[pid]' as={`/orders/${order._id}`}>
+              {t('common.details')}
+            </Link>
+          </Button>
         )}
       </Flex>
 
@@ -65,18 +78,22 @@ export const OrderDescription = ({
         storeId={storeId}
       />
       <Flex px={[1, 2, 2]} justifyContent='space-between' alignItems='center'>
-        <Text mr={2} fontSize={[0, 1, 1]} color='mutedText.dark'>
+        <Paragraph
+          mr={2}
+          size={['small', 'small', 'medium']}
+          color='contentSecondary'
+        >
           {/* TODO: Show expected delivery */}
           {/* Expected delivery between 1 and 2 */}
-        </Text>
-        <Text ml={2} fontSize={[0, 1, 1]} color='mutedText.dark'>
+        </Paragraph>
+        <Paragraph ml={2} size={'small'} color='contentTertiary'>
           {t('order.ordered')}{' '}
           {formatDistanceToNow(new Date(order.createdAt), {
             // TODO: Handle locales better
             locale: i18n.language === 'mk' ? mk : enUS,
             addSuffix: true,
           })}
-        </Text>
+        </Paragraph>
       </Flex>
     </>
   );

@@ -12,6 +12,7 @@ import {
   NewForm,
   ChangePasswordForm,
   Box,
+  Label,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
@@ -60,7 +61,11 @@ export const Account = ({ user }: AccountProps) => {
   return (
     <Page>
       <Tabs animated={false} activeKey={tab} onChange={setTab}>
-        <TabPane pt={4} tab={t('common.personalInfo')} key='personal'>
+        <TabPane
+          pt={4}
+          tab={<Label>{t('common.personalInfo')}</Label>}
+          key='personal'
+        >
           <Spin spinning={showSpinner}>
             <Flex
               alignItems='center'
@@ -105,12 +110,7 @@ export const Account = ({ user }: AccountProps) => {
                     t(`errors.${errorName}`, context)
                   }
                 >
-                  <Button
-                    width='100%'
-                    type='primary'
-                    htmlType='submit'
-                    size='large'
-                  >
+                  <Button width='100%' type='submit'>
                     {t('actions.update')}
                   </Button>
                 </NewForm>
@@ -118,7 +118,11 @@ export const Account = ({ user }: AccountProps) => {
             </Flex>
           </Spin>
         </TabPane>
-        <TabPane pt={4} tab={t('common.password')} key='password'>
+        <TabPane
+          pt={4}
+          tab={<Label>{t('common.password')}</Label>}
+          key='password'
+        >
           <Spin spinning={showSpinner}>
             <ChangePasswordForm
               schema={changePasswordSchema}
@@ -130,9 +134,13 @@ export const Account = ({ user }: AccountProps) => {
             />
           </Spin>
         </TabPane>
-        <TabPane pt={4} tab={t('common.address_plural')} key='addresses'>
+        <TabPane
+          pt={4}
+          tab={<Label>{t('common.address_plural')}</Label>}
+          key='addresses'
+        >
           <Flex mb={4} alignItems='center' justifyContent='center'>
-            <Button type='primary' onClick={() => setShowAddAddressModal(true)}>
+            <Button onClick={() => setShowAddAddressModal(true)}>
               {t('address.addNewAddress')}
             </Button>
           </Flex>

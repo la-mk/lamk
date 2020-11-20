@@ -3,8 +3,8 @@ import uniq from 'lodash/uniq';
 import React, { useState, useEffect } from 'react';
 import {
   Flex,
-  Text,
-  Title,
+  Paragraph,
+  Heading,
   Button,
   InputNumber,
   Box,
@@ -15,6 +15,7 @@ import {
   PickerBoxes,
   hooks,
   utils,
+  Label,
 } from '@sradevski/blocks-ui';
 import {
   Product as ProductType,
@@ -300,14 +301,14 @@ export const Product = ({ product }: ProductProps) => {
             justifyContent='flex-start'
             flexDirection='column'
           >
-            <Title
+            <Heading
+              as='h1'
+              size='medium'
               textAlign='center'
-              level={1}
-              fontSize={4}
-              ellipsis={{ rows: 2 }}
+              // ellipsis={{ rows: 2 }}
             >
               {product.name}
-            </Title>
+            </Heading>
             <Flex
               flexDirection='column'
               alignItems={['center', 'flex-start', 'flex-start']}
@@ -333,45 +334,57 @@ export const Product = ({ product }: ProductProps) => {
                 }
                 currency={'ден'}
               />
-              <Text fontSize={1} color='mutedText.dark'>
+              <Label mt={2} size='small' color='contentTertiary'>
                 {t(`units.${product.unit}`)}
-              </Text>
+              </Label>
             </Flex>
-            <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
-              <Text mr={2}>{t('product.availability')}:</Text>
-              <Text color={outOfStock ? 'danger' : 'success'}>
+            <Flex alignItems='center' justifyContent='center' mt={[3, 4, 4]}>
+              <Label size='small' color='contentSecondary' mr={2}>
+                {t('product.availability')}:
+              </Label>
+              <Label size='small' color={outOfStock ? 'negative' : 'positive'}>
                 {outOfStock ? t('product.outOfStock') : t('product.inStock')}
-              </Text>
+              </Label>
             </Flex>
+            <Box mt={[2, 3, 3]}>
+              {allColors.length > 0 && (
+                <Flex mt={2} alignItems='center' justifyContent='flex-start'>
+                  <Label size='small' color='contentSecondary' mr={2}>
+                    {t('attributes.color')}:
+                  </Label>
+                  <PickerBoxes
+                    size='compact'
+                    type='color'
+                    disabled={disabledColorChoices}
+                    values={allColors}
+                    selected={chosenAttributes?.color}
+                    onSelect={(color: string | undefined) =>
+                      setChosenAttributes({
+                        ...(chosenAttributes ?? {}),
+                        color,
+                      })
+                    }
+                  />
+                </Flex>
+              )}
 
-            {allColors.length > 0 && (
-              <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
-                <Text mr={2}>{t('attributes.color')}:</Text>
-                <PickerBoxes
-                  type='color'
-                  disabled={disabledColorChoices}
-                  values={allColors}
-                  selected={chosenAttributes?.color}
-                  onSelect={(color: string | undefined) =>
-                    setChosenAttributes({ ...(chosenAttributes ?? {}), color })
-                  }
-                />
-              </Flex>
-            )}
-
-            {allSizes.length > 0 && (
-              <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
-                <Text mr={2}>{t('attributes.size')}:</Text>
-                <PickerBoxes
-                  disabled={disabledSizeChoices}
-                  values={allSizes}
-                  selected={chosenAttributes?.size}
-                  onSelect={(size: string | undefined) =>
-                    setChosenAttributes({ ...(chosenAttributes ?? {}), size })
-                  }
-                />
-              </Flex>
-            )}
+              {allSizes.length > 0 && (
+                <Flex alignItems='center' justifyContent='flex-start' mt={2}>
+                  <Label size='small' color='contentSecondary' mr={2}>
+                    {t('attributes.size')}:
+                  </Label>
+                  <PickerBoxes
+                    size='compact'
+                    disabled={disabledSizeChoices}
+                    values={allSizes}
+                    selected={chosenAttributes?.size}
+                    onSelect={(size: string | undefined) =>
+                      setChosenAttributes({ ...(chosenAttributes ?? {}), size })
+                    }
+                  />
+                </Flex>
+              )}
+            </Box>
 
             <Flex mt={[3, 4, 4]} flexDirection='row' alignItems='center'>
               {!isProductInCart && (
@@ -390,14 +403,13 @@ export const Product = ({ product }: ProductProps) => {
               )}
               {isProductInCart ? (
                 <>
-                  <Text color='mutedText.dark'>
+                  <Paragraph mb={0} color='contentTertiary'>
                     {t('cart.productAlreadyInCart')}
-                  </Text>
-                  <Link passHref href='/cart'>
-                    <Button type='primary' size='large' ml={2}>
-                      {t('actions.goToCart')}
-                    </Button>
-                  </Link>
+                  </Paragraph>
+
+                  <Button size='large' ml={2}>
+                    <Link href='/cart'>{t('actions.goToCart')}</Link>
+                  </Button>
                 </>
               ) : (
                 <Button
@@ -406,7 +418,6 @@ export const Product = ({ product }: ProductProps) => {
                   ml={2}
                   width={200}
                   size='large'
-                  type='primary'
                 >
                   {t('actions.addToCart')}
                 </Button>

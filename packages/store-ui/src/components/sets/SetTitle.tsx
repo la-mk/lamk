@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Text, Flex } from '@sradevski/blocks-ui';
+import { Heading, Paragraph, Flex } from '@sradevski/blocks-ui';
 
 export const SetTitle = ({
   emphasized,
@@ -17,18 +17,26 @@ export const SetTitle = ({
       justifyContent='center'
       flexDirection='column'
     >
-      <Title
+      <Heading
         textAlign='center'
         mb={1}
-        level={2}
-        fontSize={emphasized ? [5, 5, 6] : [3, 3, 4]}
+        as='h2'
+        size={
+          emphasized
+            ? ['medium', 'medium', 'large']
+            : ['small', 'small', 'medium']
+        }
       >
         {title.toUpperCase()}
-      </Title>
+      </Heading>
       {subtitle && (
-        <Text textAlign='center' fontSize={[2, 2, 3]} color='mutedText.dark'>
+        <Paragraph
+          textAlign='center'
+          size={['medium', 'medium', 'large']}
+          color='contentSecondary'
+        >
           {subtitle}
-        </Text>
+        </Paragraph>
       )}
     </Flex>
   );

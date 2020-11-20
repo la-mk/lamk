@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import {
   Flex,
-  Text,
+  Label,
   Divider,
   Button,
   message,
   Box,
+  Paragraph,
 } from '@sradevski/blocks-ui';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
@@ -82,38 +83,50 @@ export const Summary = ({
         </>
       )}
       <Flex flexDirection='row' justifyContent='space-between'>
-        <Text>{t('finance.subtotal')}</Text>
-        <Text strong>{prices.productsTotal} ден</Text>
+        <Label size='small' color='contentSecondary'>
+          {t('finance.subtotal')}
+        </Label>
+        <Label color='contentSecondary'>{prices.productsTotal} ден</Label>
       </Flex>
       {prices.withCampaignsTotal !== prices.productsTotal && (
         <Flex mt={3} flexDirection='row' justifyContent='space-between'>
-          <Text>{t('finance.campaignDiscount')}</Text>
-          <Text strong color='danger'>
+          <Label size='small' color='contentSecondary'>
+            {t('finance.campaignDiscount')}
+          </Label>
+          <Label color='negative'>
             {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
-          </Text>
+          </Label>
         </Flex>
       )}
       <Flex mt={3} flexDirection='row' justifyContent='space-between'>
-        <Text>{t('finance.shippingCost')}</Text>
-        <Text strong>{prices.deliveryTotal} ден</Text>
+        <Label size='small' color='contentSecondary'>
+          {t('finance.shippingCost')}
+        </Label>
+        <Label color='contentSecondary'>{prices.deliveryTotal} ден</Label>
       </Flex>
       {prices.deliveryTotal !== 0 && !hideFreeShipping && (
         <Box mt={3}>
-          <Text fontSize={0} color='mutedText.dark'>
+          <Paragraph size='small' color='contentTertiary'>
             {t('delivery.addToGetFreeDelivery', {
               priceUntilFreeDelivery: `${
                 delivery.freeDeliveryOver - prices.withCampaignsTotal
               } ден`,
             })}
-          </Text>
+          </Paragraph>
         </Box>
       )}
       <Divider height={'2px'} bg='mutedText.light' />
       <Flex flexDirection='row' justifyContent='space-between'>
-        <Text>{t('finance.total')}</Text>
-        <Text strong color='primary' fontSize={[2, 3, 3]}>
+        <Label size='small' color='contentSecondary'>
+          {t('finance.total')}
+        </Label>
+        <Label
+          color='primary'
+          size={['small', 'medium', 'medium']}
+          $style={{ fontWeight: 500 }}
+        >
           {prices.total} ден
-        </Text>
+        </Label>
       </Flex>
 
       {onCheckout && (
@@ -121,19 +134,15 @@ export const Summary = ({
           disabled={disabled}
           onClick={handleCheckout}
           width='100%'
-          size='large'
           mt={4}
-          type={'primary'}
         >
           {buttonTitle}
         </Button>
       )}
       {showContinueShopping && (
-        <Link href='/products' passHref>
-          <Button type='ghost' width='100%' size='large' mt={3}>
-            {t('product.seeOtherProducts')}
-          </Button>
-        </Link>
+        <Button kind='secondary' width='100%' mt={3}>
+          <Link href='/products'>{t('product.seeOtherProducts')}</Link>
+        </Button>
       )}
     </CustomCard>
   );

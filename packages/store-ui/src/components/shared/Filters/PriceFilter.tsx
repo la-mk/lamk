@@ -1,9 +1,9 @@
+import isString from 'lodash/isNumber';
 import isNumber from 'lodash/isNumber';
 import toNumber from 'lodash/toNumber';
 import React, { useState, useEffect } from 'react';
-import { InputNumber, Flex, Text, utils, Button } from '@sradevski/blocks-ui';
+import { InputNumber, Flex, utils, Button, Label } from '@sradevski/blocks-ui';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
-import { isString } from 'util';
 import { useTranslation } from '../../../common/i18n';
 import { CustomCard } from '../components/CustomCard';
 import { ReloadOutlined } from '@ant-design/icons';
@@ -52,25 +52,25 @@ interface PriceFilter {
 const PredefinedRanges = ({ min, max, start, end, onRangeSelected }) => {
   return (
     <Flex flexDirection='column' alignItems='flex-start'>
-      <Button onClick={() => onRangeSelected([min, 100])} type='link'>
-        <Text color={start === min && end === 100 ? 'primary' : 'text.dark'}>
+      <Button onClick={() => onRangeSelected([min, 100])} kind='minimal'>
+        <Label color={start === min && end === 100 ? 'primary' : 'text.dark'}>
           {'< 100 ден'}
-        </Text>
+        </Label>
       </Button>
-      <Button onClick={() => onRangeSelected([100, 1000])} type='link'>
-        <Text color={start === 100 && end === 1000 ? 'primary' : 'text.dark'}>
+      <Button onClick={() => onRangeSelected([100, 1000])} kind='minimal'>
+        <Label color={start === 100 && end === 1000 ? 'primary' : 'text.dark'}>
           100 ден - 1000 ден
-        </Text>
+        </Label>
       </Button>
-      <Button onClick={() => onRangeSelected([1000, 5000])} type='link'>
-        <Text color={start === 1000 && end === 5000 ? 'primary' : 'text.dark'}>
+      <Button onClick={() => onRangeSelected([1000, 5000])} kind='minimal'>
+        <Label color={start === 1000 && end === 5000 ? 'primary' : 'text.dark'}>
           1000 ден - 5000 ден
-        </Text>
+        </Label>
       </Button>
-      <Button onClick={() => onRangeSelected([5000, max])} type='link'>
-        <Text color={start === 5000 && end === max ? 'primary' : 'text.dark'}>
+      <Button onClick={() => onRangeSelected([5000, max])} kind='minimal'>
+        <Label color={start === 5000 && end === max ? 'primary' : 'text.dark'}>
           {'> 5000 ден'}
-        </Text>
+        </Label>
       </Button>
     </Flex>
   );
@@ -109,16 +109,20 @@ export const PriceFilter = ({
       headerAction={
         <Button
           p={0}
-          type='link'
+          kind='minimal'
           onClick={() => {
             setRange([min, max]);
             handleChangeDone(min, max);
           }}
+          startEnhancer={() => (
+            <Label size='small' color='contentInversePrimary'>
+              <ReloadOutlined />
+            </Label>
+          )}
         >
-          <Text fontSize={0} color='mutedText.light'>
-            <ReloadOutlined style={{ marginRight: 8 }} />
+          <Label size='small' color='contentInversePrimary'>
             {t('actions.reset')}
-          </Text>
+          </Label>
         </Button>
       }
     >
@@ -139,7 +143,7 @@ export const PriceFilter = ({
           onBlur={() => handleChangeDone(start, end)}
           value={start}
         />
-        <Text mx={2}>~</Text>
+        <Label mx={2}>~</Label>
         <InputNumber
           onChange={(val: number) => val >= start && setRange([start, val])}
           onBlur={() => handleChangeDone(start, end)}

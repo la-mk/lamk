@@ -1,7 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import { default as NextHead } from 'next/head';
-import { Provider as ThemeProvider, hooks, theme } from '@sradevski/blocks-ui';
+import { Provider as ThemeProvider, getBrandTheme } from '@sradevski/blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
@@ -127,26 +127,48 @@ const Main = ({ store, laStore, children }) => {
   return (
     <ThemeProvider
       theme={getTheme(brandColor)}
+      baseTheme={getBrandTheme(brandColor, {
+        typography: {
+          ParagraphXSmall: { fontSize: '12px', fontWeight: 400 },
+          ParagraphSmall: { fontSize: '14px', fontWeight: 400 },
+          ParagraphMedium: { fontSize: '16px', fontWeight: 400 },
+          ParagraphLarge: { fontSize: '20px', fontWeight: 400 },
+          LabelXSmall: { fontSize: '14px', fontWeight: 400 },
+          LabelSmall: { fontSize: '16px', fontWeight: 400 },
+          LabelMedium: { fontSize: '18px', fontWeight: 400 },
+          LabelLarge: { fontSize: '24px', fontWeight: 400 },
+          HeadingXSmall: { fontSize: '14px', fontWeight: 400 },
+          HeadingSmall: { fontSize: '16px', fontWeight: 400 },
+          HeadingMedium: { fontSize: '18px', fontWeight: 400 },
+          HeadingLarge: { fontSize: '22px', fontWeight: 400 },
+          HeadingXLarge: { fontSize: '26px', fontWeight: 400 },
+          HeadingXXLarge: { fontSize: '34px', fontWeight: 400 },
+          DisplayXSmall: { fontSize: '32px' },
+          DisplaySmall: { fontSize: '40px' },
+          DisplayMedium: { fontSize: '52px' },
+          DisplayLarge: { fontSize: '96px' },
+        },
+        colors: {
+          contentSecondary: '#687C94',
+          contentTertiary: '#EEEEEE',
+        },
+      })}
       basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
       compoundLocale={getCompoundLocale(t)}
     >
       <ReduxProvider store={store}>
         <ConnectedRouter>
-          <hooks.BreakpointProvider
-            breakpoints={theme.breakpoints.map(x => parseInt(x))}
-          >
-            <BrandColorWrapper brandColor={brandColor} />
-            {laStore ? (
-              <StoreLayout>
-                <>
-                  {children}
-                  <AuthModal />
-                </>
-              </StoreLayout>
-            ) : (
-              <StoreNotFound t={t} />
-            )}
-          </hooks.BreakpointProvider>
+          <BrandColorWrapper brandColor={brandColor} />
+          {laStore ? (
+            <StoreLayout>
+              <>
+                {children}
+                <AuthModal />
+              </>
+            </StoreLayout>
+          ) : (
+            <StoreNotFound t={t} />
+          )}
         </ConnectedRouter>
       </ReduxProvider>
     </ThemeProvider>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
 import { sdk } from '@sradevski/la-sdk';
-import { Button, Flex, Title, Box } from '@sradevski/blocks-ui';
+import { Button, Display, Flex, Heading } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
@@ -56,19 +56,18 @@ export const Banner = ({
               justifyContent='center'
               flexDirection='column'
             >
-              <Title
+              <Display
+                as='h1'
                 px={[2, 3, 4]}
                 textAlign='center'
-                level={1}
-                fontSize={[5, 6, 6]}
+                size={['small', 'medium', 'medium']}
               >
                 {store.slogan}
-              </Title>
-              <Link href='/products' passHref>
-                <Button size='large' type='primary'>
-                  {t('actions.shopNow')}
-                </Button>
-              </Link>
+              </Display>
+
+              <Button>
+                <Link href='/products'>{t('actions.shopNow')}</Link>
+              </Button>
             </Flex>
           </>
         )}

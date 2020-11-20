@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Flex } from '@sradevski/blocks-ui';
+import { Label, Flex } from '@sradevski/blocks-ui';
 
 interface PriceProps {
   minCalculatedPrice: number;
@@ -23,29 +23,37 @@ export const Price = ({
   const discounted =
     minPrice !== minCalculatedPrice || maxPrice !== maxCalculatedPrice;
 
-  const fontSize =
-    size === 'small' ? 1 : size === 'large' ? [3, 4, 4] : [1, 2, 2];
+  const labelSize: any =
+    size === 'small'
+      ? 'small'
+      : size === 'large'
+      ? ['medium', 'large', 'large']
+      : ['small', 'medium', 'medium'];
   const margin = size === 'small' ? 2 : 3;
 
   return (
     <Flex flexDirection={vertical ? 'column' : 'row'} flexWrap='wrap'>
-      <Text
-        fontSize={fontSize}
-        color={discounted ? 'danger' : 'text.dark'}
+      <Label
+        $style={{ fontWeight: 500 }}
+        size={labelSize}
+        color={discounted ? 'negative' : 'contentPrimary'}
         mr={discounted ? margin : undefined}
-        strong
       >
         {minCalculatedPrice !== maxCalculatedPrice
           ? `${minCalculatedPrice} ~ ${maxCalculatedPrice}`
           : minCalculatedPrice}{' '}
         {currency}
-      </Text>
+      </Label>
 
       {discounted && (
-        <Text delete color={'mutedText.light'} fontSize={fontSize}>
+        <Label
+          color={'contentTertiary'}
+          size={labelSize}
+          $style={{ textDecoration: 'line-through', fontWeight: 500 }}
+        >
           {minPrice !== maxPrice ? `${minPrice} ~ ${maxPrice}` : minPrice}{' '}
           {currency}
-        </Text>
+        </Label>
       )}
     </Flex>
   );

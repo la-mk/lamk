@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Title } from '@sradevski/blocks-ui';
+import { Box, Flex, Label } from '@sradevski/blocks-ui';
 import styled from 'styled-components';
 
 const Card = styled(Box)`
@@ -25,14 +25,9 @@ export const CustomCard = ({
           alignItems='center'
           justifyContent='space-between'
         >
-          <Title
-            color={inverse ? 'heading.dark' : 'heading.light'}
-            m={0}
-            fontSize={2}
-            level={3}
-          >
+          <Label color={inverse ? 'contentPrimary' : 'contentInversePrimary'}>
             {title}
-          </Title>
+          </Label>
           {!!headerAction && headerAction}
         </Flex>
       )}

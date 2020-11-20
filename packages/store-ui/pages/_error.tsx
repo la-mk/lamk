@@ -21,9 +21,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
             title='404'
             subTitle={t('results.pageNotFoundExplanation')}
             extra={
-              <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
-              </Link>
+              <Button kind='minimal'>
+                <Link href='/'>{t('actions.goBack')}</Link>
+              </Button>
             }
           />
         </div>
@@ -40,9 +40,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
             title='500'
             subTitle={t('results.serverErrorExplanation')}
             extra={
-              <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
-              </Link>
+              <Button kind='minimal'>
+                <Link href='/'>{t('actions.goBack')}</Link>
+              </Button>
             }
           />
         </div>
@@ -61,9 +61,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
               statusCode: errorCode,
             })}
             extra={
-              <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
-              </Link>
+              <Button kind='minimal'>
+                <Link href='/'>{t('actions.goBack')}</Link>
+              </Button>
             }
           />
         </div>

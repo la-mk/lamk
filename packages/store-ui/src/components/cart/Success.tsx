@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Flex, Title, Text } from '@sradevski/blocks-ui';
+import { Button, Flex, Heading, Label, Paragraph } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useTranslation } from '../../common/i18n';
 import { OrderSuccess } from '../shared/icons/OrderSuccess';
@@ -33,24 +33,24 @@ export const Success = withTheme(
           muted={theme.colors.mutedText.light}
         />
 
-        <Title textAlign='center' mt={4} level={2} fontSize={4}>
+        <Heading textAlign='center' mt={4} as='h2' size='large'>
           {t('cart.orderSuccess')}
-        </Title>
-        <Text textAlign='center' fontSize={0}>
+        </Heading>
+        <Paragraph color='contentSecondary' textAlign='center' size='small'>
           {t('cart.orderSuccessExplanation')}
-        </Text>
+        </Paragraph>
 
-        <Link passHref replace href='/products'>
-          <Button size='large' mt={4} width='100%' type='primary'>
+        <Button size='large' mt={4} width='100%'>
+          <Link replace href='/products'>
             {t('product.seeOtherProducts')}
-          </Button>
-        </Link>
+          </Link>
+        </Button>
 
-        <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
-          <Button size='large' mt={3} width='100%'>
+        <Button size='large' kind='secondary' mt={3} width='100%'>
+          <Link replace href='/orders/[pid]' as={`/orders/${order._id}`}>
             {t('order.seeOrder')}
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </Flex>
     );
   },

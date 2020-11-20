@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Button, Table, Box, Divider } from '@sradevski/blocks-ui';
+import { Flex, Label, Button, Table, Box, Divider } from '@sradevski/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 import { TFunction } from 'next-i18next';
@@ -35,7 +35,11 @@ const getColumns = (
 ) =>
   [
     {
-      title: <Text fontSize={2}>{t('commerce.product')}</Text>,
+      title: (
+        <Label size='small' color='contentSecondary'>
+          {t('commerce.product')}
+        </Label>
+      ),
       key: 'product',
       align: 'center',
       render: (_text, item) => {
@@ -45,7 +49,11 @@ const getColumns = (
       },
     },
     {
-      title: <Text fontSize={2}>{t('common.price')}</Text>,
+      title: (
+        <Label size='small' color='contentSecondary'>
+          {t('common.price')}
+        </Label>
+      ),
       key: 'price',
       width: 150,
       render: (val, item) => (
@@ -61,7 +69,11 @@ const getColumns = (
       ),
     },
     {
-      title: <Text fontSize={2}>{t('commerce.quantity')}</Text>,
+      title: (
+        <Label size='small' color='contentSecondary'>
+          {t('commerce.quantity')}
+        </Label>
+      ),
       width: 150,
       key: 'quantity',
       render: (val, item) =>
@@ -71,19 +83,21 @@ const getColumns = (
             handleChangeItemQuantity={handleChangeItemQuantity}
           />
         ) : (
-          <Text strong color='heading.dark'>
-            {item.quantity}
-          </Text>
+          <Label color='heading.dark'>{item.quantity}</Label>
         ),
     },
     {
-      title: <Text fontSize={2}>{t('finance.total')}</Text>,
+      title: (
+        <Label size='small' color='contentSecondary'>
+          {t('finance.total')}
+        </Label>
+      ),
       key: 'total',
       width: 150,
       render: (val, item) => (
-        <Text strong fontSize={1} color='primary'>
+        <Label $style={{ fontWeight: 500 }} size='small' color='primary'>
           {item.quantity * item.product.calculatedPrice} ден
-        </Text>
+        </Label>
       ),
     },
     ...(handleRemove
@@ -92,7 +106,7 @@ const getColumns = (
             key: 'action',
             width: 30,
             render: (val, item) => (
-              <Button type='link' onClick={() => handleRemove(item)}>
+              <Button kind='minimal' onClick={() => handleRemove(item)}>
                 <DeleteOutlined />
               </Button>
             ),
@@ -133,7 +147,7 @@ export const OrderProductsList = ({
               >
                 <Box style={{ position: 'absolute', top: -20, right: 0 }}>
                   {handleRemove && (
-                    <Button type='link' onClick={() => handleRemove(item)}>
+                    <Button kind='minimal' onClick={() => handleRemove(item)}>
                       <DeleteOutlined />
                     </Button>
                   )}
@@ -145,7 +159,9 @@ export const OrderProductsList = ({
 
                 <Flex mt={4} justifyContent='space-between'>
                   <Flex justifyContent='center'>
-                    <Text mr={2}>Price:</Text>
+                    <Label size='small' mr={2}>
+                      {t('common.price')}:
+                    </Label>
                     <Price
                       vertical
                       size='small'
@@ -165,17 +181,24 @@ export const OrderProductsList = ({
                         handleChangeItemQuantity={handleChangeItemQuantity}
                       />
                     ) : (
-                      <Text>
+                      <Label size='small' as='span'>
                         {t('commerce.quantity')}: {item.quantity}
-                      </Text>
+                      </Label>
                     )}
                   </Box>
                 </Flex>
                 <Box mt={2}>
-                  <Text mr={2}>Total:</Text>
-                  <Text color='primary' strong>
+                  <Label size='small' as='span' mr={2}>
+                    {t('finance.total')}:
+                  </Label>
+                  <Label
+                    size='small'
+                    as='span'
+                    $style={{ fontWeight: 500 }}
+                    color='primary'
+                  >
                     {item.product.calculatedPrice * item.quantity} ден
-                  </Text>
+                  </Label>
                 </Box>
               </Flex>
             </>

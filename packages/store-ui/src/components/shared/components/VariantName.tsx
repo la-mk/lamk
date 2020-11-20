@@ -1,6 +1,6 @@
 import React from 'react';
 import { Attributes } from '@sradevski/la-sdk/dist/models/product';
-import { Text, PickerBox, Flex } from '@sradevski/blocks-ui';
+import { PickerBox, Flex, Label } from '@sradevski/blocks-ui';
 import { TFunction } from 'next-i18next';
 
 export const VariantName = ({
@@ -17,8 +17,8 @@ export const VariantName = ({
         case 'color': {
           return (
             <>
-              {index > 0 && <Text mx={1}>·</Text>}
-              <PickerBox size='small' value={value} type='color' />
+              {index > 0 && <Label mx={1}>·</Label>}
+              <PickerBox size='mini' value={value} type='color' />
             </>
           );
         }
@@ -26,7 +26,7 @@ export const VariantName = ({
         default:
           return (
             <>
-              {index > 0 && <Text mx={1}>·</Text>}
+              {index > 0 && <Label mx={1}>·</Label>}
               {value}
             </>
           );

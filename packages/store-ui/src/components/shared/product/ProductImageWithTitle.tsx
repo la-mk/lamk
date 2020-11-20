@@ -1,6 +1,6 @@
 import React from 'react';
 import { OrderProduct } from '@sradevski/la-sdk/dist/models/product';
-import { Flex, Title, Text, Box, Image } from '@sradevski/blocks-ui';
+import { Box, Flex, Image, Label } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { VariantName } from '../components/VariantName';
 import { useTranslation } from '../../../common/i18n';
@@ -33,24 +33,28 @@ export const ProductImageWithTitle = ({
         />
       </Flex>
       <Flex ml={4} flexDirection='column'>
-        <Title
-          mx={0}
-          my={0}
-          level={2}
-          fontSize={[1, 2, 2]}
-          ellipsis={{ rows: 2 }}
+        <Label
+          mb={0}
+          as='h2'
+          size={['small', 'medium', 'medium']}
+          // ellipsis={{ rows: 2 }}
         >
           {product.name}
-          <VariantName t={t} attributes={product.attributes} />
-        </Title>
+          <Box my={2}>
+            <VariantName t={t} attributes={product.attributes} />
+          </Box>
+        </Label>
 
         {!!quantity && (
-          <Box>
-            <Text>{quantity} x </Text>
-            <Text color='primary' strong>
+          <Flex>
+            <Label size='small'>{quantity}</Label>
+            <Label size='small' mx={2}>
+              x
+            </Label>
+            <Label size='small' color='primary'>
               {product.calculatedPrice} ден
-            </Text>
-          </Box>
+            </Label>
+          </Flex>
         )}
       </Flex>
     </Flex>

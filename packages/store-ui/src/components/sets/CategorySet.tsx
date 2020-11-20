@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Text } from '@sradevski/blocks-ui';
+import { Flex, Box, Label } from '@sradevski/blocks-ui';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { useTranslation } from '../../common/i18n';
 import { SetTitle } from './SetTitle';
@@ -61,13 +61,13 @@ export const CategorySet = ({
                       right: 16,
                     }}
                   >
-                    <Text
-                      fontSize={0}
-                      color='text.light'
-                      style={{ letterSpacing: '2px' }}
+                    <Label
+                      size='xsmall'
+                      color='contentInversePrimary'
+                      $style={{ letterSpacing: '2px' }}
                     >
                       {t(`categories.${categoryName}`).toUpperCase()}
-                    </Text>
+                    </Label>
                   </Flex>
                 </ImageBackgroundBox>
               </HoverableLink>
