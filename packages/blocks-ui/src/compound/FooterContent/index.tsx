@@ -23,12 +23,10 @@ const Submenu = ({ submenus, Link }: { submenus: Submenu[]; Link: any }) => {
       {submenus.map(submenu => {
         return (
           <Link key={submenu.link} href={submenu.link} passHref>
-            <Button my={2} type="link">
-              {
-                <Text fontSize={0} color="text.light">
-                  {submenu.text}
-                </Text>
-              }
+            <Button my={2} variant="link">
+              <Text fontSize={0} color="text.light">
+                {submenu.text}
+              </Text>
             </Button>
           </Link>
         );

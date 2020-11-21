@@ -24,6 +24,8 @@ import {
 } from 'styled-system';
 import styled from 'styled-components';
 
+export type Size = 'xs' | 'sm' | 'md' | 'lg';
+
 export interface SystemProps
   extends SpaceProps,
     WidthProps,

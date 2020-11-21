@@ -62,7 +62,7 @@ export const AuthFormBase = ({
             },
           }}
         >
-          <Button width="100%" size="large" type="primary" htmlType="submit">
+          <Button isFullWidth size="lg" type="submit">
             {primaryText}
           </Button>
         </NewForm>
@@ -74,12 +74,12 @@ export const AuthFormBase = ({
         </Text>
       </Flex>
 
-      <Button size="large" width="100%" type="default" onClick={onSecondary}>
+      <Button size="lg" isFullWidth variant="outline" onClick={onSecondary}>
         {secondaryText}
       </Button>
 
       {onForgotPassword && (
-        <Button mt={3} type="link" onClick={onForgotPassword}>
+        <Button mt={3} variant="link" onClick={onForgotPassword}>
           {forgotPasswordText}
         </Button>
       )}

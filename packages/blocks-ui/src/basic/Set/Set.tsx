@@ -96,17 +96,19 @@ function SetBase<T>({
         })}
       </SetList>
       <ArrowButton
-        type="ghost"
+        variant="ghost"
         onClick={() => handleArrowClick('left')}
-        icon={<LeftOutlined />}
         direction="left"
-      />
+      >
+        <LeftOutlined />
+      </ArrowButton>
       <ArrowButton
-        type="ghost"
+        variant="ghost"
         onClick={() => handleArrowClick('right')}
-        icon={<RightOutlined />}
         direction="right"
-      />
+      >
+        <RightOutlined />
+      </ArrowButton>
     </SetContainer>
   );
 }

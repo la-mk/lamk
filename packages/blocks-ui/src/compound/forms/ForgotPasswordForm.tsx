@@ -44,19 +44,14 @@ export const ForgotPasswordForm = <T extends any>({
                 },
               }}
             >
-              <Button
-                width="100%"
-                size="large"
-                type="primary"
-                htmlType="submit"
-              >
+              <Button isFullWidth size="lg" type="submit">
                 {localization.sendPasswordResetLink ||
                   'Send password reset link'}
               </Button>
             </NewForm>
           </Box>
 
-          <Button mt={3} type="link" onClick={onLoginInstead}>
+          <Button mt={3} variant="link" onClick={onLoginInstead}>
             {localization.loginInstead || 'Log in instead'}
           </Button>
         </>

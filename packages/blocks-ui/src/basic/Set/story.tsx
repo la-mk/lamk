@@ -46,11 +46,7 @@ storiesOf('Set', module).add('with text', () => (
           {item.name}
         </Card>
       )}
-      footer={
-        <Button type="link" href="#">
-          See all
-        </Button>
-      }
+      footer={<Button variant="link">See all</Button>}
     />
   </Provider>
 ));

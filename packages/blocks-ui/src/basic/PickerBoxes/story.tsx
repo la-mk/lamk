@@ -12,20 +12,20 @@ storiesOf('PickerBoxes', module)
         <Box>
           <PickerBoxes
             values={['green', 'blue', 'yellow', 'white', 'black']}
-            type="color"
+            variant="color"
             selected={selected}
             onSelect={setSelected}
           />
-          <PickerBox value={selected} type="color" />
+          <PickerBox value={selected} variant="color" />
 
           <PickerBoxes
-            size={'small'}
+            size={'sm'}
             values={['green', 'blue', 'yellow', 'white', 'black']}
-            type="color"
+            variant="color"
             selected={selected}
             onSelect={setSelected}
           />
-          <PickerBox size={'small'} value={selected} type="color" />
+          <PickerBox size={'sm'} value={selected} variant="color" />
         </Box>
       </Provider>
     );
@@ -51,12 +51,12 @@ storiesOf('PickerBoxes', module)
           <PickerBox highlight={true} value={size} />
 
           <PickerBoxes
-            size={'small'}
+            size={'sm'}
             values={['green', 'blue', 'yellow', 'white', 'black']}
             selected={selected}
             onSelect={setSelected}
           />
-          <PickerBox size={'small'} value={selected} />
+          <PickerBox size={'sm'} value={selected} />
         </Box>
       </Provider>
     );
@@ -69,14 +69,14 @@ storiesOf('PickerBoxes', module)
           <PickerBoxes
             values={['green', 'blue', 'yellow', 'white', 'black']}
             disabled={['green', 'yellow']}
-            type="color"
+            variant="color"
             selected={selected}
             onSelect={setSelected}
           />
           <PickerBoxes
             values={['green', 'blue', 'yellow', 'white', 'black']}
             disabled={['green', 'yellow']}
-            type="text"
+            variant="text"
             selected={selected}
             onSelect={setSelected}
           />

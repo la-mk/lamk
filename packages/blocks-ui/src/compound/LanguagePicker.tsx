@@ -35,8 +35,10 @@ export const LanguagePicker = ({
       }
     >
       <Flex alignItems="center" height="100%">
-        <Button p={0} display="block" type="link" style={{ color: 'inherit' }}>
-          <GlobalOutlined style={{ marginRight: 0 }} />{' '}
+        <Button
+          leftIcon={<GlobalOutlined style={{ verticalAlign: '0.125em' }} />}
+          variant="link"
+        >
           {languageCode.toUpperCase()}
         </Button>
       </Flex>

@@ -153,8 +153,9 @@ export default ({
                   <Flex ml={3} alignItems="center" justifyContent="center">
                     {showSort && (
                       <Button
+                        size="sm"
                         mx={1}
-                        disabled={
+                        isDisabled={
                           element.disabled ||
                           element.readonly ||
                           !element.hasMoveUp
@@ -170,8 +171,9 @@ export default ({
 
                     {showSort && (
                       <Button
+                        size="sm"
                         mx={1}
-                        disabled={
+                        isDisabled={
                           element.disabled ||
                           element.readonly ||
                           !element.hasMoveDown
@@ -187,8 +189,10 @@ export default ({
 
                     {showRemove && (
                       <Button
+                        variant="outline"
+                        size="sm"
                         mx={1}
-                        disabled={element.disabled || element.readonly}
+                        isDisabled={element.disabled || element.readonly}
                         onClick={element.onDropIndexClick(element.index)}
                       >
                         <DeleteOutlined />
@@ -201,7 +205,7 @@ export default ({
           })}
 
           {showAdd && (
-            <Button mt={3} onClick={onAddClick}>
+            <Button size="sm" mt={3} onClick={onAddClick}>
               <PlusOutlined />
             </Button>
           )}

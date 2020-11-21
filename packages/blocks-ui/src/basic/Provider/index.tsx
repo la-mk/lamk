@@ -1,7 +1,8 @@
 import merge from 'lodash/merge';
 import * as React from 'react';
-import defaultTheme from '../theme';
+import defaultTheme from '../../theme';
 import { ThemeProvider } from 'styled-components';
+import { ChakraProvider } from '@chakra-ui/react';
 import { ConfigProvider } from 'antd';
 
 interface LocalizationContext {
@@ -39,13 +40,17 @@ export const Provider = ({
   compoundLocale?: LocalizationContext;
   children: React.ReactElement;
 }) => {
+  const mergedTheme = merge(defaultTheme, theme);
+
   return (
-    <ThemeProvider theme={merge(defaultTheme, theme)}>
-      <ConfigProvider locale={basicLocale}>
-        <LocalizationContext.Provider value={compoundLocale || {}}>
-          {children}
-        </LocalizationContext.Provider>
-      </ConfigProvider>
+    <ThemeProvider theme={mergedTheme}>
+      <ChakraProvider>
+        <ConfigProvider locale={basicLocale}>
+          <LocalizationContext.Provider value={compoundLocale || {}}>
+            {children}
+          </LocalizationContext.Provider>
+        </ConfigProvider>
+      </ChakraProvider>
     </ThemeProvider>
   );
 };
