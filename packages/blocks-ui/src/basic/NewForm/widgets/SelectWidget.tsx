@@ -1,8 +1,8 @@
 import React from 'react';
 import { WidgetProps, utils } from '@rjsf/core';
 import { Select, Option } from '../../Select';
-import { Spin } from '../../Spin';
 import { isSchemaOfType } from '../utils';
+import { Spinner } from '../../Spinner';
 
 const nums = new Set(['number', 'integer']);
 const { asNumber, guessType } = utils;
@@ -86,7 +86,7 @@ const SelectWidget = ({
       tokenSeparators={[',']}
       value={typeof value !== 'undefined' ? stringify(value) : undefined}
       size={emphasized ? 'large' : undefined}
-      notFoundContent={loading ? <Spin size="small" /> : undefined}
+      notFoundContent={loading ? <Spinner size="sm" /> : undefined}
     >
       {((customEnumOptions ?? enumOptions) as any[])?.map(
         ({ value: optionValue, label: optionLabel }) => (

@@ -5,7 +5,10 @@ export { Box } from './basic/Box';
 export {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbSeparator,
+  BreadcrumbLink,
+  BreadcrumbProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
 } from './basic/Breadcrumb';
 export { Button, ButtonProps } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
@@ -13,14 +16,8 @@ export { Cascader } from './basic/Cascader';
 export { Checkbox, CheckboxGroup } from './basic/Checkbox';
 export { Collapse, CollapsePanel } from './basic/Collapse';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
-export {
-  DatePicker,
-  RangePicker,
-  WeekPicker,
-  MonthPicker,
-} from './basic/DatePicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
-export { Divider } from './basic/Divider';
+export { Divider, DividerProps } from './basic/Divider';
 export { Drawer } from './basic/Drawer';
 export { Dropdown } from './basic/Dropdown';
 export { Empty } from './basic/Empty';
@@ -51,7 +48,7 @@ export { Result } from './basic/Result';
 export { Select, Option, OptionGroup } from './basic/Select';
 export { Set } from './basic/Set/Set';
 export { Slider } from './basic/Slider';
-export { Spin } from './basic/Spin';
+export { Spinner, SpinnerProps } from './basic/Spinner';
 export { Statistic } from './basic/Statistic';
 export { Steps, Step } from './basic/Steps';
 export { Switch } from './basic/Switch';

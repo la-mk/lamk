@@ -3,7 +3,7 @@ import { Flex } from '../Flex';
 import { system } from '../../system';
 import { Pagination } from '../Pagination';
 import { PaginationProps } from 'antd/es/pagination';
-import { Spin } from '../Spin';
+import { Spinner } from '../Spinner';
 
 export interface FlexGridProps<T> {
   className?: string;
@@ -24,7 +24,9 @@ const FlexGridBase = <T extends any>({
 }: FlexGridProps<T>) => {
   return (
     <Flex flexDirection="column" alignItems="center" width="100%">
-      <Spin spinning={loading}>
+      {loading ? (
+        <Spinner />
+      ) : (
         <Flex
           className={className}
           justifyContent="center"
@@ -41,7 +43,8 @@ const FlexGridBase = <T extends any>({
             );
           })}
         </Flex>
-      </Spin>
+      )}
+
       {pagination && <Pagination {...pagination} />}
     </Flex>
   );
