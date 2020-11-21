@@ -84,7 +84,7 @@ export const CategoriesMenu = ({
                       >
                         {/* Compensate for the checkmark by moving the button to the left */}
                         {onSelect && (
-                          <Button ml={-20} type='link'>
+                          <Button ml={'-20px'} variant='link'>
                             <Text
                               fontSize={0}
                               color={isSelected ? 'primary' : 'text.dark'}
@@ -104,8 +104,9 @@ export const CategoriesMenu = ({
                             href={`/products?${getQueryForCategories([
                               level3Category.value as string,
                             ])}`}
+                            passHref
                           >
-                            <Button type='link'>
+                            <Button as='a' variant='link'>
                               <Text fontSize={0}>{level3Category.label}</Text>
                             </Button>
                           </Link>

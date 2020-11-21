@@ -65,7 +65,7 @@ export const Banner = ({
                 {store.slogan}
               </Title>
               <Link href='/products' passHref>
-                <Button size='large' type='primary'>
+                <Button as='a' size='lg'>
                   {t('actions.shopNow')}
                 </Button>
               </Link>

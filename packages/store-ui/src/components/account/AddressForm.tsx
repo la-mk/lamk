@@ -106,10 +106,16 @@ export const AddressForm = ({
         }
       >
         <Flex width='100%' flexDirection='column'>
-          <Button width='100%' size={'large'} htmlType='submit' type='primary'>
+          <Button isFullWidth size={'lg'} type='submit'>
             {address ? t('actions.update') : t('actions.create')}
           </Button>
-          <Button mt={3} width='100%' size={'large'} onClick={onCancel}>
+          <Button
+            mt={3}
+            isFullWidth
+            variant='outline'
+            size={'lg'}
+            onClick={onCancel}
+          >
             {t('actions.cancel')}
           </Button>
         </Flex>

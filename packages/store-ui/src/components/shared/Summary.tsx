@@ -118,19 +118,18 @@ export const Summary = ({
 
       {onCheckout && (
         <Button
-          disabled={disabled}
+          isDisabled={disabled}
           onClick={handleCheckout}
-          width='100%'
-          size='large'
+          isFullWidth
+          size='lg'
           mt={4}
-          type={'primary'}
         >
           {buttonTitle}
         </Button>
       )}
       {showContinueShopping && (
         <Link href='/products' passHref>
-          <Button type='ghost' width='100%' size='large' mt={3}>
+          <Button as='a' variant='ghost' isFullWidth size='lg' mt={3}>
             {t('product.seeOtherProducts')}
           </Button>
         </Link>

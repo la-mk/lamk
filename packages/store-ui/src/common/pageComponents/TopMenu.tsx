@@ -32,6 +32,7 @@ export const TopMenu = withTheme(
           <HoverableLink href='/products'>
             <Flex alignItems='center' justifyContent='center' mx={3}>
               <Text
+                style={{ lineHeight: 0 }}
                 color={selectedKey === 'products' ? 'primary' : 'text.dark'}
                 fontSize={4}
               >
@@ -51,6 +52,7 @@ export const TopMenu = withTheme(
           <HoverableLink href='/about'>
             <Flex alignItems='center' justifyContent='center' mx={3}>
               <Text
+                style={{ lineHeight: 0 }}
                 color={selectedKey === 'about' ? 'primary' : 'text.dark'}
                 fontSize={4}
               >
@@ -93,14 +95,24 @@ export const TopMenu = withTheme(
                 <Menu>
                   <MenuItem key='account'>
                     <Link href='/account' passHref>
-                      <Button type='link' icon={<UserOutlined />}>
+                      <Button
+                        as='a'
+                        size='sm'
+                        variant='ghost'
+                        leftIcon={<UserOutlined />}
+                      >
                         {t('pages.myAccount')}
                       </Button>
                     </Link>
                   </MenuItem>
                   <MenuItem key='orders'>
                     <Link href='/orders' passHref>
-                      <Button type='link' icon={<ShoppingOutlined />}>
+                      <Button
+                        as='a'
+                        size='sm'
+                        variant='ghost'
+                        leftIcon={<ShoppingOutlined />}
+                      >
                         {t('pages.myOrders')}
                       </Button>
                     </Link>
@@ -108,8 +120,9 @@ export const TopMenu = withTheme(
                   <Divider mt={2} mb={0} />
                   <MenuItem key='logout'>
                     <Button
-                      type='link'
-                      icon={<LogoutOutlined />}
+                      size='sm'
+                      variant='ghost'
+                      leftIcon={<LogoutOutlined />}
                       onClick={handleLogout}
                     >
                       {t('auth.logout')}
@@ -120,8 +133,9 @@ export const TopMenu = withTheme(
                 <Menu>
                   <MenuItem key='login'>
                     <Button
-                      type='link'
-                      icon={<LoginOutlined />}
+                      size='sm'
+                      variant='ghost'
+                      leftIcon={<LoginOutlined />}
                       onClick={handleLogin}
                     >
                       {t('auth.login')}
@@ -132,11 +146,9 @@ export const TopMenu = withTheme(
             }
           >
             <Flex>
-              <Button
-                mx={3}
-                type='primary'
-                icon={<UserOutlined style={{ margin: 0 }} />}
-              />
+              <Button size='sm' mx={3}>
+                <UserOutlined />
+              </Button>
             </Flex>
           </Dropdown>
         </Flex>

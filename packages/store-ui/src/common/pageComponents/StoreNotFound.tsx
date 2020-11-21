@@ -23,7 +23,7 @@ export const StoreNotFound = ({ t }: { t: TFunction }) => {
         <Paragraph textAlign='center' mb={4}>
           {t('results.storeNotFoundExplanation')}
         </Paragraph>
-        <Button type='primary' href='https://la.mk' target='_blank'>
+        <Button as='a' href='https://la.mk' target='_blank'>
           {t('actions.createStoreNow')}
         </Button>
       </Flex>

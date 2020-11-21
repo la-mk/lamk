@@ -22,7 +22,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
             subTitle={t('results.pageNotFoundExplanation')}
             extra={
               <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
+                <Button as='a' variant='link'>
+                  {t('actions.goBack')}
+                </Button>
               </Link>
             }
           />
@@ -41,7 +43,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
             subTitle={t('results.serverErrorExplanation')}
             extra={
               <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
+                <Button as='a' variant='link'>
+                  {t('actions.goBack')}
+                </Button>
               </Link>
             }
           />
@@ -62,7 +66,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
             })}
             extra={
               <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
+                <Button as='a' variant='link'>
+                  {t('actions.goBack')}
+                </Button>
               </Link>
             }
           />

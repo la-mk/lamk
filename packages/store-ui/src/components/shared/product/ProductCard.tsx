@@ -109,12 +109,12 @@ const ProductImage = ({
 //   return (
 //     <Fixed alignItems='center' justifyContent='center'>
 //       <Overlay />
-//       <Button size='large' mr={1} icon={<ZoomInOutlined />} />
+//       <Button sizelglarge' mr={1} leftIcon={<ZoomInOutlined />} />
 //       <Button
-//         size='large'
+//         size='lg'
 //         ml={1}
-//         icon={<ShoppingCartOutlined />}
-//         type='primary'
+//         leftIcon={<ShoppingCartOutlined />}
+//
 //       />
 //     </Fixed>
 //   );

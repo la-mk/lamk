@@ -13,7 +13,7 @@ export const SeeAllLink = ({
   return (
     <Flex mt={3} alignItems='center' justifyContent='center'>
       <Link href={allHref} passHref>
-        <Button size='large' type='primary'>
+        <Button as='a' size='lg'>
           {t('common.seeAll')}
         </Button>
       </Link>

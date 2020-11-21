@@ -55,6 +55,19 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  .ant-btn.anticon {
+    vertical-align: 0;
+  }
+  .anticon {
+    vertical-align: 0.125em;
+  }
+  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a {
+    display: inherit;
+    padding: inherit;
+    margin: inherit;
+    color: inherit;
+  }
 `;
 
 // Setup the SDK so it can be used on the server-side in getInitialProps calls.

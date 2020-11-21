@@ -141,7 +141,7 @@ export const Addresses = withTheme(
                               setAddressToEdit(address);
                               setShowAddModal(true);
                             }}
-                            type='link'
+                            variant='ghost'
                           >
                             <Text
                               fontSize={2}
@@ -158,7 +158,7 @@ export const Addresses = withTheme(
                               e.stopPropagation();
                               handleRemoveAddress(address._id);
                             }}
-                            type='link'
+                            variant='ghost'
                           >
                             <Text
                               fontSize={2}

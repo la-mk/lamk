@@ -52,8 +52,8 @@ export const OrderDescription = ({
         </Flex>
         {!hideDetailsButton && (
           <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
-            <Button type='link'>
-              <EyeFilled /> {t('common.details')}
+            <Button as='a' variant='link' leftIcon={<EyeFilled />}>
+              {t('common.details')}
             </Button>
           </Link>
         )}

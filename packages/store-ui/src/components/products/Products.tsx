@@ -94,9 +94,9 @@ export const Products = ({
             justifyContent='center'
           >
             <Button
-              size='large'
-              type='link'
-              icon={<FilterOutlined />}
+              size='lg'
+              variant='link'
+              leftIcon={<FilterOutlined />}
               onClick={() => setIsDrawerVisible(true)}
             >
               {t('common.filter_plural')}

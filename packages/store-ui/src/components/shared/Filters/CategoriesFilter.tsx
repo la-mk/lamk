@@ -62,7 +62,7 @@ export const CategoriesFilter = ({
       headerAction={
         <Button
           p={0}
-          type='link'
+          variant='link'
           onClick={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
         >
           <Text fontSize={0} color='mutedText.light'>

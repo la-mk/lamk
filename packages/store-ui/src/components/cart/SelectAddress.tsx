@@ -27,9 +27,9 @@ export const SelectAddress = ({
           {t('address.chooseShippingAddress')}
         </Title>
         <Button
-          type='link'
+          variant='link'
           onClick={() => setAddressModalVisible(true)}
-          icon={<PlusOutlined />}
+          leftIcon={<PlusOutlined />}
         >
           {t('address.addNewAddress')}
         </Button>

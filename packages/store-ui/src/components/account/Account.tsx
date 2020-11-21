@@ -105,12 +105,7 @@ export const Account = ({ user }: AccountProps) => {
                     t(`errors.${errorName}`, context)
                   }
                 >
-                  <Button
-                    width='100%'
-                    type='primary'
-                    htmlType='submit'
-                    size='large'
-                  >
+                  <Button isFullWidth type='submit' size='lg'>
                     {t('actions.update')}
                   </Button>
                 </NewForm>
@@ -132,7 +127,7 @@ export const Account = ({ user }: AccountProps) => {
         </TabPane>
         <TabPane pt={4} tab={t('common.address_plural')} key='addresses'>
           <Flex mb={4} alignItems='center' justifyContent='center'>
-            <Button type='primary' onClick={() => setShowAddAddressModal(true)}>
+            <Button onClick={() => setShowAddAddressModal(true)}>
               {t('address.addNewAddress')}
             </Button>
           </Flex>

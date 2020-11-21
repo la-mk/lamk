@@ -348,7 +348,7 @@ export const Product = ({ product }: ProductProps) => {
               <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
                 <Text mr={2}>{t('attributes.color')}:</Text>
                 <PickerBoxes
-                  type='color'
+                  variant='color'
                   disabled={disabledColorChoices}
                   values={allColors}
                   selected={chosenAttributes?.color}
@@ -394,19 +394,17 @@ export const Product = ({ product }: ProductProps) => {
                     {t('cart.productAlreadyInCart')}
                   </Text>
                   <Link passHref href='/cart'>
-                    <Button type='primary' size='large' ml={2}>
+                    <Button as='a' size='lg' ml={2}>
                       {t('actions.goToCart')}
                     </Button>
                   </Link>
                 </>
               ) : (
                 <Button
-                  disabled={outOfStock || !selectedVariant}
+                  isDisabled={outOfStock || !selectedVariant}
                   onClick={handleAddToCart}
                   ml={2}
-                  width={200}
-                  size='large'
-                  type='primary'
+                  size='lg'
                 >
                   {t('actions.addToCart')}
                 </Button>

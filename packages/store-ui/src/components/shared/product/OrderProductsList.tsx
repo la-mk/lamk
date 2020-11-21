@@ -92,7 +92,7 @@ const getColumns = (
             key: 'action',
             width: 30,
             render: (val, item) => (
-              <Button type='link' onClick={() => handleRemove(item)}>
+              <Button variant='link' onClick={() => handleRemove(item)}>
                 <DeleteOutlined />
               </Button>
             ),
@@ -133,7 +133,7 @@ export const OrderProductsList = ({
               >
                 <Box style={{ position: 'absolute', top: -20, right: 0 }}>
                   {handleRemove && (
-                    <Button type='link' onClick={() => handleRemove(item)}>
+                    <Button variant='ghost' onClick={() => handleRemove(item)}>
                       <DeleteOutlined />
                     </Button>
                   )}

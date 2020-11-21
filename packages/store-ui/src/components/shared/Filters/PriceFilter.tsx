@@ -52,22 +52,22 @@ interface PriceFilter {
 const PredefinedRanges = ({ min, max, start, end, onRangeSelected }) => {
   return (
     <Flex flexDirection='column' alignItems='flex-start'>
-      <Button onClick={() => onRangeSelected([min, 100])} type='link'>
+      <Button onClick={() => onRangeSelected([min, 100])} variant='ghost'>
         <Text color={start === min && end === 100 ? 'primary' : 'text.dark'}>
           {'< 100 ден'}
         </Text>
       </Button>
-      <Button onClick={() => onRangeSelected([100, 1000])} type='link'>
+      <Button onClick={() => onRangeSelected([100, 1000])} variant='ghost'>
         <Text color={start === 100 && end === 1000 ? 'primary' : 'text.dark'}>
           100 ден - 1000 ден
         </Text>
       </Button>
-      <Button onClick={() => onRangeSelected([1000, 5000])} type='link'>
+      <Button onClick={() => onRangeSelected([1000, 5000])} variant='ghost'>
         <Text color={start === 1000 && end === 5000 ? 'primary' : 'text.dark'}>
           1000 ден - 5000 ден
         </Text>
       </Button>
-      <Button onClick={() => onRangeSelected([5000, max])} type='link'>
+      <Button onClick={() => onRangeSelected([5000, max])} variant='ghost'>
         <Text color={start === 5000 && end === max ? 'primary' : 'text.dark'}>
           {'> 5000 ден'}
         </Text>
@@ -109,7 +109,7 @@ export const PriceFilter = ({
       headerAction={
         <Button
           p={0}
-          type='link'
+          variant='link'
           onClick={() => {
             setRange([min, max]);
             handleChangeDone(min, max);

@@ -144,7 +144,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
             href='/orders/[pid]'
             as={`/orders/${order._id}`}
           >
-            <Button mt={2} mx={2} type='primary' key='console'>
+            <Button as='a' mt={2} mx={2} key='console'>
               {t('order.seeOrder')}
             </Button>
           </Link>
@@ -183,7 +183,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
           {paymentResponse?.error && (
             <Alert
               mt={3}
-              type='error'
+              status='error'
               message={
                 paymentResponse.error?.message ?? t('results.genericError')
               }
@@ -196,7 +196,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
               sdk.orderPayments.TransactionStatus.ERROR) && (
             <Alert
               mt={3}
-              type='error'
+              status='error'
               message={transaction?.message ?? t('results.genericError')}
             />
           )}
@@ -205,8 +205,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
             <>
               <Button
                 mt={4}
-                size='large'
-                type='primary'
+                size='lg'
                 onClick={() => {
                   setPaymentResponse(null);
                   setIsLoadingPayment(true);
