@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dropdown } from '../basic/Dropdown';
 import { Text } from '../basic/Typography';
-import { Button } from '../basic/Button';
 import { Flex } from '../basic/Flex';
 import { Menu, MenuItem } from '../basic/Menu';
 import { GlobalOutlined } from '@ant-design/icons';
@@ -34,13 +33,11 @@ export const LanguagePicker = ({
         </Menu>
       }
     >
-      <Flex alignItems="center" height="100%">
-        <Button
-          leftIcon={<GlobalOutlined style={{ verticalAlign: '0.125em' }} />}
-          variant="link"
-        >
-          {languageCode.toUpperCase()}
-        </Button>
+      <Flex style={{ cursor: 'pointer' }} alignItems="center" height="100%">
+        <Text color="inherit" mr={1}>
+          <GlobalOutlined />
+        </Text>
+        <Text color="inherit">{languageCode.toUpperCase()}</Text>
       </Flex>
     </Dropdown>
   );

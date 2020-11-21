@@ -98,6 +98,17 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
       fontFamily:
         "'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
     },
+    fontWeights: {
+      hairline: 400,
+      thin: 400,
+      light: 400,
+      normal: 400,
+      medium: 400,
+      semibold: 500,
+      bold: 500,
+      extrabold: 500,
+      black: 500,
+    },
   });
 };
 
