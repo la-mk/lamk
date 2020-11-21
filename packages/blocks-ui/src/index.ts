@@ -1,5 +1,5 @@
-export { Alert } from './basic/Alert';
-export { Avatar } from './basic/Avatar';
+export { Alert, AlertProps } from './basic/Alert';
+export { Avatar, AvatarProps } from './basic/Avatar';
 export { Badge } from './basic/Badge';
 export { Box } from './basic/Box';
 export {
@@ -7,7 +7,7 @@ export {
   BreadcrumbItem,
   BreadcrumbSeparator,
 } from './basic/Breadcrumb';
-export { Button } from './basic/Button';
+export { Button, ButtonProps } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
 export { Cascader } from './basic/Cascader';
 export { Checkbox, CheckboxGroup } from './basic/Checkbox';
