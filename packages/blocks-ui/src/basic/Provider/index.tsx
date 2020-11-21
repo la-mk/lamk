@@ -1,8 +1,12 @@
 import merge from 'lodash/merge';
 import * as React from 'react';
-import defaultTheme, { BlocksTheme } from '../../theme';
+import defaultTheme, {
+  BlocksTheme,
+  DeepPartial,
+  getChakraTheme,
+} from '../../theme';
 import { ThemeProvider } from 'styled-components';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { ConfigProvider } from 'antd';
 import { BreakpointProvider } from '../../hooks/useBreakpoint';
 
@@ -36,7 +40,7 @@ export const Provider = ({
   compoundLocale,
   children,
 }: {
-  theme?: Partial<BlocksTheme>;
+  theme?: DeepPartial<BlocksTheme>;
   basicLocale?: any;
   compoundLocale?: LocalizationContext;
   children: React.ReactElement;
@@ -45,24 +49,7 @@ export const Provider = ({
 
   return (
     <ThemeProvider theme={mergedTheme}>
-      <ChakraProvider
-        theme={extendTheme({
-          colors: {
-            primary: {
-              50: mergedTheme.colors.primary,
-              100: mergedTheme.colors.primary,
-              200: mergedTheme.colors.primary,
-              300: mergedTheme.colors.primary,
-              400: mergedTheme.colors.primary,
-              500: mergedTheme.colors.primary,
-              600: mergedTheme.colors.primary,
-              700: mergedTheme.colors.primary,
-              800: mergedTheme.colors.primary,
-              900: mergedTheme.colors.primary,
-            },
-          },
-        })}
-      >
+      <ChakraProvider theme={getChakraTheme(mergedTheme)}>
         <BreakpointProvider breakpoints={mergedTheme.breakpoints.map(parseInt)}>
           <ConfigProvider locale={basicLocale}>
             <LocalizationContext.Provider value={compoundLocale || {}}>
