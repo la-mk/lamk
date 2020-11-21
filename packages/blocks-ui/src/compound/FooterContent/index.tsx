@@ -19,7 +19,7 @@ export interface Submenu {
 
 const Submenu = ({ submenus, Link }: { submenus: Submenu[]; Link: any }) => {
   return (
-    <Flex flexDirection="column" alignItems="flex-start">
+    <Flex width="100%" flexDirection="column" alignItems="center">
       {submenus.map(submenu => {
         return (
           <Link key={submenu.link} href={submenu.link} passHref>
@@ -74,7 +74,7 @@ export const FooterContent = ({
             return (
               <Flex
                 flexDirection="column"
-                alignItems="flex-start"
+                alignItems="center"
                 key={menu.text}
                 mx={4}
               >

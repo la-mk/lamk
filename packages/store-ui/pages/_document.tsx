@@ -56,6 +56,10 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
+  a:hover {
+    color: 'inherit';
+  }
+
   .ant-btn.anticon {
     vertical-align: 0;
   }

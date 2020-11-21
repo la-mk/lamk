@@ -1,7 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import { default as NextHead } from 'next/head';
-import { Provider as ThemeProvider, hooks, theme } from '@sradevski/blocks-ui';
+import { Provider as ThemeProvider } from '@sradevski/blocks-ui';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
@@ -132,21 +132,17 @@ const Main = ({ store, laStore, children }) => {
     >
       <ReduxProvider store={store}>
         <ConnectedRouter>
-          <hooks.BreakpointProvider
-            breakpoints={theme.breakpoints.map(x => parseInt(x))}
-          >
-            <BrandColorWrapper brandColor={brandColor} />
-            {laStore ? (
-              <StoreLayout>
-                <>
-                  {children}
-                  <AuthModal />
-                </>
-              </StoreLayout>
-            ) : (
-              <StoreNotFound t={t} />
-            )}
-          </hooks.BreakpointProvider>
+          <BrandColorWrapper brandColor={brandColor} />
+          {laStore ? (
+            <StoreLayout>
+              <>
+                {children}
+                <AuthModal />
+              </>
+            </StoreLayout>
+          ) : (
+            <StoreNotFound t={t} />
+          )}
         </ConnectedRouter>
       </ReduxProvider>
     </ThemeProvider>
