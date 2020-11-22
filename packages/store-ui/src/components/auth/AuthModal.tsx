@@ -6,7 +6,7 @@ import {
   SignupForm,
   hooks,
   ForgotPasswordForm,
-  Spin,
+  Spinner,
 } from '@sradevski/blocks-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { shouldShowAuthModal } from '../../state/modules/ui/ui.selector';
@@ -95,7 +95,7 @@ export const AuthModal = () => {
           />
         )}
         {method === 'forgotPassword' && (
-          <Spin spinning={showSpinner}>
+          <Spinner isLoaded={!showSpinner}>
             <ForgotPasswordForm
               schema={sdk.utils.schema.pick(sdk.user.schema, ['email'])}
               hasSubmitted={forgotPasswordDone}
@@ -105,7 +105,7 @@ export const AuthModal = () => {
                 t(`errors.${errorName}`, context)
               }
             />
-          </Spin>
+          </Spinner>
         )}
       </Flex>
     </Modal>

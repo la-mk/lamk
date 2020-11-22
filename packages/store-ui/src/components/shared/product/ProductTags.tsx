@@ -2,6 +2,7 @@ import { TFunction } from 'next-i18next';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { hooks, Flex, Tag } from '@sradevski/blocks-ui';
 import { differenceInDays } from 'date-fns';
+import { Size } from '@sradevski/blocks-ui/dist/system';
 
 const NUM_DAYS_CONSIDER_AS_NEW = 10;
 
@@ -12,7 +13,7 @@ export const ProductTags = ({
   t: TFunction;
   product: Product;
 }) => {
-  const compact = hooks.useBreakpoint([true, false, false]);
+  const size = hooks.useBreakpoint<Size>(['md', 'lg', 'lg']);
 
   const minDiscountPercentage = Math.round(
     ((product.minDiscount ?? 0) / product.minPrice) * 100,
@@ -28,7 +29,7 @@ export const ProductTags = ({
   );
 
   const isNew =
-    differenceInDays(new Date(product.createdAt), Date.now()) >
+    differenceInDays(Date.now(), new Date(product.createdAt)) <
     NUM_DAYS_CONSIDER_AS_NEW;
   const isSoldOut = product.totalStock === 0;
 
@@ -36,20 +37,21 @@ export const ProductTags = ({
     <Flex
       flexDirection='column'
       alignItems='flex-end'
-      style={{ position: 'absolute', right: 0, top: 12 }}
+      style={{ position: 'absolute', right: 4, top: 12 }}
     >
+      {/* TODO: Change bgColor for colorScheme */}
       {isSoldOut && (
-        <Tag minWidth='70px' compact={compact} mb={2} color='#043353'>
+        <Tag minWidth='70px' size={size} mb={2} bgColor='#043353'>
           {t('product.outOfStock')}
         </Tag>
       )}
       {!isSoldOut && isNew && (
-        <Tag minWidth='70px' compact={compact} mb={2} color='#D9E93C'>
+        <Tag minWidth='70px' size={size} mb={2} bgColor='#D9E93C'>
           {t('product.new')}
         </Tag>
       )}
       {!isSoldOut && discountPercentage > 0 && (
-        <Tag minWidth='70px' compact={compact} mb={2} color='#FF3838'>
+        <Tag minWidth='70px' size={size} mb={2} bgColor='#FF3838'>
           {t('product.discounted', { percentage: discountPercentage })}
         </Tag>
       )}

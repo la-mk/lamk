@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Empty, Spin, hooks } from '@sradevski/blocks-ui';
+import { Flex, Empty, Spinner, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Summary } from '../shared/Summary';
 import {
@@ -146,7 +146,7 @@ export const Cart = () => {
 
   return (
     <Page>
-      <Spin spinning={showSpinner}>
+      <Spinner isLoaded={!showSpinner}>
         <Flex width='100%' flexDirection={['column', 'column', 'row']}>
           <Flex flexDirection='column' flex={2} mr={[0, 0, 3]}>
             <OrderProductsList
@@ -174,7 +174,7 @@ export const Cart = () => {
             />
           </Flex>
         </Flex>
-      </Spin>
+      </Spinner>
 
       <ManagedSets
         mt={7}

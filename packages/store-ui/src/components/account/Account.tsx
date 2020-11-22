@@ -5,9 +5,8 @@ import {
   Button,
   Flex,
   message,
-  Spin,
+  Spinner,
   Tabs,
-  TabPane,
   hooks,
   NewForm,
   ChangePasswordForm,
@@ -26,7 +25,7 @@ interface AccountProps {
 
 export const Account = ({ user }: AccountProps) => {
   const [caller, showSpinner] = hooks.useCall();
-  const [tab, setTab] = useState('personal');
+  const [tab, setTab] = useState(0);
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
   const [userFormData, setUserFormData] = hooks.useFormState<Partial<User>>(
     pick(user, ['firstName', 'lastName', 'phoneNumber']),
@@ -59,85 +58,102 @@ export const Account = ({ user }: AccountProps) => {
 
   return (
     <Page>
-      <Tabs animated={false} activeKey={tab} onChange={setTab}>
-        <TabPane pt={4} tab={t('common.personalInfo')} key='personal'>
-          <Spin spinning={showSpinner}>
-            <Flex
-              alignItems='center'
-              justifyContent='center'
-              flexDirection='column'
-              width={'100%'}
-              maxWidth={600}
-              minWidth={200}
-              mx='auto'
-            >
-              <Box width='100%'>
-                <NewForm<Pick<User, 'firstName' | 'lastName' | 'phoneNumber'>>
-                  schema={sdk.utils.schema.pick(sdk.user.schema, [
-                    'firstName',
-                    'lastName',
-                    'phoneNumber',
-                  ])}
-                  uiSchema={{
-                    firstName: {
-                      'ui:title': t('common.firstName'),
-                      'ui:options': {
-                        emphasized: true,
-                      },
-                    },
-                    lastName: {
-                      'ui:title': t('common.lastName'),
-                      'ui:options': {
-                        emphasized: true,
-                      },
-                    },
-                    phoneNumber: {
-                      'ui:title': t('common.phoneNumber'),
-                      'ui:options': {
-                        emphasized: true,
-                      },
-                    },
-                  }}
+      <Tabs
+        index={tab}
+        onChange={setTab}
+        items={[
+          {
+            title: t('common.personalInfo'),
+            content: (
+              <Spinner isLoaded={!showSpinner}>
+                <Flex
+                  alignItems='center'
+                  justifyContent='center'
+                  flexDirection='column'
+                  width={'100%'}
+                  maxWidth={600}
+                  minWidth={200}
+                  mx='auto'
+                >
+                  <Box width='100%'>
+                    <NewForm<
+                      Pick<User, 'firstName' | 'lastName' | 'phoneNumber'>
+                    >
+                      schema={sdk.utils.schema.pick(sdk.user.schema, [
+                        'firstName',
+                        'lastName',
+                        'phoneNumber',
+                      ])}
+                      uiSchema={{
+                        firstName: {
+                          'ui:title': t('common.firstName'),
+                          'ui:options': {
+                            emphasized: true,
+                          },
+                        },
+                        lastName: {
+                          'ui:title': t('common.lastName'),
+                          'ui:options': {
+                            emphasized: true,
+                          },
+                        },
+                        phoneNumber: {
+                          'ui:title': t('common.phoneNumber'),
+                          'ui:options': {
+                            emphasized: true,
+                          },
+                        },
+                      }}
+                      onSubmit={handlePatchAccount}
+                      onChange={({ formData }) => setUserFormData(formData)}
+                      formData={userFormData}
+                      getErrorMessage={(errorName, context) =>
+                        t(`errors.${errorName}`, context)
+                      }
+                    >
+                      <Button isFullWidth type='submit' size='lg'>
+                        {t('actions.update')}
+                      </Button>
+                    </NewForm>
+                  </Box>
+                </Flex>
+              </Spinner>
+            ),
+          },
+          {
+            title: t('common.password'),
+            content: (
+              <Spinner isLoaded={!showSpinner}>
+                <ChangePasswordForm
+                  schema={changePasswordSchema}
+                  emphasized
                   onSubmit={handlePatchAccount}
-                  onChange={({ formData }) => setUserFormData(formData)}
-                  formData={userFormData}
                   getErrorMessage={(errorName, context) =>
                     t(`errors.${errorName}`, context)
                   }
-                >
-                  <Button isFullWidth type='submit' size='lg'>
-                    {t('actions.update')}
+                />
+              </Spinner>
+            ),
+          },
+          {
+            title: t('common.address_plural'),
+            content: (
+              <>
+                <Flex mb={4} alignItems='center' justifyContent='center'>
+                  <Button onClick={() => setShowAddAddressModal(true)}>
+                    {t('address.addNewAddress')}
                   </Button>
-                </NewForm>
-              </Box>
-            </Flex>
-          </Spin>
-        </TabPane>
-        <TabPane pt={4} tab={t('common.password')} key='password'>
-          <Spin spinning={showSpinner}>
-            <ChangePasswordForm
-              schema={changePasswordSchema}
-              emphasized
-              onSubmit={handlePatchAccount}
-              getErrorMessage={(errorName, context) =>
-                t(`errors.${errorName}`, context)
-              }
-            />
-          </Spin>
-        </TabPane>
-        <TabPane pt={4} tab={t('common.address_plural')} key='addresses'>
-          <Flex mb={4} alignItems='center' justifyContent='center'>
-            <Button onClick={() => setShowAddAddressModal(true)}>
-              {t('address.addNewAddress')}
-            </Button>
-          </Flex>
-          <Addresses
-            user={user}
-            showAddModal={showAddAddressModal}
-            setShowAddModal={setShowAddAddressModal}
-          />
-        </TabPane>
-      </Tabs>
+                </Flex>
+                <Addresses
+                  user={user}
+                  showAddModal={showAddAddressModal}
+                  setShowAddModal={setShowAddAddressModal}
+                />
+              </>
+            ),
+          },
+        ]}
+      />
     </Page>
   );
 };

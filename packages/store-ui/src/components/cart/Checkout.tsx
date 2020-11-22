@@ -1,6 +1,6 @@
 import uniqBy from 'lodash/uniqBy';
 import React, { useState, useEffect } from 'react';
-import { Flex, Empty, Spin, hooks, Box } from '@sradevski/blocks-ui';
+import { Flex, Empty, Spinner, hooks, Box } from '@sradevski/blocks-ui';
 import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
@@ -209,26 +209,29 @@ export const Checkout = () => {
 
   return (
     <Page>
-      <Spin spinning={showSpinner}>
+      <Spinner isLoaded={!showSpinner}>
         <Flex
           width='100%'
           justifyContent='space-between'
           flexDirection={['column', 'row', 'row']}
         >
-          <Flex maxWidth={960} flex={1} flexDirection='column' mr={[0, 3, 3]}>
+          <Flex
+            px={2}
+            maxWidth={960}
+            flex={1}
+            flexDirection='column'
+            mr={[0, 3, 3]}
+          >
             <SelectPaymentMethod
               storePaymentMethods={storePaymentMethods}
               paymentMethod={paymentMethod}
               setPaymentMethod={setPaymentMethod}
             />
-            {/* We set a specific max width so visually it matches the payment methods */}
-            <Box maxWidth={752} mt={3}>
-              <SelectAddress
-                deliverTo={deliverTo}
-                setDeliverTo={setDeliverTo}
-                user={user}
-              />
-            </Box>
+            <SelectAddress
+              deliverTo={deliverTo}
+              setDeliverTo={setDeliverTo}
+              user={user}
+            />
           </Flex>
           <Flex
             alignItems='flex-start'
@@ -255,7 +258,7 @@ export const Checkout = () => {
             />
           </Flex>
         </Flex>
-      </Spin>
+      </Spinner>
     </Page>
   );
 };

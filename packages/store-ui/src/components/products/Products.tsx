@@ -74,10 +74,10 @@ export const Products = ({
         />
         {/* The drawer is always visible, but the button to toggle it is only visible on mobile. The only time this is somewhat of an issue is when opening the modal, and then resizing the window, but even then the experience is pretty good. */}
         <Drawer
-          width={320}
-          visible={isDrawerVisible}
+          size='xs'
+          title={t('common.filter_plural')}
+          isOpen={isDrawerVisible}
           onClose={() => setIsDrawerVisible(false)}
-          closable
           placement='left'
         >
           <ProductsSidemenu
@@ -95,13 +95,13 @@ export const Products = ({
           >
             <Button
               size='lg'
-              variant='link'
+              variant='ghost'
               leftIcon={<FilterOutlined />}
               onClick={() => setIsDrawerVisible(true)}
             >
               {t('common.filter_plural')}
             </Button>
-            <Divider />
+            <Divider my={3} />
           </Flex>
         </Box>
 

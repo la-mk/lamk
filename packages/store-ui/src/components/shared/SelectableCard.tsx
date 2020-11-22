@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Card } from '@sradevski/blocks-ui';
+import { Badge } from '@sradevski/blocks-ui';
 import { CheckCircleFilled } from '@ant-design/icons';
 import { CardProps } from 'antd/lib/card';
 import { SystemProps } from '@sradevski/blocks-ui/dist/system';
@@ -15,6 +15,7 @@ export const SelectableCard = withTheme(
   ({ isChecked, children, theme, ...props }: SelectableCardProps) => {
     return (
       <Badge
+        width='100%'
         style={{ backgroundColor: 'transparent' }}
         count={
           isChecked ? (

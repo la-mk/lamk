@@ -9,12 +9,13 @@ import { AnalyticsEvents } from '@sradevski/analytics';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import {
   message,
-  Spin,
+  Spinner,
   hooks,
   Flex,
   Button,
   Text,
   Title,
+  Grid,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { getAddresses } from '../../state/modules/user/user.selector';
@@ -116,8 +117,8 @@ export const Addresses = withTheme(
 
     return (
       <>
-        <Spin spinning={showSpinner}>
-          <Flex flexDirection='column'>
+        <Spinner isLoaded={!showSpinner}>
+          <Grid spacing={5}>
             {addresses?.length > 0 &&
               addresses.map(address => {
                 const isChecked =
@@ -193,8 +194,8 @@ export const Addresses = withTheme(
                 <Text fontSize={0}>{t('address.noAddressExplanation')}</Text>
               </Flex>
             )}
-          </Flex>
-        </Spin>
+          </Grid>
+        </Spinner>
 
         <AddressModal
           user={user}

@@ -5,7 +5,7 @@ import {
   ProductSetResult,
 } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { hooks, Box, Spin } from '@sradevski/blocks-ui';
+import { hooks, Box, Spinner } from '@sradevski/blocks-ui';
 import { ProductSet } from './ProductSet';
 
 export const ManagedSets = React.memo(
@@ -36,7 +36,7 @@ export const ManagedSets = React.memo(
     }
 
     return (
-      <Spin spinning={showSpinner}>
+      <Spinner isLoaded={!showSpinner}>
         <Box {...props}>
           {productSets
             .filter(set => Boolean(set.data))
@@ -50,7 +50,7 @@ export const ManagedSets = React.memo(
               </Box>
             ))}
         </Box>
-      </Spin>
+      </Spinner>
     );
   },
   // Perform deep equal so we can pass the tags array inline without memoizing it everywhere.

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { PaymentForm } from '../payments/PaymentForm';
 import {
   Flex,
-  Spin,
+  Spinner,
   hooks,
   Alert,
   Title,
@@ -161,11 +161,12 @@ export const Payment = ({ orderId }: PaymentProps) => {
 
   return (
     <Page>
-      <Spin
-        spinning={
-          showPaymentMethodSpinner ||
-          showOrderSpinner ||
-          (isLoadingPayment && !paymentResponse)
+      <Spinner
+        isLoaded={
+          !showPaymentMethodSpinner &&
+          !showOrderSpinner &&
+          !isLoadingPayment &&
+          paymentResponse
         }
       >
         <Flex
@@ -182,6 +183,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
           )}
           {paymentResponse?.error && (
             <Alert
+              maxWidth={'600px'}
               mt={3}
               status='error'
               message={
@@ -195,6 +197,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
             transactionStatus ===
               sdk.orderPayments.TransactionStatus.ERROR) && (
             <Alert
+              maxWidth={'600px'}
               mt={3}
               status='error'
               message={transaction?.message ?? t('results.genericError')}
@@ -236,7 +239,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
             </>
           )}
         </Flex>
-      </Spin>
+      </Spinner>
     </Page>
   );
 };

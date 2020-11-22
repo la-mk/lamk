@@ -119,7 +119,7 @@ export const OrderProductsList = ({
         >
           {items.map(item => (
             <>
-              <Divider style={{ borderTop: `1px solid ${'#D3DDE6'}` }} mt={0} />
+              <Divider mb={2} />
 
               <Flex
                 key={item.product._id}
@@ -131,7 +131,7 @@ export const OrderProductsList = ({
                 flexDirection='column'
                 style={{ position: 'relative' }}
               >
-                <Box style={{ position: 'absolute', top: -20, right: 0 }}>
+                <Box style={{ position: 'absolute', top: 0, right: 0 }}>
                   {handleRemove && (
                     <Button variant='ghost' onClick={() => handleRemove(item)}>
                       <DeleteOutlined />
@@ -182,7 +182,7 @@ export const OrderProductsList = ({
           ))}
         </Flex>
 
-        <Divider mt={0} style={{ borderTop: `1px solid ${'#D3DDE6'}` }} />
+        <Divider />
       </Box>
 
       <Box display={['none', 'block', 'block']}>
@@ -199,11 +199,7 @@ export const OrderProductsList = ({
           rowKey='product._id'
         />
 
-        <Divider
-          style={{ borderTop: `1px solid ${'#D3DDE6'}` }}
-          mt={0}
-          mb={2}
-        />
+        <Divider mb={2} />
       </Box>
     </Flex>
   );

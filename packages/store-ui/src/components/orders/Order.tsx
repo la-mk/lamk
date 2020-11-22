@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Steps, Step, Empty, Spin, hooks } from '@sradevski/blocks-ui';
+import { Flex, Steps, Step, Empty, Spinner, hooks } from '@sradevski/blocks-ui';
 import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { sdk } from '@sradevski/la-sdk';
@@ -82,7 +82,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
 
   return (
     <Page>
-      <Spin spinning={showSpinner}>
+      <Spinner isLoaded={!showSpinner}>
         <Steps size='small' current={stepIndex}>
           {isCardPayment && (
             <Step
@@ -179,7 +179,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
             },
           ]}
         />
-      </Spin>
+      </Spinner>
     </Page>
   );
 };

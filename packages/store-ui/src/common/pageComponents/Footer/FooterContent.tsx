@@ -80,13 +80,7 @@ export const FooterContent = ({ store }: { store: Store }) => {
         <BaseFooterContent menus={getMenus(t)} Link={Link} />
       </Flex>
 
-      <Divider
-        display={['none', 'none', 'block']}
-        bg='background.light'
-        height='1px'
-        mb={3}
-        mt={6}
-      />
+      <Divider display={['none', 'none', 'block']} mb={3} mt={6} />
 
       <SubFooter />
     </Box>

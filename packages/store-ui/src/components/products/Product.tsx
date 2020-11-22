@@ -11,7 +11,7 @@ import {
   Image,
   ImageMagnifier,
   message,
-  Spin,
+  Spinner,
   PickerBoxes,
   hooks,
   utils,
@@ -254,7 +254,7 @@ export const Product = ({ product }: ProductProps) => {
 
   return (
     <Page>
-      <Spin spinning={showSpinner}>
+      <Spinner isLoaded={!showSpinner}>
         <Flex flexDirection={['column', 'row', 'row']}>
           <Flex
             width={['100%', '50%', '50%']}
@@ -410,12 +410,12 @@ export const Product = ({ product }: ProductProps) => {
                 </Button>
               )}
             </Flex>
-            <Box mx={[3, 0, 0]} mt={4}>
+            <Box width='100%' mx={[3, 0, 0]} mt={4}>
               <ProductDetails product={product} delivery={delivery} />
             </Box>
           </Flex>
         </Flex>
-      </Spin>
+      </Spinner>
 
       <ManagedSets
         mt={[6, 7, 7]}

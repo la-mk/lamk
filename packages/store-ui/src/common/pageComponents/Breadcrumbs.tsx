@@ -1,9 +1,14 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Box } from '@sradevski/blocks-ui';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Box,
+  BreadcrumbLink,
+} from '@sradevski/blocks-ui';
 import { useSelector } from 'react-redux';
-import { HoverableLink } from '../../components/shared/components/HoverableLink';
 import { BreadcrumbEntry } from '../../state/modules/ui/ui.module';
 import { getBreadcrumbs } from '../../state/modules/ui/ui.selector';
+import { HoverableLink } from '../../components/shared/components/HoverableLink';
 
 export const Breadcrumbs = props => {
   const breadcrumbs = useSelector<BreadcrumbEntry[]>(getBreadcrumbs);
@@ -15,15 +20,23 @@ export const Breadcrumbs = props => {
   return (
     <Box px={[3, 4, 5]} py={3} width='100%' bg='background.light' {...props}>
       <Breadcrumb separator='>'>
-        {breadcrumbs.map(breadcrumb => {
+        {breadcrumbs.map((breadcrumb, index) => {
           return (
-            <BreadcrumbItem key={breadcrumb.url}>
-              <HoverableLink
+            <BreadcrumbItem
+              isCurrentPage={index === breadcrumbs.length - 1}
+              key={breadcrumb.url}
+            >
+              <BreadcrumbLink
                 href={breadcrumb.urlPattern ?? breadcrumb.url}
-                as={breadcrumb.urlPattern ? breadcrumb.url : undefined}
+                as={props => (
+                  <HoverableLink
+                    {...props}
+                    as={breadcrumb.urlPattern ? breadcrumb.url : undefined}
+                  />
+                )}
               >
                 {breadcrumb.title}
-              </HoverableLink>
+              </BreadcrumbLink>
             </BreadcrumbItem>
           );
         })}

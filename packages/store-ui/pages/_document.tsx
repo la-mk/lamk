@@ -49,8 +49,9 @@ const GlobalStyle = createGlobalStyle`
     width: initial;
   }
 
-  body {
+  html body {
     height: 100%;
+    font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -71,6 +72,7 @@ const GlobalStyle = createGlobalStyle`
     padding: inherit;
     margin: inherit;
     color: inherit;
+    line-height: inherit;
   }
 `;
 

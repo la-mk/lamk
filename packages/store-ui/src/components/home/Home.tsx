@@ -1,7 +1,7 @@
 import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
-import { Flex, Spin, hooks, Box, Empty } from '@sradevski/blocks-ui';
+import { Flex, Spinner, hooks, Box, Empty } from '@sradevski/blocks-ui';
 import {
   getSubtitleForSet,
   getTitleForSet,
@@ -115,7 +115,7 @@ export const Home = ({}: {}) => {
           <Empty mt={6} description={t('store.emptyStoreExplanation')} />
         )}
 
-        <Spin spinning={showSpinner}>
+        <Spinner isLoaded={!showSpinner}>
           <>
             {productSetsWithData.map((set, index) => (
               <React.Fragment key={set.setTag.type + (set.setTag.value || '')}>
@@ -168,7 +168,7 @@ export const Home = ({}: {}) => {
               </React.Fragment>
             ))}
           </>
-        </Spin>
+        </Spinner>
       </Flex>
     </>
   );

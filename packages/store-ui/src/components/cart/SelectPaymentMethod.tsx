@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Row, Col, Text, Flex } from '@sradevski/blocks-ui';
+import { Title, Text, Flex, Grid, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import {
   StorePaymentMethods,
@@ -35,18 +35,15 @@ export const SelectPaymentMethod = ({
       <Title level={3} fontSize={3} color='text.dark'>
         {t('payment.choosePaymentMethod')}
       </Title>
-      <Row mt={3} align='top' justify='start' gutter={{ xs: 16, sm: 32 }}>
+      <Grid mt={3} spacing={5} minChildWidth={[300, 360, 360]}>
         {storePaymentMethods?.methods &&
           storePaymentMethods.methods.map(method => {
             const isChecked = paymentMethod === method.name;
             return (
-              <Col key={method.name} mb={4}>
+              <Box minWidth={[300, 360, 360]} maxWidth={480} width={'100%'}>
                 <SelectableCard
                   isChecked={isChecked}
                   onClick={() => setPaymentMethod(method.name)}
-                  minWidth={[300, 360, 360]}
-                  maxWidth={480}
-                  width={`${100 / storePaymentMethods.methods.length}%`}
                 >
                   <Flex
                     height={'100%'}
@@ -83,10 +80,10 @@ export const SelectPaymentMethod = ({
                     </Flex>
                   </Flex>
                 </SelectableCard>
-              </Col>
+              </Box>
             );
           })}
-      </Row>
+      </Grid>
     </>
   );
 };
