@@ -8,6 +8,8 @@ import {
   OrderProps,
   borderRadius,
   BorderRadiusProps,
+  textAlign,
+  TextAlignProps,
 } from 'styled-system';
 import { system } from '../system';
 
@@ -17,7 +19,8 @@ export interface BoxProps
     OrderProps,
     AlignSelfProps,
     StyledFlexProps,
-    BorderRadiusProps {}
+    BorderRadiusProps,
+    TextAlignProps {}
 
 export const Box = system<BoxProps>(
   styled.div`
@@ -26,6 +29,7 @@ export const Box = system<BoxProps>(
     ${alignSelf};
     ${order};
     ${borderRadius}
+    ${textAlign}
   `,
   ['color']
 );

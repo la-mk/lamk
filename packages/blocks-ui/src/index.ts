@@ -1,3 +1,4 @@
+export { Accordion, AccordionProps } from './basic/Accordion';
 export { Alert, AlertProps } from './basic/Alert';
 export { Avatar, AvatarProps } from './basic/Avatar';
 export { Badge } from './basic/Badge';
@@ -14,7 +15,6 @@ export { Button, ButtonProps } from './basic/Button';
 export { Card, CardMeta } from './basic/Card';
 export { Cascader } from './basic/Cascader';
 export { Checkbox, CheckboxGroup } from './basic/Checkbox';
-export { Collapse, CollapsePanel } from './basic/Collapse';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider, DividerProps } from './basic/Divider';

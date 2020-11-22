@@ -17,7 +17,7 @@ export interface SpinnerProps
 }
 
 ChakraSpinner.defaultProps = {
-  color: 'primary',
+  color: 'primary.500',
   emptyColor: 'gray.200',
 };
 
