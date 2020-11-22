@@ -53,7 +53,7 @@ export { Statistic } from './basic/Statistic';
 export { Steps, Step } from './basic/Steps';
 export { Switch } from './basic/Switch';
 export { Table } from './basic/Table';
-export { Tabs, TabPane } from './basic/Tabs';
+export { Tabs, TabsProps } from './basic/Tabs';
 export { Tag } from './basic/Tag';
 export { Tooltip } from './basic/Tooltip';
 export { Text, Title, Paragraph } from './basic/Typography';

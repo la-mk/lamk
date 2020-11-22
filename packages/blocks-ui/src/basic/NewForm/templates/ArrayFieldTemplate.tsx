@@ -9,7 +9,7 @@ import { ArrayFieldTemplateProps } from '@rjsf/core';
 import { Flex } from '../../Flex';
 import { Box } from '../../Box';
 import { Button } from '../../Button';
-import { Tabs, TabPane } from '../../Tabs';
+import { Tabs } from '../../Tabs';
 
 interface ArrayFieldTitleProps {
   TitleField: ArrayFieldTemplateProps['TitleField'];
@@ -60,7 +60,7 @@ export default ({
   onAddClick,
   schema,
 }: ArrayFieldTemplateProps) => {
-  const [activeItem, setActiveItem] = React.useState('0');
+  const [activeItem, setActiveItem] = React.useState(0);
   const orderable = uiSchema['ui:options']?.orderable ?? true;
   const hidden = uiSchema['ui:widget'] === 'hidden';
   const asTabs = uiSchema['ui:widget'] === 'tabs';
@@ -76,27 +76,20 @@ export default ({
     return null;
   }
 
-  const onEdit = (
-    targetKey: React.MouseEvent | React.KeyboardEvent | string,
-    action: 'add' | 'remove'
-  ) => {
-    switch (action) {
-      case 'add': {
-        onAddClick();
-        setActiveItem(items.length.toString());
-        return;
-      }
+  const onAdd = () => {
+    onAddClick();
+    setActiveItem(items.length);
+  };
 
-      case 'remove': {
-        const item = items[parseInt(targetKey as string)];
-        if (!item) {
-          return;
-        }
-
-        item.onDropIndexClick(item.index)();
-        setActiveItem(Math.max(item.index - 1, 0).toString());
-      }
+  const onRemove = (index: number) => {
+    const item = items[index];
+    if (!item) {
+      return;
     }
+
+    console.log(index);
+    item.onDropIndexClick(index)();
+    setActiveItem(Math.max(index - 1, 0));
   };
 
   return (
@@ -116,25 +109,17 @@ export default ({
 
       {asTabs && (
         <Tabs
-          activeKey={activeItem}
+          index={activeItem}
           onChange={setActiveItem}
-          type="editable-card"
-          onEdit={onEdit}
-          hideAdd={items.length >= maxItems}
-        >
-          {items.map((entry, index) => {
-            return (
-              <TabPane
-                disabled={entry.disabled || entry.readonly}
-                tab={itemTitles?.[index] ?? index}
-                key={index.toString()}
-                closable={index >= minItems}
-              >
-                {entry.children}
-              </TabPane>
-            );
-          })}
-        </Tabs>
+          items={items.map((item, index) => ({
+            title: itemTitles?.[index] ?? index,
+            content: item.children,
+            isClosable: index >= minItems,
+          }))}
+          isExpandable={items.length < maxItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+        />
       )}
 
       {!asTabs && (

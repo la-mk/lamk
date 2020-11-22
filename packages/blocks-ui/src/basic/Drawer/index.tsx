@@ -21,6 +21,7 @@ export interface DrawerProps
 // @ts-ignore
 ChakraDrawer.defaultProps = {
   size: 'full',
+  preserveScrollBarGap: true,
 };
 
 export const Drawer = ({ title, children, ...props }: DrawerProps) => {

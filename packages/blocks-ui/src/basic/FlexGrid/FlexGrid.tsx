@@ -25,7 +25,7 @@ const FlexGridBase = <T extends any>({
   return (
     <Flex flexDirection="column" alignItems="center" width="100%">
       {loading ? (
-        <Spinner />
+        <Spinner mb={4} />
       ) : (
         <Flex
           className={className}
