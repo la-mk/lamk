@@ -1,9 +1,9 @@
 import debounce from 'lodash/debounce';
 import React, { createRef, useEffect, useRef } from 'react';
 import iro from '@jaames/iro';
-import { Flex } from './Flex';
-import { Input } from './Input';
-import { Box } from './Box';
+import { Flex } from '../Flex';
+import { Input } from '../Input';
+import { Box } from '../Box';
 
 // TODO: We have the regex in few places, normalize
 const hexRegex = /^#[0-9A-F]{6}$/i;

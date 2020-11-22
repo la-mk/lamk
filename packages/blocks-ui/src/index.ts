@@ -2,7 +2,7 @@ export { Accordion, AccordionProps } from './basic/Accordion';
 export { Alert, AlertProps } from './basic/Alert';
 export { Avatar, AvatarProps } from './basic/Avatar';
 export { Badge } from './basic/Badge';
-export { Box } from './basic/Box';
+export { Box, BoxProps } from './basic/Box';
 export {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,10 +18,10 @@ export { Checkbox, CheckboxGroup } from './basic/Checkbox';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider, DividerProps } from './basic/Divider';
-export { Drawer } from './basic/Drawer';
+export { Drawer, DrawerProps } from './basic/Drawer';
 export { Dropdown } from './basic/Dropdown';
 export { Empty } from './basic/Empty';
-export { Flex } from './basic/Flex';
+export { Flex, FlexProps } from './basic/Flex';
 export { FlexGrid } from './basic/FlexGrid/FlexGrid';
 export { NewForm } from './basic/NewForm/NewForm';
 export { Row, Col } from './basic/Grid';
@@ -68,7 +68,12 @@ export { HeadElements } from './compound/HeadElements';
 export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
 export { LanguagePicker } from './compound/LanguagePicker';
-export { PickerBox, PickerBoxes } from './basic/PickerBoxes';
+export {
+  PickerBox,
+  PickerBoxes,
+  PickerBoxProps,
+  PickerBoxesProps,
+} from './basic/PickerBoxes';
 
 export { message } from './static/message';
 
