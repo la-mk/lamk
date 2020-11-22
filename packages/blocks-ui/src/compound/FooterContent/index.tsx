@@ -1,10 +1,10 @@
 import React from 'react';
-import { CollapsePanel, Collapse } from '../../basic/Collapse';
 import { Text, Title } from '../../basic/Typography';
 import { Button } from '../../basic/Button';
 import { Flex } from '../../basic/Flex';
 import { Box } from '../../basic/Box';
 import styled from 'styled-components';
+import { Accordion } from '../../basic/Accordion';
 
 export interface Menu {
   text: string;
@@ -91,23 +91,12 @@ export const FooterContent = ({
         my={[4, 4, 0]}
         display={['block', 'block', 'none']}
       >
-        <Collapse
-          bordered={false}
-          style={{
-            background: 'transparent',
-          }}
-        >
-          {menus.map(menu => {
-            return (
-              <CollapsePanel
-                key={menu.text}
-                header={<Text color="text.light">{menu.text}</Text>}
-              >
-                <Submenu Link={Link} submenus={menu.submenus} />
-              </CollapsePanel>
-            );
-          })}
-        </Collapse>
+        <Accordion
+          items={menus.map(menu => ({
+            title: menu.text,
+            content: <Submenu Link={Link} submenus={menu.submenus} />,
+          }))}
+        />
       </CollapsePanelContainer>
     </>
   );

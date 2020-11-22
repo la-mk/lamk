@@ -10,7 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { Box } from '../Box';
 
-export interface AccordionProps extends SpaceProps {
+// TODO: Export from Chakra
+import { DisplayProps } from 'styled-system';
+
+export interface AccordionProps extends SpaceProps, DisplayProps {
   items: Array<{
     title: string;
     content: React.ReactNode;
@@ -27,9 +30,9 @@ export const Accordion = ({ items }: AccordionProps) => {
     <ChakraAccordion>
       {items.map(item => {
         return (
-          <ChakraAccordionItem>
+          <ChakraAccordionItem key={item.title}>
             <ChakraAccordionButton>
-              <Box textAlign="start" flex={1}>
+              <Box color="inherit" textAlign="start" flex={1}>
                 {item.title}
               </Box>
               <ChakraAccordionIcon />
