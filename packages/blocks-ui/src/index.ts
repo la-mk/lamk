@@ -24,7 +24,7 @@ export { Empty } from './basic/Empty';
 export { Flex, FlexProps } from './basic/Flex';
 export { FlexGrid } from './basic/FlexGrid/FlexGrid';
 export { NewForm } from './basic/NewForm/NewForm';
-export { Row, Col } from './basic/Grid';
+export { Grid, GridProps } from './basic/Grid';
 export { Image } from './basic/Image/Image';
 export { ImageMagnifier } from './basic/Image/ImageMagnifier';
 export { ImageUploader, ImageUploaderProps } from './basic/ImageUploader';
