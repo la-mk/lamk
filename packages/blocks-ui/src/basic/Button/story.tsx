@@ -7,6 +7,9 @@ storiesOf('Button', module).add('standard', () => (
   <Provider>
     <div>
       <Button size="sm">Button</Button>
+      <Button mx={2} isDanger>
+        Danger button
+      </Button>
     </div>
   </Provider>
 ));

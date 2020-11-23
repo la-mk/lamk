@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Button as ChakraButton,
   ButtonOptions,
@@ -11,9 +12,10 @@ export type ButtonVariant = 'solid' | 'ghost' | 'outline' | 'link';
 // TODO: Check IconButton and Link and either merge the two or add aria-label to this one.
 export interface ButtonProps
   extends Omit<ButtonOptions, 'iconSpacing' | 'spinner'>,
-    Pick<React.ComponentProps<'button'>, 'onClick'>,
+    Pick<React.ComponentProps<'button'>, 'onClick' | 'children'>,
     Pick<React.ComponentProps<'a'>, 'href' | 'target' | 'rel'>,
     SpaceProps {
+  isDanger?: boolean;
   size?: Size;
   variant?: ButtonVariant;
   as?: As;
@@ -24,4 +26,6 @@ ChakraButton.defaultProps = {
   iconSpacing: 1,
 };
 
-export const Button = ChakraButton as React.FunctionComponent<ButtonProps>;
+export const Button = ({ isDanger, ...props }: ButtonProps) => {
+  return <ChakraButton {...props} colorScheme={isDanger ? 'red' : 'primary'} />;
+};

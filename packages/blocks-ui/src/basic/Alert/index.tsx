@@ -4,6 +4,7 @@ import {
   AlertTitle,
   AlertDescription,
   AlertIcon,
+  CloseButton,
   AlertProps as ChakraAlertProps,
   SpaceProps,
 } from '@chakra-ui/react';
@@ -17,11 +18,12 @@ export interface AlertProps
     MaxWidthProps,
     MinWidthProps {
   message?: string;
+  onClose?: () => void;
 }
 
 ChakraAlert.defaultProps = {};
 
-export const Alert = ({ message, children, ...props }: AlertProps) => {
+export const Alert = ({ message, onClose, children, ...props }: AlertProps) => {
   return (
     // @ts-ignore it complains that it doesn't support MaxWidth and MinWidth, but it does.
     <ChakraAlert {...props}>
@@ -32,6 +34,7 @@ export const Alert = ({ message, children, ...props }: AlertProps) => {
       ) : (
         children
       )}
+      {onClose && <CloseButton ml="auto" onClick={onClose} />}
     </ChakraAlert>
   );
 };
