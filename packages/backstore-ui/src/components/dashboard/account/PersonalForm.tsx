@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Spin,
+  Spinner,
   Flex,
   hooks,
   message,
@@ -29,7 +29,7 @@ export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
   };
 
   return (
-    <Spin spinning={showSpinner}>
+    <Spinner isLoaded={!showSpinner}>
       {/* TODO: Add to blocks ui */}
       <Flex
         alignItems='center'
@@ -74,12 +74,12 @@ export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
               t(`errors.${errorName}`, context)
             }
           >
-            <Button width='100%' type='primary' htmlType='submit' size='large'>
+            <Button isFullWidth type='submit' size='lg'>
               {t('actions.update')}
             </Button>
           </NewForm>
         </Box>
       </Flex>
-    </Spin>
+    </Spinner>
   );
 };

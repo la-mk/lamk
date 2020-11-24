@@ -73,7 +73,7 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
         t(`errors.${errorName}`, context)
       }
     >
-      <Button type='primary' htmlType='submit' size='large'>
+      <Button type='submit' size='lg'>
         {store ? t('actions.update') : t('actions.create')}
       </Button>
     </NewForm>

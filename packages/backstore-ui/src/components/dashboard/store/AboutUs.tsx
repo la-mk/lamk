@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Flex,
   Button,
-  Spin,
+  Spinner,
   message,
   hooks,
   NewForm,
@@ -56,7 +56,7 @@ export const AboutUs = () => {
 
   return (
     <Flex mt={3} flexDirection='column'>
-      <Spin spinning={showSpinner}>
+      <Spinner isLoaded={!showSpinner}>
         <NewForm
           schema={
             sdk.utils.schema.pick(sdk.storeContents.schema, ['aboutUs']) as any
@@ -83,11 +83,11 @@ export const AboutUs = () => {
             t(`errors.${errorName}`, context)
           }
         >
-          <Button type='primary' htmlType='submit' size='large'>
+          <Button type='submit' size='lg'>
             {t('actions.update')}
           </Button>
         </NewForm>
-      </Spin>
+      </Spinner>
     </Flex>
   );
 };

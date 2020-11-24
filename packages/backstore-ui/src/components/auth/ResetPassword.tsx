@@ -1,4 +1,9 @@
-import { hooks, ResetPasswordForm, Spin, message } from '@sradevski/blocks-ui';
+import {
+  hooks,
+  ResetPasswordForm,
+  Spinner,
+  message,
+} from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +35,7 @@ export const ResetPassword = ({
   };
 
   return (
-    <Spin spinning={showSpinner}>
+    <Spinner isLoaded={!showSpinner}>
       <AuthBase>
         <ResetPasswordForm
           schema={
@@ -43,6 +48,6 @@ export const ResetPassword = ({
           }
         />
       </AuthBase>
-    </Spin>
+    </Spinner>
   );
 };

@@ -21,29 +21,20 @@ export const StoreLink = () => {
 
   const storeUrl = `${store.slug}.la.mk`;
   return (
-    <Alert
-      message={t('store.storeReady')}
-      description={
-        <Trans
-          t={t}
-          i18nKey='store.storeReadyExplanation'
-          values={{ storeUrl }}
+    <Alert status='info' message={t('store.storeReady')} onClose={hideNotice}>
+      <Trans t={t} i18nKey='store.storeReadyExplanation' values={{ storeUrl }}>
+        Your store is now accessible at
+        <Button
+          ml={1}
+          as='a'
+          variant='link'
+          href={`https://${storeUrl}`}
+          target='_blank'
         >
-          Your store is now accessible at
-          <Button
-            p={0}
-            type='link'
-            href={`https://${storeUrl}`}
-            target='_blank'
-          >
-            {{ storeUrl }}
-          </Button>
-          check it out!
-        </Trans>
-      }
-      type='info'
-      closable
-      onClose={hideNotice}
-    />
+          {{ storeUrl }}
+        </Button>
+        check it out!
+      </Trans>
+    </Alert>
   );
 };

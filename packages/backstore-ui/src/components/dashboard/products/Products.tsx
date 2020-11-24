@@ -192,7 +192,7 @@ const getColumns = (
         return (
           <Flex flexWrap={'wrap'}>
             {groups.map(group => (
-              <Tag compact m={1}>
+              <Tag size='sm' m={1}>
                 {group}
               </Tag>
             ))}
@@ -276,7 +276,6 @@ export const Products = () => {
 
       <Flex my={3} justifyContent='space-between'>
         <Button
-          type='primary'
           onClick={() => {
             setEditingProduct(undefined);
             setShowModal(true);

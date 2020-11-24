@@ -96,7 +96,6 @@ export const Campaigns = () => {
       </Title>
       <Flex my={3} justifyContent='space-between'>
         <Button
-          type='primary'
           onClick={() => {
             setEditingCampaign(undefined);
             setShowModal(true);

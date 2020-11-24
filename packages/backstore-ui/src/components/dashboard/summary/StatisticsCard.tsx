@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   hooks,
-  Spin,
+  Spinner,
   Card,
   Text,
   RadioGroup,
@@ -61,8 +61,8 @@ export const StatisticsCard = ({
   }, [store, type, frequency, caller]);
 
   return (
-    <Spin spinning={showSpinner}>
-      <Card>
+    <Spinner isLoaded={!showSpinner}>
+      <Card mx={2}>
         {(frequencies || title) && (
           <Flex mb={3} justifyContent='space-between' alignItems='center'>
             {!!title && <Text strong>{title}</Text>}
@@ -86,6 +86,6 @@ export const StatisticsCard = ({
 
         {children(result)}
       </Card>
-    </Spin>
+    </Spinner>
   );
 };

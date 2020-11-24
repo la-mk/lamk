@@ -4,7 +4,7 @@ import { SetupStore } from './SetupStore';
 import { SetupCompany } from './SetupCompany';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Step, Flex, Spin, hooks } from '@sradevski/blocks-ui';
+import { Step, Flex, Spinner, hooks } from '@sradevski/blocks-ui';
 // import { Publish } from './Publish';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
@@ -115,7 +115,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   };
 
   return (
-    <Spin spinning={showSpinner}>
+    <Spinner isLoaded={!showSpinner}>
       <Flex flexDirection='column'>
         {step !== 3 && (
           <Flex px={[3, 3, 4]} pb={4} flexDirection='column'>
@@ -154,6 +154,6 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
         )} */}
         {isFinished && <Redirect push to='/dashboard' />}
       </Flex>
-    </Spin>
+    </Spinner>
   );
 };

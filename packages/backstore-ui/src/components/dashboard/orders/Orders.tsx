@@ -56,7 +56,13 @@ const getColumns = (t: TFunction, filters: FilterObject) =>
         ),
       render: (status: OrderStatus) => {
         return (
-          <Tag compact color={sdk.order.orderStatusColor[status]}>
+          <Tag
+            // @ts-ignore
+            style={{ verticalAlign: 'middle' }}
+            size='sm'
+            // @ts-ignore
+            bgColor={sdk.order.orderStatusColor[status]}
+          >
             {t(`orderStatus.${status}`)}
           </Tag>
         );

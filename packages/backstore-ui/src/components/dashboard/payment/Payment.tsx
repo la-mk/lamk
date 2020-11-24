@@ -2,7 +2,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import pick from 'lodash/pick';
 import React, { useEffect, useState } from 'react';
 import {
-  Spin,
+  Spinner,
   Title,
   Flex,
   Box,
@@ -86,7 +86,10 @@ export const Payment = () => {
       <Title mb={3} level={2}>
         {t('commerce.payment')}
       </Title>
-      <Spin spinning={showSpinner} tip={t('payment.updatingPaymentMethodsTip')}>
+      <Spinner
+        isLoaded={!showSpinner}
+        label={t('payment.updatingPaymentMethodsTip')}
+      >
         <Flex
           alignItems='center'
           justifyContent='center'
@@ -151,13 +154,13 @@ export const Payment = () => {
                 t(`errors.${errorName}`, context)
               }
             >
-              <Button type='primary' htmlType='submit' size='large'>
+              <Button type='submit' size='lg'>
                 {t('actions.save')}
               </Button>
             </NewForm>
           </Box>
         </Flex>
-      </Spin>
+      </Spinner>
     </Flex>
   );
 };

@@ -71,7 +71,7 @@ export const CompanyForm = ({
         t(`errors.${errorName}`, context)
       }
     >
-      <Button type='primary' htmlType='submit' size='large'>
+      <Button type='submit' size='lg'>
         {t('actions.update')}
       </Button>
     </NewForm>

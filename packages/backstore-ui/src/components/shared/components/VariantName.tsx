@@ -24,7 +24,7 @@ export const VariantName = ({
           return (
             <>
               {index > 0 && <Text mx={1}>·</Text>}
-              <PickerBox size='small' value={value} type='color' />
+              <PickerBox size='sm' value={value} variant='color' />
             </>
           );
         }

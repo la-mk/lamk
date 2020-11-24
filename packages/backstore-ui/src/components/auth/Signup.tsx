@@ -28,7 +28,7 @@ export const Signup = () => {
         </Text>
       )}
       {!env.ENABLE_SIGNUP && (
-        <Button type='primary' onClick={() => dispatch(goTo('/login'))}>
+        <Button onClick={() => dispatch(goTo('/login'))}>
           {t('auth.login')}
         </Button>
       )}

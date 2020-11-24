@@ -10,7 +10,6 @@ import {
   MenuDivider,
 } from '@sradevski/blocks-ui';
 import {
-  UserOutlined,
   LogoutOutlined,
   DownOutlined,
   SettingOutlined,
@@ -52,7 +51,7 @@ export const Account = ({
   return (
     <Dropdown placement='bottomRight' overlay={menu}>
       <Flex flexDirection='column' alignItems='center' justifyContent='center'>
-        <Avatar icon={<UserOutlined />} />
+        <Avatar />
         {!isSidebarCollapsed && (
           <span>
             {t('auth.account')} <DownOutlined />

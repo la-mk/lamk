@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Modal,
-  Spin,
+  Spinner,
   Flex,
   Descriptions,
   DescriptionItem,
@@ -64,7 +64,7 @@ export const OrderDetailsModal = ({
       title={t('common.details')}
     >
       {order && (
-        <Spin spinning={showSpinner}>
+        <Spinner isLoaded={!showSpinner}>
           {/* <Flex mb={3} justifyContent='flex-end'>
             <Button onClick={handleDeleteOrder} danger>
               {t('actions.delete')}
@@ -86,7 +86,13 @@ export const OrderDetailsModal = ({
                   {Object.values(sdk.order.OrderStatus).map(status => {
                     return (
                       <Option key={status} value={status}>
-                        <Tag compact color={sdk.order.orderStatusColor[status]}>
+                        <Tag
+                          // @ts-ignore
+                          style={{ verticalAlign: 'middle' }}
+                          size='sm'
+                          // @ts-ignore
+                          bgColor={sdk.order.orderStatusColor[status]}
+                        >
                           {t(`orderStatus.${status}`)}
                         </Tag>
                       </Option>
@@ -267,7 +273,7 @@ export const OrderDetailsModal = ({
               </List>
             )}
           </Card>
-        </Spin>
+        </Spinner>
       )}
     </Modal>
   );

@@ -6,7 +6,7 @@ import {
   Button,
   Flex,
   message,
-  Spin,
+  Spinner,
   hooks,
   Title,
   Switch,
@@ -231,9 +231,9 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
 
   return (
     <>
-      <Spin
-        spinning={productLoading || categoriesLoading}
-        tip={
+      <Spinner
+        isLoaded={!productLoading || categoriesLoading}
+        label={
           categoriesLoading
             ? undefined
             : product
@@ -243,7 +243,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
       >
         {product && (
           <Flex justifyContent='flex-end'>
-            <Button m={0} onClick={handleDeleteProduct} danger>
+            <Button m={0} size='sm' onClick={handleDeleteProduct} isDanger>
               {t('actions.delete')}
             </Button>
           </Flex>
@@ -369,7 +369,8 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                     'ui:options': {
                       minWidth: ['100%', '50%', '50%'],
                       values: COLORS,
-                      type: 'color',
+                      variant: 'color',
+                      size: 'sm',
                     },
                   },
                   size: {
@@ -508,15 +509,15 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
           }
         >
           <Flex mt={3} justifyContent='center'>
-            <Button type='ghost' mr={2} onClick={onClose}>
+            <Button variant='outline' mr={2} onClick={onClose}>
               {t('actions.cancel')}
             </Button>
-            <Button ml={2} htmlType='submit' type='primary'>
+            <Button ml={2} type='submit'>
               {product ? t('actions.update') : t('actions.add')}
             </Button>
           </Flex>
         </NewForm>
-      </Spin>
+      </Spinner>
     </>
   );
 };

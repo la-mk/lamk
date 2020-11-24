@@ -1,4 +1,4 @@
-import { ForgotPasswordForm, hooks, Spin } from '@sradevski/blocks-ui';
+import { ForgotPasswordForm, hooks, Spinner } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ export const ForgotPassword = () => {
   };
 
   return (
-    <Spin spinning={showSpinner}>
+    <Spinner isLoaded={!showSpinner}>
       <AuthBase>
         <ForgotPasswordForm
           schema={sdk.utils.schema.pick(sdk.user.schema, ['email'])}
@@ -33,6 +33,6 @@ export const ForgotPassword = () => {
           }
         />
       </AuthBase>
-    </Spin>
+    </Spinner>
   );
 };

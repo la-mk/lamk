@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { Box, Flex, hooks, message, Spin } from '@sradevski/blocks-ui';
+import { Box, Flex, hooks, message, Spinner } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { setStore } from '../../../state/modules/store/store.module';
 import { sdk } from '@sradevski/la-sdk';
@@ -29,7 +29,7 @@ export const Company = () => {
   };
 
   return (
-    <Spin spinning={showSpinner} tip={t('store.updatingStoreTip')}>
+    <Spinner isLoaded={!showSpinner} label={t('store.updatingStoreTip')}>
       <Flex
         alignItems='center'
         justifyContent='center'
@@ -43,6 +43,6 @@ export const Company = () => {
           <CompanyForm store={store} onDone={handleSetupCompanyDone} />
         </Box>
       </Flex>
-    </Spin>
+    </Spinner>
   );
 };

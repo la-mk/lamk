@@ -1,5 +1,10 @@
 import React from 'react';
-import { Spin, hooks, message, ChangePasswordForm } from '@sradevski/blocks-ui';
+import {
+  Spinner,
+  hooks,
+  message,
+  ChangePasswordForm,
+} from '@sradevski/blocks-ui';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { sdk } from '@sradevski/la-sdk';
 import { patchUser } from '../../../state/modules/user/user.module';
@@ -27,7 +32,7 @@ export const PasswordForm = ({ user, t }: { user: User; t: TFunction }) => {
   changePasswordSchema.required.push('currentPassword');
 
   return (
-    <Spin spinning={showSpinner}>
+    <Spinner isLoaded={!showSpinner}>
       <ChangePasswordForm
         schema={changePasswordSchema}
         emphasized
@@ -36,6 +41,6 @@ export const PasswordForm = ({ user, t }: { user: User; t: TFunction }) => {
           t(`errors.${errorName}`, context)
         }
       />
-    </Spin>
+    </Spinner>
   );
 };

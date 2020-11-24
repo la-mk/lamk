@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { TabbedRouteRenderer } from '../../shared/components/TabbedRouteRenderer';
 import { useTranslation } from 'react-i18next';
-import { TabPane } from '@sradevski/blocks-ui';
 import { PersonalForm } from './PersonalForm';
 import { PasswordForm } from './PasswordForm';
 import { useSelector } from 'react-redux';
@@ -22,18 +21,21 @@ export const AccountRouter = () => {
             match={match}
             history={history}
             title={t('auth.account')}
-          >
-            <TabPane tab={t('common.personalInfo')} key='personal'>
-              <PersonalForm user={user} t={t} />
-            </TabPane>
-            <TabPane tab={t('common.password')} key='password'>
-              <PasswordForm user={user} t={t} />
-            </TabPane>
-          </TabbedRouteRenderer>
+            items={[
+              {
+                title: t('common.personalInfo'),
+                content: <PersonalForm user={user} t={t} />,
+              },
+              {
+                title: t('common.password'),
+                content: <PasswordForm user={user} t={t} />,
+              },
+            ]}
+          />
         )}
       />
 
-      <Redirect to='/dashboard/account/personal' />
+      <Redirect to='/dashboard/account/0' />
     </Switch>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin, hooks, message, Flex, Box } from '@sradevski/blocks-ui';
+import { Spinner, hooks, message, Flex, Box } from '@sradevski/blocks-ui';
 
 import { sdk } from '@sradevski/la-sdk';
 import { Store as StoreType } from '@sradevski/la-sdk/dist/models/store';
@@ -29,7 +29,7 @@ export const Store = () => {
   };
 
   return (
-    <Spin spinning={showSpinner} tip={t('store.updatingStoreTip')}>
+    <Spinner isLoaded={!showSpinner} label={t('store.updatingStoreTip')}>
       <Flex
         alignItems='center'
         justifyContent='center'
@@ -47,6 +47,6 @@ export const Store = () => {
           />
         </Box>
       </Flex>
-    </Spin>
+    </Spinner>
   );
 };

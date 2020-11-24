@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Flex,
   Button,
-  Spin,
+  Spinner,
   message,
   hooks,
   NewForm,
@@ -71,7 +71,7 @@ export const LandingPreferences = () => {
 
   return (
     <Flex mt={3} flexDirection='column'>
-      <Spin spinning={showSpinner}>
+      <Spinner isLoaded={!showSpinner}>
         <NewForm
           imageUpload={{
             getImageUrl: imageId =>
@@ -146,11 +146,11 @@ export const LandingPreferences = () => {
             t(`errors.${errorName}`, context)
           }
         >
-          <Button type='primary' htmlType='submit' size='large'>
+          <Button type='submit' size='lg'>
             {t('actions.update')}
           </Button>
         </NewForm>
-      </Spin>
+      </Spinner>
     </Flex>
   );
 };

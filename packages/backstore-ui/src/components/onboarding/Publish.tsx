@@ -35,10 +35,10 @@ export const Publish = ({ storeSlug, onDone }: PublishProps) => {
         justifyContent='center'
         alignItems='center'
       >
-        <Button onClick={() => onDone(true)} size='large' type='primary' m={3}>
+        <Button onClick={() => onDone(true)} size='lg' m={3}>
           {t('actions.publish')}
         </Button>
-        <Button onClick={() => onDone(false)} size='large' m={3}>
+        <Button onClick={() => onDone(false)} size='lg' m={3}>
           {t('actions.goToDashboard')}
         </Button>
       </Flex>

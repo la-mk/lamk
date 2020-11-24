@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
-import { Spin, Col, Title, Flex, message, hooks } from '@sradevski/blocks-ui';
+import {
+  Spinner,
+  Title,
+  Flex,
+  message,
+  hooks,
+  Box,
+} from '@sradevski/blocks-ui';
 import { Delivery as DeliveryType } from '@sradevski/la-sdk/dist/models/delivery';
 import { sdk } from '@sradevski/la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
@@ -54,15 +61,18 @@ export const Delivery = () => {
       <Title mb={3} level={2}>
         {t('commerce.delivery')}
       </Title>
-      <Col my={3}>
-        <Spin spinning={showSpinner} tip={t('delivery.updatingDeliveryTip')}>
+      <Box my={3}>
+        <Spinner
+          isLoaded={!showSpinner}
+          label={t('delivery.updatingDeliveryTip')}
+        >
           <DeliveryForm
             storeId={storeId}
             delivery={delivery}
             onSubmit={handleSetupDeliveryDone}
           />
-        </Spin>
-      </Col>
+        </Spinner>
+      </Box>
     </Flex>
   );
 };

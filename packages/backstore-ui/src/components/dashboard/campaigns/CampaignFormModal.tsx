@@ -5,7 +5,7 @@ import {
   Button,
   Flex,
   message,
-  Spin,
+  Spinner,
   Modal,
   hooks,
   NewForm,
@@ -147,9 +147,9 @@ export const CampaignFormModal = ({
       onCancel={onClose}
       title={campaign ? t('actions.update') : t('actions.add')}
     >
-      <Spin
-        spinning={showSpinner}
-        tip={
+      <Spinner
+        isLoaded={!showSpinner}
+        label={
           campaign
             ? t('campaign.updatingCampaignTip')
             : t('campaign.addingCampaignTip')
@@ -157,7 +157,7 @@ export const CampaignFormModal = ({
       >
         {campaign && (
           <Flex mb={3} justifyContent='flex-end'>
-            <Button onClick={handleDeleteCampaign} danger>
+            <Button size='sm' onClick={handleDeleteCampaign} isDanger>
               {t('actions.delete')}
             </Button>
           </Flex>
@@ -252,15 +252,15 @@ export const CampaignFormModal = ({
           }
         >
           <Flex mt={3} justifyContent='center'>
-            <Button type='ghost' mr={2} onClick={onClose}>
+            <Button variant="outline" mr={2} onClick={onClose}>
               {t('actions.cancel')}
             </Button>
-            <Button ml={2} htmlType='submit' type='primary'>
+            <Button ml={2} type='submit'>
               {campaign ? t('actions.update') : t('actions.add')}
             </Button>
           </Flex>
         </NewForm>
-      </Spin>
+      </Spinner>
     </Modal>
   );
 };

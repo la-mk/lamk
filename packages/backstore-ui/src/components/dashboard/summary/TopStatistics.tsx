@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistic, Col } from '@sradevski/blocks-ui';
+import { Statistic, Grid } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import { StatisticsCard } from './StatisticsCard';
 import { sdk } from '@sradevski/la-sdk';
@@ -9,7 +9,7 @@ export const TopStatistics = () => {
 
   return (
     <>
-      <Col mt={2} xs={24} lg={8}>
+      <Grid mt={3} spacing={5} minChildWidth='280px'>
         <StatisticsCard type={sdk.storeAnalytics.AnalyticsTypes.TOTAL_REVENUE}>
           {val => (
             <Statistic
@@ -19,15 +19,11 @@ export const TopStatistics = () => {
             />
           )}
         </StatisticsCard>
-      </Col>
-      <Col mt={2} xs={24} lg={8}>
         <StatisticsCard
           type={sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT}
         >
           {val => <Statistic title={t('analytics.productCount')} value={val} />}
         </StatisticsCard>
-      </Col>
-      <Col mt={2} xs={24} lg={8}>
         <StatisticsCard
           type={sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT}
         >
@@ -35,7 +31,7 @@ export const TopStatistics = () => {
             <Statistic title={t('analytics.lifetimeOrderCount')} value={val} />
           )}
         </StatisticsCard>
-      </Col>
+      </Grid>
     </>
   );
 };

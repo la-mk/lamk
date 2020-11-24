@@ -73,7 +73,7 @@ export const DeliveryForm = ({
             t(`errors.${errorName}`, context)
           }
         >
-          <Button type='primary' htmlType='submit' size='large'>
+          <Button type='submit' size='lg'>
             {delivery ? t('actions.update') : t('actions.save')}
           </Button>
         </NewForm>

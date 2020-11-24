@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { TabbedRouteRenderer } from '../../shared/components/TabbedRouteRenderer';
 import { useTranslation } from 'react-i18next';
-import { TabPane } from '@sradevski/blocks-ui';
 import { InterfacePreferences } from './InterfacePreferences';
 
 export const PreferencesRouter = () => {
@@ -17,15 +16,17 @@ export const PreferencesRouter = () => {
             match={match}
             history={history}
             title={t('common.preferences')}
-          >
-            <TabPane tab={t('common.interface')} key='interface'>
-              <InterfacePreferences />
-            </TabPane>
-          </TabbedRouteRenderer>
+            items={[
+              {
+                title: t('common.interface'),
+                content: <InterfacePreferences />,
+              },
+            ]}
+          />
         )}
       />
 
-      <Redirect to='/dashboard/preferences/interface' />
+      <Redirect to='/dashboard/preferences/0' />
     </Switch>
   );
 };

@@ -27,9 +27,8 @@ export const SetupCompany = ({ onDone, store }: SetupCompanyProps) => {
           {t('onboarding.setupCompanyTitle')}
           <Button
             mx={3}
-            size='large'
+            variant='outline'
             onClick={() => onDone({ formData: null })}
-            type='primary'
           >
             {t('actions.continue')}
           </Button>
