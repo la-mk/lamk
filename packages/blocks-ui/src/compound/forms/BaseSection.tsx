@@ -4,9 +4,9 @@ import React from 'react';
 export const BaseSection = (props: FlexProps) => {
   return (
     <Flex
-      alignItems="center"
-      justifyContent="center"
-      flexDirection="column"
+      align="center"
+      justify="center"
+      direction="column"
       width={'100%'}
       maxWidth={600}
       minWidth={200}

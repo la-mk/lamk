@@ -10,17 +10,17 @@ import { ImageMagnifier } from './ImageMagnifier';
 storiesOf('Image', module).add('standard', () => (
   <Provider>
     <>
-      <Flex width={400} flexDirection="column">
+      <Flex width={400} direction="column">
         <Text>No image found</Text>
         <Image src={'https://via.placeholder-nonexistent.com/80x160'} />
       </Flex>
 
-      <Flex width={400} flexDirection="column">
+      <Flex width={400} direction="column">
         <Text>Src is null</Text>
         <Image getSrc={() => null} />
       </Flex>
 
-      <Flex flexDirection="column">
+      <Flex direction="column">
         <Text>Image Sizing</Text>
         <Box height={80} minWidth={180}>
           <Image getSrc={() => 'https://via.placeholder.com/160x80'} />
@@ -31,7 +31,7 @@ storiesOf('Image', module).add('standard', () => (
         </Box>
       </Flex>
 
-      <Flex flexDirection="column" height="100%" width="fit-content">
+      <Flex direction="column" height="100%" width="fit-content">
         <Text>Image Magnifier</Text>
 
         <Box height={400}>

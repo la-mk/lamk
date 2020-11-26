@@ -126,20 +126,16 @@ export default ({
         <>
           {items.map(element => {
             return (
-              <Flex
-                key={element.index}
-                flexDirection="row"
-                alignItems="flex-start"
-              >
-                <Box flex="1" mx="-16px" style={{ overflow: 'hidden' }}>
+              <Flex key={element.index} direction="row" align="flex-start">
+                <Box flex="1" mx="-1em" overflow="hidden">
                   {element.children}
                 </Box>
                 {shouldShowActions && (
-                  <Flex ml={3} alignItems="center" justifyContent="center">
+                  <Flex ml={3} align="center" justify="center">
                     {showSort && (
                       <Button
                         size="sm"
-                        mx={1}
+                        mx={2}
                         isDisabled={
                           element.disabled ||
                           element.readonly ||
@@ -157,7 +153,7 @@ export default ({
                     {showSort && (
                       <Button
                         size="sm"
-                        mx={1}
+                        mx={2}
                         isDisabled={
                           element.disabled ||
                           element.readonly ||
@@ -176,7 +172,7 @@ export default ({
                       <Button
                         variant="outline"
                         size="sm"
-                        mx={1}
+                        mx={2}
                         isDisabled={element.disabled || element.readonly}
                         onClick={element.onDropIndexClick(element.index)}
                       >

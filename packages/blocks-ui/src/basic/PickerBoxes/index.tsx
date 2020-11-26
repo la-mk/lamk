@@ -64,7 +64,7 @@ export const PickerBox = ({
       {...otherProps}
     >
       {variant === 'text' ? (
-        <Flex alignItems="center" justifyContent="center">
+        <Flex align="center" justify="center">
           <Text fontSize={0}>{value}</Text>{' '}
         </Flex>
       ) : (
@@ -92,7 +92,7 @@ export const PickerBoxes = ({
   variant = 'text',
 }: PickerBoxesProps) => {
   return (
-    <Flex m={-1} flexWrap="wrap">
+    <Flex m={-1} wrap="wrap">
       {values.map(value => (
         <PickerBox
           key={value}

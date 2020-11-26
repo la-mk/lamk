@@ -33,7 +33,8 @@ export const LanguagePicker = ({
         </Menu>
       }
     >
-      <Flex style={{ cursor: 'pointer' }} alignItems="center" height="100%">
+      {/* @ts-ignore */}
+      <Flex style={{ cursor: 'pointer' }} align="center" height="100%">
         <Text color="inherit" mr={1}>
           <GlobalOutlined />
         </Text>

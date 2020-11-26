@@ -13,8 +13,8 @@ export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
 
 // Here, in ObjectFieldTemplate, ArrayFieldTemplate, and FieldTemplate we apply certain margins as a way to provide a gutter to a flex-based grid.
 const StyledForm = (styled(Form)`
-  margin-left: -16px;
-  margin-right: -16px;
+  margin-left: -1em;
+  margin-right: -1em;
   overflow: hidden;
 ` as React.ComponentType) as new <T>() => Form<T>;
 
@@ -84,7 +84,7 @@ export const NewForm = <T extends any>({
         widgets={widgets}
         transformErrors={transformErrors}
       >
-        <Flex mx={3} mt={3} justifyContent="center" alignItems="center">
+        <Flex mx={4} mt={4} justify="center" align="center">
           {children}
         </Flex>
       </StyledForm>

@@ -498,7 +498,7 @@ storiesOf('New Form', module)
     return (
       <Provider>
         <>
-          <Flex mb={4} flexDirection="row">
+          <Flex mb={4} direction="row">
             <Box mr={3} flex={1}>
               <p>Schema</p>
               <TextArea

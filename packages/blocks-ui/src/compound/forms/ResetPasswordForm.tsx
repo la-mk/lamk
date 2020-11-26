@@ -26,7 +26,7 @@ export const ResetPasswordForm = <T extends any>({
           'Set your email and new password in the form below'}
       </Text>
 
-      <Box mt={3} width="100%">
+      <Box mt={4} width="100%">
         <NewForm<T>
           {...props}
           uiSchema={{
@@ -52,7 +52,7 @@ export const ResetPasswordForm = <T extends any>({
         </NewForm>
       </Box>
 
-      <Button mt={3} variant="link" onClick={onLoginInstead}>
+      <Button mt={4} variant="link" onClick={onLoginInstead}>
         {localization.loginInstead || 'Log in instead'}
       </Button>
     </BaseSection>

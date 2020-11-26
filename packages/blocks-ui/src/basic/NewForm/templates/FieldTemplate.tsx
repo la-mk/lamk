@@ -28,19 +28,19 @@ export default ({
   };
 
   const normalizedMinWidth = Array.isArray(minWidth)
-    ? minWidth.map(x => `calc(${x} - 32px)`)
-    : `calc(${minWidth ?? '100%'} - 32px)`;
+    ? minWidth.map(x => `calc(${x} - 2em)`)
+    : `calc(${minWidth ?? '100%'} - 2em)`;
 
   const normalizedMaxWidth = Array.isArray(maxWidth)
-    ? maxWidth.map(x => `calc(${x} - 32px)`)
-    : `calc(${maxWidth ?? '100%'} - 32px)`;
+    ? maxWidth.map(x => `calc(${x} - 2em)`)
+    : `calc(${maxWidth ?? '100%'} - 2em)`;
 
   return (
     <Box
-      mb={mb ?? 2}
+      mb={mb ?? 3}
       mt={mt}
-      mx={3}
-      width={'calc(100% - 32px)'}
+      mx={4}
+      width={'calc(100% - 2em)'}
       className={`${classNames || ''}`}
       flex={flex ?? 1}
       minWidth={normalizedMinWidth}

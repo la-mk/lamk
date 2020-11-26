@@ -12,9 +12,7 @@ const BreakpointHookComponent = () => {
 storiesOf('Hooks', module).add('useBreakpoint', () => {
   return (
     <Provider>
-      <hooks.BreakpointProvider breakpoints={[350, 700, 1200]}>
-        <BreakpointHookComponent />
-      </hooks.BreakpointProvider>
+      <BreakpointHookComponent />
     </Provider>
   );
 });

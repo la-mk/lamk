@@ -32,7 +32,7 @@ export const ForgotPasswordForm = <T extends any>({
               'We will send you a email with a link to reset your password'}
           </Text>
 
-          <Box mt={3} width="100%">
+          <Box mt={5} width="100%">
             <NewForm<T>
               {...props}
               uiSchema={{
@@ -51,18 +51,14 @@ export const ForgotPasswordForm = <T extends any>({
             </NewForm>
           </Box>
 
-          <Button mt={3} variant="link" onClick={onLoginInstead}>
+          <Button mt={4} variant="link" onClick={onLoginInstead}>
             {localization.loginInstead || 'Log in instead'}
           </Button>
         </>
       )}
 
       {hasSubmitted && (
-        <Flex
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-        >
+        <Flex direction="column" align="center" justify="center">
           <Result
             status="success"
             title={localization.forgotPasswordSuccess || 'Reset link sent'}

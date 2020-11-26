@@ -23,16 +23,16 @@ const FlexGridBase = <T extends any>({
   pagination,
 }: FlexGridProps<T>) => {
   return (
-    <Flex flexDirection="column" alignItems="center" width="100%">
+    <Flex direction="column" align="center" width="100%">
       {loading ? (
         <Spinner mb={4} />
       ) : (
         <Flex
           className={className}
-          justifyContent="center"
-          alignItems="center"
-          flexWrap="wrap"
-          flexDirection="row"
+          justify="center"
+          align="center"
+          wrap="wrap"
+          direction="row"
           mb={4}
         >
           {items.map((entry: any) => {

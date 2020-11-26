@@ -12,7 +12,7 @@ export {
   BreadcrumbLinkProps,
 } from './basic/Breadcrumb';
 export { Button, ButtonProps } from './basic/Button';
-export { Card, CardMeta } from './basic/Card';
+export { Card, CardProps } from './basic/Card';
 export { Cascader } from './basic/Cascader';
 export { Checkbox, CheckboxGroup } from './basic/Checkbox';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
@@ -48,7 +48,7 @@ export { Result } from './basic/Result';
 export { Select, Option, OptionGroup } from './basic/Select';
 export { Set } from './basic/Set/Set';
 export { Spinner, SpinnerProps } from './basic/Spinner';
-export { Statistic } from './basic/Statistic';
+export { Stat, StatProps } from './basic/Stat';
 export { Steps, Step } from './basic/Steps';
 export { Switch } from './basic/Switch';
 export { Table } from './basic/Table';

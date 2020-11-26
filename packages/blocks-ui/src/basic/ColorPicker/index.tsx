@@ -80,16 +80,11 @@ export const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
   });
 
   return (
-    <Flex
-      alignItems="center"
-      justifyContent="center"
-      flexDirection="column"
-      my={2}
-    >
+    <Flex align="center" justify="center" direction="column" my={2}>
       <div ref={el} />
 
-      <Flex alignItems="center" justifyContent="space-between">
-        <Box mr={2} height={30} width={60} style={{ backgroundColor: value }} />
+      <Flex mt={2} align="center" justify="space-between">
+        <Box mr={2} height={30} width={60} bg={value} />
         <Input
           ml={2}
           width={100}

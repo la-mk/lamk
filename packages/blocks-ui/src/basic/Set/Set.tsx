@@ -85,12 +85,12 @@ function SetBase<T>({
   };
 
   return (
-    <SetContainer px={5} {...props}>
+    <SetContainer px={6} {...props}>
       <SetList ref={setListRef}>
         {items.map(item => {
           return (
             <SetItem key={(item as any)[itemKey]}>
-              <Flex mx={gutter || [2, 3, 3]}>{renderItem(item)}</Flex>
+              <Flex mx={gutter || [3, 4, 4]}>{renderItem(item)}</Flex>
             </SetItem>
           );
         })}

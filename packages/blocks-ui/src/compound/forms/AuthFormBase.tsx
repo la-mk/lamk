@@ -41,7 +41,7 @@ export const AuthFormBase = ({
         </Text>
       )}
 
-      <Box mt={3} width="100%">
+      <Box mt={4} width="100%">
         <NewForm<any>
           {...otherProps}
           onSubmit={({ formData }) => onPrimary(formData)}
@@ -68,7 +68,7 @@ export const AuthFormBase = ({
         </NewForm>
       </Box>
 
-      <Flex alignItems="center" justifyContent="center" my={3}>
+      <Flex align="center" justify="center" my={3}>
         <Text color="mutedText.dark" fontSize={1}>
           {localization.or || 'or'}
         </Text>
@@ -79,7 +79,7 @@ export const AuthFormBase = ({
       </Button>
 
       {onForgotPassword && (
-        <Button mt={3} variant="link" onClick={onForgotPassword}>
+        <Button mt={4} variant="link" onClick={onForgotPassword}>
           {forgotPasswordText}
         </Button>
       )}

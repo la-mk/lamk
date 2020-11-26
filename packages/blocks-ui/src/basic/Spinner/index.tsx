@@ -53,7 +53,7 @@ export const Spinner = ({ children, isLoaded, ...props }: SpinnerProps) => {
   return (
     <Container>
       {!isLoaded && (
-        <SpinnerContainer justifyContent="center" alignItems="center">
+        <SpinnerContainer justify="center" align="center">
           <ChakraSpinner {...props} mt={0} />
         </SpinnerContainer>
       )}

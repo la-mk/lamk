@@ -13,16 +13,16 @@ export const PoweredBy = ({
 }) => {
   return (
     <a style={{ textDecoration: 'none' }} href="https://la.mk" target="_blank">
-      <Flex display="inline-flex" alignItems="center" justifyContent="center">
+      <Flex display="inline-flex" align="center" justify="center">
         <Text
           strong
           color={inverse ? 'text.light' : 'text.dark'}
           fontSize={0}
-          mr={2}
+          mr={3}
         >
           powered by
         </Text>
-        <Box style={{ lineHeight: 1 }} maxWidth={80} height={22}>
+        <Box lineHeight={1} maxWidth={80} height={22}>
           <Image src={logoUrl} alt="la.mk logo" />
         </Box>
       </Flex>
