@@ -8,15 +8,15 @@ import {
 } from '@chakra-ui/react';
 
 export interface StatProps extends SpaceProps {
-  label: string;
+  title: string;
   value: string;
   description?: string;
 }
 
-export const Stat = ({ label, value, description, ...props }: StatProps) => {
+export const Stat = ({ title, value, description, ...props }: StatProps) => {
   return (
     <ChakraStat {...props}>
-      <StatLabel>{label}</StatLabel>
+      <StatLabel>{title}</StatLabel>
       <StatNumber>{value}</StatNumber>
       {description && <StatHelpText>{description}</StatHelpText>}
     </ChakraStat>
