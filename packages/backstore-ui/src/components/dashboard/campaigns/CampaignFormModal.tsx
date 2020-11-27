@@ -156,7 +156,7 @@ export const CampaignFormModal = ({
         }
       >
         {campaign && (
-          <Flex mb={3} justifyContent='flex-end'>
+          <Flex mb={3} justify='flex-end'>
             <Button size='sm' onClick={handleDeleteCampaign} isDanger>
               {t('actions.delete')}
             </Button>
@@ -251,8 +251,8 @@ export const CampaignFormModal = ({
             t(`errors.${errorName}`, context)
           }
         >
-          <Flex mt={3} justifyContent='center'>
-            <Button variant="outline" mr={2} onClick={onClose}>
+          <Flex mt={3} justify='center'>
+            <Button variant='outline' mr={2} onClick={onClose}>
               {t('actions.cancel')}
             </Button>
             <Button ml={2} type='submit'>

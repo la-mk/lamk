@@ -82,7 +82,7 @@ export const Payment = () => {
   });
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
+    <Flex direction='column' px={[3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
         {t('commerce.payment')}
       </Title>
@@ -91,9 +91,9 @@ export const Payment = () => {
         label={t('payment.updatingPaymentMethodsTip')}
       >
         <Flex
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
+          align='center'
+          justify='center'
+          direction='column'
           width={'100%'}
           maxWidth={800}
           minWidth={300}

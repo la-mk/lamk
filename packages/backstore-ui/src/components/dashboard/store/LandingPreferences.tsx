@@ -70,7 +70,7 @@ export const LandingPreferences = () => {
   };
 
   return (
-    <Flex mt={3} flexDirection='column'>
+    <Flex mt={3} direction='column'>
       <Spinner isLoaded={!showSpinner}>
         <NewForm
           imageUpload={{

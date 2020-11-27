@@ -20,7 +20,7 @@ export const SetupDelivery = ({
 
   return (
     <>
-      <Flex mb={6} alignItems='center' flexDirection='column'>
+      <Flex mb={6} align='center' direction='column'>
         <Title textAlign='center' level={3}>
           {t('onboarding.setupDeliveryTitle')}
         </Title>

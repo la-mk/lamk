@@ -51,9 +51,9 @@ const TopMenu = ({ isSidebarCollapsed, i18n }: any) => {
     <TopMenuContainer
       py={4}
       px={3}
-      flexDirection='column'
-      alignItems='center'
-      justifyContent='center'
+      direction='column'
+      align='center'
+      justify='center'
     >
       <Account isSidebarCollapsed={isSidebarCollapsed} />
     </TopMenuContainer>

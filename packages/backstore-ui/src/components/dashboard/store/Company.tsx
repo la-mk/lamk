@@ -31,9 +31,9 @@ export const Company = () => {
   return (
     <Spinner isLoaded={!showSpinner} label={t('store.updatingStoreTip')}>
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        align='center'
+        justify='center'
+        direction='column'
         width={'100%'}
         maxWidth={800}
         minWidth={300}

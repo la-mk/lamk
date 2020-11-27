@@ -190,7 +190,7 @@ const getColumns = (
         }
 
         return (
-          <Flex flexWrap={'wrap'}>
+          <Flex wrap={'wrap'}>
             {groups.map(group => (
               <Tag size='sm' m={1}>
                 {group}
@@ -269,12 +269,12 @@ export const Products = () => {
   };
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
+    <Flex direction='column' px={[3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
         {t('commerce.product_plural')}
       </Title>
 
-      <Flex my={3} justifyContent='space-between'>
+      <Flex my={3} justify='space-between'>
         <Button
           onClick={() => {
             setEditingProduct(undefined);

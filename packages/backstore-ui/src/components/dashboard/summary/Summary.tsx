@@ -8,12 +8,12 @@ import { StoreLink } from './StoreLink';
 
 export const Summary = () => {
   return (
-    <>
+    <Box p={3}>
       <StoreLink />
 
       <TopStatistics />
 
-      <Grid mt={3} minChildWidth='380px'>
+      <Grid mt={3} spacing={5} minChildWidth='380px'>
         <Revenue />
         <Orders />
       </Grid>
@@ -21,6 +21,6 @@ export const Summary = () => {
       <Box mt={3}>
         <Visits />
       </Box>
-    </>
+    </Box>
   );
 };

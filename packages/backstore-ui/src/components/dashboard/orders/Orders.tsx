@@ -116,12 +116,12 @@ export const Orders = () => {
   }, [store, filters, caller]);
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
+    <Flex direction='column' px={[3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
         {t('commerce.order_plural')}
       </Title>
 
-      <Flex my={3} justifyContent='flex-end'>
+      <Flex my={3} justify='flex-end'>
         <Tooltip title='You can do bulk actions using this button.'>
           {/* <Button mx={3} type='ghost'>
             {t('common.action_plural')}

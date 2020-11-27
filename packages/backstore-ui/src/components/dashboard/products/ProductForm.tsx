@@ -242,7 +242,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
         }
       >
         {product && (
-          <Flex justifyContent='flex-end'>
+          <Flex justify='flex-end'>
             <Button m={0} size='sm' onClick={handleDeleteProduct} isDanger>
               {t('actions.delete')}
             </Button>
@@ -276,7 +276,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                 },
                 {
                   sectionTitle: (
-                    <Flex mt={3} mb={2} alignItems='center'>
+                    <Flex mt={3} mb={2} align='center'>
                       <Title m={0} level={3}>
                         {t('product.variant_plural')}
                       </Title>
@@ -317,7 +317,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
               'ui:title': t('common.name'),
               'ui:placeholder': t('product.nameExample'),
               'ui:options': {
-                minWidth: ['calc(100% - 32px)', '50%', '50%'],
+                minWidth: ['calc(100% - 2rem)', '50%', '50%'],
               },
             },
             category: {
@@ -508,7 +508,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
             t(`errors.${errorName}`, context)
           }
         >
-          <Flex mt={3} justifyContent='center'>
+          <Flex mt={3} justify='center'>
             <Button variant='outline' mr={2} onClick={onClose}>
               {t('actions.cancel')}
             </Button>

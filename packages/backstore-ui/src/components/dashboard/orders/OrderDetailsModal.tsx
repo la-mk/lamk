@@ -15,6 +15,7 @@ import {
   Divider,
   hooks,
   Box,
+  Title,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
@@ -26,6 +27,7 @@ import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { InvoiceDownloadLink } from '../pdfs/invoice/InvoiceDownloadLink';
 import { VariantName } from '../../shared/components/VariantName';
+import isEmpty from 'lodash/isEmpty';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -65,12 +67,6 @@ export const OrderDetailsModal = ({
     >
       {order && (
         <Spinner isLoaded={!showSpinner}>
-          {/* <Flex mb={3} justifyContent='flex-end'>
-            <Button onClick={handleDeleteOrder} danger>
-              {t('actions.delete')}
-            </Button>
-          </Flex> */}
-
           <Flex mb={3}>
             <Descriptions size='middle' width={'100%'} bordered>
               <DescriptionItem label={t('order.orderId')}>
@@ -86,6 +82,7 @@ export const OrderDetailsModal = ({
                   {Object.values(sdk.order.OrderStatus).map(status => {
                     return (
                       <Option key={status} value={status}>
+                        {/* TODO: Add missing props to blocks-ui */}
                         <Tag
                           // @ts-ignore
                           style={{ verticalAlign: 'middle' }}
@@ -109,10 +106,12 @@ export const OrderDetailsModal = ({
             </Descriptions>
           </Flex>
 
-          <Flex flexDirection={['column', 'column', 'row']}>
+          <Flex direction={['column', 'column', 'row']}>
             {/* TODO: This is copy-pasted from Store, together with the data calculation. Unify in one component*/}
-            <Card
-              extra={[
+            <Card mr={[0, 0, 2]} mt={[3, 3, 0]} width={['100%', '100%', '50%']}>
+              <Flex justify='space-between'>
+                <Title level={4}>{t('finance.priceBreakdown')}</Title>
+                {/* TODO: Improve how this looks like */}
                 <InvoiceDownloadLink
                   order={order}
                   store={store}
@@ -131,19 +130,15 @@ export const OrderDetailsModal = ({
                   )}
                 >
                   {t('actions.downloadInvoice')}
-                </InvoiceDownloadLink>,
-              ]}
-              title={t('finance.priceBreakdown')}
-              mr={[0, 0, 2]}
-              mt={[3, 3, 0]}
-              width={['100%', '100%', '50%']}
-            >
-              <Flex flexDirection='row' justifyContent='space-between'>
+                </InvoiceDownloadLink>
+              </Flex>
+              <Divider mt={3} mb={4} />
+              <Flex direction='row' justify='space-between'>
                 <Text strong>{t('finance.subtotal')}</Text>
                 <Text strong>{prices.productsTotal} ден</Text>
               </Flex>
               {prices.withCampaignsTotal !== prices.productsTotal && (
-                <Flex mt={2} flexDirection='row' justifyContent='space-between'>
+                <Flex mt={2} direction='row' justify='space-between'>
                   <Text strong>{t('finance.campaignDiscount')}</Text>
                   <Text strong color='danger'>
                     {(prices.withCampaignsTotal - prices.productsTotal).toFixed(
@@ -153,22 +148,21 @@ export const OrderDetailsModal = ({
                   </Text>
                 </Flex>
               )}
-              <Flex mt={2} flexDirection='row' justifyContent='space-between'>
+              <Flex mt={2} direction='row' justify='space-between'>
                 <Text strong>{t('finance.shippingCost')}</Text>
                 <Text strong>{prices.deliveryTotal} ден</Text>
               </Flex>
-              <Divider />
-              <Flex flexDirection='row' justifyContent='space-between'>
+              <Divider my={4} />
+              <Flex direction='row' justify='space-between'>
                 <Text strong>{t('finance.total')}</Text>
                 <Text strong>{prices.total} ден</Text>
               </Flex>
             </Card>
-            <Card
-              title={t('commerce.buyer')}
-              ml={[0, 0, 2]}
-              mt={[3, 3, 0]}
-              width={['100%', '100%', '50%']}
-            >
+            <Card ml={[0, 0, 2]} mt={[3, 3, 0]} width={['100%', '100%', '50%']}>
+              <Flex>
+                <Title level={4}>{t('commerce.buyer')}</Title>
+              </Flex>
+              <Divider my={3} />
               {order.deliverTo && (
                 <Descriptions size='small' column={1}>
                   <DescriptionItem label={t('common.name')}>
@@ -190,24 +184,28 @@ export const OrderDetailsModal = ({
               )}
             </Card>
           </Flex>
-          <Card title={t('commerce.product_plural')} mt={3}>
+          <Card mt={3}>
+            <Flex>
+              <Title level={4}>{t('commerce.product_plural')}</Title>
+            </Flex>
+            <Divider my={3} />
             {Boolean(order?.ordered) && (
               <List>
                 {order.ordered.map(orderItem => (
                   <List.Item key={orderItem.product._id}>
                     <Flex
                       width={'100%'}
-                      justifyContent='space-between'
-                      alignItems={['flex-start', 'center', 'center']}
-                      flexDirection={['column', 'row', 'row']}
+                      justify='space-between'
+                      align={['flex-start', 'center', 'center']}
+                      direction={['column', 'row', 'row']}
                     >
-                      <Flex alignItems='center'>
+                      <Flex align='center'>
                         <Flex
                           minWidth={'120px'}
                           maxWidth={'120px'}
-                          height={60}
-                          justifyContent='center'
-                          alignItems='center'
+                          height={'60px'}
+                          justify='center'
+                          align='center'
                         >
                           <Image
                             height={60}
@@ -221,10 +219,10 @@ export const OrderDetailsModal = ({
                             }
                           />
                         </Flex>
-                        <Flex flexDirection='column'>
+                        <Flex direction='column'>
                           <Text mx={2}>{orderItem.product.name}</Text>
 
-                          <Flex alignItems='center'>
+                          <Flex align='center'>
                             {orderItem.product.sku && (
                               <Text strong mx={2}>
                                 {`${t('product.sku')}: ${
@@ -232,9 +230,9 @@ export const OrderDetailsModal = ({
                                 }`}
                               </Text>
                             )}
-                            {orderItem.product.attributes && (
+                            {!isEmpty(orderItem.product.attributes) && (
                               <>
-                                <Flex alignItems='center' ml={2}>
+                                <Flex align='center' ml={2}>
                                   <Text strong>{`${t(
                                     'product.variant',
                                   )}: `}</Text>
@@ -242,6 +240,7 @@ export const OrderDetailsModal = ({
                                     <VariantName
                                       t={t}
                                       attributes={orderItem.product.attributes}
+                                      shouldShowAttributes
                                     />
                                   </Box>
                                 </Flex>
@@ -250,7 +249,7 @@ export const OrderDetailsModal = ({
                           </Flex>
                         </Flex>
                       </Flex>
-                      <Flex mt={[3, 0, 0]} mx={2} flexDirection='column'>
+                      <Flex mt={[3, 0, 0]} mx={2} direction='column'>
                         <Text>
                           {t('commerce.quantity')}:{' '}
                           {orderItem.quantity || t('common.unknown')}

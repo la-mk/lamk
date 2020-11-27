@@ -22,7 +22,7 @@ export const SetupCompany = ({ onDone, store }: SetupCompanyProps) => {
 
   return (
     <>
-      <Flex mb={6} alignItems='center' flexDirection='column'>
+      <Flex mb={6} align='center' direction='column'>
         <Title level={3} textAlign='center'>
           {t('onboarding.setupCompanyTitle')}
           <Button
@@ -38,9 +38,9 @@ export const SetupCompany = ({ onDone, store }: SetupCompanyProps) => {
         </Text>
       </Flex>
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        align='center'
+        justify='center'
+        direction='column'
         width={'100%'}
         maxWidth={800}
         minWidth={300}

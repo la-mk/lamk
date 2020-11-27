@@ -21,19 +21,20 @@ export const Publish = ({ storeSlug, onDone }: PublishProps) => {
   const { t } = useTranslation();
 
   return (
-    <Flex flexDirection='column' alignItems='center'>
+    <Flex direction='column' align='center'>
       <Flex
-        height={80}
-        flexDirection='row'
-        width='100%'
+        // @ts-ignore
         style={{
-          backgroundColor: 'lightgray',
           position: 'absolute',
           top: 0,
           left: 0,
         }}
-        justifyContent='center'
-        alignItems='center'
+        height={80}
+        direction='row'
+        width='100%'
+        bg='lightgray'
+        justify='center'
+        align='center'
       >
         <Button onClick={() => onDone(true)} size='lg' m={3}>
           {t('actions.publish')}

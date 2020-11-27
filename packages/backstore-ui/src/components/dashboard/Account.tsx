@@ -50,7 +50,7 @@ export const Account = ({
   );
   return (
     <Dropdown placement='bottomRight' overlay={menu}>
-      <Flex flexDirection='column' alignItems='center' justifyContent='center'>
+      <Flex direction='column' align='center' justify='center'>
         <Avatar />
         {!isSidebarCollapsed && (
           <span>

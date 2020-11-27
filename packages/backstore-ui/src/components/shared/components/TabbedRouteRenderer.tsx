@@ -29,7 +29,7 @@ export const TabbedRouteRenderer = ({
   }, [selectedTab, items]);
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
+    <Flex direction='column' px={[3, 3, 4]} py={2}>
       {title && (
         <Title mb={3} level={2}>
           {title}

@@ -32,9 +32,9 @@ export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
     <Spinner isLoaded={!showSpinner}>
       {/* TODO: Add to blocks ui */}
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        align='center'
+        justify='center'
+        direction='column'
         width={'100%'}
         maxWidth={600}
         minWidth={200}

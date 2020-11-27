@@ -62,9 +62,9 @@ export const StatisticsCard = ({
 
   return (
     <Spinner isLoaded={!showSpinner}>
-      <Card mx={2}>
+      <Card>
         {(frequencies || title) && (
-          <Flex mb={3} justifyContent='space-between' alignItems='center'>
+          <Flex mb={3} justify='space-between' align='center'>
             {!!title && <Text strong>{title}</Text>}
             {frequencies && (
               <RadioGroup
@@ -84,7 +84,7 @@ export const StatisticsCard = ({
           </Flex>
         )}
 
-        {children(result)}
+        {result ? children(result) : null}
       </Card>
     </Spinner>
   );

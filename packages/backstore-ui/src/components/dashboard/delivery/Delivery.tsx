@@ -57,7 +57,7 @@ export const Delivery = () => {
   };
 
   return (
-    <Flex flexDirection='column' px={[3, 3, 4]} py={2}>
+    <Flex direction='column' px={[3, 3, 4]} py={2}>
       <Title mb={3} level={2}>
         {t('commerce.delivery')}
       </Title>

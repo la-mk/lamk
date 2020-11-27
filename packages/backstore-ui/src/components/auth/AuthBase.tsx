@@ -10,11 +10,13 @@ export const AuthBase = ({ children }: { children: React.ReactNode }) => {
     <Flex
       width='100vw'
       height='100vh'
-      alignItems='center'
-      justifyContent='center'
+      align='center'
+      justify='center'
       bg='background.light'
     >
+      {/* TODO: Add Fixed component that allows you to pass the below as props */}
       <Box
+        // @ts-ignore
         style={{
           position: 'absolute',
           top: 16,
@@ -31,8 +33,8 @@ export const AuthBase = ({ children }: { children: React.ReactNode }) => {
         bg='#fff'
         width={460}
         minWidth={320}
-        flexDirection='column'
-        alignItems='center'
+        direction='column'
+        align='center'
         p={4}
       >
         {children}
