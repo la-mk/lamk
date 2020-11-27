@@ -74,7 +74,7 @@ export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
               t(`errors.${errorName}`, context)
             }
           >
-            <Button isFullWidth type='submit' size='lg'>
+            <Button isFullWidth type='submit'>
               {t('actions.update')}
             </Button>
           </NewForm>

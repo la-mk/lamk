@@ -50,8 +50,8 @@ export const Account = ({
   );
   return (
     <Dropdown placement='bottomRight' overlay={menu}>
-      <Flex direction='column' align='center' justify='center'>
-        <Avatar />
+      <Flex mt={4} direction='column' align='center' justify='center'>
+        <Avatar size='sm' />
         {!isSidebarCollapsed && (
           <span>
             {t('auth.account')} <DownOutlined />

@@ -146,9 +146,7 @@ export const LandingPreferences = () => {
             t(`errors.${errorName}`, context)
           }
         >
-          <Button type='submit' size='lg'>
-            {t('actions.update')}
-          </Button>
+          <Button type='submit'>{t('actions.update')}</Button>
         </NewForm>
       </Spinner>
     </Flex>

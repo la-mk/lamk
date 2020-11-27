@@ -154,9 +154,7 @@ export const Payment = () => {
                 t(`errors.${errorName}`, context)
               }
             >
-              <Button type='submit' size='lg'>
-                {t('actions.save')}
-              </Button>
+              <Button type='submit'>{t('actions.save')}</Button>
             </NewForm>
           </Box>
         </Flex>

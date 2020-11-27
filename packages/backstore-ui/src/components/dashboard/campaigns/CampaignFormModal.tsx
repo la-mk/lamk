@@ -157,7 +157,12 @@ export const CampaignFormModal = ({
       >
         {campaign && (
           <Flex mb={3} justify='flex-end'>
-            <Button size='sm' onClick={handleDeleteCampaign} isDanger>
+            <Button
+              size='sm'
+              variant='outline'
+              onClick={handleDeleteCampaign}
+              isDanger
+            >
               {t('actions.delete')}
             </Button>
           </Flex>

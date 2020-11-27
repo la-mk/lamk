@@ -17,9 +17,15 @@ const GlobalStyle = createGlobalStyle`
   .anticon {
     vertical-align: 0.125em;
   }
-  
+
   i {
     vertical-align: middle;
+  }
+
+
+  /* This is used by Text strong */
+  strong {
+    font-weight: 500 !important;
   }
 
   margin: 0;

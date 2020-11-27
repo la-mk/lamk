@@ -243,7 +243,13 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
       >
         {product && (
           <Flex justify='flex-end'>
-            <Button m={0} size='sm' onClick={handleDeleteProduct} isDanger>
+            <Button
+              m={0}
+              size='sm'
+              variant='outline'
+              onClick={handleDeleteProduct}
+              isDanger
+            >
               {t('actions.delete')}
             </Button>
           </Flex>
