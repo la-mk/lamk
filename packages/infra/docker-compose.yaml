@@ -190,7 +190,7 @@ services:
       NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.92
+    image: lamk/backstore-ui:1.0.94
     container_name: backstore-ui
     restart: always
     depends_on:
