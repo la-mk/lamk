@@ -84,7 +84,7 @@ export const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
       <div ref={el} />
 
       <Flex mt={2} align="center" justify="space-between">
-        <Box mr={2} height={30} width={60} bg={value} />
+        <Box mr={2} height={'30px'} width={'80px'} bg={value} />
         <Input
           ml={2}
           width={100}

@@ -127,7 +127,7 @@ export default ({
           {items.map(element => {
             return (
               <Flex key={element.index} direction="row" align="flex-start">
-                <Box flex="1" mx="-1em" overflow="hidden">
+                <Box flex="1" mx="-1rem" overflow="hidden">
                   {element.children}
                 </Box>
                 {shouldShowActions && (
