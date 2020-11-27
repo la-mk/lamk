@@ -18,7 +18,7 @@ export const PoweredBy = ({
           strong
           color={inverse ? 'text.light' : 'text.dark'}
           fontSize={0}
-          mr={3}
+          mr={2}
         >
           powered by
         </Text>

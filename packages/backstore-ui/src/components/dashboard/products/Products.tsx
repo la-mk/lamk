@@ -270,7 +270,7 @@ export const Products = () => {
 
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Title mb={3} level={2}>
+      <Title mb={4} level={2}>
         {t('commerce.product_plural')}
       </Title>
 

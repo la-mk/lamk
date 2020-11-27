@@ -91,7 +91,7 @@ export const Campaigns = () => {
 
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Title mb={3} level={2}>
+      <Title mb={4} level={2}>
         {t('commerce.campaign_plural')}
       </Title>
       <Flex my={3} justify='space-between'>

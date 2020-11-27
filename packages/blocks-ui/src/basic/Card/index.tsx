@@ -9,11 +9,11 @@ export interface CardProps
 export const Card = (props: CardProps) => {
   return (
     <ChakraBox
-      {...props}
       shadow="sm"
       borderWidth="1px"
       borderRadius="md"
       p={5}
+      {...props}
     />
   );
 };

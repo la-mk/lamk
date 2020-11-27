@@ -1,6 +1,5 @@
 import React from 'react';
-import { Flex, LanguagePicker, Box } from '@sradevski/blocks-ui';
-import { CustomCard } from '../shared/components/CustomCard';
+import { Flex, LanguagePicker, Box, Card } from '@sradevski/blocks-ui';
 import { useTranslation } from 'react-i18next';
 
 export const AuthBase = ({ children }: { children: React.ReactNode }) => {
@@ -12,7 +11,7 @@ export const AuthBase = ({ children }: { children: React.ReactNode }) => {
       height='100vh'
       align='center'
       justify='center'
-      bg='background.light'
+      bg='#F6F8FF'
     >
       {/* TODO: Add Fixed component that allows you to pass the below as props */}
       <Box
@@ -29,16 +28,9 @@ export const AuthBase = ({ children }: { children: React.ReactNode }) => {
           onChangeLanguageCode={key => i18n.changeLanguage(key)}
         />
       </Box>
-      <CustomCard
-        bg='#fff'
-        width={460}
-        minWidth={320}
-        direction='column'
-        align='center'
-        p={4}
-      >
+      <Card bg='#fff' width={460} minWidth={320}>
         {children}
-      </CustomCard>
+      </Card>
     </Flex>
   );
 };
