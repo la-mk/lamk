@@ -30,7 +30,7 @@ export { ImageMagnifier } from './basic/Image/ImageMagnifier';
 export { ImageUploader, ImageUploaderProps } from './basic/ImageUploader';
 export { Input, InputProps } from './basic/Input';
 export { Textarea, TextareaProps } from './basic/Textarea';
-export { InputNumber } from './basic/InputNumber';
+export { NumberInput, NumberInputProps } from './basic/NumberInput';
 export { Layout, Header, Footer, Sider, Content } from './basic/Layout';
 export { List } from './basic/List';
 export {

@@ -5,9 +5,7 @@ import {
   As,
   SpaceProps,
 } from '@chakra-ui/react';
-import { Size } from '../../system';
-
-export type ButtonVariant = 'solid' | 'ghost' | 'outline' | 'link';
+import { Size, ButtonVariant } from '../../system';
 
 // TODO: Check IconButton and Link and either merge the two or add aria-label to this one.
 export interface ButtonProps

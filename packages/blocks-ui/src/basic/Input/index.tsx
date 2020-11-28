@@ -13,7 +13,7 @@ import {
   EyeOutlined,
   EyeInvisibleOutlined,
 } from '@ant-design/icons';
-import { Size } from '../../system';
+import { InputVariant, Size } from '../../system';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import { Button } from '../Button';
@@ -22,7 +22,6 @@ export interface InputProps
   extends Pick<
       ChakraInputProps,
       | 'type'
-      | 'variant'
       | 'placeholder'
       | 'value'
       | 'autoFocus'
@@ -40,6 +39,7 @@ export interface InputProps
     >,
     SpaceProps {
   size?: Size;
+  variant?: InputVariant;
   leftAddon?: React.ReactNode;
   rightAddon?: React.ReactNode;
   onSearch?: (value: string) => void;
