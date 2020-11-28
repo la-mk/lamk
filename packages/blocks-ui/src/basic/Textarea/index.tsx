@@ -4,7 +4,7 @@ import {
   TextareaProps as ChakraTextareaProps,
   SpaceProps,
 } from '@chakra-ui/react';
-import { Size } from '../../system';
+import { InputSize } from '../../system';
 
 export interface TextareaProps
   extends Pick<
@@ -25,7 +25,7 @@ export interface TextareaProps
       | 'onChange'
     >,
     SpaceProps {
-  size?: Size;
+  size?: InputSize;
 }
 
 ChakraTextarea.defaultProps = {};

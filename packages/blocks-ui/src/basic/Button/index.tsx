@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Button as ChakraButton,
+  ButtonGroup as ChakraButtonGroup,
   ButtonOptions,
   As,
   SpaceProps,
@@ -27,3 +28,15 @@ ChakraButton.defaultProps = {
 export const Button = ({ isDanger, ...props }: ButtonProps) => {
   return <ChakraButton {...props} colorScheme={isDanger ? 'red' : 'primary'} />;
 };
+
+ChakraButtonGroup.defaultProps = {
+  isAttached: true,
+};
+
+export interface ButtonGroupProps
+  extends Pick<ButtonProps, 'size' | 'variant'>,
+    SpaceProps {}
+
+export const ButtonGroup = ChakraButtonGroup as React.FunctionComponent<
+  ButtonGroupProps
+>;

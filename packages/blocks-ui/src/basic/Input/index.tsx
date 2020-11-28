@@ -13,7 +13,7 @@ import {
   EyeOutlined,
   EyeInvisibleOutlined,
 } from '@ant-design/icons';
-import { InputVariant, Size } from '../../system';
+import { InputSize, InputVariant } from '../../system';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import { Button } from '../Button';
@@ -38,7 +38,7 @@ export interface InputProps
       | 'onChange'
     >,
     SpaceProps {
-  size?: Size;
+  size?: InputSize;
   variant?: InputVariant;
   leftAddon?: React.ReactNode;
   rightAddon?: React.ReactNode;
@@ -65,7 +65,7 @@ const spaceProps = [
 interface InputTypeComponentProps {
   leftAddon?: React.ReactNode;
   rightAddon?: React.ReactNode;
-  groupProps: SpaceProps & { size?: Size };
+  groupProps: SpaceProps & { size?: InputSize };
   inputProps: Omit<InputProps, keyof SpaceProps | 'size'>;
 }
 

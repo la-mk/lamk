@@ -11,10 +11,15 @@ export {
   BreadcrumbItemProps,
   BreadcrumbLinkProps,
 } from './basic/Breadcrumb';
-export { Button, ButtonProps } from './basic/Button';
+export {
+  Button,
+  ButtonProps,
+  ButtonGroup,
+  ButtonGroupProps,
+} from './basic/Button';
 export { Card, CardProps } from './basic/Card';
 export { Cascader } from './basic/Cascader';
-export { Checkbox, CheckboxGroup } from './basic/Checkbox';
+export { Checkbox, CheckboxProps } from './basic/Checkbox';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider, DividerProps } from './basic/Divider';
@@ -44,14 +49,14 @@ export { Modal } from './basic/Modal';
 export { Pagination } from './basic/Pagination';
 export { Popover } from './basic/Popover';
 export { Provider } from './basic/Provider';
-export { Radio, RadioButton, RadioGroup } from './basic/Radio';
+export { Radio, RadioProps } from './basic/Radio';
 export { Result } from './basic/Result';
 export { Select, Option, OptionGroup } from './basic/Select';
 export { Set } from './basic/Set/Set';
 export { Spinner, SpinnerProps } from './basic/Spinner';
 export { Stat, StatProps } from './basic/Stat';
 export { Steps, Step } from './basic/Steps';
-export { Switch } from './basic/Switch';
+export { Switch, SwitchProps } from './basic/Switch';
 export { Table } from './basic/Table';
 export { Tabs, TabsProps } from './basic/Tabs';
 export { Tag, TagProps } from './basic/Tag';

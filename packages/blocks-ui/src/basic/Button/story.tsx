@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import { Button } from './';
+import { Button, ButtonGroup } from './';
 import { Provider } from '../../';
 
 storiesOf('Button', module).add('standard', () => (
@@ -10,6 +10,12 @@ storiesOf('Button', module).add('standard', () => (
       <Button mx={2} isDanger>
         Danger button
       </Button>
+
+      <ButtonGroup variant="outline" size="sm">
+        <Button>Some button</Button>
+        <Button>Some button</Button>
+        <Button>Some button</Button>
+      </ButtonGroup>
     </div>
   </Provider>
 ));

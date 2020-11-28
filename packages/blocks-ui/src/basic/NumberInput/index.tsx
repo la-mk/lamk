@@ -8,7 +8,7 @@ import {
   NumberInputStepper,
   SpaceProps,
 } from '@chakra-ui/react';
-import { InputVariant, Size } from '../../system';
+import { InputVariant, InputSize } from '../../system';
 
 export interface NumberInputProps
   extends Pick<
@@ -33,7 +33,7 @@ export interface NumberInputProps
       | 'step'
     >,
     SpaceProps {
-  size?: Size;
+  size?: InputSize;
   variant?: InputVariant;
   prefix?: string;
   suffix?: string;
