@@ -1,6 +1,6 @@
 import React from 'react';
 import { WidgetProps } from '@rjsf/core';
-import { TextArea } from '../../Input';
+import { Textarea } from '../../Textarea';
 
 const TextareaWidget = ({
   autofocus,
@@ -22,7 +22,8 @@ const TextareaWidget = ({
   const handleFocus = ({ target }: any) => onFocus(id, target.value);
   const defaultProps = {
     autoFocus: autofocus,
-    disabled: disabled || readonly,
+    isDisabled: disabled,
+    isReadOnly: readonly,
     id: id,
     name: id,
     rows: (options.rows || 6) as number,
@@ -33,7 +34,7 @@ const TextareaWidget = ({
     value: value,
   };
 
-  return <TextArea {...defaultProps} />;
+  return <Textarea {...defaultProps} />;
 };
 
 export default TextareaWidget;

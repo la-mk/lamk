@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import { Flex } from '../Flex';
 import { Box } from '../Box';
-import { TextArea } from '../Input';
+import { Textarea } from '../Textarea';
 import { Title } from '../Typography';
 import * as React from 'react';
 import { Provider } from '../Provider';
@@ -501,7 +501,7 @@ storiesOf('New Form', module)
           <Flex mb={4} direction="row">
             <Box mr={3} flex={1}>
               <p>Schema</p>
-              <TextArea
+              <Textarea
                 rows={12}
                 onChange={e => setSchema(e.target.value)}
                 value={schema}
@@ -509,7 +509,7 @@ storiesOf('New Form', module)
             </Box>
             <Box ml={3} flex={1}>
               <p>UI Schema</p>
-              <TextArea
+              <Textarea
                 rows={12}
                 onChange={e => setUiSchema(e.target.value)}
                 value={uiSchema}
@@ -517,7 +517,7 @@ storiesOf('New Form', module)
             </Box>
             <Box ml={3} flex={1}>
               <p>Data</p>
-              <TextArea rows={12} value={JSON.stringify(data ?? {}, null, 2)} />
+              <Textarea rows={12} value={JSON.stringify(data ?? {}, null, 2)} />
             </Box>
           </Flex>
           <NewForm

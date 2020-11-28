@@ -1,7 +1,6 @@
 import React from 'react';
 import { WidgetProps } from '@rjsf/core';
-import { Password } from '../../Input';
-import { SizeType } from 'antd/lib/config-provider/SizeContext';
+import { Input } from '../../Input';
 
 const PasswordWidget = ({
   autofocus,
@@ -24,18 +23,18 @@ const PasswordWidget = ({
   const handleFocus = ({ target }: any) => onFocus(id, target.value);
   const defaultProps = {
     autoFocus: autofocus,
-    disabled: disabled || readonly,
+    isDisabled: disabled,
+    isReadOnly: readonly,
     id: id,
-    name: id,
     onBlur: !readonly ? handleBlur : undefined,
     onFocus: !readonly ? handleFocus : undefined,
     onChange: !readonly ? handleTextChange : undefined,
     placeholder: placeholder,
     value: value,
-    size: (emphasized ? 'large' : 'default') as SizeType,
+    size: emphasized ? 'lg' : ('md' as 'lg' | 'md'),
   };
 
-  return <Password {...defaultProps} />;
+  return <Input type="password" {...defaultProps} />;
 };
 
 export default PasswordWidget;

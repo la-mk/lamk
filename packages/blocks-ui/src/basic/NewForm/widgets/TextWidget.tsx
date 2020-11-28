@@ -1,6 +1,7 @@
 import React from 'react';
 import { WidgetProps } from '@rjsf/core';
-import { Input, InputGroup } from '../../Input';
+import { Input as AntInput } from 'antd';
+import { Input } from '../../Input';
 import { Select, Option } from '../../Select';
 import { InputNumber } from '../../InputNumber';
 import { SizeType } from 'antd/lib/config-provider/SizeContext';
@@ -54,7 +55,7 @@ const InputWithLenses = ({
   };
 
   return (
-    <InputGroup compact width="100%">
+    <AntInput.Group compact style={{ width: '100%' }}>
       <InputNumber {...props} {...selectedProps} />
       <Select
         style={{ width: 90 }}
@@ -66,7 +67,7 @@ const InputWithLenses = ({
         })}
       </Select>
       <InputNumber {...props} {...previewProps} />
-    </InputGroup>
+    </AntInput.Group>
   );
 };
 
@@ -129,10 +130,20 @@ const TextWidget = ({
   ) : (
     <Input
       {...defaultProps}
-      type={(options.inputType as string) || 'text'}
+      isFullWidth={true}
+      autoFocus={autofocus}
+      isDisabled={disabled}
+      isReadOnly={readonly}
+      id={id}
+      onBlur={!readonly ? handleBlur : undefined}
+      onFocus={!readonly ? handleFocus : undefined}
       onChange={!readonly ? handleTextChange : undefined}
-      addonAfter={suffix}
-      addonBefore={prefix}
+      placeholder={placeholder}
+      value={value}
+      size={emphasized ? 'lg' : 'md'}
+      type={(options.inputType as string) || 'text'}
+      rightAddon={suffix}
+      leftAddon={prefix}
     />
   );
 };

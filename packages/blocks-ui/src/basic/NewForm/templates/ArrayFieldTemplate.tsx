@@ -134,7 +134,6 @@ export default ({
                   <Flex ml={3} align="center" justify="center">
                     {showSort && (
                       <Button
-                        size="sm"
                         mx={2}
                         isDisabled={
                           element.disabled ||
@@ -152,7 +151,6 @@ export default ({
 
                     {showSort && (
                       <Button
-                        size="sm"
                         mx={2}
                         isDisabled={
                           element.disabled ||
@@ -171,7 +169,6 @@ export default ({
                     {showRemove && (
                       <Button
                         variant="outline"
-                        size="sm"
                         mx={2}
                         isDisabled={element.disabled || element.readonly}
                         onClick={element.onDropIndexClick(element.index)}
