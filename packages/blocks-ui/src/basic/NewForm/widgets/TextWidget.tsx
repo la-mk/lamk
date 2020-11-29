@@ -140,11 +140,14 @@ const TextWidget = ({
       ? 'number'
       : (options.inputType as string);
 
+  const changeHandler =
+    type === 'number' ? handleNumberChange : handleTextChange;
+
   return (
     <Input
       {...defaultProps}
       type={type ?? 'text'}
-      onChange={!readonly ? handleTextChange : undefined}
+      onChange={!readonly ? changeHandler : undefined}
       rightAddon={suffix}
       leftAddon={prefix}
     />

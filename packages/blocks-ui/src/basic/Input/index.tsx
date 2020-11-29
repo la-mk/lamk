@@ -214,6 +214,7 @@ const Number = ({
   return (
     <Wrapper>
       <ChakraNumberInput
+        width="100%"
         {...inputProps}
         {...(leftAddon || rightAddon ? {} : groupProps)}
         // value={`${prefix ?? ''} ${value ?? ''} ${suffix ?? ''}`.trim()}
