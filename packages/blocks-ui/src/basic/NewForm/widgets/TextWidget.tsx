@@ -48,7 +48,9 @@ const InputWithLenses = ({
         {...props}
         min={selectedMode.min}
         max={selectedMode.max}
-        value={selectedMode.inputConverter(value as any, props.id!)}
+        value={
+          selectedMode.inputConverter(value as any, props.id!) ?? undefined
+        }
         onChange={change}
         type="number"
         leftAddon={

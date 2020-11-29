@@ -48,8 +48,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
                   .filter(property =>
                     section.properties.includes(property.name)
                   )
-                  .map((prop: any, i) => (
-                    <React.Fragment key={i}>{prop.content}</React.Fragment>
+                  .map((prop: any, j) => (
+                    <React.Fragment key={j}>{prop.content}</React.Fragment>
                   ))}
               </Flex>
             </Flex>

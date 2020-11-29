@@ -43,7 +43,7 @@ export const Tabs = ({
       <ChakraTabList>
         {items.map((item, index) => {
           return (
-            <ChakraTab>
+            <ChakraTab key={index}>
               {item.title}
               {item.isClosable && onRemove && (
                 <Button variant="link" ml={3} onClick={() => onRemove(index)}>

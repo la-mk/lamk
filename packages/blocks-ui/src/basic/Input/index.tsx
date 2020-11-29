@@ -245,7 +245,13 @@ export const Input = ({
   precision,
   ...props
 }: InputProps) => {
-  if (type !== 'password' && type !== 'search' && !leftAddon && !rightAddon) {
+  if (
+    type !== 'password' &&
+    type !== 'search' &&
+    type !== 'number' &&
+    !leftAddon &&
+    !rightAddon
+  ) {
     return <ChakraInput type={type} size={size} {...props} />;
   }
 
