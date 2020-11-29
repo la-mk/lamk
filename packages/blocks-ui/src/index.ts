@@ -44,7 +44,7 @@ export {
   MenuItem,
   MenuItemGroup,
 } from './basic/Menu';
-export { Modal } from './basic/Modal';
+export { Modal, ModalProps } from './basic/Modal';
 export { Pagination } from './basic/Pagination';
 export { Popover } from './basic/Popover';
 export { Provider } from './basic/Provider';
