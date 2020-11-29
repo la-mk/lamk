@@ -10,7 +10,6 @@ import {
   hooks,
   Title,
   Switch,
-  Text,
   NewForm,
 } from '@sradevski/blocks-ui';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
@@ -288,17 +287,18 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                       </Title>
                       <Switch
                         ml={3}
-                        checked={showVariants}
+                        isChecked={showVariants}
                         onChange={() => setShowVariants(!showVariants)}
-                      />
-                      <Text ml={2}>{t('product.productHasVariants')}</Text>
+                      >
+                        {t('product.productHasVariants')}
+                      </Switch>
                     </Flex>
                   ),
                   properties: ['variants'],
                 },
                 {
                   sectionTitle: (
-                    <Title mt={3} mb={2} level={3}>
+                    <Title mt={1} mb={2} level={3}>
                       {t('common.details')}
                     </Title>
                   ),
@@ -390,7 +390,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                 price: {
                   'ui:options': {
                     minWidth: ['100%', '50%', '50%'],
-                    suffix: 'ден',
+                    prefix: 'ден',
                   },
                   'ui:title': t(`common.price`),
                 },

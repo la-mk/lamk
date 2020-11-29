@@ -47,6 +47,7 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
         slug: {
           'ui:title': t('store.storeUrl'),
           'ui:options': {
+            prefix: 'https://',
             suffix: '.la.mk',
           },
         },

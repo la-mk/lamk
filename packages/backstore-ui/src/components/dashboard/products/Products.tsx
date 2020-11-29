@@ -9,11 +9,11 @@ import {
   Image,
   hooks,
   utils,
-  Search,
   Box,
   Tag,
   Text,
   Modal,
+  Input,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { useSelector } from 'react-redux';
@@ -297,19 +297,18 @@ export const Products = () => {
         mt={2}
         mb={3}
       >
-        <Search
-          size='large'
-          allowClear
+        <Input
+          type='search'
+          size='lg'
           placeholder={`${t('actions.search')}: ${t(
             'common.name',
           ).toLowerCase()}, ${t('product.sku').toLowerCase()}, ${t(
             'common.description',
           ).toLowerCase()}`}
-          defaultValue={filters.searching}
+          value={filters.searching}
           onSearch={value => {
             setFilters(normalizeFilters({ ...filters, searching: value }));
           }}
-          enterButton
         />
       </Box>
 

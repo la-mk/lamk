@@ -213,7 +213,7 @@ export const CampaignFormModal = ({
                 'ui:title': t('campaign.rewardValue'),
                 'ui:options': {
                   mt: 2,
-                  suffix:
+                  prefix:
                     (campaignFormData as any)?.reward?.type ===
                     sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT
                       ? '%'

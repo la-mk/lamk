@@ -7,10 +7,6 @@ import './config/i18n';
 import { FullScreenSpinner } from './components/shared/components/FullScreenSpinner';
 
 const GlobalStyle = createGlobalStyle`
-  html {
-    height: 100%;
-  }
-
   .ant-btn.anticon {
     vertical-align: 0;
   }
@@ -26,16 +22,6 @@ const GlobalStyle = createGlobalStyle`
   /* This is used by Text strong */
   strong {
     font-weight: 500 !important;
-  }
-
-  margin: 0;
-
-  html body {
-    height: 100%;
-    font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 `;
 

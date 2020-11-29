@@ -4,8 +4,8 @@ import {
   Spinner,
   Card,
   Text,
-  RadioGroup,
-  RadioButton,
+  // RadioGroup,
+  // RadioButton,
   Flex,
 } from '@sradevski/blocks-ui';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ import {
   AnalyticsFrequency,
 } from '@sradevski/la-sdk/dist/models/storeAnalytics';
 import { sdk } from '@sradevski/la-sdk';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 interface StatisticsCardProps {
   title?: string;
@@ -32,10 +32,10 @@ export const StatisticsCard = ({
   defaultFrequency,
   children,
 }: StatisticsCardProps) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
   const [result, setResult] = React.useState();
-  const [frequency, setFrequency] = React.useState(defaultFrequency);
+  const [frequency] = React.useState(defaultFrequency);
 
   const store = useSelector(getStore);
 
@@ -66,7 +66,7 @@ export const StatisticsCard = ({
         {(frequencies || title) && (
           <Flex mb={3} justify='space-between' align='center'>
             {!!title && <Text strong>{title}</Text>}
-            {frequencies && (
+            {/* {frequencies && (
               <RadioGroup
                 value={frequency}
                 onChange={e => setFrequency(e.target.value)}
@@ -80,7 +80,7 @@ export const StatisticsCard = ({
                   );
                 })}
               </RadioGroup>
-            )}
+            )} */}
           </Flex>
         )}
 
