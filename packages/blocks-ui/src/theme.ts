@@ -92,6 +92,7 @@ const calculateShades = (color: string): any => {
 export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
   return extendTheme({
     colors: {
+      ...theme.colors,
       primary: calculateShades(theme.colors.primary),
     },
     global: {
