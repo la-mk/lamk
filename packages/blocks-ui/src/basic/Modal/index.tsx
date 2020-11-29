@@ -32,9 +32,9 @@ export const Modal = ({
   ...props
 }: ModalProps) => {
   return (
-    <ChakraModal preserveScrollBarGap {...props}>
+    <ChakraModal preserveScrollBarGap motionPreset="slideInBottom" {...props}>
       <ModalOverlay />
-      <ModalContent maxWidth={maxWidth}>
+      <ModalContent marginTop="2rem" maxWidth={maxWidth}>
         <ModalHeader>{header}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
