@@ -7,6 +7,12 @@ import {
   InputProps as ChakraInputProps,
   SpaceProps,
   InputRightElement,
+  NumberInputProps,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput as ChakraNumberInput,
+  NumberInputField,
+  NumberInputStepper,
 } from '@chakra-ui/react';
 import {
   SearchOutlined,
@@ -35,14 +41,18 @@ export interface InputProps
       | 'name'
       | 'onBlur'
       | 'onFocus'
-      | 'onChange'
     >,
+    Pick<NumberInputProps, 'max' | 'min' | 'precision' | 'step'>,
     SpaceProps {
   size?: InputSize;
   variant?: InputVariant;
   leftAddon?: React.ReactNode;
   rightAddon?: React.ReactNode;
   onSearch?: (value: string) => void;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value?: string | number
+  ) => void;
 }
 
 const spaceProps = [
@@ -153,12 +163,85 @@ const Search = ({
   );
 };
 
+const Number = ({
+  groupProps,
+  inputProps,
+  leftAddon,
+  rightAddon,
+}: InputTypeComponentProps) => {
+  const onChange = inputProps.onChange;
+
+  const parsedOnChange = React.useCallback(
+    (val: string) => {
+      const cleaned = (val || '').toString().replace(/[^0-9.]/g, '');
+      const resp = parseInt(cleaned);
+      if (isNaN(resp)) {
+        // @ts-ignore
+        return onChange?.(null, undefined);
+      }
+
+      // @ts-ignore
+      onChange?.(null, resp);
+    },
+    [onChange]
+  );
+
+  const leftRadius = leftAddon ? 0 : undefined;
+  const rightRadius = rightAddon ? 0 : undefined;
+  const borderProps = {
+    borderTopLeftRadius: leftRadius,
+    borderBottomLeftRadius: leftRadius,
+    borderTopRightRadius: rightRadius,
+    borderBottomRightRadius: rightRadius,
+  };
+
+  const Wrapper = React.useMemo(
+    () =>
+      leftAddon || rightAddon
+        ? ({ children }: any) => {
+            return (
+              <InputGroup {...groupProps}>
+                {leftAddon && <InputLeftAddon>{leftAddon}</InputLeftAddon>}
+                {children}
+                {rightAddon && <InputRightAddon>{rightAddon}</InputRightAddon>}
+              </InputGroup>
+            );
+          }
+        : React.Fragment,
+    [leftAddon, rightAddon]
+  );
+
+  return (
+    <Wrapper>
+      <ChakraNumberInput
+        {...inputProps}
+        {...(leftAddon || rightAddon ? {} : groupProps)}
+        // value={`${prefix ?? ''} ${value ?? ''} ${suffix ?? ''}`.trim()}
+        value={inputProps.value as string | number}
+        onChange={parsedOnChange}
+      >
+        <NumberInputField {...borderProps} />
+        {!rightAddon && (
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        )}
+      </ChakraNumberInput>
+    </Wrapper>
+  );
+};
+
 export const Input = ({
   leftAddon,
   rightAddon,
   size,
   type,
   onSearch,
+  min,
+  max,
+  step,
+  precision,
   ...props
 }: InputProps) => {
   if (type !== 'password' && type !== 'search' && !leftAddon && !rightAddon) {
@@ -187,6 +270,17 @@ export const Input = ({
         rightAddon={rightAddon}
         groupProps={{ size, ...spacing }}
         inputProps={{ type, ...propsWithoutSpacing }}
+      />
+    );
+  }
+
+  if (type === 'number') {
+    return (
+      <Number
+        leftAddon={leftAddon}
+        rightAddon={rightAddon}
+        groupProps={{ size, ...spacing }}
+        inputProps={{ type, max, min, precision, step, ...propsWithoutSpacing }}
       />
     );
   }

@@ -9,6 +9,7 @@ storiesOf('Input', module).add('standard', () => (
       <Input />
       <Input mt={4} size="lg" leftAddon="Hey" />
       <Input type="password" mt={4} leftAddon="Hey" />
+      <Input type="number" mt={4} leftAddon="EUR" />
       <Input variant="flushed" type="search" mt={4} onSearch={alert} />
     </div>
   </Provider>

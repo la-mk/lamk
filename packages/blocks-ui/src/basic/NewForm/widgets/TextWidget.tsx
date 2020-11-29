@@ -1,8 +1,7 @@
 import React from 'react';
 import { WidgetProps } from '@rjsf/core';
-import { Input as AntInput } from 'antd';
 import { Input } from '../../Input';
-import { NumberInput } from '../../NumberInput';
+import { Flex } from '../../Flex';
 import { Select, Option } from '../../Select';
 import { isSchemaOfType } from '../utils';
 
@@ -24,7 +23,7 @@ const InputWithLenses = ({
   ...props
 }: {
   inputModes: InputMode[];
-} & React.ComponentProps<typeof NumberInput>) => {
+} & React.ComponentProps<typeof Input>) => {
   const [selectedModeId, setSelectedModeId] = React.useState(
     inputModes?.[0]?.id
   );
@@ -34,39 +33,45 @@ const InputWithLenses = ({
     return null;
   }
 
-  const selectedProps = {
-    width: 'calc(100% - 210px)',
-    suffix: selectedMode.suffix,
-    min: selectedMode.min,
-    max: selectedMode.max,
-    onChange: (_valAsString: string, valAsNum: number) => {
-      const baseValue = selectedMode.baseConverter(valAsNum, props.id!);
-      onChange?.(baseValue?.toString(), baseValue);
+  const change = React.useCallback(
+    (_e: any, val?: string | number) => {
+      const baseValue = selectedMode.baseConverter(val as number, props.id!);
+      // @ts-ignore
+      onChange?.(null, baseValue);
     },
-    value: selectedMode.inputConverter(value as any, props.id!),
-  };
-
-  const previewProps = {
-    width: '120px',
-    disabled: true,
-    value: selectedMode.previewConverter(value as any, props.id!),
-    suffix: selectedMode.previewSuffix,
-  };
+    [onChange]
+  );
 
   return (
-    <AntInput.Group compact style={{ width: '100%' }}>
-      <NumberInput {...props} {...selectedProps} />
-      <Select
-        style={{ width: 90 }}
-        onChange={val => setSelectedModeId(val)}
-        value={selectedModeId}
-      >
-        {inputModes.map(mode => {
-          return <Option value={mode.id}>{mode.suffix}</Option>;
-        })}
-      </Select>
-      <NumberInput {...props} {...previewProps} />
-    </AntInput.Group>
+    <Flex direction="row" align="center">
+      <Input
+        {...props}
+        min={selectedMode.min}
+        max={selectedMode.max}
+        value={selectedMode.inputConverter(value as any, props.id!)}
+        onChange={change}
+        type="number"
+        leftAddon={
+          <>
+            <Select
+              style={{ width: 90 }}
+              onChange={val => setSelectedModeId(val)}
+              value={selectedModeId}
+            >
+              {inputModes.map(mode => {
+                return <Option value={mode.id}>{mode.suffix}</Option>;
+              })}
+            </Select>
+          </>
+        }
+        rightAddon={
+          <div>
+            {selectedMode.previewConverter(value as any, props.id!)}{' '}
+            {selectedMode.previewSuffix}
+          </div>
+        }
+      />
+    </Flex>
   );
 };
 
@@ -84,17 +89,28 @@ const TextWidget = ({
   value,
 }: WidgetProps) => {
   const { emphasized, suffix, prefix, numberInputModes } = options;
-  const handleNumberChange = (_nextAsString: string, nextAsNum: number) => {
-    console.log(_nextAsString, nextAsNum, value);
-    return onChange(nextAsNum);
-  };
+  const handleNumberChange = React.useCallback(
+    (_e: React.ChangeEvent<HTMLInputElement>, val?: string | number) => {
+      return onChange(val);
+    },
+    [onChange]
+  );
 
-  const handleTextChange = ({ target }: any) =>
-    onChange(target.value === '' ? options.emptyValue : target.value);
+  const handleTextChange = React.useCallback(
+    ({ target }: any) =>
+      onChange(target.value === '' ? options.emptyValue : target.value),
+    [onChange]
+  );
 
-  const handleBlur = ({ target }: any) => onBlur(id, target.value);
+  const handleBlur = React.useCallback(
+    ({ target }: any) => onBlur(id, target.value),
+    [onBlur]
+  );
 
-  const handleFocus = ({ target }: any) => onFocus(id, target.value);
+  const handleFocus = React.useCallback(
+    ({ target }: any) => onFocus(id, target.value),
+    [onFocus]
+  );
 
   const defaultProps = {
     isFullWidth: true,
@@ -119,18 +135,15 @@ const TextWidget = ({
     );
   }
 
-  return isSchemaOfType(schema, 'number') ||
-    isSchemaOfType(schema, 'integer') ? (
-    <NumberInput
-      {...defaultProps}
-      onChange={!readonly ? handleNumberChange : undefined}
-      suffix={suffix as string}
-      prefix={prefix as string}
-    />
-  ) : (
+  const type =
+    isSchemaOfType(schema, 'number') || isSchemaOfType(schema, 'integer')
+      ? 'number'
+      : (options.inputType as string);
+
+  return (
     <Input
       {...defaultProps}
-      type={(options.inputType as string) || 'text'}
+      type={type ?? 'text'}
       onChange={!readonly ? handleTextChange : undefined}
       rightAddon={suffix}
       leftAddon={prefix}
