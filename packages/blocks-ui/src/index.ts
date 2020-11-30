@@ -46,7 +46,6 @@ export {
 } from './basic/Menu';
 export { Modal, ModalProps } from './basic/Modal';
 export { Pagination } from './basic/Pagination';
-export { Popover } from './basic/Popover';
 export { Provider } from './basic/Provider';
 export { Radio, RadioProps } from './basic/Radio';
 export { Result } from './basic/Result';
@@ -59,7 +58,6 @@ export { Switch, SwitchProps } from './basic/Switch';
 export { Table } from './basic/Table';
 export { Tabs, TabsProps } from './basic/Tabs';
 export { Tag, TagProps } from './basic/Tag';
-export { Tooltip } from './basic/Tooltip';
 export { Text, Title, Paragraph } from './basic/Typography';
 export { Upload, UploadDragger } from './basic/Upload';
 export { LoginForm } from './compound/forms/LoginForm';

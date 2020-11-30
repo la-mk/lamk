@@ -2,10 +2,15 @@ import React from 'react';
 import {
   Radio as ChakraRadio,
   RadioGroup as ChakraRadioGroup,
+  RadioGroupProps,
   RadioProps as ChakraRadioProps,
   SpaceProps,
+  useRadio,
+  useRadioGroup,
 } from '@chakra-ui/react';
-import { InputSize } from '../../system';
+import { InputSize, RadioVariant } from '../../system';
+import { Flex } from '../Flex';
+import { Box } from '../Box';
 
 export interface RadioProps
   extends Pick<
@@ -18,11 +23,10 @@ export interface RadioProps
       | 'isInvalid'
       | 'id'
       | 'name'
-      | 'onBlur'
-      | 'onFocus'
-      | 'onChange'
     >,
+    Pick<RadioGroupProps, 'onChange' | 'value' | 'onBlur' | 'onFocus'>,
     SpaceProps {
+  variant?: RadioVariant;
   size?: InputSize;
   options: Array<{
     children: React.ReactNode;
@@ -30,11 +34,121 @@ export interface RadioProps
   }>;
 }
 
-ChakraRadio.defaultProps = {};
+const ButtonRadio = ({
+  isFirst,
+  isLast,
+  children,
+  ...props
+}: any & {
+  isFirst?: boolean;
+  isLast?: boolean;
+  children: React.ReactNode;
+}) => {
+  const { getInputProps, getCheckboxProps } = useRadio(props);
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
 
-export const Radio = ({ options, name, ...props }: RadioProps) => {
   return (
-    <ChakraRadioGroup name={name}>
+    <Box as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        // @ts-ignore
+        cursor="pointer"
+        borderWidth="1px"
+        borderTopLeftRadius={isFirst ? 'md' : undefined}
+        borderBottomLeftRadius={isFirst ? 'md' : undefined}
+        borderTopRightRadius={isLast ? 'md' : undefined}
+        borderBottomRightRadius={isLast ? 'md' : undefined}
+        borderColor="gray.200"
+        _checked={{
+          borderColor: 'primary.600',
+        }}
+        _focus={{
+          boxShadow: 'outline',
+        }}
+        // TODO: Add size support and make it match with button
+        px={3}
+        py={1}
+      >
+        {children}
+      </Box>
+    </Box>
+  );
+};
+
+const ButtonRadioGroup = ({
+  options,
+  name,
+  value,
+  onChange,
+  onFocus,
+  onBlur,
+  ...props
+}: RadioProps) => {
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name,
+    value,
+    onChange,
+  });
+
+  const group = getRootProps({
+    onFocus,
+    onBlur,
+  });
+
+  return (
+    <Flex {...group}>
+      {options.map((option, idx) => {
+        const radio = getRadioProps({ value: option.value, ...(props as any) });
+        return (
+          <ButtonRadio
+            key={option.value}
+            isFirst={idx === 0}
+            isLast={idx === options.length - 1}
+            size={props.size}
+            {...radio}
+          >
+            {option.children}
+          </ButtonRadio>
+        );
+      })}
+    </Flex>
+  );
+};
+
+export const Radio = ({
+  options,
+  name,
+  variant,
+  value,
+  onChange,
+  onFocus,
+  onBlur,
+  ...props
+}: RadioProps) => {
+  if (variant === 'button') {
+    return (
+      <ButtonRadioGroup
+        options={options}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        {...props}
+      />
+    );
+  }
+
+  return (
+    <ChakraRadioGroup
+      name={name}
+      value={value}
+      onChange={onChange}
+      onFocus={onFocus}
+      onBlur={onBlur}
+    >
       {options.map((option, idx) => {
         return (
           <ChakraRadio

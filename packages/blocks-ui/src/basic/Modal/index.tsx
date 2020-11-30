@@ -22,8 +22,6 @@ export interface ModalProps
   maxWidth?: string | string[];
 }
 
-ChakraModal.defaultProps = {};
-
 export const Modal = ({
   children,
   header,

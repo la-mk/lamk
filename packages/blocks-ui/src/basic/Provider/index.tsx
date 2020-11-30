@@ -55,6 +55,11 @@ const GlobalStyle = createGlobalStyle`
     -webkit-appearance: none;
     appearance: none;
   }
+
+  /* More than the modal, remove when we move away from ant */
+  .ant-select-dropdown {
+    z-index: 1410;
+  }
 `;
 
 export const Provider = ({

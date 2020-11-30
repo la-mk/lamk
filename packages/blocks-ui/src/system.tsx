@@ -29,6 +29,7 @@ export type InputSize = 'sm' | 'md' | 'lg';
 
 export type ButtonVariant = 'solid' | 'ghost' | 'outline' | 'link';
 export type InputVariant = 'outline' | 'unstyled' | 'flushed' | 'filled';
+export type RadioVariant = 'default' | 'button';
 
 export interface SystemProps
   extends SpaceProps,
