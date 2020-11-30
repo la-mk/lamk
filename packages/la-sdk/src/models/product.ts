@@ -383,9 +383,9 @@ export const getProductSdk = (client: Application) => {
         return searchCrudMethods.find(searchOptions);
       }
 
-      const options = {};
+      const options = { query: { $limit: 20, $skip: 0 } };
       merge(options, params, {
-        query: { soldBy: storeId, $limit: 20, $skip: 0 },
+        query: { soldBy: storeId },
       });
       return crudMethods.find(options);
     },
