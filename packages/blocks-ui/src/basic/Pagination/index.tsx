@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, As, SpaceProps, HStack } from '@chakra-ui/react';
+import { Button, ButtonProps, As, SpaceProps, HStack } from '@chakra-ui/react';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Size } from '../../system';
 import hooks from '../../hooks';
@@ -8,15 +8,22 @@ import { Box } from '../Box';
 
 const DOTS_JUMP_COUNT = 5;
 
+interface PaginationButtonProps extends ButtonProps {
+  isSelected?: boolean;
+  children: React.ReactNode;
+  totalPages: number;
+}
+
 const PaginationButton = ({
   isSelected,
   children,
   totalPages,
+  variant,
   ...props
-}: any) => {
+}: PaginationButtonProps) => {
   return (
     <Button
-      variant="outline"
+      variant={variant ?? 'outline'}
       colorScheme={isSelected ? 'primary' : 'gray'}
       px={1}
       {...props}
@@ -92,13 +99,14 @@ export const Pagination = ({
 
       {showLeftDots && (
         <PaginationButton
+          variant="ghost"
           totalPages={totalPages}
           onClick={() =>
             onChange(Math.max(currentPage - DOTS_JUMP_COUNT, 1), pageSize)
           }
           {...buttonProps}
         >
-          ...
+          ···
         </PaginationButton>
       )}
 
@@ -115,6 +123,7 @@ export const Pagination = ({
 
       {showRightDots && (
         <PaginationButton
+          variant="ghost"
           totalPages={totalPages}
           onClick={() =>
             onChange(
@@ -124,7 +133,7 @@ export const Pagination = ({
           }
           {...buttonProps}
         >
-          ...
+          ···
         </PaginationButton>
       )}
 
