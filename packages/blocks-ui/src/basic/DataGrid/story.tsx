@@ -1,29 +1,35 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import { FlexGrid } from './FlexGrid';
+import { DataGrid } from './DataGrid';
 import { Provider } from '../Provider';
+import { Box } from '../Box';
 
-storiesOf('Flex Grid', module).add('standard', () => {
+storiesOf('DataGrid', module).add('standard', () => {
   const [pagination, setPagination] = React.useState({
-    current: 1,
+    currentPage: 1,
     pageSize: 2,
-    total: 3,
+    totalItems: 3,
   });
 
   return (
     <Provider>
       <>
-        <FlexGrid
+        <DataGrid
+          spacing={5}
           rowKey="item"
-          loading={false}
+          isLoaded={true}
           items={[{ item: 'a' }, { item: 'b' }, { item: 'c' }]}
-          renderItem={(item: any) => <div>{item.item}</div>}
+          renderItem={(item: any) => (
+            <Box bg="tomato" height="80px" width="220px">
+              {item.item}
+            </Box>
+          )}
           pagination={{
             ...pagination,
             onChange: (page, pageSize) =>
               setPagination({
                 ...pagination,
-                current: page,
+                currentPage: page,
                 pageSize: pageSize ?? 20,
               }),
           }}

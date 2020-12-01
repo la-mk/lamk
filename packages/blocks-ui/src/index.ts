@@ -27,7 +27,7 @@ export { Drawer, DrawerProps } from './basic/Drawer';
 export { Dropdown } from './basic/Dropdown';
 export { Empty } from './basic/Empty';
 export { Flex, FlexProps } from './basic/Flex';
-export { FlexGrid } from './basic/FlexGrid/FlexGrid';
+export { DataGrid, DataGridProps } from './basic/DataGrid/DataGrid';
 export { NewForm } from './basic/NewForm/NewForm';
 export { Grid, GridProps } from './basic/Grid';
 export { Image } from './basic/Image/Image';
@@ -45,7 +45,7 @@ export {
   MenuItemGroup,
 } from './basic/Menu';
 export { Modal, ModalProps } from './basic/Modal';
-export { Pagination } from './basic/Pagination';
+export { Pagination, PaginationProps } from './basic/Pagination';
 export { Provider } from './basic/Provider';
 export { Radio, RadioProps } from './basic/Radio';
 export { Result } from './basic/Result';

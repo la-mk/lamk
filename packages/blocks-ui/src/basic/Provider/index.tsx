@@ -60,6 +60,10 @@ const GlobalStyle = createGlobalStyle`
   .ant-select-dropdown {
     z-index: 1410;
   }
+
+  .anticon {
+    vertical-align: 0;
+  }
 `;
 
 export const Provider = ({

@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import {
   expandFilterObject,
-  minifiyFilterObject,
+  minifyFilterObject,
   parseFiltersUrl,
   stringifyFilters,
 } from '../utils/filter';
@@ -198,7 +198,7 @@ export const useFilter = (
   const handleSetFilter = useCallback(
     (updatedFilters: FilterObject) => {
       const normalized = resetPaginationIfNecessary(filters, updatedFilters);
-      const minified = minifiyFilterObject(normalized);
+      const minified = minifyFilterObject(normalized);
       addToStorage(minified, storage, storageKey, router);
       setFilters(normalized);
     },

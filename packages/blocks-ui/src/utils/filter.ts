@@ -74,7 +74,7 @@ export const expandFilterObject = (obj: MinifiedFilterObject): FilterObject => {
   };
 };
 
-export const minifiyFilterObject = ({
+export const minifyFilterObject = ({
   pagination,
   filtering,
   sorting,
