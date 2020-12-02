@@ -25,7 +25,7 @@ export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider, DividerProps } from './basic/Divider';
 export { Drawer, DrawerProps } from './basic/Drawer';
 export { Dropdown } from './basic/Dropdown';
-export { Empty } from './basic/Empty';
+export { Empty, EmptyProps } from './basic/Empty';
 export { Flex, FlexProps } from './basic/Flex';
 export { DataGrid, DataGridProps } from './basic/DataGrid/DataGrid';
 export { NewForm } from './basic/NewForm/NewForm';

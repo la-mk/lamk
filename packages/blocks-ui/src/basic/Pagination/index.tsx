@@ -29,7 +29,7 @@ const PaginationButton = ({
       {...props}
     >
       {/* This prevents the pagination size from jumping when the page turn two or three digits*/}
-      <Box minWidth={`${Math.min(totalPages.toString().length, 3)}rem`}>
+      <Box minWidth={`${Math.min(totalPages.toString().length, 3)}em`}>
         {children}
       </Box>
     </Button>
