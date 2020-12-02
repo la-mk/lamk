@@ -9,9 +9,9 @@ export const EmptyIcon = ({
 }) => (
   <svg
     enable-background="new 0 0 36 36"
-    height="96"
+    height="128"
     viewBox="0 0 36 36"
-    width="96"
+    width="128"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

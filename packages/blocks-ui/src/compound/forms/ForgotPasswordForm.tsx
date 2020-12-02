@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Flex } from '../../basic/Flex';
 import { Box } from '../../basic/Box';
 import { Button } from '../../basic/Button';
 import { Title, Text } from '../../basic/Typography';
@@ -58,16 +57,15 @@ export const ForgotPasswordForm = <T extends any>({
       )}
 
       {hasSubmitted && (
-        <Flex direction="column" align="center" justify="center">
-          <Result
-            status="success"
-            title={localization.forgotPasswordSuccess || 'Reset link sent'}
-            subTitle={
-              localization.forgotPasswordSuccessExplanation ||
-              'If the email you entered is registered in our system, you will get an email with a reset link'
-            }
-          />
-        </Flex>
+        <Result
+          mt={4}
+          status="success"
+          title={localization.forgotPasswordSuccess || 'Reset link sent'}
+          description={
+            localization.forgotPasswordSuccessExplanation ||
+            'If the email you entered is registered in our system, you will get an email with a reset link'
+          }
+        />
       )}
     </BaseSection>
   );
