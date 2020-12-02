@@ -67,12 +67,9 @@ export const Pagination = ({
   ]);
 
   const showLeftDots =
-    !isMobile &&
-    totalPages > totalToShow &&
-    currentPage > Math.floor(totalToShow / 2);
+    totalPages > totalToShow && currentPage > Math.floor(totalToShow / 2);
 
   const showRightDots =
-    !isMobile &&
     totalPages > totalToShow &&
     currentPage < totalPages + 1 - Math.floor(totalToShow / 2);
 
@@ -87,27 +84,38 @@ export const Pagination = ({
   const buttonsEndAt = buttonsStartFrom + buttonsToShow;
 
   return (
-    <HStack spacing={2} {...props}>
-      <PaginationButton
-        totalPages={totalPages}
-        onClick={() => onChange(currentPage - 1, pageSize)}
-        {...buttonProps}
-        disabled={currentPage <= 1 || buttonProps.disabled}
-      >
-        <LeftOutlined />
-      </PaginationButton>
+    <HStack wrap="wrap" spacing={2} {...props}>
+      {!isMobile && (
+        <PaginationButton
+          totalPages={totalPages}
+          onClick={() => onChange(currentPage - 1, pageSize)}
+          {...buttonProps}
+          disabled={currentPage <= 1 || buttonProps.disabled}
+        >
+          <LeftOutlined />
+        </PaginationButton>
+      )}
 
       {showLeftDots && (
-        <PaginationButton
-          variant="ghost"
-          totalPages={totalPages}
-          onClick={() =>
-            onChange(Math.max(currentPage - DOTS_JUMP_COUNT, 1), pageSize)
-          }
-          {...buttonProps}
-        >
-          ···
-        </PaginationButton>
+        <>
+          <PaginationButton
+            totalPages={totalPages}
+            onClick={() => onChange(1, pageSize)}
+            {...buttonProps}
+          >
+            1
+          </PaginationButton>
+          <PaginationButton
+            variant="ghost"
+            totalPages={totalPages}
+            onClick={() =>
+              onChange(Math.max(currentPage - DOTS_JUMP_COUNT, 1), pageSize)
+            }
+            {...buttonProps}
+          >
+            ···
+          </PaginationButton>
+        </>
       )}
 
       {range(buttonsStartFrom, buttonsEndAt).map(i => (
@@ -122,29 +130,40 @@ export const Pagination = ({
       ))}
 
       {showRightDots && (
-        <PaginationButton
-          variant="ghost"
-          totalPages={totalPages}
-          onClick={() =>
-            onChange(
-              Math.min(currentPage + DOTS_JUMP_COUNT, totalPages),
-              pageSize
-            )
-          }
-          {...buttonProps}
-        >
-          ···
-        </PaginationButton>
+        <>
+          <PaginationButton
+            variant="ghost"
+            totalPages={totalPages}
+            onClick={() =>
+              onChange(
+                Math.min(currentPage + DOTS_JUMP_COUNT, totalPages),
+                pageSize
+              )
+            }
+            {...buttonProps}
+          >
+            ···
+          </PaginationButton>
+          <PaginationButton
+            totalPages={totalPages}
+            onClick={() => onChange(totalPages, pageSize)}
+            {...buttonProps}
+          >
+            {totalPages}
+          </PaginationButton>
+        </>
       )}
 
-      <PaginationButton
-        totalPages={totalPages}
-        onClick={() => onChange(currentPage + 1, pageSize)}
-        {...buttonProps}
-        disabled={currentPage >= totalPages || buttonProps.disabled}
-      >
-        <RightOutlined />
-      </PaginationButton>
+      {!isMobile && (
+        <PaginationButton
+          totalPages={totalPages}
+          onClick={() => onChange(currentPage + 1, pageSize)}
+          {...buttonProps}
+          disabled={currentPage >= totalPages || buttonProps.disabled}
+        >
+          <RightOutlined />
+        </PaginationButton>
+      )}
     </HStack>
   );
 };
