@@ -1,4 +1,5 @@
 import { SpaceProps, Wrap, WrapItem, WrapProps } from '@chakra-ui/react';
+import get from 'lodash/get';
 import React from 'react';
 import { Flex } from '../Flex';
 import { Pagination, PaginationProps } from '../Pagination';
@@ -8,6 +9,7 @@ export interface DataGridProps<T>
   extends SpaceProps,
     Pick<WrapProps, 'spacing'> {
   isLoaded?: boolean;
+  isFullWidth?: boolean;
   rowKey: keyof T;
   items: T[];
   renderItem: (item: T) => React.ReactNode;
@@ -17,6 +19,7 @@ export interface DataGridProps<T>
 export const DataGrid = <T extends any>({
   rowKey,
   isLoaded,
+  isFullWidth,
   items,
   renderItem,
   pagination,
@@ -25,22 +28,33 @@ export const DataGrid = <T extends any>({
 }: DataGridProps<T>) => {
   return (
     <Flex
-      minHeight={'100px'}
       direction="column"
       align="center"
       justify="space-between"
       width="100%"
       {...props}
     >
-      {!isLoaded ? (
-        <Spinner isLoaded={isLoaded} />
-      ) : (
-        <Wrap align="center" justify="center" spacing={spacing}>
-          {items.map((entry: any) => {
-            return <WrapItem key={entry[rowKey]}>{renderItem(entry)}</WrapItem>;
+      <Spinner isLoaded={isLoaded}>
+        <Wrap
+          width="100%"
+          minHeight={9}
+          minWidth={9}
+          align="center"
+          justify="center"
+          spacing={spacing}
+        >
+          {items.map(entry => {
+            return (
+              <WrapItem
+                width={isFullWidth ? '100%' : undefined}
+                key={get(entry, rowKey)}
+              >
+                {renderItem(entry)}
+              </WrapItem>
+            );
           })}
         </Wrap>
-      )}
+      </Spinner>
 
       {pagination && <Pagination mt={6} {...pagination} />}
     </Flex>

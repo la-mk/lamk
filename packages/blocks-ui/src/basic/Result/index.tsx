@@ -27,29 +27,31 @@ export const Result = ({
   const theme = useTheme();
   return (
     <Flex {...props} direction="column" justify="center" align="center">
-      {status === 'empty' && (
+      {icon ?? null}
+      {!icon && status === 'empty' && (
         <EmptyIcon
           lightPrimary={theme.colors.primary['300']}
           darkPrimary={theme.colors.primary['400']}
         />
       )}
-      {status === 'success' && (
+      {!icon && status === 'success' && (
         <CheckCircleFilled
           style={{ fontSize: 72, color: theme.colors.green['500'] }}
         />
       )}
-      {status === 'warning' && (
+      {!icon && status === 'warning' && (
         <WarningFilled
           style={{ fontSize: 72, color: theme.colors.orange['500'] }}
         />
       )}
-      {status === 'error' ||
-        (status === '500' && (
-          <ExclamationCircleFilled
-            style={{ fontSize: 72, color: theme.colors.red['500'] }}
-          />
-        ))}
-      {status === '404' && <NotFoundIcon />}
+      {!icon &&
+        (status === 'error' ||
+          (status === '500' && (
+            <ExclamationCircleFilled
+              style={{ fontSize: 72, color: theme.colors.red['500'] }}
+            />
+          )))}
+      {!icon && status === '404' && <NotFoundIcon />}
 
       {title && (
         <Text fontSize={4} mt={2} textAlign="center">

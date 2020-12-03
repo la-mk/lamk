@@ -23,6 +23,7 @@ ChakraSpinner.defaultProps = {
 
 const Container = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 const SpinnerContainer = styled(Flex)`
