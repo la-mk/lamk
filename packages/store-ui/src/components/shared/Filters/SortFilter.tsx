@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { RadioGroup, RadioButton, hooks } from '@sradevski/blocks-ui';
+import { hooks, Radio } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
@@ -48,39 +48,45 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
 
   return (
     <>
-      <RadioGroup
+      <Radio
         value={sortValue}
-        onChange={value =>
+        onChange={newVal => {
           onChange({
             ...filters,
-            sorting: getSortFromValue(value.target.value as SortValues),
-          })
-        }
-      >
-        <RadioButton key={'recommended'} value={'recommended'}>
-          {t('filters.recommended')}
-        </RadioButton>
-        <RadioButton key={'cheap'} value={'cheap'}>
-          {isMobile ? (
-            <>
-              <DownOutlined style={{ marginRight: 8 }} />
-              {t('common.price')}
-            </>
-          ) : (
-            t('filters.cheapestFirst')
-          )}
-        </RadioButton>
-        <RadioButton key={'expensive'} value={'expensive'}>
-          {isMobile ? (
-            <>
-              <UpOutlined style={{ marginRight: 8 }} />
-              {t('common.price')}
-            </>
-          ) : (
-            t('filters.expensiveFirst')
-          )}
-        </RadioButton>
-      </RadioGroup>
+            sorting: getSortFromValue(newVal as SortValues),
+          });
+        }}
+        options={[
+          {
+            value: 'recommended',
+            children: t('filters.recommended'),
+          },
+          {
+            value: 'cheap',
+            children: isMobile ? (
+              <>
+                <DownOutlined style={{ marginRight: 8 }} />
+                {t('common.price')}
+              </>
+            ) : (
+              t('filters.cheapestFirst')
+            ),
+          },
+          {
+            value: 'expensive',
+            children: isMobile ? (
+              <>
+                <UpOutlined style={{ marginRight: 8 }} />
+                {t('common.price')}
+              </>
+            ) : (
+              t('filters.expensiveFirst')
+            ),
+          },
+        ]}
+        variant='button'
+        ml='auto'
+      />
     </>
   );
 };

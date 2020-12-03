@@ -105,7 +105,7 @@ export const AddressForm = ({
           t(`errors.${errorName}`, context)
         }
       >
-        <Flex width='100%' flexDirection='column'>
+        <Flex width='100%' direction='column'>
           <Button isFullWidth size={'lg'} type='submit'>
             {address ? t('actions.update') : t('actions.create')}
           </Button>

@@ -23,9 +23,9 @@ export const ProductDuo = ({ set, storeId }: ProductSetProps) => {
     <>
       <SetTitle title={set.setTag.title} subtitle={set.setTag.subtitle} />
       <Flex
-        alignItems={['center', 'center', 'flex-start']}
-        justifyContent='center'
-        flexDirection={['column', 'column', 'row']}
+        align={['center', 'center', 'flex-start']}
+        justify='center'
+        direction={['column', 'column', 'row']}
       >
         <Box mr={productTwo ? [0, 0, 4] : 0}>
           <ProductCard

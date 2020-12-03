@@ -1,7 +1,7 @@
 import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
-import { Flex, Spinner, hooks, Box, Empty } from '@sradevski/blocks-ui';
+import { Flex, Spinner, hooks, Box, Result } from '@sradevski/blocks-ui';
 import {
   getSubtitleForSet,
   getTitleForSet,
@@ -99,7 +99,7 @@ export const Home = ({}: {}) => {
         store={store}
       />
 
-      <Flex mt={7} flexDirection='column'>
+      <Flex mt={7} direction='column'>
         {categoriesForSet.length > 1 && (
           <Box px={[2, 4, 5]} mb={7}>
             <CategorySet
@@ -112,7 +112,11 @@ export const Home = ({}: {}) => {
         )}
 
         {!showSpinner && productSetsWithData.length === 0 && (
-          <Empty mt={6} description={t('store.emptyStoreExplanation')} />
+          <Result
+            status='empty'
+            mt={7}
+            description={t('store.emptyStoreExplanation')}
+          />
         )}
 
         <Spinner isLoaded={!showSpinner}>

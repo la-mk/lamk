@@ -34,7 +34,7 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
 
   const { phoneNumber, alternatePhoneNumber, email } = store.contact || {};
   return (
-    <Flex flexDirection='column' alignItems={'center'}>
+    <Flex direction='column' align={'center'}>
       <Box height={84} mb={5} p={2} bg='background.light'>
         <Image
           getSrc={params =>

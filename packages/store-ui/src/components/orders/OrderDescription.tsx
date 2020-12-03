@@ -22,13 +22,8 @@ export const OrderDescription = ({
 
   return (
     <>
-      <Flex
-        mb={3}
-        flexDirection='row'
-        alignItems='center'
-        justifyContent='space-between'
-      >
-        <Flex alignItems='center' justifyContent='center'>
+      <Flex mb={3} direction='row' align='center' justify='space-between'>
+        <Flex align='center' justify='center'>
           <Box display={['none', 'initial', 'initial']}>
             <Title m={0} mr={3} level={2} fontSize={2}>
               {`${t('pages.order')} - ${sdk.utils.getShortId(order._id)}`}
@@ -64,7 +59,7 @@ export const OrderDescription = ({
         items={order.ordered}
         storeId={storeId}
       />
-      <Flex px={[1, 2, 2]} justifyContent='space-between' alignItems='center'>
+      <Flex px={[1, 2, 2]} justify='space-between' align='center'>
         <Text mr={2} fontSize={[0, 1, 1]} color='mutedText.dark'>
           {/* TODO: Show expected delivery */}
           {/* Expected delivery between 1 and 2 */}

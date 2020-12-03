@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  FlexGrid,
+  DataGrid,
   hooks,
   utils,
   Flex,
@@ -8,7 +8,7 @@ import {
   Drawer,
   Button,
   Divider,
-  Empty,
+  Result,
 } from '@sradevski/blocks-ui';
 import { FilterOutlined } from '@ant-design/icons';
 import { ProductCard } from '../shared/product/ProductCard';
@@ -32,12 +32,13 @@ interface ProductsProps {
 
 export const Products = ({
   initialProducts,
-  initialFilters = new Object(),
+  initialFilters = {},
 }: ProductsProps) => {
   const { t } = useTranslation();
   const store = useSelector(getStore);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [products, setProducts] = useState(initialProducts);
+  const paginationSize = hooks.useBreakpoint<'sm' | 'md'>(['sm', 'md', 'md']);
   const [caller, showSpinner] = hooks.useCall();
 
   // TODO: There is no clear way to reset filters that are not part of the sidemenu as of now, nor filters that don't apply when searching.
@@ -64,11 +65,11 @@ export const Products = ({
 
   return (
     <Page>
-      <Flex flexDirection={['column', 'column', 'row']}>
+      <Flex direction={['column', 'column', 'row']}>
         <ProductsSidemenu
           height='100%'
           display={['none', 'none', 'initial']}
-          mr={2}
+          mr={3}
           filters={filters || initialFilters}
           setFilters={setFilters}
         />
@@ -88,11 +89,7 @@ export const Products = ({
         </Drawer>
 
         <Box mb={2} display={['initial', 'initial', 'none']}>
-          <Flex
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
-          >
+          <Flex direction='column' align='center' justify='center'>
             <Button
               size='lg'
               variant='ghost'
@@ -107,9 +104,9 @@ export const Products = ({
 
         <Flex
           width='100%'
-          flexDirection='column'
-          alignItems='center'
-          justifyContent='flex-start'
+          direction='column'
+          align='center'
+          justify='flex-start'
         >
           <Box mb={6}>
             <SortFilter
@@ -119,25 +116,27 @@ export const Products = ({
           </Box>
 
           {products.total === 0 && (
-            <Empty description={t('product.noMatchingProduct_plural')} />
+            <Result
+              status='empty'
+              description={t('product.noMatchingProduct_plural')}
+            />
           )}
           {products.total > 0 && (
-            <FlexGrid
-              loading={showSpinner}
+            <DataGrid
+              spacing={[4, 5, 5]}
+              isLoaded={!showSpinner}
               rowKey='_id'
               items={products.data}
               renderItem={(item: any) => (
-                <Box mx={[1, 2, 2]} mb={'auto'}>
+                <Box mb={'auto'}>
                   <ProductCard product={item} storeId={store._id} />
                 </Box>
               )}
               pagination={{
-                current: filters.pagination
-                  ? filters.pagination.currentPage
-                  : 1,
-                pageSize: filters.pagination ? filters.pagination.pageSize : 20,
-                total: products.total,
-                showSizeChanger: false,
+                size: paginationSize,
+                currentPage: filters.pagination?.currentPage ?? 1,
+                pageSize: filters.pagination?.pageSize ?? 20,
+                totalItems: products.total,
                 onChange: (currentPage: number, pageSize: number) => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   setFilters({

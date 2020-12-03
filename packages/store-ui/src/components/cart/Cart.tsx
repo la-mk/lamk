@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Empty, Spinner, hooks } from '@sradevski/blocks-ui';
+import { Flex, Result, Spinner, hooks } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Summary } from '../shared/Summary';
 import {
@@ -71,7 +71,13 @@ export const Cart = () => {
   }, [caller, store._id]);
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Empty mt={6} description={t('cart.emptyCartDescription')}></Empty>;
+    return (
+      <Result
+        status='empty'
+        mt={7}
+        description={t('cart.emptyCartDescription')}
+      />
+    );
   }
 
   const handleRemove = (cartItem: CartItemWithProduct) => {
@@ -147,8 +153,8 @@ export const Cart = () => {
   return (
     <Page>
       <Spinner isLoaded={!showSpinner}>
-        <Flex width='100%' flexDirection={['column', 'column', 'row']}>
-          <Flex flexDirection='column' flex={2} mr={[0, 0, 3]}>
+        <Flex width='100%' direction={['column', 'column', 'row']}>
+          <Flex direction='column' flex={2} mr={[0, 0, 3]}>
             <OrderProductsList
               items={cart.items}
               storeId={store._id}
@@ -157,8 +163,8 @@ export const Cart = () => {
             />
           </Flex>
           <Flex
-            alignItems='center'
-            justifyContent='center'
+            align='center'
+            justify='center'
             flex={1}
             ml={[0, 0, 3]}
             mt={[4, 4, 0]}

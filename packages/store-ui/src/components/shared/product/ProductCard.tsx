@@ -71,8 +71,8 @@ const ProductImage = ({
       height={emphasized ? emphasizedSizes : normalSizes}
       minWidth={horizontal ? normalSizes : undefined}
       maxWidth={horizontal ? normalSizes : undefined}
-      justifyContent='center'
-      alignItems='center'
+      justify='center'
+      align='center'
       style={{ position: 'relative' }}
       mb={horizontal ? 0 : 3}
       mr={horizontal ? [3, 3, 4] : 0}
@@ -107,7 +107,7 @@ const ProductImage = ({
 
 // const ActionsOverlay = () => {
 //   return (
-//     <Fixed alignItems='center' justifyContent='center'>
+//     <Fixed align='center' justify='center'>
 //       <Overlay />
 //       <Button sizelglarge' mr={1} leftIcon={<ZoomInOutlined />} />
 //       <Button
@@ -138,7 +138,7 @@ export const ProductCard = ({
   return (
     <HoverableLink href='/products/[pid]' as={`/products/${product._id}`}>
       <Flex
-        flexDirection={horizontal ? 'row' : 'column'}
+        direction={horizontal ? 'row' : 'column'}
         p={[2, 3, 3]}
         my={2}
         width={

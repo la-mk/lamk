@@ -27,9 +27,9 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
     <>
       <SetTitle title={set.setTag.title} subtitle={set.setTag.subtitle} />
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection={['column', 'column', 'row']}
+        align='center'
+        justify='center'
+        direction={['column', 'column', 'row']}
       >
         <Box mr={[0, 0, 4]}>
           <ProductCard
@@ -42,9 +42,9 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
 
         <Flex
           ml={[0, 0, 4]}
-          flexDirection={['row', 'row', 'column']}
-          alignItems={['flex-start', 'flex-start', 'center']}
-          justifyContent='center'
+          direction={['row', 'row', 'column']}
+          align={['flex-start', 'flex-start', 'center']}
+          justify='center'
         >
           <Box mb={[0, 0, 2]} mr={[1, 2, 0]}>
             <ProductCard

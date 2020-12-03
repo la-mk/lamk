@@ -21,13 +21,13 @@ export const ProductsSidemenu = ({
   return (
     <Box {...props}>
       <CategoriesFilter
-        mb={3}
+        mb={4}
         mode='inline'
         filters={filters}
         onChange={setFilters}
       />
       <PriceFilter
-        mt={3}
+        mt={4}
         filters={filters}
         max={MAX_PRICE}
         min={MIN_PRICE}

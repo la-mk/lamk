@@ -5,7 +5,7 @@ import {
   Content,
   Header,
   Footer,
-  Search,
+  Input,
   Box,
   Image,
 } from '@sradevski/blocks-ui';
@@ -78,15 +78,10 @@ export const StoreLayout = withTheme(
     };
 
     const presetSearch = (
-      <Flex
-        height={56}
-        width='100%'
-        alignItems='center'
-        justifyContent='center'
-      >
-        <Search
-          size='large'
-          allowClear
+      <Flex height={'56px'} width='100%' align='center' justify='center'>
+        <Input
+          type='search'
+          size='lg'
           onSearch={val => {
             // Preserve the existing query parameters
             const productsUrl = `/products?${queryString.stringify({
@@ -97,7 +92,6 @@ export const StoreLayout = withTheme(
             router.push(productsUrl);
           }}
           placeholder={t('actions.search')}
-          enterButton
         />
       </Flex>
     );
@@ -106,10 +100,10 @@ export const StoreLayout = withTheme(
       <>
         <Layout theme='light' style={{ backgroundColor: 'white' }}>
           <BorderedHeader height={['128px', '64px', '64px']} px={[2, 3, 4]}>
-            <Flex justifyContent='space-between'>
+            <Flex justify='space-between'>
               <Link href='/' passHref>
                 <LineHeightFreeAnchor style={{ display: 'flex' }}>
-                  <Box height={56}>
+                  <Box height={'56px'}>
                     <Image
                       getSrc={params =>
                         sdk.artifact.getUrlForImage(
@@ -147,9 +141,9 @@ export const StoreLayout = withTheme(
             </Box>
           </BorderedHeader>
           <StyledContent minHeight='calc(100vh - 64px - 65px)'>
-            <SubMenu height={64} />
-            <Breadcrumbs minHeight={56} />
-            <Flex flexDirection='column'>{children}</Flex>
+            <SubMenu height={'64px'} />
+            <Breadcrumbs minHeight={'56px'} />
+            <Flex direction='column'>{children}</Flex>
           </StyledContent>
           <Footer
             mt={4}

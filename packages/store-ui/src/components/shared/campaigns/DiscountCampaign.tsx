@@ -25,14 +25,14 @@ export const DiscountCampaign = withTheme(
         width='100%'
         minHeight={250}
         bg='background.light'
-        alignItems='center'
-        justifyContent='center'
+        align='center'
+        justify='center'
       >
         <Flex
           width={'80%'}
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
+          align='center'
+          justify='center'
+          direction='column'
           bg='background.dark'
           borderRadius={0}
           p={3}

@@ -67,9 +67,9 @@ export const Account = ({ user }: AccountProps) => {
             content: (
               <Spinner isLoaded={!showSpinner}>
                 <Flex
-                  alignItems='center'
-                  justifyContent='center'
-                  flexDirection='column'
+                  align='center'
+                  justify='center'
+                  direction='column'
                   width={'100%'}
                   maxWidth={600}
                   minWidth={200}
@@ -139,7 +139,7 @@ export const Account = ({ user }: AccountProps) => {
             title: t('common.address_plural'),
             content: (
               <>
-                <Flex mb={4} alignItems='center' justifyContent='center'>
+                <Flex mb={4} align='center' justify='center'>
                   <Button onClick={() => setShowAddAddressModal(true)}>
                     {t('address.addNewAddress')}
                   </Button>

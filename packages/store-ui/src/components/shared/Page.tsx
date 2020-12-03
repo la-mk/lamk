@@ -10,8 +10,8 @@ interface PageProps {
 export const Page = ({ title, maxWidth, children }: PageProps) => {
   return (
     <Flex
-      flexDirection='column'
-      justifyContent='flex-start'
+      direction='column'
+      justify='flex-start'
       width='100%'
       maxWidth={maxWidth ?? 1920}
       px={[2, 4, 5]}

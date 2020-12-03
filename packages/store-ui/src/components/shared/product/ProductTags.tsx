@@ -35,8 +35,8 @@ export const ProductTags = ({
 
   return (
     <Flex
-      flexDirection='column'
-      alignItems='flex-end'
+      direction='column'
+      align='flex-end'
       style={{ position: 'absolute', right: 4, top: 12 }}
     >
       {/* TODO: Change bgColor for colorScheme */}

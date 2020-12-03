@@ -49,9 +49,9 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
       {...otherProps}
       width='100%'
       bg='background.dark'
-      flexDirection='row'
-      alignItems='center'
-      justifyContent='flex-start'
+      direction='row'
+      align='center'
+      justify='flex-start'
       px={[3, 4, 5]}
       style={{ overflowX: 'auto' }}
     >

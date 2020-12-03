@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Modal, hooks, Flex, Title, Text } from '@sradevski/blocks-ui';
+import { Modal, Flex, Title, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { AddressForm } from './AddressForm';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
@@ -22,27 +22,18 @@ export const AddressModal = ({
   onPatchAddress,
 }: AddressesModalProps) => {
   const { t } = useTranslation();
-  const modalWidth = hooks.useBreakpoint(['100%', '80%', '60%']);
-
   if (!user) {
     return null;
   }
 
   return (
-    <Modal
-      width={modalWidth}
-      centered
-      destroyOnClose
-      visible={visible}
-      footer={null}
-      onCancel={onClose}
-    >
+    <Modal maxWidth={['100%', '80%', '60%']} isOpen={visible} onClose={onClose}>
       <Flex
         pt={4}
         pb={5}
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        align='center'
+        justify='center'
+        direction='column'
         width={'100%'}
         maxWidth={600}
         minWidth={200}

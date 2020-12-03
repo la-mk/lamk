@@ -28,7 +28,7 @@ export const Price = ({
   const margin = size === 'small' ? 2 : 3;
 
   return (
-    <Flex flexDirection={vertical ? 'column' : 'row'} flexWrap='wrap'>
+    <Flex direction={vertical ? 'column' : 'row'} wrap='wrap'>
       <Text
         fontSize={fontSize}
         color={discounted ? 'danger' : 'text.dark'}

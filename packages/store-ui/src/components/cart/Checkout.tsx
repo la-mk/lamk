@@ -1,6 +1,6 @@
 import uniqBy from 'lodash/uniqBy';
 import React, { useState, useEffect } from 'react';
-import { Flex, Empty, Spinner, hooks, Box } from '@sradevski/blocks-ui';
+import { Flex, Result, Spinner, hooks } from '@sradevski/blocks-ui';
 import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
@@ -144,7 +144,7 @@ export const Checkout = () => {
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Empty mt={6} description={t('cart.emptyCartDescription')}></Empty>;
+    return <Result status="empty" mt={7} description={t('cart.emptyCartDescription')} />;
   }
 
   const handleOrder = () => {
@@ -212,14 +212,14 @@ export const Checkout = () => {
       <Spinner isLoaded={!showSpinner}>
         <Flex
           width='100%'
-          justifyContent='space-between'
-          flexDirection={['column', 'row', 'row']}
+          justify='space-between'
+          direction={['column', 'row', 'row']}
         >
           <Flex
             px={2}
             maxWidth={960}
             flex={1}
-            flexDirection='column'
+            direction='column'
             mr={[0, 3, 3]}
           >
             <SelectPaymentMethod
@@ -234,8 +234,8 @@ export const Checkout = () => {
             />
           </Flex>
           <Flex
-            alignItems='flex-start'
-            justifyContent='center'
+            align='flex-start'
+            justify='center'
             maxWidth={[0, 460, 460]}
             flex={1}
             ml={[0, 3, 3]}

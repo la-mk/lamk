@@ -11,12 +11,7 @@ export const SetTitle = ({
   subtitle?: string;
 }) => {
   return (
-    <Flex
-      mb={4}
-      alignItems='center'
-      justifyContent='center'
-      flexDirection='column'
-    >
+    <Flex mb={4} align='center' justify='center' direction='column'>
       <Title
         textAlign='center'
         mb={1}

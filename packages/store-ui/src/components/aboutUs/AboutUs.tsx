@@ -1,6 +1,6 @@
 import React from 'react';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
-import { Empty, Paragraph } from '@sradevski/blocks-ui';
+import { Result, Paragraph } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Page } from '../shared/Page';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
@@ -32,7 +32,11 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
           );
         })
       ) : (
-        <Empty mt={6} description={t('store.noAboutusInformation')} />
+        <Result
+          status='empty'
+          mt={7}
+          description={t('store.noAboutusInformation')}
+        />
       )}
     </Page>
   );

@@ -16,7 +16,7 @@ export const Thumbnails = ({
   onImageClick,
 }: ThumbnailsProps) => {
   return (
-    <Flex flexDirection='row' flexWrap='wrap' justifyContent='center'>
+    <Flex direction='row' wrap='wrap' justify='center'>
       {images.map((imageId, index) => {
         return (
           <Flex
@@ -24,8 +24,8 @@ export const Thumbnails = ({
             style={
               selectedImage === imageId ? { border: '1px solid lightgray' } : {}
             }
-            justifyContent='center'
-            alignItems='center'
+            justify='center'
+            align='center'
             height='72px'
             width='72px'
             m={2}

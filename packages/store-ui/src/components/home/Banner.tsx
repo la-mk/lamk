@@ -52,9 +52,9 @@ export const Banner = ({
               }}
               width={['80%', '70%', '60%']}
               ml={['10%', '15%', '20%']}
-              alignItems='center'
-              justifyContent='center'
-              flexDirection='column'
+              align='center'
+              justify='center'
+              direction='column'
             >
               <Title
                 px={[2, 3, 4]}

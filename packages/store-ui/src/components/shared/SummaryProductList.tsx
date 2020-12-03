@@ -12,7 +12,7 @@ export const SummaryProductList = ({
   storeId: string;
 }) => {
   return (
-    <Flex flexDirection='column'>
+    <Flex direction='column'>
       {items.map((cartItem, index) => {
         return (
           <ProductImageWithTitle

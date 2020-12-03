@@ -2,7 +2,7 @@ import { Head } from '../../src/common/pageComponents/Head';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
 import { Account } from '../../src/components/account/Account';
-import { Empty } from '@sradevski/blocks-ui';
+import { Result } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
@@ -13,7 +13,9 @@ function AccountPage({ store }: { store: Store | undefined }) {
   const { t } = useTranslation();
 
   if (!user) {
-    return <Empty mt={6} description={t('auth.noUserInformation')} />;
+    return (
+      <Result status='empty' mt={7} description={t('auth.noUserInformation')} />
+    );
   }
 
   const fullName = `${user.firstName ?? ''} ${user.lastName ?? ''}`;

@@ -53,12 +53,7 @@ export const ServicesSet = () => {
   }, [delivery, store._id]);
 
   return (
-    <Flex
-      py={[1, 2, 3]}
-      alignItems='center'
-      justifyContent='center'
-      flexWrap='wrap'
-    >
+    <Flex py={[1, 2, 3]} align='center' justify='center' wrap='wrap'>
       {getServices(t, delivery?.freeDeliveryOver).map(service => {
         return (
           <Flex
@@ -71,14 +66,14 @@ export const ServicesSet = () => {
             mx={[2, 3, 4]}
             bg='background.dark'
             borderRadius={0}
-            alignItems='center'
-            justifyContent='center'
+            align='center'
+            justify='center'
             px={[3, 4, 4]}
           >
             <Text style={{ lineHeight: 1 }} mr={3} color='text.light'>
               {!!service.icon && service.icon}
             </Text>
-            <Flex ml={2} py={4} flexDirection='column'>
+            <Flex ml={2} py={4} direction='column'>
               <Text fontSize={[3, 3, 4]} color='text.light'>
                 {service.title}
               </Text>

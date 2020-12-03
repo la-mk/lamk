@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Flex, Title, Text } from '@sradevski/blocks-ui';
+import { Button, Flex, Result } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useTranslation } from '../../common/i18n';
 import { OrderSuccess } from '../shared/icons/OrderSuccess';
@@ -22,23 +22,24 @@ export const Success = withTheme(
         maxWidth={500}
         mx='auto'
         px={3}
-        alignItems='center'
-        justifyContent='center'
-        flexDirection='column'
+        align='center'
+        justify='center'
+        direction='column'
         {...otherProps}
       >
-        <OrderSuccess
-          primary={theme.colors.primary}
-          background={theme.colors.background.dark}
-          muted={theme.colors.mutedText.light}
+        <Result
+          mb={4}
+          status='success'
+          icon={
+            <OrderSuccess
+              primary={theme.colors.primary}
+              background={theme.colors.background.dark}
+              muted={theme.colors.mutedText.light}
+            />
+          }
+          title={t('cart.orderSuccess')}
+          description={t('cart.orderSuccessExplanation')}
         />
-
-        <Title textAlign='center' mt={4} level={2} fontSize={4}>
-          {t('cart.orderSuccess')}
-        </Title>
-        <Text textAlign='center' fontSize={0}>
-          {t('cart.orderSuccessExplanation')}
-        </Text>
 
         <Link passHref replace href='/products'>
           <Button as='a' size='lg' mt={4} isFullWidth>

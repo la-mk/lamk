@@ -28,9 +28,9 @@ export const TopMenu = withTheme(
 
     return (
       <>
-        <Flex alignItems='center' justifyContent='center'>
+        <Flex align='center' justify='center'>
           <HoverableLink href='/products'>
-            <Flex alignItems='center' justifyContent='center' mx={3}>
+            <Flex align='center' justify='center' mx={3}>
               <Text
                 style={{ lineHeight: 0 }}
                 color={selectedKey === 'products' ? 'primary' : 'text.dark'}
@@ -50,7 +50,7 @@ export const TopMenu = withTheme(
           </HoverableLink>
 
           <HoverableLink href='/about'>
-            <Flex alignItems='center' justifyContent='center' mx={3}>
+            <Flex align='center' justify='center' mx={3}>
               <Text
                 style={{ lineHeight: 0 }}
                 color={selectedKey === 'about' ? 'primary' : 'text.dark'}
@@ -70,7 +70,7 @@ export const TopMenu = withTheme(
           </HoverableLink>
 
           <HoverableLink href='/cart'>
-            <Flex alignItems='center' justifyContent='center' mx={3}>
+            <Flex align='center' justify='center' mx={3}>
               <Badge
                 style={{ backgroundColor: theme.colors.primary }}
                 showZero

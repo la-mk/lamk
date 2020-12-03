@@ -37,5 +37,5 @@ export const VariantName = ({
     return null;
   }
 
-  return <Flex alignItems='center'>{values}</Flex>;
+  return <Flex align='center'>{values}</Flex>;
 };

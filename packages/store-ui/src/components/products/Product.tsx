@@ -6,7 +6,7 @@ import {
   Text,
   Title,
   Button,
-  InputNumber,
+  Input,
   Box,
   Image,
   ImageMagnifier,
@@ -255,13 +255,14 @@ export const Product = ({ product }: ProductProps) => {
   return (
     <Page>
       <Spinner isLoaded={!showSpinner}>
-        <Flex flexDirection={['column', 'row', 'row']}>
+        <Flex direction={['column', 'row', 'row']}>
           <Flex
             width={['100%', '50%', '50%']}
-            alignItems='center'
-            justifyContent='flex-start'
-            flexDirection='column'
+            align='center'
+            justify='flex-start'
+            direction='column'
           >
+            {/* @ts-ignore */}
             <Box height={420} minWidth={180} style={{ position: 'relative' }}>
               <ImageMagnifier
                 magnifierSize={180}
@@ -296,9 +297,9 @@ export const Product = ({ product }: ProductProps) => {
           </Flex>
           <Flex
             width={['100%', '50%', '50%']}
-            alignItems={['center', 'flex-start', 'flex-start']}
-            justifyContent='flex-start'
-            flexDirection='column'
+            align={['center', 'flex-start', 'flex-start']}
+            justify='flex-start'
+            direction='column'
           >
             <Title
               textAlign='center'
@@ -309,9 +310,9 @@ export const Product = ({ product }: ProductProps) => {
               {product.name}
             </Title>
             <Flex
-              flexDirection='column'
-              alignItems={['center', 'flex-start', 'flex-start']}
-              justifyContent='center'
+              direction='column'
+              align={['center', 'flex-start', 'flex-start']}
+              justify='center'
             >
               <Price
                 size='large'
@@ -337,7 +338,7 @@ export const Product = ({ product }: ProductProps) => {
                 {t(`units.${product.unit}`)}
               </Text>
             </Flex>
-            <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
+            <Flex align='center' justify='center' mt={[2, 3, 3]}>
               <Text mr={2}>{t('product.availability')}:</Text>
               <Text color={outOfStock ? 'danger' : 'success'}>
                 {outOfStock ? t('product.outOfStock') : t('product.inStock')}
@@ -345,7 +346,7 @@ export const Product = ({ product }: ProductProps) => {
             </Flex>
 
             {allColors.length > 0 && (
-              <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
+              <Flex align='center' justify='center' mt={[2, 3, 3]}>
                 <Text mr={2}>{t('attributes.color')}:</Text>
                 <PickerBoxes
                   variant='color'
@@ -360,7 +361,7 @@ export const Product = ({ product }: ProductProps) => {
             )}
 
             {allSizes.length > 0 && (
-              <Flex alignItems='center' justifyContent='center' mt={[2, 3, 3]}>
+              <Flex align='center' justify='center' mt={[2, 3, 3]}>
                 <Text mr={2}>{t('attributes.size')}:</Text>
                 <PickerBoxes
                   disabled={disabledSizeChoices}
@@ -373,17 +374,17 @@ export const Product = ({ product }: ProductProps) => {
               </Flex>
             )}
 
-            <Flex mt={[3, 4, 4]} flexDirection='row' alignItems='center'>
+            <Flex mt={[3, 4, 4]} direction='row' align='center'>
               {!isProductInCart && (
                 <>
-                  <InputNumber
-                    disabled={outOfStock || !selectedVariant}
+                  <Input
+                    isDisabled={outOfStock || !selectedVariant}
                     width='68px'
-                    size='large'
+                    size='lg'
                     min={1}
                     max={selectedVariant?.stock || 999}
                     value={quantity}
-                    onChange={(val: number) => setQuantity(val)}
+                    onChange={(_e, val: number) => setQuantity(val)}
                     mr={2}
                   />
                 </>

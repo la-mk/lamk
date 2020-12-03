@@ -17,7 +17,7 @@ const DescriptionEntry = ({
   inverse?: boolean;
 } & React.ComponentProps<typeof Flex>) => {
   return (
-    <Flex alignItems='center' {...props}>
+    <Flex align='center' {...props}>
       <Text color={inverse ? 'text.light' : 'text.dark'}>{title}</Text>
       <Text ml={2} color={inverse ? 'mutedText.light' : 'mutedText.dark'}>
         {item}
@@ -29,7 +29,7 @@ const DescriptionEntry = ({
 export const ShippingDescription = ({ address, inverse, actions }: any) => {
   return (
     <>
-      <Flex mb={3} alignItems='center' justifyContent='space-between'>
+      <Flex mb={3} align='center' justify='space-between'>
         <Title
           ellipsis={true}
           m={0}
@@ -42,7 +42,7 @@ export const ShippingDescription = ({ address, inverse, actions }: any) => {
         {!!actions && actions}
       </Flex>
 
-      <Flex flexDirection='column'>
+      <Flex direction='column'>
         <DescriptionEntry
           mb={3}
           title={<UserOutlined />}

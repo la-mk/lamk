@@ -1,12 +1,5 @@
 import React from 'react';
-import { Box, Flex, Title } from '@sradevski/blocks-ui';
-import styled from 'styled-components';
-
-const Card = styled(Box)`
-  border-radius: ${props => props.theme.radii[1]}px;
-  overflow: hidden;
-  z-index: 1;
-`;
+import { Box, Card, Flex, Title } from '@sradevski/blocks-ui';
 
 export const CustomCard = ({
   title,
@@ -14,16 +7,25 @@ export const CustomCard = ({
   headerAction,
   inverse,
   ...props
-}: React.ComponentProps<typeof Box>) => {
+}: React.ComponentProps<typeof Card> & {
+  title?: string;
+  headerAction?: any;
+  inverse?: boolean;
+}) => {
   return (
-    <Card bg={inverse ? 'background.dark' : 'background.light'} {...props}>
+    <Card
+      // @ts-ignore
+      border='none'
+      bg={inverse ? 'background.dark' : 'background.light'}
+      {...props}
+    >
       {title && (
         <Flex
           bg={inverse ? 'background.light' : 'background.dark'}
           py={[2, 3, 3]}
           px={[3, 4, 4]}
-          alignItems='center'
-          justifyContent='space-between'
+          align='center'
+          justify='space-between'
         >
           <Title
             color={inverse ? 'heading.dark' : 'heading.light'}

@@ -2,7 +2,7 @@ import isString from 'lodash/isString';
 import React from 'react';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { CategoriesMenu, CategoriesMenuProps } from '../CategoriesMenu';
-import { utils, Box, Button, Text } from '@sradevski/blocks-ui';
+import { utils, Box, Button, Text, Flex } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import styled from 'styled-components';
 import { CustomCard } from '../components/CustomCard';
@@ -56,22 +56,19 @@ export const CategoriesFilter = ({
   };
 
   return (
-    <CustomCard
-      {...props}
-      title={t('common.category_plural')}
-      headerAction={
+    <CustomCard {...props}>
+      <Flex px={3} justify='space-between' mb={4}>
+        <Text>{t('common.category_plural')}</Text>
         <Button
-          p={0}
           variant='link'
           onClick={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
         >
-          <Text fontSize={0} color='mutedText.light'>
+          <Text fontSize={0} color='mutedText.dark'>
             <ReloadOutlined style={{ marginRight: 8 }} />
             {t('actions.reset')}
           </Text>
         </Button>
-      }
-    >
+      </Flex>
       <ColoredMenuContainer>
         <CategoriesMenu
           mode={mode}

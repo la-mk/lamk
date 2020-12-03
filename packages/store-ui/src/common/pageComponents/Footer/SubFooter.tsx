@@ -15,10 +15,10 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
   const { t, i18n } = useTranslation();
   return (
     <Flex
-      justifyContent={['center', 'space-between', 'space-between']}
-      alignItems='center'
+      justify={['center', 'space-between', 'space-between']}
+      align='center'
       px={[3, 4, 5]}
-      flexDirection={['column', 'row', 'row']}
+      direction={['column', 'row', 'row']}
     >
       <Text color='text.light' fontSize={0} mr={[0, 3, 3]} mb={[3, 0, 0]}>
         © 2020 All rights reserved
@@ -26,13 +26,8 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
 
       <PoweredBy logoUrl={'/images/lamk-logo/horizontal-inverse.svg'} inverse />
 
-      <Flex
-        mt={[3, 0, 0]}
-        ml={[0, 3, 3]}
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Flex mr={3} alignItems='center' justifyContent='center'>
+      <Flex mt={[3, 0, 0]} ml={[0, 3, 3]} justify='center' align='center'>
+        <Flex mr={3} align='center' justify='center'>
           <Text color='text.light'>
             <LanguagePicker
               languageCode={i18n.language}

@@ -81,19 +81,19 @@ export const Summary = ({
           <Divider my={3} />
         </>
       )}
-      <Flex flexDirection='row' justifyContent='space-between'>
+      <Flex direction='row' justify='space-between'>
         <Text>{t('finance.subtotal')}</Text>
         <Text strong>{prices.productsTotal} ден</Text>
       </Flex>
       {prices.withCampaignsTotal !== prices.productsTotal && (
-        <Flex mt={3} flexDirection='row' justifyContent='space-between'>
+        <Flex mt={3} direction='row' justify='space-between'>
           <Text>{t('finance.campaignDiscount')}</Text>
           <Text strong color='danger'>
             {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
           </Text>
         </Flex>
       )}
-      <Flex mt={3} flexDirection='row' justifyContent='space-between'>
+      <Flex mt={3} direction='row' justify='space-between'>
         <Text>{t('finance.shippingCost')}</Text>
         <Text strong>{prices.deliveryTotal} ден</Text>
       </Flex>
@@ -109,7 +109,7 @@ export const Summary = ({
         </Box>
       )}
       <Divider my={3} />
-      <Flex flexDirection='row' justifyContent='space-between'>
+      <Flex direction='row' justify='space-between'>
         <Text>{t('finance.total')}</Text>
         <Text strong color='primary' fontSize={[2, 3, 3]}>
           {prices.total} ден

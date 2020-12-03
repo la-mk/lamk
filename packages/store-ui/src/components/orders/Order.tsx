@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Steps, Step, Empty, Spinner, hooks } from '@sradevski/blocks-ui';
+import {
+  Flex,
+  Steps,
+  Step,
+  Result,
+  Spinner,
+  hooks,
+} from '@sradevski/blocks-ui';
 import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { sdk } from '@sradevski/la-sdk';
@@ -63,7 +70,9 @@ export const Order = ({ orderId }: { orderId: string }) => {
   }, [caller, user, orderId]);
 
   if (!order) {
-    return <Empty mt={6} description={t('order.orderNotFound')}></Empty>;
+    return (
+      <Result status='empty' mt={7} description={t('order.orderNotFound')} />
+    );
   }
 
   const handlePayment = () => {
@@ -124,11 +133,11 @@ export const Order = ({ orderId }: { orderId: string }) => {
         <Flex
           mt={4}
           width='100%'
-          justifyContent='space-between'
-          alignItems={['center', 'center', 'flex-start']}
-          flexDirection={['column-reverse', 'column-reverse', 'row']}
+          justify='space-between'
+          align={['center', 'center', 'flex-start']}
+          direction={['column-reverse', 'column-reverse', 'row']}
         >
-          <Flex maxWidth={960} flex={1} flexDirection='column' mr={[0, 0, 3]}>
+          <Flex maxWidth={960} flex={1} direction='column' mr={[0, 0, 3]}>
             <CustomCard mb={3}>
               <OrderDescription
                 hideDetailsButton
@@ -143,8 +152,8 @@ export const Order = ({ orderId }: { orderId: string }) => {
             )}
           </Flex>
           <Flex
-            alignItems='flex-start'
-            justifyContent='center'
+            align='flex-start'
+            justify='center'
             maxWidth={[0, 0, 460]}
             flex={1}
             ml={[0, 0, 3]}

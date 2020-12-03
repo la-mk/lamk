@@ -22,7 +22,7 @@ export const SelectAddress = ({
 
   return (
     <>
-      <Flex alignItems='center' justifyContent='space-between'>
+      <Flex mt={6} align='center' justify='space-between'>
         <Title level={3} fontSize={3} color='text.dark'>
           {t('address.chooseShippingAddress')}
         </Title>
@@ -35,7 +35,7 @@ export const SelectAddress = ({
         </Button>
       </Flex>
 
-      <Flex mt={3} flexDirection='column'>
+      <Flex mt={3} direction='column'>
         <Addresses
           user={user}
           showAddModal={addressModalVisible}

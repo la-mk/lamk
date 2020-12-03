@@ -27,7 +27,7 @@ export const CategorySet = ({
     <>
       <SetTitle emphasized title={title} subtitle={subtitle} />
 
-      <Flex alignItems='center' justifyContent='center' flexWrap='wrap'>
+      <Flex align='center' justify='center' wrap='wrap'>
         {categoriesToShow.map(categoryName => {
           return (
             <Box key={categoryName} my={4} mx={[2, 3, 4]}>
@@ -50,8 +50,8 @@ export const CategorySet = ({
                 >
                   <Flex
                     p={[2, 2, 3]}
-                    alignItems='center'
-                    justifyContent='center'
+                    align='center'
+                    justify='center'
                     bg='background.dark'
                     borderRadius={0}
                     style={{

@@ -36,13 +36,13 @@ export const Legal = () => {
     <Page maxWidth={1280} title={t('pages.legal')}>
       <Paragraph textAlign='center'>{t('legal.legalExplanation')}</Paragraph>
 
-      <Flex mt={5} alignItems='center' justifyContent='center' flexWrap='wrap'>
+      <Flex mt={5} align='center' justify='center' wrap='wrap'>
         {submenus.map(submenu => {
           return (
             <Box m={3}>
               <HoverableLink key={submenu.link} href={submenu.link}>
                 <CustomCard minWidth={260}>
-                  <Flex alignItems='center' justifyContent='center'>
+                  <Flex align='center' justify='center'>
                     <Text>{submenu.text}</Text>
                   </Flex>
                 </CustomCard>

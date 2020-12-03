@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlexGrid, Box, hooks } from '@sradevski/blocks-ui';
+import { DataGrid, Box, hooks } from '@sradevski/blocks-ui';
 import { ProductCard } from '../shared/product/ProductCard';
 import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
@@ -28,12 +28,13 @@ export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
   return (
     <>
       <SetTitle title={set.setTag.title} subtitle={set.setTag.subtitle} />
-      <FlexGrid
-        loading={false}
+      <DataGrid
+        isLoaded={true}
+        spacing={[3, 4, 4]}
         rowKey='_id'
         items={productsToShow}
         renderItem={item => (
-          <Box mx={[1, 2, 2]} mb={'auto'}>
+          <Box mb={'auto'}>
             <ProductCard
               product={item}
               storeId={storeId}

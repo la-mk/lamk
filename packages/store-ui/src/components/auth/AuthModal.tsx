@@ -21,7 +21,6 @@ export const AuthModal = () => {
     'login' | 'signup' | 'forgotPassword'
   >('login');
   const store = useSelector(getStore);
-  const modalWidth = hooks.useBreakpoint(['100%', '80%', '60%']);
   const visible = useSelector(shouldShowAuthModal);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -53,24 +52,15 @@ export const AuthModal = () => {
 
   return (
     <Modal
-      width={modalWidth}
-      centered
-      destroyOnClose
-      visible={visible}
-      footer={null}
-      onCancel={() => {
+      maxWidth={['100%', '80%', '60%']}
+      isOpen={visible}
+      onClose={() => {
         dispatch(toggleAuthModal(false));
         setMethod('login');
         setForgotPasswordDone(false);
       }}
     >
-      <Flex
-        pt={4}
-        pb={5}
-        width='100%'
-        flexDirection='column'
-        alignItems='center'
-      >
+      <Flex pt={4} pb={5} width='100%' direction='column' align='center'>
         {method === 'login' && (
           <LoginForm
             schema={authSchema}

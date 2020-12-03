@@ -17,13 +17,8 @@ export const ProductImageWithTitle = ({
 } & React.ComponentProps<typeof Flex>) => {
   const { t } = useTranslation();
   return (
-    <Flex
-      minWidth={200}
-      alignItems='center'
-      justifyContent='flex-start'
-      {...props}
-    >
-      <Flex maxHeight={90} maxWidth={60} minWidth={60}>
+    <Flex minWidth={'200px'} align='center' justify='flex-start' {...props}>
+      <Flex maxHeight={'90px'} maxWidth={'60px'} minWidth={'60px'}>
         <Image
           height={90}
           getSrc={params =>
@@ -32,7 +27,7 @@ export const ProductImageWithTitle = ({
           alt={product.name}
         />
       </Flex>
-      <Flex ml={4} flexDirection='column'>
+      <Flex ml={4} direction='column'>
         <Title
           mx={0}
           my={0}

@@ -70,9 +70,9 @@ export const FooterContent = ({ store }: { store: Store }) => {
         px={[3, 4, 6]}
         pt={[3, 4, 5]}
         mx='auto'
-        flexDirection={['column', 'column', 'row']}
-        alignItems={['center', 'center', 'flex-start']}
-        justifyContent={'space-between'}
+        direction={['column', 'column', 'row']}
+        align={['center', 'center', 'flex-start']}
+        justify={'space-between'}
       >
         <Box mr={[0, 0, 5]}>
           <StoreFooterSection store={store} />

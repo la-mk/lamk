@@ -16,6 +16,7 @@ import {
   Text,
   Title,
   Grid,
+  Result,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { getAddresses } from '../../state/modules/user/user.selector';
@@ -178,20 +179,18 @@ export const Addresses = withTheme(
               })}
 
             {addresses?.length === 0 && !showSpinner && (
-              <Flex
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='column'
-                p={3}
-              >
-                <NoAddress
-                  primary={theme.colors.primary}
-                  background={theme.colors.background.dark}
+              <Flex align='center' justify='center' direction='column' p={3}>
+                <Result
+                  status='empty'
+                  icon={
+                    <NoAddress
+                      primary={theme.colors.primary}
+                      background={theme.colors.background.dark}
+                    />
+                  }
+                  title={t('address.noAddress')}
+                  description={t('address.noAddressExplanation')}
                 />
-                <Title color='text.dark' mt={3} level={3} fontSize={3}>
-                  {t('address.noAddress')}
-                </Title>
-                <Text fontSize={0}>{t('address.noAddressExplanation')}</Text>
               </Flex>
             )}
           </Grid>

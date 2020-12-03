@@ -48,8 +48,8 @@ export const SelectPaymentMethod = ({
                   <Flex
                     height={'100%'}
                     width={'100%'}
-                    alignItems='center'
-                    justifyContent='center'
+                    align='center'
+                    justify='center'
                   >
                     <Text color={isChecked ? 'heading.light' : 'heading.dark'}>
                       {iconsMap[method.name]}
@@ -57,9 +57,9 @@ export const SelectPaymentMethod = ({
 
                     <Flex
                       ml={[3, 4, 4]}
-                      flexDirection='column'
-                      alignItems='center'
-                      justifyContent='center'
+                      direction='column'
+                      align='center'
+                      justify='center'
                     >
                       <Title
                         m={0}

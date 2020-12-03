@@ -4,6 +4,7 @@ import {
   BreadcrumbItem,
   Box,
   BreadcrumbLink,
+  Flex,
 } from '@sradevski/blocks-ui';
 import { useSelector } from 'react-redux';
 import { BreadcrumbEntry } from '../../state/modules/ui/ui.module';
@@ -18,7 +19,13 @@ export const Breadcrumbs = props => {
   }
 
   return (
-    <Box px={[3, 4, 5]} py={3} width='100%' bg='background.light' {...props}>
+    <Flex
+      align='center'
+      px={[3, 4, 5]}
+      width='100%'
+      bg='background.light'
+      {...props}
+    >
       <Breadcrumb separator='>'>
         {breadcrumbs.map((breadcrumb, index) => {
           return (
@@ -41,6 +48,6 @@ export const Breadcrumbs = props => {
           );
         })}
       </Breadcrumb>
-    </Box>
+    </Flex>
   );
 };

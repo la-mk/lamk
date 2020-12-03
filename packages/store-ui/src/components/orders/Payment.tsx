@@ -116,7 +116,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
       <Result
         status='warning'
         title={t('payment.paymentDisabled')}
-        subTitle={t('payment.storeNoCardSupport')}
+        description={t('payment.storeNoCardSupport')}
       />
     );
   }
@@ -126,30 +126,25 @@ export const Payment = ({ orderId }: PaymentProps) => {
       <Result
         status='warning'
         title={t('order.orderNotFound')}
-        subTitle={t('order.orderNotFoundTip')}
+        description={t('order.orderNotFoundTip')}
       />
     );
   }
 
   if (order && order.status !== sdk.order.OrderStatus.PENDING_PAYMENT) {
     return (
-      <Result
-        status='warning'
-        title={t('payment.paymentDisabled')}
-        subTitle={t('order.orderAlreadyPaid')}
-        extra={
-          <Link
-            passHref
-            replace
-            href='/orders/[pid]'
-            as={`/orders/${order._id}`}
-          >
-            <Button as='a' mt={2} mx={2} key='console'>
-              {t('order.seeOrder')}
-            </Button>
-          </Link>
-        }
-      />
+      <Flex direction='column' justify='center'>
+        <Result
+          status='warning'
+          title={t('payment.paymentDisabled')}
+          description={t('order.orderAlreadyPaid')}
+        />
+        <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
+          <Button mt={4} as='a' mt={2} mx={2} key='console'>
+            {t('order.seeOrder')}
+          </Button>
+        </Link>
+      </Flex>
     );
   }
 
@@ -169,11 +164,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
           paymentResponse
         }
       >
-        <Flex
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
-        >
+        <Flex align='center' justify='center' direction='column'>
           {order && (
             <Title level={3} fontSize={4}>
               {t('payment.payAmountTip', {

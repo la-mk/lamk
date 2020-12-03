@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { List, Empty, hooks, utils } from '@sradevski/blocks-ui';
+import { DataGrid, Result, hooks, utils } from '@sradevski/blocks-ui';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
 import { Page } from '../shared/Page';
@@ -53,29 +53,36 @@ export const Orders = () => {
   }, [user, filters]);
 
   if (orders && orders.total === 0) {
-    return <Empty mt={6} description={t('order.orderNotFound_plural')}></Empty>;
+    return (
+      <Result
+        status='empty'
+        mt={7}
+        description={t('order.orderNotFound_plural')}
+      />
+    );
   }
 
   return (
     <Page>
-      <List<Order>
-        style={{ width: '100%' }}
+      <DataGrid<Order>
+        isFullWidth
+        rowKey={'_id'}
+        spacing={8}
         pagination={{
-          current: filters.pagination ? filters.pagination.currentPage : 1,
+          currentPage: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 10,
-          total: orders ? orders.total : 0,
-          showSizeChanger: false,
+          totalItems: orders ? orders.total : 0,
           onChange: (currentPage, pageSize) =>
             setFilters({ ...filters, pagination: { currentPage, pageSize } }),
         }}
-        loading={showSpinner}
-        dataSource={orders ? orders.data : []}
+        isLoaded={!showSpinner}
+        items={orders ? orders.data : []}
         renderItem={order => (
-          <CustomCard mx='auto' mb={5} maxWidth={960}>
+          <CustomCard mx='auto' width='100%' maxWidth={960}>
             <OrderDescription order={order} storeId={store._id} />
           </CustomCard>
         )}
-      ></List>
+      ></DataGrid>
     </Page>
   );
 };

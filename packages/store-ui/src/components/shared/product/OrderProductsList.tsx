@@ -110,13 +110,9 @@ export const OrderProductsList = ({
 }: any) => {
   const { t } = useTranslation();
   return (
-    <Flex width='100%' flexDirection='column'>
+    <Flex width='100%' direction='column'>
       <Box display={['block', 'none', 'none']}>
-        <Flex
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
-        >
+        <Flex align='center' justify='center' direction='column'>
           {items.map(item => (
             <>
               <Divider mb={2} />
@@ -128,9 +124,11 @@ export const OrderProductsList = ({
                 width='100%'
                 px={3}
                 mb={5}
-                flexDirection='column'
+                direction='column'
+                // @ts-ignore
                 style={{ position: 'relative' }}
               >
+                {/* @ts-ignore */}
                 <Box style={{ position: 'absolute', top: 0, right: 0 }}>
                   {handleRemove && (
                     <Button variant='ghost' onClick={() => handleRemove(item)}>
@@ -143,8 +141,8 @@ export const OrderProductsList = ({
                   storeId={storeId}
                 />
 
-                <Flex mt={4} justifyContent='space-between'>
-                  <Flex justifyContent='center'>
+                <Flex mt={4} justify='space-between'>
+                  <Flex justify='center'>
                     <Text mr={2}>Price:</Text>
                     <Price
                       vertical

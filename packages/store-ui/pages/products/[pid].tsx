@@ -4,7 +4,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { Head } from '../../src/common/pageComponents/Head';
 import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
 import { Product } from '../../src/components/products/Product';
-import { Empty } from '@sradevski/blocks-ui';
+import { Result } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
@@ -41,7 +41,11 @@ const ProductPage = ({
           title={t('results.pageNotFound')}
           description={t('results.productNotFound')}
         />
-        <Empty mt={6} description={t('results.productNotFound')} />
+        <Result
+          status='empty'
+          mt={7}
+          description={t('results.productNotFound')}
+        />
       </>
     );
   }
