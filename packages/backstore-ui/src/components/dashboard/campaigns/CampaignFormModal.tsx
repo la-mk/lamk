@@ -38,7 +38,6 @@ export const CampaignFormModal = ({
 }: ProductFormModalProps) => {
   const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
-  const modalWidth = hooks.useBreakpoint(['100%', '60%', '40%']);
   const store = useSelector(getStore);
   const [groupsCaller] = hooks.useCall();
   const groups: string[] | undefined = useSelector(getGroups);
@@ -139,13 +138,10 @@ export const CampaignFormModal = ({
 
   return (
     <Modal
-      width={modalWidth}
-      centered
-      destroyOnClose
-      visible={visible}
-      footer={null}
-      onCancel={onClose}
-      title={campaign ? t('actions.update') : t('actions.add')}
+      maxWidth={['96%', '60%', '40%']}
+      isOpen={visible}
+      onClose={onClose}
+      header={campaign ? t('actions.update') : t('actions.add')}
     >
       <Spinner
         isLoaded={!showSpinner}

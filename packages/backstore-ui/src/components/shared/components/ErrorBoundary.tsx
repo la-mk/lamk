@@ -10,9 +10,10 @@ export const ErrorBoundary = ({ children }: { children: React.ReactNode }) => {
     <BaseErrorBoundary
       FallbackComponent={() => (
         <Result
+          mt={4}
           status='error'
           title={t('results.genericError')}
-          subTitle={t('results.serverErrorExplanation')}
+          description={t('results.serverErrorExplanation')}
         />
       )}
     >

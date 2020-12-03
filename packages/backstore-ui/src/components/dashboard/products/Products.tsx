@@ -1,7 +1,6 @@
 import pick from 'lodash/pick';
 import React, { useState } from 'react';
 import {
-  Tooltip,
   Flex,
   Table,
   Title,
@@ -14,6 +13,7 @@ import {
   Text,
   Modal,
   Input,
+  Spinner,
 } from '@sradevski/blocks-ui';
 import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { useSelector } from 'react-redux';
@@ -283,11 +283,6 @@ export const Products = () => {
         >
           {t('actions.add')}
         </Button>
-        <Tooltip title={t('common.actionsTip')}>
-          {/* <Button mx={3} type='ghost'>
-            {t('common.action_plural')}
-          </Button> */}
-        </Tooltip>
       </Flex>
 
       <Box
@@ -305,84 +300,82 @@ export const Products = () => {
           ).toLowerCase()}, ${t('product.sku').toLowerCase()}, ${t(
             'common.description',
           ).toLowerCase()}`}
-          value={filters.searching}
           onSearch={value => {
             setFilters(normalizeFilters({ ...filters, searching: value }));
           }}
         />
       </Box>
 
-      <Table<Product>
-        dataSource={products}
-        columns={columns}
-        loading={showSpinner}
-        pagination={{
-          total: total || 0,
-          showSizeChanger: false,
-          current: filters.pagination ? filters.pagination.currentPage : 1,
-          pageSize: filters.pagination ? filters.pagination.pageSize : 20,
-        }}
-        onChange={(pagination, tableFilters, sorter) => {
-          const singleSorter = Array.isArray(sorter) ? sorter[0] : sorter;
+      <Spinner isLoaded={!showSpinner}>
+        <Table<Product>
+          dataSource={products}
+          columns={columns}
+          loading={showSpinner}
+          pagination={{
+            total: total || 0,
+            showSizeChanger: false,
+            current: filters.pagination?.currentPage ?? 1,
+            pageSize: filters.pagination?.pageSize ?? 20,
+          }}
+          onChange={(pagination, tableFilters, sorter) => {
+            const singleSorter = Array.isArray(sorter) ? sorter[0] : sorter;
 
-          setFilters(
-            normalizeFilters({
-              pagination: {
-                pageSize: pagination.pageSize ?? 20,
-                currentPage: pagination.current ?? 1,
-              },
-              sorting:
-                singleSorter?.field && singleSorter?.order
-                  ? {
-                      field: singleSorter.field as string,
-                      order: singleSorter.order,
-                    }
-                  : undefined,
-              filtering: {
-                ...filters.filtering,
-                ...utils.filter.singleItemFilter(
-                  'totalStock',
-                  tableFilters.totalStock?.[0],
-                ),
-                ...utils.filter.rangeFilter(
-                  'maxDiscount',
-                  tableFilters.minCalculatedPrice?.[0] === 'discounted'
-                    ? 1
-                    : null,
-                  null,
-                  0,
-                  Infinity,
-                ),
-                ...utils.filter.multipleItemsFilter(
-                  'category',
-                  tableFilters.category,
-                ),
-                ...utils.filter.multipleItemsFilter(
-                  'groups',
-                  tableFilters.groups,
-                ),
-              },
-              searching: filters.searching,
-            }),
-          );
-        }}
-        rowKey='_id'
-        onRow={product => ({
-          onClick: () => {
-            setEditingProduct(product);
-            setShowModal(true);
-          },
-        })}
-      />
+            setFilters(
+              normalizeFilters({
+                pagination: {
+                  pageSize: pagination.pageSize ?? 20,
+                  currentPage: pagination.current ?? 1,
+                },
+                sorting:
+                  singleSorter?.field && singleSorter?.order
+                    ? {
+                        field: singleSorter.field as string,
+                        order: singleSorter.order,
+                      }
+                    : undefined,
+                filtering: {
+                  ...filters.filtering,
+                  ...utils.filter.singleItemFilter(
+                    'totalStock',
+                    tableFilters.totalStock?.[0],
+                  ),
+                  ...utils.filter.rangeFilter(
+                    'maxDiscount',
+                    tableFilters.minCalculatedPrice?.[0] === 'discounted'
+                      ? 1
+                      : null,
+                    null,
+                    0,
+                    Infinity,
+                  ),
+                  ...utils.filter.multipleItemsFilter(
+                    'category',
+                    tableFilters.category,
+                  ),
+                  ...utils.filter.multipleItemsFilter(
+                    'groups',
+                    tableFilters.groups,
+                  ),
+                },
+                searching: filters.searching,
+              }),
+            );
+          }}
+          rowKey='_id'
+          onRow={product => ({
+            onClick: () => {
+              setEditingProduct(product);
+              setShowModal(true);
+            },
+          })}
+        />
+      </Spinner>
 
       <Modal
-        width={'80%'}
-        centered
-        destroyOnClose
-        visible={showModal}
-        footer={null}
-        onCancel={onClose}
-        title={editingProduct ? t('actions.update') : t('actions.add')}
+        maxWidth={['96%', '88%', '82%']}
+        isOpen={showModal}
+        onClose={onClose}
+        header={editingProduct ? t('actions.update') : t('actions.add')}
       >
         <ProductForm product={editingProduct} onClose={onClose} />
       </Modal>

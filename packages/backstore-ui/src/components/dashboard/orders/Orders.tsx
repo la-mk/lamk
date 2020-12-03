@@ -5,7 +5,6 @@ import {
   Table,
   Tag,
   hooks,
-  Tooltip,
   utils,
   Text,
 } from '@sradevski/blocks-ui';
@@ -120,14 +119,6 @@ export const Orders = () => {
       <Title mb={4} level={2}>
         {t('commerce.order_plural')}
       </Title>
-
-      <Flex my={3} justify='flex-end'>
-        <Tooltip title='You can do bulk actions using this button.'>
-          {/* <Button mx={3} type='ghost'>
-            {t('common.action_plural')}
-          </Button> */}
-        </Tooltip>
-      </Flex>
 
       <Table<Order>
         dataSource={orders}

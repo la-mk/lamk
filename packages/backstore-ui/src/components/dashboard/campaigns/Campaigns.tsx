@@ -4,7 +4,6 @@ import {
   Title,
   Table,
   hooks,
-  Tooltip,
   utils,
   Button,
   Badge,
@@ -103,11 +102,6 @@ export const Campaigns = () => {
         >
           {t('actions.add')}
         </Button>
-        <Tooltip title={t('common.actionsTip')}>
-          {/* <Button mx={3} type='ghost'>
-            {t('common.action_plural')}
-          </Button> */}
-        </Tooltip>
       </Flex>
 
       <Table<Campaign>

@@ -9,13 +9,13 @@ import {
   Option,
   Tag,
   Card,
-  List,
   Image,
   Text,
   Divider,
   hooks,
   Box,
   Title,
+  DataGrid,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
@@ -57,13 +57,10 @@ export const OrderDetailsModal = ({
 
   return (
     <Modal
-      width={'80%'}
-      centered
-      destroyOnClose
-      visible={Boolean(order)}
-      footer={null}
-      onCancel={onClose}
-      title={t('common.details')}
+      maxWidth={['96%', '88%', '82%']}
+      isOpen={Boolean(order)}
+      onClose={onClose}
+      header={t('common.details')}
     >
       {order && (
         <Spinner isLoaded={!showSpinner}>
@@ -190,86 +187,89 @@ export const OrderDetailsModal = ({
             </Flex>
             <Divider my={3} />
             {Boolean(order?.ordered) && (
-              <List>
-                {order.ordered.map(orderItem => (
-                  <List.Item key={orderItem.product._id}>
-                    <Flex
-                      width={'100%'}
-                      justify='space-between'
-                      align={['flex-start', 'center', 'center']}
-                      direction={['column', 'row', 'row']}
-                    >
-                      <Flex align='center'>
-                        <Flex
-                          minWidth={'120px'}
-                          maxWidth={'120px'}
-                          height={'60px'}
-                          justify='center'
-                          align='center'
-                        >
-                          <Image
-                            height={60}
-                            alt={orderItem.product.name}
-                            getSrc={params =>
-                              sdk.artifact.getUrlForImage(
-                                orderItem.product.images[0],
-                                store?._id,
-                                params,
-                              )
-                            }
-                          />
-                        </Flex>
-                        <Flex direction='column'>
-                          <Text mx={2}>{orderItem.product.name}</Text>
-
-                          <Flex align='center'>
-                            {orderItem.product.sku && (
-                              <Text strong mx={2}>
-                                {`${t('product.sku')}: ${
-                                  orderItem.product.sku
-                                }`}
-                              </Text>
-                            )}
-                            {!isEmpty(orderItem.product.attributes) && (
-                              <>
-                                <Flex align='center' ml={2}>
-                                  <Text strong>{`${t(
-                                    'product.variant',
-                                  )}: `}</Text>
-                                  <Box ml={1}>
-                                    <VariantName
-                                      t={t}
-                                      attributes={orderItem.product.attributes}
-                                      shouldShowAttributes
-                                    />
-                                  </Box>
-                                </Flex>
-                              </>
-                            )}
-                          </Flex>
-                        </Flex>
+              <DataGrid
+                isFullWidth
+                isLoaded
+                spacing={6}
+                // @ts-ignore
+                rowKey='product._id'
+                items={order.ordered}
+                renderItem={orderItem => (
+                  <Flex
+                    width={'100%'}
+                    minWidth='100%'
+                    justify='space-between'
+                    align={['flex-start', 'center', 'center']}
+                    direction={['column', 'row', 'row']}
+                  >
+                    <Flex align='center'>
+                      <Flex
+                        minWidth={'120px'}
+                        maxWidth={'120px'}
+                        height={'60px'}
+                        justify='center'
+                        align='center'
+                      >
+                        <Image
+                          height={60}
+                          alt={orderItem.product.name}
+                          getSrc={params =>
+                            sdk.artifact.getUrlForImage(
+                              orderItem.product.images[0],
+                              store?._id,
+                              params,
+                            )
+                          }
+                        />
                       </Flex>
-                      <Flex mt={[3, 0, 0]} mx={2} direction='column'>
-                        <Text>
-                          {t('commerce.quantity')}:{' '}
-                          {orderItem.quantity || t('common.unknown')}
-                          {' / '}
-                          <Text color='mutedText.dark'>
-                            {t(`units.${orderItem.product.unit}`)}
-                          </Text>
-                        </Text>
-                        <Text strong>
-                          {t('finance.total')}:{' '}
-                          {`${
-                            orderItem.quantity *
-                            (orderItem.product.calculatedPrice ?? 0)
-                          } ден` || t('common.unknown')}
-                        </Text>
+                      <Flex direction='column'>
+                        <Text mx={2}>{orderItem.product.name}</Text>
+
+                        <Flex align='center'>
+                          {orderItem.product.sku && (
+                            <Text strong mx={2}>
+                              {`${t('product.sku')}: ${orderItem.product.sku}`}
+                            </Text>
+                          )}
+                          {!isEmpty(orderItem.product.attributes) && (
+                            <>
+                              <Flex align='center' ml={2}>
+                                <Text strong>{`${t(
+                                  'product.variant',
+                                )}: `}</Text>
+                                <Box ml={1}>
+                                  <VariantName
+                                    t={t}
+                                    attributes={orderItem.product.attributes}
+                                    shouldShowAttributes
+                                  />
+                                </Box>
+                              </Flex>
+                            </>
+                          )}
+                        </Flex>
                       </Flex>
                     </Flex>
-                  </List.Item>
-                ))}
-              </List>
+                    <Flex mt={[3, 0, 0]} mx={2} direction='column'>
+                      <Text>
+                        {t('commerce.quantity')}:{' '}
+                        {orderItem.quantity || t('common.unknown')}
+                        {' / '}
+                        <Text color='mutedText.dark'>
+                          {t(`units.${orderItem.product.unit}`)}
+                        </Text>
+                      </Text>
+                      <Text strong>
+                        {t('finance.total')}:{' '}
+                        {`${
+                          orderItem.quantity *
+                          (orderItem.product.calculatedPrice ?? 0)
+                        } ден` || t('common.unknown')}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                )}
+              />
             )}
           </Card>
         </Spinner>
