@@ -2,7 +2,7 @@ import React from 'react';
 import { WidgetProps } from '@rjsf/core';
 import { Input } from '../../Input';
 import { Flex } from '../../Flex';
-import { Select, Option } from '../../Select';
+import { Select } from '../../Select';
 import { isSchemaOfType } from '../utils';
 
 interface InputMode {
@@ -54,17 +54,16 @@ const InputWithLenses = ({
         onChange={change}
         type="number"
         leftAddon={
-          <>
-            <Select
-              style={{ width: 90 }}
-              onChange={val => setSelectedModeId(val)}
-              value={selectedModeId}
-            >
-              {inputModes.map(mode => {
-                return <Option value={mode.id}>{mode.suffix}</Option>;
-              })}
-            </Select>
-          </>
+          <Select
+            width="70px"
+            variant="flushed"
+            onChange={e => setSelectedModeId(e.target.value)}
+            value={selectedModeId}
+            options={inputModes.map(mode => ({
+              label: mode.suffix,
+              value: mode.id,
+            }))}
+          />
         }
         rightAddon={
           <div>

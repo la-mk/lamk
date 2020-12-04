@@ -48,7 +48,7 @@ export { Modal, ModalProps } from './basic/Modal';
 export { Pagination, PaginationProps } from './basic/Pagination';
 export { Provider } from './basic/Provider';
 export { Radio, RadioProps } from './basic/Radio';
-export { Select, Option, OptionGroup } from './basic/Select';
+export { Select, SelectProps } from './basic/Select';
 export { Set } from './basic/Set/Set';
 export { Spinner, SpinnerProps } from './basic/Spinner';
 export { Stat, StatProps } from './basic/Stat';

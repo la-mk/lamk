@@ -1,8 +1,7 @@
 import React from 'react';
 import { WidgetProps, utils } from '@rjsf/core';
-import { Select, Option } from '../../Select';
+import { Select } from '../../Select';
 import { isSchemaOfType } from '../utils';
-import { Spinner } from '../../Spinner';
 
 const nums = new Set(['number', 'integer']);
 const { asNumber, guessType } = utils;
@@ -56,10 +55,10 @@ const SelectWidget = ({
   const {
     enumOptions,
     customEnumOptions,
-    enumDisabled,
+    // enumDisabled,
     emphasized,
-    mode,
-    loading,
+    // mode,
+    // loading,
   } = options;
 
   const handleChange = (nextValue: any) =>
@@ -74,34 +73,24 @@ const SelectWidget = ({
 
   return (
     <Select
-      width="100%"
+      isFullWidth
       autoFocus={autofocus}
-      disabled={disabled || readonly}
+      isDisabled={disabled || readonly}
       id={id}
-      mode={mode as any}
+      // mode={mode as any}
       onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}
       onFocus={!readonly ? handleFocus : undefined}
       placeholder={placeholder}
-      tokenSeparators={[',']}
+      // tokenSeparators={[',']}
       value={typeof value !== 'undefined' ? stringify(value) : undefined}
-      size={emphasized ? 'large' : undefined}
-      notFoundContent={loading ? <Spinner size="sm" /> : undefined}
-    >
-      {((customEnumOptions ?? enumOptions) as any[])?.map(
-        ({ value: optionValue, label: optionLabel }) => (
-          <Option
-            disabled={
-              enumDisabled && (enumDisabled as any[])?.indexOf(value) !== -1
-            }
-            key={String(optionValue)}
-            value={String(optionValue)}
-          >
-            {optionLabel}
-          </Option>
-        )
-      )}
-    </Select>
+      size={emphasized ? 'lg' : undefined}
+      // isLoaded={!loading}
+      options={customEnumOptions ?? (enumOptions as any)}
+      // disabled={
+      //   !!enumDisabled && (enumDisabled as any[])?.indexOf(value) !== -1
+      // }
+    />
   );
 };
 

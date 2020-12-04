@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { Modal } from './';
 import { Provider } from '../../';
-import { Option, Select } from '../Select';
+import { Select } from '../Select';
 
 storiesOf('Modal', module).add('standard', () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -30,12 +30,26 @@ storiesOf('Modal', module).add('standard', () => {
           size="lg"
         >
           <div style={{ width: '80%' }}>I am inside the modal body!</div>
-          <Select value={'option1'}>
-            <Option value={'option1'}>Option 1</Option>
-            <Option value={'option2'}>Option 2</Option>
-            <Option value={'option3'}>Option 3</Option>
-            <Option value={'option4'}>Option 4</Option>
-          </Select>
+          <Select
+            options={[
+              {
+                label: 'Option 1',
+                value: 'option1',
+              },
+              {
+                label: 'Option 2',
+                value: 'option2',
+              },
+              {
+                label: 'Option 3',
+                value: 'option3',
+              },
+              {
+                label: 'Option 4',
+                value: 'option4',
+              },
+            ]}
+          />
         </Modal>
       </div>
     </Provider>
