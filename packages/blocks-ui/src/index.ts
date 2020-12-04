@@ -1,7 +1,7 @@
 export { Accordion, AccordionProps } from './basic/Accordion';
 export { Alert, AlertProps } from './basic/Alert';
 export { Avatar, AvatarProps } from './basic/Avatar';
-export { Badge } from './basic/Badge';
+export { Badge, BadgeProps } from './basic/Badge';
 export { Box, BoxProps } from './basic/Box';
 export {
   Breadcrumb,
@@ -25,6 +25,7 @@ export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider, DividerProps } from './basic/Divider';
 export { Drawer, DrawerProps } from './basic/Drawer';
 export { Dropdown } from './basic/Dropdown';
+export { Positioner, PositionerProps } from './basic/Positioner';
 export { Result, ResultProps } from './basic/Result';
 export { Flex, FlexProps } from './basic/Flex';
 export { DataGrid, DataGridProps } from './basic/DataGrid/DataGrid';
