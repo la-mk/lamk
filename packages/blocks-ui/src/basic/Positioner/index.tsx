@@ -12,7 +12,7 @@ export const Positioner = ({
   ...props
 }: PositionerProps) => {
   return (
-    <Box display="inline-block" position="relative" {...props}>
+    <Box width="100%" display="inline-block" position="relative" {...props}>
       {children}
       <Box display="inline-block" position="absolute" right={-2} top={-2}>
         {overlayContent}

@@ -35,9 +35,10 @@ export interface SelectProps
 export const Select = ({ options, ...props }: SelectProps) => {
   return (
     <ChakraSelect {...props}>
-      {options.map(option => {
-        return <option value={option.value}>{option.label}</option>;
-      })}
+      {!!options &&
+        options.map(option => {
+          return <option value={option.value}>{option.label}</option>;
+        })}
     </ChakraSelect>
   );
 };

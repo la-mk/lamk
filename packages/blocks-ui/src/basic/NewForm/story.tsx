@@ -122,6 +122,7 @@ export const schema: any = {
       items: {
         oneOf: [
           {
+            title: 'All',
             type: 'object',
             additionalProperties: false,
             required: ['type', 'value'],
@@ -139,6 +140,7 @@ export const schema: any = {
             },
           },
           {
+            title: 'Group',
             type: 'object',
             additionalProperties: false,
             required: ['type', 'value'],

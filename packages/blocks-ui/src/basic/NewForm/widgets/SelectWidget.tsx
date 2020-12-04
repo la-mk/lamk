@@ -61,8 +61,8 @@ const SelectWidget = ({
     // loading,
   } = options;
 
-  const handleChange = (nextValue: any) =>
-    onChange(processValue(schema, nextValue));
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    onChange(processValue(schema, e.target.value));
 
   const handleBlur = () => onBlur(id, processValue(schema, value));
 
