@@ -8,6 +8,7 @@ import {
   Dropdown,
   Divider,
   Text,
+  Positioner,
 } from '@sradevski/blocks-ui';
 import {
   ShoppingOutlined,
@@ -32,16 +33,16 @@ export const TopMenu = withTheme(
           <HoverableLink href='/products'>
             <Flex align='center' justify='center' mx={3}>
               <Text
-                style={{ lineHeight: 0 }}
+                lineHeight='none'
                 color={selectedKey === 'products' ? 'primary' : 'text.dark'}
-                fontSize={4}
+                size='lg'
               >
                 <ShoppingOutlined />
               </Text>
               <Text
                 color={selectedKey === 'products' ? 'primary' : 'text.dark'}
                 ml={2}
-                fontSize={0}
+                size='sm'
                 display={['none', 'none', 'initial']}
               >
                 {t('pages.product_plural')}
@@ -52,16 +53,16 @@ export const TopMenu = withTheme(
           <HoverableLink href='/about'>
             <Flex align='center' justify='center' mx={3}>
               <Text
-                style={{ lineHeight: 0 }}
+                lineHeight='none'
                 color={selectedKey === 'about' ? 'primary' : 'text.dark'}
-                fontSize={4}
+                size='lg'
               >
                 <ShopOutlined />
               </Text>
               <Text
                 color={selectedKey === 'about' ? 'primary' : 'text.dark'}
                 ml={2}
-                fontSize={0}
+                size='sm'
                 display={['none', 'none', 'initial']}
               >
                 {t('pages.aboutUs')}
@@ -70,20 +71,32 @@ export const TopMenu = withTheme(
           </HoverableLink>
 
           <HoverableLink href='/cart'>
-            <Flex align='center' justify='center' mx={3}>
-              <Badge
-                style={{ backgroundColor: theme.colors.primary }}
-                showZero
-                offset={[2, 2]}
-                count={cartCount ?? 0}
+            <Flex
+              align='center'
+              justify='center'
+              mx={3}
+              // @ts-ignore
+              style={{ lineHeight: '1rem' }}
+            >
+              <Positioner
+                overlayContent={
+                  <Badge
+                    colorScheme='primary'
+                    variant='solid'
+                    borderRadius='full'
+                    size='xs'
+                  >
+                    {cartCount ?? 0}
+                  </Badge>
+                }
               >
                 <Text
                   color={selectedKey === 'cart' ? 'primary' : 'text.dark'}
-                  fontSize={4}
+                  size='lg'
                 >
                   <ShoppingCartOutlined />
                 </Text>
-              </Badge>
+              </Positioner>
             </Flex>
           </HoverableLink>
 

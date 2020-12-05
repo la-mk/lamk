@@ -57,7 +57,7 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
           />
           <Result
             status='error'
-            title={errorCode}
+            title={errorCode.toString()}
             description={t('results.genericErrorExplanation', {
               statusCode: errorCode,
             })}

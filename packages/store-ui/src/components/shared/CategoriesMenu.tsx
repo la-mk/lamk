@@ -86,7 +86,7 @@ export const CategoriesMenu = ({
                         {onSelect && (
                           <Button ml={'-20px'} variant='link'>
                             <Text
-                              fontSize={0}
+                              size='sm'
                               color={isSelected ? 'primary' : 'text.dark'}
                             >
                               <CheckOutlined
@@ -107,7 +107,7 @@ export const CategoriesMenu = ({
                             passHref
                           >
                             <Button as='a' variant='link'>
-                              <Text fontSize={0}>{level3Category.label}</Text>
+                              <Text size='sm'>{level3Category.label}</Text>
                             </Button>
                           </Link>
                         )}

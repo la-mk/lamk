@@ -20,7 +20,7 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
       px={[3, 4, 5]}
       direction={['column', 'row', 'row']}
     >
-      <Text color='text.light' fontSize={0} mr={[0, 3, 3]} mb={[3, 0, 0]}>
+      <Text color='text.light' size='sm' mr={[0, 3, 3]} mb={[3, 0, 0]}>
         © 2020 All rights reserved
       </Text>
 

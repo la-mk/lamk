@@ -35,7 +35,7 @@ const getColumns = (
 ) =>
   [
     {
-      title: <Text fontSize={2}>{t('commerce.product')}</Text>,
+      title: <Text size='lg'>{t('commerce.product')}</Text>,
       key: 'product',
       align: 'center',
       render: (_text, item) => {
@@ -45,7 +45,7 @@ const getColumns = (
       },
     },
     {
-      title: <Text fontSize={2}>{t('common.price')}</Text>,
+      title: <Text size='lg'>{t('common.price')}</Text>,
       key: 'price',
       width: 150,
       render: (val, item) => (
@@ -61,7 +61,7 @@ const getColumns = (
       ),
     },
     {
-      title: <Text fontSize={2}>{t('commerce.quantity')}</Text>,
+      title: <Text size='lg'>{t('commerce.quantity')}</Text>,
       width: 150,
       key: 'quantity',
       render: (val, item) =>
@@ -71,17 +71,17 @@ const getColumns = (
             handleChangeItemQuantity={handleChangeItemQuantity}
           />
         ) : (
-          <Text strong color='heading.dark'>
+          <Text as='strong' color='heading.dark'>
             {item.quantity}
           </Text>
         ),
     },
     {
-      title: <Text fontSize={2}>{t('finance.total')}</Text>,
+      title: <Text size='lg'>{t('finance.total')}</Text>,
       key: 'total',
       width: 150,
       render: (val, item) => (
-        <Text strong fontSize={1} color='primary'>
+        <Text as='strong' color='primary'>
           {item.quantity * item.product.calculatedPrice} ден
         </Text>
       ),
@@ -171,7 +171,7 @@ export const OrderProductsList = ({
                 </Flex>
                 <Box mt={2}>
                   <Text mr={2}>Total:</Text>
-                  <Text color='primary' strong>
+                  <Text as='strong' color='primary'>
                     {item.product.calculatedPrice * item.quantity} ден
                   </Text>
                 </Box>

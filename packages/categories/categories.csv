@@ -97,6 +97,7 @@ _id,level1,level2,level3,createdAt
 ,home,lighting,standing-light,
 ,home,lighting,spotlight,
 ,home,lighting,ceiling-light,
+,home,lighting,flushmount,
 ,home,lighting,neon-light,
 ,home,lighting,light-part,
 ,home,lighting,lighting-other,

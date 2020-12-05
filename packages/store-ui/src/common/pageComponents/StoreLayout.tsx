@@ -1,14 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Flex,
-  Layout,
-  Content,
-  Header,
-  Footer,
-  Input,
-  Box,
-  Image,
-} from '@sradevski/blocks-ui';
+import { Flex, Layout, Input, Box, Image } from '@sradevski/blocks-ui';
 import queryString from 'qs';
 import styled, { withTheme } from 'styled-components';
 import Link from 'next/link';
@@ -33,22 +24,12 @@ interface StoreLayoutProps {
   theme: BlocksTheme;
 }
 
-const StyledContent = styled(Content)`
-  overflow: initial;
-  background: white;
-`;
-
 // This makes sure the anchor is as high as its content
 const LineHeightFreeAnchor = styled.a`
   line-height: 0;
   height: 56px;
   min-width: 56px;
   margin: 4px 0;
-`;
-
-const BorderedHeader = styled(Header)`
-  background: white;
-  border-bottom: 1px solid #e8e8e8;
 `;
 
 export const StoreLayout = withTheme(
@@ -98,62 +79,67 @@ export const StoreLayout = withTheme(
 
     return (
       <>
-        <Layout theme='light' style={{ backgroundColor: 'white' }}>
-          <BorderedHeader height={['128px', '64px', '64px']} px={[2, 3, 4]}>
-            <Flex justify='space-between'>
-              <Link href='/' passHref>
-                <LineHeightFreeAnchor style={{ display: 'flex' }}>
-                  <Box height={'56px'}>
-                    <Image
-                      getSrc={params =>
-                        sdk.artifact.getUrlForImage(
-                          store?.logo,
-                          store?._id,
-                          params,
-                        )
-                      }
-                      height={64}
-                      alt='logo'
-                    />
-                  </Box>
-                </LineHeightFreeAnchor>
-              </Link>
-              <Box
-                display={['none', 'block', 'block']}
-                flex={1}
-                minWidth='300px'
-                maxWidth='800px'
-                mx={[2, 3, 4]}
-                my={1}
-              >
+        <Layout
+          header={
+            <Box
+              as='nav'
+              height={['128px', '64px', '64px']}
+              px={[2, 3, 4]}
+              // @ts-ignore
+              border='1px solid #e8e8e8'
+            >
+              <Flex justify='space-between'>
+                <Link href='/' passHref>
+                  <LineHeightFreeAnchor style={{ display: 'flex' }}>
+                    <Box height={'56px'}>
+                      <Image
+                        getSrc={params =>
+                          sdk.artifact.getUrlForImage(
+                            store?.logo,
+                            store?._id,
+                            params,
+                          )
+                        }
+                        height={64}
+                        alt='logo'
+                      />
+                    </Box>
+                  </LineHeightFreeAnchor>
+                </Link>
+                <Box
+                  display={['none', 'block', 'block']}
+                  flex={1}
+                  minWidth='300px'
+                  maxWidth='800px'
+                  mx={[2, 3, 4]}
+                  my={1}
+                >
+                  {presetSearch}
+                </Box>
+                <TopMenu
+                  selectedKey={selectedKey}
+                  user={user}
+                  cartCount={cartCount}
+                  handleLogin={handleLogin}
+                  handleLogout={handleLogout}
+                />
+              </Flex>
+              <Box display={['block', 'none', 'none']} mx={[2, 3, 4]} my={1}>
                 {presetSearch}
               </Box>
-              <TopMenu
-                selectedKey={selectedKey}
-                user={user}
-                cartCount={cartCount}
-                handleLogin={handleLogin}
-                handleLogout={handleLogout}
-              />
-            </Flex>
-            <Box display={['block', 'none', 'none']} mx={[2, 3, 4]} my={1}>
-              {presetSearch}
             </Box>
-          </BorderedHeader>
-          <StyledContent minHeight='calc(100vh - 64px - 65px)'>
+          }
+          footer={
+            <Box mt={4} bg='background.dark'>
+              <FooterContent store={store} />
+            </Box>
+          }
+        >
+          <Box>
             <SubMenu height={'64px'} />
             <Breadcrumbs minHeight={'56px'} />
             <Flex direction='column'>{children}</Flex>
-          </StyledContent>
-          <Footer
-            mt={4}
-            style={{
-              textAlign: 'center',
-              background: theme.colors.background.dark,
-            }}
-          >
-            <FooterContent store={store} />
-          </Footer>
+          </Box>
         </Layout>
       </>
     );

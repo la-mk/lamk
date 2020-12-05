@@ -30,15 +30,15 @@ export const ShippingDescription = ({ address, inverse, actions }: any) => {
   return (
     <>
       <Flex mb={3} align='center' justify='space-between'>
-        <Title
+        <Heading
           ellipsis={true}
           m={0}
-          level={4}
-          fontSize={2}
+          as='h4'
+          size='lg'
           color={inverse ? 'heading.light' : 'heading.dark'}
         >
           {address.name}
-        </Title>
+        </Heading>
         {!!actions && actions}
       </Flex>
 

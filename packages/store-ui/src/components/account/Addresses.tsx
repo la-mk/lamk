@@ -14,7 +14,6 @@ import {
   Flex,
   Button,
   Text,
-  Title,
   Grid,
   Result,
 } from '@sradevski/blocks-ui';
@@ -146,7 +145,7 @@ export const Addresses = withTheme(
                             variant='ghost'
                           >
                             <Text
-                              fontSize={2}
+                              size='lg'
                               color={
                                 isChecked ? 'heading.light' : 'heading.dark'
                               }
@@ -163,7 +162,7 @@ export const Addresses = withTheme(
                             variant='ghost'
                           >
                             <Text
-                              fontSize={2}
+                              size='lg'
                               color={
                                 isChecked ? 'heading.light' : 'heading.dark'
                               }

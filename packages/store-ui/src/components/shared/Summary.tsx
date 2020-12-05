@@ -38,7 +38,7 @@ export const Summary = ({
   delivery,
   campaigns,
   storeId,
-  buttonTitle,
+  buttonHeading,
   disabled,
   showProductsSummary,
   onCheckout,
@@ -83,23 +83,23 @@ export const Summary = ({
       )}
       <Flex direction='row' justify='space-between'>
         <Text>{t('finance.subtotal')}</Text>
-        <Text strong>{prices.productsTotal} ден</Text>
+        <Text as='strong'>{prices.productsTotal} ден</Text>
       </Flex>
       {prices.withCampaignsTotal !== prices.productsTotal && (
         <Flex mt={3} direction='row' justify='space-between'>
           <Text>{t('finance.campaignDiscount')}</Text>
-          <Text strong color='danger'>
+          <Text as='strong' color='danger'>
             {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
           </Text>
         </Flex>
       )}
       <Flex mt={3} direction='row' justify='space-between'>
         <Text>{t('finance.shippingCost')}</Text>
-        <Text strong>{prices.deliveryTotal} ден</Text>
+        <Text as='strong'>{prices.deliveryTotal} ден</Text>
       </Flex>
       {prices.deliveryTotal !== 0 && !hideFreeShipping && (
         <Box mt={3}>
-          <Text fontSize={0} color='mutedText.dark'>
+          <Text size='sm' color='mutedText.dark'>
             {t('delivery.addToGetFreeDelivery', {
               priceUntilFreeDelivery: `${
                 delivery.freeDeliveryOver - prices.withCampaignsTotal
@@ -111,7 +111,7 @@ export const Summary = ({
       <Divider my={3} />
       <Flex direction='row' justify='space-between'>
         <Text>{t('finance.total')}</Text>
-        <Text strong color='primary' fontSize={[2, 3, 3]}>
+        <Text as='strong' color='primary' size='sm'>
           {prices.total} ден
         </Text>
       </Flex>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Title, Text, Button } from '@sradevski/blocks-ui';
+import { Flex, Box, Heading, Text, Button } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
@@ -25,9 +25,9 @@ export const OrderDescription = ({
       <Flex mb={3} direction='row' align='center' justify='space-between'>
         <Flex align='center' justify='center'>
           <Box display={['none', 'initial', 'initial']}>
-            <Title m={0} mr={3} level={2} fontSize={2}>
+            <Heading m={0} mr={3} as='h2' size='lg'>
               {`${t('pages.order')} - ${sdk.utils.getShortId(order._id)}`}
-            </Title>
+            </Heading>
           </Box>
           <svg width='6' height='6' viewBox='0 0 6 6' fill='none'>
             <circle
@@ -40,7 +40,7 @@ export const OrderDescription = ({
           <Text
             color={sdk.order.orderStatusColor[order.status]}
             ml={1}
-            fontSize={0}
+            size='sm'
           >
             {t(`orderStatus.${order.status}`)}
           </Text>
@@ -60,11 +60,11 @@ export const OrderDescription = ({
         storeId={storeId}
       />
       <Flex px={[1, 2, 2]} justify='space-between' align='center'>
-        <Text mr={2} fontSize={[0, 1, 1]} color='mutedText.dark'>
+        <Text mr={2} size='sm' color='mutedText.dark'>
           {/* TODO: Show expected delivery */}
           {/* Expected delivery between 1 and 2 */}
         </Text>
-        <Text ml={2} fontSize={[0, 1, 1]} color='mutedText.dark'>
+        <Text ml={2} size='sm' color='mutedText.dark'>
           {t('order.ordered')}{' '}
           {formatDistanceToNow(new Date(order.createdAt), {
             // TODO: Handle locales better

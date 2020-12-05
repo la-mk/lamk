@@ -1,6 +1,6 @@
 import React from 'react';
 import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
-import { Result, Paragraph } from '@sradevski/blocks-ui';
+import { Result, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Page } from '../shared/Page';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
@@ -26,9 +26,9 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
       {paragraphs ? (
         paragraphs.map(paragraph => {
           return (
-            <Paragraph textAlign='center' key={paragraph.slice(0, 10)}>
+            <Text as='p' align='center' key={paragraph.slice(0, 10)}>
               {paragraph}
-            </Paragraph>
+            </Text>
           );
         })
       ) : (

@@ -61,7 +61,7 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
         overlay={<CategoriesMenu mode='horizontal' />}
       >
         <a style={{ textDecoration: 'none' }}>
-          <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
+          <Text whiteSpace='nowrap' mx={3} color='text.light'>
             {t('common.category_plural')}
             <DownOutlined
               style={{ margin: 0, marginLeft: 8, fontSize: '0.8em' }}
@@ -73,7 +73,7 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
       {sets.map(set => {
         return (
           <HoverableLink key={set.setTag.title} href={getSetHref(set)}>
-            <Text style={{ whiteSpace: 'nowrap' }} mx={3} color='text.light'>
+            <Text whiteSpace='nowrap' mx={3} color='text.light'>
               {set.setTag.title}
             </Text>
           </HoverableLink>

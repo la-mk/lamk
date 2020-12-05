@@ -3,7 +3,7 @@ import pick from 'lodash/pick';
 import React, { useEffect, useState } from 'react';
 import {
   Spinner,
-  Title,
+  Heading,
   Flex,
   Box,
   message,
@@ -83,9 +83,9 @@ export const Payment = () => {
 
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Title mb={4} level={2}>
+      <Heading mb={4} as='h2'>
         {t('commerce.payment')}
-      </Title>
+      </Heading>
       <Spinner
         isLoaded={!showSpinner}
         label={t('payment.updatingPaymentMethodsTip')}

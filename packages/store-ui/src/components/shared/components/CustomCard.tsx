@@ -27,14 +27,14 @@ export const CustomCard = ({
           align='center'
           justify='space-between'
         >
-          <Title
+          <Heading
             color={inverse ? 'heading.dark' : 'heading.light'}
             m={0}
-            fontSize={2}
-            level={3}
+            size='lg'
+            as='h3'
           >
             {title}
-          </Title>
+          </Heading>
           {!!headerAction && headerAction}
         </Flex>
       )}

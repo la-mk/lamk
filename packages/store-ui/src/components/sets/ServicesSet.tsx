@@ -65,19 +65,20 @@ export const ServicesSet = () => {
             my={[3, 3, 2]}
             mx={[2, 3, 4]}
             bg='background.dark'
+            // @ts-ignore
             borderRadius={0}
             align='center'
             justify='center'
             px={[3, 4, 4]}
           >
-            <Text style={{ lineHeight: 1 }} mr={3} color='text.light'>
+            <Text lineHeight='none' mr={3} color='text.light'>
               {!!service.icon && service.icon}
             </Text>
             <Flex ml={2} py={4} direction='column'>
-              <Text fontSize={[3, 3, 4]} color='text.light'>
+              <Text size={'2xl'} color='text.light'>
                 {service.title}
               </Text>
-              <Text fontSize={[0, 0, 1]} color='mutedText.light'>
+              <Text size={'sm'} color='mutedText.light'>
                 {service.subtitle}
               </Text>
             </Flex>

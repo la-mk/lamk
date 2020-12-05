@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Flex,
   Text,
-  Title,
+  Heading,
   Button,
   Input,
   Box,
@@ -301,14 +301,9 @@ export const Product = ({ product }: ProductProps) => {
             justify='flex-start'
             direction='column'
           >
-            <Title
-              textAlign='center'
-              level={1}
-              fontSize={4}
-              ellipsis={{ rows: 2 }}
-            >
+            <Heading align='center' as='h1' size='lg' noOfLines={2}>
               {product.name}
-            </Title>
+            </Heading>
             <Flex
               direction='column'
               align={['center', 'flex-start', 'flex-start']}
@@ -334,9 +329,7 @@ export const Product = ({ product }: ProductProps) => {
                 }
                 currency={'ден'}
               />
-              <Text fontSize={1} color='mutedText.dark'>
-                {t(`units.${product.unit}`)}
-              </Text>
+              <Text color='mutedText.dark'>{t(`units.${product.unit}`)}</Text>
             </Flex>
             <Flex align='center' justify='center' mt={[2, 3, 3]}>
               <Text mr={2}>{t('product.availability')}:</Text>

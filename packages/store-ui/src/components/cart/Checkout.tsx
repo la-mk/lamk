@@ -144,7 +144,13 @@ export const Checkout = () => {
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {
-    return <Result status="empty" mt={7} description={t('cart.emptyCartDescription')} />;
+    return (
+      <Result
+        status='empty'
+        mt={7}
+        description={t('cart.emptyCartDescription')}
+      />
+    );
   }
 
   const handleOrder = () => {
@@ -161,7 +167,7 @@ export const Checkout = () => {
     )
       .filter(x => !!x)
       // This is not returned by the API, but is required for validation.
-      .map(campaign => ({ ...campaign, isActive: true }));
+      .map(campaign => ({ ...campaign, isActive: true })) as Campaign[];
 
     caller(
       sdk.order.create({

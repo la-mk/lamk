@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paragraph, Tabs } from '@sradevski/blocks-ui';
+import { Tabs, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
@@ -25,9 +25,9 @@ export const ProductDetails = ({
         {
           title: t('common.description'),
           content: (
-            <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+            <Text as='p' whiteSpace='pre-wrap'>
               {product.description?.trim()}
-            </Paragraph>
+            </Text>
           ),
         },
         {
@@ -35,16 +35,16 @@ export const ProductDetails = ({
           content: (
             <>
               {!!delivery?.method && (
-                <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+                <Text as='p' whiteSpace='pre-wrap'>
                   {t(`deliveryMethods.${delivery.method}`)}:{' '}
                   {`${deliveryPrice} ден`}
-                </Paragraph>
+                </Text>
               )}
-              <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+              <Text as='p' whiteSpace='pre-wrap'>
                 {t('delivery.productFreeDeliveryExplanation', {
                   freeDeliveryPrice: `${freeDeliveryPrice} ден`,
                 })}
-              </Paragraph>
+              </Text>
             </>
           ),
         },

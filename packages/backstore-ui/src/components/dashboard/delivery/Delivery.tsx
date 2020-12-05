@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {
   Spinner,
-  Title,
+  Heading,
   Flex,
   message,
   hooks,
@@ -58,9 +58,9 @@ export const Delivery = () => {
 
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Title mb={4} level={2}>
+      <Heading mb={4} as='h2'>
         {t('commerce.delivery')}
-      </Title>
+      </Heading>
       <Box my={3}>
         <Spinner
           isLoaded={!showSpinner}

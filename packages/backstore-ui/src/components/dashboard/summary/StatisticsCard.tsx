@@ -59,7 +59,7 @@ export const StatisticsCard = ({
       <Card>
         {(frequencies || title) && (
           <Flex mb={3} justify='space-between' align='center'>
-            {!!title && <Text strong>{title}</Text>}
+            {!!title && <Text as='strong'>{title}</Text>}
             {frequencies && (
               <Radio
                 value={frequency}

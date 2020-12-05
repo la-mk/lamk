@@ -1,12 +1,11 @@
 import React from 'react';
-import { Badge } from '@sradevski/blocks-ui';
+import { CardProps, Positioner } from '@sradevski/blocks-ui';
 import { CheckCircleFilled } from '@ant-design/icons';
-import { CardProps } from 'antd/lib/card';
-import { SystemProps } from '@sradevski/blocks-ui/dist/system';
 import { withTheme } from 'styled-components';
 import { CustomCard } from './components/CustomCard';
 
-interface SelectableCardProps extends CardProps, Omit<SystemProps, 'color'> {
+interface SelectableCardProps extends CardProps {
+  onClick: () => void;
   isChecked: boolean;
   theme: any;
 }
@@ -14,10 +13,8 @@ interface SelectableCardProps extends CardProps, Omit<SystemProps, 'color'> {
 export const SelectableCard = withTheme(
   ({ isChecked, children, theme, ...props }: SelectableCardProps) => {
     return (
-      <Badge
-        width='100%'
-        style={{ backgroundColor: 'transparent' }}
-        count={
+      <Positioner
+        overlayContent={
           isChecked ? (
             <CheckCircleFilled
               style={{
@@ -25,17 +22,18 @@ export const SelectableCard = withTheme(
                 fontSize: 20,
               }}
             />
-          ) : undefined
+          ) : null
         }
       >
         <CustomCard
           inverse={isChecked}
+          // @ts-ignore
           style={{ cursor: 'pointer' }}
           {...props}
         >
           {children}
         </CustomCard>
-      </Badge>
+      </Positioner>
     );
   },
 );

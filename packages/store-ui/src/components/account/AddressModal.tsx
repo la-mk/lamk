@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Modal, Flex, Title, Text } from '@sradevski/blocks-ui';
+import { Modal, Flex, Heading, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { AddressForm } from './AddressForm';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
@@ -39,10 +39,10 @@ export const AddressModal = ({
         minWidth={200}
         mx='auto'
       >
-        <Title level={2} mb={3} fontSize={4}>
+        <Heading as='h2' mb={3} size='lg'>
           {t('common.address_plural')}
-        </Title>
-        <Text textAlign='center' fontSize={0}>
+        </Heading>
+        <Text align='center' size='sm'>
           {t('address.addAddressExplanation')}
         </Text>
 

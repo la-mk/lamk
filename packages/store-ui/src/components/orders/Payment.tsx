@@ -8,7 +8,7 @@ import {
   Spinner,
   hooks,
   Alert,
-  Title,
+  Heading,
   Button,
   Text,
   Result,
@@ -166,11 +166,11 @@ export const Payment = ({ orderId }: PaymentProps) => {
       >
         <Flex align='center' justify='center' direction='column'>
           {order && (
-            <Title level={3} fontSize={4}>
+            <Heading as='h3' size='lg'>
               {t('payment.payAmountTip', {
                 amountWithCurrency: `${order.calculatedTotal} ден`,
               })}
-            </Title>
+            </Heading>
           )}
           {paymentResponse?.error && (
             <Alert

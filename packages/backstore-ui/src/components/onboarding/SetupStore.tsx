@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Title, Flex, Text, Box } from '@sradevski/blocks-ui';
+import { Heading, Flex, Text, Box } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { StoreForm } from '../shared/forms/StoreForm';
 import { useTranslation } from 'react-i18next';
@@ -16,10 +16,10 @@ export const SetupStore = ({ onDone, store, userId }: SetupStoreProps) => {
   return (
     <>
       <Flex mb={6} align='center' direction='column'>
-        <Title textAlign='center' level={3}>
+        <Heading align='center' as='h3'>
           {t('onboarding.setupStoreTitle')}
-        </Title>
-        <Text textAlign='center' color='secondary'>
+        </Heading>
+        <Text align='center' color='secondary'>
           {t('onboarding.setupStoreSubtitle')}
         </Text>
       </Flex>

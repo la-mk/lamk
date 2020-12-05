@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Tabs, Flex, Title, TabsProps } from '@sradevski/blocks-ui';
+import { Tabs, Flex, Heading, TabsProps } from '@sradevski/blocks-ui';
 
 interface TabbedRouteProps
   extends Pick<RouteComponentProps<{ tab?: string }>, 'match' | 'history'> {
@@ -31,9 +31,9 @@ export const TabbedRouteRenderer = ({
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
       {title && (
-        <Title mb={4} level={2}>
+        <Heading mb={4} as='h2'>
           {title}
-        </Title>
+        </Heading>
       )}
       <Tabs
         isExpandable={false}

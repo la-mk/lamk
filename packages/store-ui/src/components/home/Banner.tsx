@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
 import { sdk } from '@sradevski/la-sdk';
-import { Button, Flex, Title, Box } from '@sradevski/blocks-ui';
+import { Button, Flex, Heading, Box } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
@@ -28,11 +28,13 @@ export const Banner = ({
         height={[450, 600, 600]}
         maxWidth={1520}
         width='100%'
+        // @ts-ignore
         style={{ position: 'relative' }}
       >
         {store.slogan && !hideSlogan && (
           <>
             <Flex
+              // @ts-ignore
               style={{
                 position: 'absolute',
                 top: '20%',
@@ -41,10 +43,12 @@ export const Banner = ({
               }}
               width={['80%', '70%', '60%']}
               ml={['10%', '15%', '20%']}
+              //@ts-ignore
               borderRadius={0}
               bg='background.light'
             />
             <Flex
+              // @ts-ignore
               style={{
                 position: 'absolute',
                 top: '20%',
@@ -56,14 +60,9 @@ export const Banner = ({
               justify='center'
               direction='column'
             >
-              <Title
-                px={[2, 3, 4]}
-                textAlign='center'
-                level={1}
-                fontSize={[5, 6, 6]}
-              >
+              <Heading px={[2, 3, 4]} align='center' as='h1' size={'xl'}>
                 {store.slogan}
-              </Title>
+              </Heading>
               <Link href='/products' passHref>
                 <Button as='a' size='lg'>
                   {t('actions.shopNow')}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Flex,
-  Title,
+  Heading,
   Table,
   Tag,
   hooks,
@@ -116,9 +116,9 @@ export const Orders = () => {
 
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Title mb={4} level={2}>
+      <Heading mb={4} as='h2'>
         {t('commerce.order_plural')}
-      </Title>
+      </Heading>
 
       <Table<Order>
         dataSource={orders}

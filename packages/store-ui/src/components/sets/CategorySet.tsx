@@ -38,6 +38,7 @@ export const CategorySet = ({
                   height={280}
                   minWidth={320}
                   maxWidth={420}
+                  // @ts-ignore
                   borderRadius={0}
                   style={{
                     position: 'relative',
@@ -53,7 +54,8 @@ export const CategorySet = ({
                     align='center'
                     justify='center'
                     bg='background.dark'
-                    borderRadius={0}
+                    // @ts-ignore
+                    borderRadius={'sm'}
                     style={{
                       position: 'absolute',
                       bottom: 16,
@@ -61,11 +63,7 @@ export const CategorySet = ({
                       right: 16,
                     }}
                   >
-                    <Text
-                      fontSize={0}
-                      color='text.light'
-                      style={{ letterSpacing: '2px' }}
-                    >
+                    <Text size='sm' color='text.light' letterSpacing='wider'>
                       {t(`categories.${categoryName}`).toUpperCase()}
                     </Text>
                   </Flex>

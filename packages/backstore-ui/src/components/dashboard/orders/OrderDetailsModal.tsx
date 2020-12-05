@@ -6,15 +6,13 @@ import {
   Descriptions,
   DescriptionItem,
   Select,
-  Option,
-  Tag,
   Card,
   Image,
   Text,
   Divider,
   hooks,
   Box,
-  Title,
+  Heading,
   DataGrid,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
@@ -70,16 +68,11 @@ export const OrderDetailsModal = ({
                 {sdk.utils.getShortId(order)}
               </DescriptionItem>
               <DescriptionItem label={t('common.status')}>
-                <Select
-                  bordered={false}
-                  showArrow
-                  onChange={handleStatusChanged as any}
-                  value={order.status}
-                >
-                  {Object.values(sdk.order.OrderStatus).map(status => {
+                {/* 
+                {Object.values(sdk.order.OrderStatus).map(status => {
                     return (
                       <Option key={status} value={status}>
-                        {/* TODO: Add missing props to blocks-ui */}
+                        // TODO: Add missing props to blocks-ui 
                         <Tag
                           // @ts-ignore
                           style={{ verticalAlign: 'middle' }}
@@ -92,7 +85,15 @@ export const OrderDetailsModal = ({
                       </Option>
                     );
                   })}
-                </Select>
+                */}
+                <Select
+                  onChange={e => handleStatusChanged(e.target.value as any)}
+                  value={order.status}
+                  options={Object.values(sdk.order.OrderStatus).map(status => ({
+                    label: t(`orderStatus.${status}`),
+                    value: status,
+                  }))}
+                />
               </DescriptionItem>
               <DescriptionItem label={t('order.orderDate')}>
                 {format(new Date(order.createdAt), 'MM/dd/yyyy')}
@@ -107,7 +108,9 @@ export const OrderDetailsModal = ({
             {/* TODO: This is copy-pasted from Store, together with the data calculation. Unify in one component*/}
             <Card mr={[0, 0, 2]} mt={[3, 3, 0]} width={['100%', '100%', '50%']}>
               <Flex justify='space-between'>
-                <Title level={4}>{t('finance.priceBreakdown')}</Title>
+                <Heading size='sm' as='h2'>
+                  {t('finance.priceBreakdown')}
+                </Heading>
                 {/* TODO: Improve how this looks like */}
                 <InvoiceDownloadLink
                   order={order}
@@ -131,13 +134,13 @@ export const OrderDetailsModal = ({
               </Flex>
               <Divider mt={3} mb={4} />
               <Flex direction='row' justify='space-between'>
-                <Text strong>{t('finance.subtotal')}</Text>
-                <Text strong>{prices.productsTotal} ден</Text>
+                <Text as='strong'>{t('finance.subtotal')}</Text>
+                <Text as='strong'>{prices.productsTotal} ден</Text>
               </Flex>
               {prices.withCampaignsTotal !== prices.productsTotal && (
                 <Flex mt={2} direction='row' justify='space-between'>
-                  <Text strong>{t('finance.campaignDiscount')}</Text>
-                  <Text strong color='danger'>
+                  <Text as='strong'>{t('finance.campaignDiscount')}</Text>
+                  <Text as='strong' color='danger'>
                     {(prices.withCampaignsTotal - prices.productsTotal).toFixed(
                       1,
                     )}{' '}
@@ -146,18 +149,20 @@ export const OrderDetailsModal = ({
                 </Flex>
               )}
               <Flex mt={2} direction='row' justify='space-between'>
-                <Text strong>{t('finance.shippingCost')}</Text>
-                <Text strong>{prices.deliveryTotal} ден</Text>
+                <Text as='strong'>{t('finance.shippingCost')}</Text>
+                <Text as='strong'>{prices.deliveryTotal} ден</Text>
               </Flex>
               <Divider my={4} />
               <Flex direction='row' justify='space-between'>
-                <Text strong>{t('finance.total')}</Text>
-                <Text strong>{prices.total} ден</Text>
+                <Text as='strong'>{t('finance.total')}</Text>
+                <Text as='strong'>{prices.total} ден</Text>
               </Flex>
             </Card>
             <Card ml={[0, 0, 2]} mt={[3, 3, 0]} width={['100%', '100%', '50%']}>
               <Flex>
-                <Title level={4}>{t('commerce.buyer')}</Title>
+                <Heading size='sm' as='h2'>
+                  {t('commerce.buyer')}
+                </Heading>
               </Flex>
               <Divider my={3} />
               {order.deliverTo && (
@@ -183,7 +188,9 @@ export const OrderDetailsModal = ({
           </Flex>
           <Card mt={3}>
             <Flex>
-              <Title level={4}>{t('commerce.product_plural')}</Title>
+              <Heading size='sm' as='h2'>
+                {t('commerce.product_plural')}
+              </Heading>
             </Flex>
             <Divider my={3} />
             {Boolean(order?.ordered) && (
@@ -227,14 +234,14 @@ export const OrderDetailsModal = ({
 
                         <Flex align='center'>
                           {orderItem.product.sku && (
-                            <Text strong mx={2}>
+                            <Text as='strong' mx={2}>
                               {`${t('product.sku')}: ${orderItem.product.sku}`}
                             </Text>
                           )}
                           {!isEmpty(orderItem.product.attributes) && (
                             <>
                               <Flex align='center' ml={2}>
-                                <Text strong>{`${t(
+                                <Text as='strong'>{`${t(
                                   'product.variant',
                                 )}: `}</Text>
                                 <Box ml={1}>
@@ -259,7 +266,7 @@ export const OrderDetailsModal = ({
                           {t(`units.${orderItem.product.unit}`)}
                         </Text>
                       </Text>
-                      <Text strong>
+                      <Text as='strong'>
                         {t('finance.total')}:{' '}
                         {`${
                           orderItem.quantity *

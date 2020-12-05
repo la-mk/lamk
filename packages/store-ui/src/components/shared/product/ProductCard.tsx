@@ -1,7 +1,7 @@
 import React from 'react';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { Title, Flex, Box, Paragraph, Image } from '@sradevski/blocks-ui';
+import { Heading, Flex, Box, Image, Text } from '@sradevski/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 
@@ -22,18 +22,14 @@ const ProductDescription = ({
 }) => {
   return (
     <Box py={horizontal ? 3 : 0}>
-      <Title mb={2} level={3} fontSize={[1, 2, 2]} ellipsis={{ rows: 2 }}>
+      <Heading mb={2} as='h3' size='sm' noOfLines={2}>
         {product.name}
-      </Title>
+      </Heading>
 
       {detailed && (
-        <Paragraph
-          color='mutedText.dark'
-          style={{ whiteSpace: 'pre-wrap' }}
-          ellipsis={{ rows: 3 }}
-        >
+        <Text as='p' color='mutedText.dark' whiteSpace='pre-wrap' noOfLines={3}>
           {product.description}
-        </Paragraph>
+        </Text>
       )}
 
       <Price
@@ -73,6 +69,7 @@ const ProductImage = ({
       maxWidth={horizontal ? normalSizes : undefined}
       justify='center'
       align='center'
+      // @ts-ignore
       style={{ position: 'relative' }}
       mb={horizontal ? 0 : 3}
       mr={horizontal ? [3, 3, 4] : 0}

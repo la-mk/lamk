@@ -63,7 +63,7 @@ export const CategoriesFilter = ({
           variant='link'
           onClick={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
         >
-          <Text fontSize={0} color='mutedText.dark'>
+          <Text size='sm' color='mutedText.dark'>
             <ReloadOutlined style={{ marginRight: 8 }} />
             {t('actions.reset')}
           </Text>

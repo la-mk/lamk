@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Flex,
-  Title,
+  Heading,
   Table,
   hooks,
   utils,
@@ -35,7 +35,11 @@ const getColumns = (t: TFunction) =>
       dataIndex: 'isActive',
       render: val => {
         if (val) {
-          return <Badge status='processing' text={t('campaign.active')} />;
+          return (
+            <Badge variant='outline' colorScheme='blue'>
+              {t('campaign.active')}
+            </Badge>
+          );
         }
 
         return null;
@@ -46,7 +50,11 @@ const getColumns = (t: TFunction) =>
       dataIndex: 'isPromoted',
       render: val => {
         if (val) {
-          return <Badge status='processing' text={t('campaign.promoted')} />;
+          return (
+            <Badge variant='outline' colorScheme='blue'>
+              {t('campaign.promoted')}
+            </Badge>
+          );
         }
 
         return null;
@@ -90,9 +98,9 @@ export const Campaigns = () => {
 
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Title mb={4} level={2}>
+      <Heading mb={4} as='h2'>
         {t('commerce.campaign_plural')}
-      </Title>
+      </Heading>
       <Flex my={3} justify='space-between'>
         <Button
           onClick={() => {

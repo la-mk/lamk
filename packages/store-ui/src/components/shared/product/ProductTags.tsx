@@ -37,20 +37,24 @@ export const ProductTags = ({
     <Flex
       direction='column'
       align='flex-end'
+      // @ts-ignore
       style={{ position: 'absolute', right: 4, top: 12 }}
     >
       {/* TODO: Change bgColor for colorScheme */}
       {isSoldOut && (
+        // @ts-ignore
         <Tag minWidth='70px' size={size} mb={2} bgColor='#043353'>
           {t('product.outOfStock')}
         </Tag>
       )}
       {!isSoldOut && isNew && (
+        // @ts-ignore
         <Tag minWidth='70px' size={size} mb={2} bgColor='#D9E93C'>
           {t('product.new')}
         </Tag>
       )}
       {!isSoldOut && discountPercentage > 0 && (
+        // @ts-ignore
         <Tag minWidth='70px' size={size} mb={2} bgColor='#FF3838'>
           {t('product.discounted', { percentage: discountPercentage })}
         </Tag>

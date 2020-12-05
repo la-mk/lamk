@@ -8,7 +8,7 @@ import {
   message,
   Spinner,
   hooks,
-  Title,
+  Heading,
   Switch,
   NewForm,
 } from '@sradevski/blocks-ui';
@@ -273,18 +273,18 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
               sections: [
                 {
                   sectionTitle: (
-                    <Title m={0} level={3}>
+                    <Heading m={0} as='h3'>
                       {t('common.basic')}
-                    </Title>
+                    </Heading>
                   ),
                   properties: ['soldBy', 'name', 'category', 'images'],
                 },
                 {
                   sectionTitle: (
                     <Flex mt={3} mb={2} align='center'>
-                      <Title m={0} level={3}>
+                      <Heading m={0} as='h3'>
                         {t('product.variant_plural')}
-                      </Title>
+                      </Heading>
                       <Switch
                         ml={3}
                         isChecked={showVariants}
@@ -298,9 +298,9 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                 },
                 {
                   sectionTitle: (
-                    <Title mt={1} mb={2} level={3}>
+                    <Heading mt={1} mb={2} as='h3'>
                       {t('common.details')}
-                    </Title>
+                    </Heading>
                   ),
                   properties: ['unit', 'groups', 'description'],
                 },

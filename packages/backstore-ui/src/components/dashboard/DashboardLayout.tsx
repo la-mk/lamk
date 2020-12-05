@@ -1,12 +1,15 @@
 import React from 'react';
 import {
   Layout,
-  Sider,
-  Content,
   Flex,
+  Text,
   Menu,
   MenuItem,
   LanguagePicker,
+  Box,
+  Button,
+  Divider,
+  hooks,
 } from '@sradevski/blocks-ui';
 import {
   DashboardOutlined,
@@ -17,6 +20,8 @@ import {
   ShopOutlined,
   // SettingOutlined,
   BankOutlined,
+  RightOutlined,
+  LeftOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
@@ -29,21 +34,27 @@ interface DashboardLayoutProps {
   location: Location;
 }
 
-const FixedSider = styled(Sider)`
+const TopMenuContainer = styled(Flex)`
+  color: white;
+`;
+
+const SiderContainer = styled(Box)<{ isCollapsed: boolean }>`
+  width: ${props => (props.isCollapsed ? '64px' : '192px')};
+`;
+
+const FixedSider = styled(Flex)`
   overflow: auto;
   height: 100vh;
   position: fixed;
   left: 0;
 `;
 
-const StyledContent = styled(Content)`
-  overflow: initial;
-  background: white;
-  transition: margin 250ms;
-`;
-
-const TopMenuContainer = styled(Flex)`
-  color: white;
+const CustomMenuItem = styled(MenuItem)<{ isCollapsed: boolean }>`
+  padding-left: ${props => (props.isCollapsed ? '8px !important' : '')};
+  padding-right: ${props => (props.isCollapsed ? '8px !important' : '')};
+  display: ${props => (props.isCollapsed ? 'flex' : '')};
+  align-items: center;
+  justify-content: center;
 `;
 
 const TopMenu = ({ isSidebarCollapsed, i18n }: any) => {
@@ -61,7 +72,10 @@ const TopMenu = ({ isSidebarCollapsed, i18n }: any) => {
 };
 
 const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+  const isInitialCollapsed = hooks.useBreakpoint([true, false, false]);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(
+    isInitialCollapsed,
+  );
   const { t, i18n } = useTranslation();
 
   // Not a very clean solution, but it will do for now
@@ -70,79 +84,149 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
 
   return (
     <>
-      <Layout>
-        <FixedSider
-          collapsible
-          collapsed={isSidebarCollapsed}
-          onCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-        >
-          <TopMenu isSidebarCollapsed={isSidebarCollapsed} i18n={i18n} />
+      <Layout
+        leftSider={
+          <SiderContainer isCollapsed={isSidebarCollapsed} bg='secondary'>
+            <FixedSider width='inherit' direction='column' bg='inherit'>
+              <TopMenu isSidebarCollapsed={isSidebarCollapsed} i18n={i18n} />
 
-          <Menu theme='dark' mode='inline' selectedKeys={selectedKeys}>
-            <MenuItem key='summary'>
-              <DashboardOutlined />
-              <span>{t('common.summary')}</span>
-              <Link to='/dashboard/summary' />
-            </MenuItem>
+              <Menu
+                style={{ height: '100%' }}
+                theme='dark'
+                mode='inline'
+                selectedKeys={selectedKeys}
+              >
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='summary'>
+                  <DashboardOutlined
+                    style={{
+                      fontSize: isSidebarCollapsed ? '20px' : undefined,
+                      marginRight: isSidebarCollapsed ? 0 : undefined,
+                    }}
+                  />
+                  <Text display={isSidebarCollapsed ? 'none' : undefined}>
+                    {t('common.summary')}
+                  </Text>
+                  <Link to='/dashboard/summary' />
+                </CustomMenuItem>
 
-            <MenuItem key='orders'>
-              <ShoppingCartOutlined />
-              <span>{t('commerce.order_plural')}</span>
-              <Link to='/dashboard/orders' />
-            </MenuItem>
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='orders'>
+                  <ShoppingCartOutlined
+                    style={{
+                      fontSize: isSidebarCollapsed ? '20px' : undefined,
+                      marginRight: isSidebarCollapsed ? 0 : undefined,
+                    }}
+                  />
+                  <Text display={isSidebarCollapsed ? 'none' : undefined}>
+                    {t('commerce.order_plural')}
+                  </Text>
+                  <Link to='/dashboard/orders' />
+                </CustomMenuItem>
 
-            <MenuItem key='products'>
-              <AppstoreOutlined />
-              <span>{t('commerce.product_plural')}</span>
-              <Link to='/dashboard/products' />
-            </MenuItem>
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='products'>
+                  <AppstoreOutlined
+                    style={{
+                      fontSize: isSidebarCollapsed ? '20px' : undefined,
+                      marginRight: isSidebarCollapsed ? 0 : undefined,
+                    }}
+                  />
+                  <Text display={isSidebarCollapsed ? 'none' : undefined}>
+                    {t('commerce.product_plural')}
+                  </Text>
+                  <Link to='/dashboard/products' />
+                </CustomMenuItem>
 
-            <MenuItem key='delivery'>
-              <CodeSandboxOutlined />
-              <span>{t('commerce.delivery')}</span>
-              <Link to='/dashboard/delivery' />
-            </MenuItem>
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='delivery'>
+                  <CodeSandboxOutlined
+                    style={{
+                      fontSize: isSidebarCollapsed ? '20px' : undefined,
+                      marginRight: isSidebarCollapsed ? 0 : undefined,
+                    }}
+                  />
+                  <Text display={isSidebarCollapsed ? 'none' : undefined}>
+                    {t('commerce.delivery')}
+                  </Text>
+                  <Link to='/dashboard/delivery' />
+                </CustomMenuItem>
 
-            <MenuItem key='payment'>
-              <BankOutlined />
-              <span>{t('commerce.payment')}</span>
-              <Link to='/dashboard/payment' />
-            </MenuItem>
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='payment'>
+                  <BankOutlined
+                    style={{
+                      fontSize: isSidebarCollapsed ? '20px' : undefined,
+                      marginRight: isSidebarCollapsed ? 0 : undefined,
+                    }}
+                  />
+                  <Text display={isSidebarCollapsed ? 'none' : undefined}>
+                    {t('commerce.payment')}
+                  </Text>
+                  <Link to='/dashboard/payment' />
+                </CustomMenuItem>
 
-            <MenuItem key='campaigns'>
-              <TagOutlined />
-              <span>{t('commerce.campaign_plural')}</span>
-              <Link to='/dashboard/campaigns' />
-            </MenuItem>
+                <CustomMenuItem
+                  isCollapsed={isSidebarCollapsed}
+                  key='campaigns'
+                >
+                  <TagOutlined
+                    style={{
+                      fontSize: isSidebarCollapsed ? '20px' : undefined,
+                      marginRight: isSidebarCollapsed ? 0 : undefined,
+                    }}
+                  />
+                  <Text display={isSidebarCollapsed ? 'none' : undefined}>
+                    {t('commerce.campaign_plural')}
+                  </Text>
+                  <Link to='/dashboard/campaigns' />
+                </CustomMenuItem>
 
-            <MenuItem key='store'>
-              <ShopOutlined />
-              <span>{t('commerce.store')}</span>
-              <Link to='/dashboard/store' />
-            </MenuItem>
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='store'>
+                  <ShopOutlined
+                    style={{
+                      fontSize: isSidebarCollapsed ? '20px' : undefined,
+                      marginRight: isSidebarCollapsed ? 0 : undefined,
+                    }}
+                  />
+                  <Text display={isSidebarCollapsed ? 'none' : undefined}>
+                    {t('commerce.store')}
+                  </Text>
+                  <Link to='/dashboard/store' />
+                </CustomMenuItem>
 
-            {/* 
-            <MenuItem key='preferences'>
-              <SettingOutlined />
-              <span>{t('common.preferences')}</span>
-              <Link to='/dashboard/preferences' />
-            </MenuItem> */}
-            <MenuItem key='language'>
-              <LanguagePicker
-                languageCode={i18n.language}
-                onChangeLanguageCode={key => i18n.changeLanguage(key)}
-              />
-            </MenuItem>
-          </Menu>
-        </FixedSider>
-        <StyledContent
-          minHeight={'calc(100vh - 32px)'}
-          ml={isSidebarCollapsed ? 96 : 216}
-          my={16}
-          mr={16}
-        >
-          {children}
-        </StyledContent>
+                {/* 
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='preferences'>
+                  <SettingOutlined />
+                  <Text>{t('common.preferences')}</Text>
+                  <Link to='/dashboard/preferences' />
+                </CustomMenuItem> 
+              */}
+                <CustomMenuItem isCollapsed={isSidebarCollapsed} key='language'>
+                  <LanguagePicker
+                    languageCode={i18n.language}
+                    onChangeLanguageCode={key => i18n.changeLanguage(key)}
+                  />
+                </CustomMenuItem>
+              </Menu>
+              <Divider mt={2} />
+              <Button
+                py={4}
+                variant='link'
+                onClick={() => setIsSidebarCollapsed(x => !x)}
+              >
+                {isSidebarCollapsed ? <RightOutlined /> : <LeftOutlined />}
+              </Button>
+            </FixedSider>
+          </SiderContainer>
+        }
+      >
+        <Box bg='background.light'>
+          <Box
+            bg='white'
+            minHeight={'calc(100vh - 32px)'}
+            m={'16px'}
+            // @ts-ignore
+            style={{ overflowY: 'auto' }}
+          >
+            {children}
+          </Box>
+        </Box>
       </Layout>
     </>
   );

@@ -23,17 +23,16 @@ export const Price = ({
   const discounted =
     minPrice !== minCalculatedPrice || maxPrice !== maxCalculatedPrice;
 
-  const fontSize =
-    size === 'small' ? 1 : size === 'large' ? [3, 4, 4] : [1, 2, 2];
+  const fontSize = size === 'small' ? 'sm' : size === 'large' ? 'lg' : 'md';
   const margin = size === 'small' ? 2 : 3;
 
   return (
     <Flex direction={vertical ? 'column' : 'row'} wrap='wrap'>
       <Text
-        fontSize={fontSize}
+        as='strong'
+        size={fontSize}
         color={discounted ? 'danger' : 'text.dark'}
         mr={discounted ? margin : undefined}
-        strong
       >
         {minCalculatedPrice !== maxCalculatedPrice
           ? `${minCalculatedPrice} ~ ${maxCalculatedPrice}`
@@ -42,7 +41,7 @@ export const Price = ({
       </Text>
 
       {discounted && (
-        <Text delete color={'mutedText.light'} fontSize={fontSize}>
+        <Text as='s' color={'mutedText.light'} size={fontSize}>
           {minPrice !== maxPrice ? `${minPrice} ~ ${maxPrice}` : minPrice}{' '}
           {currency}
         </Text>

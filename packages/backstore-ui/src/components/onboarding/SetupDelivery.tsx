@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Title, Text } from '@sradevski/blocks-ui';
+import { Flex, Heading, Text } from '@sradevski/blocks-ui';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { DeliveryForm } from '../shared/forms/DeliveryForm';
 import { useTranslation } from 'react-i18next';
@@ -21,10 +21,10 @@ export const SetupDelivery = ({
   return (
     <>
       <Flex mb={6} align='center' direction='column'>
-        <Title textAlign='center' level={3}>
+        <Heading align='center' as='h3'>
           {t('onboarding.setupDeliveryTitle')}
-        </Title>
-        <Text textAlign='center' color='secondary'>
+        </Heading>
+        <Text align='center' color='secondary'>
           {t('onboarding.setupDeliverySubtitle')}
         </Text>
       </Flex>

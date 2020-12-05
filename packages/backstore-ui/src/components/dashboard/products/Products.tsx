@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {
   Flex,
   Table,
-  Title,
+  Heading,
   Button,
   Image,
   hooks,
@@ -99,7 +99,7 @@ const getColumns = (
       dataIndex: 'variants',
       render: (val: Variant[], record) => {
         return (
-          <Text maxWidth={140} ellipsis>
+          <Text maxWidth={'140px'} isTruncated>
             {val
               .map(x => x.sku)
               .filter(x => !!x)
@@ -270,9 +270,9 @@ export const Products = () => {
 
   return (
     <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Title mb={4} level={2}>
+      <Heading mb={4} as='h2'>
         {t('commerce.product_plural')}
-      </Title>
+      </Heading>
 
       <Flex my={3} justify='space-between'>
         <Button

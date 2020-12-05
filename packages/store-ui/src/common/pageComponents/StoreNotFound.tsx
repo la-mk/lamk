@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title, Paragraph, Button } from '@sradevski/blocks-ui';
+import { Flex, Heading, Button, Text } from '@sradevski/blocks-ui';
 import { TFunction } from 'next-i18next';
 
 export const StoreNotFound = ({ t }: { t: TFunction }) => {
@@ -12,12 +12,12 @@ export const StoreNotFound = ({ t }: { t: TFunction }) => {
         align='center'
         justify='center'
       >
-        <Title textAlign='center' mb={2} level={1} fontSize={[6, 6, 7]}>
+        <Heading align='center' mb={2} as='h1' size={'2xl'}>
           {t('results.storeNotFound')}
-        </Title>
-        <Paragraph textAlign='center' mb={4}>
+        </Heading>
+        <Text as='p' align='center' mb={4}>
           {t('results.storeNotFoundExplanation')}
-        </Paragraph>
+        </Text>
         <Button as='a' href='https://la.mk' target='_blank'>
           {t('actions.createStoreNow')}
         </Button>

@@ -31,24 +31,6 @@ const GlobalStyle = createGlobalStyle`
     border: 0 !important;
   }
 
-  input {
-    line-height: inherit;
-    font: inherit;
-    font-variant: inherit;
-    color: inherit;
-    font-size: inherit;
-  }
-
-  /* This is used by Text strong */
-  strong {
-    font-weight: 500 !important;
-  }
-
-  .ant-card-actions > li > span a,
-  .ant-card-actions > li > span i {
-    width: initial;
-  }
-
   html body {
     height: 100%;
     font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';

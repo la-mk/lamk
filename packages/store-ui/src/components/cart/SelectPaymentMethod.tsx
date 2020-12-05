@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Text, Flex, Grid, Box } from '@sradevski/blocks-ui';
+import { Heading, Text, Flex, Grid, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import {
   StorePaymentMethods,
@@ -32,9 +32,9 @@ export const SelectPaymentMethod = ({
 
   return (
     <>
-      <Title level={3} fontSize={3} color='text.dark'>
+      <Heading as='h3' size='lg' color='text.dark'>
         {t('payment.choosePaymentMethod')}
-      </Title>
+      </Heading>
       <Grid mt={3} spacing={5} minChildWidth={[300, 360, 360]}>
         {storePaymentMethods?.methods &&
           storePaymentMethods.methods.map(method => {
@@ -61,18 +61,18 @@ export const SelectPaymentMethod = ({
                       align='center'
                       justify='center'
                     >
-                      <Title
+                      <Heading
                         m={0}
                         mb={2}
-                        textAlign='center'
-                        level={4}
-                        fontSize={[2, 3, 3]}
+                        align='center'
+                        as='h4'
+                        size='sm'
                         color={isChecked ? 'heading.light' : 'heading.dark'}
                       >
                         {t(`paymentMethodNames.${method.name}`)}
-                      </Title>
+                      </Heading>
                       <Text
-                        fontSize={[0, 1, 1]}
+                        size='sm'
                         color={isChecked ? 'heading.light' : 'heading.dark'}
                       >
                         {t(`paymentMethodNames.${method.name}Explanation`)}

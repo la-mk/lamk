@@ -34,15 +34,11 @@ export const DiscountCampaign = withTheme(
           justify='center'
           direction='column'
           bg='background.dark'
+          // @ts-ignore
           borderRadius={0}
           p={3}
         >
-          <Text
-            mb={2}
-            fontSize={[3, 3, 4]}
-            color='text.light'
-            textAlign='center'
-          >
+          <Text mb={2} size={'2xl'} color='text.light' align='center'>
             {t('campaignBanners.setDiscountTitle', {
               rewardValue: rewardValueText,
               productsTarget: (campaign.productRules[0].type ===
@@ -52,7 +48,7 @@ export const DiscountCampaign = withTheme(
               ).toLowerCase(),
             })}
           </Text>
-          <Text fontSize={[0, 0, 1]} color='mutedText.light' textAlign='center'>
+          <Text size={'sm'} color='mutedText.light' align='center'>
             {t('campaignBanners.setDiscountSubtitle')}
           </Text>
         </Flex>
