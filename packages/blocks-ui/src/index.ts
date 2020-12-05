@@ -36,7 +36,7 @@ export { ImageMagnifier } from './basic/Image/ImageMagnifier';
 export { ImageUploader, ImageUploaderProps } from './basic/ImageUploader';
 export { Input, InputProps } from './basic/Input';
 export { Textarea, TextareaProps } from './basic/Textarea';
-export { Layout, Header, Footer, Sider, Content } from './basic/Layout';
+export { Layout, LayoutProps } from './basic/Layout';
 export {
   Menu,
   SubMenu,
