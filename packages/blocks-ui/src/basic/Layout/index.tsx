@@ -22,35 +22,37 @@ export const Layout = ({
 
   const templateRows = `
     ${header ? '[header header] max-content' : ''}
-    [leftSider content] 1fr
+    [leftSider content] minmax(0, 1fr)
     ${footer ? '[footer footer] max-content' : ''}
   `;
 
-  const templateColumns = '[leftSider] max-content [content] 1fr';
+  const templateColumns = '[leftSider] max-content [content] minmax(0, 1fr)';
 
   return (
     <Grid
+      bg="transparent"
       height="100%"
       gridTemplateAreas={templateAreas.trim()}
       gridTemplateRows={templateRows.trim()}
       gridTemplateColumns={templateColumns}
     >
       {header && (
-        <GridItem gridRow="header" gridColumn="header">
+        <GridItem bg="transparent" gridRow="header" gridColumn="header">
           {header}
         </GridItem>
       )}
       {leftSider && (
-        <GridItem gridRow="leftSider" gridColumn="leftSider">
+        <GridItem bg="transparent" gridRow="leftSider" gridColumn="leftSider">
           {leftSider}
         </GridItem>
       )}
       {footer && (
-        <GridItem gridRow="footer" gridColumn="footer">
+        <GridItem bg="transparent" gridRow="footer" gridColumn="footer">
           {footer}
         </GridItem>
       )}
       <GridItem
+        bg="transparent"
         gridRow={leftSider ? 'leftSider' : 'content'}
         gridColumn="content"
       >

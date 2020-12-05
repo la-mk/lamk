@@ -36,7 +36,7 @@ export const LanguagePicker = ({
       {/* @ts-ignore */}
       <Flex style={{ cursor: 'pointer' }} align="center" height="100%">
         <Text color="inherit" mr={1}>
-          <GlobalOutlined />
+          <GlobalOutlined style={{ marginRight: 0 }} />
         </Text>
         <Text color="inherit">{languageCode.toUpperCase()}</Text>
       </Flex>
