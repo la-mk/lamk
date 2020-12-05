@@ -10,6 +10,12 @@ storiesOf('Text', module).add('standard', () => (
       <Text mt={3} size="xs" as="strong">
         This is bold
       </Text>
+      <Text mt={3} size="xs" as="p" whiteSpace="pre-wrap">
+        {`This 
+        is text 
+        and This should 
+        wrap`}
+      </Text>
     </div>
   </Provider>
 ));

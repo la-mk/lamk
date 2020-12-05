@@ -17,10 +17,22 @@ export interface TextProps
       | 'color'
       | 'maxWidth'
       | 'minWidth'
+      | 'display'
+      | 'lineHeight'
+      | 'letterSpacing'
     >,
     SpaceProps {
   size?: TextSize;
   as?: As;
+  // This is not explicitly supported but it works
+  whiteSpace?:
+    | 'normal'
+    | 'nowrap'
+    | 'pre'
+    | 'pre-line'
+    | 'pre-wrap'
+    | 'initial'
+    | 'inherit';
 }
 
 ChakraText.defaultProps = {
