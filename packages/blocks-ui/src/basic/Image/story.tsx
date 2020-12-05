@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { Image } from './Image';
 import { Provider } from '../Provider';
-import { Text } from '../Typography';
+import { Text } from '../Text';
 import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { ImageMagnifier } from './ImageMagnifier';

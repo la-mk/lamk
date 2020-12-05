@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex } from '../basic/Flex';
 import { Box } from '../basic/Box';
 import { Image } from '../basic/Image/Image';
-import { Text } from '../basic/Typography';
+import { Text } from '../basic/Text';
 
 export const PoweredBy = ({
   inverse,
@@ -15,9 +15,9 @@ export const PoweredBy = ({
     <a style={{ textDecoration: 'none' }} href="https://la.mk" target="_blank">
       <Flex display="inline-flex" align="center" justify="center">
         <Text
-          strong
+          as="strong"
           color={inverse ? 'text.light' : 'text.dark'}
-          fontSize={0}
+          size={'xs'}
           mr={2}
         >
           powered by

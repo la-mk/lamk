@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Flex } from '../../basic/Flex';
-import { Text, Title } from '../../basic/Typography';
+import { Text } from '../../basic/Text';
+import { Heading } from '../../basic/Heading';
 import { PoweredBy } from '../PoweredBy';
 import { Button } from '../../basic/Button';
 import { Box } from '../../basic/Box';
@@ -32,11 +33,11 @@ export const AuthFormBase = ({
 
   return (
     <BaseSection>
-      <Title level={2} mb={3} fontSize={6}>
+      <Heading as="h2" mb={3} size="lg">
         {primaryText}
-      </Title>
+      </Heading>
       {logoUrl && (
-        <Text color="mutedText.dark" textAlign="center" fontSize={1}>
+        <Text color="mutedText.dark" align="center" size={'md'}>
           {localization.authSameAccount} <PoweredBy logoUrl={logoUrl} />
         </Text>
       )}
@@ -69,9 +70,7 @@ export const AuthFormBase = ({
       </Box>
 
       <Flex align="center" justify="center" my={3}>
-        <Text color="mutedText.dark" fontSize={1}>
-          {localization.or || 'or'}
-        </Text>
+        <Text color="mutedText.dark">{localization.or || 'or'}</Text>
       </Flex>
 
       <Button size="lg" isFullWidth variant="outline" onClick={onSecondary}>

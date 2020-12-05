@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Box } from '../../basic/Box';
 import { Button } from '../../basic/Button';
-import { Title, Text } from '../../basic/Typography';
+import { Text } from '../../basic/Text';
+import { Heading } from '../../basic/Heading';
 import { Result } from '../../basic/Result';
 import { LocalizationContext } from '../../basic/Provider';
 import { BaseSection } from './BaseSection';
@@ -23,10 +24,10 @@ export const ForgotPasswordForm = <T extends any>({
     <BaseSection>
       {!hasSubmitted && (
         <>
-          <Title textAlign="center" level={2} mb={3} fontSize={6}>
+          <Heading align="center" as="h2" mb={3} size="lg">
             {localization.forgotPassword || 'Forgot your password?'}
-          </Title>
-          <Text color="mutedText.dark" textAlign="center" fontSize={1}>
+          </Heading>
+          <Text color="mutedText.dark" align="center">
             {localization.forgotPasswordExplanation ||
               'We will send you a email with a link to reset your password'}
           </Text>

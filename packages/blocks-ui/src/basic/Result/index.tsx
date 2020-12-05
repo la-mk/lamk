@@ -1,7 +1,7 @@
 import React from 'react';
 import { SpaceProps, useTheme } from '@chakra-ui/react';
 import { Flex } from '../Flex';
-import { Text } from '../Typography';
+import { Text } from '../Text';
 import { EmptyIcon } from './default-icons/EmptyIcon';
 import { NotFoundIcon } from './default-icons/NotFoundIcon';
 import {
@@ -54,14 +54,14 @@ export const Result = ({
       {!icon && status === '404' && <NotFoundIcon />}
 
       {title && (
-        <Text fontSize={4} mt={2} textAlign="center">
+        <Text size="2xl" mt={2} align="center">
           {title}
         </Text>
       )}
       {description && (
         <Text
-          fontSize={0}
-          textAlign="center"
+          size="sm"
+          align="center"
           color="mutedText.dark"
           mt={!!title ? 0 : 2}
         >

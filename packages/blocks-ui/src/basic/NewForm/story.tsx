@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { Textarea } from '../Textarea';
-import { Title } from '../Typography';
+import { Heading } from '../Heading';
 import * as React from 'react';
 import { Provider } from '../Provider';
 import { NewForm } from './NewForm';
@@ -168,17 +168,17 @@ const uiSchema = {
     sections: [
       {
         sectionTitle: (
-          <Title m={0} level={3}>
+          <Heading m={0} as={'h2'}>
             Hey there
-          </Title>
+          </Heading>
         ),
         properties: ['aboutUs', 'isPromoted', 'files'],
       },
       {
         sectionTitle: (
-          <Title m={0} level={3}>
+          <Heading m={0} as={'h2'}>
             This is new
-          </Title>
+          </Heading>
         ),
         properties: ['groups', 'category', 'total', 'landing', 'productRules'],
       },

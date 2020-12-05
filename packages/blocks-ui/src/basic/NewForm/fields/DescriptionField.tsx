@@ -1,16 +1,16 @@
 import React from 'react';
 import { FieldProps } from '@rjsf/core';
-import { Paragraph } from '../../Typography';
+import { Text } from '../../Text';
 
-const DescriptionField = ({ description, id }: FieldProps) => {
+const DescriptionField = ({ description }: FieldProps) => {
   if (!description) {
     return null;
   }
 
   return (
-    <Paragraph mb={1} color="mutedText.dark" id={id}>
+    <Text as="p" mb={1} size="sm" color="mutedText.dark">
       {description}
-    </Paragraph>
+    </Text>
   );
 };
 

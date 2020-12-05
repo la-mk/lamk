@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown } from '../basic/Dropdown';
-import { Text } from '../basic/Typography';
+import { Text } from '../basic/Text';
 import { Flex } from '../basic/Flex';
 import { Menu, MenuItem } from '../basic/Menu';
 import { GlobalOutlined } from '@ant-design/icons';

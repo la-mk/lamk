@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Button } from '../../basic/Button';
 import { Box } from '../../basic/Box';
-import { Title, Text } from '../../basic/Typography';
+import { Text } from '../../basic/Text';
+import { Heading } from '../../basic/Heading';
 import { LocalizationContext } from '../../basic/Provider';
 import { BaseSection } from './BaseSection';
 import { FormProps, NewForm } from '../../basic/NewForm/NewForm';
@@ -18,10 +19,10 @@ export const ResetPasswordForm = <T extends any>({
 
   return (
     <BaseSection>
-      <Title textAlign="center" level={2} mb={3} fontSize={6}>
+      <Heading align="center" as="h2" mb={3} size="lg">
         {localization.resetPassword || 'Reset password'}
-      </Title>
-      <Text color="mutedText.dark" textAlign="center" fontSize={1}>
+      </Heading>
+      <Text color="mutedText.dark" align="center">
         {localization.resetPasswordExplanation ||
           'Set your email and new password in the form below'}
       </Text>

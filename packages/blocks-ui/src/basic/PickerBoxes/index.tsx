@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '../Flex';
 import { Button, ButtonProps } from '../Button';
-import { Text } from '../Typography';
+import { Text } from '../Text';
 import styled from 'styled-components';
 import { Size } from '../../system';
 
@@ -65,7 +65,7 @@ export const PickerBox = ({
     >
       {variant === 'text' ? (
         <Flex align="center" justify="center">
-          <Text fontSize={0}>{value}</Text>{' '}
+          <Text size="sm">{value}</Text>{' '}
         </Flex>
       ) : (
         ' '

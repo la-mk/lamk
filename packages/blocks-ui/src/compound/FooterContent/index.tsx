@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Title } from '../../basic/Typography';
+import { Text } from '../../basic/Text';
+import { Heading } from '../../basic/Heading';
 import { Button } from '../../basic/Button';
 import { Flex } from '../../basic/Flex';
 import { Box } from '../../basic/Box';
@@ -24,7 +25,7 @@ const Submenu = ({ submenus, Link }: { submenus: Submenu[]; Link: any }) => {
         return (
           <Link key={submenu.link} href={submenu.link} passHref>
             <Button as="a" my={2} variant="link">
-              <Text fontSize={0} color="text.light">
+              <Text size="sm" color="text.light">
                 {submenu.text}
               </Text>
             </Button>
@@ -37,9 +38,9 @@ const Submenu = ({ submenus, Link }: { submenus: Submenu[]; Link: any }) => {
 
 const SubmenuTitle = ({ menu, Link }: { menu: Menu; Link: any }) => {
   const title = (
-    <Title mx={3} mb={3} fontSize={1} color="text.light" level={4}>
+    <Heading mx={3} mb={3} size="sm" color="text.light" as="h4">
       {menu.text.toUpperCase()}
-    </Title>
+    </Heading>
   );
   return (
     <>
