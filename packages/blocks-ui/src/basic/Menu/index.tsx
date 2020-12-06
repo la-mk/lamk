@@ -13,6 +13,7 @@ import {
   MenuOptionGroup as ChakraMenuOptionGroup,
   MenuDivider as ChakraMenuDivider,
   SpaceProps,
+  As,
 } from '@chakra-ui/react';
 import { ButtonProps } from '../Button';
 import { MaxWidthProps, MinWidthProps } from 'styled-system';
@@ -29,7 +30,9 @@ export interface MenuItemProps
   extends Pick<
     ChakraMenuItemProps,
     'onClick' | 'children' | 'command' | 'icon' | 'isDisabled'
-  > {}
+  > {
+  as?: As;
+}
 
 export interface MenuItemOptionProps
   extends Pick<

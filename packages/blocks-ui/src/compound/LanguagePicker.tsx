@@ -28,7 +28,6 @@ export const LanguagePicker = ({
         colorScheme={darkMode ? 'white' : 'blackAlpha'}
         as={Button}
         variant="link"
-        // @ts-ignore
         leftIcon={<GlobalOutlined style={{ marginRight: 0 }} />}
       >
         <Text>{languageCode.toUpperCase()}</Text>

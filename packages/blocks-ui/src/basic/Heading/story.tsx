@@ -7,7 +7,6 @@ storiesOf('Heading', module).add('standard', () => (
   <Provider>
     <div>
       <Heading size="xs">Hey there</Heading>
-      {/* @ts-ignore */}
       <Heading mt={3} size="lg" as="h1" align="center">
         This is bold
       </Heading>

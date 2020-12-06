@@ -10,10 +10,7 @@ import { Size, ButtonVariant } from '../../system';
 
 // TODO: Check IconButton and Link and either merge the two or add aria-label to this one.
 export interface ButtonProps
-  extends Omit<
-      ButtonOptions,
-      'leftIcon' | 'rightIcon' | 'iconSpacing' | 'spinner'
-    >,
+  extends Omit<ButtonOptions, 'iconSpacing' | 'spinner'>,
     Pick<React.ComponentProps<'button'>, 'onClick' | 'children'>,
     Pick<React.ComponentProps<'a'>, 'href' | 'target' | 'rel'>,
     SpaceProps {
