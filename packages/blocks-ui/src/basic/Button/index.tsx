@@ -10,7 +10,10 @@ import { Size, ButtonVariant } from '../../system';
 
 // TODO: Check IconButton and Link and either merge the two or add aria-label to this one.
 export interface ButtonProps
-  extends Omit<ButtonOptions, 'iconSpacing' | 'spinner'>,
+  extends Omit<
+      ButtonOptions,
+      'leftIcon' | 'rightIcon' | 'iconSpacing' | 'spinner'
+    >,
     Pick<React.ComponentProps<'button'>, 'onClick' | 'children'>,
     Pick<React.ComponentProps<'a'>, 'href' | 'target' | 'rel'>,
     SpaceProps {
@@ -25,9 +28,17 @@ ChakraButton.defaultProps = {
   iconSpacing: 1,
 };
 
-export const Button = ({ isDanger, ...props }: ButtonProps) => {
-  return <ChakraButton {...props} colorScheme={isDanger ? 'red' : 'primary'} />;
-};
+export const Button = React.forwardRef(
+  ({ isDanger, ...props }: ButtonProps, ref: any) => {
+    return (
+      <ChakraButton
+        ref={ref}
+        colorScheme={isDanger ? 'red' : 'primary'}
+        {...props}
+      />
+    );
+  }
+);
 
 ChakraButtonGroup.defaultProps = {
   isAttached: true,

@@ -24,7 +24,6 @@ export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
 export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider, DividerProps } from './basic/Divider';
 export { Drawer, DrawerProps } from './basic/Drawer';
-export { Dropdown } from './basic/Dropdown';
 export { Positioner, PositionerProps } from './basic/Positioner';
 export { Result, ResultProps } from './basic/Result';
 export { Flex, FlexProps } from './basic/Flex';
@@ -39,10 +38,21 @@ export { Textarea, TextareaProps } from './basic/Textarea';
 export { Layout, LayoutProps } from './basic/Layout';
 export {
   Menu,
-  SubMenu,
+  MenuList,
   MenuDivider,
   MenuItem,
-  MenuItemGroup,
+  MenuGroup,
+  MenuItemOption,
+  MenuOptionGroup,
+  MenuButton,
+  MenuProps,
+  MenuListProps,
+  MenuDividerProps,
+  MenuItemProps,
+  MenuGroupProps,
+  MenuItemOptionProps,
+  MenuOptionGroupProps,
+  MenuButtonProps,
 } from './basic/Menu';
 export { Modal, ModalProps } from './basic/Modal';
 export { Pagination, PaginationProps } from './basic/Pagination';
@@ -83,4 +93,3 @@ export { default as hooks } from './hooks';
 export { default as utils } from './utils';
 
 export { system } from './system';
-export { default as theme } from './theme';

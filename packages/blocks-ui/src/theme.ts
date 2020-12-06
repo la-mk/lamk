@@ -93,7 +93,32 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
   return extendTheme({
     colors: {
       ...theme.colors,
-      primary: calculateShades(theme.colors.primary),
+      secondary: '#07074F',
+
+      danger: '#FF3838',
+      success: '#5CB85C',
+
+      heading: {
+        // @ts-ignore
+        light: '#FFFFFF',
+        dark: '#070708',
+      },
+      text: {
+        // @ts-ignore
+        light: '#FAF8F0',
+        dark: '#404C4D',
+      },
+      mutedText: {
+        // @ts-ignore
+        light: '#EEEEEE',
+        dark: '#687C94',
+      },
+      background: {
+        // @ts-ignore
+        light: '#F6F8FF',
+        dark: '#17121E',
+      },
+      primary: calculateShades(theme.colors?.primary ?? '#EF4351'),
     },
     global: {
       fontFamily:
@@ -126,52 +151,31 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
   });
 };
 
-// This theme is only used by the styled-system props. Modify config-overrides.js for ant theme changes
-const theme = {
-  fontSizes: [14, 16, 18, 20, 24, 32, 44, 60],
-  colors: {
-    primary: '#EF4351',
-    secondary: '#07074F',
+export interface BlocksTheme {
+  colors?: {
+    primary?: string;
+    secondary?: string;
+    danger?: string;
+    success?: string;
 
-    danger: '#FF3838',
-    success: '#5CB85C',
+    background?: {
+      light?: string;
+      dark?: string;
+    };
 
-    heading: {
-      light: '#FFFFFF',
-      dark: '#070708',
-    },
-    text: {
-      light: '#FAF8F0',
-      dark: '#404C4D',
-    },
-    mutedText: {
-      light: '#EEEEEE',
-      dark: '#687C94',
-    },
-    background: {
-      light: '#F6F8FF',
-      dark: '#17121E',
-    },
-  },
+    heading?: {
+      light?: string;
+      dark?: string;
+    };
 
-  radii: [6, 10],
-  space: [
-    0,
-    '0.25rem',
-    '0.5rem',
-    '0.75rem',
-    '1rem',
-    '1.5rem',
-    '2rem',
-    '3rem',
-    '5rem',
-    '8rem',
-  ],
-  baseHeight: [24, 32, 40],
-  breakpoints: ['788px', '1128px', '1440px'],
-  sizes: ['788px', '1096px', '1440px'],
-  lineHeight: 1.5,
-};
+    text?: {
+      light?: string;
+      dark?: string;
+    };
 
-export default theme;
-export type BlocksTheme = typeof theme;
+    mutedText?: {
+      light?: string;
+      dark?: string;
+    };
+  };
+}

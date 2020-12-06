@@ -1,45 +1,54 @@
 import React from 'react';
-import { Dropdown } from '../basic/Dropdown';
 import { Text } from '../basic/Text';
-import { Flex } from '../basic/Flex';
-import { Menu, MenuItem } from '../basic/Menu';
+import {
+  Menu,
+  MenuButton,
+  MenuItemOption,
+  MenuList,
+  MenuOptionGroup,
+} from '../basic/Menu';
 import { GlobalOutlined } from '@ant-design/icons';
+import { Button } from '../basic/Button';
 
 export interface LanguagePickerProps {
+  darkMode?: boolean;
   languageCode: string;
   onChangeLanguageCode: (languageCode: string) => void;
 }
 
 export const LanguagePicker = ({
+  darkMode,
   languageCode,
   onChangeLanguageCode,
 }: LanguagePickerProps) => {
   return (
-    <Dropdown
-      placement="bottomLeft"
-      overlay={
-        <Menu
-          selectedKeys={[languageCode]}
-          onClick={({ key }) => {
-            onChangeLanguageCode(key as string);
-          }}
-        >
-          <MenuItem key="mk">
-            <Text>Македонски</Text>
-          </MenuItem>
-          <MenuItem key="en">
-            <Text>English</Text>
-          </MenuItem>
-        </Menu>
-      }
-    >
+    <Menu>
+      <MenuButton
+        // @ts-ignore
+        colorScheme={darkMode ? 'white' : 'blackAlpha'}
+        as={Button}
+        variant="link"
+        // @ts-ignore
+        leftIcon={<GlobalOutlined style={{ marginRight: 0 }} />}
+      >
+        <Text>{languageCode.toUpperCase()}</Text>
+      </MenuButton>
       {/* @ts-ignore */}
-      <Flex style={{ cursor: 'pointer' }} align="center" height="100%">
-        <Text color="inherit" mr={1}>
-          <GlobalOutlined style={{ marginRight: 0 }} />
-        </Text>
-        <Text color="inherit">{languageCode.toUpperCase()}</Text>
-      </Flex>
-    </Dropdown>
+      <MenuList color="text.dark">
+        <MenuOptionGroup
+          defaultValue={'mk'}
+          onChange={val => onChangeLanguageCode(val as string)}
+          value={languageCode}
+          type="radio"
+        >
+          <MenuItemOption value="mk">
+            <Text>Македонски</Text>
+          </MenuItemOption>
+          <MenuItemOption value="en">
+            <Text>English</Text>
+          </MenuItemOption>
+        </MenuOptionGroup>
+      </MenuList>
+    </Menu>
   );
 };
