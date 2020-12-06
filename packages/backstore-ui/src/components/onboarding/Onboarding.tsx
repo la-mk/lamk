@@ -116,7 +116,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
   return (
     <Spinner isLoaded={!showSpinner}>
-      <Flex direction='column'>
+      <Flex direction='column' bg='white' height='100vh'>
         {step !== 3 && (
           <Flex px={[3, 3, 4]} pb={4} direction='column'>
             <StickySteps

@@ -65,7 +65,6 @@ export const App = () => {
       >
         <BlocksUiProvider
           theme={{
-            fontSizes: [12, 14, 16, 18, 20, 26, 34, 48],
             colors: { primary: '#118AB2' },
           }}
           basicLocale={i18n.language === 'mk' ? mk_MK : undefined}

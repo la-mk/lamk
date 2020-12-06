@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     vertical-align: 0;
   }
   .anticon {
-    vertical-align: 0.125em;
+    vertical-align: 0em;
   }
 
   i {
