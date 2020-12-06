@@ -9,6 +9,7 @@ import {
 } from '../basic/Menu';
 import { GlobalOutlined } from '@ant-design/icons';
 import { Button } from '../basic/Button';
+import { Portal } from '@chakra-ui/react';
 
 export interface LanguagePickerProps {
   darkMode?: boolean;
@@ -32,22 +33,25 @@ export const LanguagePicker = ({
       >
         <Text>{languageCode.toUpperCase()}</Text>
       </MenuButton>
-      {/* @ts-ignore */}
-      <MenuList color="text.dark">
-        <MenuOptionGroup
-          defaultValue={'mk'}
-          onChange={val => onChangeLanguageCode(val as string)}
-          value={languageCode}
-          type="radio"
-        >
-          <MenuItemOption value="mk">
-            <Text>Македонски</Text>
-          </MenuItemOption>
-          <MenuItemOption value="en">
-            <Text>English</Text>
-          </MenuItemOption>
-        </MenuOptionGroup>
-      </MenuList>
+
+      <Portal>
+        {/* @ts-ignore */}
+        <MenuList color="text.dark">
+          <MenuOptionGroup
+            defaultValue={'mk'}
+            onChange={val => onChangeLanguageCode(val as string)}
+            value={languageCode}
+            type="radio"
+          >
+            <MenuItemOption value="mk">
+              <Text>Македонски</Text>
+            </MenuItemOption>
+            <MenuItemOption value="en">
+              <Text>English</Text>
+            </MenuItemOption>
+          </MenuOptionGroup>
+        </MenuList>
+      </Portal>
     </Menu>
   );
 };

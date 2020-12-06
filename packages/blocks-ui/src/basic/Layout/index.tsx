@@ -22,7 +22,6 @@ export const Layout = ({
 
   const templateRows = `
     ${header ? '[header header] max-content' : ''}
-    [leftSider content] minmax(0, 1fr)
     ${footer ? '[footer footer] max-content' : ''}
   `;
 
@@ -53,7 +52,7 @@ export const Layout = ({
       )}
       <GridItem
         bg="transparent"
-        gridRow={leftSider ? 'leftSider' : 'content'}
+        gridRow={leftSider ? 'content' : 'leftSider'}
         gridColumn="content"
       >
         {children}
