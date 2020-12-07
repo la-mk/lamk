@@ -62,7 +62,7 @@ export { Select, SelectProps } from './basic/Select';
 export { Set } from './basic/Set/Set';
 export { Spinner, SpinnerProps } from './basic/Spinner';
 export { Stat, StatProps } from './basic/Stat';
-export { Steps, Step } from './basic/Steps';
+export { Steps, StepsProps } from './basic/Steps';
 export { Switch, SwitchProps } from './basic/Switch';
 export { Table } from './basic/Table';
 export { Tabs, TabsProps } from './basic/Tabs';

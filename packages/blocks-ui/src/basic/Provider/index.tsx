@@ -73,7 +73,8 @@ export const Provider = ({
     <ThemeProvider theme={finalTheme}>
       <ChakraProvider theme={finalTheme}>
         <GlobalStyle />
-        <BreakpointProvider breakpoints={finalTheme.breakpoints.map(parseInt)}>
+        {/* TODO: Specify this better, or use Chakra's hook */}
+        <BreakpointProvider breakpoints={[768, 1024, 1280]}>
           <ConfigProvider locale={basicLocale}>
             <LocalizationContext.Provider value={compoundLocale || {}}>
               {children}

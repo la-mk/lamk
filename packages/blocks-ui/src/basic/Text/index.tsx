@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Text as ChakraText,
   TextProps as ChakraTextProps,
@@ -15,6 +16,7 @@ export interface TextProps
       | 'align'
       | 'casing'
       | 'color'
+      | 'width'
       | 'maxWidth'
       | 'minWidth'
       | 'display'
@@ -39,4 +41,8 @@ ChakraText.defaultProps = {
   as: 'span',
 };
 
-export const Text = ChakraText as React.FunctionComponent<TextProps>;
+export const Text = React.forwardRef(
+  ({ size, ...props }: TextProps, ref: any) => {
+    return <ChakraText ref={ref} fontSize={size} {...props} />;
+  }
+);
