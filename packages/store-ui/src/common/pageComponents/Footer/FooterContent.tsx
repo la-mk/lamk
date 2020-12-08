@@ -64,7 +64,7 @@ export const FooterContent = ({ store }: { store: Store }) => {
   const { t, i18n } = useTranslation();
 
   return (
-    <Box>
+    <Box py={2}>
       <Flex
         maxWidth={1024}
         px={[3, 4, 6]}

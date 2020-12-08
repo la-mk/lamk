@@ -135,7 +135,7 @@ export const StoreLayout = withTheme(
             </Box>
           }
         >
-          <Box>
+          <Box minHeight='calc(100% - 64px - 56px)'>
             <SubMenu height={'64px'} />
             <Breadcrumbs minHeight={'56px'} />
             <Flex direction='column'>{children}</Flex>

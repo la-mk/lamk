@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flex, Text, Dropdown } from '@sradevski/blocks-ui';
+import { Flex, Text } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
-import { DownOutlined } from '@ant-design/icons';
-import { CategoriesMenu } from '../../components/shared/CategoriesMenu';
+// import { DownOutlined } from '@ant-design/icons';
+// import { CategoriesMenu } from '../../components/shared/CategoriesMenu';
 import { HoverableLink } from '../../components/shared/components/HoverableLink';
 import { useSelector } from 'react-redux';
 import { useTranslation, getTitleForSet } from '../i18n';
@@ -55,7 +55,7 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
       px={[3, 4, 5]}
       style={{ overflowX: 'auto' }}
     >
-      <Dropdown
+      {/* <Dropdown
         trigger={['click', 'hover']}
         placement='bottomLeft'
         overlay={<CategoriesMenu mode='horizontal' />}
@@ -68,7 +68,7 @@ export const SubMenu = withTheme(({ theme, ...otherProps }) => {
             />
           </Text>
         </a>
-      </Dropdown>
+      </Dropdown> */}
 
       {sets.map(set => {
         return (

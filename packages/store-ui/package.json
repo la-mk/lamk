@@ -27,7 +27,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@sradevski/analytics": "0.0.9",
-    "@sradevski/blocks-ui": "0.0.204",
+    "@sradevski/blocks-ui": "0.0.206",
     "@sradevski/la-sdk": "0.0.146",
     "@sradevski/nlp": "0.0.3",
     "antd": "^4.6.5",

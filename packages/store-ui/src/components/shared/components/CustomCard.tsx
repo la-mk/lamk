@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Card, Flex, Title } from '@sradevski/blocks-ui';
+import { Box, Card, Flex, Heading } from '@sradevski/blocks-ui';
 
 export const CustomCard = ({
   title,

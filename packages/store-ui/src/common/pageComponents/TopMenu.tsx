@@ -5,10 +5,11 @@ import {
   MenuItem,
   Badge,
   Button,
-  Dropdown,
-  Divider,
   Text,
   Positioner,
+  MenuButton,
+  MenuList,
+  MenuDivider,
 } from '@sradevski/blocks-ui';
 import {
   ShoppingOutlined,
@@ -100,70 +101,41 @@ export const TopMenu = withTheme(
             </Flex>
           </HoverableLink>
 
-          <Dropdown
-            trigger={['click']}
-            placement='bottomLeft'
-            overlay={
-              user ? (
-                <Menu>
-                  <MenuItem key='account'>
-                    <Link href='/account' passHref>
-                      <Button
-                        as='a'
-                        size='sm'
-                        variant='ghost'
-                        leftIcon={<UserOutlined />}
-                      >
-                        {t('pages.myAccount')}
-                      </Button>
-                    </Link>
+          <Menu>
+            <MenuButton as={Button} size='sm' mx={3}>
+              <UserOutlined />
+            </MenuButton>
+            <MenuList>
+              {user ? (
+                <>
+                  <Link href='/account' passHref>
+                    <MenuItem as='a' leftIcon={<UserOutlined />}>
+                      {t('pages.myAccount')}
+                    </MenuItem>
+                  </Link>
+
+                  <Link href='/orders' passHref>
+                    <MenuItem as='a' leftIcon={<ShoppingOutlined />}>
+                      {t('pages.myOrders')}
+                    </MenuItem>
+                  </Link>
+                  <MenuDivider />
+                  <MenuItem
+                    onClick={handleLogout}
+                    leftIcon={<LogoutOutlined />}
+                  >
+                    {t('auth.logout')}
                   </MenuItem>
-                  <MenuItem key='orders'>
-                    <Link href='/orders' passHref>
-                      <Button
-                        as='a'
-                        size='sm'
-                        variant='ghost'
-                        leftIcon={<ShoppingOutlined />}
-                      >
-                        {t('pages.myOrders')}
-                      </Button>
-                    </Link>
-                  </MenuItem>
-                  <Divider mt={2} mb={0} />
-                  <MenuItem key='logout'>
-                    <Button
-                      size='sm'
-                      variant='ghost'
-                      leftIcon={<LogoutOutlined />}
-                      onClick={handleLogout}
-                    >
-                      {t('auth.logout')}
-                    </Button>
-                  </MenuItem>
-                </Menu>
+                </>
               ) : (
-                <Menu>
-                  <MenuItem key='login'>
-                    <Button
-                      size='sm'
-                      variant='ghost'
-                      leftIcon={<LoginOutlined />}
-                      onClick={handleLogin}
-                    >
-                      {t('auth.login')}
-                    </Button>
+                <>
+                  <MenuItem leftIcon={<LoginOutlined />}>
+                    {t('auth.login')}
                   </MenuItem>
-                </Menu>
-              )
-            }
-          >
-            <Flex>
-              <Button size='sm' mx={3}>
-                <UserOutlined />
-              </Button>
-            </Flex>
-          </Dropdown>
+                </>
+              )}
+            </MenuList>
+          </Menu>
         </Flex>
       </>
     );

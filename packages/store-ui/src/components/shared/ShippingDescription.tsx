@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Title } from '@sradevski/blocks-ui';
+import { Flex, Text, Heading } from '@sradevski/blocks-ui';
 import {
   UserOutlined,
   EnvironmentOutlined,
@@ -31,7 +31,7 @@ export const ShippingDescription = ({ address, inverse, actions }: any) => {
     <>
       <Flex mb={3} align='center' justify='space-between'>
         <Heading
-          ellipsis={true}
+          isTruncated
           m={0}
           as='h4'
           size='lg'

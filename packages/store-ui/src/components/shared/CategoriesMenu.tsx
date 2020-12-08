@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Menu, MenuItem, Text, Button, SubMenu } from '@sradevski/blocks-ui';
+import { Menu, MenuItem, Text, Button } from '@sradevski/blocks-ui';
 import {
   getCategories,
   GroupedCategories,
@@ -53,73 +53,74 @@ export const CategoriesMenu = ({
   }
 
   return (
-    <Menu
-      defaultOpenKeys={defaultOpenKeys}
-      mode={mode}
-      multiple
-      width={mode === 'horizontal' ? '100%' : '280px'}
-      style={{ border: 'none' }}
-      selectedKeys={selectedKeys}
-      onSelect={onSelect}
-      onDeselect={onSelect}
-    >
-      {groupedCategories.map(level1Category => {
-        return (
-          <SubMenu key={level1Category.value} title={level1Category.label}>
-            {level1Category.children.map(level2Category => {
-              return (
-                <SubMenu
-                  key={level2Category.value}
-                  title={level2Category.label}
-                >
-                  {level2Category.children.map(level3Category => {
-                    const isSelected =
-                      selectedKeys &&
-                      selectedKeys.includes(level3Category.value as string);
+    <div></div>
+    // <Menu
+    //   defaultOpenKeys={defaultOpenKeys}
+    //   mode={mode}
+    //   multiple
+    //   width={mode === 'horizontal' ? '100%' : '280px'}
+    //   style={{ border: 'none' }}
+    //   selectedKeys={selectedKeys}
+    //   onSelect={onSelect}
+    //   onDeselect={onSelect}
+    // >
+    //   {groupedCategories.map(level1Category => {
+    //     return (
+    //       <SubMenu key={level1Category.value} title={level1Category.label}>
+    //         {level1Category.children.map(level2Category => {
+    //           return (
+    //             <SubMenu
+    //               key={level2Category.value}
+    //               title={level2Category.label}
+    //             >
+    //               {level2Category.children.map(level3Category => {
+    //                 const isSelected =
+    //                   selectedKeys &&
+    //                   selectedKeys.includes(level3Category.value as string);
 
-                    return (
-                      <MenuItem
-                        key={level3Category.value}
-                        title={level3Category.label}
-                      >
-                        {/* Compensate for the checkmark by moving the button to the left */}
-                        {onSelect && (
-                          <Button ml={'-20px'} variant='link'>
-                            <Text
-                              size='sm'
-                              color={isSelected ? 'primary' : 'text.dark'}
-                            >
-                              <CheckOutlined
-                                style={{
-                                  color: isSelected ? 'inherit' : 'transparent',
-                                }}
-                              />
-                              {level3Category.label}
-                            </Text>
-                          </Button>
-                        )}
-                        {!onSelect && (
-                          <Link
-                            key={level3Category.value}
-                            href={`/products?${getQueryForCategories([
-                              level3Category.value as string,
-                            ])}`}
-                            passHref
-                          >
-                            <Button as='a' variant='link'>
-                              <Text size='sm'>{level3Category.label}</Text>
-                            </Button>
-                          </Link>
-                        )}
-                      </MenuItem>
-                    );
-                  })}
-                </SubMenu>
-              );
-            })}
-          </SubMenu>
-        );
-      })}
-    </Menu>
+    //                 return (
+    //                   <MenuItem
+    //                     key={level3Category.value}
+    //                     title={level3Category.label}
+    //                   >
+    //                     {/* Compensate for the checkmark by moving the button to the left */}
+    //                     {onSelect && (
+    //                       <Button ml={'-20px'} variant='link'>
+    //                         <Text
+    //                           size='sm'
+    //                           color={isSelected ? 'primary' : 'text.dark'}
+    //                         >
+    //                           <CheckOutlined
+    //                             style={{
+    //                               color: isSelected ? 'inherit' : 'transparent',
+    //                             }}
+    //                           />
+    //                           {level3Category.label}
+    //                         </Text>
+    //                       </Button>
+    //                     )}
+    //                     {!onSelect && (
+    //                       <Link
+    //                         key={level3Category.value}
+    //                         href={`/products?${getQueryForCategories([
+    //                           level3Category.value as string,
+    //                         ])}`}
+    //                         passHref
+    //                       >
+    //                         <Button as='a' variant='link'>
+    //                           <Text size='sm'>{level3Category.label}</Text>
+    //                         </Button>
+    //                       </Link>
+    //                     )}
+    //                   </MenuItem>
+    //                 );
+    //               })}
+    //             </SubMenu>
+    //           );
+    //         })}
+    //       </SubMenu>
+    //     );
+    //   })}
+    // </Menu>
   );
 };
