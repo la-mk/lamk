@@ -81,6 +81,7 @@
     "lodash": "^4.17.20",
     "lodash-es": "^4.17.15",
     "qs": "^6.9.4",
+    "react-dropzone": "^11.2.4",
     "tinycolor2": "^1.4.2"
   }
 }

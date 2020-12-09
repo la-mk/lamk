@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { WidgetProps } from '@rjsf/core';
-import { ImageUploader } from '../../ImageUploader';
+import { Upload } from '../../Upload';
 import { FormContext, FormContextProps } from '../Context';
 import { Box } from '../../Box';
 
@@ -15,7 +15,7 @@ const FileWidget = ({ onChange, value, options, multiple }: WidgetProps) => {
 
   return (
     <Box>
-      <ImageUploader
+      <Upload
         multiple={multiple}
         onChange={onChange}
         value={value}

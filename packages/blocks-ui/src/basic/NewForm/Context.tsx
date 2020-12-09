@@ -4,7 +4,7 @@ export interface FormContextProps {
   imageUpload?: {
     getImageUrl: (imageId: string) => string;
     removeImage: (imageId: string) => Promise<void>;
-    uploadImage: ({ file, onSuccess, onError }: any) => Promise<void>;
+    uploadImage: (file: File) => Promise<{ id: string }>;
   };
 }
 
