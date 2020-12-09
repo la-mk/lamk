@@ -2,7 +2,6 @@ import * as React from 'react';
 import { BlocksTheme, getChakraTheme } from '../../theme';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { ChakraProvider } from '@chakra-ui/react';
-import { ConfigProvider } from 'antd';
 import { BreakpointProvider } from '../../hooks/useBreakpoint';
 
 interface LocalizationContext {
@@ -58,13 +57,11 @@ const GlobalStyle = createGlobalStyle`
 
 export const Provider = ({
   theme,
-  basicLocale,
-  compoundLocale,
+  translations,
   children,
 }: {
   theme?: BlocksTheme;
-  basicLocale?: any;
-  compoundLocale?: LocalizationContext;
+  translations?: LocalizationContext;
   children: React.ReactElement;
 }) => {
   const finalTheme = getChakraTheme(theme ?? {});
@@ -75,11 +72,9 @@ export const Provider = ({
         <GlobalStyle />
         {/* TODO: Specify this better, or use Chakra's hook */}
         <BreakpointProvider breakpoints={[768, 1024, 1280]}>
-          <ConfigProvider locale={basicLocale}>
-            <LocalizationContext.Provider value={compoundLocale || {}}>
-              {children}
-            </LocalizationContext.Provider>
-          </ConfigProvider>
+          <LocalizationContext.Provider value={translations || {}}>
+            {children}
+          </LocalizationContext.Provider>
         </BreakpointProvider>
       </ChakraProvider>
     </ThemeProvider>

@@ -93,10 +93,10 @@ const Step = ({
     <Flex
       key={step.key}
       flex={index < steps.length - 1 ? 1 : undefined}
-      direction={['column', 'row', 'row']}
+      direction={orientation === 'vertical' ? 'column' : 'row'}
       align="flex-start"
     >
-      <Flex mr={[0, 2, 2]}>
+      <Flex mr={orientation === 'vertical' ? 0 : 2}>
         <Circle {...step} index={index} />
         <Box minWidth={'120px'} maxWidth="120px">
           <Title ref={titleRef} {...step} />
@@ -122,14 +122,14 @@ const Step = ({
             left={0}
             right={0}
             // @ts-ignore
-            minHeight={[10, 0, 0]}
+            minHeight={orientation === 'vertical' ? 10 : 0}
             // @ts-ignore
-            minWidth={[0, 6, 6]}
+            minWidth={orientation === 'vertical' ? 0 : 6}
             // @ts-ignore
             borderColor={color[steps[index + 1].status]}
-            my={[2, 0, 0]}
-            mt={[-2, 0, 0]}
-            ml={[3, 0, 0]}
+            my={orientation === 'vertical' ? 2 : 0}
+            mt={orientation === 'vertical' ? -2 : 0}
+            ml={orientation === 'vertical' ? 3 : 0}
             orientation={orientation}
           />
         </Box>
@@ -153,7 +153,7 @@ export const Steps = ({
   return (
     <Flex
       {...props}
-      direction={['column', 'row', 'row']}
+      direction={orientation === 'vertical' ? 'column' : 'row'}
       align="flex-start"
       justify="space-between"
     >

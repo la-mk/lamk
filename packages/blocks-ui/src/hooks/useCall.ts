@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import { message } from '../static/message';
 import { useDispatch } from 'react-redux';
 
 type Caller = <T extends any>(
@@ -31,7 +30,8 @@ export const useCall = (initialProcessingStatus = false): UseCallResult => {
           }
         })
         // TODO: Localize error based on code.
-        .catch((err: Error) => message.error(err.message))
+        // .catch((err: Error) => message.error(err.message))
+        .catch((err: Error) => console.log(err))
         .finally(() => setIsProcessing(false));
     },
     [dispatch]

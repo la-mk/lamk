@@ -18,10 +18,8 @@ export {
   ButtonGroupProps,
 } from './basic/Button';
 export { Card, CardProps } from './basic/Card';
-export { Cascader } from './basic/Cascader';
 export { Checkbox, CheckboxProps } from './basic/Checkbox';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
-export { Descriptions, DescriptionItem } from './basic/DescriptionList';
 export { Divider, DividerProps } from './basic/Divider';
 export { Drawer, DrawerProps } from './basic/Drawer';
 export { Positioner, PositionerProps } from './basic/Positioner';
@@ -63,7 +61,6 @@ export { Spinner, SpinnerProps } from './basic/Spinner';
 export { Stat, StatProps } from './basic/Stat';
 export { Steps, StepsProps } from './basic/Steps';
 export { Switch, SwitchProps } from './basic/Switch';
-export { Table } from './basic/Table';
 export { Tabs, TabsProps } from './basic/Tabs';
 export { Tag, TagProps } from './basic/Tag';
 export { Text, TextProps } from './basic/Text';
@@ -85,9 +82,5 @@ export {
   PickerBoxesProps,
 } from './basic/PickerBoxes';
 
-export { message } from './static/message';
-
 export { default as hooks } from './hooks';
 export { default as utils } from './utils';
-
-export { system } from './system';

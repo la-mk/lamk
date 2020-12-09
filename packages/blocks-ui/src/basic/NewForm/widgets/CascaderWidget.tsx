@@ -1,27 +1,30 @@
 import React from 'react';
 import { WidgetProps } from '@rjsf/core';
-import { Cascader } from '../../Cascader';
+import styled from 'styled-components';
+import { Box } from '../../Box';
 
-const cascaderFilter = (inputValue: string, path: any[]) => {
-  return path.some(
-    option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
-  );
-};
+// const cascaderFilter = (inputValue: string, path: any[]) => {
+//   return path.some(
+//     option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+//   );
+// };
 
-const CascaderWidget = ({ onChange, value, options }: WidgetProps) => {
-  const { fullValue, cascadeOptions } = options;
+const CascaderStyles = styled(Box)``;
 
+const CascaderWidget = ({}: /*onChange, value, options*/ WidgetProps) => {
+  // const { fullValue, cascadeOptions } = options;
   return (
-    <Cascader
-      width="100%"
-      options={(cascadeOptions as any) || []}
-      onChange={val => {
-        fullValue ? onChange(val[val.length - 1]) : onChange(val);
-      }}
-      showSearch={{ filter: cascaderFilter }}
-      // The cascader expects a full array of all values, but we want to store only the last value, so we pass a custom value to the component
-      value={fullValue ?? value}
-    />
+    <CascaderStyles>
+      {/* <Cascader
+        options={(cascadeOptions as any) || []}
+        onChange={val => {
+          fullValue ? onChange(val[val.length - 1]) : onChange(val);
+        }}
+        showSearch={{ filter: cascaderFilter }}
+        // The cascader expects a full array of all values, but we want to store only the last value, so we pass a custom value to the component
+        value={fullValue ?? value}
+      /> */}
+    </CascaderStyles>
   );
 };
 

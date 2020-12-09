@@ -2,18 +2,17 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button } from '../Button';
-import { system } from '../../system';
 import { Flex } from '../Flex';
-import { Box } from '../Box';
+import { Box, BoxProps } from '../Box';
 
 export type ArrowDirection = 'left' | 'right';
-type SetProps<T> = {
+interface SetProps<T> extends BoxProps {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   itemKey: string;
   gutter?: number | string | (number | string)[];
   footer?: React.ReactNode;
-} & React.ComponentProps<typeof Box>;
+}
 
 const SetContainer = styled(Box)`
   width: 100%;
@@ -56,7 +55,7 @@ const SetItem = styled.li`
   scroll-snap-stop: always;
 `;
 
-function SetBase<T>({
+export function Set<T>({
   items,
   renderItem,
   itemKey,
@@ -112,5 +111,3 @@ function SetBase<T>({
     </SetContainer>
   );
 }
-
-export const Set = system<SetProps<any>>(SetBase);
