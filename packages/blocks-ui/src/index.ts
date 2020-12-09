@@ -82,5 +82,6 @@ export {
   PickerBoxesProps,
 } from './basic/PickerBoxes';
 
+export { toast } from './basic/Toast';
 export { default as hooks } from './hooks';
 export { default as utils } from './utils';

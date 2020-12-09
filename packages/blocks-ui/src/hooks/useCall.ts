@@ -1,3 +1,4 @@
+import { toast } from '../basic/Toast';
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -30,8 +31,7 @@ export const useCall = (initialProcessingStatus = false): UseCallResult => {
           }
         })
         // TODO: Localize error based on code.
-        // .catch((err: Error) => message.error(err.message))
-        .catch((err: Error) => console.log(err))
+        .catch((err: Error) => toast.error(err.message))
         .finally(() => setIsProcessing(false));
     },
     [dispatch]
