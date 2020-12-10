@@ -10,6 +10,7 @@ import {
   SpaceProps,
 } from '@chakra-ui/react';
 import { InputSize, TableVariant } from 'system';
+import get from 'lodash/get';
 
 export interface TableColumnProps<T> {
   title: string;
@@ -25,15 +26,17 @@ export interface TableProps<T>
   size?: InputSize;
   columns: TableColumnProps<T>[];
   data: T[] | undefined;
+  rowKey: string;
 }
 
-export const Table = <T extends { [key: string]: any }>({
+export const Table = <T extends any>({
   columns,
   data,
+  rowKey,
   ...props
 }: TableProps<T>) => {
   return (
-    <ChakraTable colorScheme="primary" {...props}>
+    <ChakraTable colorScheme="gray" {...props}>
       <Thead>
         <Tr>
           {columns.map(column => {
@@ -44,7 +47,7 @@ export const Table = <T extends { [key: string]: any }>({
       <Tbody>
         {data?.map(entry => {
           return (
-            <Tr>
+            <Tr key={get(entry, rowKey)}>
               {columns.map(column => {
                 return (
                   <Td isNumeric={column.isNumeric}>

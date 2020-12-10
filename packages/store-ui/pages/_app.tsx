@@ -13,12 +13,9 @@ import { sdk, setupSdk } from '@sradevski/la-sdk';
 import env from '../src/common/env';
 import { getStore } from '../src/state/modules/store/store.selector';
 import { appWithTranslation, useTranslation } from '../src/common/i18n';
-import 'antd/dist/antd.less';
-import mk_MK from 'antd/lib/locale/mk_MK';
 import { I18n } from 'next-i18next';
 import memoize from 'mem';
 import { initializeAnalytics } from '../src/common/analytics';
-import { BrandColorWrapper } from '../src/common/antdOverride/BrandColorWrapper';
 import { getTheme } from '../src/common/theme';
 import { StoreNotFound } from '../src/common/pageComponents/StoreNotFound';
 import { setLandingContent } from '../src/state/modules/storeContents/storeContents.module';
@@ -127,12 +124,10 @@ const Main = ({ store, laStore, children }) => {
   return (
     <ThemeProvider
       theme={getTheme(brandColor)}
-      basicLocale={i18n.language === 'mk' ? mk_MK : undefined}
-      compoundLocale={getCompoundLocale(t)}
+      translations={getCompoundLocale(t)}
     >
       <ReduxProvider store={store}>
         <ConnectedRouter>
-          <BrandColorWrapper brandColor={brandColor} />
           {laStore ? (
             <StoreLayout>
               <>
@@ -151,12 +146,6 @@ const Main = ({ store, laStore, children }) => {
 
 class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
   static async getInitialProps(appCtx: any) {
-    // FUTURE: This (and <style> below) resolves a Chrome bug where the stylings flash for a second when doing SSR. See https://github.com/luffyZh/next-antd-scaffold/blob/master/docs/FAQ.md#the-ant-design-style-flash-when-page-refresh, https://github.com/ant-design/ant-design/issues/16037
-    if (typeof window !== 'undefined') {
-      window.onload = () => {
-        document.getElementById('flashbug_style').remove();
-      };
-    }
     // You need to set the initial state before doing `getInitialProps`, otherwise the individual pages won't have access to the initial state.
     await setInitialDataInState(appCtx);
     const appProps = await App.getInitialProps(appCtx);
@@ -191,14 +180,6 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
               href={sdk.artifact.getUrlForImage(laStore.logo, laStore._id, {
                 h: 128,
               })}
-            />
-            <style
-              id='flashbug_style'
-              dangerouslySetInnerHTML={{
-                __html: `*, *::before, *::after {
-                  transition: none!important;
-                }`,
-              }}
             />
           </NextHead>
         )}

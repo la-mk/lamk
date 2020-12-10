@@ -42,6 +42,7 @@ storiesOf('Table', module).add('standard', () => (
   <Provider>
     <div>
       <Table
+        rowKey="product"
         columns={columns}
         data={[
           { product: 'Test', quantity: 2, price: 100 },

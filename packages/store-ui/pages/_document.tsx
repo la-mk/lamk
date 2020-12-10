@@ -9,28 +9,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
-  .ant-menu i {
-    margin-right: 0 !important;
-  }
-
-  .ant-table-cell {
-    font-weight: 400 !important;
-    text-align: left !important;
-  }
-
-  .ant-table-tbody > tr > td {
-    border: none !important;
-  }
-
-  .ant-menu-item-selected {
-    background-color: transparent !important;
-    
-  }
-
-  .ant-menu-item::after {
-    border: 0 !important;
-  }
-
   html body {
     height: 100%;
     font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -43,18 +21,8 @@ const GlobalStyle = createGlobalStyle`
     color: 'inherit';
   }
 
-  .ant-btn.anticon {
-    vertical-align: 0;
-  }
   .anticon {
     vertical-align: 0.125em;
-  }
-  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a {
-    display: inherit;
-    padding: inherit;
-    margin: inherit;
-    color: inherit;
-    line-height: inherit;
   }
 `;
 

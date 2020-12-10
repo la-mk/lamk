@@ -4,7 +4,7 @@ import { User } from '@sradevski/la-sdk/dist/models/user';
 import {
   Button,
   Flex,
-  message,
+  toast,
   Spinner,
   Tabs,
   hooks,
@@ -41,7 +41,7 @@ export const Account = ({ user }: AccountProps) => {
 
   const handlePatchAccount = ({ formData }: { formData: Partial<User> }) => {
     caller(sdk.user.patch(user._id, formData), (user: User) => {
-      message.success(t('auth.accountUpdateSuccess'));
+      toast.success(t('auth.accountUpdateSuccess'));
       return patchUser(user);
     });
   };

@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Flex,
-  Text,
-  Divider,
-  Button,
-  message,
-  Box,
-} from '@sradevski/blocks-ui';
+import { Flex, Text, Divider, Button, toast, Box } from '@sradevski/blocks-ui';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
 import { useSelector, useDispatch } from 'react-redux';
@@ -38,7 +31,7 @@ export const Summary = ({
   delivery,
   campaigns,
   storeId,
-  buttonHeading,
+  buttonTitle,
   disabled,
   showProductsSummary,
   onCheckout,
@@ -52,7 +45,7 @@ export const Summary = ({
 
   useEffect(() => {
     if (!delivery) {
-      message.warning(t('cart.cantCalculateShipping'));
+      toast.warning(t('cart.cantCalculateShipping'));
     }
   }, [delivery]);
 

@@ -1,31 +1,14 @@
 import React from 'react';
-import { Flex, Text, Button, Table, Box, Divider } from '@sradevski/blocks-ui';
+import { Flex, Text, Button, Box, Table, Divider } from '@sradevski/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 import { TFunction } from 'next-i18next';
-import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ProductImageWithTitle } from './ProductImageWithTitle';
 import { Quantity } from './Quantity';
 import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
-import styled from 'styled-components';
-
-const HoverlessTable = styled(Table)<{ lightBackground: boolean }>`
-  &&&& tr:hover td {
-    background: inherit;
-  }
-
-  .ant-table-thead th {
-    background: ${props =>
-      props.lightBackground ? props.theme.colors.background.light : 'inherit'};
-    border-bottom: 1px solid ${props => props.theme.colors.mutedText.light};
-  }
-  .ant-table-tbody {
-    background: ${props =>
-      props.lightBackground ? props.theme.colors.background.light : 'inherit'};
-  }
-`;
+import { TableColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 
 const getColumns = (
   t: TFunction,
@@ -35,9 +18,8 @@ const getColumns = (
 ) =>
   [
     {
-      title: <Text size='lg'>{t('commerce.product')}</Text>,
+      title: t('commerce.product'),
       key: 'product',
-      align: 'center',
       render: (_text, item) => {
         return (
           <ProductImageWithTitle product={item.product} storeId={storeId} />
@@ -45,10 +27,9 @@ const getColumns = (
       },
     },
     {
-      title: <Text size='lg'>{t('common.price')}</Text>,
+      title: t('common.price'),
       key: 'price',
-      width: 150,
-      render: (val, item) => (
+      render: (_val, item) => (
         <Price
           size='small'
           vertical
@@ -61,10 +42,9 @@ const getColumns = (
       ),
     },
     {
-      title: <Text size='lg'>{t('commerce.quantity')}</Text>,
-      width: 150,
+      title: t('commerce.quantity'),
       key: 'quantity',
-      render: (val, item) =>
+      render: (_val, item) =>
         handleChangeItemQuantity ? (
           <Quantity
             cartItem={item as CartItemWithProduct}
@@ -77,9 +57,9 @@ const getColumns = (
         ),
     },
     {
-      title: <Text size='lg'>{t('finance.total')}</Text>,
+      title: t('finance.total'),
       key: 'total',
-      width: 150,
+      isNumeric: true,
       render: (val, item) => (
         <Text as='strong' color='primary'>
           {item.quantity * item.product.calculatedPrice} ден
@@ -99,7 +79,7 @@ const getColumns = (
           },
         ]
       : []),
-  ] as ColumnProps<CartItemWithProduct | OrderItem>[];
+  ] as TableColumnProps<CartItemWithProduct | OrderItem>[];
 
 export const OrderProductsList = ({
   items,
@@ -184,17 +164,16 @@ export const OrderProductsList = ({
       </Box>
 
       <Box display={['none', 'block', 'block']}>
-        <HoverlessTable
-          lightBackground={lightBackground}
-          pagination={false}
-          dataSource={items}
+        <Table
+          data={items}
+          // @ts-ignore
           columns={getColumns(
             t,
             storeId,
             handleChangeItemQuantity,
             handleRemove,
           )}
-          rowKey='product._id'
+          // rowKey='product._id'
         />
 
         <Divider mb={2} />

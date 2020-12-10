@@ -21,6 +21,7 @@ export const Thumbnails = ({
         return (
           <Flex
             key={imageId}
+            // @ts-ignore
             style={
               selectedImage === imageId ? { border: '1px solid lightgray' } : {}
             }

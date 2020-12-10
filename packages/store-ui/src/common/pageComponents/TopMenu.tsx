@@ -25,7 +25,7 @@ import { useTranslation } from '../i18n';
 import { HoverableLink } from '../../components/shared/components/HoverableLink';
 
 export const TopMenu = withTheme(
-  ({ selectedKey, cartCount, user, handleLogout, handleLogin, theme }) => {
+  ({ selectedKey, cartCount, user, handleLogout, handleLogin }) => {
     const { t } = useTranslation();
 
     return (
@@ -109,27 +109,24 @@ export const TopMenu = withTheme(
               {user ? (
                 <>
                   <Link href='/account' passHref>
-                    <MenuItem as='a' leftIcon={<UserOutlined />}>
+                    <MenuItem as='a' icon={<UserOutlined />}>
                       {t('pages.myAccount')}
                     </MenuItem>
                   </Link>
 
                   <Link href='/orders' passHref>
-                    <MenuItem as='a' leftIcon={<ShoppingOutlined />}>
+                    <MenuItem as='a' icon={<ShoppingOutlined />}>
                       {t('pages.myOrders')}
                     </MenuItem>
                   </Link>
                   <MenuDivider />
-                  <MenuItem
-                    onClick={handleLogout}
-                    leftIcon={<LogoutOutlined />}
-                  >
+                  <MenuItem onClick={handleLogout} icon={<LogoutOutlined />}>
                     {t('auth.logout')}
                   </MenuItem>
                 </>
               ) : (
                 <>
-                  <MenuItem leftIcon={<LoginOutlined />}>
+                  <MenuItem onClick={handleLogin} icon={<LoginOutlined />}>
                     {t('auth.login')}
                   </MenuItem>
                 </>

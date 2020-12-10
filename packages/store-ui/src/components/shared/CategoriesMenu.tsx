@@ -8,15 +8,14 @@ import {
 import { useSelector } from 'react-redux';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
-import { MenuProps } from 'antd/es/menu';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 import { getQueryForCategories } from '../../common/filterUtils';
 import { CheckOutlined } from '@ant-design/icons';
 
 export interface CategoriesMenuProps {
-  mode: MenuProps['mode'];
-  selectedKeys?: MenuProps['selectedKeys'];
-  onSelect?: MenuProps['onSelect'];
+  mode: any;
+  selectedKeys?: any;
+  onSelect?: any;
 }
 
 export const CategoriesMenu = ({

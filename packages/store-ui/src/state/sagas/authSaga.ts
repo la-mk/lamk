@@ -7,7 +7,7 @@ import {
   delay,
 } from 'redux-saga/effects';
 import { sdk } from '@sradevski/la-sdk';
-import { message } from '@sradevski/blocks-ui';
+import { toast } from '@sradevski/blocks-ui';
 import jwtDecode from 'jwt-decode';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { SET_UI_LOADED } from '../modules/ui/ui.module';
@@ -119,9 +119,9 @@ export function* logoutSaga() {
   try {
     yield call(sdk.authentication.logout);
     yield put(clearSession());
-    message.success('See you soon!');
+    toast.success('See you soon!');
   } catch (err) {
-    message.error(err.message);
+    toast.error(err.message);
   }
 }
 
@@ -133,10 +133,10 @@ export function* loginSaga(action: any) {
     });
 
     const authInfo = yield getAuthenticationSaga();
-    message.success('Welcome!');
+    toast.success('Welcome!');
     yield afterAuthSaga(authInfo);
   } catch (err) {
-    message.error(err.message);
+    toast.error(err.message);
   }
 }
 
@@ -149,10 +149,10 @@ export function* signupSaga(action: any) {
     });
 
     const authInfo = yield getAuthenticationSaga();
-    message.success('Welcome!');
+    toast.success('Welcome!');
     yield afterAuthSaga(authInfo);
   } catch (err) {
-    message.error(err.message);
+    toast.error(err.message);
   }
 }
 

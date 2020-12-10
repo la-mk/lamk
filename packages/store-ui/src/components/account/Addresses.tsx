@@ -8,7 +8,7 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import {
-  message,
+  toast,
   Spinner,
   hooks,
   Flex,
@@ -67,7 +67,7 @@ export const Addresses = withTheme(
       caller(
         sdk.address.create({ addressFor: user._id, ...address }),
         address => {
-          message.success(t('address.createAddressSuccess'));
+          toast.success(t('address.createAddressSuccess'));
           setShowAddModal(false);
 
           dispatch(
@@ -94,7 +94,7 @@ export const Addresses = withTheme(
       const updatedFields = pickDiff(originalAddress, patchedAddress);
 
       caller(sdk.address.patch(patchedAddress._id, updatedFields), address => {
-        message.success(t('address.updateAddressSuccess'));
+        toast.success(t('address.updateAddressSuccess'));
         setShowAddModal(false);
         setAddressToEdit(undefined);
         return setAddresses([
@@ -106,7 +106,7 @@ export const Addresses = withTheme(
 
     const handleRemoveAddress = (addressId: string) => {
       caller(sdk.address.remove(addressId), () => {
-        message.success(t('address.removeAddressSuccess'));
+        toast.success(t('address.removeAddressSuccess'));
         return setAddresses(
           addresses.filter(address => address._id !== addressId),
         );

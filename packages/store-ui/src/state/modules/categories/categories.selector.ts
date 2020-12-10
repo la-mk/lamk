@@ -1,10 +1,10 @@
 import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
-import { CascaderOptionType } from 'antd/es/cascader';
 
 const NUM_LEVELS = 3;
 
-export type GroupedCategories = CascaderOptionType[];
+// export type GroupedCategories = CascaderOptionType[];
+export type GroupedCategories = any[];
 
 export const getCategories = createSelector<any, any, any>(
   state => state.categories,

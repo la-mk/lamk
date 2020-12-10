@@ -1,9 +1,4 @@
-import {
-  hooks,
-  ResetPasswordForm,
-  Spinner,
-  message,
-} from '@sradevski/blocks-ui';
+import { hooks, ResetPasswordForm, Spinner, toast } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import React from 'react';
 import { useTranslation } from '../../common/i18n';
@@ -29,7 +24,7 @@ export const ResetPassword = ({
         { query: { email: formData.email.toLowerCase(), resetToken } },
       ),
       () => {
-        message.success(t('auth.resetPasswordSuccess'));
+        toast.success(t('auth.resetPasswordSuccess'));
         dispatch(goTo('/'));
       },
     );

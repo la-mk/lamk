@@ -10,7 +10,7 @@ import {
   Box,
   Image,
   ImageMagnifier,
-  message,
+  toast,
   Spinner,
   PickerBoxes,
   hooks,
@@ -243,7 +243,7 @@ export const Product = ({ product }: ProductProps) => {
     );
 
     caller(action, () => {
-      message.info(t('cart.addedToCart'));
+      toast.info(t('cart.addedToCart'));
       return addCartItemWithProduct({
         product: orderProduct,
         quantity,
