@@ -32,6 +32,7 @@ export { Image } from './basic/Image/Image';
 export { ImageMagnifier } from './basic/Image/ImageMagnifier';
 export { Input, InputProps } from './basic/Input';
 export { Textarea, TextareaProps } from './basic/Textarea';
+export { Table, TableProps } from './basic/Table';
 export { Layout, LayoutProps } from './basic/Layout';
 export {
   Menu,

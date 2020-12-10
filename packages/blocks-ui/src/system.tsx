@@ -25,3 +25,4 @@ export type ButtonVariant = 'solid' | 'ghost' | 'outline' | 'link';
 export type InputVariant = 'outline' | 'unstyled' | 'flushed' | 'filled';
 export type RadioVariant = 'default' | 'button';
 export type BadgeVariant = 'outline' | 'solid' | 'subtle';
+export type TableVariant = 'simple' | 'striped' | 'unstyled';
