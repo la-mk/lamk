@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Flex,
-  Steps,
-  Step,
-  Result,
-  Spinner,
-  hooks,
-} from '@sradevski/blocks-ui';
+import { Flex, Steps, Result, Spinner, hooks } from '@sradevski/blocks-ui';
 import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
 import { ShippingDescription } from '../shared/ShippingDescription';
 import { sdk } from '@sradevski/la-sdk';
@@ -27,24 +20,12 @@ import { CustomCard } from '../shared/components/CustomCard';
 import { OrderDescription } from './OrderDescription';
 import { ManagedSets } from '../sets/ManagedSets';
 
-const getStepIndex = (status: OrderType['status'], isCardPayment: boolean) => {
-  const startIndex = isCardPayment ? 1 : 0;
-
-  switch (status) {
-    case sdk.order.OrderStatus.PENDING_PAYMENT:
-      return 0;
-    case sdk.order.OrderStatus.PENDING_SHIPMENT:
-      return startIndex;
-    case sdk.order.OrderStatus.SHIPPED:
-      return startIndex + 1;
-    case sdk.order.OrderStatus.COMPLETED:
-    case sdk.order.OrderStatus.CANCELLED:
-    case sdk.order.OrderStatus.INVALID:
-      return startIndex + 2;
-  }
-};
-
 export const Order = ({ orderId }: { orderId: string }) => {
+  const orientation = hooks.useBreakpoint<'vertical' | 'horizontal'>([
+    'vertical',
+    'horizontal',
+    'horizontal',
+  ]);
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const user = useSelector(getUser);
@@ -87,48 +68,73 @@ export const Order = ({ orderId }: { orderId: string }) => {
     order.status === sdk.order.OrderStatus.PENDING_PAYMENT && isCardPayment;
 
   const status = order.status;
-  const stepIndex = status ? getStepIndex(status, isCardPayment) : 0;
+  const stepIndex = status ? (isCardPayment ? -1 : 0) : 0;
 
   return (
     <Page>
       <Spinner isLoaded={!showSpinner}>
-        <Steps size='small' current={stepIndex}>
-          {isCardPayment && (
-            <Step
-              title={t('orderStatus.pendingPayment')}
-              description={t('orderStatus.pendingPaymentDescription')}
-            />
-          )}
-          <Step
-            title={t('orderStatus.pendingShipment')}
-            description={t('orderStatus.pendingShipmentDescription')}
-          />
-          <Step
-            title={t('orderStatus.shipped')}
-            description={t('orderStatus.shippedDescription')}
-          />
-          {status !== sdk.order.OrderStatus.CANCELLED &&
-            status !== sdk.order.OrderStatus.INVALID && (
-              <Step
-                title={t('orderStatus.completed')}
-                description={t('orderStatus.completedDescription')}
-              />
-            )}
-          {status === sdk.order.OrderStatus.CANCELLED && (
-            <Step
-              status='error'
-              title={t('orderStatus.cancelled')}
-              description={t('orderStatus.cancelledDescription')}
-            />
-          )}
-          {status === sdk.order.OrderStatus.INVALID && (
-            <Step
-              status='error'
-              title={t('orderStatus.invalid')}
-              description={t('orderStatus.invalidDescription')}
-            />
-          )}
-        </Steps>
+        <Steps
+          orientation={orientation}
+          steps={
+            [
+              ...(isCardPayment
+                ? [
+                    {
+                      status: stepIndex <= 0 ? 'pending' : 'success',
+                      title: t('orderStatus.pendingPayment'),
+                      description: t('orderStatus.pendingPaymentDescription'),
+                      key: 'first',
+                    },
+                  ]
+                : []),
+              {
+                status: stepIndex <= 0 ? 'pending' : 'success',
+                title: t('orderStatus.pendingShipment'),
+                description: t('orderStatus.pendingShipmentDescription'),
+                key: 'second',
+              },
+              {
+                status: stepIndex <= 1 ? 'pending' : 'success',
+                title: t('orderStatus.shipped'),
+                description: t('orderStatus.shippedDescription'),
+                key: 'second',
+              },
+              ...(status !== sdk.order.OrderStatus.CANCELLED &&
+              status !== sdk.order.OrderStatus.INVALID
+                ? [
+                    {
+                      status: stepIndex <= 2 ? 'pending' : 'success',
+                      title: t('orderStatus.completed'),
+                      description: t('orderStatus.completedDescription'),
+                      key: 'second',
+                    },
+                  ]
+                : []),
+
+              ...(status === sdk.order.OrderStatus.CANCELLED
+                ? [
+                    {
+                      status: stepIndex <= 3 ? 'pending' : 'danger',
+                      title: t('orderStatus.cancelled'),
+                      description: t('orderStatus.cancelledDescription'),
+                      key: 'second',
+                    },
+                  ]
+                : []),
+
+              ...(status === sdk.order.OrderStatus.INVALID
+                ? [
+                    {
+                      status: stepIndex <= 3 ? 'pending' : 'danger',
+                      title: t('orderStatus.invalid'),
+                      description: t('orderStatus.invalidDescription'),
+                      key: 'second',
+                    },
+                  ]
+                : []),
+            ] as any
+          }
+        />
 
         <Flex
           mt={4}
@@ -166,7 +172,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
               campaigns={order.campaigns ?? []}
               buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
               onCheckout={shouldPay ? handlePayment : undefined}
-              title={t('finance.priceBreakdown')}
+              // title={t('finance.priceBreakdown')}
             />
           </Flex>
         </Flex>

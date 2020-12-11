@@ -140,7 +140,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
           description={t('order.orderAlreadyPaid')}
         />
         <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
-          <Button mt={4} as='a' mt={2} mx={2} key='console'>
+          <Button mt={4} as='a' mx={2} key='console'>
             {t('order.seeOrder')}
           </Button>
         </Link>

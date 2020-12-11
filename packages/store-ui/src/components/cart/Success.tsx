@@ -12,8 +12,9 @@ export const Success = withTheme(
     order,
     theme,
     ...otherProps
-  }: { order: Order; theme: BlocksTheme } & React.ComponentProps<
-    typeof Flex
+  }: { order: Order; theme: BlocksTheme } & Omit<
+    React.ComponentProps<typeof Flex>,
+    'order'
   >) => {
     const { t } = useTranslation();
 
