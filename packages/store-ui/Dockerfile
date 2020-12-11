@@ -28,4 +28,4 @@ COPY ./entry.sh ./
 COPY --from=build /usr/src/app ./
 
 ENTRYPOINT ["./entry.sh"]
-CMD ["node", "dist/server/index.js"]
+CMD ["npx", "next", "start"]

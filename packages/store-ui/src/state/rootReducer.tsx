@@ -7,7 +7,9 @@ import campaigns from './modules/campaigns/campaigns.module';
 import categories from './modules/categories/categories.module';
 import storeContents from './modules/storeContents/storeContents.module';
 import { routerReducer } from 'connected-next-router';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
+import { HYDRATE } from 'next-redux-wrapper';
+import { merge } from 'lodash';
 
 const getReducersSet = () => ({
   store,
@@ -21,30 +23,43 @@ const getReducersSet = () => ({
   router: routerReducer,
 });
 
-export default (isServer: boolean) => {
+const registerReducers = (isServer: boolean) => {
   const reducers = getReducersSet();
+  let rootReducer: Reducer;
   if (isServer) {
-    return combineReducers(reducers);
+    rootReducer = combineReducers(reducers);
+  } else {
+    const { persistCombineReducers } = require('redux-persist');
+    const storage = require('redux-persist/lib/storage').default;
+
+    const storageConfig = {
+      key: 'rootStorage',
+      storage,
+      blacklist: [
+        'store',
+        'cart',
+        'user',
+        'ui',
+        'delivery',
+        'campaigns',
+        'categories',
+        'storeContents',
+        'router',
+      ],
+    };
+
+    rootReducer = persistCombineReducers(storageConfig, reducers);
   }
 
-  const { persistCombineReducers } = require('redux-persist');
-  const storage = require('redux-persist/lib/storage').default;
-
-  const storageConfig = {
-    key: 'rootStorage',
-    storage,
-    blacklist: [
-      'store',
-      'cart',
-      'user',
-      'ui',
-      'delivery',
-      'campaigns',
-      'categories',
-      'storeContents',
-      'router',
-    ],
+  return (state: any = {}, action: AnyAction) => {
+    switch (action.type) {
+      case HYDRATE:
+        // TODO: See if this reconsiliation method works.
+        return merge({ ...state, ...action.payload });
+      default:
+        return rootReducer(state, action);
+    }
   };
-
-  return persistCombineReducers(storageConfig, reducers);
 };
+
+export default registerReducers;

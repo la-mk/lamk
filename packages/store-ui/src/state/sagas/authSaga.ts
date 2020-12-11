@@ -8,7 +8,7 @@ import {
 } from 'redux-saga/effects';
 import { sdk } from '@sradevski/la-sdk';
 import { toast } from '@sradevski/blocks-ui';
-import jwtDecode from 'jwt-decode';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { SET_UI_LOADED } from '../modules/ui/ui.module';
 import { clearSession, toggleAuthModal } from '../modules/ui/ui.module';
@@ -32,7 +32,7 @@ const isTokenValid = (token: string) => {
   }
 
   try {
-    const tokenData = jwtDecode(token);
+    const tokenData = jwtDecode<JwtPayload>(token);
     const expirationTimestamp = tokenData.exp;
     const currentTimestamp = Date.now() / 1000;
     if (currentTimestamp > expirationTimestamp) {

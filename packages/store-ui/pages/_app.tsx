@@ -1,11 +1,9 @@
 import React from 'react';
-import App from 'next/app';
+import App, { AppContext, AppInitialProps } from 'next/app';
 import { default as NextHead } from 'next/head';
 import { Provider as ThemeProvider } from '@sradevski/blocks-ui';
-import { Provider as ReduxProvider } from 'react-redux';
-import withRedux from 'next-redux-wrapper';
 import { ConnectedRouter } from 'connected-next-router';
-import configureStore from '../src/state/configureStore';
+import { withRedux } from '../src/state/configureStore';
 import { StoreLayout } from '../src/common/pageComponents/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
 import { AuthModal } from '../src/components/auth/AuthModal';
@@ -13,13 +11,14 @@ import { sdk, setupSdk } from '@sradevski/la-sdk';
 import env from '../src/common/env';
 import { getStore } from '../src/state/modules/store/store.selector';
 import { appWithTranslation, useTranslation } from '../src/common/i18n';
-import { I18n } from 'next-i18next';
+import { connect } from 'react-redux';
 import memoize from 'mem';
 import { initializeAnalytics } from '../src/common/analytics';
 import { getTheme } from '../src/common/theme';
 import { StoreNotFound } from '../src/common/pageComponents/StoreNotFound';
 import { setLandingContent } from '../src/state/modules/storeContents/storeContents.module';
 import { setCategories } from '../src/state/modules/categories/categories.module';
+import { NextPageContext } from 'next';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {
@@ -92,10 +91,10 @@ const getStoreFromHost = (host: string) => {
   });
 };
 
-const setInitialDataInState = async (appCtx: any) => {
+const setInitialDataInState = async (ctx: NextPageContext) => {
   // If it is SSR, fetch the store information, otherwise it should be in redux already
-  if (appCtx.ctx.req) {
-    const host: string = appCtx.ctx.req.headers.host;
+  if (ctx.req) {
+    const host: string = ctx.req.headers.host;
     if (!host) {
       throw new Error('Store request misconfigured');
     }
@@ -111,14 +110,14 @@ const setInitialDataInState = async (appCtx: any) => {
       sdk.storeCategory.findForStore(laStore._id),
     ]);
 
-    appCtx.ctx.store.dispatch(setStore(laStore));
-    appCtx.ctx.store.dispatch(setLandingContent(landingContent));
-    appCtx.ctx.store.dispatch(setCategories(categoriesResult.data));
+    ctx.store.dispatch(setStore(laStore));
+    ctx.store.dispatch(setLandingContent(landingContent));
+    ctx.store.dispatch(setCategories(categoriesResult.data));
   }
 };
 
-const Main = ({ store, laStore, children }) => {
-  const { t, i18n } = useTranslation();
+const Main = ({ laStore, children }) => {
+  const { t } = useTranslation();
   const brandColor = laStore?.color;
 
   return (
@@ -126,35 +125,40 @@ const Main = ({ store, laStore, children }) => {
       theme={getTheme(brandColor)}
       translations={getCompoundLocale(t)}
     >
-      <ReduxProvider store={store}>
-        <ConnectedRouter>
-          {laStore ? (
-            <StoreLayout>
-              <>
-                {children}
-                <AuthModal />
-              </>
-            </StoreLayout>
-          ) : (
-            <StoreNotFound t={t} />
-          )}
-        </ConnectedRouter>
-      </ReduxProvider>
+      <ConnectedRouter>
+        {laStore ? (
+          <StoreLayout>
+            <>
+              {children}
+              <AuthModal />
+            </>
+          </StoreLayout>
+        ) : (
+          <StoreNotFound t={t} />
+        )}
+      </ConnectedRouter>
     </ThemeProvider>
   );
 };
 
-class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
-  static async getInitialProps(appCtx: any) {
-    // You need to set the initial state before doing `getInitialProps`, otherwise the individual pages won't have access to the initial state.
-    await setInitialDataInState(appCtx);
-    const appProps = await App.getInitialProps(appCtx);
-    return appProps;
-  }
+class MyApp extends App<AppInitialProps> {
+  public static getInitialProps = async ({ Component, ctx }: AppContext) => {
+    await setInitialDataInState(ctx);
+
+    return {
+      pageProps: {
+        // Call page-level getInitialProps
+        ...(Component.getInitialProps
+          ? await Component.getInitialProps(ctx)
+          : {}),
+        // Some custom thing for all pages
+      },
+    };
+  };
 
   render() {
-    const { Component, pageProps, store } = this.props;
-    const laStore = getStore(store.getState());
+    // @ts-ignore
+    const { Component, pageProps, laStore } = this.props;
 
     // Initialize analytics and only in the browser for now.
     if (process.browser && laStore?.slug) {
@@ -184,7 +188,7 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
           </NextHead>
         )}
 
-        <Main store={store} laStore={laStore}>
+        <Main laStore={laStore}>
           {laStore ? <Component {...pageProps} /> : null}
         </Main>
       </>
@@ -193,6 +197,14 @@ class MyApp extends App<{ store: any; i18nServerInstance: I18n }> {
 }
 
 // We initialize the redux store, which will add the `store` prop to the context object.
-export default withRedux((initialState, options) =>
-  configureStore(process.env.NODE_ENV, initialState, options),
-)(appWithTranslation(MyApp));
+export default withRedux(
+  // (initialState, options) =>
+  // configureStore(process.env.NODE_ENV, initialState, options),
+  appWithTranslation(
+    connect(state => {
+      return {
+        laStore: getStore(state),
+      };
+    })(MyApp),
+  ),
+);
