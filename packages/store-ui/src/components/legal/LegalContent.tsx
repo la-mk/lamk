@@ -14,8 +14,8 @@ export const LegalContent = ({ url, title, body }) => {
   ]);
 
   return (
-    <Page maxWidth={1280} title={title}>
-      <Text as='p' whiteSpace='pre-wrap'>
+    <Page maxWidth={'86rem'} title={title}>
+      <Text align='justify' color='text.dark' as='p' whiteSpace='pre-wrap'>
         {body}
       </Text>
     </Page>

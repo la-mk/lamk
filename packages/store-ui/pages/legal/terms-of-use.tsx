@@ -96,14 +96,13 @@ ${companyName} има усвоена политика за сигурност и
 const TermsOfUsePage = ({ store }: { store: Store }) => {
   const { t } = useTranslation();
   const title = t('pages.termsOfUse');
-
   if (!store.company) {
     return (
       <>
         <Head siteName={store?.name} title={title} description={title} />
         <Result
           status='empty'
-          mt={7}
+          mt={8}
           description={t('legal.legalNotAvailable')}
         />
       </>

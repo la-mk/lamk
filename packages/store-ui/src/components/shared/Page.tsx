@@ -14,12 +14,12 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
       justify='flex-start'
       width='100%'
       maxWidth={maxWidth ?? 1920}
-      px={[2, 4, 5]}
+      px={[3, 5, 6]}
       mt={title ? 0 : 5}
       mx='auto'
     >
       {title && (
-        <Heading mx='auto' my={4} size={'xl'} as='h1'>
+        <Heading mx='auto' my={7} size={'2xl'} as='h1'>
           {title}
         </Heading>
       )}

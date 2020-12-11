@@ -59,7 +59,7 @@ const PrivacyPage = ({ store }: { store: Store }) => {
         <Head siteName={store?.name} title={title} description={title} />
         <Result
           status='empty'
-          mt={7}
+          mt={8}
           description={t('legal.legalNotAvailable')}
         />
       </>

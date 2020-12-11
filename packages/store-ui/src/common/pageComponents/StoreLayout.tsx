@@ -130,7 +130,7 @@ export const StoreLayout = withTheme(
             </Box>
           }
           footer={
-            <Box mt={4} bg='background.dark'>
+            <Box mt={7} bg='background.dark'>
               <FooterContent store={store} />
             </Box>
           }

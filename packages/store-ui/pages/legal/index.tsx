@@ -23,11 +23,9 @@ LegalPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
   try {
     const state = ctx.store.getState();
     const store = getStore(state);
-    if (!store) {
-      return {};
+    if (store) {
+      return { store };
     }
-
-    return { store };
   } catch (err) {
     console.log(err);
   }

@@ -6,6 +6,7 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
 import { getTextSnippet } from '../../src/common/utils';
+import { Result } from '@sradevski/blocks-ui';
 
 const getReturnAndRefundPolicy = ({ storeName }) => {
   return `
@@ -27,6 +28,19 @@ const getReturnAndRefundPolicy = ({ storeName }) => {
 const ReturnAndRefundPage = ({ store }: { store: Store }) => {
   const { t } = useTranslation();
   const title = t('pages.returnAndRefund');
+  if (!store.company) {
+    return (
+      <>
+        <Head siteName={store?.name} title={title} description={title} />
+        <Result
+          status='empty'
+          mt={8}
+          description={t('legal.legalNotAvailable')}
+        />
+      </>
+    );
+  }
+
   const returnAndRefundPolicy = getReturnAndRefundPolicy({
     storeName: store.name,
   });

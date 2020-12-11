@@ -20,7 +20,7 @@ import { setLandingContent } from '../src/state/modules/storeContents/storeConte
 import { setCategories } from '../src/state/modules/categories/categories.module';
 import { NextPageContext } from 'next';
 
-const getCompoundLocale = (t: (key: string) => string) => {
+const getTranslations = (t: (key: string) => string) => {
   return {
     email: t('common.email'),
     password: t('common.password'),
@@ -123,7 +123,7 @@ const Main = ({ laStore, children }) => {
   return (
     <ThemeProvider
       theme={getTheme(brandColor)}
-      translations={getCompoundLocale(t)}
+      translations={getTranslations(t)}
     >
       <ConnectedRouter>
         {laStore ? (
@@ -198,8 +198,6 @@ class MyApp extends App<AppInitialProps> {
 
 // We initialize the redux store, which will add the `store` prop to the context object.
 export default withRedux(
-  // (initialState, options) =>
-  // configureStore(process.env.NODE_ENV, initialState, options),
   appWithTranslation(
     connect(state => {
       return {
