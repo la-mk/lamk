@@ -18,4 +18,8 @@ export interface HeadingProps
   as?: As;
 }
 
+ChakraHeading.defaultProps = {
+  fontWeight: 'normal',
+};
+
 export const Heading = ChakraHeading as React.FunctionComponent<HeadingProps>;

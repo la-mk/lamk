@@ -1,5 +1,6 @@
 import tinycolor from 'tinycolor2';
 import { extendTheme, Theme as ChakraTheme } from '@chakra-ui/react';
+import merge from 'lodash/merge';
 
 export type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
@@ -90,34 +91,37 @@ const calculateShades = (color: string): any => {
 };
 
 export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
+  // @ts-ignore
   return extendTheme({
+    // @ts-ignore
     colors: {
-      ...theme.colors,
-      secondary: '#07074F',
+      ...merge(theme.colors, {
+        secondary: '#07074F',
 
-      danger: '#FF3838',
-      success: '#5CB85C',
+        danger: '#FF3838',
+        success: '#5CB85C',
 
-      heading: {
-        // @ts-ignore
-        light: '#FFFFFF',
-        dark: '#070708',
-      },
-      text: {
-        // @ts-ignore
-        light: '#FAF8F0',
-        dark: '#404C4D',
-      },
-      mutedText: {
-        // @ts-ignore
-        light: '#EEEEEE',
-        dark: '#687C94',
-      },
-      background: {
-        // @ts-ignore
-        light: '#F6F8FF',
-        dark: '#17121E',
-      },
+        heading: {
+          // @ts-ignore
+          light: '#FFFFFF',
+          dark: '#070708',
+        },
+        text: {
+          // @ts-ignore
+          light: '#FAF8F0',
+          dark: '#404C4D',
+        },
+        mutedText: {
+          // @ts-ignore
+          light: '#EEEEEE',
+          dark: '#687C94',
+        },
+        background: {
+          // @ts-ignore
+          light: '#F6F8FF',
+          dark: '#17121E',
+        },
+      }),
       primary: calculateShades(theme.colors?.primary ?? '#EF4351'),
     },
     global: {

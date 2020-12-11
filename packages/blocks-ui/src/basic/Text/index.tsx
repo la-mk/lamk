@@ -43,6 +43,8 @@ ChakraText.defaultProps = {
 
 export const Text = React.forwardRef(
   ({ size, ...props }: TextProps, ref: any) => {
-    return <ChakraText ref={ref} fontSize={size} {...props} />;
+    return (
+      <ChakraText ref={ref} fontSize={size} color="text.dark" {...props} />
+    );
   }
 );
