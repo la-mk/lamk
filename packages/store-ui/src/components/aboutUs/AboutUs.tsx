@@ -22,11 +22,11 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
   }
 
   return (
-    <Page maxWidth={1280} title={t('pages.aboutUs')}>
+    <Page maxWidth={'86rem'} title={t('pages.aboutUs')}>
       {paragraphs ? (
         paragraphs.map(paragraph => {
           return (
-            <Text as='p' align='center' key={paragraph.slice(0, 10)}>
+            <Text as='p' align='center' key={paragraph.slice(0, 16)}>
               {paragraph}
             </Text>
           );
@@ -34,7 +34,7 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
       ) : (
         <Result
           status='empty'
-          mt={7}
+          mt={4}
           description={t('store.noAboutusInformation')}
         />
       )}
