@@ -24,6 +24,7 @@ interface SummaryProps {
   onCheckout?: () => void;
   showContinueShopping?: boolean;
   hideFreeShipping?: boolean;
+  title?: string;
 }
 
 export const Summary = ({
@@ -104,7 +105,7 @@ export const Summary = ({
         </Box>
       )}
 
-      <Divider my={3} />
+      <Divider my={4} />
       <Flex direction='row' justify='space-between'>
         <Text>{t('finance.total')}</Text>
         <Text as='strong' size='xl'>

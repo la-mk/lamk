@@ -244,6 +244,7 @@ export const Checkout = () => {
             align={'flex-start'}
             justify='center'
             maxWidth={'32rem'}
+            minWidth={'18rem'}
             flex={1}
             ml={[0, 3, 3]}
             mt={[8, 0, 0]}

@@ -52,7 +52,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
 
   if (!order) {
     return (
-      <Result status='empty' mt={7} description={t('order.orderNotFound')} />
+      <Result status='empty' mt={8} description={t('order.orderNotFound')} />
     );
   }
 
@@ -74,6 +74,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
     <Page>
       <Spinner isLoaded={!showSpinner}>
         <Steps
+          mt={4}
           orientation={orientation}
           steps={
             [
@@ -137,13 +138,13 @@ export const Order = ({ orderId }: { orderId: string }) => {
         />
 
         <Flex
-          mt={4}
+          mt={7}
           width='100%'
           justify='space-between'
           align={['center', 'center', 'flex-start']}
           direction={['column-reverse', 'column-reverse', 'row']}
         >
-          <Flex maxWidth={960} flex={1} direction='column' mr={[0, 0, 3]}>
+          <Flex maxWidth={'60rem'} flex={1} direction='column' mr={[0, 0, 3]}>
             <CustomCard mb={3}>
               <OrderDescription
                 hideDetailsButton
@@ -152,33 +153,37 @@ export const Order = ({ orderId }: { orderId: string }) => {
               />
             </CustomCard>
             {order.deliverTo && (
-              <CustomCard minWidth={320} mt={3}>
+              <CustomCard minWidth={'18rem'} mt={3}>
                 <ShippingDescription address={order.deliverTo} />
               </CustomCard>
             )}
           </Flex>
           <Flex
-            align='flex-start'
+            align={'flex-start'}
             justify='center'
-            maxWidth={[0, 0, 460]}
+            width='100%'
             flex={1}
+            maxWidth={['60rem', '60rem', '32rem']}
+            minWidth={'18rem'}
             ml={[0, 0, 3]}
-            my={[4, 4, 0]}
+            mb={[6, 6, 0]}
           >
             <Summary
+              maxWidth={['60rem', '60rem', '32rem']}
+              width='100%'
               hideFreeShipping
               items={order.ordered}
               delivery={order.delivery}
               campaigns={order.campaigns ?? []}
               buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
               onCheckout={shouldPay ? handlePayment : undefined}
-              // title={t('finance.priceBreakdown')}
+              title={t('finance.priceBreakdown')}
             />
           </Flex>
         </Flex>
 
         <ManagedSets
-          mt={7}
+          mt={8}
           storeId={store._id}
           setTags={[
             {
