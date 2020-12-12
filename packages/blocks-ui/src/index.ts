@@ -69,6 +69,7 @@ export { Heading, HeadingProps } from './basic/Heading';
 export { Upload, UploadProps } from './basic/Upload';
 export { LoginForm } from './compound/forms/LoginForm';
 export { SignupForm } from './compound/forms/SignupForm';
+export { BasicUserForm } from './compound/forms/BasicUserForm';
 export { ChangePasswordForm } from './compound/forms/ChangePasswordForm';
 export { ForgotPasswordForm } from './compound/forms/ForgotPasswordForm';
 export { ResetPasswordForm } from './compound/forms/ResetPasswordForm';

@@ -6,6 +6,9 @@ import { BreakpointProvider } from '../../hooks/useBreakpoint';
 
 interface LocalizationContext {
   email?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
   password?: string;
   currentPassword?: string;
   newPassword?: string;
