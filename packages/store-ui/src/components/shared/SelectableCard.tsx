@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardProps, Positioner } from '@sradevski/blocks-ui';
+import { CardProps, Positioner, Text } from '@sradevski/blocks-ui';
 import { CheckCircleFilled } from '@ant-design/icons';
 import { withTheme } from 'styled-components';
 import { CustomCard } from './components/CustomCard';
@@ -18,7 +18,7 @@ export const SelectableCard = withTheme(
           isChecked ? (
             <CheckCircleFilled
               style={{
-                color: theme.colors.primary,
+                color: theme.colors.primary['500'],
                 fontSize: 20,
               }}
             />

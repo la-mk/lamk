@@ -1,9 +1,11 @@
 {
   "actions": {
+    "add": "Додадете",
     "addToCart": "Стави во корпа",
     "cancel": "Откажете",
     "create": "Создадете",
     "createStoreNow": "Отворете продавница сега",
+    "delete": "Избришете",
     "goBack": "Одете назад",
     "goToCart": "Прегледај корпа",
     "loginInstead": "Или логирајте се",
@@ -699,7 +701,6 @@
   },
   "results": {
     "genericError": "Се појави грешка",
-    "genericErrorExplanation": "Се појави грешка со статусен код {{statusCode}}. Доколку сеуште имате проблем, контактирајте не",
     "pageNotFound": "Не е пронајдена",
     "pageNotFoundExplanation": "Страницата што ја баравте не беше пронајдена",
     "productNotFound": "Производот не е пронајден",

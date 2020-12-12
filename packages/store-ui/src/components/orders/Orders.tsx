@@ -56,29 +56,34 @@ export const Orders = () => {
     return (
       <Result
         status='empty'
-        mt={7}
+        mt={8}
         description={t('order.orderNotFound_plural')}
       />
     );
   }
 
   return (
-    <Page>
+    <Page title={t('pages.myOrders')} maxWidth={'86rem'}>
       <DataGrid<Order>
         isFullWidth
         rowKey={'_id'}
-        spacing={8}
+        spacing={7}
         pagination={{
           currentPage: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 10,
           totalItems: orders ? orders.total : 0,
-          onChange: (currentPage, pageSize) =>
-            setFilters({ ...filters, pagination: { currentPage, pageSize } }),
+          onChange: (currentPage, pageSize) => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setFilters({
+              ...filters,
+              pagination: { currentPage, pageSize },
+            });
+          },
         }}
         isLoaded={!showSpinner}
         items={orders ? orders.data : []}
         renderItem={order => (
-          <CustomCard mx='auto' width='100%' maxWidth={960}>
+          <CustomCard mx='auto' width='100%'>
             <OrderDescription order={order} storeId={store._id} />
           </CustomCard>
         )}

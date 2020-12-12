@@ -69,7 +69,7 @@ const getColumns = (
             key: 'action',
             render: (val, item) => (
               <Button
-                variant='link'
+                variant='ghost'
                 leftIcon={<DeleteOutlined />}
                 aria-label={t('actions.delete')}
                 onClick={() => handleRemove(item)}
@@ -89,11 +89,11 @@ const OrderProductListItem = ({
 }: Pick<
   OrderProductsListProps,
   'storeId' | 'handleChangeItemQuantity' | 'handleRemove'
-> & { item: CartItemWithProduct; t: TFunction }) => {
+> & { item: OrderItem | CartItemWithProduct; t: TFunction }) => {
   return (
     <Flex
       key={item.product._id}
-      minWidth={'20rem'}
+      minWidth={'18rem'}
       maxWidth={'34rem'}
       width='100%'
       px={4}
@@ -115,7 +115,7 @@ const OrderProductListItem = ({
       </Box>
       <ProductImageWithTitle product={item.product} storeId={storeId} />
 
-      <Flex mt={6} justify='space-between' align='center'>
+      <Flex mt={6} justify='space-between'>
         <Flex justify='center'>
           <Text mr={2}>Price:</Text>
           <Price
@@ -131,7 +131,7 @@ const OrderProductListItem = ({
         <Box>
           {handleChangeItemQuantity ? (
             <Quantity
-              cartItem={item}
+              cartItem={item as CartItemWithProduct}
               handleChangeItemQuantity={handleChangeItemQuantity}
             />
           ) : (
@@ -152,10 +152,10 @@ const OrderProductListItem = ({
 };
 
 export interface OrderProductsListProps {
-  items: CartItemWithProduct[];
+  items: Array<OrderItem | CartItemWithProduct>;
   storeId: string;
-  handleRemove: (item: CartItemWithProduct) => void;
-  handleChangeItemQuantity: (item: CartItemWithProduct, val: number) => void;
+  handleRemove?: (item: OrderItem | CartItemWithProduct) => void;
+  handleChangeItemQuantity?: (item: CartItemWithProduct, val: number) => void;
 }
 
 export const OrderProductsList = ({

@@ -33,7 +33,7 @@ export const Success = withTheme(
           status='success'
           icon={
             <OrderSuccess
-              primary={theme.colors.primary}
+              primary={theme.colors.primary['500']}
               background={theme.colors.background.dark}
               muted={theme.colors.mutedText.light}
             />

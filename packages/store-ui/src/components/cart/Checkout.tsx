@@ -33,26 +33,25 @@ import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
 
 export const Checkout = () => {
   const [caller, showSpinner] = hooks.useCall(true);
+  const { t } = useTranslation();
   const cart: CartWithProducts = useSelector(getCartWithProducts);
   const delivery = useSelector(getDelivery);
   const campaigns = useSelector(getCampaigns);
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const addresses: Address[] = useSelector(getAddresses);
-  const [trackedEvent, setTrackedEvent] = useState(false);
   const [
     storePaymentMethods,
     setStorePaymentMethods,
   ] = useState<StorePaymentMethods | null>(null);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const [trackedEvent, setTrackedEvent] = useState(false);
   const [order, setOrder] = useState(null);
   const [deliverTo, setDeliverTo] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState(
     sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY,
   );
-
-  const { t } = useTranslation();
 
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
@@ -140,14 +139,14 @@ export const Checkout = () => {
     order.paymentMethod ===
       sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY
   ) {
-    return <Success mt={[5, 6, 6]} order={order} />;
+    return <Success mt={[7, 8, 8]} order={order} />;
   }
 
   if (!cart || !cart.items || cart.items.length <= 0) {
     return (
       <Result
         status='empty'
-        mt={7}
+        mt={8}
         description={t('cart.emptyCartDescription')}
       />
     );
@@ -217,13 +216,14 @@ export const Checkout = () => {
     <Page>
       <Spinner isLoaded={!showSpinner}>
         <Flex
-          width='100%'
+          mt={4}
           justify='space-between'
+          align={['center', 'flex-start', 'flex-start']}
           direction={['column', 'row', 'row']}
         >
           <Flex
             px={2}
-            maxWidth={960}
+            maxWidth={'60rem'}
             flex={1}
             direction='column'
             mr={[0, 3, 3]}
@@ -239,13 +239,15 @@ export const Checkout = () => {
               user={user}
             />
           </Flex>
+
           <Flex
-            align='flex-start'
+            align={'flex-start'}
             justify='center'
-            maxWidth={[0, 460, 460]}
+            maxWidth={'32rem'}
             flex={1}
             ml={[0, 3, 3]}
-            my={[4, 0, 0]}
+            mt={[8, 0, 0]}
+            mb={[4, 0, 0]}
           >
             <Summary
               showProductsSummary

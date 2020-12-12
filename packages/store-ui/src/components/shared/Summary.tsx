@@ -63,14 +63,14 @@ export const Summary = ({
     <CustomCard
       height='fit-content'
       maxWidth={'30rem'}
-      minWidth={'20rem'}
+      minWidth={'18rem'}
       title={t('common.summary')}
       {...props}
     >
       {showProductsSummary && (
         <>
           <SummaryProductList items={items} storeId={storeId} />
-          <Divider my={3} />
+          <Divider my={4} />
         </>
       )}
 
@@ -107,7 +107,7 @@ export const Summary = ({
       <Divider my={3} />
       <Flex direction='row' justify='space-between'>
         <Text>{t('finance.total')}</Text>
-        <Text as='strong' color='primary' size='xl'>
+        <Text as='strong' size='xl'>
           {prices.total} ден
         </Text>
       </Flex>

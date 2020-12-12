@@ -36,9 +36,7 @@ export const ProductImageWithTitle = ({
         {!!quantity && (
           <Box>
             <Text>{quantity} x </Text>
-            <Text as='strong' color='primary'>
-              {product.calculatedPrice} ден
-            </Text>
+            <Text as='strong'>{product.calculatedPrice} ден</Text>
           </Box>
         )}
       </Flex>

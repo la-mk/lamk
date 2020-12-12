@@ -153,7 +153,7 @@ export const Cart = () => {
   return (
     <Page>
       <Spinner isLoaded={!showSpinner}>
-        <Flex width='100%' direction={['column', 'column', 'row']}>
+        <Flex mt={4} width='100%' direction={['column', 'column', 'row']}>
           <Flex direction='column' flex={2} mr={[0, 0, 3]}>
             <OrderProductsList
               items={cart.items}

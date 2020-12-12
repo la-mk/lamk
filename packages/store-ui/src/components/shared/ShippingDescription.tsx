@@ -33,7 +33,7 @@ export const ShippingDescription = ({ address, inverse, actions }: any) => {
         <Heading
           noOfLines={1}
           as='h4'
-          size='md'
+          size='sm'
           color={inverse ? 'heading.light' : 'heading.dark'}
         >
           {address.name}

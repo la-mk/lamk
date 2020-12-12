@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@sradevski/blocks-ui';
+import { Grid } from '@sradevski/blocks-ui';
 import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
 import { ProductImageWithTitle } from './product/ProductImageWithTitle';
 import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
@@ -12,17 +12,16 @@ export const SummaryProductList = ({
   storeId: string;
 }) => {
   return (
-    <Flex direction='column'>
+    <Grid spacing={5}>
       {items.map((cartItem, index) => {
         return (
           <ProductImageWithTitle
-            mb={index === items.length - 1 ? 0 : 3}
             product={cartItem.product}
             quantity={cartItem.quantity}
             storeId={storeId}
           />
         );
       })}
-    </Flex>
+    </Grid>
   );
 };

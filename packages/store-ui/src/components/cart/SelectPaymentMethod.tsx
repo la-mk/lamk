@@ -32,15 +32,20 @@ export const SelectPaymentMethod = ({
 
   return (
     <>
-      <Heading as='h3' size='lg' color='text.dark'>
+      <Heading mb={4} as='h3' size='md'>
         {t('payment.choosePaymentMethod')}
       </Heading>
-      <Grid mt={3} spacing={5} minChildWidth={[300, 360, 360]}>
+
+      <Grid spacing={5} minChildWidth={['18rem', '24rem', '24rem']}>
         {storePaymentMethods?.methods &&
           storePaymentMethods.methods.map(method => {
             const isChecked = paymentMethod === method.name;
             return (
-              <Box minWidth={[300, 360, 360]} maxWidth={480} width={'100%'}>
+              <Box
+                minWidth={['18rem', '24rem', '24rem']}
+                maxWidth={'32rem'}
+                width={'100%'}
+              >
                 <SelectableCard
                   isChecked={isChecked}
                   onClick={() => setPaymentMethod(method.name)}
@@ -56,7 +61,7 @@ export const SelectPaymentMethod = ({
                     </Text>
 
                     <Flex
-                      ml={[3, 4, 4]}
+                      ml={[4, 5, 5]}
                       direction='column'
                       align='center'
                       justify='center'

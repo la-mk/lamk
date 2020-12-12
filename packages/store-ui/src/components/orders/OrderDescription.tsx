@@ -25,10 +25,11 @@ export const OrderDescription = ({
       <Flex mb={3} direction='row' align='center' justify='space-between'>
         <Flex align='center' justify='center'>
           <Box display={['none', 'initial', 'initial']}>
-            <Heading m={0} mr={3} as='h2' size='lg'>
+            <Heading m={0} mr={4} as='h2' size='md'>
               {`${t('pages.order')} - ${sdk.utils.getShortId(order._id)}`}
             </Heading>
           </Box>
+          {/* TODO: Standardize this and add to blocks-ui */}
           <svg width='6' height='6' viewBox='0 0 6 6' fill='none'>
             <circle
               cx='3'
@@ -54,12 +55,9 @@ export const OrderDescription = ({
         )}
       </Flex>
 
-      <OrderProductsList
-        lightBackground
-        items={order.ordered}
-        storeId={storeId}
-      />
-      <Flex px={[1, 2, 2]} justify='space-between' align='center'>
+      <OrderProductsList items={order.ordered} storeId={storeId} />
+
+      <Flex mt={2} px={[1, 2, 2]} justify='space-between' align='center'>
         <Text mr={2} size='sm' color='mutedText.dark'>
           {/* TODO: Show expected delivery */}
           {/* Expected delivery between 1 and 2 */}

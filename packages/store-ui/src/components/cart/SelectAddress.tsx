@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, Button, Flex } from '@sradevski/blocks-ui';
+import { Heading, Button, Flex, hooks } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { Address } from '@sradevski/la-sdk/dist/models/address/address';
@@ -19,11 +19,16 @@ export const SelectAddress = ({
 }: SelectAddressProps) => {
   const { t } = useTranslation();
   const [addressModalVisible, setAddressModalVisible] = useState(false);
+  const addAddressText = hooks.useBreakpoint([
+    undefined,
+    t('address.addNewAddress'),
+    t('address.addNewAddress'),
+  ]);
 
   return (
     <>
-      <Flex mt={6} align='center' justify='space-between'>
-        <Heading as='h3' size='lg' color='text.dark'>
+      <Flex mb={4} mt={7} align='center' justify='space-between'>
+        <Heading as='h3' size='md' noOfLines={1} mr={3}>
           {t('address.chooseShippingAddress')}
         </Heading>
         <Button
@@ -31,7 +36,7 @@ export const SelectAddress = ({
           onClick={() => setAddressModalVisible(true)}
           leftIcon={<PlusOutlined />}
         >
-          {t('address.addNewAddress')}
+          {addAddressText}
         </Button>
       </Flex>
 
