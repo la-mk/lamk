@@ -15,6 +15,7 @@ export const Quantity = ({
 } & React.ComponentProps<typeof Input>) => {
   return (
     <Input
+      type='number'
       width='80px'
       min={1}
       max={cartItem.product.stock || 999}

@@ -11,6 +11,7 @@ import {
   NewForm,
   ChangePasswordForm,
   Box,
+  BasicUserForm,
 } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
 import { patchUser } from '../../state/modules/user/user.module';
@@ -24,6 +25,7 @@ interface AccountProps {
 }
 
 export const Account = ({ user }: AccountProps) => {
+  const { t } = useTranslation();
   const [caller, showSpinner] = hooks.useCall();
   const [tab, setTab] = useState(0);
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
@@ -32,19 +34,21 @@ export const Account = ({ user }: AccountProps) => {
     {},
     [user],
   );
-  const { t } = useTranslation();
 
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
     { url: '/account', title: t('pages.myAccount') },
   ]);
 
-  const handlePatchAccount = ({ formData }: { formData: Partial<User> }) => {
-    caller(sdk.user.patch(user._id, formData), (user: User) => {
-      toast.success(t('auth.accountUpdateSuccess'));
-      return patchUser(user);
-    });
-  };
+  const handlePatchAccount = React.useCallback(
+    ({ formData }: { formData: Partial<User> }) => {
+      caller(sdk.user.patch(user._id, formData), (user: User) => {
+        toast.success(t('auth.accountUpdateSuccess'));
+        return patchUser(user);
+      });
+    },
+    [],
+  );
 
   // currentPassword is a special field and is not part of the schema, but we want it to have the same characteristics as the standard password.
   const changePasswordSchema = sdk.utils.schema.pick(sdk.user.schema, [
@@ -57,7 +61,7 @@ export const Account = ({ user }: AccountProps) => {
   changePasswordSchema.required.push('currentPassword');
 
   return (
-    <Page>
+    <Page maxWidth={'86rem'}>
       <Tabs
         index={tab}
         onChange={setTab}
@@ -66,57 +70,20 @@ export const Account = ({ user }: AccountProps) => {
             title: t('common.personalInfo'),
             content: (
               <Spinner isLoaded={!showSpinner}>
-                <Flex
-                  align='center'
-                  justify='center'
-                  direction='column'
-                  width={'100%'}
-                  maxWidth={600}
-                  minWidth={200}
-                  mx='auto'
-                >
-                  <Box width='100%'>
-                    <NewForm<
-                      Pick<User, 'firstName' | 'lastName' | 'phoneNumber'>
-                    >
-                      schema={sdk.utils.schema.pick(sdk.user.schema, [
-                        'firstName',
-                        'lastName',
-                        'phoneNumber',
-                      ])}
-                      uiSchema={{
-                        firstName: {
-                          'ui:title': t('common.firstName'),
-                          'ui:options': {
-                            emphasized: true,
-                          },
-                        },
-                        lastName: {
-                          'ui:title': t('common.lastName'),
-                          'ui:options': {
-                            emphasized: true,
-                          },
-                        },
-                        phoneNumber: {
-                          'ui:title': t('common.phoneNumber'),
-                          'ui:options': {
-                            emphasized: true,
-                          },
-                        },
-                      }}
-                      onSubmit={handlePatchAccount}
-                      onChange={({ formData }) => setUserFormData(formData)}
-                      formData={userFormData}
-                      getErrorMessage={(errorName, context) =>
-                        t(`errors.${errorName}`, context)
-                      }
-                    >
-                      <Button isFullWidth type='submit' size='lg'>
-                        {t('actions.update')}
-                      </Button>
-                    </NewForm>
-                  </Box>
-                </Flex>
+                <BasicUserForm
+                  schema={sdk.utils.schema.pick(sdk.user.schema, [
+                    'firstName',
+                    'lastName',
+                    'phoneNumber',
+                  ])}
+                  emphasized
+                  onSubmit={handlePatchAccount}
+                  onChange={({ formData }) => setUserFormData(formData)}
+                  formData={userFormData}
+                  getErrorMessage={(errorName, context) =>
+                    t(`errors.${errorName}`, context)
+                  }
+                />
               </Spinner>
             ),
           },
@@ -139,7 +106,7 @@ export const Account = ({ user }: AccountProps) => {
             title: t('common.address_plural'),
             content: (
               <>
-                <Flex mb={4} align='center' justify='center'>
+                <Flex mb={6} align='center' justify='center'>
                   <Button onClick={() => setShowAddAddressModal(true)}>
                     {t('address.addNewAddress')}
                   </Button>

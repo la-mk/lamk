@@ -14,7 +14,7 @@ function AccountPage({ store }: { store: Store | undefined }) {
 
   if (!user) {
     return (
-      <Result status='empty' mt={7} description={t('auth.noUserInformation')} />
+      <Result status='empty' mt={8} description={t('auth.noUserInformation')} />
     );
   }
 

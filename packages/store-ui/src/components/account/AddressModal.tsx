@@ -27,7 +27,7 @@ export const AddressModal = ({
   }
 
   return (
-    <Modal maxWidth={['100%', '80%', '60%']} isOpen={visible} onClose={onClose}>
+    <Modal maxWidth={['96%', '88%', '64%']} isOpen={visible} onClose={onClose}>
       <Flex
         pt={4}
         pb={5}

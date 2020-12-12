@@ -31,7 +31,6 @@ const getColumns = (
       key: 'price',
       render: (_val, item) => (
         <Price
-          size='small'
           vertical
           minCalculatedPrice={item.product.calculatedPrice}
           maxCalculatedPrice={item.product.calculatedPrice}
@@ -51,9 +50,7 @@ const getColumns = (
             handleChangeItemQuantity={handleChangeItemQuantity}
           />
         ) : (
-          <Text as='strong' color='heading.dark'>
-            {item.quantity}
-          </Text>
+          <Text color='heading.dark'>{item.quantity}</Text>
         ),
     },
     {
@@ -61,7 +58,7 @@ const getColumns = (
       key: 'total',
       isNumeric: true,
       render: (val, item) => (
-        <Text as='strong' color='primary'>
+        <Text as='strong' size='lg' color='primary'>
           {item.quantity * item.product.calculatedPrice} ден
         </Text>
       ),
@@ -70,24 +67,103 @@ const getColumns = (
       ? [
           {
             key: 'action',
-            width: 30,
             render: (val, item) => (
-              <Button variant='link' onClick={() => handleRemove(item)}>
-                <DeleteOutlined />
-              </Button>
+              <Button
+                variant='link'
+                leftIcon={<DeleteOutlined />}
+                aria-label={t('actions.delete')}
+                onClick={() => handleRemove(item)}
+              />
             ),
           },
         ]
       : []),
   ] as TableColumnProps<CartItemWithProduct | OrderItem>[];
 
+const OrderProductListItem = ({
+  item,
+  storeId,
+  handleRemove,
+  handleChangeItemQuantity,
+  t,
+}: Pick<
+  OrderProductsListProps,
+  'storeId' | 'handleChangeItemQuantity' | 'handleRemove'
+> & { item: CartItemWithProduct; t: TFunction }) => {
+  return (
+    <Flex
+      key={item.product._id}
+      minWidth={'20rem'}
+      maxWidth={'34rem'}
+      width='100%'
+      px={4}
+      pt={5}
+      mb={5}
+      direction='column'
+      // @ts-ignore
+      style={{ position: 'relative' }}
+    >
+      {/* @ts-ignore */}
+      <Box style={{ position: 'absolute', top: 0, right: 0 }}>
+        {handleRemove && (
+          <Button
+            variant='ghost'
+            onClick={() => handleRemove(item)}
+            leftIcon={<DeleteOutlined />}
+          />
+        )}
+      </Box>
+      <ProductImageWithTitle product={item.product} storeId={storeId} />
+
+      <Flex mt={6} justify='space-between' align='center'>
+        <Flex justify='center'>
+          <Text mr={2}>Price:</Text>
+          <Price
+            vertical
+            minCalculatedPrice={item.product.calculatedPrice}
+            maxCalculatedPrice={item.product.calculatedPrice}
+            minPrice={item.product.price}
+            maxPrice={item.product.price}
+            currency='ден'
+          />
+        </Flex>
+
+        <Box>
+          {handleChangeItemQuantity ? (
+            <Quantity
+              cartItem={item}
+              handleChangeItemQuantity={handleChangeItemQuantity}
+            />
+          ) : (
+            <Text>
+              {t('commerce.quantity')}: {item.quantity}
+            </Text>
+          )}
+        </Box>
+      </Flex>
+      <Box mt={3}>
+        <Text mr={2}>Total:</Text>
+        <Text as='strong' color='primary'>
+          {item.product.calculatedPrice * item.quantity} ден
+        </Text>
+      </Box>
+    </Flex>
+  );
+};
+
+export interface OrderProductsListProps {
+  items: CartItemWithProduct[];
+  storeId: string;
+  handleRemove: (item: CartItemWithProduct) => void;
+  handleChangeItemQuantity: (item: CartItemWithProduct, val: number) => void;
+}
+
 export const OrderProductsList = ({
   items,
   storeId,
   handleRemove,
   handleChangeItemQuantity,
-  lightBackground,
-}: any) => {
+}: OrderProductsListProps) => {
   const { t } = useTranslation();
   return (
     <Flex width='100%' direction='column'>
@@ -96,66 +172,13 @@ export const OrderProductsList = ({
           {items.map(item => (
             <>
               <Divider mb={2} />
-
-              <Flex
-                key={item.product._id}
-                minWidth={320}
-                maxWidth={520}
-                width='100%'
-                px={3}
-                mb={5}
-                direction='column'
-                // @ts-ignore
-                style={{ position: 'relative' }}
-              >
-                {/* @ts-ignore */}
-                <Box style={{ position: 'absolute', top: 0, right: 0 }}>
-                  {handleRemove && (
-                    <Button variant='ghost' onClick={() => handleRemove(item)}>
-                      <DeleteOutlined />
-                    </Button>
-                  )}
-                </Box>
-                <ProductImageWithTitle
-                  product={item.product}
-                  storeId={storeId}
-                />
-
-                <Flex mt={4} justify='space-between'>
-                  <Flex justify='center'>
-                    <Text mr={2}>Price:</Text>
-                    <Price
-                      vertical
-                      size='small'
-                      minCalculatedPrice={item.product.calculatedPrice}
-                      maxCalculatedPrice={item.product.calculatedPrice}
-                      minPrice={item.product.price}
-                      maxPrice={item.product.price}
-                      currency='ден'
-                    />
-                  </Flex>
-
-                  <Box>
-                    {handleChangeItemQuantity ? (
-                      <Quantity
-                        mx={2}
-                        cartItem={item}
-                        handleChangeItemQuantity={handleChangeItemQuantity}
-                      />
-                    ) : (
-                      <Text>
-                        {t('commerce.quantity')}: {item.quantity}
-                      </Text>
-                    )}
-                  </Box>
-                </Flex>
-                <Box mt={2}>
-                  <Text mr={2}>Total:</Text>
-                  <Text as='strong' color='primary'>
-                    {item.product.calculatedPrice * item.quantity} ден
-                  </Text>
-                </Box>
-              </Flex>
+              <OrderProductListItem
+                storeId={storeId}
+                handleRemove={handleRemove}
+                handleChangeItemQuantity={handleChangeItemQuantity}
+                item={item}
+                t={t}
+              />
             </>
           ))}
         </Flex>
@@ -173,10 +196,8 @@ export const OrderProductsList = ({
             handleChangeItemQuantity,
             handleRemove,
           )}
-          // rowKey='product._id'
+          rowKey='product._id'
         />
-
-        <Divider mb={2} />
       </Box>
     </Flex>
   );

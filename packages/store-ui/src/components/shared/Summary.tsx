@@ -62,10 +62,9 @@ export const Summary = ({
   return (
     <CustomCard
       height='fit-content'
-      maxWidth={420}
-      minWidth={320}
+      maxWidth={'30rem'}
+      minWidth={'20rem'}
       title={t('common.summary')}
-      width='100%'
       {...props}
     >
       {showProductsSummary && (
@@ -74,24 +73,27 @@ export const Summary = ({
           <Divider my={3} />
         </>
       )}
-      <Flex direction='row' justify='space-between'>
+
+      <Flex justify='space-between'>
         <Text>{t('finance.subtotal')}</Text>
         <Text as='strong'>{prices.productsTotal} ден</Text>
       </Flex>
+
       {prices.withCampaignsTotal !== prices.productsTotal && (
-        <Flex mt={3} direction='row' justify='space-between'>
+        <Flex mt={5} direction='row' justify='space-between'>
           <Text>{t('finance.campaignDiscount')}</Text>
           <Text as='strong' color='danger'>
             {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
           </Text>
         </Flex>
       )}
-      <Flex mt={3} direction='row' justify='space-between'>
+
+      <Flex mt={5} direction='row' justify='space-between'>
         <Text>{t('finance.shippingCost')}</Text>
         <Text as='strong'>{prices.deliveryTotal} ден</Text>
       </Flex>
       {prices.deliveryTotal !== 0 && !hideFreeShipping && (
-        <Box mt={3}>
+        <Box mt={2}>
           <Text size='sm' color='mutedText.dark'>
             {t('delivery.addToGetFreeDelivery', {
               priceUntilFreeDelivery: `${
@@ -101,10 +103,11 @@ export const Summary = ({
           </Text>
         </Box>
       )}
+
       <Divider my={3} />
       <Flex direction='row' justify='space-between'>
         <Text>{t('finance.total')}</Text>
-        <Text as='strong' color='primary' size='sm'>
+        <Text as='strong' color='primary' size='xl'>
           {prices.total} ден
         </Text>
       </Flex>
@@ -115,14 +118,14 @@ export const Summary = ({
           onClick={handleCheckout}
           isFullWidth
           size='lg'
-          mt={4}
+          mt={6}
         >
           {buttonTitle}
         </Button>
       )}
       {showContinueShopping && (
         <Link href='/products' passHref>
-          <Button as='a' variant='ghost' isFullWidth size='lg' mt={3}>
+          <Button as='a' variant='outline' isFullWidth size='lg' mt={4}>
             {t('product.seeOtherProducts')}
           </Button>
         </Link>

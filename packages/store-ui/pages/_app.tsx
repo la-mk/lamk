@@ -22,6 +22,9 @@ import { NextPageContext } from 'next';
 
 const getTranslations = (t: (key: string) => string) => {
   return {
+    firstName: t('common.firstName'),
+    lastName: t('common.lastName'),
+    phoneNumber: t('common.phoneNumber'),
     email: t('common.email'),
     password: t('common.password'),
     currentPassword: t('common.currentPassword'),

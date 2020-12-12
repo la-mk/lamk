@@ -74,7 +74,7 @@ export const Cart = () => {
     return (
       <Result
         status='empty'
-        mt={7}
+        mt={8}
         description={t('cart.emptyCartDescription')}
       />
     );
@@ -167,7 +167,7 @@ export const Cart = () => {
             justify='center'
             flex={1}
             ml={[0, 0, 3]}
-            mt={[4, 4, 0]}
+            mt={[5, 5, 0]}
           >
             <Summary
               showContinueShopping
@@ -183,7 +183,7 @@ export const Cart = () => {
       </Spinner>
 
       <ManagedSets
-        mt={7}
+        mt={8}
         storeId={store._id}
         setTags={[
           {

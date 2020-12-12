@@ -29,12 +29,11 @@ const DescriptionEntry = ({
 export const ShippingDescription = ({ address, inverse, actions }: any) => {
   return (
     <>
-      <Flex mb={3} align='center' justify='space-between'>
+      <Flex mb={4} align='center' justify='space-between'>
         <Heading
-          isTruncated
-          m={0}
+          noOfLines={1}
           as='h4'
-          size='lg'
+          size='md'
           color={inverse ? 'heading.light' : 'heading.dark'}
         >
           {address.name}

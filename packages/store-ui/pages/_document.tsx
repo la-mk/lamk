@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
   .anticon {
     vertical-align: 0.125em;
   }
+
+  strong {
+    font-weight: 500 !important;
+  }
 `;
 
 // Setup the SDK so it can be used on the server-side in getInitialProps calls.

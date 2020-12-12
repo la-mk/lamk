@@ -13,7 +13,6 @@ import {
   hooks,
   Flex,
   Button,
-  Text,
   Grid,
   Result,
 } from '@sradevski/blocks-ui';
@@ -77,7 +76,7 @@ export const Addresses = withTheme(
             }),
           );
 
-          return setAddresses([...addresses, address]);
+          return setAddresses([address, ...addresses]);
         },
       );
     };
@@ -97,10 +96,9 @@ export const Addresses = withTheme(
         toast.success(t('address.updateAddressSuccess'));
         setShowAddModal(false);
         setAddressToEdit(undefined);
-        return setAddresses([
-          ...addresses.filter(address => address._id !== patchedAddress._id),
-          address,
-        ]);
+        return setAddresses(
+          addresses.map(addr => (addr._id === address._id ? address : addr)),
+        );
       });
     };
 
@@ -118,7 +116,7 @@ export const Addresses = withTheme(
     return (
       <>
         <Spinner isLoaded={!showSpinner}>
-          <Grid spacing={5}>
+          <Grid spacing={6}>
             {addresses?.length > 0 &&
               addresses.map(address => {
                 const isChecked =
@@ -129,7 +127,6 @@ export const Addresses = withTheme(
                     isChecked={isChecked}
                     onClick={onSelected ? () => onSelected(address) : undefined}
                     width='100%'
-                    mb={3}
                   >
                     <ShippingDescription
                       inverse={isChecked}
@@ -137,39 +134,29 @@ export const Addresses = withTheme(
                       actions={
                         <Flex>
                           <Button
+                            mr={1}
                             onClick={e => {
                               e.stopPropagation();
                               setAddressToEdit(address);
                               setShowAddModal(true);
                             }}
+                            // @ts-ignore
+                            color={isChecked ? 'heading.light' : 'heading.dark'}
                             variant='ghost'
-                          >
-                            <Text
-                              size='lg'
-                              color={
-                                isChecked ? 'heading.light' : 'heading.dark'
-                              }
-                            >
-                              <EditOutlined />
-                            </Text>
-                          </Button>
+                            leftIcon={<EditOutlined />}
+                          />
 
                           <Button
+                            ml={1}
                             onClick={e => {
                               e.stopPropagation();
                               handleRemoveAddress(address._id);
                             }}
                             variant='ghost'
-                          >
-                            <Text
-                              size='lg'
-                              color={
-                                isChecked ? 'heading.light' : 'heading.dark'
-                              }
-                            >
-                              <DeleteOutlined />
-                            </Text>
-                          </Button>
+                            // @ts-ignore
+                            color={isChecked ? 'heading.light' : 'heading.dark'}
+                            leftIcon={<DeleteOutlined />}
+                          />
                         </Flex>
                       }
                     />
@@ -183,7 +170,7 @@ export const Addresses = withTheme(
                   status='empty'
                   icon={
                     <NoAddress
-                      primary={theme.colors.primary}
+                      primary={theme.colors.primary['500']}
                       background={theme.colors.background.dark}
                     />
                   }

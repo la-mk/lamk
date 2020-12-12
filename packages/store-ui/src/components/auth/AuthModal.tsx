@@ -52,7 +52,7 @@ export const AuthModal = () => {
 
   return (
     <Modal
-      maxWidth={['100%', '80%', '60%']}
+      maxWidth={['96%', '88%', '56%']}
       isOpen={visible}
       onClose={() => {
         dispatch(toggleAuthModal(false));
@@ -60,7 +60,7 @@ export const AuthModal = () => {
         setForgotPasswordDone(false);
       }}
     >
-      <Flex pt={4} pb={5} width='100%' direction='column' align='center'>
+      <Flex py={5} width='100%' direction='column' align='center'>
         {method === 'login' && (
           <LoginForm
             schema={authSchema}

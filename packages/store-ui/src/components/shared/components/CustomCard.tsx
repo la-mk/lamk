@@ -21,15 +21,13 @@ export const CustomCard = ({
     >
       {title && (
         <Flex
-          bg={inverse ? 'background.light' : 'background.dark'}
-          py={[2, 3, 3]}
+          my={[1, 2, 2]}
           px={[3, 4, 4]}
           align='center'
           justify='space-between'
         >
           <Heading
-            color={inverse ? 'heading.dark' : 'heading.light'}
-            m={0}
+            color={inverse ? 'heading.light' : 'heading.dark'}
             size='lg'
             as='h3'
           >

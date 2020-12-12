@@ -28,7 +28,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@sradevski/analytics": "0.0.9",
-    "@sradevski/blocks-ui": "0.0.214",
+    "@sradevski/blocks-ui": "0.0.216",
     "@sradevski/la-sdk": "0.0.146",
     "@sradevski/nlp": "0.0.3",
     "connected-next-router": "^4.0.1",
