@@ -91,43 +91,42 @@ const calculateShades = (color: string): any => {
 };
 
 export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
+  const newColors = {};
+
+  merge(
+    newColors,
+    {
+      secondary: '#07074F',
+
+      danger: '#FF3838',
+      success: '#5CB85C',
+
+      heading: {
+        light: '#FFFFFF',
+        dark: '#070708',
+      },
+      text: {
+        light: '#FAF8F0',
+        dark: '#404C4D',
+      },
+      mutedText: {
+        light: '#EEEEEE',
+        dark: '#687C94',
+      },
+      background: {
+        light: '#F6F8FF',
+        dark: '#17121E',
+      },
+    },
+    theme.colors
+  );
   // @ts-ignore
   return extendTheme({
-    // @ts-ignore
-    colors: {
-      ...merge(theme.colors, {
-        secondary: '#07074F',
-
-        danger: '#FF3838',
-        success: '#5CB85C',
-
-        heading: {
-          // @ts-ignore
-          light: '#FFFFFF',
-          dark: '#070708',
-        },
-        text: {
-          // @ts-ignore
-          light: '#FAF8F0',
-          dark: '#404C4D',
-        },
-        mutedText: {
-          // @ts-ignore
-          light: '#EEEEEE',
-          dark: '#687C94',
-        },
-        background: {
-          // @ts-ignore
-          light: '#F6F8FF',
-          dark: '#17121E',
-        },
-      }),
-      primary: calculateShades(theme.colors?.primary ?? '#EF4351'),
-    },
     global: {
       fontFamily:
         "'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
     },
+    // @ts-ignore
     space: {
       px: '1px',
       0: '0',
@@ -141,6 +140,7 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
       8: '5rem',
       9: '8rem',
     },
+    // @ts-ignore
     fontWeights: {
       hairline: 400,
       thin: 400,
@@ -152,10 +152,16 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
       extrabold: 500,
       black: 500,
     },
+    ...theme,
+
+    colors: {
+      ...newColors,
+      primary: calculateShades(theme.colors?.primary ?? '#EF4351'),
+    },
   });
 };
 
-export interface BlocksTheme {
+export interface BlocksTheme extends DeepPartial<Omit<ChakraTheme, 'colors'>> {
   colors?: {
     primary?: string;
     secondary?: string;
