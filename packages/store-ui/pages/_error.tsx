@@ -4,6 +4,21 @@ import { Result, Button, Flex } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useTranslation } from '../src/common/i18n';
 
+const Error = ({ status, title, description, t }) => {
+  return (
+    <Flex mt={8} direction='column' justify='center'>
+      <Head title={`${status} | ${title}`} description={description} />
+      <Result status={status} title={title} description={description} />
+
+      <Link href='/' passHref>
+        <Button mt={4} as='a' variant='link'>
+          {t('actions.goBack')}
+        </Button>
+      </Link>
+    </Flex>
+  );
+};
+
 const ErrorPage = ({ errorCode }: { errorCode: number }) => {
   const { t } = useTranslation();
 
@@ -11,63 +26,30 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
     case 200:
     case 404:
       return (
-        <Flex direction='column' justify='center'>
-          <Head
-            title={`404 | ${t('results.pageNotFound')}`}
-            description={t('results.pageNotFoundExplanation')}
-          />
-          <Result
-            status='404'
-            title='404'
-            description={t('results.pageNotFoundExplanation')}
-          />
-
-          <Link href='/' passHref>
-            <Button mt={4} as='a' variant='link'>
-              {t('actions.goBack')}
-            </Button>
-          </Link>
-        </Flex>
+        <Error
+          title={t('results.pageNotFound')}
+          description={t('results.pageNotFoundExplanation')}
+          status='404'
+          t={t}
+        />
       );
     case 500:
       return (
-        <Flex direction='column' justify='center'>
-          <Head
-            title={`500 | ${t('results.serverError')}`}
-            description={t('results.serverErrorExplanation')}
-          />
-          <Result
-            status='500'
-            title='500'
-            description={t('results.serverErrorExplanation')}
-          />
-          <Link href='/' passHref>
-            <Button mt={4} as='a' variant='link'>
-              {t('actions.goBack')}
-            </Button>
-          </Link>
-        </Flex>
+        <Error
+          title={t('results.serverError')}
+          description={t('results.serverErrorExplanation')}
+          status='500'
+          t={t}
+        />
       );
     default:
       return (
-        <Flex direction='column' justify='center'>
-          <Head
-            title={`${errorCode} | ${t('results.genericError')}`}
-            description={t('results.genericError')}
-          />
-          <Result
-            status='error'
-            title={errorCode.toString()}
-            description={t('results.genericErrorExplanation', {
-              statusCode: errorCode,
-            })}
-          />
-          <Link href='/' passHref>
-            <Button mt={4} as='a' variant='link'>
-              {t('actions.goBack')}
-            </Button>
-          </Link>
-        </Flex>
+        <Error
+          title={t('results.genericError')}
+          description={t('results.genericError')}
+          status={errorCode.toString()}
+          t={t}
+        />
       );
   }
 };
