@@ -15,7 +15,7 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
       width='100%'
       maxWidth={maxWidth ?? 1920}
       px={[4, 6, 7]}
-      mt={title ? 0 : 5}
+      mt={title ? 0 : 7}
       mx='auto'
     >
       {title && (

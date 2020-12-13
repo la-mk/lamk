@@ -61,7 +61,7 @@ const getMenus = (t: any): Menu[] => [
 ];
 
 export const FooterContent = ({ store }: { store: Store }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Box py={2}>

@@ -27,21 +27,19 @@ export const Thumbnails = ({
             }
             justify='center'
             align='center'
-            height='72px'
-            width='72px'
+            height={'5rem'}
+            width={'5rem'}
             m={2}
           >
-            <Box height={70}>
-              <Image
-                height={70}
-                alt={`product-thumbnail-${index}`}
-                style={{ cursor: 'pointer' }}
-                onClick={() => onImageClick(imageId)}
-                getSrc={params =>
-                  sdk.artifact.getUrlForImage(imageId, imageBucket, params)
-                }
-              />
-            </Box>
+            <Image
+              height={70}
+              alt={`product-thumbnail-${index}`}
+              style={{ cursor: 'pointer' }}
+              onClick={() => onImageClick(imageId)}
+              getSrc={params =>
+                sdk.artifact.getUrlForImage(imageId, imageBucket, params)
+              }
+            />
           </Flex>
         );
       })}

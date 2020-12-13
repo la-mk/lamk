@@ -41,7 +41,7 @@ export const ManagedSets = React.memo(
           {productSets
             .filter(set => Boolean(set.data))
             .map(set => (
-              <Box my={[6, 7, 7]}>
+              <Box my={[8, 9, 9]}>
                 <ProductSet
                   set={set}
                   storeId={storeId}

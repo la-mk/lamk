@@ -43,19 +43,19 @@ export const ProductTags = ({
       {/* TODO: Change bgColor for colorScheme */}
       {isSoldOut && (
         // @ts-ignore
-        <Tag minWidth='70px' size={size} mb={2} bgColor='#043353'>
+        <Tag minWidth={'5rem'} size={size} mb={3} bgColor='#043353'>
           {t('product.outOfStock')}
         </Tag>
       )}
       {!isSoldOut && isNew && (
         // @ts-ignore
-        <Tag minWidth='70px' size={size} mb={2} bgColor='#D9E93C'>
+        <Tag minWidth={'5rem'} size={size} mb={3} bgColor='#D9E93C'>
           {t('product.new')}
         </Tag>
       )}
       {!isSoldOut && discountPercentage > 0 && (
         // @ts-ignore
-        <Tag minWidth='70px' size={size} mb={2} bgColor='#FF3838'>
+        <Tag minWidth={'5rem'} size={size} mb={3} bgColor='#FF3838'>
           {t('product.discounted', { percentage: discountPercentage })}
         </Tag>
       )}

@@ -30,7 +30,6 @@ export const OrderSteps = ({ t, status, isCardPayment }: OrderStepsProps) => {
 
   return (
     <Steps
-      mt={4}
       orientation={orientation}
       steps={
         [

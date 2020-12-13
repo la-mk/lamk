@@ -20,7 +20,7 @@ export const Success = withTheme(
 
     return (
       <Flex
-        maxWidth={500}
+        maxWidth={'38px'}
         mx='auto'
         px={3}
         align='center'

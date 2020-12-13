@@ -6,7 +6,7 @@ export const StoreNotFound = ({ t }: { t: TFunction }) => {
   return (
     <Flex height='100vh' width='100vw' align='center' justify='center'>
       <Flex
-        maxWidth={'600px'}
+        maxWidth={'46rem'}
         p={3}
         direction='column'
         align='center'

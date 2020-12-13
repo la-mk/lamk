@@ -69,7 +69,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
         <OrderSteps t={t} status={order.status} isCardPayment={isCardPayment} />
 
         <Flex
-          mt={7}
+          mt={6}
           width='100%'
           justify='space-between'
           align={['center', 'center', 'flex-start']}

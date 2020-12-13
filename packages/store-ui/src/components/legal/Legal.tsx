@@ -37,7 +37,7 @@ export const Legal = () => {
         {t('legal.legalExplanation')}
       </Text>
 
-      <Flex mt={7} align='center' justify='center' wrap='wrap'>
+      <Flex mt={6} align='center' justify='center' wrap='wrap'>
         {submenus.map(submenu => {
           return (
             <Box m={3}>

@@ -32,11 +32,7 @@ export const AboutUs = ({ aboutUs }: AboutUsProps) => {
           );
         })
       ) : (
-        <Result
-          status='empty'
-          mt={4}
-          description={t('store.noAboutusInformation')}
-        />
+        <Result status='empty' description={t('store.noAboutusInformation')} />
       )}
     </Page>
   );

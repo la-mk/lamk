@@ -261,9 +261,14 @@ export const Product = ({ product }: ProductProps) => {
             align='center'
             justify='flex-start'
             direction='column'
+            mr={[0, 2, 2]}
           >
-            {/* @ts-ignore */}
-            <Box height={420} minWidth={180} style={{ position: 'relative' }}>
+            <Box
+              height={'28rem'}
+              minWidth={'12rem'}
+              // @ts-ignore
+              style={{ position: 'relative' }}
+            >
               <ImageMagnifier
                 magnifierSize={180}
                 zoomFactor={1.15}
@@ -279,14 +284,14 @@ export const Product = ({ product }: ProductProps) => {
                         params,
                       )
                     }
-                    height={420}
+                    height={440}
                     alt={product.name}
                   />
                 )}
               </ImageMagnifier>
               <ProductTags product={product} t={t} />
             </Box>
-            <Box mt={3} maxWidth={['100%', '100%', '80%']}>
+            <Box mt={4} maxWidth={['100%', '100%', '80%']}>
               <Thumbnails
                 images={product.images}
                 imageBucket={store._id}
@@ -295,16 +300,19 @@ export const Product = ({ product }: ProductProps) => {
               />
             </Box>
           </Flex>
+
           <Flex
+            ml={[0, 2, 2]}
             width={['100%', '50%', '50%']}
             align={['center', 'flex-start', 'flex-start']}
             justify='flex-start'
             direction='column'
           >
-            <Heading align='center' as='h1' size='lg' noOfLines={2}>
+            <Heading as='h1' size='lg' noOfLines={2}>
               {product.name}
             </Heading>
             <Flex
+              mt={[3, 5, 5]}
               direction='column'
               align={['center', 'flex-start', 'flex-start']}
               justify='center'
@@ -331,7 +339,8 @@ export const Product = ({ product }: ProductProps) => {
               />
               <Text color='mutedText.dark'>{t(`units.${product.unit}`)}</Text>
             </Flex>
-            <Flex align='center' justify='center' mt={[2, 3, 3]}>
+
+            <Flex align='center' justify='center' mt={[3, 5, 5]} mb={2}>
               <Text mr={2}>{t('product.availability')}:</Text>
               <Text color={outOfStock ? 'danger' : 'success'}>
                 {outOfStock ? t('product.outOfStock') : t('product.inStock')}
@@ -339,9 +348,10 @@ export const Product = ({ product }: ProductProps) => {
             </Flex>
 
             {allColors.length > 0 && (
-              <Flex align='center' justify='center' mt={[2, 3, 3]}>
+              <Flex align='center' justify='center' mt={3}>
                 <Text mr={2}>{t('attributes.color')}:</Text>
                 <PickerBoxes
+                  size='sm'
                   variant='color'
                   disabled={disabledColorChoices}
                   values={allColors}
@@ -354,9 +364,10 @@ export const Product = ({ product }: ProductProps) => {
             )}
 
             {allSizes.length > 0 && (
-              <Flex align='center' justify='center' mt={[2, 3, 3]}>
+              <Flex align='center' justify='center' mt={3}>
                 <Text mr={2}>{t('attributes.size')}:</Text>
                 <PickerBoxes
+                  size='sm'
                   disabled={disabledSizeChoices}
                   values={allSizes}
                   selected={chosenAttributes?.size}
@@ -367,18 +378,19 @@ export const Product = ({ product }: ProductProps) => {
               </Flex>
             )}
 
-            <Flex mt={[3, 4, 4]} direction='row' align='center'>
+            <Flex mt={[4, 6, 6]} direction='row' align='center'>
               {!isProductInCart && (
                 <>
                   <Input
+                    type='number'
                     isDisabled={outOfStock || !selectedVariant}
-                    width='68px'
+                    width='6rem'
                     size='lg'
                     min={1}
-                    max={selectedVariant?.stock || 999}
+                    max={selectedVariant?.stock || 9999}
                     value={quantity}
                     onChange={(_e, val: number) => setQuantity(val)}
-                    mr={2}
+                    mr={3}
                   />
                 </>
               )}
@@ -404,7 +416,7 @@ export const Product = ({ product }: ProductProps) => {
                 </Button>
               )}
             </Flex>
-            <Box width='100%' mx={[3, 0, 0]} mt={4}>
+            <Box width='100%' mx={[4, 0, 0]} mt={[6, 7, 7]}>
               <ProductDetails product={product} delivery={delivery} />
             </Box>
           </Flex>
@@ -412,7 +424,7 @@ export const Product = ({ product }: ProductProps) => {
       </Spinner>
 
       <ManagedSets
-        mt={[6, 7, 7]}
+        mt={[8, 9, 9]}
         storeId={store._id}
         setTags={[
           {
@@ -438,7 +450,7 @@ export const Product = ({ product }: ProductProps) => {
         ]}
       />
 
-      <Box mt={[6, 7, 7]}>
+      <Box mt={[8, 9, 9]}>
         <ServicesSet />
       </Box>
     </Page>

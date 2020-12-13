@@ -216,7 +216,6 @@ export const Checkout = () => {
     <Page>
       <Spinner isLoaded={!showSpinner}>
         <Flex
-          mt={4}
           justify='space-between'
           align={['center', 'flex-start', 'flex-start']}
           direction={['column', 'row', 'row']}
