@@ -15,13 +15,13 @@ const ButtonWrapper = styled(Button)<{
   border-radius: ${props => props.theme.radii[0]}px;
   border: ${props =>
     props.highlight
-      ? `solid 2px ${props.theme.colors.primary}`
+      ? `solid 2px ${props.theme.colors.primary['500']}`
       : `solid 2px ${props.theme.colors.background.light}`};
 
   &:focus,
   &:active,
   &:hover {
-    border: ${props => `solid 2px ${props.theme.colors.primary}`};
+    border: ${props => `solid 2px ${props.theme.colors.primary['500']}`};
   }
 
   &:not([disabled]) {
