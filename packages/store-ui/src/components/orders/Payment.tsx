@@ -158,10 +158,12 @@ export const Payment = ({ orderId }: PaymentProps) => {
     <Page>
       <Spinner
         isLoaded={
-          !showPaymentMethodSpinner &&
-          !showOrderSpinner &&
-          !isLoadingPayment &&
-          paymentResponse
+          !(
+            showPaymentMethodSpinner ||
+            showOrderSpinner ||
+            isLoadingPayment ||
+            !paymentResponse
+          )
         }
       >
         <Flex align='center' justify='center' direction='column'>

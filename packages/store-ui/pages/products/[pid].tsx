@@ -43,7 +43,7 @@ const ProductPage = ({
         />
         <Result
           status='empty'
-          mt={7}
+          mt={8}
           description={t('results.productNotFound')}
         />
       </>

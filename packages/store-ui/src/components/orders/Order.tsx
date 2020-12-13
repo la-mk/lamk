@@ -19,13 +19,9 @@ import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { CustomCard } from '../shared/components/CustomCard';
 import { OrderDescription } from './OrderDescription';
 import { ManagedSets } from '../sets/ManagedSets';
+import { OrderSteps } from './OrderSteps';
 
 export const Order = ({ orderId }: { orderId: string }) => {
-  const orientation = hooks.useBreakpoint<'vertical' | 'horizontal'>([
-    'vertical',
-    'horizontal',
-    'horizontal',
-  ]);
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const user = useSelector(getUser);
@@ -67,75 +63,10 @@ export const Order = ({ orderId }: { orderId: string }) => {
   const shouldPay =
     order.status === sdk.order.OrderStatus.PENDING_PAYMENT && isCardPayment;
 
-  const status = order.status;
-  const stepIndex = status ? (isCardPayment ? -1 : 0) : 0;
-
   return (
     <Page>
       <Spinner isLoaded={!showSpinner}>
-        <Steps
-          mt={4}
-          orientation={orientation}
-          steps={
-            [
-              ...(isCardPayment
-                ? [
-                    {
-                      status: stepIndex <= 0 ? 'pending' : 'success',
-                      title: t('orderStatus.pendingPayment'),
-                      description: t('orderStatus.pendingPaymentDescription'),
-                      key: 'first',
-                    },
-                  ]
-                : []),
-              {
-                status: stepIndex <= 0 ? 'pending' : 'success',
-                title: t('orderStatus.pendingShipment'),
-                description: t('orderStatus.pendingShipmentDescription'),
-                key: 'second',
-              },
-              {
-                status: stepIndex <= 1 ? 'pending' : 'success',
-                title: t('orderStatus.shipped'),
-                description: t('orderStatus.shippedDescription'),
-                key: 'second',
-              },
-              ...(status !== sdk.order.OrderStatus.CANCELLED &&
-              status !== sdk.order.OrderStatus.INVALID
-                ? [
-                    {
-                      status: stepIndex <= 2 ? 'pending' : 'success',
-                      title: t('orderStatus.completed'),
-                      description: t('orderStatus.completedDescription'),
-                      key: 'second',
-                    },
-                  ]
-                : []),
-
-              ...(status === sdk.order.OrderStatus.CANCELLED
-                ? [
-                    {
-                      status: stepIndex <= 3 ? 'pending' : 'danger',
-                      title: t('orderStatus.cancelled'),
-                      description: t('orderStatus.cancelledDescription'),
-                      key: 'second',
-                    },
-                  ]
-                : []),
-
-              ...(status === sdk.order.OrderStatus.INVALID
-                ? [
-                    {
-                      status: stepIndex <= 3 ? 'pending' : 'danger',
-                      title: t('orderStatus.invalid'),
-                      description: t('orderStatus.invalidDescription'),
-                      key: 'second',
-                    },
-                  ]
-                : []),
-            ] as any
-          }
-        />
+        <OrderSteps t={t} status={order.status} isCardPayment={isCardPayment} />
 
         <Flex
           mt={7}
@@ -145,7 +76,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
           direction={['column-reverse', 'column-reverse', 'row']}
         >
           <Flex maxWidth={'60rem'} flex={1} direction='column' mr={[0, 0, 3]}>
-            <CustomCard mb={3}>
+            <CustomCard mb={3} minWidth={'18rem'}>
               <OrderDescription
                 hideDetailsButton
                 order={order}

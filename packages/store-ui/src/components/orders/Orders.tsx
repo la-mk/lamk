@@ -25,6 +25,10 @@ export const Orders = () => {
         field: 'createdAt',
         order: 'descend',
       },
+      pagination: {
+        currentPage: 1,
+        pageSize: 10,
+      },
     },
     {
       storage: 'url',

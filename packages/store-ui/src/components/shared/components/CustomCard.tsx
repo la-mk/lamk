@@ -22,7 +22,7 @@ export const CustomCard = ({
       {title && (
         <Flex
           my={[1, 2, 2]}
-          px={[3, 4, 4]}
+          px={[0, 3, 4]}
           align='center'
           justify='space-between'
         >
@@ -37,7 +37,7 @@ export const CustomCard = ({
         </Flex>
       )}
 
-      <Box p={4}>{children}</Box>
+      <Box px={[0, 3, 4]}>{children}</Box>
     </Card>
   );
 };
