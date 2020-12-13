@@ -21,12 +21,14 @@ export interface TreeviewProps extends SpaceProps {
   items: TreeviewEntry[];
   selected?: string[];
   onSelect?: (selected: string[]) => void;
+  itemPadding?: number;
 }
 
 export const Treeview = ({
   items,
   selected,
   onSelect,
+  itemPadding = 0,
   ...props
 }: TreeviewProps) => {
   const selectedSet = React.useMemo(() => {
@@ -57,7 +59,13 @@ export const Treeview = ({
         }
 
         return (
-          <ChakraAccordionItem p={0} pl={5} pb={1} border={0} key={item.key}>
+          <ChakraAccordionItem
+            p={0}
+            pl={itemPadding}
+            pb={1}
+            border={0}
+            key={item.key}
+          >
             <ChakraAccordionButton>
               <Box color="inherit" textAlign="start" flex={1}>
                 {item.title}
@@ -69,6 +77,7 @@ export const Treeview = ({
                 items={item.children}
                 selected={selected}
                 onSelect={onSelect}
+                itemPadding={5}
               />
             </ChakraAccordionPanel>
           </ChakraAccordionItem>
