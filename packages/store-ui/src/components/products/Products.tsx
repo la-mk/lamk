@@ -75,7 +75,7 @@ export const Products = ({
         />
         {/* The drawer is always visible, but the button to toggle it is only visible on mobile. The only time this is somewhat of an issue is when opening the modal, and then resizing the window, but even then the experience is pretty good. */}
         <Drawer
-          size='xs'
+          size='sm'
           title={t('common.filter_plural')}
           isOpen={isDrawerVisible}
           onClose={() => setIsDrawerVisible(false)}
@@ -108,7 +108,7 @@ export const Products = ({
           align='center'
           justify='flex-start'
         >
-          <Box mb={6}>
+          <Box mb={7}>
             <SortFilter
               filters={filters || initialFilters}
               onChange={setFilters}
@@ -123,14 +123,12 @@ export const Products = ({
           )}
           {products.total > 0 && (
             <DataGrid
-              spacing={[4, 5, 5]}
+              spacing={[4, 6, 6]}
               isLoaded={!showSpinner}
               rowKey='_id'
               items={products.data}
               renderItem={(item: any) => (
-                <Box mb={'auto'}>
-                  <ProductCard product={item} storeId={store._id} />
-                </Box>
+                <ProductCard product={item} storeId={store._id} />
               )}
               pagination={{
                 size: paginationSize,

@@ -5,11 +5,12 @@ import {
   MenuItem,
   Badge,
   Button,
-  Text,
   Positioner,
   MenuButton,
   MenuList,
   MenuDivider,
+  Text,
+  hooks,
 } from '@sradevski/blocks-ui';
 import {
   ShoppingOutlined,
@@ -20,121 +21,119 @@ import {
   LoginOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
-import { withTheme } from 'styled-components';
 import { useTranslation } from '../i18n';
-import { HoverableLink } from '../../components/shared/components/HoverableLink';
+import { User } from '@sradevski/la-sdk/dist/models/user';
 
-export const TopMenu = withTheme(
-  ({ selectedKey, cartCount, user, handleLogout, handleLogin }) => {
-    const { t } = useTranslation();
+const NavButton = ({ title, icon, href, hideTitle }: any) => {
+  const showTitle = hooks.useBreakpoint([false, false, true]);
+  const hasTitle = !hideTitle && showTitle;
+  return (
+    <Link passHref href={href}>
+      <Button
+        mx={hasTitle ? 3 : 1}
+        as='a'
+        variant='link'
+        aria-label={title}
+        leftIcon={
+          <Text lineHeight='none' size='2xl'>
+            {icon}
+          </Text>
+        }
+      >
+        {!hideTitle && showTitle && title}
+      </Button>
+    </Link>
+  );
+};
 
-    return (
-      <>
-        <Flex align='center' justify='center'>
-          <HoverableLink href='/products'>
-            <Flex align='center' justify='center' mx={3}>
-              <Text
-                lineHeight='none'
-                color={selectedKey === 'products' ? 'primary' : 'text.dark'}
-                size='lg'
-              >
-                <ShoppingOutlined />
-              </Text>
-              <Text
-                color={selectedKey === 'products' ? 'primary' : 'text.dark'}
-                ml={2}
-                size='sm'
-                display={['none', 'none', 'initial']}
-              >
-                {t('pages.product_plural')}
-              </Text>
-            </Flex>
-          </HoverableLink>
+export interface TopMenuProps {
+  cartCount?: number;
+  user?: User;
+  handleLogout: () => void;
+  handleLogin: () => void;
+}
 
-          <HoverableLink href='/about'>
-            <Flex align='center' justify='center' mx={3}>
-              <Text
-                lineHeight='none'
-                color={selectedKey === 'about' ? 'primary' : 'text.dark'}
-                size='lg'
-              >
-                <ShopOutlined />
-              </Text>
-              <Text
-                color={selectedKey === 'about' ? 'primary' : 'text.dark'}
-                ml={2}
-                size='sm'
-                display={['none', 'none', 'initial']}
-              >
-                {t('pages.aboutUs')}
-              </Text>
-            </Flex>
-          </HoverableLink>
+export const TopMenu = ({
+  cartCount,
+  user,
+  handleLogout,
+  handleLogin,
+}: TopMenuProps) => {
+  const { t } = useTranslation();
 
-          <HoverableLink href='/cart'>
-            <Flex
-              align='center'
-              justify='center'
-              mx={3}
-              // @ts-ignore
-              style={{ lineHeight: '1rem' }}
-            >
-              <Positioner
-                overlayContent={
-                  <Badge
-                    colorScheme='primary'
-                    variant='solid'
-                    borderRadius='full'
-                    size='xs'
-                  >
-                    {cartCount ?? 0}
-                  </Badge>
-                }
-              >
-                <Text
-                  color={selectedKey === 'cart' ? 'primary' : 'text.dark'}
-                  size='lg'
+  return (
+    <>
+      <Flex align='center' justify='center'>
+        <NavButton
+          href='/products'
+          title={t('pages.product_plural')}
+          icon={<ShoppingOutlined />}
+        />
+
+        <NavButton
+          href='/about'
+          title={t('pages.aboutUs')}
+          icon={<ShopOutlined />}
+        />
+
+        <NavButton
+          href='/cart'
+          title={t('pages.cart')}
+          hideTitle
+          icon={
+            <Positioner
+              overlayContent={
+                <Badge
+                  colorScheme='primary'
+                  variant='solid'
+                  borderRadius='full'
+                  size='xs'
                 >
-                  <ShoppingCartOutlined />
-                </Text>
-              </Positioner>
-            </Flex>
-          </HoverableLink>
+                  {cartCount ?? 0}
+                </Badge>
+              }
+            >
+              <ShoppingCartOutlined />
+            </Positioner>
+          }
+        />
 
-          <Menu>
-            <MenuButton as={Button} size='sm' mx={3}>
-              <UserOutlined />
-            </MenuButton>
-            <MenuList>
-              {user ? (
-                <>
-                  <Link href='/account' passHref>
-                    <MenuItem as='a' icon={<UserOutlined />}>
-                      {t('pages.myAccount')}
-                    </MenuItem>
-                  </Link>
+        <Menu>
+          <MenuButton
+            as={Button}
+            size='sm'
+            mx={3}
+            leftIcon={<UserOutlined />}
+          />
+          <MenuList>
+            {user ? (
+              <>
+                <Link href='/account' passHref>
+                  <MenuItem as='a' icon={<UserOutlined />}>
+                    {t('pages.myAccount')}
+                  </MenuItem>
+                </Link>
 
-                  <Link href='/orders' passHref>
-                    <MenuItem as='a' icon={<ShoppingOutlined />}>
-                      {t('pages.myOrders')}
-                    </MenuItem>
-                  </Link>
-                  <MenuDivider />
-                  <MenuItem onClick={handleLogout} icon={<LogoutOutlined />}>
-                    {t('auth.logout')}
+                <Link href='/orders' passHref>
+                  <MenuItem as='a' icon={<ShoppingOutlined />}>
+                    {t('pages.myOrders')}
                   </MenuItem>
-                </>
-              ) : (
-                <>
-                  <MenuItem onClick={handleLogin} icon={<LoginOutlined />}>
-                    {t('auth.login')}
-                  </MenuItem>
-                </>
-              )}
-            </MenuList>
-          </Menu>
-        </Flex>
-      </>
-    );
-  },
-);
+                </Link>
+                <MenuDivider />
+                <MenuItem onClick={handleLogout} icon={<LogoutOutlined />}>
+                  {t('auth.logout')}
+                </MenuItem>
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={handleLogin} icon={<LoginOutlined />}>
+                  {t('auth.login')}
+                </MenuItem>
+              </>
+            )}
+          </MenuList>
+        </Menu>
+      </Flex>
+    </>
+  );
+};

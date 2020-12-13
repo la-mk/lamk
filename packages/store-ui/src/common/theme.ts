@@ -42,6 +42,11 @@ export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
       xl: '94rem',
     },
     components: {
+      Button: {
+        baseStyle: {
+          fontWeight: 'normal',
+        },
+      },
       Heading: {
         sizes: {
           '4xl': {

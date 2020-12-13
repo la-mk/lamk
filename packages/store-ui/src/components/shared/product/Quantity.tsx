@@ -16,7 +16,7 @@ export const Quantity = ({
   return (
     <Input
       type='number'
-      width='80px'
+      width='5rem'
       min={1}
       max={cartItem.product.stock || 999}
       value={cartItem.quantity}

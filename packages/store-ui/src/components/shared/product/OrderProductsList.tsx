@@ -58,7 +58,7 @@ const getColumns = (
       key: 'total',
       isNumeric: true,
       render: (val, item) => (
-        <Text as='strong' size='lg' color='primary'>
+        <Text as='strong' size='lg' color='primary.500'>
           {item.quantity * item.product.calculatedPrice} ден
         </Text>
       ),

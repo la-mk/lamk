@@ -66,13 +66,14 @@ export const FooterContent = ({ store }: { store: Store }) => {
   return (
     <Box py={2}>
       <Flex
-        maxWidth={1024}
+        maxWidth={'68rem'}
         px={[3, 4, 6]}
-        pt={[3, 4, 5]}
+        pt={[4, 5, 6]}
         mx='auto'
         direction={['column', 'column', 'row']}
         align={['center', 'center', 'flex-start']}
         justify={'space-between'}
+        color='text.light'
       >
         <Box mr={[0, 0, 5]}>
           <StoreFooterSection store={store} />
@@ -80,7 +81,7 @@ export const FooterContent = ({ store }: { store: Store }) => {
         <BaseFooterContent menus={getMenus(t)} Link={Link} />
       </Flex>
 
-      <Divider display={['none', 'none', 'block']} mb={3} mt={6} />
+      <Divider display={['none', 'none', 'block']} mb={4} mt={6} />
 
       <SubFooter />
     </Box>

@@ -35,7 +35,7 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
   const { phoneNumber, alternatePhoneNumber, email } = store.contact || {};
   return (
     <Flex direction='column' align={'center'}>
-      <Box height={84} mb={5} p={2} bg='background.light'>
+      <Box height={'6rem'} mb={5} bg='background.light'>
         <Image
           getSrc={params =>
             sdk.artifact.getUrlForImage(store.logo, store._id, params)

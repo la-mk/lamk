@@ -30,16 +30,16 @@ export const CategorySet = ({
       <Flex align='center' justify='center' wrap='wrap'>
         {categoriesToShow.map(categoryName => {
           return (
-            <Box key={categoryName} my={4} mx={[2, 3, 4]}>
+            <Box key={categoryName} my={4} mx={[4, 4, 5]}>
               <HoverableLink
                 href={getLevel2CategoryHref(categoryName, categories)}
               >
                 <ImageBackgroundBox
-                  height={280}
-                  minWidth={320}
-                  maxWidth={420}
+                  height={'18rem'}
+                  minWidth={'20rem'}
+                  maxWidth={'24rem'}
                   // @ts-ignore
-                  borderRadius={0}
+                  borderRadius={'md'}
                   style={{
                     position: 'relative',
                   }}
@@ -55,7 +55,7 @@ export const CategorySet = ({
                     justify='center'
                     bg='background.dark'
                     // @ts-ignore
-                    borderRadius={'sm'}
+                    borderRadius={'md'}
                     style={{
                       position: 'absolute',
                       bottom: 16,

@@ -11,8 +11,8 @@ export const SetTitle = ({
   subtitle?: string;
 }) => {
   return (
-    <Flex mb={4} align='center' justify='center' direction='column'>
-      <Heading align='center' mb={1} as='h2' size={emphasized ? 'md' : 'sm'}>
+    <Flex mb={6} align='center' justify='center' direction='column'>
+      <Heading align='center' mb={1} as='h2' size={emphasized ? 'xl' : 'md'}>
         {title.toUpperCase()}
       </Heading>
       {subtitle && (

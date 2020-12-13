@@ -30,7 +30,7 @@ export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
       <SetTitle title={set.setTag.title} subtitle={set.setTag.subtitle} />
       <DataGrid
         isLoaded={true}
-        spacing={[3, 4, 4]}
+        spacing={[4, 5, 5]}
         rowKey='_id'
         items={productsToShow}
         renderItem={item => (

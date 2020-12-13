@@ -17,7 +17,8 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
     <Flex
       justify={['center', 'space-between', 'space-between']}
       align='center'
-      px={[3, 4, 5]}
+      px={[4, 5, 6]}
+      my={2}
       direction={['column', 'row', 'row']}
     >
       <Text color='text.light' size='sm' mr={[0, 3, 3]} mb={[3, 0, 0]}>
@@ -26,17 +27,18 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
 
       <PoweredBy logoUrl={'/images/lamk-logo/horizontal-inverse.svg'} inverse />
 
-      <Flex mt={[3, 0, 0]} ml={[0, 3, 3]} justify='center' align='center'>
-        <Flex mr={3} align='center' justify='center'>
+      <Flex mt={[4, 0, 0]} ml={[0, 4, 4]} justify='center' align='center'>
+        <Flex mr={5} align='center' justify='center'>
           <Text color='text.light'>
             <LanguagePicker
+              darkMode
               languageCode={i18n.language}
               onChangeLanguageCode={key => i18n.changeLanguage(key)}
             />
           </Text>
         </Flex>
         <Box mr={2} p={2} bg='background.light'>
-          <Box height={22}>
+          <Box height={'22px'}>
             <Image
               height={22}
               src={'/images/mastercard.svg'}
@@ -45,7 +47,7 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
           </Box>
         </Box>
         <Box ml={2} p={2} bg='background.light'>
-          <Box height={22}>
+          <Box height={'22px'}>
             <Image height={22} src={'/images/visa.svg'} alt='visa logo' />
           </Box>
         </Box>

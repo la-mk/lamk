@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { hooks, Radio } from '@sradevski/blocks-ui';
+import { hooks, Radio, Text } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
@@ -64,10 +64,10 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
           {
             value: 'cheap',
             children: isMobile ? (
-              <>
-                <DownOutlined style={{ marginRight: 8 }} />
+              <Text whiteSpace='nowrap'>
+                <DownOutlined style={{ marginRight: 4 }} />
                 {t('common.price')}
-              </>
+              </Text>
             ) : (
               t('filters.cheapestFirst')
             ),
@@ -75,10 +75,10 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
           {
             value: 'expensive',
             children: isMobile ? (
-              <>
-                <UpOutlined style={{ marginRight: 8 }} />
+              <Text whiteSpace='nowrap'>
+                <UpOutlined style={{ marginRight: 4 }} />
                 {t('common.price')}
-              </>
+              </Text>
             ) : (
               t('filters.expensiveFirst')
             ),

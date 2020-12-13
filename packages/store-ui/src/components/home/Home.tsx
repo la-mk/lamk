@@ -101,7 +101,7 @@ export const Home = ({}: {}) => {
 
       <Flex mt={7} direction='column'>
         {categoriesForSet.length > 1 && (
-          <Box px={[2, 4, 5]} mb={7}>
+          <Box px={[2, 4, 5]} mb={8}>
             <CategorySet
               categoriesToShow={categoriesForSet}
               categories={categories}
@@ -114,7 +114,7 @@ export const Home = ({}: {}) => {
         {!showSpinner && productSetsWithData.length === 0 && (
           <Result
             status='empty'
-            mt={7}
+            mt={8}
             description={t('store.emptyStoreExplanation')}
           />
         )}
@@ -123,7 +123,7 @@ export const Home = ({}: {}) => {
           <>
             {productSetsWithData.map((set, index) => (
               <React.Fragment key={set.setTag.type + (set.setTag.value || '')}>
-                <Box px={[2, 4, 5]} mb={7}>
+                <Box px={[2, 4, 5]} mb={8}>
                   {set.data.length <= 2 ? (
                     <ProductDuo set={set} storeId={store._id} />
                   ) : (
@@ -159,13 +159,13 @@ export const Home = ({}: {}) => {
                 </Box>
 
                 {index === 0 && promotedCampaign && (
-                  <Box mb={7}>
+                  <Box mb={8}>
                     <DiscountCampaign campaign={promotedCampaign} />
                   </Box>
                 )}
 
                 {index === 2 && (
-                  <Box mb={7}>
+                  <Box mb={8}>
                     <ServicesSet />
                   </Box>
                 )}

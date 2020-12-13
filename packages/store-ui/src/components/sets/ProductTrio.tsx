@@ -31,7 +31,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
         justify='center'
         direction={['column', 'column', 'row']}
       >
-        <Box mr={[0, 0, 4]}>
+        <Box mr={[0, 0, 6]}>
           <ProductCard
             emphasized
             detailed
@@ -41,12 +41,12 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
         </Box>
 
         <Flex
-          ml={[0, 0, 4]}
+          ml={[0, 0, 6]}
           direction={['row', 'row', 'column']}
           align={['flex-start', 'flex-start', 'center']}
           justify='center'
         >
-          <Box mb={[0, 0, 2]} mr={[1, 2, 0]}>
+          <Box mb={[0, 0, 4]} mr={[3, 4, 0]}>
             <ProductCard
               detailed
               horizontal={areCardsHorizontal}
@@ -54,7 +54,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
               storeId={storeId}
             />
           </Box>
-          <Box mt={[0, 0, 2]} ml={[1, 2, 0]}>
+          <Box mt={[0, 0, 4]} ml={[3, 4, 0]}>
             <ProductCard
               detailed
               horizontal={areCardsHorizontal}

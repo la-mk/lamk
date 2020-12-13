@@ -2,14 +2,14 @@ import React from 'react';
 import {
   Breadcrumb,
   BreadcrumbItem,
-  Box,
   BreadcrumbLink,
+  Button,
   Flex,
 } from '@sradevski/blocks-ui';
 import { useSelector } from 'react-redux';
 import { BreadcrumbEntry } from '../../state/modules/ui/ui.module';
 import { getBreadcrumbs } from '../../state/modules/ui/ui.selector';
-import { HoverableLink } from '../../components/shared/components/HoverableLink';
+import Link from 'next/link';
 
 export const Breadcrumbs = props => {
   const breadcrumbs = useSelector<BreadcrumbEntry[]>(getBreadcrumbs);
@@ -21,7 +21,7 @@ export const Breadcrumbs = props => {
   return (
     <Flex
       align='center'
-      px={[3, 4, 5]}
+      px={[4, 6, 7]}
       width='100%'
       bg='background.light'
       {...props}
@@ -35,11 +35,14 @@ export const Breadcrumbs = props => {
             >
               <BreadcrumbLink
                 href={breadcrumb.urlPattern ?? breadcrumb.url}
-                as={props => (
-                  <HoverableLink
-                    {...props}
+                as={({ href, ...props }) => (
+                  <Link
+                    passHref
+                    href={href}
                     as={breadcrumb.urlPattern ? breadcrumb.url : undefined}
-                  />
+                  >
+                    <Button as='a' variant='link' {...props} />
+                  </Link>
                 )}
               >
                 {breadcrumb.title}

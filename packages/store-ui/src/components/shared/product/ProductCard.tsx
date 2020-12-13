@@ -21,7 +21,7 @@ const ProductDescription = ({
   horizontal?: boolean;
 }) => {
   return (
-    <Box py={horizontal ? 3 : 0}>
+    <Box py={horizontal ? 5 : 0}>
       <Heading mb={2} as='h3' size='sm' noOfLines={2}>
         {product.name}
       </Heading>
@@ -43,6 +43,7 @@ const ProductDescription = ({
   );
 };
 
+// TODO: Start using rem's for the card
 const normalSizes = [128, 176, 216];
 const emphasizedSizes = [236, 296, 376];
 const normalSizesWithPadding = [160, 212, 248];
@@ -71,8 +72,8 @@ const ProductImage = ({
       align='center'
       // @ts-ignore
       style={{ position: 'relative' }}
-      mb={horizontal ? 0 : 3}
-      mr={horizontal ? [3, 3, 4] : 0}
+      mb={horizontal ? 0 : 4}
+      mr={horizontal ? [4, 5, 5] : 0}
     >
       <ProductTags t={t} product={product} />
       {/* <ActionsOverlay /> */}

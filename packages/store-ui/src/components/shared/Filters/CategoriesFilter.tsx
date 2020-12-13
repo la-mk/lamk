@@ -62,11 +62,10 @@ export const CategoriesFilter = ({
         <Button
           variant='link'
           onClick={() => handleSelectedCategoriesChange({ selectedKeys: [] })}
+          size='sm'
+          leftIcon={<ReloadOutlined />}
         >
-          <Text size='sm' color='mutedText.dark'>
-            <ReloadOutlined style={{ marginRight: 8 }} />
-            {t('actions.reset')}
-          </Text>
+          {t('actions.reset')}
         </Button>
       </Flex>
       <ColoredMenuContainer>

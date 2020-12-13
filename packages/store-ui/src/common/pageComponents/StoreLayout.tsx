@@ -46,9 +46,9 @@ export const StoreLayout = withTheme(
       dispatch(setUiLoaded());
     }, []);
 
-    // Not a very clean solution, but it will do for now
-    const matches = router.pathname.match(/\/([^/]*)(\/?)/);
-    const selectedKey = matches && matches.length > 1 ? matches[1] : undefined;
+    //  TODO: We currently don't highlight the selected page, support it in the future
+    // const matches = router.pathname.match(/\/([^/]*)(\/?)/);
+    // const selectedKey = matches && matches.length > 1 ? matches[1] : undefined;
 
     const handleLogout = () => {
       dispatch(logout());
@@ -109,15 +109,14 @@ export const StoreLayout = withTheme(
                 <Box
                   display={['none', 'block', 'block']}
                   flex={1}
-                  minWidth='300px'
-                  maxWidth='800px'
+                  minWidth='18rem'
+                  maxWidth='54rem'
                   mx={[2, 3, 4]}
                   my={1}
                 >
                   {presetSearch}
                 </Box>
                 <TopMenu
-                  selectedKey={selectedKey}
                   user={user}
                   cartCount={cartCount}
                   handleLogin={handleLogin}

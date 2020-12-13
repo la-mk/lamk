@@ -25,8 +25,8 @@ export const Banner = ({
       <ImageBackgroundBox
         mx='auto'
         url={sdk.artifact.getUrlForImage(banner, store._id, { h: 600 })}
-        height={[450, 600, 600]}
-        maxWidth={1520}
+        height={['26rem', '38rem', '38rem']}
+        maxWidth={'96rem'}
         width='100%'
         // @ts-ignore
         style={{ position: 'relative' }}
@@ -60,7 +60,13 @@ export const Banner = ({
               justify='center'
               direction='column'
             >
-              <Heading px={[2, 3, 4]} align='center' as='h1' size={'xl'}>
+              <Heading
+                mb={6}
+                px={[3, 4, 5]}
+                align='center'
+                as='h1'
+                size={'3xl'}
+              >
                 {store.slogan}
               </Heading>
               <Link href='/products' passHref>

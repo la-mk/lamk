@@ -59,14 +59,14 @@ export const ServicesSet = () => {
           <Flex
             key={service.title}
             flex={1}
-            minWidth={320}
-            maxWidth={420}
-            height={160}
+            minWidth={'18rem'}
+            maxWidth={'24rem'}
+            height={'10rem'}
             my={[3, 3, 2]}
             mx={[2, 3, 4]}
             bg='background.dark'
             // @ts-ignore
-            borderRadius={0}
+            borderRadius='md'
             align='center'
             justify='center'
             px={[3, 4, 4]}

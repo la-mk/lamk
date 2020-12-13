@@ -112,11 +112,10 @@ export const PriceFilter = ({
             setRange([min, max]);
             handleChangeDone(min, max);
           }}
+          leftIcon={<ReloadOutlined />}
+          size='sm'
         >
-          <Text size='sm' color='mutedText.dark'>
-            <ReloadOutlined style={{ marginRight: 8 }} />
-            {t('actions.reset')}
-          </Text>
+          {t('actions.reset')}
         </Button>
       </Flex>
       <PredefinedRanges
@@ -130,14 +129,16 @@ export const PriceFilter = ({
         }}
       />
 
-      <Flex mt={2} align='center'>
+      <Flex mt={3} align='center'>
         <Input
+          type='number'
           onChange={(_e, val: number) => val <= end && setRange([val, end])}
           onBlur={() => handleChangeDone(start, end)}
           value={start}
         />
         <Text mx={2}>~</Text>
         <Input
+          type='number'
           onChange={(_e, val: number) => val >= start && setRange([start, val])}
           onBlur={() => handleChangeDone(start, end)}
           max={max}

@@ -23,7 +23,7 @@ export const DiscountCampaign = withTheme(
     return (
       <Flex
         width='100%'
-        minHeight={250}
+        minHeight={'14rem'}
         bg='background.light'
         align='center'
         justify='center'
@@ -35,8 +35,8 @@ export const DiscountCampaign = withTheme(
           direction='column'
           bg='background.dark'
           // @ts-ignore
-          borderRadius={0}
-          p={3}
+          borderRadius='md'
+          p={5}
         >
           <Text mb={2} size={'2xl'} color='text.light' align='center'>
             {t('campaignBanners.setDiscountTitle', {
