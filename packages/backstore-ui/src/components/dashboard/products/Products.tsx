@@ -99,7 +99,7 @@ const getColumns = (
       dataIndex: 'variants',
       render: (val: Variant[], record) => {
         return (
-          <Text maxWidth={'140px'} isTruncated>
+          <Text maxWidth={'140px'} noOfLines={1}>
             {val
               .map(x => x.sku)
               .filter(x => !!x)

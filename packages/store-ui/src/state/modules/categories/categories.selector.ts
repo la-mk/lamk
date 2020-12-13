@@ -27,8 +27,8 @@ const getFormattedLevel = (
         : undefined;
 
     res.push({
-      label: getLabel(groupKey),
-      value: groupKey,
+      title: getLabel(groupKey),
+      key: groupKey,
       children,
     });
 

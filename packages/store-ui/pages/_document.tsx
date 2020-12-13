@@ -21,8 +21,8 @@ const GlobalStyle = createGlobalStyle`
     color: 'inherit';
   }
 
-  .anticon {
-    vertical-align: 0.125em;
+  && .anticon {
+    vertical-align: 0.125em !important;
   }
 
   strong {

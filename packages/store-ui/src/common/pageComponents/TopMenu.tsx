@@ -34,11 +34,7 @@ const NavButton = ({ title, icon, href, hideTitle }: any) => {
         as='a'
         variant='link'
         aria-label={title}
-        leftIcon={
-          <Text lineHeight='none' size='2xl'>
-            {icon}
-          </Text>
-        }
+        leftIcon={<Text size='2xl'>{icon}</Text>}
       >
         {!hideTitle && showTitle && title}
       </Button>
@@ -87,7 +83,8 @@ export const TopMenu = ({
                   colorScheme='primary'
                   variant='solid'
                   borderRadius='full'
-                  size='xs'
+                  size='sm'
+                  py={'1px'}
                 >
                   {cartCount ?? 0}
                 </Badge>
@@ -100,10 +97,19 @@ export const TopMenu = ({
 
         <Menu>
           <MenuButton
-            as={Button}
+            // TODO: The MenuButton sends a child to the button even if you didn't provide any, PR in Chakra.
+            as={React.useMemo(
+              () =>
+                React.forwardRef((props, ref) => (
+                  <Button {...props} ref={ref} children={null} />
+                )),
+              [],
+            )}
+            aria-label={t('auth.account')}
             size='sm'
             mx={3}
             leftIcon={<UserOutlined />}
+            children={null}
           />
           <MenuList>
             {user ? (

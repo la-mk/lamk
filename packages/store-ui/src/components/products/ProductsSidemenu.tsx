@@ -19,13 +19,9 @@ export const ProductsSidemenu = ({
   ...props
 }: ProductsSidemenuProps & React.ComponentProps<typeof Box>) => {
   return (
-    <Box {...props}>
-      <CategoriesFilter
-        mb={6}
-        mode='inline'
-        filters={filters}
-        onChange={setFilters}
-      />
+    <Box minWidth='16rem' {...props}>
+      <CategoriesFilter mb={6} filters={filters} onChange={setFilters} />
+
       <PriceFilter
         mt={6}
         filters={filters}

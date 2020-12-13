@@ -53,9 +53,12 @@ const registerReducers = (isServer: boolean) => {
 
   return (state: any = {}, action: AnyAction) => {
     switch (action.type) {
-      case HYDRATE:
-        // TODO: See if this reconsiliation method works.
-        return merge({ ...state, ...action.payload });
+      // TODO: See if this reconsiliation method works.
+      case HYDRATE: {
+        const res = {};
+        merge(res, state, action.payload);
+        return res;
+      }
       default:
         return rootReducer(state, action);
     }
