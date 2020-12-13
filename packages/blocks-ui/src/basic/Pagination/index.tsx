@@ -120,6 +120,7 @@ export const Pagination = ({
 
       {range(buttonsStartFrom, buttonsEndAt).map(i => (
         <PaginationButton
+          key={i}
           totalPages={totalPages}
           onClick={() => onChange(i, pageSize)}
           isSelected={currentPage === i}

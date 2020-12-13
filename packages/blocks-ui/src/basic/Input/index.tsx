@@ -103,9 +103,8 @@ const Password = ({
           variant="ghost"
           size="sm"
           onClick={handleClick}
-        >
-          {show ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-        </Button>
+          leftIcon={show ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+        />
       </InputRightElement>
 
       {rightAddon && <InputRightAddon>{rightAddon}</InputRightAddon>}
@@ -153,9 +152,8 @@ const Search = ({
           variant="ghost"
           size="sm"
           onClick={handleOnSearch}
-        >
-          <SearchOutlined />
-        </Button>
+          leftIcon={<SearchOutlined />}
+        />
       </InputRightElement>
 
       {rightAddon && <InputRightAddon>{rightAddon}</InputRightAddon>}

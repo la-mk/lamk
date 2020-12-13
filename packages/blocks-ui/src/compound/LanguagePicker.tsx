@@ -31,7 +31,9 @@ export const LanguagePicker = ({
         variant="link"
         leftIcon={<GlobalOutlined style={{ marginRight: 0 }} />}
       >
-        <Text>{languageCode.toUpperCase()}</Text>
+        <Text color={darkMode ? 'text.light' : 'text.dark'}>
+          {languageCode.toUpperCase()}
+        </Text>
       </MenuButton>
 
       <Portal>

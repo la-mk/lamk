@@ -10,6 +10,10 @@ storiesOf('Alert', module).add('standard', () => (
         This is a description
       </Alert>
 
+      <Alert mt={5} status="info" variant="subtle" message="Hey!">
+        This is a description
+      </Alert>
+
       <Alert mt={5} status="warning" message="Hey!">
         <strong>This is a react description</strong>
       </Alert>

@@ -38,7 +38,7 @@ const Submenu = ({ submenus, Link }: { submenus: Submenu[]; Link: any }) => {
 
 const SubmenuTitle = ({ menu, Link }: { menu: Menu; Link: any }) => {
   const title = (
-    <Heading mx={3} mb={3} size="sm" color="text.light" as="h4">
+    <Heading mx={3} mb={4} size="sm" color="text.light" as="h4">
       {menu.text.toUpperCase()}
     </Heading>
   );

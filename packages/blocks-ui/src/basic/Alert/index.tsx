@@ -10,18 +10,17 @@ import {
 } from '@chakra-ui/react';
 import { MinWidthProps, MaxWidthProps } from 'styled-system';
 
-export type AlertVariant = 'solid' | 'ghost' | 'outline' | 'link';
+export type AlertVariant = 'subtle' | 'solid' | 'left-accent' | 'top-accent';
 
 export interface AlertProps
   extends Pick<ChakraAlertProps, 'status' | 'children'>,
     SpaceProps,
     MaxWidthProps,
     MinWidthProps {
+  variant?: AlertVariant;
   message?: string;
   onClose?: () => void;
 }
-
-ChakraAlert.defaultProps = {};
 
 export const Alert = ({ message, onClose, children, ...props }: AlertProps) => {
   return (
