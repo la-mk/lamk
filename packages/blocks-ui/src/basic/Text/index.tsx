@@ -11,7 +11,6 @@ export interface TextProps
   extends Pick<
       ChakraTextProps,
       | 'children'
-      | 'isTruncated'
       | 'noOfLines'
       | 'align'
       | 'casing'
@@ -37,14 +36,16 @@ export interface TextProps
     | 'inherit';
 }
 
-ChakraText.defaultProps = {
-  as: 'span',
-};
-
 export const Text = React.forwardRef(
   ({ size, ...props }: TextProps, ref: any) => {
     return (
-      <ChakraText ref={ref} fontSize={size} color="text.dark" {...props} />
+      <ChakraText
+        ref={ref}
+        fontSize={size}
+        color="text.dark"
+        as="span"
+        {...props}
+      />
     );
   }
 );

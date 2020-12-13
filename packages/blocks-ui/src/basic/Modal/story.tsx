@@ -12,7 +12,7 @@ storiesOf('Modal', module).add('standard', () => {
       <div>
         <button onClick={() => setIsOpen(true)}>Open</button>
         <Modal
-          maxWidth={['100%', '80%', '60%']}
+          maxWidth={['96%', '88%', '64%']}
           header="Title"
           footer={
             <>

@@ -8,10 +8,7 @@ import {
 import { HeadingSize } from '../../system';
 
 export interface HeadingProps
-  extends Pick<
-      ChakraHeadingProps,
-      'children' | 'isTruncated' | 'noOfLines' | 'color'
-    >,
+  extends Pick<ChakraHeadingProps, 'children' | 'noOfLines' | 'color'>,
     Pick<ChakraTextProps, 'align'>,
     SpaceProps {
   size?: HeadingSize;
@@ -20,6 +17,7 @@ export interface HeadingProps
 
 ChakraHeading.defaultProps = {
   fontWeight: 'normal',
+  color: 'heading.dark',
 };
 
 export const Heading = ChakraHeading as React.FunctionComponent<HeadingProps>;

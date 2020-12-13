@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Flex, FlexProps } from '../Flex';
 import { Text } from '../Text';
 import { Divider } from '../Divider';
@@ -27,9 +27,9 @@ const content = {
 const Description = ({ status, description }: Partial<StepProps>) => {
   return (
     <Text
-      maxWidth="120px"
+      maxWidth="140px"
       as="p"
-      isTruncated
+      noOfLines={1}
       size="xs"
       color={status === 'pending' ? 'mutedText.dark' : 'text.dark'}
     >
@@ -42,8 +42,8 @@ const Title = React.forwardRef(({ status, title }: Partial<StepProps>, ref) => {
   return (
     <Text
       ref={ref}
-      as="div"
-      isTruncated
+      as="span"
+      noOfLines={1}
       width="fit-content"
       size="md"
       color={status === 'pending' ? 'mutedText.dark' : 'text.dark'}
@@ -86,8 +86,13 @@ const Step = ({
   steps: StepProps[];
   orientation: 'horizontal' | 'vertical';
 }) => {
-  const titleRef = React.useRef<HTMLDivElement>();
-  const clientWidth = titleRef.current?.clientWidth ?? 0;
+  // const titleRef = React.useRef<HTMLDivElement>();
+  const [titleWidth, setTitleWidth] = useState(0);
+  const titleRef = useCallback(node => {
+    if (node !== null) {
+      setTitleWidth(node.getBoundingClientRect().width);
+    }
+  }, []);
 
   return (
     <Flex
@@ -98,7 +103,7 @@ const Step = ({
     >
       <Flex mr={orientation === 'vertical' ? 0 : 2}>
         <Circle {...step} index={index} />
-        <Box minWidth={'120px'} maxWidth="120px">
+        <Box minWidth={'120px'} maxWidth="140px">
           <Title ref={titleRef} {...step} />
           <Description {...step} />
         </Box>
@@ -109,7 +114,7 @@ const Step = ({
           mr={orientation === 'horizontal' ? 2 : undefined}
           ml={
             orientation === 'horizontal'
-              ? (clientWidth - 120).toString()
+              ? (titleWidth - 120).toString()
               : undefined
           }
           // @ts-ignore
