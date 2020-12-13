@@ -20,14 +20,9 @@ export interface AccordionProps extends SpaceProps, DisplayProps {
   }>;
 }
 
-ChakraAccordion.defaultProps = {
-  allowMultiple: true,
-  allowToggle: true,
-};
-
 export const Accordion = ({ items }: AccordionProps) => {
   return (
-    <ChakraAccordion>
+    <ChakraAccordion allowMultiple allowToggle>
       {items.map(item => {
         return (
           <ChakraAccordionItem key={item.title}>

@@ -65,6 +65,7 @@ export { Switch, SwitchProps } from './basic/Switch';
 export { Tabs, TabsProps } from './basic/Tabs';
 export { Tag, TagProps } from './basic/Tag';
 export { Text, TextProps } from './basic/Text';
+export { Treeview, TreeviewProps } from './basic/Treeview';
 export { Heading, HeadingProps } from './basic/Heading';
 export { Upload, UploadProps } from './basic/Upload';
 export { LoginForm } from './compound/forms/LoginForm';
