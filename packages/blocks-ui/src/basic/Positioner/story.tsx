@@ -6,7 +6,7 @@ import { CheckCircleFilled, ShoppingCartOutlined } from '@ant-design/icons';
 import { Positioner } from '.';
 import { Box } from '../Box';
 
-storiesOf('Badge', module).add('standard', () => (
+storiesOf('Positioner', module).add('standard', () => (
   <Provider>
     <>
       <Positioner
@@ -24,12 +24,14 @@ storiesOf('Badge', module).add('standard', () => (
       <Positioner
         overlayContent={
           <Badge
+            // @ts-ignore
             colorScheme="green"
             variant="solid"
             borderRadius="full"
-            size="xs"
+            size="sm"
+            py={'2px'}
           >
-            0
+            110
           </Badge>
         }
       >

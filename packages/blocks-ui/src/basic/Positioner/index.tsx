@@ -14,7 +14,13 @@ export const Positioner = ({
   return (
     <Box width="100%" display="inline-block" position="relative" {...props}>
       {children}
-      <Box display="inline-block" position="absolute" right={-2} top={-2}>
+      <Box
+        lineHeight="1"
+        display="inline"
+        position="absolute"
+        right={-2}
+        top={-2}
+      >
         {overlayContent}
       </Box>
     </Box>

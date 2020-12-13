@@ -15,6 +15,10 @@ export interface BadgeProps
   variant?: BadgeVariant;
 }
 
-export const Badge = ({ children, ...props }: BadgeProps) => {
-  return <ChakraBadge {...props}>{children}</ChakraBadge>;
+export const Badge = ({ children, size, ...props }: BadgeProps) => {
+  return (
+    <ChakraBadge fontSize={size} {...props}>
+      {children}
+    </ChakraBadge>
+  );
 };

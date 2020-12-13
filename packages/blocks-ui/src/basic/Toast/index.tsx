@@ -13,22 +13,22 @@ const showToast = (options: UseToastOptions) => {
 export const toast = {
   success: (msg: string) =>
     showToast({
-      title: msg,
+      description: msg,
       status: 'success',
     }),
   error: (msg: string) =>
     showToast({
-      title: msg,
+      description: msg,
       status: 'error',
     }),
   warning: (msg: string) =>
     showToast({
-      title: msg,
+      description: msg,
       status: 'warning',
     }),
   info: (msg: string) =>
     showToast({
-      title: msg,
+      description: msg,
       status: 'info',
     }),
 };

@@ -6,8 +6,8 @@ import { Provider } from '../../';
 storiesOf('Badge', module).add('standard', () => (
   <Provider>
     <div>
-      <Badge colorScheme="green" variant="solid" borderRadius="full" size="xs">
-        0
+      <Badge colorScheme="green" variant="solid">
+        Hey!
       </Badge>
     </div>
   </Provider>
