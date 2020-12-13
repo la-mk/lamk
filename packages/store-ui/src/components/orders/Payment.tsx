@@ -31,15 +31,14 @@ interface PaymentProps {
 
 export const Payment = ({ orderId }: PaymentProps) => {
   const { t } = useTranslation();
-  const [isLoadingPayment, setIsLoadingPayment] = useState(true);
   const user = useSelector(getUser);
   const store = useSelector(getStore);
-  const [trackedEvent, setTrackedEvent] = useState(false);
   const dispatch = useDispatch();
-  const [order, setOrder] = useState<Order | null>(null);
   const [orderCaller, showOrderSpinner] = hooks.useCall(true);
   const [paymentMethodCaller, showPaymentMethodSpinner] = hooks.useCall(true);
-
+  const [trackedEvent, setTrackedEvent] = useState(false);
+  const [isLoadingPayment, setIsLoadingPayment] = useState(true);
+  const [order, setOrder] = useState<Order | null>(null);
   const [
     storePaymentMethods,
     setStorePaymentMethods,
@@ -114,6 +113,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
   if (!cardPaymentInfo && !showPaymentMethodSpinner) {
     return (
       <Result
+        mt={8}
         status='warning'
         title={t('payment.paymentDisabled')}
         description={t('payment.storeNoCardSupport')}
@@ -124,6 +124,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
   if (!order && !showOrderSpinner) {
     return (
       <Result
+        mt={8}
         status='warning'
         title={t('order.orderNotFound')}
         description={t('order.orderNotFoundTip')}
@@ -133,14 +134,20 @@ export const Payment = ({ orderId }: PaymentProps) => {
 
   if (order && order.status !== sdk.order.OrderStatus.PENDING_PAYMENT) {
     return (
-      <Flex direction='column' justify='center'>
+      <Flex
+        mx='auto'
+        maxWidth={'24rem'}
+        mt={8}
+        direction='column'
+        justify='center'
+      >
         <Result
           status='warning'
           title={t('payment.paymentDisabled')}
           description={t('order.orderAlreadyPaid')}
         />
         <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
-          <Button mt={4} as='a' mx={2} key='console'>
+          <Button mt={5} as='a' mx={2} key='console'>
             {t('order.seeOrder')}
           </Button>
         </Link>
@@ -148,27 +155,22 @@ export const Payment = ({ orderId }: PaymentProps) => {
     );
   }
 
-  const frameName = 'paymentFrame';
-
   if (transactionStatus === sdk.orderPayments.TransactionStatus.APPROVED) {
-    return <Success mt={[5, 6, 6]} order={order} />;
+    return <Success mt={[7, 8, 8]} order={order} />;
   }
+
+  const frameName = 'paymentFrame';
 
   return (
     <Page>
       <Spinner
         isLoaded={
-          !(
-            showPaymentMethodSpinner ||
-            showOrderSpinner ||
-            isLoadingPayment ||
-            !paymentResponse
-          )
+          !showPaymentMethodSpinner && !showOrderSpinner && !isLoadingPayment
         }
       >
         <Flex align='center' justify='center' direction='column'>
           {order && (
-            <Heading as='h3' size='lg'>
+            <Heading as='h3' size='lg' mb={3}>
               {t('payment.payAmountTip', {
                 amountWithCurrency: `${order.calculatedTotal} ден`,
               })}
@@ -176,8 +178,8 @@ export const Payment = ({ orderId }: PaymentProps) => {
           )}
           {paymentResponse?.error && (
             <Alert
-              maxWidth={'600px'}
-              mt={3}
+              maxWidth={'40rem'}
+              mt={5}
               status='error'
               message={
                 paymentResponse.error?.message ?? t('results.genericError')
@@ -190,8 +192,8 @@ export const Payment = ({ orderId }: PaymentProps) => {
             transactionStatus ===
               sdk.orderPayments.TransactionStatus.ERROR) && (
             <Alert
-              maxWidth={'600px'}
-              mt={3}
+              maxWidth={'40rem'}
+              mt={5}
               status='error'
               message={transaction?.message ?? t('results.genericError')}
             />
@@ -200,7 +202,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
           {shouldRetry && (
             <>
               <Button
-                mt={4}
+                mt={6}
                 size='lg'
                 onClick={() => {
                   setPaymentResponse(null);
@@ -209,7 +211,7 @@ export const Payment = ({ orderId }: PaymentProps) => {
               >
                 {t('actions.retry')}
               </Button>
-              <Text mt={2} color='mutedText.dark'>
+              <Text mt={3} color='mutedText.dark'>
                 {t('order.retryFromOrdersTip')}
               </Text>
             </>
