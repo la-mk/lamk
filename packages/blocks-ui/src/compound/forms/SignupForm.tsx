@@ -3,7 +3,7 @@ import { LocalizationContext } from '../../basic/Provider';
 import { AuthFormBase } from './AuthFormBase';
 import { FormProps } from '../../basic/NewForm/NewForm';
 
-export interface LoginProps extends FormProps<any> {
+export interface SignupFormProps extends FormProps<any> {
   signup: (credentials: SignupCredentials) => void;
   onLoginNowClick: () => void;
   logoUrl?: string;
@@ -19,7 +19,7 @@ export const SignupForm = ({
   onLoginNowClick,
   logoUrl,
   ...otherProps
-}: LoginProps) => {
+}: SignupFormProps) => {
   const localization = useContext(LocalizationContext);
 
   return (

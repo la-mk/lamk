@@ -6,7 +6,8 @@ import { Flex } from '../Flex';
 import { Box, BoxProps } from '../Box';
 
 export type ArrowDirection = 'left' | 'right';
-interface SetProps<T> extends BoxProps {
+
+export interface SetProps<T> extends BoxProps {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   itemKey: string;

@@ -3,7 +3,7 @@ import { LocalizationContext } from '../../basic/Provider';
 import { AuthFormBase } from './AuthFormBase';
 import { FormProps } from '../../basic/NewForm/NewForm';
 
-export interface LoginProps extends FormProps<any> {
+export interface LoginFormProps extends FormProps<any> {
   login: (credentials: LoginCredentials) => void;
   onSignupNowClick: (data?: any) => void;
   onForgotPasswordClick: () => void;
@@ -21,7 +21,7 @@ export const LoginForm = ({
   onForgotPasswordClick,
   logoUrl,
   ...otherProps
-}: LoginProps) => {
+}: LoginFormProps) => {
   const localization = useContext(LocalizationContext);
 
   return (

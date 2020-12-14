@@ -17,6 +17,13 @@ export {
   ButtonGroup,
   ButtonGroupProps,
 } from './basic/Button';
+export {
+  PickerBox,
+  PickerBoxes,
+  PickerBoxProps,
+  PickerBoxesProps,
+} from './basic/PickerBoxes';
+
 export { Card, CardProps } from './basic/Card';
 export { Checkbox, CheckboxProps } from './basic/Checkbox';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
@@ -57,7 +64,7 @@ export { Pagination, PaginationProps } from './basic/Pagination';
 export { Provider } from './basic/Provider';
 export { Radio, RadioProps } from './basic/Radio';
 export { Select, SelectProps } from './basic/Select';
-export { Set } from './basic/Set/Set';
+export { Set, SetProps } from './basic/Set/Set';
 export { Spinner, SpinnerProps } from './basic/Spinner';
 export { Stat, StatProps } from './basic/Stat';
 export { Steps, StepsProps } from './basic/Steps';
@@ -68,22 +75,29 @@ export { Text, TextProps } from './basic/Text';
 export { Treeview, TreeviewProps } from './basic/Treeview';
 export { Heading, HeadingProps } from './basic/Heading';
 export { Upload, UploadProps } from './basic/Upload';
-export { LoginForm } from './compound/forms/LoginForm';
-export { SignupForm } from './compound/forms/SignupForm';
-export { BasicUserForm } from './compound/forms/BasicUserForm';
-export { ChangePasswordForm } from './compound/forms/ChangePasswordForm';
-export { ForgotPasswordForm } from './compound/forms/ForgotPasswordForm';
-export { ResetPasswordForm } from './compound/forms/ResetPasswordForm';
-export { HeadElements } from './compound/HeadElements';
+export { LoginForm, LoginFormProps } from './compound/forms/LoginForm';
+export { SignupForm, SignupFormProps } from './compound/forms/SignupForm';
+export {
+  BasicUserForm,
+  BasicUserFormProps,
+} from './compound/forms/BasicUserForm';
+export {
+  ChangePasswordForm,
+  ChangePasswordFormProps,
+} from './compound/forms/ChangePasswordForm';
+export {
+  ForgotPasswordForm,
+  ForgotPasswordFormProps,
+} from './compound/forms/ForgotPasswordForm';
+export {
+  ResetPasswordForm,
+  ResetPasswordFormProps,
+} from './compound/forms/ResetPasswordForm';
+export { HeadElements, HeadElementsProps } from './compound/HeadElements';
 export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
-export { LanguagePicker } from './compound/LanguagePicker';
-export {
-  PickerBox,
-  PickerBoxes,
-  PickerBoxProps,
-  PickerBoxesProps,
-} from './basic/PickerBoxes';
+export { LanguagePicker, LanguagePickerProps } from './compound/LanguagePicker';
+export { CategoriesList, CategoriesListProps } from './compound/CategoriesList';
 
 export { toast } from './basic/Toast';
 export { default as hooks } from './hooks';
