@@ -1,6 +1,5 @@
 {
   "actions": {
-    "add": "Add",
     "addToCart": "Add to Cart",
     "cancel": "Cancel",
     "create": "Create",
@@ -40,6 +39,7 @@
     "size": "Size"
   },
   "auth": {
+    "account": "Account",
     "accountUpdateSuccess": "Account successfully updated",
     "authSameAccount": "You can use the same account on every store that is",
     "forgotPassword": "Forgot your password?",

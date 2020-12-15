@@ -28,4 +28,5 @@ COPY ./entry.sh ./
 COPY --from=build /usr/src/app ./
 
 ENTRYPOINT ["./entry.sh"]
-CMD ["node_modules/.bin/next", "start", "--port $PORT"]
+# TODO: Un-hardcode the port
+CMD ["node_modules/.bin/next", "start -p 80"]
