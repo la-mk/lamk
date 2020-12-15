@@ -9,7 +9,7 @@ import storeContents from './modules/storeContents/storeContents.module';
 import { routerReducer } from 'connected-next-router';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
-import { merge } from 'lodash';
+import mergeWith from 'lodash/mergeWith';
 
 const getReducersSet = () => ({
   store,
@@ -22,6 +22,12 @@ const getReducersSet = () => ({
   storeContents,
   router: routerReducer,
 });
+
+function customizer(objValue) {
+  if (Array.isArray(objValue)) {
+    return objValue;
+  }
+}
 
 const registerReducers = (isServer: boolean) => {
   const reducers = getReducersSet();
@@ -56,7 +62,7 @@ const registerReducers = (isServer: boolean) => {
       // TODO: See if this reconsiliation method works.
       case HYDRATE: {
         const res = {};
-        merge(res, state, action.payload);
+        mergeWith(res, state, action.payload, customizer);
         return res;
       }
       default:
