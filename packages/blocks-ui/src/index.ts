@@ -98,6 +98,7 @@ export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
 export { LanguagePicker, LanguagePickerProps } from './compound/LanguagePicker';
 export { CategoriesList, CategoriesListProps } from './compound/CategoriesList';
+export { Overlay, OverlayProps } from './compound/Overlay';
 
 export { toast } from './basic/Toast';
 export { default as hooks } from './hooks';

@@ -78,6 +78,7 @@ export const Provider = ({
           <LocalizationContext.Provider value={translations || {}}>
             {children}
           </LocalizationContext.Provider>
+          <div id="portal-root" />
         </BreakpointProvider>
       </ChakraProvider>
     </ThemeProvider>
