@@ -58,6 +58,21 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const convertRemToPixels = (rem: string) => {
+  const remVal = parseInt(rem, 10);
+  return (
+    remVal * parseFloat(getComputedStyle(document.documentElement).fontSize)
+  );
+};
+
+const getBreakpoints = (themeBreakpoints: string[]) => {
+  if (typeof window === 'undefined') {
+    return [768, 1024, 1280];
+  }
+
+  return themeBreakpoints.map(convertRemToPixels);
+};
+
 export const Provider = ({
   theme,
   translations,
@@ -73,8 +88,13 @@ export const Provider = ({
     <ThemeProvider theme={finalTheme}>
       <ChakraProvider theme={finalTheme}>
         <GlobalStyle />
-        {/* TODO: Specify this better, or use Chakra's hook */}
-        <BreakpointProvider breakpoints={[768, 1024, 1280]}>
+        <BreakpointProvider
+          breakpoints={getBreakpoints([
+            finalTheme.breakpoints.md,
+            finalTheme.breakpoints.lg,
+            finalTheme.breakpoints.xl,
+          ])}
+        >
           <LocalizationContext.Provider value={translations || {}}>
             {children}
           </LocalizationContext.Provider>

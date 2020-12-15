@@ -16,6 +16,11 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
     0 as Breakpoint
   );
 
+  // Early returning here doesn't matter since this will only run on the server
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   React.useLayoutEffect(() => {
     const handleResize = () => {
       const clientWidth = window.innerWidth;

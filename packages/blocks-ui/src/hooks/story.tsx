@@ -6,7 +6,11 @@ import hooks from './index';
 
 const BreakpointHookComponent = () => {
   const breakpoint = hooks.useBreakpoint(['1', '2', '3']);
-  return <Card>{breakpoint}</Card>;
+  return (
+    <Card>
+      {breakpoint}, {window.innerWidth}
+    </Card>
+  );
 };
 
 storiesOf('Hooks', module).add('useBreakpoint', () => {
