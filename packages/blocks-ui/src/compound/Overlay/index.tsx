@@ -17,11 +17,16 @@ export interface OverlayProps {
 
 export const Overlay = ({ children, trigger }: OverlayProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const container = React.useMemo(() => document.createElement('div'), []);
+  const container = React.useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return document.createElement('div');
+    }
+    return null;
+  }, []);
 
   React.useEffect(() => {
     const root = document.getElementById('portal-root');
-    if (!root) {
+    if (!root || !container) {
       return;
     }
 
@@ -29,7 +34,7 @@ export const Overlay = ({ children, trigger }: OverlayProps) => {
     return () => {
       root.removeChild(container);
     };
-  }, []);
+  }, [container]);
 
   return (
     <div>
@@ -38,17 +43,19 @@ export const Overlay = ({ children, trigger }: OverlayProps) => {
         open: () => setIsOpen(true),
         close: () => setIsOpen(false),
       })}
-      {ReactDOM.createPortal(
-        <Fade unmountOnExit in={isOpen}>
-          <div
-            onMouseEnter={() => setIsOpen(true)}
-            onMouseLeave={() => setIsOpen(false)}
-          >
-            {children}
-          </div>
-        </Fade>,
-        container
-      )}
+      {container
+        ? ReactDOM.createPortal(
+            <Fade unmountOnExit in={isOpen}>
+              <div
+                onMouseEnter={() => setIsOpen(true)}
+                onMouseLeave={() => setIsOpen(false)}
+              >
+                {children}
+              </div>
+            </Fade>,
+            container
+          )
+        : null}
     </div>
   );
 };
