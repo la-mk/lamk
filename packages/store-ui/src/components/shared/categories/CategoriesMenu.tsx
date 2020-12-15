@@ -4,9 +4,9 @@ import {
   getCategories,
   GroupedCategories,
   createGetGroupedCategories,
-} from '../../state/modules/categories/categories.selector';
+} from '../../../state/modules/categories/categories.selector';
 import { useSelector } from 'react-redux';
-import { useTranslation } from '../../common/i18n';
+import { useTranslation } from '../../../common/i18n';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
 // import Link from 'next/link';
 // import { getQueryForCategories } from '../../common/filterUtils';
@@ -43,18 +43,5 @@ export const CategoriesMenu = ({
       selected={selectedKeys}
       onSelect={onSelect}
     />
-
-    // {!onSelect && (
-    //   <Link
-    //     key={level3Category.value}
-    //     href={`/products?${getQueryForCategories([
-    //       level3Category.value as string,
-    //     ])}`}
-    //     passHref
-    //   >
-    //     <Button as='a' variant='link'>
-    //       <Text size='sm'>{level3Category.label}</Text>
-    //     </Button>
-    //   </Link>
   );
 };

@@ -1,18 +1,44 @@
-import React from 'react';
-import { Box, Button, Flex, Text } from '@sradevski/blocks-ui';
-// import { DownOutlined } from '@ant-design/icons';
-// import { CategoriesMenu } from '../../components/shared/CategoriesMenu';
+import React, { useCallback } from 'react';
+import { Box, Button, Drawer, Flex, hooks, Text } from '@sradevski/blocks-ui';
+import { DownOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
 import { useTranslation, getTitleForSet } from '../i18n';
 import { sdk } from '@sradevski/la-sdk';
 import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
-import { getSetHref } from '../filterUtils';
+import { getQueryForCategories, getSetHref } from '../filterUtils';
 import { getPromotedSets } from '../../state/modules/storeContents/storeContents.selector';
-import Link from 'next/link';
+import { CategoriesOverlay } from '../../components/shared/categories/CategoriesOverlay';
+import { CategoriesGrid } from '../../components/shared/categories/CategoriesGrid';
+import {
+  createGetGroupedCategories,
+  GroupedCategories,
+} from '../../state/modules/categories/categories.selector';
 
 export const SubMenu = props => {
+  const [viewedCategory, setViewedCategory] = React.useState<
+    string | undefined
+  >();
+  const [isCategoriesVisible, setIsCategoriesVisible] = React.useState(false);
+  const isMobile = hooks.useBreakpoint([true, false, false]);
+
   const promotedSets = useSelector(getPromotedSets);
   const { t } = useTranslation();
+
+  const getGroupedCategories = useCallback(() => {
+    return createGetGroupedCategories((categoryKey: string) =>
+      t(`categories.${categoryKey}`),
+    );
+  }, [t])();
+
+  const groupedCategories: GroupedCategories = useSelector(
+    getGroupedCategories,
+  );
+
+  const selectedCategoryGroup = groupedCategories?.find(
+    c => c.key === viewedCategory,
+  );
+
   const sets: Array<ProductSetResult> = [
     ...promotedSets.map(set => ({
       setTag: set,
@@ -55,27 +81,88 @@ export const SubMenu = props => {
       // @ts-ignore
       style={{ overflowX: 'auto' }}
     >
-      {/* <Dropdown
-        trigger={['click', 'hover']}
-        placement='bottomLeft'
-        overlay={<CategoriesMenu mode='horizontal' />}
-      >
-        <a style={{ textDecoration: 'none' }}>
-          <Text whiteSpace='nowrap' mx={3} color='text.light'>
-            {t('common.category_plural')}
-            <DownOutlined
-              style={{ margin: 0, marginLeft: 8, fontSize: '0.8em' }}
-            />
-          </Text>
-        </a>
-      </Dropdown> */}
+      <Flex align='center'>
+        {groupedCategories.map(groupedCategory => {
+          return (
+            <Box key={groupedCategory.key}>
+              <Button
+                p={4}
+                variant='link'
+                // @ts-ignore
+                onMouseEnter={() => {
+                  if (isMobile) {
+                    return;
+                  }
+                  setViewedCategory(groupedCategory.key);
+                  setIsCategoriesVisible(true);
+                }}
+                onMouseLeave={() => {
+                  if (isMobile) {
+                    return;
+                  }
+                  setIsCategoriesVisible(false);
+                }}
+                onClick={() => {
+                  setViewedCategory(groupedCategory.key);
+                  setIsCategoriesVisible(x => !x);
+                }}
+                leftIcon={
+                  <Text size='xs' color='text.light'>
+                    <DownOutlined />
+                  </Text>
+                }
+              >
+                <Text whiteSpace='nowrap' color='text.light'>
+                  {groupedCategory.title}
+                </Text>
+              </Button>
+            </Box>
+          );
+        })}
+      </Flex>
+
+      {!isMobile && (
+        <CategoriesOverlay
+          isOpen={isCategoriesVisible}
+          setIsOpen={setIsCategoriesVisible}
+        >
+          <CategoriesGrid
+            onClick={() => setIsCategoriesVisible(false)}
+            getHref={(categoryKey: string) =>
+              `/products?${getQueryForCategories([categoryKey])}`
+            }
+            items={
+              groupedCategories?.find(c => c.key === viewedCategory)
+                ?.children ?? []
+            }
+          />
+        </CategoriesOverlay>
+      )}
+
+      {isMobile && (
+        <Drawer
+          size='xs'
+          title={selectedCategoryGroup?.title ?? t('common.category_plural')}
+          isOpen={isCategoriesVisible}
+          onClose={() => setIsCategoriesVisible(false)}
+          placement='left'
+        >
+          <CategoriesGrid
+            onClick={() => setIsCategoriesVisible(false)}
+            getHref={(categoryKey: string) =>
+              `/products?${getQueryForCategories([categoryKey])}`
+            }
+            items={selectedCategoryGroup?.children ?? []}
+          />
+        </Drawer>
+      )}
 
       {sets.map(set => {
         return (
           // Wrapping it in Box so it overflows as expected on mobile.
           <Box key={set.setTag.title}>
             <Link key={set.setTag.title} href={getSetHref(set)} passHref>
-              <Button mx={4} variant='link'>
+              <Button p={4} variant='link'>
                 <Text whiteSpace='nowrap' color='text.light'>
                   {set.setTag.title}
                 </Text>

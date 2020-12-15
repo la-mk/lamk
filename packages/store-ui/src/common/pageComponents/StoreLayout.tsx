@@ -134,8 +134,9 @@ export const StoreLayout = withTheme(
             </Box>
           }
         >
-          <Box minHeight='calc(100vh - 64px - 56px - 128px)'>
-            <SubMenu height={'64px'} />
+          <Box minHeight='calc(100vh - 200px)'>
+            <SubMenu />
+            <div id='categories-portal-root' />
             <Breadcrumbs minHeight={'56px'} />
             <Flex direction='column'>{children}</Flex>
           </Box>
