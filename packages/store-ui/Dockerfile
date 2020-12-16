@@ -28,4 +28,4 @@ COPY ./entry.sh ./
 COPY --from=build /usr/src/app ./
 
 ENTRYPOINT ["./entry.sh"]
-CMD ["sh", "node_modules/.bin/next start -p $PORT"]
+CMD ["node_modules/.bin/next", "start", "-p", "$PORT"]
