@@ -90,9 +90,9 @@ export const Provider = ({
         <GlobalStyle />
         <BreakpointProvider
           breakpoints={getBreakpoints([
+            finalTheme.breakpoints.sm,
             finalTheme.breakpoints.md,
             finalTheme.breakpoints.lg,
-            finalTheme.breakpoints.xl,
           ])}
         >
           <LocalizationContext.Provider value={translations || {}}>
