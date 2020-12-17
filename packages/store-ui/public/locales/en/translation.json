@@ -1,5 +1,6 @@
 {
   "actions": {
+    "add": "Add",
     "addToCart": "Add to Cart",
     "cancel": "Cancel",
     "create": "Create",

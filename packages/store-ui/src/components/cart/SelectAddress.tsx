@@ -20,8 +20,8 @@ export const SelectAddress = ({
   const { t } = useTranslation();
   const [addressModalVisible, setAddressModalVisible] = useState(false);
   const addAddressText = hooks.useBreakpoint([
-    undefined,
-    t('address.addNewAddress'),
+    t('actions.add'),
+    t('actions.add'),
     t('address.addNewAddress'),
   ]);
 

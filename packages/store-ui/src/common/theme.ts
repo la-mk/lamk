@@ -36,9 +36,9 @@ export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
       ...getOtherColors(brandColor),
     },
     breakpoints: {
-      sm: '50rem',
-      md: '72rem',
-      lg: '94rem',
+      sm: '46rem',
+      md: '68rem',
+      lg: '80rem',
       xl: '94rem',
     },
     components: {

@@ -81,7 +81,7 @@ export const Summary = ({
       </Flex>
 
       {prices.withCampaignsTotal !== prices.productsTotal && (
-        <Flex mt={5} direction='row' justify='space-between'>
+        <Flex mt={4} direction='row' justify='space-between'>
           <Text>{t('finance.campaignDiscount')}</Text>
           <Text as='strong' color='danger'>
             {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
@@ -89,7 +89,7 @@ export const Summary = ({
         </Flex>
       )}
 
-      <Flex mt={5} direction='row' justify='space-between'>
+      <Flex mt={4} direction='row' justify='space-between'>
         <Text>{t('finance.shippingCost')}</Text>
         <Text as='strong'>{prices.deliveryTotal} ден</Text>
       </Flex>

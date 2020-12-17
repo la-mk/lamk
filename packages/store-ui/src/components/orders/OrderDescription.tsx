@@ -22,7 +22,14 @@ export const OrderDescription = ({
 
   return (
     <>
-      <Flex mb={3} direction='row' align='center' justify='space-between'>
+      <Flex
+        mx={[2, 6, 6]}
+        mt={4}
+        mb={6}
+        direction='row'
+        align='center'
+        justify='space-between'
+      >
         <Flex align='center' justify='center'>
           <Box display={['none', 'initial', 'initial']}>
             <Heading m={0} mr={4} as='h2' size='md'>

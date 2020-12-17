@@ -31,6 +31,7 @@ const getColumns = (
       key: 'price',
       render: (_val, item) => (
         <Price
+          size='small'
           vertical
           minCalculatedPrice={item.product.calculatedPrice}
           maxCalculatedPrice={item.product.calculatedPrice}
@@ -58,7 +59,7 @@ const getColumns = (
       key: 'total',
       isNumeric: true,
       render: (val, item) => (
-        <Text as='strong' size='lg' color='primary.500'>
+        <Text as='strong' color='primary.500'>
           {item.quantity * item.product.calculatedPrice} ден
         </Text>
       ),

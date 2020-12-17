@@ -75,7 +75,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
           align={['center', 'center', 'flex-start']}
           direction={['column-reverse', 'column-reverse', 'row']}
         >
-          <Flex maxWidth={'60rem'} flex={1} direction='column' mr={[0, 0, 3]}>
+          <Flex maxWidth={'60rem'} flex={1} direction='column' mr={[0, 0, 6]}>
             <CustomCard mb={3} minWidth={'18rem'}>
               <OrderDescription
                 hideDetailsButton
@@ -96,7 +96,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
             flex={1}
             maxWidth={['60rem', '60rem', '32rem']}
             minWidth={'18rem'}
-            ml={[0, 0, 3]}
+            ml={[0, 0, 6]}
             mb={[6, 6, 0]}
           >
             <Summary

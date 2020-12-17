@@ -87,6 +87,7 @@ export const SubMenu = props => {
             <Box key={groupedCategory.key}>
               <Button
                 p={4}
+                py={5}
                 variant='link'
                 // @ts-ignore
                 onMouseEnter={() => {

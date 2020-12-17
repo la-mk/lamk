@@ -36,7 +36,7 @@ const NavButton = ({ title, icon, href, hideTitle }: any) => {
         aria-label={title}
         leftIcon={<Text size='2xl'>{icon}</Text>}
       >
-        {!hideTitle && showTitle && title}
+        {hasTitle ? title : null}
       </Button>
     </Link>
   );

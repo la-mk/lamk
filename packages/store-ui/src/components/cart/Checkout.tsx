@@ -225,7 +225,7 @@ export const Checkout = () => {
             maxWidth={'60rem'}
             flex={1}
             direction='column'
-            mr={[0, 3, 3]}
+            mr={[0, 4, 5]}
           >
             <SelectPaymentMethod
               storePaymentMethods={storePaymentMethods}
@@ -243,9 +243,9 @@ export const Checkout = () => {
             align={'flex-start'}
             justify='center'
             maxWidth={'32rem'}
-            minWidth={'18rem'}
+            minWidth={'16rem'}
             flex={1}
-            ml={[0, 3, 3]}
+            ml={[0, 4, 5]}
             mt={[8, 0, 0]}
             mb={[4, 0, 0]}
           >

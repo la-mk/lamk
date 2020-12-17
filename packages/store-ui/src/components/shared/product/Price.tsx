@@ -7,7 +7,7 @@ interface PriceProps {
   minPrice: number;
   maxPrice: number;
   currency: string;
-  size?: 'default' | 'large';
+  size?: 'small' | 'default' | 'large';
   vertical?: boolean;
 }
 
@@ -23,8 +23,8 @@ export const Price = ({
   const discounted =
     minPrice !== minCalculatedPrice || maxPrice !== maxCalculatedPrice;
 
-  const fontSize = size === 'large' ? '2xl' : 'lg';
-  const margin = size === 'large' ? 3 : 2;
+  const fontSize = size === 'small' ? 'md' : size === 'large' ? '2xl' : 'lg';
+  const margin = size === 'small' ? 2 : size === 'large' ? 3 : 2;
 
   return (
     <Flex direction={vertical ? 'column' : 'row'} wrap='wrap'>

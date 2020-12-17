@@ -71,7 +71,7 @@ export const Orders = () => {
       <DataGrid<Order>
         isFullWidth
         rowKey={'_id'}
-        spacing={7}
+        spacing={8}
         pagination={{
           currentPage: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 10,

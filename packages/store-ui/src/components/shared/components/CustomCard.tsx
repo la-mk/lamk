@@ -22,6 +22,7 @@ export const CustomCard = ({
       {title && (
         <Flex
           my={[1, 2, 2]}
+          mb={[2, 3, 4]}
           px={[0, 3, 4]}
           align='center'
           justify='space-between'

@@ -36,14 +36,14 @@ export const SelectPaymentMethod = ({
         {t('payment.choosePaymentMethod')}
       </Heading>
 
-      <Grid spacing={5} minChildWidth={['18rem', '24rem', '24rem']}>
+      <Grid spacing={5} minChildWidth={['16rem', '18rem', '22rem']}>
         {storePaymentMethods?.methods &&
           storePaymentMethods.methods.map(method => {
             const isChecked = paymentMethod === method.name;
             return (
               <Box
-                minWidth={['18rem', '24rem', '24rem']}
-                maxWidth={'32rem'}
+                minWidth={['16rem', '18rem', '22rem']}
+                maxWidth={'30rem'}
                 width={'100%'}
               >
                 <SelectableCard

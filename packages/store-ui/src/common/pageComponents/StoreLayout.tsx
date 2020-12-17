@@ -84,7 +84,7 @@ export const StoreLayout = withTheme(
             <Box
               as='nav'
               height={['128px', '64px', '64px']}
-              px={[2, 3, 4]}
+              px={[2, 6, 7]}
               // @ts-ignore
               border='1px solid #e8e8e8'
             >
