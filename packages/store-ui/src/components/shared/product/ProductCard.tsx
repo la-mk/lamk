@@ -44,11 +44,11 @@ const ProductDescription = ({
 };
 
 // TODO: Start using rem's for the card
-const normalSizes = [128, 176, 216];
-const emphasizedSizes = [236, 296, 376];
-const normalSizesWithPadding = [160, 212, 248];
-const emphasizedSizesWithPadding = [268, 328, 408];
-const horizontalSizees = [320, 460, 560];
+const normalSizes = [124, 176, 216];
+const emphasizedSizes = [232, 296, 376];
+const normalSizesWithPadding = [156, 212, 248];
+const emphasizedSizesWithPadding = [264, 328, 408];
+const horizontalSizes = [316, 460, 560];
 
 const ProductImage = ({
   storeId,
@@ -137,11 +137,11 @@ export const ProductCard = ({
     <HoverableLink href='/products/[pid]' as={`/products/${product._id}`}>
       <Flex
         direction={horizontal ? 'row' : 'column'}
-        p={[2, 3, 3]}
+        p={[1, 3, 3]}
         my={2}
         width={
           horizontal && !emphasized
-            ? horizontalSizees
+            ? horizontalSizes
             : emphasized
             ? emphasizedSizesWithPadding
             : normalSizesWithPadding

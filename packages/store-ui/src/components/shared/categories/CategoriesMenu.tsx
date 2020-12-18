@@ -8,8 +8,6 @@ import {
 import { useSelector } from 'react-redux';
 import { useTranslation } from '../../../common/i18n';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
-// import Link from 'next/link';
-// import { getQueryForCategories } from '../../common/filterUtils';
 
 export interface CategoriesMenuProps {
   selectedKeys?: string[];
@@ -37,6 +35,7 @@ export const CategoriesMenu = ({
     return null;
   }
 
+  // Pass `multiple` if we want to allow multiple category selection
   return (
     <Treeview
       items={groupedCategories}

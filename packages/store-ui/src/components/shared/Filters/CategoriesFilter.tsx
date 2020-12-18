@@ -35,6 +35,8 @@ export const CategoriesFilter = ({
   const handleSelectedCategoriesChange = (selectedKeys: string[]) => {
     onChange({
       ...filters,
+      // We want to clear the search when selecting a category (for now)
+      searching: undefined,
       filtering: {
         ...filters.filtering,
         ...utils.filter.multipleItemsFilter('category', selectedKeys),

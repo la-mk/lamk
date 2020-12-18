@@ -64,9 +64,9 @@ export const StoreLayout = withTheme(
           type='search'
           size='lg'
           onSearch={val => {
-            // Preserve the existing query parameters
+            // We don't want to preserve the existing parameters for now, see if this would be an issue.
             const productsUrl = `/products?${queryString.stringify({
-              ...router.query,
+              // ...router.query,
               ...getFiltersFromSearch(val),
             })}`;
 

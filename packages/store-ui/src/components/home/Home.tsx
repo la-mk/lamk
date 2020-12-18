@@ -32,7 +32,9 @@ export const Home = ({}: {}) => {
   const promotedCampaign = useSelector(getPromotedCampaign);
 
   const [caller, showSpinner] = hooks.useCall();
-  const [productSets, setProductSets] = useState<ProductSetResult[]>([]);
+  const [productSets, setProductSets] = useState<
+    ProductSetResult[] | undefined
+  >();
   const [categoriesForSet, setCategoriesForSet] = useState<string[]>([]);
 
   useBreadcrumb([{ url: '/', title: t('pages.home') }]);
@@ -86,7 +88,7 @@ export const Home = ({}: {}) => {
     );
   }, [store, categories?.length]);
 
-  const productSetsWithData = productSets.filter(
+  const productSetsWithData = productSets?.filter(
     set => Boolean(set.data) && set.data.length > 0,
   );
 
@@ -111,17 +113,19 @@ export const Home = ({}: {}) => {
           </Box>
         )}
 
-        {!showSpinner && productSetsWithData.length === 0 && (
-          <Result
-            status='empty'
-            mt={8}
-            description={t('store.emptyStoreExplanation')}
-          />
-        )}
+        {!showSpinner &&
+          productSetsWithData &&
+          productSetsWithData.length === 0 && (
+            <Result
+              status='empty'
+              mt={8}
+              description={t('store.emptyStoreExplanation')}
+            />
+          )}
 
         <Spinner isLoaded={!showSpinner}>
           <>
-            {productSetsWithData.map((set, index) => (
+            {(productSetsWithData ?? []).map((set, index) => (
               <React.Fragment key={set.setTag.type + (set.setTag.value || '')}>
                 <Box px={[2, 4, 5]} mb={8}>
                   {set.data.length <= 2 ? (
