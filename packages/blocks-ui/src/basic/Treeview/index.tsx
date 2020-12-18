@@ -10,6 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { Box } from '../Box';
 import { Checkbox } from '../Checkbox';
+import { Button } from '../Button';
+import { Text } from '../Text';
 
 export interface TreeviewEntry {
   title: string;
@@ -22,6 +24,7 @@ export interface TreeviewProps extends SpaceProps {
   selected?: string[];
   onSelect?: (selected: string[]) => void;
   itemPadding?: number;
+  multiple?: boolean;
 }
 
 export const Treeview = ({
@@ -29,6 +32,7 @@ export const Treeview = ({
   selected,
   onSelect,
   itemPadding = 0,
+  multiple,
   ...props
 }: TreeviewProps) => {
   const selectedSet = React.useMemo(() => {
@@ -41,19 +45,42 @@ export const Treeview = ({
         if (!item.children) {
           return (
             <Box key={i} pl={6} mb={2}>
-              <Checkbox
-                isChecked={selectedSet.has(item.key)}
-                onChange={e => {
-                  const isNewChecked = e.target.checked;
-                  if (isNewChecked) {
-                    onSelect?.([...(selected ?? []), item.key]);
-                  } else {
-                    onSelect?.(selected?.filter(x => x !== item.key) ?? []);
+              {multiple ? (
+                <Checkbox
+                  isChecked={selectedSet.has(item.key)}
+                  onChange={e => {
+                    const isNewChecked = e.target.checked;
+                    if (isNewChecked) {
+                      onSelect?.([...(selected ?? []), item.key]);
+                    } else {
+                      onSelect?.(selected?.filter(x => x !== item.key) ?? []);
+                    }
+                  }}
+                >
+                  {item.title}
+                </Checkbox>
+              ) : (
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    if (selectedSet.has(item.key)) {
+                      onSelect?.([]);
+                    } else {
+                      onSelect?.([item.key]);
+                    }
+                  }}
+                >
+                  {
+                    <Text
+                      color={
+                        selectedSet.has(item.key) ? 'primary.500' : 'text.dark'
+                      }
+                    >
+                      {item.title}
+                    </Text>
                   }
-                }}
-              >
-                {item.title}
-              </Checkbox>
+                </Button>
+              )}
             </Box>
           );
         }
