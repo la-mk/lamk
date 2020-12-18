@@ -39,7 +39,6 @@ export const DataGrid = <T extends any>({
           width="100%"
           minHeight={9}
           minWidth={9}
-          align="center"
           justify="center"
           spacing={spacing}
         >

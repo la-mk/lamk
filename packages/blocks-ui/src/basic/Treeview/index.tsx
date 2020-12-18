@@ -37,10 +37,10 @@ export const Treeview = ({
 
   return (
     <ChakraAccordion allowMultiple allowToggle {...props}>
-      {items.map(item => {
+      {items.map((item, i) => {
         if (!item.children) {
           return (
-            <Box pl={6} mb={2}>
+            <Box key={i} pl={6} mb={2}>
               <Checkbox
                 isChecked={selectedSet.has(item.key)}
                 onChange={e => {

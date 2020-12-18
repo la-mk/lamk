@@ -39,7 +39,7 @@ export const Tabs = ({
   ...props
 }: TabsProps) => {
   return (
-    <ChakraTabs {...props}>
+    <ChakraTabs colorScheme="primary" {...props}>
       <ChakraTabList>
         {items.map((item, index) => {
           return (
