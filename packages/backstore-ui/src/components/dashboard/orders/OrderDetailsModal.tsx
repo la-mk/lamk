@@ -3,8 +3,6 @@ import {
   Modal,
   Spinner,
   Flex,
-  Descriptions,
-  DescriptionItem,
   Select,
   Card,
   Image,
@@ -26,6 +24,7 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import { InvoiceDownloadLink } from '../pdfs/invoice/InvoiceDownloadLink';
 import { VariantName } from '../../shared/components/VariantName';
 import isEmpty from 'lodash/isEmpty';
+import { Descriptions } from 'antd';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -63,11 +62,11 @@ export const OrderDetailsModal = ({
       {order && (
         <Spinner isLoaded={!showSpinner}>
           <Flex mb={3}>
-            <Descriptions size='middle' width={'100%'} bordered>
-              <DescriptionItem label={t('order.orderId')}>
+            <Descriptions size='middle' style={{ width: '100%' }} bordered>
+              <Descriptions.Item label={t('order.orderId')}>
                 {sdk.utils.getShortId(order)}
-              </DescriptionItem>
-              <DescriptionItem label={t('common.status')}>
+              </Descriptions.Item>
+              <Descriptions.Item label={t('common.status')}>
                 {/* 
                 {Object.values(sdk.order.OrderStatus).map(status => {
                     return (
@@ -94,13 +93,13 @@ export const OrderDetailsModal = ({
                     value: status,
                   }))}
                 />
-              </DescriptionItem>
-              <DescriptionItem label={t('order.orderDate')}>
+              </Descriptions.Item>
+              <Descriptions.Item label={t('order.orderDate')}>
                 {format(new Date(order.createdAt), 'MM/dd/yyyy')}
-              </DescriptionItem>
-              <DescriptionItem label={t('payment.paymentMethod')}>
+              </Descriptions.Item>
+              <Descriptions.Item label={t('payment.paymentMethod')}>
                 {t(`paymentMethodNames.${order.paymentMethod}`)}
-              </DescriptionItem>
+              </Descriptions.Item>
             </Descriptions>
           </Flex>
 
@@ -167,21 +166,21 @@ export const OrderDetailsModal = ({
               <Divider my={3} />
               {order.deliverTo && (
                 <Descriptions size='small' column={1}>
-                  <DescriptionItem label={t('common.name')}>
+                  <Descriptions.Item label={t('common.name')}>
                     {order.deliverTo.person}
-                  </DescriptionItem>
-                  <DescriptionItem label={t('common.address')}>
+                  </Descriptions.Item>
+                  <Descriptions.Item label={t('common.address')}>
                     {order.deliverTo.street}
-                  </DescriptionItem>
-                  <DescriptionItem label={t('common.city')}>
+                  </Descriptions.Item>
+                  <Descriptions.Item label={t('common.city')}>
                     {order.deliverTo.city} {order.deliverTo.zip}
-                  </DescriptionItem>
-                  <DescriptionItem label={t('common.country')}>
+                  </Descriptions.Item>
+                  <Descriptions.Item label={t('common.country')}>
                     {order.deliverTo.country}
-                  </DescriptionItem>
-                  <DescriptionItem label={t('common.phoneNumber')}>
+                  </Descriptions.Item>
+                  <Descriptions.Item label={t('common.phoneNumber')}>
                     {order.deliverTo.phoneNumber}
-                  </DescriptionItem>
+                  </Descriptions.Item>
                 </Descriptions>
               )}
             </Card>

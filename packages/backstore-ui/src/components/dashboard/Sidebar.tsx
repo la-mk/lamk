@@ -38,7 +38,10 @@ export const Sidebar = ({ isCollapsed, currentKey, items }: SidebarProps) => {
                 },
               })}
             >
-              <Text display={isCollapsed ? 'none' : undefined}>
+              <Text
+                color='mutedText.light'
+                display={isCollapsed ? 'none' : undefined}
+              >
                 {item.title}
               </Text>
             </Button>

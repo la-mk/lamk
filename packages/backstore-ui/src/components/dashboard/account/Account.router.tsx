@@ -20,7 +20,6 @@ export const AccountRouter = () => {
           <TabbedRouteRenderer
             match={match}
             history={history}
-            title={t('auth.account')}
             items={[
               {
                 title: t('common.personalInfo'),

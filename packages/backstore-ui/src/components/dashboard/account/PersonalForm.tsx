@@ -3,7 +3,7 @@ import {
   Spinner,
   Flex,
   hooks,
-  message,
+  toast,
   Box,
   NewForm,
   Button,
@@ -23,7 +23,7 @@ export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
 
   const handlePatchAccount = ({ formData }: { formData: Partial<User> }) => {
     caller(sdk.user.patch(user._id, formData), (user: User) => {
-      message.success(t('auth.accountUpdateSuccess'));
+      toast.success(t('auth.accountUpdateSuccess'));
       return patchUser(user);
     });
   };

@@ -4,7 +4,7 @@ import { SetupStore } from './SetupStore';
 import { SetupCompany } from './SetupCompany';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Step, Flex, Spinner, hooks } from '@sradevski/blocks-ui';
+import { Flex, Spinner, hooks, Box } from '@sradevski/blocks-ui';
 // import { Publish } from './Publish';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
@@ -19,6 +19,7 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 import { getUser } from '../../state/modules/user/user.selector';
+import { Steps } from 'antd';
 
 interface OnboardingProps {
   step: number;
@@ -116,19 +117,16 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
 
   return (
     <Spinner isLoaded={!showSpinner}>
-      <Flex direction='column' bg='white' height='100vh'>
+      <Flex direction='column' bg='white' minHeight='100vh'>
         {step !== 3 && (
-          <Flex px={[3, 3, 4]} pb={4} direction='column'>
-            <StickySteps
-              py={[2, 2, 3]}
-              mb={6}
-              current={step}
-              onChange={setStep}
-            >
-              <Step title={t('commerce.store')} />
-              <Step title={t('common.company')} />
-              <Step title={t('commerce.delivery')} />
-            </StickySteps>
+          <Flex px={[3, 3, 4]} pb={6} direction='column'>
+            <Box py={[2, 4, 5]} mb={6}>
+              <StickySteps current={step} onChange={setStep}>
+                <Steps.Step title={t('commerce.store')} />
+                <Steps.Step title={t('common.company')} />
+                <Steps.Step title={t('commerce.delivery')} />
+              </StickySteps>
+            </Box>
 
             {step === 0 && (
               <SetupStore

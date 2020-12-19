@@ -2,7 +2,6 @@ import pick from 'lodash/pick';
 import React, { useState } from 'react';
 import {
   Flex,
-  Table,
   Heading,
   Button,
   Image,
@@ -15,7 +14,6 @@ import {
   Input,
   Spinner,
 } from '@sradevski/blocks-ui';
-import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import {
@@ -37,6 +35,7 @@ import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
 import { TFunction } from 'i18next';
 import { ProductForm } from './ProductForm';
+import Table, { ColumnProps } from 'antd/lib/table';
 
 const searchSupportedFields = [
   'name',
@@ -269,11 +268,7 @@ export const Products = () => {
   };
 
   return (
-    <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Heading mb={4} as='h2'>
-        {t('commerce.product_plural')}
-      </Heading>
-
+    <Flex direction='column' px={[3, 4, 5]} py={5}>
       <Flex my={3} justify='space-between'>
         <Button
           onClick={() => {

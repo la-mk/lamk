@@ -6,7 +6,7 @@ import {
   Heading,
   Flex,
   Box,
-  message,
+  toast,
   hooks,
   Button,
   NewForm,
@@ -61,7 +61,7 @@ export const Payment = () => {
     caller<StorePaymentMethods>(
       sdk.storePaymentMethods.patch(paymentMethods._id, formData),
       updatedPaymentMethods => {
-        message.success(t('common.success'));
+        toast.success(t('common.success'));
         return setPaymentMethods(updatedPaymentMethods);
       },
     );
@@ -82,10 +82,7 @@ export const Payment = () => {
   });
 
   return (
-    <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Heading mb={4} as='h2'>
-        {t('commerce.payment')}
-      </Heading>
+    <Flex direction='column' px={[3, 4, 5]} py={5}>
       <Spinner
         isLoaded={!showSpinner}
         label={t('payment.updatingPaymentMethodsTip')}

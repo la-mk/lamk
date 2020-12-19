@@ -4,7 +4,7 @@ import React from 'react';
 import {
   Button,
   Flex,
-  message,
+  toast,
   Spinner,
   Modal,
   hooks,
@@ -83,7 +83,7 @@ export const CampaignFormModal = ({
       caller<Campaign>(
         sdk.campaign.patch(campaign._id, formData),
         updatedCampaign => {
-          message.success(
+          toast.success(
             t('campaign.updateCampaignSuccess', {
               campaignName: updatedCampaign.name,
             }),
@@ -94,7 +94,7 @@ export const CampaignFormModal = ({
       );
     } else {
       caller<Campaign>(sdk.campaign.create(formData), campaign => {
-        message.success(t('campaign.addCampaignSuccess'));
+        toast.success(t('campaign.addCampaignSuccess'));
         onClose();
         return addCampaign(campaign);
       });
@@ -105,7 +105,7 @@ export const CampaignFormModal = ({
     if (campaign && campaign._id) {
       caller<Campaign>(sdk.campaign.remove(campaign._id), () => {
         onClose();
-        message.success(
+        toast.success(
           t('campaign.campaignDeleted', {
             id: sdk.utils.getShortId(campaign._id),
           }),

@@ -3,7 +3,7 @@ import {
   Flex,
   Button,
   Spinner,
-  message,
+  toast,
   hooks,
   NewForm,
 } from '@sradevski/blocks-ui';
@@ -64,7 +64,7 @@ export const LandingPreferences = () => {
     caller<StoreContents>(
       sdk.storeContents.patch(storeContents._id, { landing: formData.landing }),
       () => {
-        message.success(t('common.success'));
+        toast.success(t('common.success'));
       },
     );
   };

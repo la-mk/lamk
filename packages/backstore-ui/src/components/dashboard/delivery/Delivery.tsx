@@ -3,7 +3,7 @@ import {
   Spinner,
   Heading,
   Flex,
-  message,
+  toast,
   hooks,
   Box,
 } from '@sradevski/blocks-ui';
@@ -51,16 +51,13 @@ export const Delivery = () => {
       : sdk.delivery.create(formData);
 
     caller<DeliveryType>(handler, updatedDelivery => {
-      message.success(t('common.success'));
+      toast.success(t('common.success'));
       return setDelivery(updatedDelivery);
     });
   };
 
   return (
-    <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Heading mb={4} as='h2'>
-        {t('commerce.delivery')}
-      </Heading>
+    <Flex direction='column' px={[3, 4, 5]} py={5}>
       <Box my={3}>
         <Spinner
           isLoaded={!showSpinner}

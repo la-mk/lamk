@@ -1,5 +1,5 @@
+import { Steps } from 'antd';
 import styled from 'styled-components';
-import { Steps } from '@sradevski/blocks-ui';
 
 export const StickySteps = styled(Steps)`
   position: sticky;

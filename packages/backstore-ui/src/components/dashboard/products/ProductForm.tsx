@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import {
   Button,
   Flex,
-  message,
+  toast,
   Spinner,
   hooks,
   Heading,
@@ -169,7 +169,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
       caller<Product>(
         sdk.product.patch(product._id, formData),
         updatedProduct => {
-          message.success(
+          toast.success(
             t('product.updateProductSuccess', {
               productName: updatedProduct.name,
             }),
@@ -180,7 +180,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
       );
     } else {
       caller<Product>(sdk.product.create(formData), newProduct => {
-        message.success(t('product.addProductSuccess'));
+        toast.success(t('product.addProductSuccess'));
         setFullCategory([] as any);
         onClose();
         return addProduct(newProduct);
@@ -192,7 +192,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
     if (product && product._id) {
       caller<Product>(sdk.product.remove(product._id), () => {
         onClose();
-        message.success(
+        toast.success(
           t('product.productDeleted', {
             id: sdk.utils.getShortId(product._id),
           }),

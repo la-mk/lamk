@@ -17,7 +17,6 @@ export const StoreRouter = () => {
           <TabbedRouteRenderer
             match={match}
             history={history}
-            title={t('commerce.store')}
             items={[
               {
                 title: t('common.basic'),

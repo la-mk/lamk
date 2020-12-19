@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Flex,
-  Heading,
-  Table,
-  Tag,
-  hooks,
-  utils,
-  Text,
-} from '@sradevski/blocks-ui';
-import { ColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
+import { Flex, Heading, Tag, hooks, utils, Text } from '@sradevski/blocks-ui';
 import compareAsc from 'date-fns/compareAsc';
 import format from 'date-fns/format';
 import { useSelector } from 'react-redux';
@@ -21,6 +12,7 @@ import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
 import { TFunction } from 'i18next';
+import Table, { ColumnProps } from 'antd/lib/table';
 
 const getColumns = (t: TFunction, filters: FilterObject) =>
   [
@@ -115,11 +107,7 @@ export const Orders = () => {
   }, [store, filters, caller]);
 
   return (
-    <Flex direction='column' px={[3, 3, 4]} py={2}>
-      <Heading mb={4} as='h2'>
-        {t('commerce.order_plural')}
-      </Heading>
-
+    <Flex direction='column' px={[3, 4, 5]} py={5}>
       <Table<Order>
         dataSource={orders}
         columns={columns}

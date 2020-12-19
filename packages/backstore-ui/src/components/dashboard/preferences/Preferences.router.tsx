@@ -15,7 +15,6 @@ export const PreferencesRouter = () => {
           <TabbedRouteRenderer
             match={match}
             history={history}
-            title={t('common.preferences')}
             items={[
               {
                 title: t('common.interface'),

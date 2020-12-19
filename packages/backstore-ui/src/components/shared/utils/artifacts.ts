@@ -20,15 +20,20 @@ export const getImageUploader = (
     maxWidth: number;
     maxHeight: number;
   } = { maxWidth: 1600, maxHeight: 1600 },
-) => async ({ file, onSuccess, onError }: any) => {
-  new Compressor(file, {
-    ...options,
-    quality: 0.85,
-    success: async compressedFile => {
-      const base64 = await toBase64(compressedFile);
+) => async (file: File): Promise<{ id: string }> => {
+  return new Promise((resolve, reject) => {
+    new Compressor(file, {
+      ...options,
+      quality: 0.85,
+      success: async compressedFile => {
+        const base64 = await toBase64(compressedFile);
 
-      sdk.artifact.create({ uri: base64 }).then(onSuccess).catch(onError);
-    },
-    error: onError,
+        sdk.artifact
+          .create({ uri: base64 })
+          .then(artifact => resolve({ id: artifact._id }))
+          .catch(reject);
+      },
+      error: reject,
+    });
   });
 };

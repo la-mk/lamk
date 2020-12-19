@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner, hooks, message, Flex, Box } from '@sradevski/blocks-ui';
+import { Spinner, hooks, toast, Flex, Box } from '@sradevski/blocks-ui';
 
 import { sdk } from '@sradevski/la-sdk';
 import { Store as StoreType } from '@sradevski/la-sdk/dist/models/store';
@@ -23,7 +23,7 @@ export const Store = () => {
     }
 
     caller<StoreType>(sdk.store.patch(store._id, formData), res => {
-      message.success(t('common.success'));
+      toast.success(t('common.success'));
       return setStore(res);
     });
   };

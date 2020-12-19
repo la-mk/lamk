@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { Box, Flex, hooks, message, Spinner } from '@sradevski/blocks-ui';
+import { Box, Flex, hooks, toast, Spinner } from '@sradevski/blocks-ui';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
 import { setStore } from '../../../state/modules/store/store.module';
 import { sdk } from '@sradevski/la-sdk';
@@ -23,7 +23,7 @@ export const Company = () => {
     }
 
     caller<Store>(sdk.store.patch(store._id, formData), res => {
-      message.success(t('common.success'));
+      toast.success(t('common.success'));
       return setStore(res);
     });
   };
