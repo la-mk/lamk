@@ -7,8 +7,9 @@ import { Box } from '../Box';
 import { Flex } from '../Flex';
 import uniq from 'lodash/uniq';
 import { Text } from '../Text';
-import { UploadOutlined } from '@ant-design/icons';
+import { DeleteOutlined, UploadOutlined } from '@ant-design/icons';
 import uniqueId from 'lodash/uniqueId';
+import { Button } from '../Button';
 
 export interface UploadProps {
   value: string | string[];
@@ -23,7 +24,8 @@ export interface UploadProps {
 
 export type UploadStatus = 'uploading' | 'done' | 'failed';
 
-export interface CustomFile extends File {
+export interface CustomFile {
+  file: File;
   preview: string;
   status: UploadStatus;
   id: string;
@@ -36,16 +38,50 @@ const Previewer = ({
   file: CustomFile;
   onRemove: (id: string) => void;
 }) => {
+  const [isRemoveVisible, setIsRemoveVisible] = React.useState(false);
   return (
     <Box>
       <Spinner isLoaded={file.status !== 'uploading'}>
-        <Box m={2} minHeight="100px" height="100px">
-          <Image
-            onClick={() => onRemove(file.id!)}
-            height={100}
-            src={file.preview}
-            alt="uploaded image"
-          />
+        {/* @ts-ignore */}
+        <Box m={2} position="relative">
+          <Flex
+            // @ts-ignore
+            position="absolute"
+            left={0}
+            top={0}
+            right={0}
+            bottom={0}
+            align="center"
+            justify="center"
+            onMouseEnter={() => setIsRemoveVisible(true)}
+            onMouseLeave={() => setIsRemoveVisible(false)}
+            onClick={() => setIsRemoveVisible(x => !x)}
+          >
+            <Box
+              display={isRemoveVisible ? undefined : 'none'}
+              // @ts-ignore
+              position="absolute"
+              left={0}
+              top={0}
+              right={0}
+              bottom={0}
+              bg="gray.200"
+              opacity={0.5}
+            />
+            <Button
+              // @ts-ignore
+              display={isRemoveVisible ? undefined : 'none'}
+              onClick={() => onRemove(file.id!)}
+              size="xs"
+              leftIcon={<DeleteOutlined />}
+            />
+          </Flex>
+          <Box
+            minHeight="100px"
+            height="100px" // @ts-ignore
+          >
+            <Image height={100} src={file.preview} alt="uploaded image" />
+          </Box>
         </Box>
       </Spinner>
     </Box>
@@ -98,7 +134,7 @@ export const Upload = ({
       const enhancedAcceptedFiles = acceptedFiles.map(
         file =>
           ({
-            ...file,
+            file,
             preview: URL.createObjectURL(file),
             status: 'uploading' as UploadStatus,
             id: uniqueId(),
@@ -108,7 +144,7 @@ export const Upload = ({
       const enhancedRejectedFiles = fileRejections.map(
         file =>
           ({
-            ...file.file,
+            file: file.file,
             preview: URL.createObjectURL(file),
             status: 'failed' as UploadStatus,
             id: uniqueId(),
@@ -120,26 +156,24 @@ export const Upload = ({
       Promise.all(
         enhancedAcceptedFiles.map(async file => {
           try {
-            const uploadedFile = await upload(file);
+            const uploadedFile = await upload(file.file);
             if (multiple) {
               onChange(uniq([...normalizedExistingFileIds, uploadedFile.id]));
               setUnprocessedFiles(files => {
-                const oldFile = files.find(f => f.id === file.id);
-                if (oldFile) {
-                  // This is done in order to prevent memory leaks
-                  URL.revokeObjectURL(file.preview);
-                }
-
+                // This is done in order to prevent memory leaks
+                URL.revokeObjectURL(file.preview);
                 return files.filter(f => f.id !== file.id);
               });
             } else {
               onChange(uploadedFile.id);
+
+              URL.revokeObjectURL(file.preview);
               setUnprocessedFiles([]);
             }
           } catch (e) {
             setUnprocessedFiles(files => {
               const idx = files.findIndex(x => x.id === file.id);
-              if (!idx) {
+              if (idx != null) {
                 return files;
               }
 
@@ -154,9 +188,6 @@ export const Upload = ({
           return;
         })
       );
-      // Make sure to revoke the data uris to avoid memory leaks
-      // URL.revokeObjectURL(file.preview)
-      // Do something with the files
     },
     [upload, normalizedExistingFileIds, onChange]
   );
@@ -176,7 +207,13 @@ export const Upload = ({
             console.error('Failed to remove file');
           });
       } else {
-        setUnprocessedFiles(files => files.filter(x => x.id !== id));
+        setUnprocessedFiles(files => {
+          const oldFile = files.find(f => f.id === id);
+          if (oldFile) {
+            URL.revokeObjectURL(oldFile.preview);
+          }
+          return files.filter(x => x.id !== id);
+        });
       }
     },
     [remove, normalizedExistingFileIds, multiple, onChange]
@@ -200,8 +237,10 @@ export const Upload = ({
         // @ts-ignore
         borderWidth="1px"
         borderStyle="dashed"
-        // TODO: Add similar effect on hover
         borderColor={isDragActive ? 'primary.500' : 'gray.300'}
+        _hover={{
+          borderColor: 'primary.500',
+        }}
         {...getRootProps()}
       >
         <input {...getInputProps()} />
