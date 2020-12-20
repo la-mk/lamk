@@ -1,10 +1,10 @@
+import { TreeviewEntry } from '@sradevski/blocks-ui/dist/basic/Treeview';
 import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
 
 const NUM_LEVELS = 3;
 
-// export type GroupedCategories = CascaderOptionType[];
-export type GroupedCategories = any[];
+export type GroupedCategories = Array<TreeviewEntry>;
 
 export const getCategories = createSelector<any, any, any>(
   state => state.categories,

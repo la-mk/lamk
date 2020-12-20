@@ -75,7 +75,7 @@ export const StatisticsCard = ({
           </Flex>
         )}
 
-        {result ? children(result) : null}
+        {children(result)}
       </Card>
     </Spinner>
   );

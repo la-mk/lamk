@@ -1,12 +1,12 @@
 import uniq from 'lodash/uniq';
 import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
-import { CascaderOptionType } from 'antd/es/cascader';
 import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { TreeviewEntry } from '@sradevski/blocks-ui/dist/basic/Treeview';
 
 const NUM_LEVELS = 3;
 
-export type GroupedCategories = CascaderOptionType[];
+export type GroupedCategories = TreeviewEntry[];
 
 export const getCategories = createSelector<any, any, any>(
   state => state.categories,
@@ -39,8 +39,8 @@ const getFormattedLevel = (
         : undefined;
 
     res.push({
-      label: getLabel(groupKey),
-      value: groupKey,
+      title: getLabel(groupKey),
+      key: groupKey,
       children,
     });
 

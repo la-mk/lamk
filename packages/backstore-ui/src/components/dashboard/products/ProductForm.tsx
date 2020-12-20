@@ -51,11 +51,6 @@ const COLORS = [
   '#808080',
 ];
 
-enum DiscountInputMode {
-  percentage,
-  value,
-}
-
 interface ProductFormProps {
   product: Product | undefined;
   onClose: () => void;
@@ -400,7 +395,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                     // TODO: This is quite hacky, find a better way to handle input modes.
                     numberInputModes: [
                       {
-                        id: DiscountInputMode.percentage,
+                        id: 'percentage',
                         suffix: '%',
                         previewSuffix: 'ден',
                         baseConverter: (percentage: number, id: string) => {
@@ -424,9 +419,10 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                         max: 100,
                       },
                       {
-                        id: DiscountInputMode.value,
+                        id: 'value',
                         suffix: 'ден',
                         previewSuffix: '%',
+                        // TODO: Set to price if discount is > 100%
                         baseConverter: (val: number) => val,
                         inputConverter: (val: number) => val,
                         previewConverter: (val: number, id: string) => {

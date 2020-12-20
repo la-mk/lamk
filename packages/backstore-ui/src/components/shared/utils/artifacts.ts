@@ -33,7 +33,10 @@ export const getImageUploader = (
           .then(artifact => resolve({ id: artifact._id }))
           .catch(reject);
       },
-      error: reject,
+      error: e => {
+        console.log(e);
+        reject(e);
+      },
     });
   });
 };

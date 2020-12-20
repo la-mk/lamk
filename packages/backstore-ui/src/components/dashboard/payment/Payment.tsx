@@ -3,7 +3,6 @@ import pick from 'lodash/pick';
 import React, { useEffect, useState } from 'react';
 import {
   Spinner,
-  Heading,
   Flex,
   Box,
   toast,
@@ -105,7 +104,6 @@ export const Payment = () => {
                   'ui:widget': 'hidden',
                 },
                 methods: {
-                  'ui:widget': 'checkboxes',
                   items: {
                     name: {
                       'ui:widget': 'hidden',

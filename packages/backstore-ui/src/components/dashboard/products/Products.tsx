@@ -2,7 +2,6 @@ import pick from 'lodash/pick';
 import React, { useState } from 'react';
 import {
   Flex,
-  Heading,
   Button,
   Image,
   hooks,

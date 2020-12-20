@@ -14,20 +14,20 @@ export const TopStatistics = () => {
           {(val: number) => (
             <Stat
               title={t('analytics.lifetimeRevenue')}
-              value={`${val?.toLocaleString()} ден`}
+              value={`${(val ?? 0)?.toLocaleString()} ден`}
             />
           )}
         </StatisticsCard>
         <StatisticsCard
           type={sdk.storeAnalytics.AnalyticsTypes.TOTAL_PRODUCT_COUNT}
         >
-          {val => <Stat title={t('analytics.productCount')} value={val} />}
+          {val => <Stat title={t('analytics.productCount')} value={val ?? 0} />}
         </StatisticsCard>
         <StatisticsCard
           type={sdk.storeAnalytics.AnalyticsTypes.TOTAL_ORDER_COUNT}
         >
           {val => (
-            <Stat title={t('analytics.lifetimeOrderCount')} value={val} />
+            <Stat title={t('analytics.lifetimeOrderCount')} value={val ?? 0} />
           )}
         </StatisticsCard>
       </Grid>
