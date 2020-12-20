@@ -39,7 +39,7 @@ const InputWithLenses = ({
       // @ts-ignore
       onChange?.(null, baseValue);
     },
-    [onChange]
+    [selectedMode, onChange, props.id]
   );
 
   return (

@@ -44,13 +44,11 @@ export const Result = ({
           style={{ fontSize: 72, color: theme.colors.orange['500'] }}
         />
       )}
-      {!icon &&
-        (status === 'error' ||
-          (status === '500' && (
-            <ExclamationCircleFilled
-              style={{ fontSize: 72, color: theme.colors.red['500'] }}
-            />
-          )))}
+      {!icon && (status === 'error' || status === '500') && (
+        <ExclamationCircleFilled
+          style={{ fontSize: 72, color: theme.colors.red['500'] }}
+        />
+      )}
       {!icon && status === '404' && <NotFoundIcon />}
 
       {title && (
