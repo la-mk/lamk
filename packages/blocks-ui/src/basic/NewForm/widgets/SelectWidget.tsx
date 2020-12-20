@@ -63,13 +63,8 @@ const SelectWidget = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     onChange(processValue(schema, e.target.value));
-
   const handleBlur = () => onBlur(id, processValue(schema, value));
-
   const handleFocus = () => onFocus(id, processValue(schema, value));
-
-  const stringify = (currentValue: any) =>
-    Array.isArray(currentValue) ? value.map(String) : String(value);
 
   return (
     <Select
@@ -83,7 +78,7 @@ const SelectWidget = ({
       onFocus={!readonly ? handleFocus : undefined}
       placeholder={placeholder}
       // tokenSeparators={[',']}
-      value={typeof value !== 'undefined' ? stringify(value) : undefined}
+      value={value}
       size={emphasized ? 'lg' : undefined}
       // isLoaded={!loading}
       options={customEnumOptions ?? (enumOptions as any)}
