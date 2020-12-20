@@ -175,7 +175,7 @@ const Number = ({
       const resp = parseInt(cleaned);
       if (isNaN(resp)) {
         // @ts-ignore
-        return onChange?.(null, undefined);
+        return onChange?.(null, null);
       }
 
       // @ts-ignore
@@ -193,42 +193,36 @@ const Number = ({
     borderBottomRightRadius: rightRadius,
   };
 
-  const Wrapper = React.useMemo(
-    () =>
-      leftAddon || rightAddon
-        ? ({ children }: any) => {
-            return (
-              <InputGroup {...groupProps}>
-                {leftAddon && <InputLeftAddon>{leftAddon}</InputLeftAddon>}
-                {children}
-                {rightAddon && <InputRightAddon>{rightAddon}</InputRightAddon>}
-              </InputGroup>
-            );
-          }
-        : React.Fragment,
-    [leftAddon, rightAddon]
+  const input = (
+    <ChakraNumberInput
+      width="100%"
+      {...inputProps}
+      {...(leftAddon || rightAddon ? {} : groupProps)}
+      // value={`${prefix ?? ''} ${value ?? ''} ${suffix ?? ''}`.trim()}
+      value={inputProps.value?.toString() ?? ''}
+      onChange={parsedOnChange}
+    >
+      <NumberInputField {...borderProps} />
+      {!rightAddon && (
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      )}
+    </ChakraNumberInput>
   );
 
-  return (
-    <Wrapper>
-      <ChakraNumberInput
-        width="100%"
-        {...inputProps}
-        {...(leftAddon || rightAddon ? {} : groupProps)}
-        // value={`${prefix ?? ''} ${value ?? ''} ${suffix ?? ''}`.trim()}
-        value={inputProps.value as string | number}
-        onChange={parsedOnChange}
-      >
-        <NumberInputField {...borderProps} />
-        {!rightAddon && (
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        )}
-      </ChakraNumberInput>
-    </Wrapper>
-  );
+  if (leftAddon || rightAddon) {
+    return (
+      <InputGroup {...groupProps}>
+        {leftAddon && <InputLeftAddon>{leftAddon}</InputLeftAddon>}
+        {input}
+        {rightAddon && <InputRightAddon>{rightAddon}</InputRightAddon>}
+      </InputGroup>
+    );
+  }
+
+  return input;
 };
 
 export const Input = ({
