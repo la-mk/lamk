@@ -66,6 +66,7 @@ export default ({
   const asTabs = uiSchema['ui:widget'] === 'tabs';
 
   const { minItems = 0, maxItems = Number.POSITIVE_INFINITY } = schema;
+
   const showSort = orderable && items.length > 1;
   const showRemove = /*element.hasRemove  &&*/ items.length > minItems;
   const showAdd = canAdd && items.length < maxItems;
@@ -87,7 +88,6 @@ export default ({
       return;
     }
 
-    console.log(index);
     item.onDropIndexClick(index)();
     setActiveItem(Math.max(index - 1, 0));
   };
@@ -125,8 +125,9 @@ export default ({
       {!asTabs && (
         <>
           {items.map(element => {
+            // Non-scalar array children have to have a unique key to handle reordering correctly, see: https://github.com/rjsf-team/react-jsonschema-form/issues/1046
             return (
-              <Flex key={element.index} direction="row" align="flex-start">
+              <Flex key={element.key} direction="row" align="flex-start">
                 <Box flex="1" mx="-1rem" overflow="hidden">
                   {element.children}
                 </Box>
