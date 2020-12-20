@@ -61,8 +61,8 @@ export const Tabs = ({
       </ChakraTabList>
 
       <ChakraTabsPanels mt={4}>
-        {items.map(item => {
-          return <ChakraTabPanel>{item.content}</ChakraTabPanel>;
+        {items.map((item, i) => {
+          return <ChakraTabPanel key={i}>{item.content}</ChakraTabPanel>;
         })}
       </ChakraTabsPanels>
     </ChakraTabs>

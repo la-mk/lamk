@@ -89,7 +89,7 @@ export default ({
     }
 
     item.onDropIndexClick(index)();
-    setActiveItem(Math.max(index - 1, 0));
+    setActiveItem(index - 1);
   };
 
   return (
@@ -109,7 +109,7 @@ export default ({
 
       {asTabs && (
         <Tabs
-          index={activeItem}
+          index={Math.min(Math.max(activeItem, 0), items.length - 1)}
           onChange={setActiveItem}
           items={items.map((item, index) => ({
             title: itemTitles?.[index] ?? index,

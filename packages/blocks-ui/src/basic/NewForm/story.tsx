@@ -233,15 +233,15 @@ const uiSchema = {
       flex: 1,
       cascadeOptions: [
         {
-          label: 'a',
-          value: 'a',
+          title: 'a',
+          key: 'a',
           children: [
             {
-              label: 'b',
-              value: 'b',
+              title: 'b',
+              key: 'b',
               children: [
-                { label: 'c', value: 'c', children: undefined },
-                { label: 'd', value: 'd', children: undefined },
+                { title: 'c', key: 'c', children: undefined },
+                { title: 'd', key: 'd', children: undefined },
               ],
             },
           ],
