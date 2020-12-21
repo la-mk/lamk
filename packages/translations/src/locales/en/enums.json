@@ -559,6 +559,10 @@
     "halkbank": "Halkbank"
   },
 
+  "countries": {
+    "mk": "Macedonia"
+  },
+  
   "chosenSets": {
     "categoryExplanation": "Categories you might like",
     "discounted": "Products on sale",

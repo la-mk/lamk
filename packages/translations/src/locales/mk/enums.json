@@ -559,6 +559,10 @@
     "halkbank": "Халкбанк"
   },
 
+  "countries": {
+    "mk": "Macedonia"
+  },
+  
   "chosenSets": {
     "categoryExplanation": "Категории кои ќе ви се допаднат",
     "discounted": "Производи на попуст",

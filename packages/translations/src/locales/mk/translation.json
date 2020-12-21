@@ -173,9 +173,6 @@
   "company": {
     "subTagline": "Најлесниот начин да направите онлајн продавница"
   },
-  "countries": {
-    "mk": "Македонија"
-  },
   "delivery": {
     "deliveryMethod": "Метод на достава",
     "freeDelivery": "Бесплатна достава",
@@ -190,6 +187,10 @@
     "recommended": "Препорачани",
     "cheapestFirst": "Најниска цена",
     "expensiveFirst": "Највисока цена"
+  },
+  "emails": {
+    "yourOrderFrom": "Вашата порачка од",
+    "orderWasSuccessful": "беше успешна и ќе биде испратена до вас во најкус можен рок."
   },
   "finance": {
     "campaignDiscount": "Промоции",

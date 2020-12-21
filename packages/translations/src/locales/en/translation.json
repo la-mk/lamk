@@ -172,9 +172,6 @@
   "company": {
     "subTagline": "The easiest way to build an online shop"
   },
-  "countries": {
-    "mk": "Macedonia"
-  },
   "delivery": {
     "deliveryMethod": "Delivery method",
     "freeDelivery": "Free delivery",
@@ -184,6 +181,10 @@
     "priceExplanation": "This can be the average delivery cost.",
     "updatingDeliveryTip": "Updating delivery...",
     "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
+  },
+  "emails": {
+    "yourOrderFrom": "Your order from",
+    "orderWasSuccessful": "was successful and will be shipped to you as soon as possible"
   },
   "filters": {
     "recommended": "Recommended",
@@ -344,7 +345,7 @@
     "orderNotFound": "Order not found",
     "orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",
     "retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
-    "seeOrder": "See order status"
+    "seeOrder": "View order"
   },
   "pages": {
     "aboutUs": "About Us",
