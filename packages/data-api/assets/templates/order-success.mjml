@@ -1,0 +1,192 @@
+<mjml>
+  <mj-head>
+    <mj-title>{{tOrderSuccess}}</mj-title>
+    <mj-attributes>
+      <mj-all padding="0px"></mj-all>
+    </mj-attributes>
+    <mj-style>
+      body {
+        background-color: #F6F8FF;
+        font-family: "Ubuntu", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        padding: 0px;
+        color: #404C4D;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body>
+    <!-- HEADER -->
+    <mj-section padding="16px 0">
+      <mj-column>
+        <mj-image src="https://la.mk/logo-horizontal.svg" alt="logo" height="56px" width="142px"></mj-image>
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-spacer height="16px">
+      </mj-column>
+      </mj-spacer>
+    </mj-section>
+
+    <mj-wrapper padding="32px" background-color="#ffffff">
+      <mj-section padding="16px 0">
+        <mj-column>
+          <mj-text align="center" font-size="28px" font-weight="300" color="#687C94">{{tOrderSuccess}}!</mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section padding="16px 0">
+        <mj-column>
+          <mj-text line-height="150%" align="center" font-size="16px" font-weight="300" color="#070708"> {{tYourOrderFrom}} <a href="{{storeUrl}}" target="_blank"><strong>{{storeName}}</strong></a> {{tWasSuccessful}}. {{tOrderSuccessExplanation}}</mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-button href="{{seeOrderLink}}" padding="32px 0 16px 0" background-color="#EF4351" height="36px" font-size="18px">{{tSeeOrder}}</mj-button>
+        </mj-column>
+      </mj-section>
+
+      <!-- 
+        Add a list of orders here, needs a bit more work to handle more dynamic data.
+      <mj-section>
+        <mj-column>
+          <mj-text padding-top="32px" font-size="20px" font-weight="300" color="#687C94">
+            {{tSummary}}
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-table padding-top="16px">
+            <tr>
+              <td style="padding: 0 16px 0 0;">1995</td>
+              <td style="padding: 0 16px;">PHP</td>
+              <td style="padding: 0 0 0 16px;">C, Shell Unix</td>
+            </tr>
+            <tr>
+              <td style="padding: 0 16px 0 0;">1995</td>
+              <td style="padding: 0 16px;">JavaScript</td>
+              <td style="padding: 0 0 0 16px;">Scheme, Self</td>
+            </tr>
+          </mj-table>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-divider padding-top="24px" border-width="1px" border-style="solid" border-color="#ecedee" />
+        </mj-column>
+      </mj-section> -->
+
+      <mj-section>
+        <mj-column padding-top="24px">
+          <mj-table width="300px" align="right">
+            <tr style="height:32px;">
+              <td style="padding: 0 8px; font-size: 14px; color:#687C94;">{{tSubtotal}}:</td>
+              <td style="padding: 0 8px; font-size: 16px; text-align: right;">{{subtotal}}{{currency}}</td>
+            </tr>
+
+            <tr style="height:32px;">
+              <td style="padding: 0 8px; font-size: 14px; color:#687C94;">{{tCampaignDiscount}}:</td>
+              <td style="padding: 0 8px; font-size: 16px; text-align: right;">{{campaignDiscount}}{{currency}}</td>
+            </tr>
+
+            <tr style="height:32px;">
+              <td style="padding: 0 8px; font-size: 14px; color:#687C94;">{{tShippingCost}}:</td>
+              <td style="padding: 0 8px; font-size: 16px; text-align: right;">{{shippingCost}}{{{currency}}</td>
+            </tr>
+
+            <tr style="border-top: 1px solid #ecedee; height:60px;">
+              <td style="padding: 0 8px; font-size: 18px; color:#687C94;">{{tTotal}}:</td>
+              <td style="padding: 0 8px; font-size: 22px; text-align: right; font-weight: 500">{{total}}{{currency}}</td>
+            </tr>
+          </mj-table>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-spacer height="32px">
+        </mj-column>
+        </mj-spacer>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-text padding-top="32px" font-size="18px" font-weight="300" color="#687C94">
+            {{tShippingAddress}}
+          </mj-text>
+          <mj-text padding-top="8px" font-size="16px">
+            {{deliverTo.person}}
+          </mj-text>
+          <mj-text padding-top="8px" font-size="16px">
+            {{deliverTo.street}}
+          </mj-text>
+          <mj-text padding-top="8px" font-size="16px">
+            {{deliverTo.city}} {{deliverTo.zip}}
+          </mj-text>
+          <mj-text padding-top="8px" font-size="16px">
+            {{tCountryName}}
+          </mj-text>
+
+        </mj-column>
+
+        <mj-column>
+          <mj-text padding-top="32px" font-size="18px" font-weight="300" color="#687C94">
+            {{tDeliveryMethod}}
+          </mj-text>
+          <mj-text padding-top="8px" font-size="16px">
+            {{tDeliveryMethodName}}
+          </mj-text>
+
+          <mj-text padding-top="32px" font-size="18px" font-weight="300" color="#687C94">
+            {{tPaymentMethod}}
+          </mj-text>
+          <mj-text padding-top="8px" font-size="16px">
+            {{tPaymentMethodName}}
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+
+    <mj-section>
+      <mj-column>
+        <mj-spacer height="32px">
+      </mj-column>
+      </mj-spacer>
+    </mj-section>
+
+    <!-- FOOTER -->
+    <mj-wrapper>
+      <mj-section>
+        <mj-column padding="8px 0">
+          <mj-social font-size="16px" icon-size="24px" mode="horizontal">
+            <mj-social-element padding="0 12px" name="web" background-color="#687C94" href="https://la.mk">
+            </mj-social-element>
+            <mj-social-element padding="0 12px" name="facebook" background-color="#687C94" href="https://facebook.com/social.la.mk">
+            </mj-social-element>
+            <mj-social-element padding="0 12px" name="instagram" background-color="#687C94" href="https://instagram.com/_la.mk">
+            </mj-social-element>
+            <mj-social-element padding="0 12px" name="twitter" background-color="#687C94" href="https://twitter.com/__la.mk">
+            </mj-social-element>
+          </mj-social>
+        </mj-column>
+      </mj-section>
+      <mj-section>
+        <mj-column>
+          <mj-text line-height="150%" align="center" font-weight="300" padding="8px 0" font-size="14px" color="#687C94">la.mk © 2020 All rights reserved</mj-text>
+        </mj-column>
+      </mj-section>
+
+    </mj-wrapper>
+  </mj-body>
+</mjml>

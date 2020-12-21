@@ -29,7 +29,7 @@
     ]
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.105",
+    "@sradevski/translations": "0.0.109",
     "@types/agenda": "^2.0.9",
     "@types/bluebird": "^3.5.32",
     "@types/compression": "^1.7.0",

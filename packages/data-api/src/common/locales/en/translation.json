@@ -2,6 +2,9 @@
   "actions": {
     "resetPassword": "Reset password"
   },
+  "address": {
+    "shippingAddress": "Shipping address"
+  },
   "analyticsFrequency": {
     "Monthly": "Monthly",
     "daily": "Daily",
@@ -24,6 +27,10 @@
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
     "percentage-discount": "Percent"
+  },
+  "cart": {
+    "orderSuccess": "Your order has been placed",
+    "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page"
   },
   "categories": {
     "adhesive": "Adhesives",
@@ -151,6 +158,7 @@
     "fish": "Fish",
     "flavored-tea": "Flavored tea",
     "flour": "Flour",
+    "flushmount": "Flush mount lights",
     "food-drink": "Food and drinks",
     "fresh-bean-corn": "Fresh beans, corn, legumes",
     "frozen-fish": "Frozen fish, seafood",
@@ -491,10 +499,23 @@
     "selectedCategories": "Picked categories",
     "selectedCategoriesExplanation": "Categories picked just for you"
   },
+  "common": {
+    "summary": "Summary"
+  },
+  "countries": {
+    "mk": "Macedonia"
+  },
+  "delivery": {
+    "deliveryMethod": "Delivery method"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",
     "pickup": "Pickup"
+  },
+  "emails": {
+    "orderWasSuccessful": "was successful and will be shipped to you as soon as possible",
+    "yourOrderFrom": "Your order from"
   },
   "errors": {
     "array": "Field should be an array",
@@ -526,6 +547,15 @@
     "uniqueOn": "Field should have unique values",
     "uuid": "Field should be a valid id"
   },
+  "finance": {
+    "campaignDiscount": "Promotions",
+    "shippingCost": "Shipping cost",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  },
+  "order": {
+    "seeOrder": "View order"
+  },
   "orderStatus": {
     "cancelled": "Cancelled",
     "cancelledDescription": "Cancelled",
@@ -539,6 +569,9 @@
     "pendingShipmentDescription": "Awaiting shipment",
     "shipped": "Shipped",
     "shippedDescription": "Awaiting arrival"
+  },
+  "payment": {
+    "paymentMethod": "Payment method"
   },
   "paymentMethodNames": {
     "creditCard": "Credit card",

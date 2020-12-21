@@ -2,6 +2,9 @@
   "actions": {
     "resetPassword": "Ресетирај лозинка"
   },
+  "address": {
+    "shippingAddress": "Адреса за достава"
+  },
   "analyticsFrequency": {
     "Monthly": "Месечен",
     "daily": "Дневен",
@@ -24,6 +27,10 @@
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
     "percentage-discount": "Проценти"
+  },
+  "cart": {
+    "orderSuccess": "Вашата порачка беше успешна",
+    "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\""
   },
   "categories": {
     "adhesive": "Лепаци",
@@ -151,6 +158,7 @@
     "fish": "Риби",
     "flavored-tea": "Чај со вкусови",
     "flour": "Брашно",
+    "flushmount": "Плафоњерки и панели",
     "food-drink": "Храна и пијалоци",
     "fresh-bean-corn": "Грашок, пченка, мешунки",
     "frozen-fish": "Замрзната риба, морска храна",
@@ -491,10 +499,23 @@
     "selectedCategories": "Одбрани категории",
     "selectedCategoriesExplanation": "Категории одбрани само за вас"
   },
+  "common": {
+    "summary": "Преглед"
+  },
+  "countries": {
+    "mk": "Macedonia"
+  },
+  "delivery": {
+    "deliveryMethod": "Метод на достава"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
     "pickup": "Да се подигне"
+  },
+  "emails": {
+    "orderWasSuccessful": "беше успешна и ќе биде испратена до вас во најкус можен рок.",
+    "yourOrderFrom": "Вашата порачка од"
   },
   "errors": {
     "array": "Полето треба да е листа",
@@ -526,6 +547,15 @@
     "uniqueOn": "Полето треба има уникатни вредности",
     "uuid": "Полето треба да е валидна шифра"
   },
+  "finance": {
+    "campaignDiscount": "Промоции",
+    "shippingCost": "Цена за достава",
+    "subtotal": "Цена на производи",
+    "total": "Вкупна цена"
+  },
+  "order": {
+    "seeOrder": "Видете ја порачката"
+  },
   "orderStatus": {
     "cancelled": "Откажана",
     "cancelledDescription": "Откажана",
@@ -539,6 +569,9 @@
     "pendingShipmentDescription": "Се чека за достава",
     "shipped": "Испратена",
     "shippedDescription": "Испратена по карго"
+  },
+  "payment": {
+    "paymentMethod": "Начин на плаќање"
   },
   "paymentMethodNames": {
     "creditCard": "Кредитна картичка",

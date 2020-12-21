@@ -7,10 +7,15 @@ import { t } from '../../common/i18n';
 
 interface Templates {
   'reset-password'?: string;
+  'order-success'?: string;
 }
 
-const getTranslationsForTemplate = (templateName: keyof Templates) => {
+const getTranslationsForTemplate = (
+  templateName: keyof Templates,
+  context: any,
+) => {
   switch (templateName) {
+    // storeName, storeUrl, resetLink
     case 'reset-password': {
       return {
         tResetYourPassword: t('auth.resetPassword'),
@@ -18,6 +23,34 @@ const getTranslationsForTemplate = (templateName: keyof Templates) => {
         tStoreEnabledBy: t('store.storeEnabledBy').toLowerCase(),
         tResetPassword: t('actions.resetPassword'),
         tDidntAskResetExplanation: t('auth.didntAskResetExplanation'),
+      };
+    }
+
+    // storeName, seeOrderLink, deliveryMethod, paymentMethod, subtotal, campaignDiscount, shippingCost, total, deliverTo (country, city, zip, street, person), currency
+    case 'order-success': {
+      return {
+        tOrderSuccess: t('cart.orderSuccess'),
+        tOrderSuccessExplanation: t('cart.orderSuccessExplanation'),
+        tSeeOrder: t('order.seeOrder'),
+
+        tYourOrderFrom: t('emails.yourOrderFrom'),
+        tWasSuccessful: t('emails.orderWasSuccessful'),
+
+        tSummary: t('common.summary'),
+
+        tSubtotal: t('finance.subtotal'),
+        tCampaignDiscount: t('finance.campaignDiscount'),
+        tShippingCost: t('finance.shippingCost'),
+        tTotal: t('finance.total'),
+
+        tShippingAddress: t('address.shippingAddress'),
+        tDeliveryMethod: t('delivery.deliveryMethod'),
+        tPaymentMethod: t('payment.paymentMethod'),
+
+        tDeliveryMethodName: t(`deliveryMethods.${context.deliveryMethod}`),
+        tPaymentMethodName: t(`paymentMethodNames.${context.paymentMethod}`),
+
+        tCountryName: t('countries.mk'),
       };
     }
   }
@@ -73,7 +106,7 @@ export const getEmailTemplate = async (
     interpolate,
   });
 
-  const translations = getTranslationsForTemplate(templateName);
+  const translations = getTranslationsForTemplate(templateName, data);
 
   return executeTemplate({ ...data, ...translations });
 };
