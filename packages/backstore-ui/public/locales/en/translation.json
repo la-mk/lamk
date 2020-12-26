@@ -198,6 +198,7 @@
     "fish": "Fish",
     "flavored-tea": "Flavored tea",
     "flour": "Flour",
+    "flushmount": "Flush mount lights",
     "food-drink": "Food and drinks",
     "fresh-bean-corn": "Fresh beans, corn, legumes",
     "frozen-fish": "Frozen fish, seafood",
@@ -549,8 +550,6 @@
     "store": "Store"
   },
   "common": {
-    "action_plural": "Actions",
-    "actionsTip": "You can do bulk actions on multiple items",
     "address": "Address",
     "alternatePhoneNumber": "Alternate phone number",
     "basic": "Basic",
@@ -581,6 +580,9 @@
     "success": "Success!",
     "summary": "Summary",
     "unknown": "Unknown"
+  },
+  "countries": {
+    "mk": "Macedonia"
   },
   "delivery": {
     "deliveryMethod": "Delivery method",

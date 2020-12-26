@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Spinner,
-  Heading,
-  Flex,
-  toast,
-  hooks,
-  Box,
-} from '@sradevski/blocks-ui';
+import { Spinner, Flex, toast, hooks, Box } from '@sradevski/blocks-ui';
 import { Delivery as DeliveryType } from '@sradevski/la-sdk/dist/models/delivery';
 import { sdk } from '@sradevski/la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';

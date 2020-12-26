@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Heading, Tag, hooks, utils, Text } from '@sradevski/blocks-ui';
+import { Flex, Tag, hooks, utils, Text } from '@sradevski/blocks-ui';
 import compareAsc from 'date-fns/compareAsc';
 import format from 'date-fns/format';
 import { useSelector } from 'react-redux';

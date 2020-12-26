@@ -198,6 +198,7 @@
     "fish": "Риби",
     "flavored-tea": "Чај со вкусови",
     "flour": "Брашно",
+    "flushmount": "Плафоњерки и панели",
     "food-drink": "Храна и пијалоци",
     "fresh-bean-corn": "Грашок, пченка, мешунки",
     "frozen-fish": "Замрзната риба, морска храна",
@@ -549,8 +550,6 @@
     "store": "Продавница"
   },
   "common": {
-    "action_plural": "Операции",
-    "actionsTip": "Можете да извршите акции на повеќе предмети истовремено",
     "address": "Адреса",
     "alternatePhoneNumber": "Алтернативен телефонски број",
     "basic": "Основи",
@@ -581,6 +580,9 @@
     "success": "Успешен процес!",
     "summary": "Преглед",
     "unknown": "Непознато"
+  },
+  "countries": {
+    "mk": "Macedonia"
   },
   "delivery": {
     "deliveryMethod": "Метод на достава",
