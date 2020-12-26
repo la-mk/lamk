@@ -23,12 +23,27 @@ storiesOf('Cascader', module).add('standard', () => {
 
                   children: [
                     {
-                      title: 'Nested again item',
+                      title: 'again item',
                       key: 'nested-again',
                     },
                     {
                       title: 'Nested again 2 item',
                       key: 'nested-again2',
+                    },
+                  ],
+                },
+                {
+                  title: 'Nested 2 item',
+                  key: 'nested-2',
+
+                  children: [
+                    {
+                      title: 'This item',
+                      key: 'nested-this-again',
+                    },
+                    {
+                      title: 'Nested again 2 item',
+                      key: 'nested-this-again2',
                     },
                   ],
                 },

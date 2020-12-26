@@ -9,11 +9,43 @@ export interface CascaderProps extends Omit<InputProps, 'value' | 'onChange'> {
   onChange: (v: Array<string | number>) => void;
 }
 
-const startsWithVal = (searchValue: string, val: TreeviewEntry): boolean => {
+const checkItemBelongs = (searchValue: string, item: TreeviewEntry) => {
   return (
-    val.title.toLowerCase().startsWith(searchValue) ||
-    (!!val.children && val.children.some(x => startsWithVal(searchValue, x)))
+    item.title.toLowerCase().startsWith(searchValue) ||
+    item.key.startsWith(searchValue)
   );
+};
+
+const getFilteredItems = (
+  searchValue: string,
+  items: TreeviewEntry[]
+): TreeviewEntry[] => {
+  // @ts-ignore
+  return items
+    .map(item => {
+      if (checkItemBelongs(searchValue, item)) {
+        return item;
+      } else {
+        if (item.children) {
+          const filteredChildren = getFilteredItems(searchValue, item.children);
+          if (filteredChildren.length === 0) {
+            return undefined;
+          }
+
+          return {
+            ...item,
+            children: filteredChildren,
+          };
+        } else {
+          if (checkItemBelongs(searchValue, item)) {
+            return item;
+          }
+
+          return undefined;
+        }
+      }
+    })
+    .filter(x => !!x);
 };
 
 const getDisplayVal = (
@@ -48,7 +80,7 @@ export const Cascader = ({
   ...props
 }: CascaderProps) => {
   const [searchValue, setSearchValue] = React.useState('');
-  const filteredItems = items.filter(i => startsWithVal(searchValue, i));
+  const filteredItems = getFilteredItems(searchValue, items);
   const displayName = getDisplayVal(value as any, items);
   const [isInputFocused, setIsInputFocused] = React.useState(false);
 

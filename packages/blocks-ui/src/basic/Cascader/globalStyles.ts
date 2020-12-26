@@ -17,6 +17,7 @@ export const globalStyles = `
   border-radius: 6px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.17);
   white-space: nowrap;
+  z-index: 2000;
 }
 .rc-cascader-menus-hidden {
   display: none;
@@ -58,7 +59,7 @@ export const globalStyles = `
 }
 .rc-cascader-menu {
   display: inline-block;
-  width: 140px;
+  width: 160px;
   height: 192px;
   list-style: none;
   margin: 0;
