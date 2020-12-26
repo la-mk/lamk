@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/sradevski/lamk.git",
     "directory": "packages/blocks-ui"
   },
-  "version": "0.0.236",
+  "version": "0.0.237",
   "description": "",
   "module": "dist/blocks-ui.esm.js",
   "typings": "dist/index.d.ts",
@@ -69,12 +69,12 @@
     "@emotion/styled": "^11.0.0",
     "@jaames/iro": "^5.2.3",
     "@rjsf/core": "^2.4.0",
-    "@trendmicro/react-dropdown": "^1.4.0",
     "core-js": "^3.6.5",
     "framer-motion": "^2.9.4",
     "lodash": "^4.17.20",
     "lodash-es": "^4.17.15",
     "qs": "^6.9.4",
+    "rc-cascader": "^1.4.0",
     "react-dropzone": "^11.2.4",
     "tinycolor2": "^1.4.2"
   }

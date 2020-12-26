@@ -3,6 +3,7 @@ import { BlocksTheme, getChakraTheme } from '../../theme';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BreakpointProvider } from '../../hooks/useBreakpoint';
+import { globalStyles as globalCascaderStyles } from '../Cascader/globalStyles';
 
 interface LocalizationContext {
   email?: string;
@@ -56,6 +57,8 @@ const GlobalStyle = createGlobalStyle`
   .anticon {
     vertical-align: 0;
   }
+
+  ${globalCascaderStyles}
 `;
 
 const convertRemToPixels = (rem: string) => {

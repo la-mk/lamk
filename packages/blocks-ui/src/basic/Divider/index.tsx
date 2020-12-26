@@ -4,13 +4,9 @@ import {
   SpaceProps,
 } from '@chakra-ui/react';
 
-// TODO: PR to export this as well
-import { DisplayProps } from 'styled-system';
-
 export interface DividerProps
-  extends Pick<ChakraDividerProps, 'orientation'>,
-    SpaceProps,
-    DisplayProps {}
+  extends Pick<ChakraDividerProps, 'orientation' | 'display'>,
+    SpaceProps {}
 
 ChakraDivider.defaultProps = {};
 
