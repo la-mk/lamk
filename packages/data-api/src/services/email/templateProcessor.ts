@@ -26,7 +26,7 @@ const getTranslationsForTemplate = (
       };
     }
 
-    // storeName, storeUrl, seeOrderLink, deliveryMethod, paymentMethod, subtotal, campaignDiscount, shippingCost, total, deliverTo (country, city, zip, street, person), currency
+    // storeName, storeUrl, storeLogoUrl, seeOrderLink, deliveryMethod, paymentMethod, subtotal, campaignDiscount, shippingCost, total, deliverTo (country, city, zip, street, person), currency
     case 'order-success': {
       return {
         tOrderSuccess: t('cart.orderSuccess'),

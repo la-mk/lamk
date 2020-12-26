@@ -69,6 +69,7 @@
     "@emotion/styled": "^11.0.0",
     "@jaames/iro": "^5.2.3",
     "@rjsf/core": "^2.4.0",
+    "@trendmicro/react-dropdown": "^1.4.0",
     "core-js": "^3.6.5",
     "framer-motion": "^2.9.4",
     "lodash": "^4.17.20",

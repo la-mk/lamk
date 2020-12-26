@@ -17,6 +17,12 @@
         text-decoration: none;
         color: inherit;
       }
+
+      .logo img {
+        max-width: 140px;
+        height: 56px;
+        margin: auto
+      }
     </mj-style>
   </mj-head>
 
@@ -24,7 +30,7 @@
     <!-- HEADER -->
     <mj-section padding="16px 0">
       <mj-column>
-        <mj-image src="https://la.mk/logo-horizontal.svg" alt="logo" height="56px" width="142px"></mj-image>
+        <mj-image css-class="logo" src="{{storeLogoUrl}}" alt="logo"></mj-image>
       </mj-column>
     </mj-section>
 

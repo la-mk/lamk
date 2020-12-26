@@ -2,9 +2,15 @@ import feathers from '@feathersjs/feathers';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 import { setupSdk } from '@sradevski/la-sdk';
+import env from '../common/env';
+
 // Currently we only use the SDK for validations and not for doing requests.
 // We need to setup the SDK before it is used in the imports.
-setupSdk({ apiEndpoint: '' });
+setupSdk({
+  apiEndpoint: '',
+  imagesEndpoint: env().ARTIFACTS_ENDPOINT,
+  imagesProxyEndpoint: env().IMAGES_PROXY_ENDPOINT,
+});
 
 import { initLogger, getSyncLogger } from '../common/logger';
 import { registerUnhandledErrorHandlers } from '../common/errors';
@@ -19,7 +25,6 @@ import { initMongoClient } from './mongo';
 import { initScheduler } from '../scheduler';
 import { initI18n } from '../common/i18n';
 
-import env from '../common/env';
 import { initErrorMiddlewares } from './middlewares/errorMiddlewares';
 
 export default async () => {

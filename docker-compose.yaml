@@ -149,6 +149,9 @@ services:
       NESTPAY_API_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/api"
       ANALYTICS_TRACKING_ID: "90f6dff8cd68254f0bcdedcc33ab7a14"
       ANALYTICS_SECRET_KEY: "f22176239f505cbdbb09dcaf23d6658e"
+      # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
+      ARTIFACTS_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
+      IMAGES_PROXY_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
       ENABLE_SIGNUP: "true"
       # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.lamk.dev services from within the service it fails.
       NODE_TLS_REJECT_UNAUTHORIZED: 0

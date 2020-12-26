@@ -16,6 +16,8 @@ import { t } from '../../common/i18n';
 import { getEmailTemplate } from '../email/templateProcessor';
 import { User } from '@sradevski/la-sdk/dist/models/user';
 
+const HORIZONTAL_LOGO_LAMK = 'https://la.mk/logo-horizontal.svg';
+
 // TODO: We don't have to wait when sending an email, but this will do for now.
 export const sendOrderNotification = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['patch', 'create']);
@@ -58,6 +60,12 @@ export const sendOrderNotification = async (ctx: HookContext) => {
   const templateData = {
     storeName: store?.name ?? storeDomain,
     storeUrl,
+    storeLogoUrl: store.logo
+      ? sdk.artifact.getUrlForImage(store.logo, store._id, {
+          h: 64,
+          dpr: 2,
+        })
+      : HORIZONTAL_LOGO_LAMK,
     seeOrderLink: `${storeUrl}/orders`,
     deliveryMethod: order.delivery.method,
     paymentMethod: order.paymentMethod,

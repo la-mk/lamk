@@ -68,6 +68,13 @@ const loadEnv = _.once(() => {
       .asString(),
 
     ENABLE_SIGNUP: envvar.get('ENABLE_SIGNUP').required().asBool(),
+
+    ARTIFACTS_ENDPOINT: envvar.get('ARTIFACTS_ENDPOINT').required().asString(),
+
+    IMAGES_PROXY_ENDPOINT: envvar
+      .get('IMAGES_PROXY_ENDPOINT')
+      .required()
+      .asString(),
   };
 });
 

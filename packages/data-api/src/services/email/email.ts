@@ -59,10 +59,7 @@ export const email = (app: Application) => {
   const mailClient = sendgridClient;
   mailClient.setApiKey(env().MAIL_SERVICE_API_KEY);
 
-  app.use(
-    '/email',
-    new EmailService({ mailClient, isProd: env().NODE_ENV === 'production' }),
-  );
+  app.use('/email', new EmailService({ mailClient, isProd: true }));
   const service = app.service('email');
   service.hooks(hooks);
 };
