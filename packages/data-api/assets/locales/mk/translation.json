@@ -2,6 +2,9 @@
   "actions": {
     "resetPassword": "Ресетирај лозинка"
   },
+  "address": {
+    "shippingAddress": "Адреса за достава"
+  },
   "analyticsFrequency": {
     "Monthly": "Месечен",
     "daily": "Дневен",
@@ -24,6 +27,10 @@
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
     "percentage-discount": "Проценти"
+  },
+  "cart": {
+    "orderSuccess": "Вашата порачка беше успешна",
+    "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\""
   },
   "categories": {
     "adhesive": "Лепаци",
@@ -151,6 +158,7 @@
     "fish": "Риби",
     "flavored-tea": "Чај со вкусови",
     "flour": "Брашно",
+    "flushmount": "Плафоњерки и панели",
     "food-drink": "Храна и пијалоци",
     "fresh-bean-corn": "Грашок, пченка, мешунки",
     "frozen-fish": "Замрзната риба, морска храна",
@@ -482,39 +490,71 @@
     "worksuit": "Комбилизони",
     "yoghurt": "Јогурт"
   },
+  "chosenSets": {
+    "categoryExplanation": "Категории кои ќе ви се допаднат",
+    "discounted": "Производи на попуст",
+    "discountedExplanation": "Производи по најдобри цени",
+    "latest": "Најнови производи",
+    "latestExplanation": "Производи кои штотоку ги добивме",
+    "selectedCategories": "Одбрани категории",
+    "selectedCategoriesExplanation": "Категории одбрани само за вас"
+  },
+  "common": {
+    "summary": "Преглед"
+  },
+  "countries": {
+    "mk": "Macedonia"
+  },
+  "delivery": {
+    "deliveryMethod": "Метод на достава"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
     "pickup": "Да се подигне"
   },
+  "emails": {
+    "orderWasSuccessful": "беше успешна и ќе биде испратена до вас во најкус можен рок",
+    "yourOrderFrom": "Вашата порачка од"
+  },
   "errors": {
-    "between": "Полето треба да помеѓу {{0}} и {{1}}",
+    "array": "Полето треба да е листа",
     "boolean": "Полето треба да е обележано или необележано",
-    "date": "Полето треба да е валиден датум",
+    "date-time": "Полето треба да е валиден датум",
     "email": "Полето треба да е валидна емаил адреса",
+    "enum": "Полето треба да биде една од следните вредности: {{allowedValues}}",
     "equalSchema": "Полињата треба да имаат исти својства",
-    "generic": "Невалиден внес",
-    "greaterThan": "Полето треба да е повеќе од {{0}}",
+    "exclusiveMaximum": "Полето треба да е {{comparison}} {{limit}}",
+    "exclusiveMinimum": "Полето треба да е {{comparison}} {{limit}}",
+    "format": "Полето треба да е форматирано како {{format}}",
     "hexColor": "Полето треба да е валидна шифра за боја",
-    "id": "Полето треба да е валидна шифра",
     "integer": "Полето треба да е цел број",
-    "invalid-schema-selector": "Невалиден селектор за шема",
-    "length": "Полето треба да е има помалку од {{0}} елементи",
-    "lessThan": "Полето треба да е помалку од {{0}}",
-    "lowercase": "Полето треба да е со мали букви",
-    "maxLength": "Полето треба има најмногу {{0}} внесови",
-    "minLength": "Полето треба да има најмалку {{0}} внесови",
-    "missing-in-schema": "Полето {{0}} не е дозволено да се користи",
-    "negative": "Полето треба да е негативен број",
+    "maxItems": "Полето треба да има најмногу {{limit}} внесови",
+    "maxLength": "Полето треба да има најмногу {{limit}} карактери",
+    "maxProperties": "Полето треба да има најмногу {{limit}} својства",
+    "maximum": "Полето треба да е {{comparison}} {{limit}}",
+    "minItems": "Полето треба да има најмалку {{limit}} внесови",
+    "minLength": "Полето треба да има најмалку {{limit}} карактери",
+    "minProperties": "Полето треба да има најмалку {{limit}} својства",
+    "minimum": "Полето треба да е {{comparison}} {{limit}}",
+    "null": "Полето треба да не е сетирано",
     "number": "Полето треба да е број",
-    "numeric": "Полето треба да е број",
-    "oneOf": "Полето треба да е една од {{0}}",
-    "pattern": "Полето не се совпаѓа со предвидената шема",
-    "positive": "Полето треба да е позитивен број",
-    "schema": "Полето не се совпаѓа со предвидената шема",
+    "object": "Полето треба да е објект",
+    "pattern": "Полето треба да ја следи следната шема: {{pattern}}",
+    "required": "Полето е задолжително",
     "string": "Полето треба да е текст",
-    "unique": "Полето треба има уникатни вредности",
-    "uppercase": "Полето треба да е со големи букви"
+    "uniqueItems": "Полето треба има уникатни вредности",
+    "uniqueOn": "Полето треба има уникатни вредности",
+    "uuid": "Полето треба да е валидна шифра"
+  },
+  "finance": {
+    "campaignDiscount": "Промоции",
+    "shippingCost": "Цена за достава",
+    "subtotal": "Цена на производи",
+    "total": "Вкупна цена"
+  },
+  "order": {
+    "seeOrder": "Видете ја порачката"
   },
   "orderStatus": {
     "cancelled": "Откажана",
@@ -530,6 +570,9 @@
     "shipped": "Испратена",
     "shippedDescription": "Испратена по карго"
   },
+  "payment": {
+    "paymentMethod": "Начин на плаќање"
+  },
   "paymentMethodNames": {
     "creditCard": "Кредитна картичка",
     "creditCardExplanation": "Безбедно и брзо плаќање",
@@ -543,14 +586,9 @@
     "all": "Сите",
     "group": "Група"
   },
-  "sets": {
-    "categoryExplanation": "Категории кои ќе ви се допаднат",
-    "discounted": "Производи на попуст",
-    "discountedExplanation": "Производи по најдобри цени",
-    "latest": "Најнови производи",
-    "latestExplanation": "Производи кои штотоку ги добивме",
-    "selectedCategories": "Одбрани категории",
-    "selectedCategoriesExplanation": "Категории одбрани само за вас"
+  "setTypes": {
+    "category": "Категорија",
+    "group": "Група"
   },
   "store": {
     "storeEnabledBy": "Продавница овозможена од"

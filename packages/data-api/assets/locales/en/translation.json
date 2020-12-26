@@ -2,6 +2,9 @@
   "actions": {
     "resetPassword": "Reset password"
   },
+  "address": {
+    "shippingAddress": "Shipping address"
+  },
   "analyticsFrequency": {
     "Monthly": "Monthly",
     "daily": "Daily",
@@ -24,6 +27,10 @@
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
     "percentage-discount": "Percent"
+  },
+  "cart": {
+    "orderSuccess": "Your order has been placed",
+    "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page"
   },
   "categories": {
     "adhesive": "Adhesives",
@@ -151,6 +158,7 @@
     "fish": "Fish",
     "flavored-tea": "Flavored tea",
     "flour": "Flour",
+    "flushmount": "Flush mount lights",
     "food-drink": "Food and drinks",
     "fresh-bean-corn": "Fresh beans, corn, legumes",
     "frozen-fish": "Frozen fish, seafood",
@@ -482,39 +490,71 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
+  "chosenSets": {
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
+  },
+  "common": {
+    "summary": "Summary"
+  },
+  "countries": {
+    "mk": "Macedonia"
+  },
+  "delivery": {
+    "deliveryMethod": "Delivery method"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",
     "pickup": "Pickup"
   },
+  "emails": {
+    "orderWasSuccessful": "was successful and will be shipped to you as soon as possible",
+    "yourOrderFrom": "Your order from"
+  },
   "errors": {
-    "between": "Field should be between {{0}} and {{1}}",
+    "array": "Field should be an array",
     "boolean": "Field should be either true or false",
-    "date": "Field should be a valid date",
+    "date-time": "Field should be a valid date",
     "email": "Field should be a valid email address",
+    "enum": "Field should be one of the following values: {{allowedValues}}",
     "equalSchema": "All fields should have the same properties",
-    "generic": "Invalid entry",
-    "greaterThan": "Field should be more than {{0}}",
+    "exclusiveMaximum": "Field should be {{comparison}} {{limit}}",
+    "exclusiveMinimum": "Field should be {{comparison}} {{limit}}",
+    "format": "Field should be formatted as {{format}}",
     "hexColor": "Field should be a valid hex color",
-    "id": "Field should be a valid id",
     "integer": "Field should be an integer",
-    "invalid-schema-selector": "Invalid schema selector passed",
-    "length": "Field should have less than {{0}} entries",
-    "lessThan": "Field should be less than {{0}}",
-    "lowercase": "Field should all be lowercase",
-    "maxLength": "Field should have at most {{0}} entries",
-    "minLength": "Field should have at least {{0}} entries",
-    "missing-in-schema": "Field {{0}} is not in permitted for use",
-    "negative": "Field should be a negative value",
+    "maxItems": "Field should have at most {{limit}} items",
+    "maxLength": "Field should have at most {{limit}} characters",
+    "maxProperties": "Field should have at most {{limit}} properties",
+    "maximum": "Field should be {{comparison}} {{limit}}",
+    "minItems": "Field should have at least {{limit}} items",
+    "minLength": "Field should have at least {{limit}} characters",
+    "minProperties": "Field should have at least {{limit}} properties",
+    "minimum": "Field should be {{comparison}} {{limit}}",
+    "null": "Field should be null",
     "number": "Field should be a number",
-    "numeric": "Field should be a numeric",
-    "oneOf": "Field should be one of {{0}}",
-    "pattern": "Field does not match the expected pattern",
-    "positive": "Field should be a positive value",
-    "schema": "Field does not match the expected schema",
+    "object": "Field should be an object",
+    "pattern": "Field should follow the following pattern: {{pattern}}",
+    "required": "Field is required",
     "string": "Field should be a string",
-    "unique": "Field should have unique values",
-    "uppercase": "Field should all be uppercase"
+    "uniqueItems": "Field should have unique values",
+    "uniqueOn": "Field should have unique values",
+    "uuid": "Field should be a valid id"
+  },
+  "finance": {
+    "campaignDiscount": "Promotions",
+    "shippingCost": "Shipping cost",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  },
+  "order": {
+    "seeOrder": "View order"
   },
   "orderStatus": {
     "cancelled": "Cancelled",
@@ -530,6 +570,9 @@
     "shipped": "Shipped",
     "shippedDescription": "Awaiting arrival"
   },
+  "payment": {
+    "paymentMethod": "Payment method"
+  },
   "paymentMethodNames": {
     "creditCard": "Credit card",
     "creditCardExplanation": "Secure and easy payment",
@@ -543,14 +586,9 @@
     "all": "All",
     "group": "Group"
   },
-  "sets": {
-    "categoryExplanation": "Categories you might like",
-    "discounted": "Products on sale",
-    "discountedExplanation": "Get it at the best price",
-    "latest": "Latest products",
-    "latestExplanation": "Products that just have arrived",
-    "selectedCategories": "Picked categories",
-    "selectedCategoriesExplanation": "Categories picked just for you"
+  "setTypes": {
+    "category": "Category",
+    "group": "Group"
   },
   "store": {
     "storeEnabledBy": "Store enabled by"

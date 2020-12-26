@@ -11,6 +11,86 @@ import { settableFields } from '../../common/hooks/filtering';
 import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { logger } from '../../common/logger';
+import { t } from '../../common/i18n';
+import { getEmailTemplate } from '../email/templateProcessor';
+import { User } from '@sradevski/la-sdk/dist/models/user';
+
+// TODO: We don't have to wait when sending an email, but this will do for now.
+export const sendOrderNotification = async (ctx: HookContext) => {
+  checkContext(ctx, 'after', ['patch', 'create']);
+  const order: Order = Array.isArray(ctx.result) ? ctx.result[0] : ctx.result;
+
+  // TODO: We want to send different emails for different statuses, but an order confirmation mail (after payment) should be enough for now.
+  if (order.status !== sdk.order.OrderStatus.PENDING_SHIPMENT) {
+    return;
+  }
+
+  const orderedByUser: User = await ctx.app.services['users'].get(
+    order.orderedBy,
+  );
+  const store = await ctx.app.services['stores'].get(order.orderedFrom);
+
+  if (!store) {
+    logger.warn(
+      'Could not find store when sending order notification, skipping',
+    );
+    return;
+  }
+
+  if (!orderedByUser) {
+    logger.warn(
+      'Could not find ordered by user when sending order notification, skipping',
+    );
+    return;
+  }
+
+  const storeDomain = store
+    ? store.customDomain || `${store.slug}.la.mk`
+    : undefined;
+  const storeUrl = `https://${storeDomain ?? 'la.mk'}`;
+  const prices = sdk.utils.pricing.calculatePrices(
+    order.ordered,
+    order.delivery,
+    order.campaigns,
+  );
+
+  const templateData = {
+    storeName: store?.name ?? storeDomain,
+    storeUrl,
+    seeOrderLink: `${storeUrl}/orders`,
+    deliveryMethod: order.delivery.method,
+    paymentMethod: order.paymentMethod,
+    subtotal: prices.productsTotal,
+    campaignDiscount: (
+      prices.withCampaignsTotal - prices.productsTotal
+    ).toFixed(1),
+    shippingCost: prices.deliveryTotal,
+    total: prices.total,
+    deliverTo: order.deliverTo,
+    currency: 'ден',
+  };
+
+  try {
+    await ctx.app.services['email'].create({
+      from: 'noreply@la.mk',
+      to: orderedByUser.email,
+      subject: `la.mk - ${t('cart.orderSuccess')}`,
+      html: await getEmailTemplate('order-success', templateData),
+      text: `
+        Your order was successful!
+
+        Your order on ${storeUrl} was successful, and will be shipped as soon as possible.
+
+        Order total: ${prices.total}
+
+        Thank you for shopping.
+      `,
+    });
+  } catch (err) {
+    logger.error(err.message);
+  }
+};
 
 // FUTURE: Improve how we do the validation, maybe reassign all fields in the hook instead of checking the validity of each of them.
 
@@ -201,6 +281,7 @@ export const hooks = {
       validateOrderItems,
     ],
 
+    // TODO: Add a state machine for how the order status can change.
     patch: [
       authenticate('jwt'),
       settableFields(['status', 'modifiedAt']),
@@ -213,5 +294,10 @@ export const hooks = {
       authenticate('jwt'),
       queryWithCurrentUser(['orderedFrom']),
     ],
+  },
+  after: {
+    all: [],
+    create: [sendOrderNotification],
+    patch: [sendOrderNotification],
   },
 };

@@ -26,7 +26,7 @@ const getTranslationsForTemplate = (
       };
     }
 
-    // storeName, seeOrderLink, deliveryMethod, paymentMethod, subtotal, campaignDiscount, shippingCost, total, deliverTo (country, city, zip, street, person), currency
+    // storeName, storeUrl, seeOrderLink, deliveryMethod, paymentMethod, subtotal, campaignDiscount, shippingCost, total, deliverTo (country, city, zip, street, person), currency
     case 'order-success': {
       return {
         tOrderSuccess: t('cart.orderSuccess'),
@@ -77,7 +77,10 @@ const loadTemplates = async () => {
         await fs.promises.readFile(path.join(dirName, filename))
       ).toString('utf-8');
 
-      const mjmlOutput = mjml2html(mjmsTemplate);
+      const mjmlOutput = mjml2html(mjmsTemplate, {
+        keepComments: false,
+        minify: true,
+      });
       if (mjmlOutput.errors.length) {
         throw new Error(mjmlOutput.errors[0].formattedMessage);
       }

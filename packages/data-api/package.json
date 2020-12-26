@@ -15,7 +15,7 @@
     "dev": "nodemon --config nodemon.json",
     "test": "jest --ci",
     "test:watch": "jest --watch --coverage -u",
-    "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'src/common/locales'"
+    "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'assets/locales'"
   },
   "husky": {
     "hooks": {
