@@ -94,6 +94,10 @@ export const Cascader = ({
 
           setSearchValue(x => x.slice(0, x.length - 1));
         }
+
+        if (e.key === 'Backspace' || e.key === 'Enter' || e.key === 'Escape') {
+          e.stopPropagation();
+        }
       }}
       options={filteredItems}
       fieldNames={{ label: 'title', value: 'key', children: 'children' }}
