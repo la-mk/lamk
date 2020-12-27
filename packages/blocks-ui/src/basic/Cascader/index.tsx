@@ -96,6 +96,7 @@ export const Cascader = ({
         }
 
         if (e.key === 'Backspace' || e.key === 'Enter' || e.key === 'Escape') {
+          e.preventDefault();
           e.stopPropagation();
         }
       }}
