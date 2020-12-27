@@ -66,7 +66,6 @@ export const variantSchema: JSONSchemaType<Variant> = {
     sku: {
       // @ts-ignore the typings are wrong
       type: ['string', 'null'],
-      minLength: 2,
       maxLength: 63,
     },
     stock: {
@@ -133,7 +132,6 @@ export const schema: JSONSchemaType<Product> = {
     description: {
       // @ts-ignore the typings are wrong
       type: ['string', 'null'],
-      minLength: 2,
       maxLength: 4095,
     },
     variants: {

@@ -59,7 +59,6 @@ export const schema: JSONSchemaType<StoreContents> = {
               subtitle: {
                 // @ts-ignore the typings are wrong
                 type: ['string', 'null'],
-                minLength: 2,
                 maxLength: 511,
               },
               type: {

@@ -40,7 +40,6 @@ export const schema: JSONSchemaType<Store> = {
     slogan: {
       // @ts-ignore the typings are wrong
       type: ['string', 'null'],
-      minLength: 2,
       maxLength: 255,
     },
     customDomain: {
