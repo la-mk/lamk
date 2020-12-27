@@ -153,41 +153,45 @@ export const Upload = ({
 
       setUnprocessedFiles([...enhancedAcceptedFiles, ...enhancedRejectedFiles]);
 
-      Promise.all(
-        enhancedAcceptedFiles.map(async file => {
-          try {
-            const uploadedFile = await upload(file.file);
-            if (multiple) {
-              onChange(uniq([...normalizedExistingFileIds, uploadedFile.id]));
+      const uploadedFileIds = (
+        await Promise.all(
+          enhancedAcceptedFiles.map(async file => {
+            try {
+              const uploadedFile = await upload(file.file);
+              // This is done in order to prevent memory leaks
+              URL.revokeObjectURL(file.preview);
               setUnprocessedFiles(files => {
-                // This is done in order to prevent memory leaks
-                URL.revokeObjectURL(file.preview);
                 return files.filter(f => f.id !== file.id);
               });
-            } else {
-              onChange(uploadedFile.id);
 
-              URL.revokeObjectURL(file.preview);
-              setUnprocessedFiles([]);
+              return uploadedFile.id;
+            } catch (e) {
+              setUnprocessedFiles(files => {
+                const idx = files.findIndex(x => x.id === file.id);
+                if (idx != null) {
+                  return files;
+                }
+
+                return [
+                  ...files.slice(0, idx),
+                  { ...files[idx], status: 'failed' },
+                  ...files.slice(idx + 1),
+                ];
+              });
             }
-          } catch (e) {
-            setUnprocessedFiles(files => {
-              const idx = files.findIndex(x => x.id === file.id);
-              if (idx != null) {
-                return files;
-              }
 
-              return [
-                ...files.slice(0, idx),
-                { ...files[idx], status: 'failed' },
-                ...files.slice(idx + 1),
-              ];
-            });
-          }
+            return;
+          })
+        )
+      ).filter(x => !!x);
 
-          return;
-        })
-      );
+      if (multiple) {
+        onChange(
+          uniq([...normalizedExistingFileIds, ...(uploadedFileIds as string[])])
+        );
+      } else {
+        onChange(uploadedFileIds[0] ?? null);
+      }
     },
     [upload, normalizedExistingFileIds, onChange]
   );
