@@ -65,8 +65,7 @@ export const schema: JSONSchemaType<StoreContents> = {
               type: {
                 type: 'string',
                 enum: ['group', 'category'],
-                minLength: 2,
-                maxLength: 127,
+                default: 'group',
               },
               value: {
                 type: 'string',
