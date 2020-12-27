@@ -120,7 +120,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
       <Flex direction='column' bg='white' minHeight='100vh'>
         {step !== 3 && (
           <Flex px={[3, 3, 4]} pb={6} direction='column'>
-            <Box py={[2, 4, 5]} mb={6}>
+            <Box py={[2, 3, 4]} mb={5}>
               <StickySteps current={step} onChange={setStep}>
                 <Steps.Step title={t('commerce.store')} />
                 <Steps.Step title={t('common.company')} />

@@ -52,7 +52,7 @@ export const LandingPreferences = () => {
     );
   }, [caller, store]);
 
-  const handlePatchBanner = ({
+  const handlePatchLandingContent = ({
     formData,
   }: {
     formData: Partial<StoreContents>;
@@ -139,7 +139,7 @@ export const LandingPreferences = () => {
               },
             },
           }}
-          onSubmit={handlePatchBanner}
+          onSubmit={handlePatchLandingContent}
           onChange={({ formData }) => setStoreContentsFormData(formData)}
           formData={storeContentsFormData as StoreContents}
           getErrorMessage={(errorName, context) =>
