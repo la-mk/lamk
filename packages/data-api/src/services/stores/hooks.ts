@@ -23,6 +23,7 @@ import {
   removeStorePaymentMethods,
 } from './serviceHooks/storePaymentMethods';
 import loadEnv from '../../common/env';
+import { HookContext } from '@feathersjs/feathers';
 
 const allowedFields = [
   '_id',
@@ -38,6 +39,12 @@ const allowedFields = [
   'company',
 ];
 
+const transform = async (ctx: HookContext) => {
+  if (ctx.data?.slug) {
+    ctx.data.slug = ctx.data.slug.toLowerCase();
+  }
+};
+
 export const hooks = {
   before: {
     all: [],
@@ -50,6 +57,7 @@ export const hooks = {
       authenticate('jwt'),
       // For a start, we want to have 1:1 mapping between user and store and use the same ID to simplify usage.
       setCurrentUser(['_id', 'ownedBy']),
+      transform,
       validate(sdk.store.validate),
       // Since we set the same ID as the user, double-check that the ID is unique.
       unique(['_id']),
@@ -57,6 +65,7 @@ export const hooks = {
     patch: [
       authenticate('jwt'),
       queryWithCurrentUser(['ownedBy']),
+      transform,
       validate(sdk.store.validate),
     ],
     remove: [authenticate('jwt'), queryWithCurrentUser(['ownedBy'])],
