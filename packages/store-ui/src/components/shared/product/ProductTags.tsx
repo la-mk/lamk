@@ -6,6 +6,29 @@ import { Size } from '@sradevski/blocks-ui/dist/system';
 
 const NUM_DAYS_CONSIDER_AS_NEW = 10;
 
+// TODO: Change bgColor for colorScheme
+const ProductTag = ({ children, bg }: { children: string; bg: string }) => {
+  const size = hooks.useBreakpoint<Size>(['md', 'lg', 'lg']);
+
+  return (
+    <Tag
+      // @ts-ignore
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      minWidth={'5rem'}
+      size={size}
+      mb={3}
+      // @ts-ignore
+      bgColor={bg}
+    >
+      {children}
+    </Tag>
+  );
+};
+
 export const ProductTags = ({
   t,
   product,
@@ -13,8 +36,6 @@ export const ProductTags = ({
   t: TFunction;
   product: Product;
 }) => {
-  const size = hooks.useBreakpoint<Size>(['md', 'lg', 'lg']);
-
   const minDiscountPercentage = Math.round(
     ((product.minDiscount ?? 0) / product.minPrice) * 100,
   );
@@ -40,24 +61,16 @@ export const ProductTags = ({
       // @ts-ignore
       style={{ position: 'absolute', right: 4, top: 12 }}
     >
-      {/* TODO: Change bgColor for colorScheme */}
       {isSoldOut && (
-        // @ts-ignore
-        <Tag minWidth={'5rem'} size={size} mb={3} bgColor='#043353'>
-          {t('product.outOfStock')}
-        </Tag>
+        <ProductTag bg={'#043353'}>{t('product.outOfStock')}</ProductTag>
       )}
       {!isSoldOut && isNew && (
-        // @ts-ignore
-        <Tag minWidth={'5rem'} size={size} mb={3} bgColor='#D9E93C'>
-          {t('product.new')}
-        </Tag>
+        <ProductTag bg={'#D9E93C'}>{t('product.new')}</ProductTag>
       )}
       {!isSoldOut && discountPercentage > 0 && (
-        // @ts-ignore
-        <Tag minWidth={'5rem'} size={size} mb={3} bgColor='#FF3838'>
+        <ProductTag bg={'#FF3838'}>
           {t('product.discounted', { percentage: discountPercentage })}
-        </Tag>
+        </ProductTag>
       )}
     </Flex>
   );
