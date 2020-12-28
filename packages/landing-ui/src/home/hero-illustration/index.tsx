@@ -12,14 +12,16 @@ export const HeroIllustration = () => {
       width='100%'
       maxWidth={1120}
       mt={[3, -5, -5]}
+      // @ts-ignore
       style={{ position: 'relative' }}
-      justifyContent='center'
+      justify='center'
     >
       <Box mt={5} display={['none', 'block', 'block']}>
         <MiniShopWindow />
       </Box>
 
       <Box
+        // @ts-ignore
         style={{ position: 'relative' }}
         flex={1}
         width='100%'
@@ -40,6 +42,7 @@ export const HeroIllustration = () => {
       <HumanLaptopPlant />
       <Box
         display={['none', 'block', 'block']}
+        // @ts-ignore
         style={{ position: 'absolute', top: 120, right: 246 }}
       >
         <LineEndDot />

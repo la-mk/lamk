@@ -155,6 +155,7 @@
     "fish": "Риби",
     "flavored-tea": "Чај со вкусови",
     "flour": "Брашно",
+    "flushmount": "Плафоњерки и панели",
     "food-drink": "Храна и пијалоци",
     "fresh-bean-corn": "Грашок, пченка, мешунки",
     "frozen-fish": "Замрзната риба, морска храна",
@@ -506,6 +507,9 @@
   "company": {
     "subTagline": "Најлесниот начин да направите онлајн продавница"
   },
+  "countries": {
+    "mk": "Macedonia"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",
     "door-to-door": "Достава до дома",
@@ -701,7 +705,6 @@
   },
   "results": {
     "genericError": "Се појави грешка",
-    "genericErrorExplanation": "Се појави грешка со статусен код {{statusCode}}. Доколку сеуште имате проблем, контактирајте не",
     "pageNotFound": "Не е пронајдена",
     "pageNotFoundExplanation": "Страницата што ја баравте не беше пронајдена",
     "serverError": "Серверска грешка",

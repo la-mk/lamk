@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Title, Text, Paragraph } from '@sradevski/blocks-ui';
+import { Box, Flex, Heading, Text } from '@sradevski/blocks-ui';
 import { CurvedSection } from '../common/CurvedSection';
 import { withTheme } from 'styled-components';
 import { Trans } from 'react-i18next';
@@ -15,34 +15,37 @@ export const Contact = withTheme(({ theme }) => {
         backgroundColor={theme.colors.background.light}
       >
         <Flex
-          alignItems='center'
-          justifyContent='center'
-          flexDirection={['column', 'row', 'row']}
+          align='center'
+          justify='center'
+          direction={['column', 'row', 'row']}
           mt={[4, 4, 5]}
         >
           <Box maxWidth={600}>
-            <Title
+            <Heading
               color='secondary'
-              level={1}
+              as='h1'
               mb={2}
-              textAlign={'center'}
-              fontSize={[6, 7, 7]}
+              align={'center'}
+              size={'2xl'}
             >
               <Trans t={t} i18nKey='landingContact.heroSlogan'>
                 Contact&nbsp;
-                <Text fontSize={[6, 7, 7]} color='primary'>
+                {/* @ts-ignore */}
+                <Text fontSize='inherit' color='primary'>
                   Us
                 </Text>
               </Trans>
-            </Title>
+            </Heading>
 
-            <Paragraph
+            <Text
+              as='p'
               mt={4}
-              fontSize={[2, 3, 3]}
-              textAlign={['center', 'center', 'center']}
+              // @ts-ignore
+              size={['md', 'lg', 'lg']}
+              align={['center', 'center', 'center']}
             >
               {t('landingContact.heroExplanation')}
-            </Paragraph>
+            </Text>
           </Box>
         </Flex>
       </CurvedSection>

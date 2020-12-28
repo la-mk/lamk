@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paragraph, Box, Title } from '@sradevski/blocks-ui';
+import { Text, Box, Heading } from '@sradevski/blocks-ui';
 
 export const Legal = ({
   title,
@@ -10,12 +10,12 @@ export const Legal = ({
 }) => {
   return (
     <Box maxWidth={960} mx={'auto'} px={[3, 4, 4]} my={5}>
-      <Title textAlign='center' fontSize={[5, 5, 6]} level={1}>
+      <Heading align='center' as='h1' size='2xl'>
         {title}
-      </Title>
-      <Paragraph textAlign='justify' style={{ whiteSpace: 'pre-wrap' }}>
+      </Heading>
+      <Text align='justify' color='text.dark' as='p' whiteSpace='pre-wrap'>
         {content}
-      </Paragraph>
+      </Text>
     </Box>
   );
 };

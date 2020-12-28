@@ -1,11 +1,11 @@
 import React from 'react';
-import { Modal, Flex, Button, Box, Image } from '@sradevski/blocks-ui';
-import { Video } from '../common/Video';
+import { /*Modal,*/ Flex, /*Button,*/ Box, Image } from '@sradevski/blocks-ui';
+// import { Video } from '../common/Video';
 import { Hero } from './Hero';
 import { HowToList } from './HowToList';
 import { GeneratedStoreExample } from './GeneratedStoreExample';
 import { ContactUsFooter } from '../common/ContactUsFooter';
-import { useTranslation } from '../common/i18n';
+// import { useTranslation } from '../common/i18n';
 import { HeroButtons } from '../common/HeroButtons';
 
 const RadiatingCircles = () => {
@@ -50,24 +50,24 @@ const RadiatingCircles = () => {
 };
 
 export const HowItWorks = () => {
-  const [showVideo, setShowVideo] = React.useState(false);
-  const { t } = useTranslation();
+  // const [showVideo, setShowVideo] = React.useState(false);
+  // const { t } = useTranslation();
 
   return (
     <>
       <Hero />
+      {/* @ts-ignore */}
       <Box style={{ position: 'relative' }}>
         <RadiatingCircles />
         <HowToList />
       </Box>
       <GeneratedStoreExample />
-      <Flex my={80} alignItems='center' justifyContent='center'>
+      <Flex my={80} align='center' justify='center'>
         <HeroButtons />
       </Flex>
 
       <ContactUsFooter />
-      <Modal
-        bodyStyle={{ padding: 0 }}
+      {/* <Modal
         width={'80%'}
         height={'80vh'}
         centered
@@ -77,7 +77,7 @@ export const HowItWorks = () => {
         onCancel={() => setShowVideo(false)}
       >
         <Video height={'80vh'} webm='/elephants-dream.webm' />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Result, message, Box, NewForm } from '@sradevski/blocks-ui';
+import { Button, Result, toast, Box, NewForm } from '@sradevski/blocks-ui';
 import { track } from './analytics';
 import { AnalyticsEvents } from '@sradevski/analytics';
 import { useTranslation } from './i18n';
@@ -31,24 +31,26 @@ export const ContactForm = () => {
       .then(resp => resp.json())
       .then(resp => {
         if (resp.code > 200) {
-          message.error(resp.message);
+          toast.error(resp.message);
         } else {
           setHasSubmitted(true);
         }
       })
-      .catch(err => message.error(err.message))
+      .catch(err => toast.error(err.message))
       .finally(() => setIsSubmitting(false));
   };
 
   return (
     <>
+      {/* @ts-ignore */}
       <Box width={['90%', '60%', '40%']} mx='auto' style={{ zIndex: 3 }}>
         {hasSubmitted && (
-          <Box bg='background.light' style={{ borderRadius: 12 }}>
+          // @ts-ignore
+          <Box bg='background.light' borderRadius={'md'}>
             <Result
               status='success'
               title={t('landingContact.thanksForContact')}
-              subTitle={t('landingContact.thanksForContactDetails')}
+              description={t('landingContact.thanksForContactDetails')}
             />
           </Box>
         )}
@@ -100,10 +102,10 @@ export const ContactForm = () => {
             }
           >
             <Button
-              loading={isSubmitting}
+              isLoading={isSubmitting}
               mr={2}
-              type='primary'
-              htmlType='submit'
+              variant='solid'
+              type='submit'
             >
               {t('actions.contactUs')}
             </Button>

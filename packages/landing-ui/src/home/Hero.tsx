@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Title, Text } from '@sradevski/blocks-ui';
+import { Flex, Heading, Text } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { CurvedSection } from '../common/CurvedSection';
 import { HeroIllustration } from './hero-illustration';
@@ -16,32 +16,28 @@ export const Hero = withTheme(({ theme }) => {
       backgroundColor={theme.colors.background.light}
     >
       <Flex
-        flexDirection='column'
-        alignItems='center'
-        justifyContent='center'
+        direction='column'
+        align='center'
+        justify='center'
         width='100%'
         mt={[4, 4, 5]}
       >
-        <Title
-          textAlign='center'
-          color='secondary'
-          level={1}
-          mb={2}
-          fontSize={[6, 7, 7]}
-        >
+        <Heading align='center' color='secondary' as='h1' mb={2} size='2xl'>
           <Trans t={t} i18nKey='landing.heroSlogan'>
             Online shop
             <Text
-              textAlign='center'
+              align='center'
               display='block'
-              fontSize={[6, 7, 7]}
+              // @ts-ignore d
+              fontSize='inherit'
               color='primary'
             >
               In 5 minutes
             </Text>
           </Trans>
-        </Title>
-        <Text fontSize={[2, 3, 3]} textAlign={'center'}>
+        </Heading>
+        {/* @ts-ignore */}
+        <Text size={['md', 'lg', 'lg']} align={'center'}>
           {t('company.subTagline')}
         </Text>
         <HeroButtons mt={5} />

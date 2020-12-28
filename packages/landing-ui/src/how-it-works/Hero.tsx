@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paragraph, Title, Image, Flex, Text } from '@sradevski/blocks-ui';
+import { Box, Heading, Image, Flex, Text } from '@sradevski/blocks-ui';
 import { withTheme } from 'styled-components';
 import { Trans } from 'react-i18next';
 import { CurvedSection } from '../common/CurvedSection';
@@ -15,33 +15,37 @@ export const Hero = withTheme(({ theme }) => {
       backgroundColor={theme.colors.background.light}
     >
       <Flex
-        alignItems='center'
-        justifyContent='center'
-        flexDirection={['column', 'row', 'row']}
+        align='center'
+        justify='center'
+        direction={['column', 'row', 'row']}
       >
         <Box mr={[0, 3, 3]} maxWidth={600}>
-          <Title
+          <Heading
+            // @ts-ignore
             style={{ whiteSpace: 'pre' }}
             color='secondary'
-            level={1}
+            as='h1'
             mb={2}
-            textAlign={['center', 'start', 'start']}
-            fontSize={[6, 7, 7]}
+            align={['center', 'start', 'start']}
+            size='2xl'
           >
             <Trans t={t} i18nKey='howItWorks.heroSlogan'>
               How&nbsp;
-              <Text fontSize={[6, 7, 7]} color='primary'>
+              {/* @ts-ignore */}
+              <Text fontSize='inherit' color='primary'>
                 It Works
               </Text>
             </Trans>
-          </Title>
-          <Paragraph
+          </Heading>
+          <Text
+            as='p'
             mt={4}
-            fontSize={[2, 3, 3]}
-            textAlign={['center', 'start', 'start']}
+            // @ts-ignore
+            size={['md', 'lg', 'lg']}
+            align={['center', 'start', 'start']}
           >
             {t('howItWorks.heroExplanation')}
-          </Paragraph>
+          </Text>
           <Box display={['none', 'flex', 'flex']} mt={5}>
             <HeroButtons />
           </Box>
@@ -51,7 +55,7 @@ export const Hero = withTheme(({ theme }) => {
         </Box>
 
         <Box display={['block', 'none', 'none']} mt={5}>
-          <HeroButtons alignItems='center' justifyContent='center' />
+          <HeroButtons align='center' justify='center' />
         </Box>
       </Flex>
     </CurvedSection>

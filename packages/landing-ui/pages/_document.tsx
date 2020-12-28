@@ -3,27 +3,9 @@ import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
 import { NextPageContext } from 'next';
 
 const GlobalStyle = createGlobalStyle`
-html {
-  height: 100%;
-}
-
-  .ant-menu i {
-    margin-right: 0 !important;
+  html {
+    height: 100%;
   }
-
-  input {
-    line-height: inherit;
-    font: inherit;
-    font-variant: inherit;
-    color: inherit;
-    font-size: inherit;
-  }
-
-  .ant-card-actions > li > span a,
-  .ant-card-actions > li > span i {
-    width: initial;
-  }
-
   body {
     height: 100%;
     margin: 0;
@@ -90,7 +72,7 @@ export default class MyDocument extends Document {
           <link rel='manifest' href='/site.webmanifest' />
 
           <link
-            href='https://fonts.googleapis.com/css2?family=Ubuntu&display=fallback'
+            href='https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=fallback'
             rel='stylesheet'
           />
           <script

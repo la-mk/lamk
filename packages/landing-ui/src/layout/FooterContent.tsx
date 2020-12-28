@@ -6,7 +6,7 @@ import {
   FooterContent as BaseFooterContent,
   Text,
   Image,
-  Title,
+  Heading,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { Menu } from '@sradevski/blocks-ui/dist/compound/FooterContent';
@@ -90,7 +90,7 @@ const ContactEntry = ({
   return (
     <Text my={1} color='primary'>
       {icon}
-      <Text fontSize={0} color='text.light' ml={4}>
+      <Text size='xs' color='text.light' ml={4}>
         {value}
       </Text>
     </Text>
@@ -107,19 +107,19 @@ export const FooterContent = () => {
         px={[3, 4, 5]}
         pt={[3, 4, 5]}
         mx='auto'
-        flexDirection={['column', 'column', 'row']}
-        alignItems={['center', 'center', 'flex-start']}
-        justifyContent={'space-between'}
+        direction={['column', 'column', 'row']}
+        align={['center', 'center', 'flex-start']}
+        justify={'space-between'}
       >
         <Box minWidth={192} mr={[0, 0, 4]}>
-          <Flex flexDirection='column' alignItems={'flex-start'}>
+          <Flex direction='column' align={'flex-start'}>
             <Box maxHeight='96px' maxWidth='192px' width='100%' mb={5} p={2}>
               <Image src={'/logo-horizontal-inverse.svg'} alt='logo' />
             </Box>
 
-            <Title mb={3} color='heading.light' level={4} fontSize={1}>
+            <Heading mb={3} color='heading.light' as='h4' size='sm'>
               {t('common.contactDetails').toUpperCase()}
-            </Title>
+            </Heading>
 
             <ContactEntry icon={<PhoneFilled />} value={'+389 77 647 585'} />
             <ContactEntry icon={<MailFilled />} value={'contact@la.mk'} />
@@ -129,36 +129,25 @@ export const FooterContent = () => {
         <BaseFooterContent menus={getMenus(t)} Link={Link} />
       </Flex>
 
-      <Divider
-        display={['none', 'none', 'block']}
-        bg='background.light'
-        height='1px'
-        mb={3}
-        mt={6}
-      />
+      <Divider display={['none', 'none', 'block']} mb={3} mt={6} />
 
       <Flex
-        justifyContent={['center', 'space-between', 'space-between']}
-        alignItems='center'
+        justify={['center', 'space-between', 'space-between']}
+        align='center'
         px={[3, 4, 5]}
-        flexDirection={['column', 'row', 'row']}
+        direction={['column', 'row', 'row']}
       >
-        <Text color='text.light' fontSize={0} mr={[0, 3, 3]} mb={[3, 0, 0]}>
+        <Text color='text.light' size='xs' mr={[0, 3, 3]} mb={[3, 0, 0]}>
           la.mk © 2020 All rights reserved
         </Text>
 
-        <Flex
-          mt={[3, 0, 0]}
-          ml={[0, 3, 3]}
-          justifyContent='center'
-          alignItems='center'
-        >
+        <Flex mt={[3, 0, 0]} ml={[0, 3, 3]} justify='center' align='center'>
           <a
             href='https://www.facebook.com/social.la.mk'
             target='_blank'
             rel='noreferrer noopener'
           >
-            <Text px={2} fontSize={3} color='text.light'>
+            <Text px={2} size='lg' color='text.light'>
               <FacebookFilled />
             </Text>
           </a>
@@ -168,7 +157,7 @@ export const FooterContent = () => {
             target='_blank'
             rel='noreferrer noopener'
           >
-            <Text px={2} fontSize={3} color='text.light'>
+            <Text px={2} size='lg' color='text.light'>
               <InstagramFilled />
             </Text>
           </a>
@@ -178,7 +167,7 @@ export const FooterContent = () => {
             target='_blank'
             rel='noreferrer noopener'
           >
-            <Text px={2} fontSize={3} color='text.light'>
+            <Text px={2} size='lg' color='text.light'>
               <TwitterSquareFilled />
             </Text>
           </a>

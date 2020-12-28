@@ -18,9 +18,10 @@ export const Video = ({ mp4, webm, height }: VideoProps) => {
     <>
       {(mp4 || webm) && (
         <Flex
+          // @ts-ignore
           style={{ objectFit: 'contain' }}
-          alignItems='center'
-          justifyContent='center'
+          align='center'
+          justify='center'
           height={height}
         >
           <video

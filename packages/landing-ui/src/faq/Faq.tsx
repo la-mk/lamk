@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Paragraph,
-  Collapse,
-  CollapsePanel,
-  Box,
-  Title,
-  Flex,
-  Text,
-} from '@sradevski/blocks-ui';
+import { Accordion, Box, Heading, Flex, Text } from '@sradevski/blocks-ui';
 import { CurvedSection } from '../common/CurvedSection';
 import { withTheme } from 'styled-components';
 import { TFunction } from 'next-i18next';
@@ -114,59 +106,57 @@ export const Faq = withTheme(({ theme }) => {
         backgroundColor={theme.colors.background.light}
       >
         <Flex
-          alignItems='center'
-          justifyContent='center'
-          flexDirection={['column', 'row', 'row']}
+          align='center'
+          justify='center'
+          direction={['column', 'row', 'row']}
           mt={[4, 4, 5]}
         >
           <Box maxWidth={600}>
-            <Title
+            <Heading
               color='secondary'
-              level={1}
+              as='h1'
               mb={2}
-              textAlign={'center'}
-              fontSize={[6, 7, 7]}
+              align={'center'}
+              size='2xl'
             >
               <Trans t={t} i18nKey='landingFaq.heroSlogan'>
                 Frequently&nbsp;
-                <Text fontSize={[6, 7, 7]} color='primary'>
+                {/* @ts-ignore */}
+                <Text fontSize={'inherit'} color='primary'>
                   Asked Questions
                 </Text>
               </Trans>
-            </Title>
+            </Heading>
 
-            <Paragraph
+            <Text
+              as='p'
               mt={4}
-              fontSize={[2, 3, 3]}
-              textAlign={['center', 'center', 'center']}
+              // @ts-ignore
+              size={['md', 'lg', 'lg']}
+              align={['center', 'center', 'center']}
             >
               {t('landingFaq.heroExplanation')}
-            </Paragraph>
+            </Text>
           </Box>
         </Flex>
       </CurvedSection>
 
       <Box maxWidth={960} mx={'auto'} px={[3, 4, 4]} mb={5}>
-        <Paragraph>{t('landingFaq.additionalExplanation')}</Paragraph>
+        <Text as='p'>{t('landingFaq.additionalExplanation')}</Text>
         <Box width='100%'>
-          {getFaqGroups(t).map((group) => {
+          {getFaqGroups(t).map(group => {
             return (
               <Box key={group.title} mt={4}>
-                <Title mb={3} level={3}>
+                <Heading mb={3} as='h3'>
                   {group.title}
-                </Title>
-                <Collapse width='100%' style={{ background: 'transparent' }}>
-                  {group.items.map((faqItem) => {
-                    return (
-                      <CollapsePanel
-                        key={faqItem.question}
-                        header={faqItem.question}
-                      >
-                        <Paragraph>{faqItem.answer}</Paragraph>
-                      </CollapsePanel>
-                    );
-                  })}
-                </Collapse>
+                </Heading>
+
+                <Accordion
+                  items={group.items.map(x => ({
+                    title: x.question,
+                    content: x.answer,
+                  }))}
+                />
               </Box>
             );
           })}

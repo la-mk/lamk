@@ -1,5 +1,4 @@
 const withPlugins = require('next-compose-plugins');
-const withLess = require('@zeit/next-less');
 const withTM = require('next-transpile-modules')(['lodash-es']);
 
 const config = {
@@ -10,53 +9,4 @@ const config = {
   },
 };
 
-module.exports = withPlugins(
-  [
-    [
-      withLess,
-      {
-        lessLoaderOptions: {
-          javascriptEnabled: true,
-          modifyVars: {
-            '@font-family': `
-              'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
-            `,
-            '@primary-color': '#EF4351',
-            '@btn-default-border': '#EF4351',
-            '@border-radius-base': '6px',
-            'height-base': '42px',
-            'height-lg': '50px',
-            'height-sm': '30px',
-            '@form-item-margin-bottom': '16px',
-            '@form-vertical-label-padding': '0',
-          },
-        },
-        webpack: (config, { isServer }) => {
-          if (isServer) {
-            const antStyles = /antd\/.*?\/style.*?/;
-            const origExternals = [...config.externals];
-            config.externals = [
-              (context, request, callback) => {
-                if (request.match(antStyles)) return callback();
-                if (typeof origExternals[0] === 'function') {
-                  origExternals[0](context, request, callback);
-                } else {
-                  callback();
-                }
-              },
-              ...(typeof origExternals[0] === 'function' ? [] : origExternals),
-            ];
-
-            config.module.rules.unshift({
-              test: antStyles,
-              use: 'null-loader',
-            });
-          }
-          return config;
-        },
-      },
-    ],
-    [withTM],
-  ],
-  config,
-);
+module.exports = withPlugins([[withTM]], config);

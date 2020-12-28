@@ -69,7 +69,7 @@ export const TopMenu = ({
       <MenuItem height='100%' py={0} px={2} key='language' mx={[0, 1, 2]}>
         <LanguagePicker
           languageCode={i18n.language}
-          onChangeLanguageCode={(key) => i18n.changeLanguage(key)}
+          onChangeLanguageCode={key => i18n.changeLanguage(key)}
         />
       </MenuItem>
 
@@ -80,7 +80,7 @@ export const TopMenu = ({
         style={{ border: 'none' }}
         mx={[0, 1, 2]}
       >
-        <Flex height='100%' alignItems='center' justifyContent='center'>
+        <Flex height='100%' align='center' justify='center'>
           <Button
             mx={[2, 0, 0]}
             style={{ color: 'white' }}

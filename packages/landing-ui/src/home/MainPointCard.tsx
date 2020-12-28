@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Image, Title, Text, Box } from '@sradevski/blocks-ui';
+import { Flex, Image, Heading, Text, Box } from '@sradevski/blocks-ui';
 
 const BarImage = ({ src, alt, overflow }) => {
   const margins = {
@@ -36,19 +36,19 @@ const Description = ({
   const innerMargin = [2, 'auto', 'auto'];
   return (
     <Flex
-      flexDirection='column'
-      alignItems={['center', 'flex-start', 'flex-start']}
-      justifyContent='center'
+      direction='column'
+      align={['center', 'flex-start', 'flex-start']}
+      justify='center'
       maxWidth={['100%', 400, 500]}
       p={[1, 3, 4]}
       my={[4, 0, 0]}
       ml={side === 'left' ? innerMargin : outerMargin}
       mr={side === 'left' ? outerMargin : innerMargin}
     >
-      <Title textAlign={['center', 'start', 'start']} level={3}>
+      <Heading align={['center', 'start', 'start']} as={'h3'}>
         {title}
-      </Title>
-      <Text textAlign={['center', 'start', 'start']}>{description}</Text>
+      </Heading>
+      <Text align={['center', 'start', 'start']}>{description}</Text>
     </Flex>
   );
 };
@@ -86,17 +86,18 @@ export const MainPointCard = ({
       width={['100%', '94%', '90%']}
       maxWidth={1280}
       bg='background.light'
-      borderRadius={1}
+      // @ts-ignore
+      borderRadius={'xs'}
       {...props}
     >
       <Flex
-        flexDirection={[
+        direction={[
           side === 'left' ? 'column-reverse' : 'column',
           'row',
           'row',
         ]}
       >
-        {(side === 'left' ? children : children.reverse()).map((x) => x)}
+        {(side === 'left' ? children : children.reverse()).map(x => x)}
       </Flex>
     </Box>
   );

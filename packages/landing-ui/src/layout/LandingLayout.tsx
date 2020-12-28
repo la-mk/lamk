@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Layout,
-  Content,
-  Header,
-  Footer,
+  Box,
   Image,
   Flex,
   Button,
@@ -70,59 +68,61 @@ export const LandingLayout = withTheme(
 
     return (
       <>
-        <Layout>
-          <Header
-            px={[2, 4, 5]}
-            style={{
-              backgroundColor: theme.colors.background.light,
-              boxShadow: '0px -1px 10px rgba(179, 198, 228, 0.7)',
-              zIndex: 3,
-            }}
-          >
-            <Flex justifyContent='space-between'>
-              <Link href='/' passHref>
-                <LineHeightFreeAnchor>
-                  <Image src={'/logo-horizontal.svg'} alt='logo' />
-                </LineHeightFreeAnchor>
-              </Link>
-              {!isMenuCollapsed && <TopMenu theme={theme} />}
-              {isMenuCollapsed && (
-                <Button
-                  size='large'
-                  type='link'
-                  my={'auto'}
-                  onClick={() => setIsDrawerVisible(!isDrawerVisible)}
-                >
-                  <MenuOutlined
-                    style={{ fontSize: 28, color: theme.colors.primary }}
-                  />
-                </Button>
-              )}
-            </Flex>
-          </Header>
-          <Content style={{ backgroundColor: 'white' }}>{children}</Content>
-
-          <Footer
-            style={{
-              textAlign: 'center',
-              zIndex: 1,
-              backgroundColor: theme.colors.background.dark,
-            }}
-          >
-            <FooterContent />
-          </Footer>
+        <Layout
+          header={
+            <Box
+              as='nav'
+              height={['128px', '64px', '64px']}
+              px={[2, 6, 7]}
+              bg='background.light'
+              // @ts-ignore
+              style={{
+                zIndex: 3,
+                boxShadow: '0px -1px 10px rgba(179, 198, 228, 0.7)',
+              }}
+            >
+              <Flex justify='space-between'>
+                <Link href='/' passHref>
+                  <LineHeightFreeAnchor>
+                    <Image src={'/logo-horizontal.svg'} alt='logo' />
+                  </LineHeightFreeAnchor>
+                </Link>
+                {!isMenuCollapsed && <TopMenu theme={theme} />}
+                {isMenuCollapsed && (
+                  <Button
+                    size='lg'
+                    variant='link'
+                    my={'auto'}
+                    onClick={() => setIsDrawerVisible(!isDrawerVisible)}
+                  >
+                    <MenuOutlined
+                      style={{ fontSize: 28, color: theme.colors.primary }}
+                    />
+                  </Button>
+                )}
+              </Flex>
+            </Box>
+          }
+          footer={
+            <Box
+              mt={7}
+              bg='background.dark'
+              // @ts-ignore
+              style={{ zIndex: 1, textAlign: 'center' }}
+            >
+              <FooterContent />
+            </Box>
+          }
+        >
+          {children}
         </Layout>
 
         <Drawer
-          bodyStyle={{
-            padding: '12px 0',
-            backgroundColor: theme.colors.background.light,
-          }}
-          headerStyle={{ backgroundColor: theme.colors.background.light }}
+          isOpen={isMenuCollapsed && isDrawerVisible}
           title='Menu'
+          size='sm'
           placement='right'
           onClose={() => setIsDrawerVisible(false)}
-          visible={isMenuCollapsed && isDrawerVisible}
         >
           <TopMenu
             closeDrawer={() => setIsDrawerVisible(false)}

@@ -8,18 +8,21 @@ const Feature = ({ icon, text, ...props }) => {
       mx={[2, 3, 3]}
       width={180}
       minWidth={180}
-      flexDirection='column'
-      alignItems='center'
-      justifyContent='center'
+      direction='column'
+      align='center'
+      justify='center'
       {...props}
     >
       <Box height={90} p={2}>
         <Image src={icon} alt='example logo' />
       </Box>
       <Text
+        as='div'
+        // @ts-ignore
         height={60}
-        fontSize={[1, 1, 2]}
-        textAlign='center'
+        // @ts-ignore
+        size={['xs', 'xs', 'sm']}
+        align='center'
         color='secondary'
       >
         {text}
@@ -28,16 +31,17 @@ const Feature = ({ icon, text, ...props }) => {
   );
 };
 
-export const FeaturesHorizontal = (props) => {
+export const FeaturesHorizontal = props => {
   const { t } = useTranslation();
 
   return (
     <Flex
       mt={[80, 100, 120]}
       px={1}
+      // @ts-ignore
       style={{ overflowY: 'auto' }}
-      flexDirection={'row'}
-      alignItems='center'
+      direction={'row'}
+      align='center'
     >
       <Feature
         mx={undefined}

@@ -8,14 +8,22 @@ export const HeroButtons = ({
 }: React.ComponentProps<typeof Flex> & { noDemo?: boolean }) => {
   const { t } = useTranslation();
   return (
+    // @ts-ignore
     <Flex {...props} style={{ zIndex: 1 }}>
-      <Button mr={2} type='primary' size='large' href='https://admin.la.mk'>
+      <Button
+        as='a'
+        mr={2}
+        variant='solid'
+        size='lg'
+        href='https://admin.la.mk'
+      >
         {t('actions.startNow')}
       </Button>
       {!noDemo && (
         <Button
           ml={2}
-          size='large'
+          as='a'
+          size='lg'
           target='_blank'
           rel='noreferrer noopener'
           href='https://demo.la.mk'

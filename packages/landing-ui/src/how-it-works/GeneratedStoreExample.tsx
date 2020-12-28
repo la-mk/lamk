@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Text, Image, Flex, Box } from '@sradevski/blocks-ui';
+import { Heading, Text, Image, Flex, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from '../common/i18n';
 
 export const GeneratedStoreExample = () => {
@@ -10,23 +10,23 @@ export const GeneratedStoreExample = () => {
       maxWidth={980}
       mx='auto'
       px={3}
-      alignItems='center'
-      justifyContent='center'
-      flexDirection='column'
+      align='center'
+      justify='center'
+      direction='column'
     >
-      <Title level={3} textAlign='center'>
+      <Heading as='h3' align='center'>
         {t('howItWorks.getModernStore')}
-      </Title>
-      <Text maxWidth={620} textAlign='center'>
+      </Heading>
+      <Text maxWidth={620} align='center'>
         {t('howItWorks.getModernStoreDetails')}
       </Text>
       <Text
         mt={1}
         mb={4}
-        fontSize={0}
+        size='xs'
         color='mutedText.dark'
         maxWidth={620}
-        textAlign='center'
+        align='center'
       >
         *{t('howItWorks.getModernStoreSmallPrint')}
       </Text>

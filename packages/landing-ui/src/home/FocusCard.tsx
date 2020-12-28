@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Image, Title, Text, Button, Box } from '@sradevski/blocks-ui';
+import { Flex, Image, Heading, Text, Button, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from '../common/i18n';
 
 type FocusCardProps = {
@@ -21,37 +21,42 @@ export const FocusCard = ({
       bg={'primary'}
       width={['90%', '75%', '65%', '65%']}
       maxWidth={920}
-      borderRadius={0}
+      // @ts-ignore
+      borderRadius={'xs'}
       p={4}
       mx='auto'
     >
       <Flex
-        justifyContent='space-between'
-        alignItems='center'
-        flexDirection={['column', 'row', 'row']}
+        justify='space-between'
+        align='center'
+        direction={['column', 'row', 'row']}
+        // @ts-ignore
         style={{ position: 'relative' }}
         p={[2, 3, 4]}
         pr={[0, '15%', '15%']}
       >
         <Box mb={[5, 0, 0]} mr={[0, 4, 4]} maxWidth={350}>
           <Image src={icon} alt='Example logo' />
-          <Title mt={2} color='text.light' level={4}>
+          <Heading mt={2} color='text.light' as='h4'>
             {title}
-          </Title>
-          <Text color='text.light' fontSize={1}>
+          </Heading>
+          <Text color='text.light' size='xs'>
             {description}
           </Text>
         </Box>
         <Button
+          as='a'
+          // @ts-ignore
           style={{ zIndex: 2 }}
           target='_blank'
           rel='noreferrer noopener'
-          size='large'
+          size='lg'
           href='https://admin.la.mk'
         >
           {t('actions.startNow')}
         </Button>
 
+        {/* @ts-ignore */}
         <Box style={{ position: 'absolute', bottom: -60, right: -40 }}>
           <Image src='/radiating-dots.svg' alt='dots decoration' />
         </Box>

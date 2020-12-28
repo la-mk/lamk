@@ -1,8 +1,27 @@
 import React from 'react';
-import { Result, Button } from '@sradevski/blocks-ui';
+import { Result, Button, Flex } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useTranslation } from '../src/common/i18n';
 import { Head } from '../src/common/Head';
+
+const Error = ({ status, title, description, t }) => {
+  return (
+    <Flex mt={8} direction='column' justify='center'>
+      <Head
+        siteName='la.mk'
+        title={`${status} | ${title}`}
+        description={description}
+      />
+      <Result status={status} title={title} description={description} />
+
+      <Link href='/' passHref>
+        <Button mt={4} as='a' variant='link'>
+          {t('actions.goBack')}
+        </Button>
+      </Link>
+    </Flex>
+  );
+};
 
 const ErrorPage = ({ errorCode }: { errorCode: number }) => {
   const { t } = useTranslation();
@@ -11,65 +30,30 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
     case 200:
     case 404:
       return (
-        <div>
-          <Head
-            siteName='la.mk'
-            title={`404 | ${t('results.pageNotFound')}`}
-            description={t('results.pageNotFoundExplanation')}
-          />
-          <Result
-            status='404'
-            title='404'
-            subTitle={t('results.pageNotFoundExplanation')}
-            extra={
-              <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
-              </Link>
-            }
-          />
-        </div>
+        <Error
+          title={t('results.pageNotFound')}
+          description={t('results.pageNotFoundExplanation')}
+          status='404'
+          t={t}
+        />
       );
     case 500:
       return (
-        <div>
-          <Head
-            siteName='la.mk'
-            title={`500 | ${t('results.serverError')}`}
-            description={t('results.serverErrorExplanation')}
-          />
-          <Result
-            status='500'
-            title='500'
-            subTitle={t('results.serverErrorExplanation')}
-            extra={
-              <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
-              </Link>
-            }
-          />
-        </div>
+        <Error
+          title={t('results.serverError')}
+          description={t('results.serverErrorExplanation')}
+          status='500'
+          t={t}
+        />
       );
     default:
       return (
-        <div>
-          <Head
-            siteName='la.mk'
-            title={`${errorCode} | ${t('results.genericError')}`}
-            description={t('results.genericError')}
-          />
-          <Result
-            status='error'
-            title={errorCode}
-            subTitle={t('results.genericErrorExplanation', {
-              statusCode: errorCode,
-            })}
-            extra={
-              <Link href='/' passHref>
-                <Button type='link'>{t('actions.goBack')}</Button>
-              </Link>
-            }
-          />
-        </div>
+        <Error
+          title={t('results.genericError')}
+          description={t('results.genericError')}
+          status={errorCode.toString()}
+          t={t}
+        />
       );
   }
 };

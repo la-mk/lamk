@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Image, Title, Text, Box } from '@sradevski/blocks-ui';
+import { Flex, Image, Heading, Text, Box } from '@sradevski/blocks-ui';
 import { useTranslation } from '../common/i18n';
 import { Card } from '../common/Card';
 import { HeroButtons } from '../common/HeroButtons';
@@ -13,14 +13,15 @@ type StepCardProps = {
 const StepCard = ({ icon, title, subtitle, ...props }: StepCardProps) => {
   return (
     <Card {...props} bg='#fff' p={4} width={300} minHeight={[300, 320, 360]}>
-      <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+      <Flex justify='center' align='center' direction='column'>
         <Box mb={3}>
           <Image src={icon} alt='shop step icon' />
         </Box>
-        <Title textAlign='center' level={4} fontSize={[3, 4, 4]}>
+        <Heading align='center' as='h4' size='lg'>
           {title}
-        </Title>
-        <Text fontSize={[1, 1, 2]} textAlign='center'>
+        </Heading>
+        {/* @ts-ignore */}
+        <Text size={['sm', 'sm', 'md']} align='center'>
           {subtitle}
         </Text>
       </Flex>
@@ -35,11 +36,11 @@ export const StepCards = () => {
       mt={[-40, -120, -240]}
       mx='auto'
       maxWidth={1200}
-      flexDirection='column'
-      alignItems='center'
-      justifyContent='center'
+      direction='column'
+      align='center'
+      justify='center'
     >
-      <Flex alignItems='center' justifyContent='center' flexWrap='wrap'>
+      <Flex align='center' justify='center' wrap='wrap'>
         <StepCard
           my={3}
           mx={[2, 4, 4]}
@@ -63,7 +64,7 @@ export const StepCards = () => {
         />
       </Flex>
       <Box display={['none', 'none', 'block']} mt={4} width='100%'>
-        <Flex alignItems='center' justifyContent='center' width='80%' mx='auto'>
+        <Flex align='center' justify='center' width='80%' mx='auto'>
           <Image src='/step-dots.svg' alt='dots decoration' />
         </Flex>
       </Box>

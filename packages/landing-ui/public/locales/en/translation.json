@@ -155,6 +155,7 @@
     "fish": "Fish",
     "flavored-tea": "Flavored tea",
     "flour": "Flour",
+    "flushmount": "Flush mount lights",
     "food-drink": "Food and drinks",
     "fresh-bean-corn": "Fresh beans, corn, legumes",
     "frozen-fish": "Frozen fish, seafood",
@@ -506,6 +507,9 @@
   "company": {
     "subTagline": "The easiest way to build an online shop"
   },
+  "countries": {
+    "mk": "Macedonia"
+  },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
     "door-to-door": "Door to Door",
@@ -701,7 +705,6 @@
   },
   "results": {
     "genericError": "Error occured",
-    "genericErrorExplanation": "There was an error with status code {{statusCode}}. Contact us if the issue persists",
     "pageNotFound": "Not found",
     "pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
     "serverError": "Server error",
