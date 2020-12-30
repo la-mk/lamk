@@ -9,8 +9,8 @@ export const Legal = ({
   content: string;
 }) => {
   return (
-    <Box maxWidth={960} mx={'auto'} px={[3, 4, 4]} my={5}>
-      <Heading align='center' as='h1' size='2xl'>
+    <Box maxWidth={'60rem'} mx={'auto'} py={7} px={[4, 6, 7]}>
+      <Heading align='center' as='h1' size='2xl' mb={7}>
         {title}
       </Heading>
       <Text align='justify' color='text.dark' as='p' whiteSpace='pre-wrap'>

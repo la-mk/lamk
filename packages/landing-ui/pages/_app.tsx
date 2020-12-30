@@ -15,7 +15,24 @@ class MyApp extends App<any> {
     const { Component, pageProps } = this.props;
 
     return (
-      <ThemeProvider translations={{}}>
+      <ThemeProvider
+        translations={{}}
+        theme={{
+          breakpoints: {
+            sm: '46rem',
+            md: '68rem',
+            lg: '80rem',
+            xl: '94rem',
+          },
+          components: {
+            Button: {
+              baseStyle: {
+                fontWeight: 'normal',
+              },
+            },
+          },
+        }}
+      >
         <LandingLayout>
           <Component {...pageProps} />
         </LandingLayout>

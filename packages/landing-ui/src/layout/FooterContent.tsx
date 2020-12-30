@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   Heading,
+  Button,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { Menu } from '@sradevski/blocks-ui/dist/compound/FooterContent';
@@ -103,17 +104,18 @@ export const FooterContent = () => {
   return (
     <Box>
       <Flex
-        maxWidth={1280}
-        px={[3, 4, 5]}
-        pt={[3, 4, 5]}
+        maxWidth={'68rem'}
+        px={[5, 8, 9]}
+        pt={[4, 6, 7]}
         mx='auto'
         direction={['column', 'column', 'row']}
         align={['center', 'center', 'flex-start']}
         justify={'space-between'}
+        color='text.light'
       >
-        <Box minWidth={192} mr={[0, 0, 4]}>
+        <Box minWidth={'192px'} mr={[0, 0, 5]}>
           <Flex direction='column' align={'flex-start'}>
-            <Box maxHeight='96px' maxWidth='192px' width='100%' mb={5} p={2}>
+            <Box maxHeight='96px' maxWidth='192px' width='100%' mb={5}>
               <Image src={'/logo-horizontal-inverse.svg'} alt='logo' />
             </Box>
 
@@ -129,48 +131,62 @@ export const FooterContent = () => {
         <BaseFooterContent menus={getMenus(t)} Link={Link} />
       </Flex>
 
-      <Divider display={['none', 'none', 'block']} mb={3} mt={6} />
+      <Divider display={['none', 'none', 'block']} mt={6} />
 
       <Flex
         justify={['center', 'space-between', 'space-between']}
         align='center'
-        px={[3, 4, 5]}
+        px={[5, 8, 9]}
+        py={4}
         direction={['column', 'row', 'row']}
       >
-        <Text color='text.light' size='xs' mr={[0, 3, 3]} mb={[3, 0, 0]}>
+        <Text color='text.light' size='sm' mr={[0, 3, 3]}>
           la.mk © 2020 All rights reserved
         </Text>
 
-        <Flex mt={[3, 0, 0]} ml={[0, 3, 3]} justify='center' align='center'>
-          <a
+        <Flex ml={[0, 3, 3]} justify='center' align='center'>
+          <Button
+            as='a'
+            variant='link'
             href='https://www.facebook.com/social.la.mk'
             target='_blank'
             rel='noreferrer noopener'
-          >
-            <Text px={2} size='lg' color='text.light'>
-              <FacebookFilled />
-            </Text>
-          </a>
+            px={3}
+            py={2}
+            leftIcon={
+              <Text color='text.light'>
+                <FacebookFilled />
+              </Text>
+            }
+          />
 
-          <a
+          <Button
+            as='a'
+            variant='link'
             href='https://www.instagram.com/_la.mk/'
             target='_blank'
             rel='noreferrer noopener'
-          >
-            <Text px={2} size='lg' color='text.light'>
-              <InstagramFilled />
-            </Text>
-          </a>
+            px={3}
+            leftIcon={
+              <Text color='text.light'>
+                <InstagramFilled />
+              </Text>
+            }
+          />
 
-          <a
+          <Button
+            as='a'
+            variant='link'
             href='https://twitter.com/__lamk'
             target='_blank'
             rel='noreferrer noopener'
-          >
-            <Text px={2} size='lg' color='text.light'>
-              <TwitterSquareFilled />
-            </Text>
-          </a>
+            px={3}
+            leftIcon={
+              <Text color='text.light'>
+                <TwitterSquareFilled />
+              </Text>
+            }
+          />
         </Flex>
       </Flex>
     </Box>

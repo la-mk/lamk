@@ -1,98 +1,112 @@
 import React from 'react';
 import {
-  Menu,
-  MenuItem,
   Button,
-  hooks,
   Flex,
+  hooks,
   LanguagePicker,
+  Text,
 } from '@sradevski/blocks-ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from '../common/i18n';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 
-export const TopMenu = ({
-  closeDrawer,
-  theme,
+const MenuItem = ({
+  title,
+  href,
+  isCurrentPath,
+  onClick,
 }: {
-  theme: BlocksTheme;
-  closeDrawer?: () => void;
+  title: string;
+  href: string;
+  isCurrentPath: (href: string) => boolean;
+  onClick?: () => void;
 }) => {
-  const mode: 'vertical' | 'horizontal' = hooks.useBreakpoint([
-    'vertical',
-    'vertical',
-    'horizontal',
-  ]);
-  const router = useRouter();
+  const isMobile = hooks.useBreakpoint([true, true, false]);
+  const isCurrent = isCurrentPath(href);
+  return (
+    <Flex
+      mx={[0, 0, 1]}
+      width='100%'
+      align='center'
+      justify={['flex-start', 'flex-start', 'center']}
+      my={[2, 2, 0]}
+      py={[1, 1, 0]}
+      bg={isCurrent && isMobile ? 'primary.50' : undefined}
+    >
+      <Link href={href} passHref>
+        <Button onClick={onClick} as='a' variant='ghost'>
+          <Text color={isCurrent ? 'primary' : 'text.dark'}>{title}</Text>
+        </Button>
+      </Link>
+    </Flex>
+  );
+};
+
+export const TopMenu = ({ closeDrawer }: { closeDrawer?: () => void }) => {
+  const { pathname } = useRouter();
   const { t, i18n } = useTranslation();
   // Not a very clean solution, but it will do for now
-  const matches = router.pathname.match(/\/([^/]*)(\/?)/);
-  const selectedKeys = matches && !!matches[1] ? [matches[1]] : ['home'];
+  const isCurrentPath = (href: string) => {
+    return pathname === href;
+  };
 
   return (
-    <Menu
-      style={{
-        border: 'none',
-        backgroundColor: theme.colors.background.light,
-      }}
-      mode={mode}
-      selectedKeys={selectedKeys}
-      onClick={({ key }) => {
-        if (key === 'language') {
-          return;
-        }
-        closeDrawer?.();
-      }}
+    <Flex
+      direction={['column', 'column', 'row']}
+      align={['flex-start', 'flex-start', 'center']}
+      bg='background.light'
     >
-      <MenuItem p={0} key='home' mx={[0, 1, 2]}>
-        <Link href='/' passHref>
-          <Button type='link'>{t('landing.homePage')}</Button>
-        </Link>
-      </MenuItem>
-      <MenuItem p={0} key='how-it-works' mx={[0, 1, 2]}>
-        <Link href='/how-it-works' passHref>
-          <Button type='link'>{t('landing.howItWorksPage')}</Button>
-        </Link>
-      </MenuItem>
-      <MenuItem p={0} key='faq' mx={[0, 1, 2]}>
-        <Link href='/faq' passHref>
-          <Button type='link'>{t('landing.faqPage')}</Button>
-        </Link>
-      </MenuItem>
-      <MenuItem p={0} key='contact' mx={[0, 1, 2]}>
-        <Link href='/contact' passHref>
-          <Button type='link'>{t('landing.contactUsPage')}</Button>
-        </Link>
-      </MenuItem>
+      <MenuItem
+        isCurrentPath={isCurrentPath}
+        onClick={closeDrawer}
+        href='/'
+        title={t('landing.homePage')}
+      />
+      <MenuItem
+        isCurrentPath={isCurrentPath}
+        onClick={closeDrawer}
+        href='/how-it-works'
+        title={t('landing.howItWorksPage')}
+      />
+      <MenuItem
+        isCurrentPath={isCurrentPath}
+        onClick={closeDrawer}
+        href='/faq'
+        title={t('landing.faqPage')}
+      />
+      <MenuItem
+        isCurrentPath={isCurrentPath}
+        onClick={closeDrawer}
+        href='/contact'
+        title={t('landing.contactUsPage')}
+      />
 
-      <MenuItem height='100%' py={0} px={2} key='language' mx={[0, 1, 2]}>
+      <Flex align='center' justify='center' mx={3} my={[3, 3, 0]}>
         <LanguagePicker
           languageCode={i18n.language}
           onChangeLanguageCode={key => i18n.changeLanguage(key)}
         />
-      </MenuItem>
+      </Flex>
 
-      <MenuItem
+      <Flex
+        width='100%'
         height='100%'
-        p={0}
-        key='start-now'
-        style={{ border: 'none' }}
-        mx={[0, 1, 2]}
+        align='center'
+        justify='center'
+        mx={['auto', 3, 0]}
+        ml={[0, 0, 3]}
+        my={[3, 3, 0]}
       >
-        <Flex height='100%' align='center' justify='center'>
-          <Button
-            mx={[2, 0, 0]}
-            style={{ color: 'white' }}
-            type='primary'
-            target='_blank'
-            rel='noreferrer noopener'
-            href='https://admin.la.mk'
-          >
-            {t('actions.startNow')}
-          </Button>
-        </Flex>
-      </MenuItem>
-    </Menu>
+        <Button
+          as='a'
+          mx={[2, 2, 0]}
+          target='_blank'
+          rel='noreferrer noopener'
+          href='https://admin.la.mk'
+        >
+          {t('actions.startNow')}
+        </Button>
+      </Flex>
+    </Flex>
   );
 };

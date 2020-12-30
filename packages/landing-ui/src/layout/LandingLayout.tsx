@@ -72,8 +72,8 @@ export const LandingLayout = withTheme(
           header={
             <Box
               as='nav'
-              height={['128px', '64px', '64px']}
-              px={[2, 6, 7]}
+              height={'64px'}
+              px={[4, 6, 7]}
               bg='background.light'
               // @ts-ignore
               style={{
@@ -87,26 +87,27 @@ export const LandingLayout = withTheme(
                     <Image src={'/logo-horizontal.svg'} alt='logo' />
                   </LineHeightFreeAnchor>
                 </Link>
-                {!isMenuCollapsed && <TopMenu theme={theme} />}
+                {!isMenuCollapsed && <TopMenu />}
                 {isMenuCollapsed && (
                   <Button
                     size='lg'
-                    variant='link'
+                    variant='ghost'
                     my={'auto'}
                     onClick={() => setIsDrawerVisible(!isDrawerVisible)}
-                  >
-                    <MenuOutlined
-                      style={{ fontSize: 28, color: theme.colors.primary }}
-                    />
-                  </Button>
+                    leftIcon={
+                      <MenuOutlined
+                        style={{ fontSize: 28, color: theme.colors.primary }}
+                      />
+                    }
+                  />
                 )}
               </Flex>
             </Box>
           }
           footer={
             <Box
-              mt={7}
               bg='background.dark'
+              pt={6}
               // @ts-ignore
               style={{ zIndex: 1, textAlign: 'center' }}
             >
@@ -124,10 +125,7 @@ export const LandingLayout = withTheme(
           placement='right'
           onClose={() => setIsDrawerVisible(false)}
         >
-          <TopMenu
-            closeDrawer={() => setIsDrawerVisible(false)}
-            theme={theme}
-          />
+          <TopMenu closeDrawer={() => setIsDrawerVisible(false)} />
         </Drawer>
       </>
     );
