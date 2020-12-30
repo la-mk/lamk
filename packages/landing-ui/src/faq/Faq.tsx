@@ -109,20 +109,19 @@ export const Faq = withTheme(({ theme }) => {
           align='center'
           justify='center'
           direction={['column', 'row', 'row']}
-          mt={[4, 4, 5]}
+          mt={[4, 6, 7]}
         >
-          <Box maxWidth={600}>
-            <Heading
-              color='secondary'
-              as='h1'
-              mb={2}
-              align={'center'}
-              size='2xl'
-            >
+          <Box maxWidth={'36rem'}>
+            <Heading align='center' color='secondary' as='h1' mb={2} size='3xl'>
               <Trans t={t} i18nKey='landingFaq.heroSlogan'>
                 Frequently&nbsp;
-                {/* @ts-ignore */}
-                <Text fontSize={'inherit'} color='primary'>
+                <Text
+                  lineHeight={1.3}
+                  align='center'
+                  // @ts-ignore
+                  fontSize='inherit'
+                  color='primary.500'
+                >
                   Asked Questions
                 </Text>
               </Trans>
@@ -130,9 +129,8 @@ export const Faq = withTheme(({ theme }) => {
 
             <Text
               as='p'
-              mt={4}
-              // @ts-ignore
-              size={['md', 'lg', 'lg']}
+              mt={6}
+              size={'lg'}
               align={['center', 'center', 'center']}
             >
               {t('landingFaq.heroExplanation')}
@@ -141,13 +139,13 @@ export const Faq = withTheme(({ theme }) => {
         </Flex>
       </CurvedSection>
 
-      <Box maxWidth={960} mx={'auto'} px={[3, 4, 4]} mb={5}>
+      <Box maxWidth={'60rem'} mx={'auto'} px={[4, 6, 7]} mb={7}>
         <Text as='p'>{t('landingFaq.additionalExplanation')}</Text>
         <Box width='100%'>
           {getFaqGroups(t).map(group => {
             return (
-              <Box key={group.title} mt={4}>
-                <Heading mb={3} as='h3'>
+              <Box key={group.title} mt={[5, 7, 7]}>
+                <Heading as='h3' mb={4}>
                   {group.title}
                 </Heading>
 

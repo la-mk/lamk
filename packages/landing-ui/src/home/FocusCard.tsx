@@ -18,12 +18,12 @@ export const FocusCard = ({
   return (
     <Box
       {...props}
-      bg={'primary'}
+      bg={'primary.500'}
       width={['90%', '75%', '65%', '65%']}
-      maxWidth={920}
+      maxWidth={'60rem'}
       // @ts-ignore
-      borderRadius={'xs'}
-      p={4}
+      borderRadius={'lg'}
+      p={[5, 7, 7]}
       mx='auto'
     >
       <Flex
@@ -32,15 +32,15 @@ export const FocusCard = ({
         direction={['column', 'row', 'row']}
         // @ts-ignore
         style={{ position: 'relative' }}
-        p={[2, 3, 4]}
+        p={[3, 4, 6]}
         pr={[0, '15%', '15%']}
       >
-        <Box mb={[5, 0, 0]} mr={[0, 4, 4]} maxWidth={350}>
+        <Box mb={[6, 0, 0]} mr={[0, 5, 5]} maxWidth={'26rem'}>
           <Image src={icon} alt='Example logo' />
-          <Heading mt={2} color='text.light' as='h4'>
+          <Heading mt={3} color='text.light' as='h4' size='lg' mb={4}>
             {title}
           </Heading>
-          <Text color='text.light' size='xs'>
+          <Text color='text.light' size='md'>
             {description}
           </Text>
         </Box>
@@ -57,7 +57,7 @@ export const FocusCard = ({
         </Button>
 
         {/* @ts-ignore */}
-        <Box style={{ position: 'absolute', bottom: -60, right: -40 }}>
+        <Box style={{ position: 'absolute', bottom: '-60px', right: '-40px' }}>
           <Image src='/radiating-dots.svg' alt='dots decoration' />
         </Box>
       </Flex>

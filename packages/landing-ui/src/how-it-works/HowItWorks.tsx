@@ -1,11 +1,10 @@
 import React from 'react';
-import { /*Modal,*/ Flex, /*Button,*/ Box, Image } from '@sradevski/blocks-ui';
+import { Flex, Box, Image } from '@sradevski/blocks-ui';
 // import { Video } from '../common/Video';
 import { Hero } from './Hero';
 import { HowToList } from './HowToList';
 import { GeneratedStoreExample } from './GeneratedStoreExample';
 import { ContactUsFooter } from '../common/ContactUsFooter';
-// import { useTranslation } from '../common/i18n';
 import { HeroButtons } from '../common/HeroButtons';
 
 const RadiatingCircles = () => {
@@ -62,7 +61,7 @@ export const HowItWorks = () => {
         <HowToList />
       </Box>
       <GeneratedStoreExample />
-      <Flex my={80} align='center' justify='center'>
+      <Flex mt={7} align='center' justify='center'>
         <HeroButtons />
       </Flex>
 

@@ -8,7 +8,7 @@ export const MainPoints = () => {
     <>
       <MainPointCard
         side='right'
-        mt={[50, 80, 160]}
+        mt={[8, '8rem', '10rem']}
         image='/responsive-store-girl.svg'
         overflow='top'
         title={t('landing.corePointsStore')}
@@ -17,7 +17,7 @@ export const MainPoints = () => {
 
       <MainPointCard
         side='left'
-        mt={[50, 80, 160]}
+        mt={[8, '8rem', '10rem']}
         image='/admin-panel-guy.svg'
         overflow='both'
         title={t('landing.corePointsAdmin')}
@@ -25,7 +25,7 @@ export const MainPoints = () => {
       />
       <MainPointCard
         side='right'
-        mt={[50, 80, 160]}
+        mt={[8, '8rem', '10rem']}
         image='/warming-up-people.svg'
         overflow='top'
         title={t('landing.corePointsSupport')}

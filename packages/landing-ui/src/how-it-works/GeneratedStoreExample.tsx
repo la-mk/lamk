@@ -6,23 +6,23 @@ export const GeneratedStoreExample = () => {
   const { t } = useTranslation();
   return (
     <Flex
-      mt={100}
-      maxWidth={980}
+      mt={'6rem'}
+      maxWidth={'60rem'}
       mx='auto'
-      px={3}
+      px={4}
       align='center'
       justify='center'
       direction='column'
     >
-      <Heading as='h3' align='center'>
+      <Heading as='h3' align='center' mb={5}>
         {t('howItWorks.getModernStore')}
       </Heading>
-      <Text maxWidth={620} align='center'>
+      <Text maxWidth={'40rem'} align='center'>
         {t('howItWorks.getModernStoreDetails')}
       </Text>
       <Text
-        mt={1}
-        mb={4}
+        mt={2}
+        mb={6}
         size='xs'
         color='mutedText.dark'
         maxWidth={620}

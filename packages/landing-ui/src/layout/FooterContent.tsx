@@ -91,7 +91,7 @@ const ContactEntry = ({
   return (
     <Text my={1} color='primary'>
       {icon}
-      <Text size='xs' color='text.light' ml={4}>
+      <Text size='sm' color='text.light' ml={4}>
         {value}
       </Text>
     </Text>

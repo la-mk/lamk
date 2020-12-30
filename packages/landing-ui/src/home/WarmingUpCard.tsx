@@ -7,7 +7,7 @@ export const WarmingUpCard = () => {
 
   return (
     <FocusCard
-      mt={[80, 100, 120]}
+      mt={[6, '6rem', '8rem']}
       icon={'/warming-up-icon.svg'}
       title={t('landing.warmingUp')}
       description={t('landing.warmingUpDetails')}

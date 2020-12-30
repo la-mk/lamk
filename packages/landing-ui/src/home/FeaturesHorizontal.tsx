@@ -5,26 +5,19 @@ import { useTranslation } from '../common/i18n';
 const Feature = ({ icon, text, ...props }) => {
   return (
     <Flex
-      mx={[2, 3, 3]}
-      width={180}
-      minWidth={180}
+      mx={[3, 5, 5]}
+      width={'12rem'}
+      minWidth={'12rem'}
+      height={'10rem'}
       direction='column'
       align='center'
       justify='center'
       {...props}
     >
-      <Box height={90} p={2}>
+      <Box height={'6rem'} p={3}>
         <Image src={icon} alt='example logo' />
       </Box>
-      <Text
-        as='div'
-        // @ts-ignore
-        height={60}
-        // @ts-ignore
-        size={['xs', 'xs', 'sm']}
-        align='center'
-        color='secondary'
-      >
+      <Text size={'md'} align='center' color='secondary'>
         {text}
       </Text>
     </Flex>
@@ -36,8 +29,8 @@ export const FeaturesHorizontal = props => {
 
   return (
     <Flex
-      mt={[80, 100, 120]}
-      px={1}
+      mt={[14, 16, 20]}
+      px={3}
       // @ts-ignore
       style={{ overflowY: 'auto' }}
       direction={'row'}
@@ -45,7 +38,7 @@ export const FeaturesHorizontal = props => {
     >
       <Feature
         mx={undefined}
-        mr={[2, 3, 4]}
+        mr={[3, 4, 5]}
         ml='auto'
         icon='/feature-domain.svg'
         text={t('landing.featureFreeDomain')}
@@ -64,7 +57,7 @@ export const FeaturesHorizontal = props => {
       />
       <Feature
         mx={undefined}
-        ml={[2, 3, 4]}
+        ml={[3, 4, 5]}
         mr='auto'
         icon='/feature-analytics.svg'
         text={t('landing.featureAnalytics')}

@@ -11,6 +11,7 @@ export const HeroButtons = ({
     // @ts-ignore
     <Flex {...props} style={{ zIndex: 1 }}>
       <Button
+        px={[2, 4, 4]}
         as='a'
         mr={2}
         variant='solid'
@@ -21,8 +22,10 @@ export const HeroButtons = ({
       </Button>
       {!noDemo && (
         <Button
+          px={[2, 4, 4]}
           ml={2}
           as='a'
+          variant='outline'
           size='lg'
           target='_blank'
           rel='noreferrer noopener'

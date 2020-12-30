@@ -12,27 +12,28 @@ export const ContactUsFooter = withTheme(({ theme }) => {
     <CurvedSection
       // @ts-ignore
       style={{ position: 'relative' }}
-      mt={[80, 100, 120]}
+      mt={[6, '6rem', '8rem']}
       direction='up'
       backgroundColor={theme.colors.background.light}
     >
       <Flex
         width='100%'
         mx='auto'
-        px={[2, 0, 0]}
+        px={[3, 0, 0]}
+        py={3}
         direction='column'
         align='center'
         justify='center'
         // @ts-ignore
         style={{ zIndex: 2 }}
       >
-        <Heading as='h3' size='xl' mb={[3, 4, 4]}>
+        <Heading as='h3' size='xl' mb={[4, 5, 6]}>
           {t('landing.contactUsPage')}
         </Heading>
         <ContactForm />
       </Flex>
       <Box
-        height={[150, 240, 240]}
+        height={['10rem', '14rem', '14rem']}
         display={['none', 'block', 'block']}
         // @ts-ignore
         style={{ zIndex: 1, position: 'absolute', right: '7%', bottom: 250 }}
@@ -42,10 +43,10 @@ export const ContactUsFooter = withTheme(({ theme }) => {
         </Box>
       </Box>
       <Box
-        height={300}
+        height={'20rem'}
         display={['none', 'block', 'block']}
         // @ts-ignore
-        style={{ position: 'absolute', left: 0, bottom: -10 }}
+        style={{ position: 'absolute', left: 0, bottom: '-12px' }}
       >
         <Image src='/contact-form-plants.svg' alt='Plants decoration' />
       </Box>

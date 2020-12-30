@@ -3,16 +3,16 @@ import { Flex, Image, Heading, Text, Box } from '@sradevski/blocks-ui';
 
 const BarImage = ({ src, alt, overflow }) => {
   const margins = {
-    mt: overflow === 'top' ? [4, 4, '-7%'] : 4,
-    mb: overflow === 'bottom' ? [4, 4, '-7%'] : 4,
-    my: overflow === 'both' ? [4, 4, '-7%'] : undefined,
-    mx: ['auto', 3, 4],
+    mt: overflow === 'top' ? [6, 6, '-7%'] : 6,
+    mb: overflow === 'bottom' ? [6, 6, '-7%'] : 6,
+    my: overflow === 'both' ? [6, 6, '-7%'] : undefined,
+    mx: ['auto', 5, 6],
   };
 
   return (
     <Box
-      maxWidth={[300, 350, 500]}
-      width={[300, '50%', '40%']}
+      maxWidth={['24rem', '28rem', '34rem']}
+      width={['24rem', '50%', '42%']}
       height={'100%'}
       {...margins}
     >
@@ -45,7 +45,7 @@ const Description = ({
       ml={side === 'left' ? innerMargin : outerMargin}
       mr={side === 'left' ? outerMargin : innerMargin}
     >
-      <Heading align={['center', 'start', 'start']} as={'h3'}>
+      <Heading align={['center', 'start', 'start']} as={'h3'} mb={5}>
         {title}
       </Heading>
       <Text align={['center', 'start', 'start']}>{description}</Text>
@@ -81,13 +81,13 @@ export const MainPointCard = ({
 
   return (
     <Box
-      p={[3, 4, 4]}
+      p={[5, 7, 7]}
       mx='auto'
       width={['100%', '94%', '90%']}
-      maxWidth={1280}
+      maxWidth={'78rem'}
       bg='background.light'
       // @ts-ignore
-      borderRadius={'xs'}
+      borderRadius={'lg'}
       {...props}
     >
       <Flex

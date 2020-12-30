@@ -20,27 +20,27 @@ export const Hero = withTheme(({ theme }) => {
         align='center'
         justify='center'
         width='100%'
-        mt={[4, 4, 5]}
+        mt={[4, 6, 7]}
       >
-        <Heading align='center' color='secondary' as='h1' mb={2} size='2xl'>
+        <Heading align='center' color='secondary' as='h1' mb={2} size='3xl'>
           <Trans t={t} i18nKey='landing.heroSlogan'>
             Online shop
             <Text
+              lineHeight={1.3}
               align='center'
               display='block'
-              // @ts-ignore d
+              // @ts-ignore
               fontSize='inherit'
-              color='primary'
+              color='primary.500'
             >
               In 5 minutes
             </Text>
           </Trans>
         </Heading>
-        {/* @ts-ignore */}
-        <Text size={['md', 'lg', 'lg']} align={'center'}>
+        <Text color='mutedText.dark' size={'lg'} align={'center'}>
           {t('company.subTagline')}
         </Text>
-        <HeroButtons mt={5} />
+        <HeroButtons mt={7} />
         <HeroIllustration />
       </Flex>
     </CurvedSection>

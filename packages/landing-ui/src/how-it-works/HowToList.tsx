@@ -5,8 +5,8 @@ import { useTranslation } from '../common/i18n';
 import { Card } from '../common/Card';
 
 const FakeButton = styled(Box)`
-  border-radius: ${props => props.theme.radii[0]}px;
-  background-color: ${props => props.theme.colors.primary};
+  border-radius: 4px;
+  background-color: ${props => props.theme.colors.primary['500']};
   padding: 4px;
   color: white;
   text-align: center;
@@ -30,17 +30,17 @@ const HowToOrderedList = styled.ol`
   & > li:before {
     z-index: 2;
     content: counter(my-awesome-counter) ' ';
-    color: ${props => props.theme.colors.primary};
-    font-weight: bold;
-    font-size: 132px;
+    color: ${props => props.theme.colors.primary['500']};
+    font-weight: 500;
+    font-size: 124px;
     line-height: 0.8;
     margin-right: 16px;
 
-    @media screen and (max-width: ${props => props.theme.breakpoints[1]}) {
+    @media screen and (max-width: ${props => props.theme.breakpoints.md}) {
       font-size: 90px;
     }
 
-    @media screen and (max-width: ${props => props.theme.breakpoints[0]}) {
+    @media screen and (max-width: ${props => props.theme.breakpoints.sm}) {
       font-size: 60px;
     }
   }
@@ -62,11 +62,11 @@ const ColorCircle = ({ color }) => {
 
 const Step = ({ title, children }) => {
   return (
-    <Card width='180px' bg='background.light'>
-      <Flex bg='secondary' p={1} py={2} align='center' justify='center'>
+    <Card width='12rem' bg='background.light'>
+      <Flex bg='secondary' p={2} py={2} align='center' justify='center'>
         <Text color='text.light'>{title}</Text>
       </Flex>
-      <Box height='160px' p={3}>
+      <Box height='160px' p={4}>
         {children}
       </Box>
     </Card>
@@ -101,19 +101,19 @@ const HowToItem = ({ title, description, children }) => {
   return (
     <li>
       {/* @ts-ignore */}
-      <Box width='85%' maxWidth={960} style={{ zIndex: 2 }}>
-        <Heading mb={4} as='h3'>
+      <Box width='85%' maxWidth={'60rem'} style={{ zIndex: 2 }}>
+        <Heading mb={5} as='h3'>
           {title}
         </Heading>
-        <Text as='p' ml={['-60px', 0, 0]} px={3}>
+        <Text as='p' ml={['-3rem', 0, 0]} px={3}>
           {description}
         </Text>
         {/* @ts-ignore */}
-        <Box ml={['-60px', 0, 0]} py={2} mt={5} style={{ overflowX: 'auto' }}>
+        <Box ml={['-3rem', 0, 0]} py={2} mt={5} style={{ overflowX: 'auto' }}>
           <Flex
-            minWidth={960}
+            minWidth={'60rem'}
             width='90%'
-            px={3}
+            px={4}
             my={2}
             bg='#fff'
             justify='space-between'
@@ -123,7 +123,7 @@ const HowToItem = ({ title, description, children }) => {
             <Image
               style={{
                 position: 'absolute',
-                left: 30,
+                left: '30px',
                 top: '40%',
                 zIndex: 0,
               }}
@@ -142,7 +142,7 @@ export const HowToList = () => {
   const { t } = useTranslation();
 
   return (
-    <Box mx={'auto'} px={[3, 5, 6]} maxWidth={1280}>
+    <Box mx={'auto'} px={[3, 5, 6]} maxWidth={'76rem'}>
       <HowToOrderedList>
         <HowToItem
           title={t('howItWorks.listCreateStore')}
@@ -161,7 +161,7 @@ export const HowToList = () => {
               <Text color='mutedText.dark' align='center'>
                 {t('howItWorks.sampleStoreUrl')}
               </Text>
-              <Text as='strong' color='primary'>
+              <Text as='strong' color='primary.500'>
                 .la.mk
               </Text>
             </StepEntry>

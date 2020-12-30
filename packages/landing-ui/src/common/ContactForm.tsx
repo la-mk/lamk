@@ -102,8 +102,8 @@ export const ContactForm = () => {
             }
           >
             <Button
+              size='lg'
               isLoading={isSubmitting}
-              mr={2}
               variant='solid'
               type='submit'
             >

@@ -18,20 +18,19 @@ export const Contact = withTheme(({ theme }) => {
           align='center'
           justify='center'
           direction={['column', 'row', 'row']}
-          mt={[4, 4, 5]}
+          mt={[4, 6, 7]}
         >
-          <Box maxWidth={600}>
-            <Heading
-              color='secondary'
-              as='h1'
-              mb={2}
-              align={'center'}
-              size={'2xl'}
-            >
+          <Box maxWidth={'36rem'}>
+            <Heading align='center' color='secondary' as='h1' mb={2} size='3xl'>
               <Trans t={t} i18nKey='landingContact.heroSlogan'>
                 Contact&nbsp;
-                {/* @ts-ignore */}
-                <Text fontSize='inherit' color='primary'>
+                <Text
+                  lineHeight={1.3}
+                  align='center'
+                  // @ts-ignore
+                  fontSize='inherit'
+                  color='primary.500'
+                >
                   Us
                 </Text>
               </Trans>
@@ -39,9 +38,8 @@ export const Contact = withTheme(({ theme }) => {
 
             <Text
               as='p'
-              mt={4}
-              // @ts-ignore
-              size={['md', 'lg', 'lg']}
+              mt={6}
+              size={'lg'}
               align={['center', 'center', 'center']}
             >
               {t('landingContact.heroExplanation')}
@@ -50,7 +48,7 @@ export const Contact = withTheme(({ theme }) => {
         </Flex>
       </CurvedSection>
 
-      <Box width='100%' px={[3, 4, 4]} mb={5}>
+      <Box width='100%' px={[3, 4, 4]} mb={7}>
         <ContactForm />
       </Box>
     </Box>
