@@ -167,19 +167,33 @@ const Number = ({
   leftAddon,
   rightAddon,
 }: InputTypeComponentProps) => {
+  const [shownVal, setShownVal] = React.useState(
+    inputProps.value?.toString() ?? ''
+  );
+
+  React.useEffect(() => {
+    if (inputProps.value === parseFloat(shownVal)) {
+      return;
+    }
+
+    setShownVal(inputProps.value?.toString() ?? '');
+  }, [inputProps.value]);
+
   const onChange = inputProps.onChange;
 
   const parsedOnChange = React.useCallback(
     (val: string) => {
-      const cleaned = (val || '').toString().replace(/[^0-9.]/g, '');
-      const resp = parseInt(cleaned);
-      if (isNaN(resp)) {
+      let cleaned = (val || '').toString().replace(/[^0-9.]/g, '');
+      if (cleaned.length === 0) {
+        setShownVal('');
         // @ts-ignore
         return onChange?.(null, null);
       }
 
+      setShownVal(cleaned);
+      const parsed = parseFloat(cleaned);
       // @ts-ignore
-      onChange?.(null, resp);
+      onChange?.(null, isNaN(parsed) ? 0 : parsed);
     },
     [onChange]
   );
@@ -199,7 +213,7 @@ const Number = ({
       {...inputProps}
       {...(leftAddon || rightAddon ? {} : groupProps)}
       // value={`${prefix ?? ''} ${value ?? ''} ${suffix ?? ''}`.trim()}
-      value={inputProps.value?.toString() ?? ''}
+      value={shownVal}
       onChange={parsedOnChange}
     >
       <NumberInputField {...borderProps} />

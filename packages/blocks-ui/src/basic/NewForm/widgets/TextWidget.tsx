@@ -148,6 +148,7 @@ const TextWidget = ({
     <Input
       {...defaultProps}
       type={type ?? 'text'}
+      step={isSchemaOfType(schema, 'integer') ? 1 : undefined}
       onChange={!readonly ? changeHandler : undefined}
       rightAddon={suffix}
       leftAddon={prefix}
