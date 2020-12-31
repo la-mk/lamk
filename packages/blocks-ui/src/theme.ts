@@ -152,6 +152,19 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
       extrabold: 500,
       black: 500,
     },
+    breakpoints: {
+      sm: '46rem',
+      md: '68rem',
+      lg: '80rem',
+      xl: '94rem',
+    },
+    components: {
+      Button: {
+        baseStyle: {
+          fontWeight: 'normal',
+        },
+      },
+    },
     ...theme,
 
     colors: {
