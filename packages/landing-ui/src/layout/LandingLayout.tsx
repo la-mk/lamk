@@ -17,6 +17,7 @@ import { Router } from 'next/router';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
 import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
 import { FooterContent } from './FooterContent';
+import { useTranslation } from '../common/i18n';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -37,6 +38,7 @@ export const LandingLayout = withTheme(
   ({ theme, children }: StoreLayoutProps) => {
     const isMenuCollapsed = hooks.useBreakpoint([true, true, false]);
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+    const { t } = useTranslation();
 
     // Fire an event to know that the UI has loaded on the client-side.
     useEffect(() => {
@@ -110,7 +112,7 @@ export const LandingLayout = withTheme(
 
         <Drawer
           isOpen={isMenuCollapsed && isDrawerVisible}
-          title='Menu'
+          title={t('common.menu')}
           size='xs'
           placement='right'
           bg='background.light'

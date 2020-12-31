@@ -30,6 +30,13 @@ class MyApp extends App<any> {
                 fontWeight: 'normal',
               },
             },
+            Menu: {
+              baseStyle: {
+                list: {
+                  zIndex: 10000,
+                },
+              },
+            },
           },
         }}
       >
