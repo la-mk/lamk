@@ -126,7 +126,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: lamk/store-ui:1.0.122
+    image: lamk/store-ui:1.0.123
     container_name: store-ui
     restart: always
     depends_on:
@@ -192,7 +192,7 @@ services:
       NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
 
   backstore-ui:
-    image: lamk/backstore-ui:1.0.98
+    image: lamk/backstore-ui:1.0.99
     container_name: backstore-ui
     restart: always
     depends_on:

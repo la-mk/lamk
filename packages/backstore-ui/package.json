@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.98",
+  "version": "1.0.99",
   "private": true,
   "scripts": {
     "dev": "react-app-rewired start",
@@ -42,7 +42,7 @@
     "@ant-design/icons": "^4.2.2",
     "@react-pdf/renderer": "^2.0.0-beta.6",
     "@sradevski/analytics": "0.0.9",
-    "@sradevski/blocks-ui": "0.0.241",
+    "@sradevski/blocks-ui": "0.0.243",
     "@sradevski/la-sdk": "0.0.148",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.162",
@@ -86,7 +86,7 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.109",
+    "@sradevski/translations": "0.0.110",
     "@types/recharts": "^1.8.15",
     "@types/socket.io-client": "^1.4.33",
     "babel-plugin-import": "^1.13.0",

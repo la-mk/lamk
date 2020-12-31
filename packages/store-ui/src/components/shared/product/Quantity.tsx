@@ -18,7 +18,7 @@ export const Quantity = ({
       type='number'
       width='5rem'
       min={1}
-      max={cartItem.product.stock || 999}
+      max={cartItem.product.stock || 9999}
       value={cartItem.quantity}
       onChange={(_e, value: number) =>
         handleChangeItemQuantity(cartItem, value)

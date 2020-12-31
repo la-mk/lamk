@@ -72,10 +72,7 @@ const valueToPercentage = (
     return 0;
   }
 
-  return round(
-    variantPrice === 0 ? 0 : ((value ?? 0) / (variantPrice ?? 1)) * 100,
-    3,
-  );
+  return variantPrice === 0 ? 0 : ((value ?? 0) / (variantPrice ?? 1)) * 100;
 };
 
 const percentageToValue = (
@@ -88,10 +85,7 @@ const percentageToValue = (
     return 0;
   }
 
-  return round(
-    percentage > 100 ? variantPrice : (percentage * variantPrice) / 100,
-    3,
-  );
+  return percentage > 100 ? variantPrice : (percentage * variantPrice) / 100;
 };
 
 export const ProductForm = ({ product, onClose }: ProductFormProps) => {
@@ -393,6 +387,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                   'ui:options': {
                     minWidth: ['100%', '50%', '50%'],
                     // TODO: This is quite hacky, find a better way to handle input modes.
+                    // TODO: Since we reference formData here, and this is only recreated when the input is `discount`, if you change the price, and then you change the discount there will be a jump in the value since it does the calculations on the old price.
                     numberInputModes: [
                       {
                         id: 'percentage',
@@ -408,13 +403,17 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                         },
                         inputConverter: (val: number, id: string) => {
                           const variantIndex = getVariantIndex(id);
-                          return valueToPercentage(
-                            productFormData as Product,
-                            variantIndex,
-                            val,
+                          return round(
+                            valueToPercentage(
+                              productFormData as Product,
+                              variantIndex,
+                              val,
+                            ),
+                            3,
                           );
                         },
-                        previewConverter: (val: number) => val ?? 0,
+                        previewConverter: (val: number) =>
+                          (val ?? 0).toFixed(2),
                         min: 0,
                         max: 100,
                       },
@@ -431,7 +430,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                             productFormData as Product,
                             variantIndex,
                             val,
-                          );
+                          ).toFixed(2);
                         },
                       },
                     ],
