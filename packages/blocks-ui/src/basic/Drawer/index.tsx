@@ -15,6 +15,7 @@ export interface DrawerProps
   extends Pick<ChakraDrawerProps, 'isOpen' | 'placement' | 'onClose'> {
   title?: string;
   size?: Size;
+  bg?: string;
   children: React.ReactNode;
 }
 
@@ -24,11 +25,11 @@ ChakraDrawer.defaultProps = {
   preserveScrollBarGap: true,
 };
 
-export const Drawer = ({ title, children, ...props }: DrawerProps) => {
+export const Drawer = ({ title, children, bg, ...props }: DrawerProps) => {
   return (
     <ChakraDrawer {...props}>
       <ChakraDrawerOverlay>
-        <ChakraDrawerContent>
+        <ChakraDrawerContent bg={bg}>
           <ChakraDrawerCloseButton />
           {title && <ChakraDrawerHeader>{title}</ChakraDrawerHeader>}
           <ChakraDrawerBody>{children}</ChakraDrawerBody>
