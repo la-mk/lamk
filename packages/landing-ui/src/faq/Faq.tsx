@@ -83,16 +83,16 @@ const getFaqGroups = (t: TFunction): FaqGroup[] => [
     items: getGeneralItems(t),
   },
   {
+    title: t('landingFaq.pricingGroupTitle'),
+    items: getPricingItems(t),
+  },
+  {
     title: t('landingFaq.adminGroupTitle'),
     items: getAdminItems(t),
   },
   {
     title: t('landingFaq.paymentsGroupTitle'),
     items: getPaymentItems(t),
-  },
-  {
-    title: t('landingFaq.pricingGroupTitle'),
-    items: getPricingItems(t),
   },
 ];
 

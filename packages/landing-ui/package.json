@@ -38,7 +38,7 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.110",
+    "@sradevski/translations": "0.0.111",
     "@types/node": "^14.14.16",
     "@types/react": "^17.0.0",
     "@types/styled-components": "^5.1.7",
