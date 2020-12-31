@@ -12,7 +12,7 @@ const BarImage = ({ src, alt, overflow }) => {
   return (
     <Box
       maxWidth={['24rem', '28rem', '34rem']}
-      width={['24rem', '50%', '42%']}
+      width={['18rem', '50%', '42%']}
       height={'100%'}
       {...margins}
     >

@@ -70,17 +70,7 @@ export const LandingLayout = withTheme(
       <>
         <Layout
           header={
-            <Box
-              as='nav'
-              height={'64px'}
-              px={[4, 6, 7]}
-              bg='background.light'
-              // @ts-ignore
-              style={{
-                zIndex: 3,
-                boxShadow: '0px -1px 10px rgba(179, 198, 228, 0.7)',
-              }}
-            >
+            <Box as='nav' height={'64px'} px={[4, 6, 7]} bg='background.light'>
               <Flex justify='space-between'>
                 <Link href='/' passHref>
                   <LineHeightFreeAnchor>
@@ -121,8 +111,9 @@ export const LandingLayout = withTheme(
         <Drawer
           isOpen={isMenuCollapsed && isDrawerVisible}
           title='Menu'
-          size='sm'
+          size='xs'
           placement='right'
+          bg='background.light'
           onClose={() => setIsDrawerVisible(false)}
         >
           <TopMenu closeDrawer={() => setIsDrawerVisible(false)} />

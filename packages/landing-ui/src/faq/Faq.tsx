@@ -144,7 +144,7 @@ export const Faq = withTheme(({ theme }) => {
         <Box width='100%'>
           {getFaqGroups(t).map(group => {
             return (
-              <Box key={group.title} mt={[5, 7, 7]}>
+              <Box key={group.title} mt={[6, 7, 7]}>
                 <Heading as='h3' mb={4}>
                   {group.title}
                 </Heading>
