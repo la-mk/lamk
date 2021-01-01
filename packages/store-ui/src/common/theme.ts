@@ -32,21 +32,10 @@ export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
     colors: {
       primary: brandColor,
       success: '#5CB85C',
-
       ...getOtherColors(brandColor),
     },
-    breakpoints: {
-      sm: '46rem',
-      md: '68rem',
-      lg: '80rem',
-      xl: '94rem',
-    },
+
     components: {
-      Button: {
-        baseStyle: {
-          fontWeight: 'normal',
-        },
-      },
       Heading: {
         sizes: {
           '4xl': {

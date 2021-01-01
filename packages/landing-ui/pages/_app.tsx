@@ -18,18 +18,7 @@ class MyApp extends App<any> {
       <ThemeProvider
         translations={{}}
         theme={{
-          breakpoints: {
-            sm: '46rem',
-            md: '68rem',
-            lg: '80rem',
-            xl: '94rem',
-          },
           components: {
-            Button: {
-              baseStyle: {
-                fontWeight: 'normal',
-              },
-            },
             Menu: {
               baseStyle: {
                 list: {
