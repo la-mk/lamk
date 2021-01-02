@@ -40,6 +40,11 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
   return {
     colors,
     components: {
+      Button: {
+        baseStyle: {
+          fontWeight: 'normal',
+        },
+      },
       Heading: {
         sizes: {
           '4xl': {
@@ -69,6 +74,18 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
       },
     },
     sections: {
+      Header: {
+        height: ['128px', '64px', '64px'],
+        logo: {
+          position: 'left',
+        },
+        menu: {
+          variant: 'full',
+        },
+        account: {
+          variant: 'solid',
+        },
+      },
       // TODO: Start using rem's for the card
       ProductCard: {
         badge: {
@@ -126,6 +143,11 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
     colors,
 
     components: {
+      Button: {
+        baseStyle: {
+          fontWeight: 'normal',
+        },
+      },
       // Badge: {
       //   baseStyle: {
       //     borderRadius: 'none',
@@ -161,6 +183,18 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
       },
     },
     sections: {
+      Header: {
+        height: '92px',
+        logo: {
+          position: 'center',
+        },
+        menu: {
+          variant: 'minimal',
+        },
+        account: {
+          variant: 'link',
+        },
+      },
       ProductCard: {
         badge: {
           position: 'left',
@@ -174,17 +208,17 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
           background: colors.background.light,
           width: {
             default: [296, 348, 348],
-            emphasized: [320, 612, 796],
+            emphasized: [320, 480, 796],
           },
         },
         image: {
           width: {
             default: [296, 348, 348],
-            emphasized: [320, 612, 796],
+            emphasized: [320, 480, 796],
           },
           height: {
             default: [380, 448, 448],
-            emphasized: [412, 788, 1024],
+            emphasized: [412, 618, 1024],
           },
         },
         description: {
