@@ -3,6 +3,7 @@ import { Product } from '@sradevski/la-sdk/dist/models/product';
 import { hooks, Flex, Tag } from '@sradevski/blocks-ui';
 import { differenceInDays } from 'date-fns';
 import { Size } from '@sradevski/blocks-ui/dist/system';
+import { useTheme } from '@chakra-ui/react';
 
 const NUM_DAYS_CONSIDER_AS_NEW = 10;
 
@@ -36,6 +37,9 @@ export const ProductTags = ({
   t: TFunction;
   product: Product;
 }) => {
+  const theme = useTheme();
+  const ownTheme = theme.sections.ProductCard.badge;
+
   const minDiscountPercentage = Math.round(
     ((product.minDiscount ?? 0) / product.minPrice) * 100,
   );
@@ -59,16 +63,23 @@ export const ProductTags = ({
       direction='column'
       align='flex-end'
       // @ts-ignore
-      style={{ position: 'absolute', right: 4, top: 12 }}
+      style={{
+        position: 'absolute',
+        right: ownTheme.position === 'right' ? 4 : undefined,
+        left: ownTheme.position === 'left' ? 4 : undefined,
+        top: 12,
+      }}
     >
       {isSoldOut && (
-        <ProductTag bg={'#043353'}>{t('product.outOfStock')}</ProductTag>
+        <ProductTag bg={ownTheme.colors.soldOut}>
+          {t('product.outOfStock')}
+        </ProductTag>
       )}
       {!isSoldOut && isNew && (
-        <ProductTag bg={'#D9E93C'}>{t('product.new')}</ProductTag>
+        <ProductTag bg={ownTheme.colors.new}>{t('product.new')}</ProductTag>
       )}
       {!isSoldOut && discountPercentage > 0 && (
-        <ProductTag bg={'#FF3838'}>
+        <ProductTag bg={ownTheme.colors.discounted}>
           {t('product.discounted', { percentage: discountPercentage })}
         </ProductTag>
       )}

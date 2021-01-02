@@ -4,6 +4,7 @@ import { sdk } from '@sradevski/la-sdk';
 import { Heading, Flex, Box, Image, Text } from '@sradevski/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
+import { useTheme } from '@chakra-ui/react';
 
 import { TFunction } from 'next-i18next';
 import { HoverableLink } from '../components/HoverableLink';
@@ -13,16 +14,37 @@ const ProductDescription = ({
   product,
   detailed,
   horizontal,
-  emphasized,
+  ownTheme,
 }: {
   product: Product;
   detailed?: boolean;
-  emphasized?: boolean;
   horizontal?: boolean;
+  ownTheme: {
+    description: {
+      heading?: {
+        textTransform: string;
+      };
+    };
+  };
 }) => {
+  const headingLines = 2;
+  /* Make sure the heading always occupies the same height */
+  // const headingHeight =`${
+  //   headingLines +
+  //   (theme.components.Heading.sizes.sm.lineHeight * headingLines -
+  //     headingLines)
+  // }em`
+
   return (
     <Box py={horizontal ? 5 : 0}>
-      <Heading mb={2} as='h3' size='sm' noOfLines={2}>
+      <Heading
+        mb={2}
+        as='h3'
+        size='sm'
+        noOfLines={headingLines}
+        // @ts-ignore
+        textTransform={ownTheme.description.heading?.textTransform}
+      >
         {product.name}
       </Heading>
 
@@ -43,31 +65,27 @@ const ProductDescription = ({
   );
 };
 
-// TODO: Start using rem's for the card
-const normalSizes = [124, 176, 216];
-const emphasizedSizes = [232, 296, 376];
-const normalSizesWithPadding = [156, 212, 248];
-const emphasizedSizesWithPadding = [264, 328, 408];
-const horizontalSizes = [316, 460, 560];
-
 const ProductImage = ({
   storeId,
   product,
-  emphasized,
   horizontal,
+  width,
+  height,
   t,
 }: {
   storeId: string;
   product: Product;
   emphasized?: boolean;
   horizontal?: boolean;
+  width: number[];
+  height: number[];
   t: TFunction;
 }) => {
   return (
     <Flex
-      height={emphasized ? emphasizedSizes : normalSizes}
-      minWidth={horizontal ? normalSizes : undefined}
-      maxWidth={horizontal ? normalSizes : undefined}
+      height={height}
+      minWidth={horizontal ? width : undefined}
+      maxWidth={horizontal ? width : undefined}
       justify='center'
       align='center'
       // @ts-ignore
@@ -79,7 +97,8 @@ const ProductImage = ({
       {/* <ActionsOverlay /> */}
 
       <Image
-        height={emphasized ? emphasizedSizes : normalSizes}
+        style={{ objectFit: 'cover' }}
+        height={height}
         getSrc={params =>
           sdk.artifact.getUrlForImage(product.images[0], storeId, params)
         }
@@ -132,34 +151,37 @@ export const ProductCard = ({
   horizontal?: boolean;
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const ownTheme = theme.sections.ProductCard;
+  let selector = emphasized ? 'emphasized' : 'default';
+  // Use horizontal only if it exists in theme
+  if (horizontal && ownTheme.card.width.horizontal) {
+    selector = 'horizontal';
+  }
 
   return (
     <HoverableLink href='/products/[pid]' as={`/products/${product._id}`}>
       <Flex
-        direction={horizontal ? 'row' : 'column'}
+        direction={selector === 'horizontal' ? 'row' : 'column'}
+        bg={ownTheme.card.background}
         p={[1, 3, 3]}
         my={2}
-        width={
-          horizontal && !emphasized
-            ? horizontalSizes
-            : emphasized
-            ? emphasizedSizesWithPadding
-            : normalSizesWithPadding
-        }
+        width={ownTheme.card.width[selector]}
       >
         <ProductImage
           t={t}
           storeId={storeId}
           product={product}
-          emphasized={emphasized}
-          horizontal={horizontal}
+          horizontal={selector === 'horizontal'}
+          height={ownTheme.image.height[selector]}
+          width={ownTheme.image.width[selector]}
         />
 
         <ProductDescription
+          ownTheme={ownTheme}
           product={product}
           detailed={detailed}
-          emphasized={emphasized}
-          horizontal={horizontal}
+          horizontal={selector === 'horizontal'}
         />
       </Flex>
     </HoverableLink>

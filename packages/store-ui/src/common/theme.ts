@@ -27,14 +27,18 @@ const getOtherColors = (brandColor: string) => {
   };
 };
 
-export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
-  return {
-    colors: {
-      primary: brandColor,
-      success: '#5CB85C',
-      ...getOtherColors(brandColor),
-    },
+const getGenericTheme: DeepPartial<BlocksTheme> & any = (
+  brandColor: string,
+) => {
+  const colors = {
+    primary: brandColor,
+    success: '#5CB85C',
+    danger: '#FF3838',
+    ...getOtherColors(brandColor),
+  };
 
+  return {
+    colors,
     components: {
       Heading: {
         sizes: {
@@ -64,5 +68,140 @@ export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
         },
       },
     },
+    sections: {
+      // TODO: Start using rem's for the card
+      ProductCard: {
+        badge: {
+          position: 'left',
+          colors: {
+            discounted: colors.danger,
+            new: '#D9E93C',
+            soldOut: '#043353',
+          },
+        },
+        card: {
+          background: 'transparent',
+          width: {
+            default: [124, 176, 216],
+            emphasized: [232, 296, 376],
+            horizontal: [316, 460, 560],
+          },
+        },
+        image: {
+          width: {
+            default: [124, 176, 216],
+            emphasized: [232, 296, 376],
+            horizontal: [124, 176, 216],
+          },
+          height: {
+            default: [124, 176, 216],
+            emphasized: [232, 296, 376],
+            horizontal: [124, 176, 216],
+          },
+        },
+        description: {
+          heading: {},
+        },
+      },
+      Price: {
+        discount: {
+          position: 'right',
+        },
+      },
+    },
   };
+};
+
+const getFashionTheme: DeepPartial<BlocksTheme> & any = (
+  brandColor: string,
+) => {
+  const colors = {
+    primary: brandColor,
+    success: '#5CB85C',
+    danger: '#BB0439',
+    ...getOtherColors(brandColor),
+  };
+
+  return {
+    colors,
+
+    components: {
+      // Badge: {
+      //   baseStyle: {
+      //     borderRadius: 'none',
+      //     px: 4,
+      //   },
+      // },
+      Heading: {
+        sizes: {
+          '4xl': {
+            fontSize: ['6xl', null, '7xl'],
+            lineHeight: 1,
+          },
+          '3xl': {
+            fontSize: ['5xl', null, '6xl'],
+            lineHeight: 1,
+          },
+          '2xl': {
+            fontSize: ['4xl', null, '5xl'],
+            lineHeight: [1.2, null, 1],
+          },
+          xl: {
+            fontSize: ['3xl', null, '4xl'],
+            lineHeight: [1.33, null, 1.2],
+          },
+          lg: {
+            fontSize: ['2xl', null, '3xl'],
+            lineHeight: [1.33, null, 1.2],
+          },
+          md: { fontSize: '2xl', lineHeight: 1.2 },
+          sm: { fontSize: 'lg', lineHeight: 1.2 },
+          xs: { fontSize: 'md', lineHeight: 1.2 },
+        },
+      },
+    },
+    sections: {
+      ProductCard: {
+        badge: {
+          position: 'left',
+          colors: {
+            discounted: colors.danger,
+            new: '#D9E93C',
+            soldOut: '#043353',
+          },
+        },
+        card: {
+          background: colors.background.light,
+          width: {
+            default: [296, 348, 348],
+            emphasized: [320, 612, 796],
+          },
+        },
+        image: {
+          width: {
+            default: [296, 348, 348],
+            emphasized: [320, 612, 796],
+          },
+          height: {
+            default: [380, 448, 448],
+            emphasized: [412, 788, 1024],
+          },
+        },
+        description: {
+          heading: {
+            textTransform: 'uppercase',
+          },
+        },
+      },
+      Price: {
+        discount: {
+          position: 'left',
+        },
+      },
+    },
+  };
+};
+
+export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
+  return getGenericTheme(brandColor);
 };
