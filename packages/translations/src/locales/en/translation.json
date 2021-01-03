@@ -437,7 +437,9 @@
     "securePayments": "Secure payments",
     "securePaymentsExplanation": "Fast and easy ways to pay",
     "returnPolicy": "Return policy",
-    "returnPolicyExplanation": "Return what you don't like, risk-free"
+    "returnPolicyExplanation": "Return what you don't like, risk-free",
+    "support": "Constant support",
+    "supportExplanation": "Always at your service"
   },
   "sets": {
     "sets": "Sets",

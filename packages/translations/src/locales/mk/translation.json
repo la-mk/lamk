@@ -438,7 +438,9 @@
     "securePayments": "Безбедно плаќање",
     "securePaymentsExplanation": "Брзи и лесни начини на плаќање",
     "returnPolicy": "Замена на производ",
-    "returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни"
+    "returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни",
+    "support": "Константна поддршка",
+    "supportExplanation": "Секогаш достапни за да ви помогнеме"
   },
   "sets": {
     "sets": "Сетови",
