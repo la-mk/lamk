@@ -36,13 +36,13 @@ export const SelectPaymentMethod = ({
         {t('payment.choosePaymentMethod')}
       </Heading>
 
-      <Grid spacing={5} minChildWidth={['16rem', '18rem', '22rem']}>
+      <Grid spacing={5} minChildWidth={['18rem', '20rem', '22rem']}>
         {storePaymentMethods?.methods &&
           storePaymentMethods.methods.map(method => {
             const isChecked = paymentMethod === method.name;
             return (
               <Box
-                minWidth={['16rem', '18rem', '22rem']}
+                minWidth={['18rem', '20rem', '22rem']}
                 maxWidth={'30rem'}
                 width={'100%'}
               >
@@ -77,6 +77,7 @@ export const SelectPaymentMethod = ({
                         {t(`paymentMethodNames.${method.name}`)}
                       </Heading>
                       <Text
+                        align='center'
                         size='sm'
                         color={isChecked ? 'heading.light' : 'heading.dark'}
                       >

@@ -206,7 +206,7 @@ export const Checkout = () => {
           order.paymentMethod ===
           sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD
         ) {
-          dispatch(goTo(`/orders/${order._id}/pay`));
+          dispatch(goTo(`/account/orders/${order._id}/pay`));
         }
       },
     );
@@ -215,17 +215,15 @@ export const Checkout = () => {
   return (
     <Page>
       <Spinner isLoaded={!showSpinner}>
-        <Flex
-          justify='space-between'
-          align={['center', 'flex-start', 'flex-start']}
-          direction={['column', 'row', 'row']}
-        >
+        <Flex justify='space-between' align='flex-start' wrap='wrap'>
           <Flex
             px={2}
             maxWidth={'60rem'}
+            minWidth={['20rem', '24rem', '24rem']}
             flex={1}
             direction='column'
-            mr={[0, 4, 5]}
+            mx={[1, 2, 4]}
+            mb={3}
           >
             <SelectPaymentMethod
               storePaymentMethods={storePaymentMethods}
@@ -240,14 +238,14 @@ export const Checkout = () => {
           </Flex>
 
           <Flex
-            align={'flex-start'}
+            align={'center'}
             justify='center'
-            maxWidth={'32rem'}
-            minWidth={'16rem'}
+            minWidth={'20rem'}
+            maxWidth={['48rem', '48rem', '36rem']}
+            width='100%'
             flex={1}
-            ml={[0, 4, 5]}
-            mt={[8, 0, 0]}
-            mb={[4, 0, 0]}
+            mx={[1, 2, 4]}
+            my={3}
           >
             <Summary
               showProductsSummary

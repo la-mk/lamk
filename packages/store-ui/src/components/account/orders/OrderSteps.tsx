@@ -13,7 +13,7 @@ export interface OrderStepsProps {
 export const OrderSteps = ({ t, status, isCardPayment }: OrderStepsProps) => {
   const orientation = hooks.useBreakpoint<'vertical' | 'horizontal'>([
     'vertical',
-    'horizontal',
+    'vertical',
     'horizontal',
   ]);
 

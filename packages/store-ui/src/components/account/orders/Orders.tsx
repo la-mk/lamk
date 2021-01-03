@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { DataGrid, Result, hooks, utils } from '@sradevski/blocks-ui';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
-import { Page } from '../shared/Page';
+import { Page } from '../../shared/Page';
 import { useSelector } from 'react-redux';
-import { getUser } from '../../state/modules/user/user.selector';
+import { getUser } from '../../../state/modules/user/user.selector';
 import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { useTranslation } from '../../common/i18n';
-import { getStore } from '../../state/modules/store/store.selector';
+import { useTranslation } from '../../../common/i18n';
+import { getStore } from '../../../state/modules/store/store.selector';
 import Router from 'next/router';
-import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { useBreadcrumb } from '../../shared/hooks/useBreadcrumb';
 import { OrderDescription } from './OrderDescription';
-import { CustomCard } from '../shared/components/CustomCard';
+import { CustomCard } from '../../shared/components/CustomCard';
 
 export const Orders = () => {
   const [orders, setOrders] = useState<FindResult<Order> | null>(null);
@@ -38,7 +38,7 @@ export const Orders = () => {
 
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
-    { url: '/orders', title: t('pages.order_plural') },
+    { url: '/account/orders', title: t('pages.order_plural') },
   ]);
 
   React.useEffect(() => {

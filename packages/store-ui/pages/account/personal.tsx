@@ -1,7 +1,7 @@
 import { Head } from '../../src/common/pageComponents/Head';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
-import { Account } from '../../src/components/account/Account';
+import { Personal } from '../../src/components/account/Personal';
 import { Result } from '@sradevski/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
 import { Store } from '@sradevski/la-sdk/dist/models/store';
@@ -28,7 +28,7 @@ function AccountPage({ store }: { store: Store | undefined }) {
         title={t('pages.myAccount')}
         description={`${t('pages.myAccount')}, ${nameDescription}`}
       />
-      <Account user={user} />
+      <Personal user={user} />
     </>
   );
 }

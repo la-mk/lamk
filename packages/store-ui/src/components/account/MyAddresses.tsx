@@ -1,0 +1,32 @@
+import React, { useState } from 'react';
+import { Button, Flex } from '@sradevski/blocks-ui';
+import { Addresses } from './Addresses';
+import { useTranslation } from '../../common/i18n';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { User } from '@sradevski/la-sdk/dist/models/user';
+import { Page } from '../shared/Page';
+
+export const MyAddresses = ({ user }: { user: User }) => {
+  const { t } = useTranslation();
+  const [showAddAddressModal, setShowAddAddressModal] = useState(false);
+
+  useBreadcrumb([
+    { url: '/', title: t('pages.home') },
+    { url: '/account/addresses', title: t('pages.myAddresses') },
+  ]);
+
+  return (
+    <Page maxWidth={'86rem'}>
+      <Flex mb={6} align='center' justify='center'>
+        <Button onClick={() => setShowAddAddressModal(true)}>
+          {t('address.addNewAddress')}
+        </Button>
+      </Flex>
+      <Addresses
+        user={user}
+        showAddModal={showAddAddressModal}
+        setShowAddModal={setShowAddAddressModal}
+      />
+    </Page>
+  );
+};

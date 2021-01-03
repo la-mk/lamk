@@ -27,11 +27,11 @@ const getMenus = (t: any): Menu[] => [
         text: t('pages.product_plural'),
       },
       {
-        link: '/account',
+        link: '/account/personal',
         text: t('pages.myAccount'),
       },
       {
-        link: '/orders',
+        link: '/account/orders',
         text: t('pages.myOrders'),
       },
     ],

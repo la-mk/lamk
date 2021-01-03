@@ -1,10 +1,10 @@
 import React from 'react';
 import { Flex, Box, Heading, Text, Button } from '@sradevski/blocks-ui';
 import { sdk } from '@sradevski/la-sdk';
-import { useTranslation } from '../../common/i18n';
+import { useTranslation } from '../../../common/i18n';
 import Link from 'next/link';
 import { EyeFilled } from '@ant-design/icons';
-import { OrderProductsList } from '../shared/product/OrderProductsList';
+import { OrderProductsList } from '../../shared/product/OrderProductsList';
 import { formatDistanceToNow } from 'date-fns';
 import { mk, enUS } from 'date-fns/locale';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
@@ -23,7 +23,7 @@ export const OrderDescription = ({
   return (
     <>
       <Flex
-        mx={[2, 6, 6]}
+        mx={[2, 2, 6]}
         mt={4}
         mb={6}
         direction='row'
@@ -31,7 +31,7 @@ export const OrderDescription = ({
         justify='space-between'
       >
         <Flex align='center' justify='center'>
-          <Box display={['none', 'initial', 'initial']}>
+          <Box display={['none', 'none', 'initial']}>
             <Heading m={0} mr={4} as='h2' size='md'>
               {`${t('pages.order')} - ${sdk.utils.getShortId(order._id)}`}
             </Heading>
@@ -54,7 +54,11 @@ export const OrderDescription = ({
           </Text>
         </Flex>
         {!hideDetailsButton && (
-          <Link passHref href='/orders/[pid]' as={`/orders/${order._id}`}>
+          <Link
+            passHref
+            href='/account/orders/[pid]'
+            as={`/account/orders/${order._id}`}
+          >
             <Button as='a' variant='link' leftIcon={<EyeFilled />}>
               {t('common.details')}
             </Button>
@@ -64,7 +68,7 @@ export const OrderDescription = ({
 
       <OrderProductsList items={order.ordered} storeId={storeId} />
 
-      <Flex mt={2} px={[1, 2, 2]} justify='space-between' align='center'>
+      <Flex mt={2} px={[1, 1, 2]} justify='space-between' align='center'>
         <Text mr={2} size='sm' color='mutedText.dark'>
           {/* TODO: Show expected delivery */}
           {/* Expected delivery between 1 and 2 */}

@@ -153,12 +153,8 @@ export const Cart = () => {
   return (
     <Page>
       <Spinner isLoaded={!showSpinner}>
-        <Flex
-          width='100%'
-          direction={['column', 'column', 'row']}
-          align='flex-start'
-        >
-          <Flex direction='column' flex={2} mr={[0, 0, 3]}>
+        <Flex width='100%' align='flex-start' wrap='wrap'>
+          <Flex direction='column' flex={2} mx={[1, 2, 2]} my={3}>
             <OrderProductsList
               items={cart.items}
               storeId={store._id}
@@ -166,13 +162,7 @@ export const Cart = () => {
               handleChangeItemQuantity={handleChangeItemQuantity}
             />
           </Flex>
-          <Flex
-            align='center'
-            justify='center'
-            flex={1}
-            ml={[0, 0, 3]}
-            mt={[5, 5, 0]}
-          >
+          <Flex align='center' justify='center' flex={1} mx={[1, 2, 2]} my={3}>
             <Summary
               showContinueShopping
               items={cart.items}

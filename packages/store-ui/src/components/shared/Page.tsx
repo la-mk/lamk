@@ -14,7 +14,7 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
       justify='flex-start'
       width='100%'
       maxWidth={maxWidth ?? 1920}
-      px={[4, 6, 7]}
+      px={[3, 5, 7]}
       mt={title ? 0 : 7}
       mx='auto'
     >

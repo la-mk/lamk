@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Page } from '../shared/Page';
-import { useTranslation } from '../../common/i18n';
+import { Page } from '../../shared/Page';
+import { useTranslation } from '../../../common/i18n';
 import { useSelector, useDispatch } from 'react-redux';
-import { PaymentForm } from '../payments/PaymentForm';
+import { PaymentForm } from '../../payments/PaymentForm';
 import {
   Flex,
   Spinner,
@@ -15,15 +15,15 @@ import {
 } from '@sradevski/blocks-ui';
 import { Order } from '@sradevski/la-sdk/dist/models/order';
 import { sdk } from '@sradevski/la-sdk';
-import { getUser } from '../../state/modules/user/user.selector';
-import { FrameMessageExchange } from '../shared/FrameMessageExchange';
-import { Success } from '../cart/Success';
-import { getStore } from '../../state/modules/store/store.selector';
+import { getUser } from '../../../state/modules/user/user.selector';
+import { FrameMessageExchange } from '../../shared/FrameMessageExchange';
+import { Success } from '../../cart/Success';
+import { getStore } from '../../../state/modules/store/store.selector';
 import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
 import Link from 'next/link';
-import { trackEvent } from '../../state/modules/analytics/analytics.actions';
+import { trackEvent } from '../../../state/modules/analytics/analytics.actions';
 import { AnalyticsEvents } from '@sradevski/analytics';
-import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
+import { useBreadcrumb } from '../../shared/hooks/useBreadcrumb';
 
 interface PaymentProps {
   orderId: string | undefined;
@@ -61,15 +61,15 @@ export const Payment = ({ orderId }: PaymentProps) => {
 
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
-    { url: '/orders', title: t('pages.order_plural') },
+    { url: '/account/orders', title: t('pages.order_plural') },
     {
-      urlPattern: '/orders/[oid]',
-      url: `/orders/${orderId}`,
+      urlPattern: '/account/orders/[oid]',
+      url: `/account/orders/${orderId}`,
       title: t('pages.order'),
     },
     {
-      urlPattern: '/orders/[oid]/pay',
-      url: `/orders/${orderId}/pay`,
+      urlPattern: '/account/orders/[oid]/pay',
+      url: `/account/orders/${orderId}/pay`,
       title: t('pages.payment'),
     },
   ]);
@@ -146,7 +146,12 @@ export const Payment = ({ orderId }: PaymentProps) => {
           title={t('payment.paymentDisabled')}
           description={t('order.orderAlreadyPaid')}
         />
-        <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
+        <Link
+          passHref
+          replace
+          href='/account/orders/[pid]'
+          as={`/account/orders/${order._id}`}
+        >
           <Button mt={5} as='a' mx={2} key='console'>
             {t('order.seeOrder')}
           </Button>

@@ -94,7 +94,7 @@ const OrderProductListItem = ({
   return (
     <Flex
       key={item.product._id}
-      minWidth={'18rem'}
+      minWidth={['20rem', '26rem', '26rem']}
       maxWidth={'34rem'}
       width='100%'
       px={3}
@@ -168,7 +168,7 @@ export const OrderProductsList = ({
   const { t } = useTranslation();
   return (
     <Flex width='100%' direction='column'>
-      <Box display={['block', 'none', 'none']}>
+      <Box display={['block', 'block', 'none']}>
         <Flex align='center' justify='center' direction='column'>
           {items.map(item => (
             <>
@@ -187,7 +187,7 @@ export const OrderProductsList = ({
         <Divider />
       </Box>
 
-      <Box display={['none', 'block', 'block']}>
+      <Box display={['none', 'none', 'block']}>
         <Table
           data={items}
           // @ts-ignore

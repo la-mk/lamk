@@ -7,6 +7,7 @@ import { FooterContent } from './Footer/FooterContent';
 import { SubMenu } from './SubMenu';
 import { Breadcrumbs } from './Breadcrumbs';
 import { Header } from './Header';
+import { Sider } from './Sider';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;
@@ -28,15 +29,20 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
   return (
     <>
       <Layout
-        header={<Header store={store} />}
+        header={
+          <Box>
+            <Header store={store} />
+            <SubMenu />
+          </Box>
+        }
         footer={
-          <Box mt={7} bg='background.dark'>
+          <Box bg='background.dark'>
             <FooterContent store={store} />
           </Box>
         }
+        leftSider={<Sider />}
       >
-        <Box minHeight='calc(100vh - 200px)'>
-          <SubMenu />
+        <Box mb={7} minHeight='calc(100vh - 200px)'>
           <div id='categories-portal-root' />
           <Breadcrumbs minHeight={'56px'} />
           <Flex direction='column'>{children}</Flex>

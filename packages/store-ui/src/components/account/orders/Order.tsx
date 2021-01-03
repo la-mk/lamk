@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Flex, Steps, Result, Spinner, hooks } from '@sradevski/blocks-ui';
 import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
-import { ShippingDescription } from '../shared/ShippingDescription';
+import { ShippingDescription } from '../../shared/ShippingDescription';
 import { sdk } from '@sradevski/la-sdk';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { Summary } from '../shared/Summary';
-import { Page } from '../shared/Page';
-import { getUser } from '../../state/modules/user/user.selector';
+import { Summary } from '../../shared/Summary';
+import { Page } from '../../shared/Page';
+import { getUser } from '../../../state/modules/user/user.selector';
 import {
   getSubtitleForSet,
   getTitleForSet,
   useTranslation,
-} from '../../common/i18n';
-import { getStore } from '../../state/modules/store/store.selector';
-import { goTo } from '../../state/modules/navigation/navigation.actions';
-import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
-import { CustomCard } from '../shared/components/CustomCard';
+} from '../../../common/i18n';
+import { getStore } from '../../../state/modules/store/store.selector';
+import { goTo } from '../../../state/modules/navigation/navigation.actions';
+import { useBreadcrumb } from '../../shared/hooks/useBreadcrumb';
+import { CustomCard } from '../../shared/components/CustomCard';
 import { OrderDescription } from './OrderDescription';
-import { ManagedSets } from '../sets/ManagedSets';
+import { ManagedSets } from '../../sets/ManagedSets';
 import { OrderSteps } from './OrderSteps';
 
 export const Order = ({ orderId }: { orderId: string }) => {
@@ -32,10 +32,10 @@ export const Order = ({ orderId }: { orderId: string }) => {
 
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
-    { url: '/orders', title: t('pages.order_plural') },
+    { url: '/account/orders', title: t('pages.order_plural') },
     {
-      urlPattern: '/orders/[oid]',
-      url: `/orders/${orderId}`,
+      urlPattern: '/account/orders/[oid]',
+      url: `/account/orders/${orderId}`,
       title: `${t('pages.order')} - ${sdk.utils.getShortId(orderId)}`,
     },
   ]);
@@ -53,7 +53,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
   }
 
   const handlePayment = () => {
-    dispatch(goTo(`/orders/${order._id}/pay`));
+    dispatch(goTo(`/account/orders/${order._id}/pay`));
   };
 
   const isCardPayment =
@@ -72,11 +72,11 @@ export const Order = ({ orderId }: { orderId: string }) => {
           mt={6}
           width='100%'
           justify='space-between'
-          align={['center', 'center', 'flex-start']}
-          direction={['column-reverse', 'column-reverse', 'row']}
+          align={'flex-end'}
+          wrap='wrap-reverse'
         >
-          <Flex maxWidth={'60rem'} flex={1} direction='column' mr={[0, 0, 6]}>
-            <CustomCard mb={3} minWidth={'18rem'}>
+          <Flex maxWidth={'60rem'} flex={2} direction='column' mx={3}>
+            <CustomCard my={3} minWidth={'18rem'}>
               <OrderDescription
                 hideDetailsButton
                 order={order}
@@ -89,18 +89,19 @@ export const Order = ({ orderId }: { orderId: string }) => {
               </CustomCard>
             )}
           </Flex>
+
           <Flex
             align={'flex-start'}
             justify='center'
             width='100%'
             flex={1}
-            maxWidth={['60rem', '60rem', '32rem']}
+            maxWidth={'60rem'}
             minWidth={'18rem'}
-            ml={[0, 0, 6]}
-            mb={[6, 6, 0]}
+            mx={3}
+            my={3}
           >
             <Summary
-              maxWidth={['60rem', '60rem', '32rem']}
+              maxWidth={'60rem'}
               width='100%'
               hideFreeShipping
               items={order.ordered}

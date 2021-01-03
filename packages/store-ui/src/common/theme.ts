@@ -264,5 +264,5 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
 };
 
 export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
-  return getFashionTheme(brandColor);
+  return getGenericTheme(brandColor);
 };

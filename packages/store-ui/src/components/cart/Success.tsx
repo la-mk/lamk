@@ -48,7 +48,12 @@ export const Success = withTheme(
           </Button>
         </Link>
 
-        <Link passHref replace href='/orders/[pid]' as={`/orders/${order._id}`}>
+        <Link
+          passHref
+          replace
+          href='/account/orders/[pid]'
+          as={`/account/orders/${order._id}`}
+        >
           <Button variant='outline' as='a' size='lg' mt={3} isFullWidth>
             {t('order.seeOrder')}
           </Button>
