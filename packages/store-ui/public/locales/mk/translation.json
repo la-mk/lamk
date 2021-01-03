@@ -574,7 +574,7 @@
     "zipcode": "Поштенски код"
   },
   "countries": {
-    "mk": "Македонија"
+    "mk": "Macedonia"
   },
   "delivery": {
     "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
@@ -720,7 +720,9 @@
     "returnPolicy": "Замена на производ",
     "returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни",
     "securePayments": "Безбедно плаќање",
-    "securePaymentsExplanation": "Брзи и лесни начини на плаќање"
+    "securePaymentsExplanation": "Брзи и лесни начини на плаќање",
+    "support": "Константна поддршка",
+    "supportExplanation": "Секогаш достапни за да ви помогнеме"
   },
   "setTypes": {
     "category": "Категорија",

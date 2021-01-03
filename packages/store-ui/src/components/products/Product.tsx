@@ -1,31 +1,12 @@
-import difference from 'lodash/difference';
-import uniq from 'lodash/uniq';
 import React, { useState, useEffect } from 'react';
-import {
-  Flex,
-  Text,
-  Heading,
-  Button,
-  Input,
-  Box,
-  Image,
-  ImageMagnifier,
-  toast,
-  Spinner,
-  PickerBoxes,
-  hooks,
-  utils,
-} from '@sradevski/blocks-ui';
+import { Flex, Box, toast, Spinner, hooks, utils } from '@sradevski/blocks-ui';
 import {
   Product as ProductType,
   Attributes,
 } from '@sradevski/la-sdk/dist/models/product';
 import { sdk } from '@sradevski/la-sdk';
-import { Price } from '../shared/product/Price';
-import { Thumbnails } from '../shared/Thumbnails';
 import { useSelector, useDispatch } from 'react-redux';
 import { Cart } from '@sradevski/la-sdk/dist/models/cart';
-import Link from 'next/link';
 import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getStore } from '../../state/modules/store/store.selector';
@@ -41,11 +22,13 @@ import { trackEvent } from '../../state/modules/analytics/analytics.actions';
 import { session, AnalyticsEvents } from '@sradevski/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { ProductDetails } from './ProductDetails';
-import { ProductTags } from '../shared/product/ProductTags';
 import { ManagedSets } from '../sets/ManagedSets';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { ServicesSet } from '../sets/ServicesSet';
+import { ProductImage } from './ProductImage';
+import { ProductDescription } from './ProductDescription';
+import { ProductOptions } from './ProductOptions';
 
 interface ProductProps {
   product: ProductType;
@@ -90,71 +73,27 @@ export const Product = ({ product }: ProductProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const [selectedImage, setSelectedImage] = useState(product.images[0]);
-
   const [quantity, setQuantity] = React.useState(1);
   const selectedVariant = sdk.product.getVariantForAttributes(
     product,
     chosenAttributes,
   );
 
-  const isProductInCart =
-    cart &&
-    cart.items &&
-    cart.items.some(
-      item =>
-        item.product._id === product._id &&
-        sdk.product.areAttributesEquivalent(
-          item.product?.attributes,
-          selectedVariant?.attributes,
-        ),
-    );
-
-  const allColors = uniq(
-    product.variants.map(variant => variant.attributes?.color).filter(x => !!x),
+  useBreadcrumb(
+    [
+      { url: '/', title: t('pages.home') },
+      {
+        url: getProductsHref(previousPage),
+        title: t('pages.product_plural'),
+      },
+      {
+        urlPattern: '/products/[pid]',
+        url: `/products/${product._id}`,
+        title: product.name.slice(0, 40),
+      },
+    ],
+    [product?._id],
   );
-
-  const allSizes = uniq(
-    product.variants.map(variant => variant.attributes?.size).filter(x => !!x),
-  );
-
-  const variantsWithStock = product.variants.filter(
-    variant => variant.stock == null || variant.stock > 0,
-  );
-
-  const remainingColorChoices = chosenAttributes?.size
-    ? variantsWithStock
-        .filter(variant => variant.attributes?.size === chosenAttributes.size)
-        .map(variant => variant.attributes?.color)
-        .filter(x => !!x)
-    : variantsWithStock
-        .map(variant => variant.attributes?.color)
-        .filter(x => !!x);
-
-  const remainingSizeChoices = chosenAttributes?.color
-    ? variantsWithStock
-        .filter(variant => variant.attributes?.color === chosenAttributes.color)
-        .map(variant => variant.attributes?.size)
-        .filter(x => !!x)
-    : variantsWithStock
-        .map(variant => variant.attributes?.size)
-        .filter(x => !!x);
-
-  const disabledSizeChoices = difference(allSizes, remainingSizeChoices);
-  const disabledColorChoices = difference(allColors, remainingColorChoices);
-
-  useBreadcrumb([
-    { url: '/', title: t('pages.home') },
-    {
-      url: getProductsHref(previousPage),
-      title: t('pages.product_plural'),
-    },
-    {
-      urlPattern: '/products/[pid]',
-      url: `/products/${product._id}`,
-      title: product.name.slice(0, 40),
-    },
-  ]);
 
   useEffect(() => {
     if (!delivery) {
@@ -170,7 +109,6 @@ export const Product = ({ product }: ProductProps) => {
     }
 
     setQuantity(1);
-    setSelectedImage(product.images[0]);
     setTrackedEvent(false);
     setChosenAttributes(
       hasSingleAvailableVariant
@@ -256,51 +194,7 @@ export const Product = ({ product }: ProductProps) => {
     <Page>
       <Spinner isLoaded={!showSpinner}>
         <Flex direction={['column', 'row', 'row']}>
-          <Flex
-            width={['100%', '50%', '50%']}
-            align='center'
-            justify='flex-start'
-            direction='column'
-            mr={[0, 2, 2]}
-          >
-            <Box
-              height={'28rem'}
-              minWidth={'12rem'}
-              // @ts-ignore
-              style={{ position: 'relative' }}
-            >
-              <ImageMagnifier
-                magnifierSize={180}
-                zoomFactor={1.15}
-                src={sdk.artifact.getUrlForImage(selectedImage, store._id)}
-              >
-                {imageProps => (
-                  <Image
-                    {...imageProps}
-                    getSrc={params =>
-                      sdk.artifact.getUrlForImage(
-                        selectedImage,
-                        store._id,
-                        params,
-                      )
-                    }
-                    height={440}
-                    alt={product.name}
-                  />
-                )}
-              </ImageMagnifier>
-              <ProductTags product={product} t={t} />
-            </Box>
-            <Box mt={4} maxWidth={['100%', '100%', '80%']}>
-              <Thumbnails
-                images={product.images}
-                imageBucket={store._id}
-                selectedImage={selectedImage}
-                onImageClick={setSelectedImage}
-              />
-            </Box>
-          </Flex>
-
+          <ProductImage product={product} store={store} />
           <Flex
             ml={[0, 2, 2]}
             width={['100%', '50%', '50%']}
@@ -308,114 +202,23 @@ export const Product = ({ product }: ProductProps) => {
             justify='flex-start'
             direction='column'
           >
-            <Heading as='h1' size='lg' noOfLines={2}>
-              {product.name}
-            </Heading>
-            <Flex
-              mt={[3, 5, 5]}
-              direction='column'
-              align={['center', 'flex-start', 'flex-start']}
-              justify='center'
-            >
-              <Price
-                size='large'
-                minCalculatedPrice={
-                  selectedVariant
-                    ? selectedVariant.calculatedPrice
-                    : product.minCalculatedPrice
-                }
-                maxCalculatedPrice={
-                  selectedVariant
-                    ? selectedVariant.calculatedPrice
-                    : product.maxCalculatedPrice
-                }
-                minPrice={
-                  selectedVariant ? selectedVariant.price : product.minPrice
-                }
-                maxPrice={
-                  selectedVariant ? selectedVariant.price : product.maxPrice
-                }
-                currency={'ден'}
-              />
-              <Text color='mutedText.dark'>{t(`units.${product.unit}`)}</Text>
-            </Flex>
+            <ProductDescription
+              product={product}
+              selectedVariant={selectedVariant}
+              outOfStock={outOfStock}
+            />
 
-            <Flex align='center' justify='center' mt={[3, 5, 5]} mb={2}>
-              <Text mr={2}>{t('product.availability')}:</Text>
-              <Text color={outOfStock ? 'danger' : 'success'}>
-                {outOfStock ? t('product.outOfStock') : t('product.inStock')}
-              </Text>
-            </Flex>
-
-            {allColors.length > 0 && (
-              <Flex align='center' justify='center' mt={3}>
-                <Text mr={2}>{t('attributes.color')}:</Text>
-                <PickerBoxes
-                  size='sm'
-                  variant='color'
-                  disabled={disabledColorChoices}
-                  values={allColors}
-                  selected={chosenAttributes?.color}
-                  onSelect={(color: string | undefined) =>
-                    setChosenAttributes({ ...(chosenAttributes ?? {}), color })
-                  }
-                />
-              </Flex>
-            )}
-
-            {allSizes.length > 0 && (
-              <Flex align='center' justify='center' mt={3}>
-                <Text mr={2}>{t('attributes.size')}:</Text>
-                <PickerBoxes
-                  size='sm'
-                  disabled={disabledSizeChoices}
-                  values={allSizes}
-                  selected={chosenAttributes?.size}
-                  onSelect={(size: string | undefined) =>
-                    setChosenAttributes({ ...(chosenAttributes ?? {}), size })
-                  }
-                />
-              </Flex>
-            )}
-
-            <Flex mt={[4, 6, 6]} direction='row' align='center'>
-              {!isProductInCart && (
-                <>
-                  <Input
-                    type='number'
-                    isDisabled={outOfStock || !selectedVariant}
-                    width='6rem'
-                    size='lg'
-                    min={1}
-                    max={selectedVariant?.stock || 9999}
-                    value={quantity}
-                    onChange={(_e, val: number) => setQuantity(val)}
-                    mr={3}
-                  />
-                </>
-              )}
-              {isProductInCart ? (
-                <>
-                  <Text color='mutedText.dark'>
-                    {t('cart.productAlreadyInCart')}
-                  </Text>
-                  <Link passHref href='/cart'>
-                    <Button as='a' size='lg' ml={2}>
-                      {t('actions.goToCart')}
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <Button
-                  isDisabled={outOfStock || !selectedVariant}
-                  onClick={handleAddToCart}
-                  ml={2}
-                  size='lg'
-                >
-                  {t('actions.addToCart')}
-                </Button>
-              )}
-            </Flex>
+            <ProductOptions
+              product={product}
+              cart={cart}
+              selectedVariant={selectedVariant}
+              outOfStock={outOfStock}
+              chosenAttributes={chosenAttributes}
+              setChosenAttributes={setChosenAttributes}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              handleAddToCart={handleAddToCart}
+            />
             <Box width='100%' mx={[4, 0, 0]} mt={[6, 7, 7]}>
               <ProductDetails product={product} delivery={delivery} />
             </Box>

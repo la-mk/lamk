@@ -638,7 +638,7 @@
     "orderNotFound_plural": "Orders not found",
     "ordered": "Ordered",
     "retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
-    "seeOrder": "See order status"
+    "seeOrder": "View order"
   },
   "orderStatus": {
     "cancelled": "Cancelled",
@@ -720,7 +720,9 @@
     "returnPolicy": "Return policy",
     "returnPolicyExplanation": "Return what you don't like, risk-free",
     "securePayments": "Secure payments",
-    "securePaymentsExplanation": "Fast and easy ways to pay"
+    "securePaymentsExplanation": "Fast and easy ways to pay",
+    "support": "Constant support",
+    "supportExplanation": "Always at your service"
   },
   "setTypes": {
     "category": "Category",
