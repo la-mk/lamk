@@ -86,6 +86,11 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
           variant: 'solid',
         },
       },
+      SubMenu: {
+        menu: {
+          position: 'left',
+        },
+      },
       // TODO: Start using rem's for the card
       ProductCard: {
         badge: {
@@ -193,6 +198,12 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
         },
         account: {
           variant: 'link',
+        },
+      },
+      SubMenu: {
+        menu: {
+          position: 'center',
+          textTransform: 'uppercase',
         },
       },
       ProductCard: {

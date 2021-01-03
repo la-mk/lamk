@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useTranslation, getTitleForSet } from '../i18n';
 import { sdk } from '@sradevski/la-sdk';
 import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
+import { useTheme } from '@chakra-ui/react';
 import { getQueryForCategories, getSetHref } from '../filterUtils';
 import { getPromotedSets } from '../../state/modules/storeContents/storeContents.selector';
 import { CategoriesOverlay } from '../../components/shared/categories/CategoriesOverlay';
@@ -21,6 +22,8 @@ export const SubMenu = props => {
   >();
   const [isCategoriesVisible, setIsCategoriesVisible] = React.useState(false);
   const isMobile = hooks.useBreakpoint([true, false, false]);
+  const theme = useTheme();
+  const ownTheme = theme.sections.SubMenu;
 
   const promotedSets = useSelector(getPromotedSets);
   const { t } = useTranslation();
@@ -76,34 +79,37 @@ export const SubMenu = props => {
       bg='background.dark'
       direction='row'
       align='center'
-      justify='flex-start'
       px={[3, 4, 5]}
-      // @ts-ignore
-      style={{ overflowX: 'auto' }}
+      whiteSpace='nowrap'
     >
-      <Flex align='center'>
+      <Box
+        mx={ownTheme.menu.position === 'left' ? 0 : 'auto'}
+        px={1}
+        // @ts-ignore
+        style={{ overflowX: 'auto' }}
+      >
         {groupedCategories.map(groupedCategory => {
           return (
-            <Box key={groupedCategory.key}>
+            <Box display='inline-block' key={groupedCategory.key}>
               <Button
                 p={4}
                 py={5}
                 variant='link'
                 // @ts-ignore
-                onMouseEnter={() => {
+                onMouseEnter={e => {
                   if (isMobile) {
                     return;
                   }
                   setViewedCategory(groupedCategory.key);
                   setIsCategoriesVisible(true);
                 }}
-                onMouseLeave={() => {
+                onMouseLeave={e => {
                   if (isMobile) {
                     return;
                   }
                   setIsCategoriesVisible(false);
                 }}
-                onClick={() => {
+                onClick={e => {
                   setViewedCategory(groupedCategory.key);
                   setIsCategoriesVisible(x => !x);
                 }}
@@ -113,14 +119,39 @@ export const SubMenu = props => {
                   </Text>
                 }
               >
-                <Text whiteSpace='nowrap' color='text.light'>
+                <Text
+                  whiteSpace='nowrap'
+                  color='text.light'
+                  // @ts-ignore
+                  textTransform={ownTheme.menu.textTransform}
+                >
                   {groupedCategory.title}
                 </Text>
               </Button>
             </Box>
           );
         })}
-      </Flex>
+
+        {sets.map(set => {
+          return (
+            // Wrapping it in Box so it overflows as expected on mobile.
+            <Box display='inline-block' key={set.setTag.title}>
+              <Link key={set.setTag.title} href={getSetHref(set)} passHref>
+                <Button p={4} variant='link'>
+                  <Text
+                    whiteSpace='nowrap'
+                    color='text.light'
+                    // @ts-ignore
+                    textTransform={ownTheme.menu.textTransform}
+                  >
+                    {set.setTag.title}
+                  </Text>
+                </Button>
+              </Link>
+            </Box>
+          );
+        })}
+      </Box>
 
       {!isMobile && (
         <CategoriesOverlay
@@ -157,21 +188,6 @@ export const SubMenu = props => {
           />
         </Drawer>
       )}
-
-      {sets.map(set => {
-        return (
-          // Wrapping it in Box so it overflows as expected on mobile.
-          <Box key={set.setTag.title}>
-            <Link key={set.setTag.title} href={getSetHref(set)} passHref>
-              <Button p={4} variant='link'>
-                <Text whiteSpace='nowrap' color='text.light'>
-                  {set.setTag.title}
-                </Text>
-              </Button>
-            </Link>
-          </Box>
-        );
-      })}
     </Flex>
   );
 };
