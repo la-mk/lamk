@@ -19,36 +19,25 @@ jobs:
         service: ["data-api", "store-ui", "backstore-ui"]
     steps:
       - uses: actions/checkout@v1
-      - uses: azure/docker-login@v1
+      - uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
-          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          registry: "registry.digitalocean.com/lamk"
+          username: ${{ secrets.DO_REGISTRY_TOKEN }}
+          password: ${{ secrets.DO_REGISTRY_TOKEN }}
       - run: |
-          DOCKER_HUB_ORG="lamk"
-          DOCKER_HUB_REPO="${{ matrix.service }}"
-          DOCKER_HUB_USER=${{ secrets.DOCKER_REGISTRY_USERNAME }}
-          DOCKER_HUB_PASSWORD=${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          DOCKER_REPO="${{ matrix.service }}"
+          DOCKER_TOKEN=${{ secrets.DO_REGISTRY_TOKEN }}
 
-          AUTH_DOMAIN="auth.docker.io"
-          AUTH_SERVICE="registry.docker.io"
-          AUTH_SCOPE="repository:${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}:pull"
-          AUTH_OFFLINE_TOKEN="1"
-          AUTH_CLIENT_ID="shell"
+          API_ENDPOINT="https://api.digitalocean.com/v2"
+          TAG_ENDPOINT="${API_ENDPOINT}/lamk/repositories/${DOCKER_REPO}/tags"
 
-          API_DOMAIN="registry-1.docker.io"
+          LATEST_TAG=$(curl -s -H "Authorization: Bearer ${DOCKER_TOKEN}" $TAG_ENDPOINT | jq -r '.tags[0].tag')
+          CURRENT_TAG=`cat package.json | jq -r .version`
 
-          TOKEN=$(curl -X GET -u ${DOCKER_HUB_USER}:${DOCKER_HUB_PASSWORD} "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
-
-          IMAGE_TAGS=$(curl -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}/tags/list?page_size=10 | jq -r '.tags[]')
-
-          LATEST=$(echo $IMAGE_TAGS | cut -d' ' --output-delimiter=$'\n' -f1- | sort -t. -k 1,1nr -k 2,2nr -k 3,3nr -k 4,4nr | head -n 1)
-
-          CURRENT=`cat package.json | jq -r .version`
-
-          if [ "$LATEST" != "$CURRENT" ]
+          if [ "$LATEST_TAG" != "$CURRENT_TAG" ]
           then
-            echo Publishing "$CURRENT" version "${{ matrix.service }}" service.
-            docker build . --file Dockerfile --build-arg GPR_TOKEN=${{secrets.GITHUB_TOKEN}} --tag lamk/"${{matrix.service}}":"$CURRENT"
-            docker push lamk/"${{matrix.service}}":"$CURRENT"
+            echo Publishing "$CURRENT_TAG" version "${{ matrix.service }}" service.
+            docker build . --file Dockerfile --build-arg GPR_TOKEN=${{secrets.GITHUB_TOKEN}} --tag registry.digitalocean.com/lamk/"${{matrix.service}}":"$CURRENT_TAG"
+            docker push registry.digitalocean.com/lamk/"${{matrix.service}}":"$CURRENT_TAG"
           fi
         working-directory: ./packages/${{ matrix.service }}

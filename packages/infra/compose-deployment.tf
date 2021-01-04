@@ -97,29 +97,29 @@ provider "digitalocean" {
 ######## SERVICES ###########
 
 resource "digitalocean_droplet" "services-1" {
-  image = "docker-18-04"
-  name = "services-${var.environment}-1"
-  region = "fra1"
-  size = var.service-instance-size
-  tags = var.droplets-tags
+  image    = "docker-18-04"
+  name     = "services-${var.environment}-1"
+  region   = "fra1"
+  size     = var.service-instance-size
+  tags     = var.droplets-tags
   ssh_keys = [data.digitalocean_ssh_key.droplets-ssh-key.id]
 
   lifecycle {
     create_before_destroy = true
   }
-  
+
   connection {
-    type = "ssh"
-    user = "root"
+    type        = "ssh"
+    user        = "root"
     private_key = file("~/.ssh/do_rsa")
-    host=self.ipv4_address
+    host        = self.ipv4_address
   }
 
   # Workaround until we can set environment variables in remote-exec https://github.com/hashicorp/terraform/issues/22231 https://github.com/hashicorp/terraform/issues/17441
 
   provisioner "local-exec" {
     # Add any environment variables that you want to be available during runtime. Indentation is important, so leave it as it is.
-    command= <<EOT
+    command = <<EOT
 cat > envvars << ENVVARS_TPL
 export SYSTEM_TLD=$SYSTEM_TLD;
 export DIGITALOCEAN_TOKEN=$DIGITALOCEAN_TOKEN;
@@ -141,20 +141,20 @@ export NESTPAY_GATEWAY_ENDPOINT=$NESTPAY_GATEWAY_ENDPOINT;
 ENVVARS_TPL
 EOT
 
-    environment= {
-      SYSTEM_TLD = var.domain
+    environment = {
+      SYSTEM_TLD                = var.domain
       MONGODB_CONNECTION_STRING = var.mongodb-connection-string
-      STORAGE_BUCKET_NAME = var.artifacts-name
-      IMAGES_PROXY_ENDPOINT = var.images-proxy-endpoint
-      JWT_SECRET = var.jwt-secret
-      ANALYTICS_TRACKING_ID = var.analytics-tracking-id
-      ANALYTICS_SECRET_KEY = var.analytics-secret-key
-      MAIL_SERVICE_API_KEY = var.mail-service-api-key
-      SEARCH_SERVICE_API_KEY = var.search-service-api-key
-      CUSTOM_DOMAINS = var.custom-domains
-      ESCAPED_CUSTOM_DOMAINS = var.escaped-custom-domains
-      NESTPAY_API_ENDPOINT = var.nestpay-api-endpoint
-      NESTPAY_GATEWAY_ENDPOINT = var.nestpay-gateway-endpoint
+      STORAGE_BUCKET_NAME       = var.artifacts-name
+      IMAGES_PROXY_ENDPOINT     = var.images-proxy-endpoint
+      JWT_SECRET                = var.jwt-secret
+      ANALYTICS_TRACKING_ID     = var.analytics-tracking-id
+      ANALYTICS_SECRET_KEY      = var.analytics-secret-key
+      MAIL_SERVICE_API_KEY      = var.mail-service-api-key
+      SEARCH_SERVICE_API_KEY    = var.search-service-api-key
+      CUSTOM_DOMAINS            = var.custom-domains
+      ESCAPED_CUSTOM_DOMAINS    = var.escaped-custom-domains
+      NESTPAY_API_ENDPOINT      = var.nestpay-api-endpoint
+      NESTPAY_GATEWAY_ENDPOINT  = var.nestpay-gateway-endpoint
     }
   }
 
@@ -174,7 +174,7 @@ EOT
       "echo 'Sourcing envvars...'",
       ". /root/envvars",
       "echo 'Deploying for '$SYSTEM_TLD",
-      "docker login --username sradevski --password $DOCKERHUB_TOKEN",
+      "docker login --username $DOCKER_TOKEN --password $DOCKER_TOKEN registry.digitalocean.com/lamk",
       "echo 'Booting compose file...'",
       "docker-compose up -d"
     ]
@@ -186,7 +186,7 @@ EOT
 resource "digitalocean_spaces_bucket" "artifacts" {
   name   = var.artifacts-name
   region = "fra1"
-  acl="private"
+  acl    = "private"
 
   cors_rule {
     allowed_headers = ["*"]
@@ -197,9 +197,9 @@ resource "digitalocean_spaces_bucket" "artifacts" {
 }
 
 resource "digitalocean_certificate" "cdn-cert" {
-  name    = var.artifacts-subdomain
-  type    = "lets_encrypt"
-  domains = [var.artifacts-subdomain]
+  name       = var.artifacts-subdomain
+  type       = "lets_encrypt"
+  domains    = [var.artifacts-subdomain]
   depends_on = [digitalocean_domain.default-domain]
 
   lifecycle {
@@ -209,40 +209,40 @@ resource "digitalocean_certificate" "cdn-cert" {
 
 # Add a CDN endpoint with a custom sub-domain to the Spaces Bucket
 resource "digitalocean_cdn" "cdn-subdomain" {
-  origin = digitalocean_spaces_bucket.artifacts.bucket_domain_name
-  custom_domain = var.artifacts-subdomain
+  origin         = digitalocean_spaces_bucket.artifacts.bucket_domain_name
+  custom_domain  = var.artifacts-subdomain
   certificate_id = digitalocean_certificate.cdn-cert.id
-  ttl = 604800
+  ttl            = 604800
 }
 
 ######### PROXY/LOAD BALANCING ###########
 
 resource "digitalocean_floating_ip" "floating-ip-1" {
   droplet_id = digitalocean_droplet.services-1.id
-  region = "fra1"
+  region     = "fra1"
 }
 
 ########## DNS ##########
 
 resource "digitalocean_domain" "default-domain" {
-   name = var.domain
-   ip_address = var.landing-ip
+  name       = var.domain
+  ip_address = var.landing-ip
 }
 
 resource "digitalocean_record" "CNAME-www" {
   domain = digitalocean_domain.default-domain.name
-  type = "CNAME"
-  name = "www"
-  value = "@"
-  ttl = 43200
+  type   = "CNAME"
+  name   = "www"
+  value  = "@"
+  ttl    = 43200
 }
 
 resource "digitalocean_record" "A-all" {
   domain = digitalocean_domain.default-domain.name
-  type = "A"
-  name = "*"
-  value = digitalocean_floating_ip.floating-ip-1.ip_address
-  ttl = 43200
+  type   = "A"
+  name   = "*"
+  value  = digitalocean_floating_ip.floating-ip-1.ip_address
+  ttl    = 43200
 }
 
 ########## PROJECT DEFINITION ##########
@@ -260,5 +260,5 @@ resource "digitalocean_project" "lamk-project" {
 # Just a sample output variable. These can be used to extract valuable info after terraform applies changes.
 # The ip of the newly generated droplet.
 output "ip" {
-    value = digitalocean_floating_ip.floating-ip-1.ip_address
+  value = digitalocean_floating_ip.floating-ip-1.ip_address
 }

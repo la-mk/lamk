@@ -61,7 +61,7 @@ const getSlugForCustomDomain = async (host: string) => {
   return laStoreResult.data[0];
 };
 
-// Cache for 30 min, since custom domain will very rarely change.
+// Cache for 30 min, since custom domains will rarely change.
 const memoizedGetSlugForCustomDomain = memoize(getSlugForCustomDomain, {
   maxAge: 30 * 60 * 1000,
 });
@@ -95,7 +95,7 @@ const getStoreFromHost = (host: string) => {
 };
 
 const setInitialDataInState = async (ctx: NextPageContext) => {
-  // If it is SSR, fetch the store information, otherwise it should be in redux already
+  // If it is SSR, fetch the store information, otherwise it should be in redux already.
   if (ctx.req) {
     const host: string = ctx.req.headers.host;
     if (!host) {
