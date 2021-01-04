@@ -5,7 +5,7 @@ import {
   MenuButton,
   MenuList,
   MenuDivider,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import {
   ShoppingOutlined,
   UserOutlined,
@@ -15,7 +15,7 @@ import {
 import { useTheme } from '@chakra-ui/react';
 import Link from 'next/link';
 import { NavButton } from './NavButton';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { useTranslation } from '../../i18n';
 
 export interface AccountMenuProps {

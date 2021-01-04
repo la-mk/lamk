@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  Spinner,
-  hooks,
-  toast,
-  ChangePasswordForm,
-} from '@sradevski/blocks-ui';
-import { User } from '@sradevski/la-sdk/dist/models/user';
-import { sdk } from '@sradevski/la-sdk';
+import { Spinner, hooks, toast, ChangePasswordForm } from '@la-mk/blocks-ui';
+import { User } from '@la-mk/la-sdk/dist/models/user';
+import { sdk } from '@la-mk/la-sdk';
 import { patchUser } from '../../../state/modules/user/user.module';
 import { TFunction } from 'i18next';
 

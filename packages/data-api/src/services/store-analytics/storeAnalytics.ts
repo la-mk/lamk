@@ -3,14 +3,14 @@ import { Service, MongoDBServiceOptions } from 'feathers-mongodb';
 import { hooks } from './hooks';
 import { logger } from '../../common/logger';
 import { GeneralError } from '../../common/errors';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { Db } from 'mongodb';
 import {
   AnalyticsTypes,
   AnalyticsFrequency,
   StoreAnalytics,
-} from '@sradevski/la-sdk/dist/models/storeAnalytics';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+} from '@la-mk/la-sdk/dist/models/storeAnalytics';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { getProductCount } from '../../aggegations/products';
 import { getOrdersCount } from '../../aggegations/orders';
 import { getTotalRevenue } from '../../aggegations/revenue';

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { DataGrid, Result, hooks, utils } from '@sradevski/blocks-ui';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { sdk } from '@sradevski/la-sdk';
+import { DataGrid, Result, hooks, utils } from '@la-mk/blocks-ui';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
+import { sdk } from '@la-mk/la-sdk';
 import { Page } from '../../shared/Page';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../../state/modules/user/user.selector';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from '../../../common/i18n';
 import { getStore } from '../../../state/modules/store/store.selector';
 import Router from 'next/router';

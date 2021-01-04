@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardProps, Positioner, Text } from '@sradevski/blocks-ui';
+import { CardProps, Positioner, Text } from '@la-mk/blocks-ui';
 import { CheckCircleFilled } from '@ant-design/icons';
 import { withTheme } from 'styled-components';
 import { CustomCard } from './components/CustomCard';

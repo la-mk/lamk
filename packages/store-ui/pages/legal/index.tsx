@@ -2,7 +2,7 @@ import { Head } from '../../src/common/pageComponents/Head';
 import { useTranslation } from '../../src/common/i18n';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { NextPageContext } from 'next';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { Legal } from '../../src/components/legal/Legal';
 
 function LegalPage({ store }: { store: Store | undefined }) {

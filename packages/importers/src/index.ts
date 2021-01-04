@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
 import { execute as shopify } from './shopify';
 import { importProducts } from './importer';
 

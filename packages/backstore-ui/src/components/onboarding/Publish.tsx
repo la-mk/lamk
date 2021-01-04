@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Button } from '@sradevski/blocks-ui';
+import { Flex, Button } from '@la-mk/blocks-ui';
 import { useTranslation } from 'react-i18next';
 // import {env} from '../../common/env';
 

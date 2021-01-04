@@ -1,4 +1,4 @@
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import Compressor from 'compressorjs';
 
 export const toBase64 = (file: Blob) => {

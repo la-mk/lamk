@@ -4,13 +4,13 @@ import {
   Box,
   Divider,
   FooterContent as BaseFooterContent,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import { useTranslation } from '../../i18n';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { StoreFooterSection } from './StoreFooterSection';
 import { SubFooter } from './SubFooter';
-import { Menu } from '@sradevski/blocks-ui/dist/compound/FooterContent';
+import { Menu } from '@la-mk/blocks-ui/dist/compound/FooterContent';
 
 const getMenus = (t: any): Menu[] => [
   {

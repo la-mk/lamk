@@ -9,7 +9,7 @@ import {
   MenuButton,
   MenuList,
   Flex,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import { Portal } from '@chakra-ui/react';
 
 import {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Flex, Box, Image, ImageMagnifier } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { Flex, Box, Image, ImageMagnifier } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { Thumbnails } from '../shared/Thumbnails';
 import { ProductTags } from '../shared/product/ProductTags';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { useTranslation } from '../../common/i18n';
 
 export const ProductImage = ({

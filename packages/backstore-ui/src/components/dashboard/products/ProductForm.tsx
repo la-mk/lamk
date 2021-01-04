@@ -11,9 +11,9 @@ import {
   Heading,
   Switch,
   NewForm,
-} from '@sradevski/blocks-ui';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/blocks-ui';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
 import { getImageUploader } from '../../shared/utils/artifacts';
 import { useSelector } from 'react-redux';
 import {
@@ -24,12 +24,12 @@ import {
 } from '../../../state/modules/products/products.module';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setCategories } from '../../../state/modules/categories/categories.module';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 import { useTranslation } from 'react-i18next';
 import { useFullCategory } from '../../shared/hooks/useFullCategory';
 import { useCategories } from '../../shared/hooks/useCategories';
-import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
+import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 import { getGroups } from '../../../state/modules/products/products.selector';
 import { VariantName } from '../../shared/components/VariantName';
 

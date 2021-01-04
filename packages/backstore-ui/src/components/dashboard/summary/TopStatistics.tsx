@@ -1,8 +1,8 @@
 import React from 'react';
-import { Stat, Grid } from '@sradevski/blocks-ui';
+import { Stat, Grid } from '@la-mk/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import { StatisticsCard } from './StatisticsCard';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 
 export const TopStatistics = () => {
   const { t } = useTranslation();

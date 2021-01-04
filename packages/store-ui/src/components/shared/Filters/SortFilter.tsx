@@ -1,8 +1,8 @@
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { hooks, Radio, Text } from '@sradevski/blocks-ui';
+import { hooks, Radio, Text } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 interface SortFilterProps {

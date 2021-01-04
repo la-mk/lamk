@@ -1,6 +1,6 @@
 import React from 'react';
-import { LoginForm } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { LoginForm } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { useDispatch } from 'react-redux';
 import { login, Credentials } from '../../state/modules/auth/auth.module';
 import { goTo } from '../../state/modules/navigation/navigation.actions';

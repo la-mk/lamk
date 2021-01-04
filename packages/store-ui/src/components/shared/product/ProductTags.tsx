@@ -1,8 +1,8 @@
 import { TFunction } from 'next-i18next';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { hooks, Flex, Tag } from '@sradevski/blocks-ui';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { hooks, Flex, Tag } from '@la-mk/blocks-ui';
 import { differenceInDays } from 'date-fns';
-import { Size } from '@sradevski/blocks-ui/dist/system';
+import { Size } from '@la-mk/blocks-ui/dist/system';
 import { useTheme } from '@chakra-ui/react';
 
 const NUM_DAYS_CONSIDER_AS_NEW = 10;

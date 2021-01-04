@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Flex, Result } from '@sradevski/blocks-ui';
+import { Button, Flex, Result } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import { useTranslation } from '../../common/i18n';
 import { OrderSuccess } from '../shared/icons/OrderSuccess';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
+import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { withTheme } from 'styled-components';
 
 export const Success = withTheme(

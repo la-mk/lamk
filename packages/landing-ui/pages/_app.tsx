@@ -1,6 +1,6 @@
 import React from 'react';
 import App from 'next/app';
-import { Provider as ThemeProvider } from '@sradevski/blocks-ui';
+import { Provider as ThemeProvider } from '@la-mk/blocks-ui';
 import { LandingLayout } from '../src/layout/LandingLayout';
 import { initializeAnalytics } from '../src/common/analytics';
 import { appWithTranslation } from '../src/common/i18n';

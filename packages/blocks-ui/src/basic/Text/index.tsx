@@ -21,6 +21,7 @@ export interface TextProps
       | 'display'
       | 'lineHeight'
       | 'letterSpacing'
+      | 'textTransform'
     >,
     SpaceProps {
   size?: TextSize;

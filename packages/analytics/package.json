@@ -1,8 +1,8 @@
 {
-  "name": "@sradevski/analytics",
+  "name": "@la-mk/analytics",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/sradevski/lamk.git",
+    "url": "ssh://git@github.com/la-mk/lamk.git",
     "directory": "packages/analytics"
   },
   "version": "0.0.9",

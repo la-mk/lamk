@@ -2,7 +2,7 @@ import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
 import { requireAnyQueryParam } from '../../common/hooks/filtering';
 import { disallow } from 'feathers-hooks-common';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { validate, unique } from '../../common/hooks/db';
 import { queryWithCurrentUser } from '../../common/hooks/auth';
 

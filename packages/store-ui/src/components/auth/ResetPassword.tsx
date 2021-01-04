@@ -1,5 +1,5 @@
-import { hooks, ResetPasswordForm, Spinner, toast } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { hooks, ResetPasswordForm, Spinner, toast } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import React from 'react';
 import { useTranslation } from '../../common/i18n';
 import { useDispatch } from 'react-redux';

@@ -1,35 +1,35 @@
 import uniqBy from 'lodash/uniqBy';
 import React, { useState, useEffect } from 'react';
-import { Flex, Result, Spinner, hooks } from '@sradevski/blocks-ui';
+import { Flex, Result, Spinner, hooks } from '@la-mk/blocks-ui';
 import { Summary } from '../shared/Summary';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { getUser, getAddresses } from '../../state/modules/user/user.selector';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import {
   removeItemsFromCart,
   setCartWithProducts,
 } from '../../state/modules/cart/cart.module';
 import { Success } from './Success';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import { Page } from '../shared/Page';
-import { CartWithProducts } from '@sradevski/la-sdk/dist/models/cart';
+import { CartWithProducts } from '@la-mk/la-sdk/dist/models/cart';
 import { setAddresses } from '../../state/modules/user/user.module';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from '../../common/i18n';
 import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 import { SelectAddress } from './SelectAddress';
 import { SelectPaymentMethod } from './SelectPaymentMethod';
-import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import { StorePaymentMethods } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '@sradevski/analytics';
+import { AnalyticsEvents } from '@la-mk/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
-import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 
 export const Checkout = () => {
   const [caller, showSpinner] = hooks.useCall(true);

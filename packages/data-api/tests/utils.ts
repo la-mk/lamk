@@ -1,4 +1,4 @@
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import Bluebird from 'bluebird';
 import { promises as fs } from 'fs';
 import * as path from 'path';

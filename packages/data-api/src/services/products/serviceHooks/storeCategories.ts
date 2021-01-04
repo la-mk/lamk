@@ -2,7 +2,7 @@ import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../../common/errors';
 import { checkContext } from 'feathers-hooks-common';
 import { logger } from '../../../common/logger';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
 import { HookContextWithState } from '../../../common/types';
 
 const createStoreCategoryIfNotExists = async (

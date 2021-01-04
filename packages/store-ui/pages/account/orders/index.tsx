@@ -3,7 +3,7 @@ import { Orders } from '../../../src/components/account/orders/Orders';
 import { useTranslation } from '../../../src/common/i18n';
 import { NextPageContext } from 'next';
 import { getStore } from '../../../src/state/modules/store/store.selector';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 function OrdersPage({ store }: { store: Store | undefined }) {
   const { t } = useTranslation();

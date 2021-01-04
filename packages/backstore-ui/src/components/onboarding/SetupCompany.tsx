@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Flex, Heading, Text, Box, Button } from '@sradevski/blocks-ui';
+import { Flex, Heading, Text, Box, Button } from '@la-mk/blocks-ui';
 import { useTranslation } from 'react-i18next';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { CompanyForm } from '../shared/forms/CompanyForm';
 
 interface SetupCompanyProps {

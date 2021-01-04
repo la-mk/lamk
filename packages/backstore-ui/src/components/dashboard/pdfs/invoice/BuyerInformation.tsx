@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from '@react-pdf/renderer';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 
 export const BuyerInformation = ({
   buyer,

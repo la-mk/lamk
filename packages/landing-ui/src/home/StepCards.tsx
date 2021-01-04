@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Image, Heading, Text, Box } from '@sradevski/blocks-ui';
+import { Flex, Image, Heading, Text, Box } from '@la-mk/blocks-ui';
 import { useTranslation } from '../common/i18n';
 import { Card } from '../common/Card';
 import { HeroButtons } from '../common/HeroButtons';

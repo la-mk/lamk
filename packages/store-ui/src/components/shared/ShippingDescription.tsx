@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Heading } from '@sradevski/blocks-ui';
+import { Flex, Text, Heading } from '@la-mk/blocks-ui';
 import {
   UserOutlined,
   EnvironmentOutlined,

@@ -5,7 +5,7 @@ import {
   getCategories,
   GroupedCategories,
 } from '../../../state/modules/categories/categories.selector';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 import { TFunction } from 'i18next';
 
 export const useCategories = (

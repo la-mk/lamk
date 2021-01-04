@@ -1,6 +1,6 @@
 import React from 'react';
-import { Flex, Image, Box } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { Flex, Image, Box } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 
 export interface ThumbnailsProps {
   images: string[];

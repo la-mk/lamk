@@ -7,7 +7,7 @@ import {
   Divider,
   hooks,
   LanguagePicker,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import {
   DashboardOutlined,
   ShoppingCartOutlined,

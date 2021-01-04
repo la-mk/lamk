@@ -1,7 +1,7 @@
 import React from 'react';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { sdk } from '@sradevski/la-sdk';
-import { Heading, Flex, Box, Image, Text } from '@sradevski/blocks-ui';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
+import { Heading, Flex, Box, Image, Text } from '@la-mk/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 import { useTheme } from '@chakra-ui/react';

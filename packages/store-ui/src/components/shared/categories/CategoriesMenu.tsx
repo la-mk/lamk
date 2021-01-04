@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Treeview } from '@sradevski/blocks-ui';
+import { Treeview } from '@la-mk/blocks-ui';
 import {
   getCategories,
   GroupedCategories,
@@ -7,7 +7,7 @@ import {
 } from '../../../state/modules/categories/categories.selector';
 import { useSelector } from 'react-redux';
 import { useTranslation } from '../../../common/i18n';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 
 export interface CategoriesMenuProps {
   selectedKeys?: string[];

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flex, Text, Box, Heading, Image } from '@sradevski/blocks-ui';
+import { Flex, Text, Box, Heading, Image } from '@la-mk/blocks-ui';
 
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { sdk } from '@sradevski/la-sdk';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from '../../i18n';
 import { Contact } from '../../../components/shared/Contact';
 

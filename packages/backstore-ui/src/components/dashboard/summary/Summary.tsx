@@ -2,7 +2,7 @@ import React from 'react';
 import { TopStatistics } from './TopStatistics';
 import { Revenue } from './Revenue';
 import { Orders } from './Orders';
-import { Grid, Box } from '@sradevski/blocks-ui';
+import { Grid, Box } from '@la-mk/blocks-ui';
 import { Visits } from './Visits';
 import { StoreLink } from './StoreLink';
 

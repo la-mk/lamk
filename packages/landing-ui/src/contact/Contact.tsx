@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Heading, Text } from '@sradevski/blocks-ui';
+import { Box, Flex, Heading, Text } from '@la-mk/blocks-ui';
 import { CurvedSection } from '../common/CurvedSection';
 import { withTheme } from 'styled-components';
 import { Trans } from 'react-i18next';

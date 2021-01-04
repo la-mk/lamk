@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input } from '@sradevski/blocks-ui';
-import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
+import { Input } from '@la-mk/blocks-ui';
+import { CartItemWithProduct } from '@la-mk/la-sdk/dist/models/cart';
 
 export const Quantity = ({
   cartItem,

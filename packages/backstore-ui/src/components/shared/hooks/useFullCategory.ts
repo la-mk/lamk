@@ -1,5 +1,5 @@
 import { useState, useEffect, Dispatch } from 'react';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 
 export type FullCategory = [string, string, string];
 

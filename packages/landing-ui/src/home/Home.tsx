@@ -1,7 +1,7 @@
 import React from 'react';
 import { Hero } from './Hero';
 import { FeaturesHorizontal } from './FeaturesHorizontal';
-import { Box } from '@sradevski/blocks-ui';
+import { Box } from '@la-mk/blocks-ui';
 import { StepCards } from './StepCards';
 import { MainPoints } from './MainPoints';
 import { ContactUsFooter } from '../common/ContactUsFooter';

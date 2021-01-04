@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Flex } from '@sradevski/blocks-ui';
+import { Text, Flex } from '@la-mk/blocks-ui';
 import { useTheme } from '@chakra-ui/react';
 
 interface PriceProps {

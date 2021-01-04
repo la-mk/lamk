@@ -1,8 +1,8 @@
 import React from 'react';
-import { Grid } from '@sradevski/blocks-ui';
-import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
+import { Grid } from '@la-mk/blocks-ui';
+import { CartItemWithProduct } from '@la-mk/la-sdk/dist/models/cart';
 import { ProductImageWithTitle } from './product/ProductImageWithTitle';
-import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
+import { OrderItem } from '@la-mk/la-sdk/dist/models/order';
 
 export const SummaryProductList = ({
   items,

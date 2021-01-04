@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Result, toast, Box, NewForm } from '@sradevski/blocks-ui';
+import { Button, Result, toast, Box, NewForm } from '@la-mk/blocks-ui';
 import { track } from './analytics';
-import { AnalyticsEvents } from '@sradevski/analytics';
+import { AnalyticsEvents } from '@la-mk/analytics';
 import { useTranslation } from './i18n';
 
 interface ContactUs {

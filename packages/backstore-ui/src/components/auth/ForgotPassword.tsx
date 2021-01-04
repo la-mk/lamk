@@ -1,5 +1,5 @@
-import { ForgotPasswordForm, hooks, Spinner } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { ForgotPasswordForm, hooks, Spinner } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';

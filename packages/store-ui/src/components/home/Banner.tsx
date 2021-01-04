@@ -1,8 +1,8 @@
 import React from 'react';
 import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
-import { sdk } from '@sradevski/la-sdk';
-import { Button, Flex, Heading, Box } from '@sradevski/blocks-ui';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { sdk } from '@la-mk/la-sdk';
+import { Button, Flex, Heading, Box } from '@la-mk/blocks-ui';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
 

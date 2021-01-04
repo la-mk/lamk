@@ -15,7 +15,7 @@
     "dev": "nodemon --config nodemon.json",
     "test": "jest --ci",
     "test:watch": "jest --watch --coverage -u",
-    "i18n": "node ./node_modules/@sradevski/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'assets/locales'"
+    "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'assets/locales'"
   },
   "husky": {
     "hooks": {
@@ -29,7 +29,6 @@
     ]
   },
   "devDependencies": {
-    "@sradevski/translations": "0.0.109",
     "@types/agenda": "^2.0.9",
     "@types/bluebird": "^3.5.32",
     "@types/compression": "^1.7.0",
@@ -76,9 +75,10 @@
     "@feathersjs/socket-commons": "^3.1.5",
     "@feathersjs/socketio": "^4.5.8",
     "@godaddy/terminus": "^4.4.1",
+    "@la-mk/la-sdk": "0.0.148",
+    "@la-mk/nlp": "0.0.3",
+    "@la-mk/translations": "0.0.114",
     "@sendgrid/mail": "^7.2.6",
-    "@sradevski/la-sdk": "0.0.148",
-    "@sradevski/nlp": "0.0.3",
     "agenda": "^3.1.0",
     "bluebird": "^3.7.2",
     "compression": "^1.7.4",

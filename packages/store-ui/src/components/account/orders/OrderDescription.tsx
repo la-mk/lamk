@@ -1,13 +1,13 @@
 import React from 'react';
-import { Flex, Box, Heading, Text, Button } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { Flex, Box, Heading, Text, Button } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from '../../../common/i18n';
 import Link from 'next/link';
 import { EyeFilled } from '@ant-design/icons';
 import { OrderProductsList } from '../../shared/product/OrderProductsList';
 import { formatDistanceToNow } from 'date-fns';
 import { mk, enUS } from 'date-fns/locale';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 
 export const OrderDescription = ({
   order,

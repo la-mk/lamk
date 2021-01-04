@@ -12,17 +12,17 @@ import {
   Button,
   Text,
   Result,
-} from '@sradevski/blocks-ui';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/blocks-ui';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
+import { sdk } from '@la-mk/la-sdk';
 import { getUser } from '../../../state/modules/user/user.selector';
 import { FrameMessageExchange } from '../../shared/FrameMessageExchange';
 import { Success } from '../../cart/Success';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import { StorePaymentMethods } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import Link from 'next/link';
 import { trackEvent } from '../../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '@sradevski/analytics';
+import { AnalyticsEvents } from '@la-mk/analytics';
 import { useBreadcrumb } from '../../shared/hooks/useBreadcrumb';
 
 interface PaymentProps {

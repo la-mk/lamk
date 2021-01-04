@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button } from '@sradevski/blocks-ui';
+import { Alert, Button } from '@la-mk/blocks-ui';
 import differenceInDays from 'date-fns/differenceInDays';
 import { useOneTimeNotice } from '../../shared/hooks/useOneTimeNotice';
 import { useSelector } from 'react-redux';

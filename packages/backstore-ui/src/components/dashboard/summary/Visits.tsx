@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatisticsCard } from './StatisticsCard';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from 'react-i18next';
 import { TimeLineChart } from './charts/TimeLineChart';
 import { Line } from 'recharts';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Tabs, Flex, TabsProps } from '@sradevski/blocks-ui';
+import { Tabs, Flex, TabsProps } from '@la-mk/blocks-ui';
 
 interface TabbedRouteProps
   extends Pick<RouteComponentProps<{ tab?: string }>, 'match' | 'history'> {

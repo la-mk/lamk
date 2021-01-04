@@ -1,6 +1,6 @@
 import React from 'react';
-import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
-import { Result, Text } from '@sradevski/blocks-ui';
+import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
+import { Result, Text } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Page } from '../shared/Page';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';

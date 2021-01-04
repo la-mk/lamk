@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner, Flex } from '@sradevski/blocks-ui';
+import { Spinner, Flex } from '@la-mk/blocks-ui';
 
 export const FullScreenSpinner = () => {
   return (

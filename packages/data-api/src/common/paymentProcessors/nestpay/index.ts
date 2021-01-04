@@ -1,8 +1,8 @@
 import * as crypto from 'crypto';
 import * as xml from 'xml2js';
-import { PaymentMethod } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
-import { PaymentTransaction } from '@sradevski/la-sdk/dist/models/orderPayments';
-import { sdk } from '@sradevski/la-sdk';
+import { PaymentMethod } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
+import { PaymentTransaction } from '@la-mk/la-sdk/dist/models/orderPayments';
+import { sdk } from '@la-mk/la-sdk';
 import env from '../../env';
 
 const xmlBuilder = new xml.Builder({
@@ -19,10 +19,7 @@ export const getField = (fieldName: string, data: any) => {
 
 export const calculateHash = (clientKey: string, paramsVal: string) => {
   const hashData = paramsVal + clientKey;
-  const hash = crypto
-    .createHash('sha1')
-    .update(hashData)
-    .digest('base64');
+  const hash = crypto.createHash('sha1').update(hashData).digest('base64');
 
   return hash;
 };

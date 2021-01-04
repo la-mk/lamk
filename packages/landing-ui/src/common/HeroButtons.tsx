@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Button } from '@sradevski/blocks-ui';
+import { Flex, Button } from '@la-mk/blocks-ui';
 import { useTranslation } from './i18n';
 
 export const HeroButtons = ({

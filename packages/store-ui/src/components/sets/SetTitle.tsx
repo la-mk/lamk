@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text, Flex } from '@sradevski/blocks-ui';
+import { Heading, Text, Flex } from '@la-mk/blocks-ui';
 
 export const SetTitle = ({
   emphasized,

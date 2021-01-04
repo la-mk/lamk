@@ -1,11 +1,6 @@
-import {
-  ChangePasswordForm,
-  hooks,
-  Spinner,
-  toast,
-} from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { ChangePasswordForm, hooks, Spinner, toast } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import React from 'react';
 import { useTranslation } from '../../common/i18n';
 import { patchUser } from '../../state/modules/user/user.module';

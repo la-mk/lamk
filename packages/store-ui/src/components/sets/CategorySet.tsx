@@ -1,9 +1,9 @@
 import React from 'react';
-import { Flex, Box, Text } from '@sradevski/blocks-ui';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Flex, Box, Text } from '@la-mk/blocks-ui';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 import { useTranslation } from '../../common/i18n';
 import { SetTitle } from './SetTitle';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
 import { HoverableLink } from '../shared/components/HoverableLink';
 import { getLevel2CategoryHref } from '../../common/filterUtils';

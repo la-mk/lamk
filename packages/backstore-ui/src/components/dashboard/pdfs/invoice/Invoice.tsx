@@ -3,8 +3,8 @@ import { Page, Text, Image, View, Document, Font } from '@react-pdf/renderer';
 import { StoreInformation } from './StoreInformation';
 import { BuyerInformation } from './BuyerInformation';
 import { OrderItemsTable } from './OrderItemsTable';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { OrderSummary, PricesSummary } from './OrderSummary';
 import { Signatures } from './Signatures';
 

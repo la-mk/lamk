@@ -1,5 +1,5 @@
 import NextI18Next from 'next-i18next';
-import { ProductSet } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSet } from '@la-mk/la-sdk/dist/models/product';
 import path from 'path';
 
 export const NextI18NextInstance = new NextI18Next({

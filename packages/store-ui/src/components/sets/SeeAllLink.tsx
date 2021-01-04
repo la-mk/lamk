@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Button } from '@sradevski/blocks-ui';
+import { Flex, Button } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import { TFunction } from 'next-i18next';
 

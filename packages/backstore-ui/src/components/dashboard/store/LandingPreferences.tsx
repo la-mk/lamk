@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Flex,
-  Button,
-  Spinner,
-  toast,
-  hooks,
-  NewForm,
-} from '@sradevski/blocks-ui';
+import { Flex, Button, Spinner, toast, hooks, NewForm } from '@la-mk/blocks-ui';
 import { useTranslation } from 'react-i18next';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { getImageUploader } from '../../shared/utils/artifacts';
 // import { getGroups } from '../../../state/modules/products/products.selector';
 // import { setGroups } from '../../../state/modules/products/products.module';
-// import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
+// import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 
 export const LandingPreferences = () => {
   const { t } = useTranslation();

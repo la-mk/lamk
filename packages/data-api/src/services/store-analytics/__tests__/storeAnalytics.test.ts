@@ -1,15 +1,15 @@
 import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { Product, OrderProduct } from '@sradevski/la-sdk/dist/models/product';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { sdk } from '@sradevski/la-sdk';
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { Product, OrderProduct } from '@la-mk/la-sdk/dist/models/product';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { sdk } from '@la-mk/la-sdk';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import fixtures from '../../../../tests/fixtures';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 
 describe('"storeAnalytics" service', () => {
   let feathersApp: Application;

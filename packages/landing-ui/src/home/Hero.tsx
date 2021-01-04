@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Heading, Text } from '@sradevski/blocks-ui';
+import { Flex, Heading, Text } from '@la-mk/blocks-ui';
 import { withTheme } from 'styled-components';
 import { CurvedSection } from '../common/CurvedSection';
 import { HeroIllustration } from './hero-illustration';

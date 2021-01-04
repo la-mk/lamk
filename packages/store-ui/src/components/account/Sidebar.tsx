@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from '@sradevski/blocks-ui';
+import { Box, Button, Flex, Text } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from '@chakra-ui/react';

@@ -6,7 +6,7 @@ import { PersonalForm } from './PersonalForm';
 import { PasswordForm } from './PasswordForm';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../../state/modules/user/user.selector';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 
 export const AccountRouter = () => {
   const { t } = useTranslation();

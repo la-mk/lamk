@@ -3,7 +3,7 @@ name: Publish libraries
 # This should be on pull request instead when the libraries are more mature and there are more people working
 on:
   push:
-    branches: 
+    branches:
       - master
     paths:
       - packages/la-sdk/**
@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-          scope: '@sradevski'
+          scope: "@la-mk"
       - run: |
           rm -f .npmrc;
           LATEST=`npm view . version`
@@ -37,7 +37,7 @@ jobs:
             npm ci
             npm publish
           fi
-          
+
         working-directory: ./packages/${{ matrix.library }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

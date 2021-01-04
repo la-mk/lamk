@@ -6,7 +6,7 @@ import {
 } from '../../common/hooks/filtering';
 import { unless, disallow } from 'feathers-hooks-common';
 import { NotFound } from '../../common/errors';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { validate, unique } from '../../common/hooks/db';
 import {
   createStoreContentsIfNotExists,

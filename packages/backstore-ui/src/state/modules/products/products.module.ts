@@ -1,4 +1,4 @@
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
 
 const initialState: { products: Product[]; groups?: string[] } = {
   products: [],

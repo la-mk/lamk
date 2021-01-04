@@ -4,17 +4,17 @@ import {
   unless,
   isProvider,
 } from 'feathers-hooks-common';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import * as crypto from 'crypto';
 import * as util from 'util';
 import { validate, unique } from '../../common/hooks/db';
 import { allowFields } from '../../common/hooks/auth';
 import { HookContext } from '@feathersjs/feathers';
-import { AuthManagement } from '@sradevski/la-sdk/dist/models/authManagement';
+import { AuthManagement } from '@la-mk/la-sdk/dist/models/authManagement';
 import { BadRequest } from '../../common/errors';
 import { settableFields } from '../../common/hooks/filtering';
 import { getEmailTemplate } from '../email/templateProcessor';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { t } from '../../common/i18n';
 
 const promisifiedRandomBytes = util.promisify(crypto.randomBytes);

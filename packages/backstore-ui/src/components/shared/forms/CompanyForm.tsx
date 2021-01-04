@@ -1,7 +1,7 @@
 import React from 'react';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { hooks, Button, NewForm } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { hooks, Button, NewForm } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from 'react-i18next';
 
 export const CompanyForm = ({

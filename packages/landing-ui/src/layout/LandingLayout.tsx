@@ -7,15 +7,15 @@ import {
   Button,
   Drawer,
   hooks,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import { MenuOutlined } from '@ant-design/icons';
 import styled, { withTheme } from 'styled-components';
 import Link from 'next/link';
 import { TopMenu } from './TopMenu';
 import { trackInitialLoad, track } from '../common/analytics';
 import { Router } from 'next/router';
-import { session, AnalyticsEvents } from '@sradevski/analytics';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { session, AnalyticsEvents } from '@la-mk/analytics';
+import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { FooterContent } from './FooterContent';
 import { useTranslation } from '../common/i18n';
 

@@ -1,6 +1,6 @@
-import { hooks, Steps } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { hooks, Steps } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import { TFunction } from 'next-i18next';
 import React from 'react';
 

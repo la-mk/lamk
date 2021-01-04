@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Flex } from '@sradevski/blocks-ui';
+import { Flex } from '@la-mk/blocks-ui';
 import { track } from './analytics';
-import { AnalyticsEvents } from '@sradevski/analytics';
+import { AnalyticsEvents } from '@la-mk/analytics';
 
 interface VideoProps {
   mp4?: string;

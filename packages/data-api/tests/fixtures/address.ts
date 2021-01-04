@@ -1,4 +1,4 @@
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import { defaultGenerator, GeneratorFunc } from './helpers';
 
 const defaultFixture: Partial<Address> = {

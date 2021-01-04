@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { Box, Flex, hooks, toast, Spinner } from '@sradevski/blocks-ui';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Box, Flex, hooks, toast, Spinner } from '@la-mk/blocks-ui';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { setStore } from '../../../state/modules/store/store.module';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { CompanyForm } from '../../shared/forms/CompanyForm';
 
 export const Company = () => {

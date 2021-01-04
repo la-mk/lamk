@@ -1,6 +1,6 @@
 import React from 'react';
-import { Flex, Text, Heading } from '@sradevski/blocks-ui';
-import { Product, Variant } from '@sradevski/la-sdk/dist/models/product';
+import { Flex, Text, Heading } from '@la-mk/blocks-ui';
+import { Product, Variant } from '@la-mk/la-sdk/dist/models/product';
 import { Price } from '../shared/product/Price';
 import { useTranslation } from '../../common/i18n';
 

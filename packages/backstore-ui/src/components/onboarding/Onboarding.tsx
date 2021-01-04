@@ -4,20 +4,20 @@ import { SetupStore } from './SetupStore';
 import { SetupCompany } from './SetupCompany';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Flex, Spinner, hooks, Box } from '@sradevski/blocks-ui';
+import { Flex, Spinner, hooks, Box } from '@la-mk/blocks-ui';
 // import { Publish } from './Publish';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
-import { sdk } from '@sradevski/la-sdk';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
+import { sdk } from '@la-mk/la-sdk';
 import { getStore } from '../../state/modules/store/store.selector';
 import { setStore } from '../../state/modules/store/store.module';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Redirect } from 'react-router';
 import { StickySteps } from '../shared/components/StickySteps';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getUser } from '../../state/modules/user/user.selector';
 import { Steps } from 'antd';
 

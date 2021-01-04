@@ -1,8 +1,8 @@
 {
-  "name": "@sradevski/nlp",
+  "name": "@la-mk/nlp",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/sradevski/lamk.git",
+    "url": "ssh://git@github.com/la-mk/lamk.git",
     "directory": "packages/nlp"
   },
   "version": "0.0.3",

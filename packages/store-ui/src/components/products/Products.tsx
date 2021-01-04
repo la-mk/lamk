@@ -9,17 +9,17 @@ import {
   Button,
   Divider,
   Result,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import { FilterOutlined } from '@ant-design/icons';
 import { ProductCard } from '../shared/product/ProductCard';
 import { Page } from '../shared/Page';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
 import { useTranslation } from '../../common/i18n';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { sdk } from '@sradevski/la-sdk';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { ProductsSidemenu } from './ProductsSidemenu';
 import { filterRouter } from '../../common/filterUtils';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';

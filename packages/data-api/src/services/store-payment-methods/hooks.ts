@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
 import { requireAnyQueryParam } from '../../common/hooks/filtering';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { validate } from '../../common/hooks/db';
 import { queryWithCurrentUser, isOwner } from '../../common/hooks/auth';
 import {
@@ -15,9 +15,9 @@ import { HookContext } from '@feathersjs/feathers';
 import {
   PaymentMethod,
   StorePaymentMethods,
-} from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+} from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import { BadRequest } from '../../common/errors';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 import * as nestpay from '../../common/paymentProcessors/nestpay';
 
 // TODO: Rate-limit this so store keys cannot leak.

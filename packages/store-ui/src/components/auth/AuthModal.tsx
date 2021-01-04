@@ -7,12 +7,12 @@ import {
   hooks,
   ForgotPasswordForm,
   Spinner,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { shouldShowAuthModal } from '../../state/modules/ui/ui.selector';
 import { toggleAuthModal } from '../../state/modules/ui/ui.module';
 import { login, signup } from '../../state/modules/auth/auth.module';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from '../../common/i18n';
 import { getStore } from '../../state/modules/store/store.selector';
 

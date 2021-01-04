@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, hooks, NewForm, Flex, Box } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
+import { Button, hooks, NewForm, Flex, Box } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 import { useTranslation } from 'react-i18next';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 interface DeliveryFormProps {
   storeId: Store['_id'] | undefined;

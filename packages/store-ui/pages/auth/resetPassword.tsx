@@ -2,7 +2,7 @@ import { NextPageContext } from 'next';
 import { Head } from '../../src/common/pageComponents/Head';
 import { useTranslation } from '../../src/common/i18n';
 import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { ResetPassword } from '../../src/components/auth/ResetPassword';
 
 function ResetPasswordPage({

@@ -1,13 +1,13 @@
 import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { Cart } from '@sradevski/la-sdk/dist/models/cart';
+import { Cart } from '@la-mk/la-sdk/dist/models/cart';
 import { MethodNotAllowed, NotFound } from '../../../common/errors';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import fixtures from '../../../../tests/fixtures';
 
 describe('"carts" service', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { OrderProduct } from '@sradevski/la-sdk/dist/models/product';
-import { Flex, Heading, Text, Box, Image } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { OrderProduct } from '@la-mk/la-sdk/dist/models/product';
+import { Flex, Heading, Text, Box, Image } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { VariantName } from '../components/VariantName';
 import { useTranslation } from '../../../common/i18n';
 

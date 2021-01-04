@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Text, hooks, Divider } from '@sradevski/blocks-ui';
+import { Flex, Text, hooks, Divider } from '@la-mk/blocks-ui';
 import { useSelector } from 'react-redux';
 import { DeliveryTruck } from '../shared/icons/DeliveryTruck';
 import { SecurePayment } from '../shared/icons/SecurePayment';
@@ -8,9 +8,9 @@ import { TFunction } from 'next-i18next';
 import { useTranslation } from '../../common/i18n';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { getStore } from '../../state/modules/store/store.selector';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 import { useTheme } from '@chakra-ui/react';
 import { CustomerServiceOutlined } from '@ant-design/icons';
 

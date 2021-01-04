@@ -12,26 +12,26 @@ import {
   Modal,
   Input,
   Spinner,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import {
   getProducts,
   getGroups,
 } from '../../../state/modules/products/products.selector';
-import { Product, Variant } from '@sradevski/la-sdk/dist/models/product';
-import { sdk } from '@sradevski/la-sdk';
+import { Product, Variant } from '@la-mk/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
 import {
   setProducts,
   setGroups,
 } from '../../../state/modules/products/products.module';
 import { useTranslation } from 'react-i18next';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 import { getUniqueCategories } from '../../../state/modules/categories/categories.selector';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
+import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 import { TFunction } from 'i18next';
 import { ProductForm } from './ProductForm';
 import Table, { ColumnProps } from 'antd/lib/table';

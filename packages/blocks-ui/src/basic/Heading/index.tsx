@@ -8,7 +8,10 @@ import {
 import { HeadingSize } from '../../system';
 
 export interface HeadingProps
-  extends Pick<ChakraHeadingProps, 'children' | 'noOfLines' | 'color'>,
+  extends Pick<
+      ChakraHeadingProps,
+      'children' | 'noOfLines' | 'color' | 'textTransform'
+    >,
     Pick<ChakraTextProps, 'align'>,
     SpaceProps {
   size?: HeadingSize;

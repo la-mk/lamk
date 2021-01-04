@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box } from '@sradevski/blocks-ui';
+import { Box } from '@la-mk/blocks-ui';
 import { CategoriesFilter } from '../shared/Filters/CategoriesFilter';
 import { PriceFilter } from '../shared/Filters/PriceFilter';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 
 // A pretty random max price, until we have a better method to calculate it for each query.
 const MAX_PRICE = 100000;

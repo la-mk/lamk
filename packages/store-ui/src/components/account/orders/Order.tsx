@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Steps, Result, Spinner, hooks } from '@sradevski/blocks-ui';
-import { Order as OrderType } from '@sradevski/la-sdk/dist/models/order';
+import { Flex, Steps, Result, Spinner, hooks } from '@la-mk/blocks-ui';
+import { Order as OrderType } from '@la-mk/la-sdk/dist/models/order';
 import { ShippingDescription } from '../../shared/ShippingDescription';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Summary } from '../../shared/Summary';

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, toast, Spinner, hooks, utils } from '@sradevski/blocks-ui';
+import { Flex, Box, toast, Spinner, hooks, utils } from '@la-mk/blocks-ui';
 import {
   Product as ProductType,
   Attributes,
-} from '@sradevski/la-sdk/dist/models/product';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector, useDispatch } from 'react-redux';
-import { Cart } from '@sradevski/la-sdk/dist/models/cart';
+import { Cart } from '@la-mk/la-sdk/dist/models/cart';
 import { addCartItemWithProduct } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
 import { getStore } from '../../state/modules/store/store.selector';
@@ -19,7 +19,7 @@ import {
   useTranslation,
 } from '../../common/i18n';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { session, AnalyticsEvents } from '@sradevski/analytics';
+import { session, AnalyticsEvents } from '@la-mk/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { ProductDetails } from './ProductDetails';
 import { ManagedSets } from '../sets/ManagedSets';

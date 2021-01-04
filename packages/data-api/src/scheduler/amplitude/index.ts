@@ -5,8 +5,8 @@ import { format } from 'date-fns';
 import {
   AnalyticsFrequency,
   StoreAnalyticsEntry,
-} from '@sradevski/la-sdk/dist/models/storeAnalytics';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/la-sdk/dist/models/storeAnalytics';
+import { sdk } from '@la-mk/la-sdk';
 
 const AMPLITUDE_ENDPOINT = 'https://amplitude.com/api/2';
 const SEGMENTATION_ENDPOINT = `${AMPLITUDE_ENDPOINT}/events/segmentation`;

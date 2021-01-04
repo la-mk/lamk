@@ -1,8 +1,8 @@
 import uniq from 'lodash/uniq';
 import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
-import { TreeviewEntry } from '@sradevski/blocks-ui/dist/basic/Treeview';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
+import { TreeviewEntry } from '@la-mk/blocks-ui/dist/basic/Treeview';
 
 const NUM_LEVELS = 3;
 

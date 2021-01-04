@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from '../../common/i18n';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Page } from '../shared/Page';
-import { Flex, Box, Text, Card } from '@sradevski/blocks-ui';
+import { Flex, Box, Text, Card } from '@la-mk/blocks-ui';
 import { HoverableLink } from '../shared/components/HoverableLink';
 
 export const Legal = () => {

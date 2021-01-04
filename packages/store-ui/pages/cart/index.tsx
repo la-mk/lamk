@@ -4,7 +4,7 @@ import { Cart } from '../../src/components/cart/Cart';
 import { setDeliveryIfNone } from '../../src/common/initialProps/setDeliveryIfNone';
 import { useTranslation } from '../../src/common/i18n';
 import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 function CartPage({ store }: { store: Store | undefined }) {
   const { t } = useTranslation();

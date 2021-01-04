@@ -1,20 +1,20 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 const { authenticate } = feathersAuthentication.hooks;
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { HookContext } from '@feathersjs/feathers';
 import { BadRequest } from '../../common/errors';
 import { validate } from '../../common/hooks/db';
 import { queryWithCurrentUser, setCurrentUser } from '../../common/hooks/auth';
 import { checkContext, disallow } from 'feathers-hooks-common';
-import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 import { settableFields } from '../../common/hooks/filtering';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import { logger } from '../../common/logger';
 import { t } from '../../common/i18n';
 import { getEmailTemplate } from '../email/templateProcessor';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 
 const HORIZONTAL_LOGO_LAMK = 'https://la.mk/logo-horizontal.svg';
 

@@ -5,7 +5,7 @@ import {
   BreadcrumbLink,
   Button,
   Flex,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import { useSelector } from 'react-redux';
 import { BreadcrumbEntry } from '../../state/modules/ui/ui.module';
 import { getBreadcrumbs } from '../../state/modules/ui/ui.selector';

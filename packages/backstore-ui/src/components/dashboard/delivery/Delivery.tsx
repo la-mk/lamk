@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { Spinner, Flex, toast, hooks, Box } from '@sradevski/blocks-ui';
-import { Delivery as DeliveryType } from '@sradevski/la-sdk/dist/models/delivery';
-import { sdk } from '@sradevski/la-sdk';
+import { Spinner, Flex, toast, hooks, Box } from '@la-mk/blocks-ui';
+import { Delivery as DeliveryType } from '@la-mk/la-sdk/dist/models/delivery';
+import { sdk } from '@la-mk/la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
 import { useSelector } from 'react-redux';
 import { setDelivery } from '../../../state/modules/delivery/delivery.module';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { DeliveryForm } from '../../shared/forms/DeliveryForm';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 
 export const Delivery = () => {

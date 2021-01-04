@@ -1,4 +1,4 @@
-import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
+import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
 
 const initialState = { landingContent: null };
 

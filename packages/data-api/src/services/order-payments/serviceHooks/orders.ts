@@ -1,6 +1,6 @@
 import { checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { NotFound } from '../../../common/errors';
 
 export const setOrderStatus = async (ctx: HookContext) => {

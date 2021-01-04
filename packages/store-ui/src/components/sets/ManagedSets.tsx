@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import {
   ProductSet as ProductSetType,
   ProductSetResult,
-} from '@sradevski/la-sdk/dist/models/product';
-import { sdk } from '@sradevski/la-sdk';
-import { hooks, Box, Spinner } from '@sradevski/blocks-ui';
+} from '@la-mk/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
+import { hooks, Box, Spinner } from '@la-mk/blocks-ui';
 import { ProductSet } from './ProductSet';
 
 export const ManagedSets = React.memo(

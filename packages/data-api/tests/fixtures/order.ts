@@ -1,6 +1,6 @@
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import { defaultGenerator, GeneratorFunc } from './helpers';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 
 const defaultFixture: Partial<Order> = {
   status: sdk.order.OrderStatus.PENDING_SHIPMENT,

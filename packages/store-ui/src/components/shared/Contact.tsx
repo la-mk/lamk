@@ -1,7 +1,7 @@
 import React from 'react';
 import { PhoneFilled, MailFilled } from '@ant-design/icons';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { Text } from '@sradevski/blocks-ui';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { Text } from '@la-mk/blocks-ui';
 
 const ContactEntry = ({
   icon,

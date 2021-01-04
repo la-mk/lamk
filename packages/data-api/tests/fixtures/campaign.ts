@@ -1,5 +1,5 @@
-import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
-import { sdk } from '@sradevski/la-sdk';
+import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
+import { sdk } from '@la-mk/la-sdk';
 import { defaultGenerator, GeneratorFunc } from './helpers';
 
 const defaultFixture: Partial<Campaign> = {

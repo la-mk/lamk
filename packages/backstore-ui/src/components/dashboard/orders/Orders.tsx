@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Flex, Tag, hooks, utils, Text } from '@sradevski/blocks-ui';
+import { Flex, Tag, hooks, utils, Text } from '@la-mk/blocks-ui';
 import compareAsc from 'date-fns/compareAsc';
 import format from 'date-fns/format';
 import { useSelector } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { Order, OrderStatus } from '@sradevski/la-sdk/dist/models/order';
+import { Order, OrderStatus } from '@la-mk/la-sdk/dist/models/order';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { TFunction } from 'i18next';
 import Table, { ColumnProps } from 'antd/lib/table';
 

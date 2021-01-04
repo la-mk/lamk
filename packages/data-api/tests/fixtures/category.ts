@@ -1,4 +1,4 @@
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 import { defaultGenerator, GeneratorFunc } from './helpers';
 
 const defaultFixture: Partial<Category> = {

@@ -1,23 +1,23 @@
 import * as _ from 'lodash';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { validate } from '../../common/hooks/db';
 import { disallow, checkContext, isProvider } from 'feathers-hooks-common';
 import {
   StorePaymentMethods,
   PaymentProcessors,
   PaymentMethod,
-} from '@sradevski/la-sdk/dist/models/storePaymentMethods';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+} from '@la-mk/la-sdk/dist/models/storePaymentMethods';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import { BadRequest } from '../../common/errors';
 import {
   OrderPayments,
   PaymentTransaction,
-} from '@sradevski/la-sdk/dist/models/orderPayments';
+} from '@la-mk/la-sdk/dist/models/orderPayments';
 import { setOrderStatus } from './serviceHooks/orders';
 import { HookContextWithState } from '../../common/types';
 import * as nestpay from '../../common/paymentProcessors/nestpay';
 import { Service } from '@feathersjs/feathers';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 
 const getProcessingDetails = async (
   orderId: string,

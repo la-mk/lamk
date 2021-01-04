@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, Button, SignupForm } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { Text, Button, SignupForm } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { useDispatch } from 'react-redux';
 import { signup, Credentials } from '../../state/modules/auth/auth.module';
 import { goTo } from '../../state/modules/navigation/navigation.actions';

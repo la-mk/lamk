@@ -1,6 +1,6 @@
 import { getEmailTemplate } from '../templateProcessor';
 import setup from '../../../server/server';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 
 describe('email templates', () => {
   beforeAll(async () => {

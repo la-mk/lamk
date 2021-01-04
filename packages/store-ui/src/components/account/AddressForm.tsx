@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { NewForm, Button, Box, Flex, hooks } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { NewForm, Button, Box, Flex, hooks } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import { useTranslation } from '../../common/i18n';
 
 interface AddAddressFormProps {

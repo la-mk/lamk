@@ -1,15 +1,15 @@
 import difference from 'lodash/difference';
 import uniq from 'lodash/uniq';
 import React, { useState, useEffect } from 'react';
-import { Flex, Text, Button, Input, PickerBoxes } from '@sradevski/blocks-ui';
+import { Flex, Text, Button, Input, PickerBoxes } from '@la-mk/blocks-ui';
 import {
   Attributes,
   Product,
   Variant,
-} from '@sradevski/la-sdk/dist/models/product';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector, useDispatch } from 'react-redux';
-import { CartWithProducts } from '@sradevski/la-sdk/dist/models/cart';
+import { CartWithProducts } from '@la-mk/la-sdk/dist/models/cart';
 import Link from 'next/link';
 import { useTranslation } from '../../common/i18n';
 

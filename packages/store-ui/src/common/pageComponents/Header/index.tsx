@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Badge,
-  Positioner,
-  Box,
-  Flex,
-  Input,
-  Image,
-} from '@sradevski/blocks-ui';
+import { Badge, Positioner, Box, Flex, Input, Image } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import queryString from 'qs';
 import {
@@ -17,8 +10,8 @@ import {
 import { useTheme } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { sdk } from '@sradevski/la-sdk';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { sdk } from '@la-mk/la-sdk';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { getFiltersFromSearch } from '../../filterUtils';
 import { getCartCount } from '../../../state/modules/cart/cart.selector';
 import { logout } from '../../../state/modules/auth/auth.module';

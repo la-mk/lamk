@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Heading, Flex, Text } from '@sradevski/blocks-ui';
+import { Accordion, Box, Heading, Flex, Text } from '@la-mk/blocks-ui';
 import { CurvedSection } from '../common/CurvedSection';
 import { withTheme } from 'styled-components';
 import { TFunction } from 'next-i18next';

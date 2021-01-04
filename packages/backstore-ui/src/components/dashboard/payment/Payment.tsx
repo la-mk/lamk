@@ -9,13 +9,13 @@ import {
   hooks,
   Button,
   NewForm,
-} from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
-import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import { StorePaymentMethods } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 
 export const Payment = () => {
   const { t } = useTranslation();

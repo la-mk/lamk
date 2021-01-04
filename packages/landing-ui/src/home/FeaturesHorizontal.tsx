@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Image, Text, Box } from '@sradevski/blocks-ui';
+import { Flex, Image, Text, Box } from '@la-mk/blocks-ui';
 import { useTranslation } from '../common/i18n';
 
 const Feature = ({ icon, text, ...props }) => {

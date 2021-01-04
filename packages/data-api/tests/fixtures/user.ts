@@ -1,4 +1,4 @@
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { v4 as uuid } from 'uuid';
 import { defaultGenerator, GeneratorFunc } from './helpers';
 

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Flex,
-  hooks,
-  LanguagePicker,
-  Text,
-} from '@sradevski/blocks-ui';
+import { Button, Flex, hooks, LanguagePicker, Text } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from '../common/i18n';

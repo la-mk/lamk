@@ -10,7 +10,7 @@ import {
   TrackEventPayload,
 } from '../modules/analytics/analytics.actions';
 import { LOCATION_CHANGE } from '../modules/navigation/navigation.actions';
-import { session, AnalyticsEvents } from '@sradevski/analytics';
+import { session, AnalyticsEvents } from '@la-mk/analytics';
 
 function* storeLoadedSaga() {
   // If the site is loaded from scratch multiple times within a session, don't log anymore.

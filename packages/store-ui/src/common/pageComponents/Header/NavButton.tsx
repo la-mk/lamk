@@ -1,4 +1,4 @@
-import { Button, ButtonProps, hooks, Text } from '@sradevski/blocks-ui';
+import { Button, ButtonProps, hooks, Text } from '@la-mk/blocks-ui';
 import React from 'react';
 
 export interface NavButtonProps extends ButtonProps {

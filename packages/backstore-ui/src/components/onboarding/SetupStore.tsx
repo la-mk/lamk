@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Heading, Flex, Text, Box } from '@sradevski/blocks-ui';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Heading, Flex, Text, Box } from '@la-mk/blocks-ui';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { StoreForm } from '../shared/forms/StoreForm';
 import { useTranslation } from 'react-i18next';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 
 interface SetupStoreProps {
   onDone: ({ formData }: { formData: Store }) => void;

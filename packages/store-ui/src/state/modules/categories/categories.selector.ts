@@ -1,4 +1,4 @@
-import { TreeviewEntry } from '@sradevski/blocks-ui/dist/basic/Treeview';
+import { TreeviewEntry } from '@la-mk/blocks-ui/dist/basic/Treeview';
 import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
 

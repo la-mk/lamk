@@ -1,4 +1,4 @@
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 
 const getPage = (data: any) => {
   // Since the `origin` field can only be set to one domain, we need to perform a handshake procedure to ensure the source of the data.

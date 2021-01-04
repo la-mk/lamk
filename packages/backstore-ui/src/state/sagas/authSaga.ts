@@ -1,6 +1,6 @@
 import { call, takeLeading, takeEvery, put } from 'redux-saga/effects';
 import { LocationChangeAction } from 'connected-react-router';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import {
   replaceTo,
   LOCATION_CHANGE,
@@ -8,7 +8,7 @@ import {
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { clearSession, setUiReady } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
-import { toast } from '@sradevski/blocks-ui';
+import { toast } from '@la-mk/blocks-ui';
 
 const authRoutes = ['/login', '/signup', '/forgotPassword', '/resetPassword'];
 

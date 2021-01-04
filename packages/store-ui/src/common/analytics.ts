@@ -1,4 +1,4 @@
-import { getAnalyticsClient, AnalyticsClient } from '@sradevski/analytics';
+import { getAnalyticsClient, AnalyticsClient } from '@la-mk/analytics';
 import env from '../common/env';
 
 export let analytics: AnalyticsClient | undefined;

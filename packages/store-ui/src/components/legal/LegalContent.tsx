@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '@sradevski/blocks-ui';
+import { Text } from '@la-mk/blocks-ui';
 import { Page } from '../shared/Page';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { useTranslation } from '../../common/i18n';

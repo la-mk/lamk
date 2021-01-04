@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, Flex } from '@sradevski/blocks-ui';
-import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
-import { sdk } from '@sradevski/la-sdk';
+import { Text, Flex } from '@la-mk/blocks-ui';
+import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
+import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from '../../../common/i18n';
 import { withTheme } from 'styled-components';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 
 interface DiscoutCampaignProps {
   campaign: Campaign;

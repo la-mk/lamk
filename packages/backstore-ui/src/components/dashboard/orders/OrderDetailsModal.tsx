@@ -12,9 +12,9 @@ import {
   Box,
   Heading,
   DataGrid,
-} from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+} from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import format from 'date-fns/format';
 import { setOrder } from '../../../state/modules/orders/orders.module';
 import { useSelector } from 'react-redux';

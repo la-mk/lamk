@@ -1,7 +1,7 @@
 import { takeEvery, put, call, select } from 'redux-saga/effects';
 
 import { setCampaigns } from '../modules/campaigns/campaigns.module';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { getCampaigns } from '../modules/campaigns/campaigns.selector';
 import { getStore } from '../modules/store/store.selector';
 import { SET_UI_LOADED } from '../modules/ui/ui.module';

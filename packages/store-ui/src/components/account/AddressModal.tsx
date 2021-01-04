@@ -1,9 +1,9 @@
 import React from 'react';
-import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Modal, Flex, Heading, Text } from '@sradevski/blocks-ui';
+import { User } from '@la-mk/la-sdk/dist/models/user';
+import { Modal, Flex, Heading, Text } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { AddressForm } from './AddressForm';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 
 interface AddressesModalProps {
   user: User;

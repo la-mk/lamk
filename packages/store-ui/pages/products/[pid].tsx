@@ -1,14 +1,14 @@
 import React from 'react';
 import { NextPageContext } from 'next';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { Head } from '../../src/common/pageComponents/Head';
-import { Product as ProductType } from '@sradevski/la-sdk/dist/models/product';
+import { Product as ProductType } from '@la-mk/la-sdk/dist/models/product';
 import { Product } from '../../src/components/products/Product';
-import { Result } from '@sradevski/blocks-ui';
+import { Result } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
 import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { transliterate } from '@sradevski/nlp';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { transliterate } from '@la-mk/nlp';
 import { TFunction } from 'next-i18next';
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.

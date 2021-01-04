@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, hooks, NewForm } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { Button, hooks, NewForm } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { getImageUploader } from '../utils/artifacts';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { useTranslation } from 'react-i18next';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 
 interface StoreFormProps {
   store: Store | null;

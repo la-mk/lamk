@@ -3,7 +3,7 @@ import {
   AnalyticsClient,
   session,
   AnalyticsEvents,
-} from '@sradevski/analytics';
+} from '@la-mk/analytics';
 import env from './env';
 export let analytics: AnalyticsClient | undefined;
 

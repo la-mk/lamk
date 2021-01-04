@@ -1,7 +1,7 @@
 import React from 'react';
-import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSetResult } from '@la-mk/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
-import { Flex, hooks, Box } from '@sradevski/blocks-ui';
+import { Flex, hooks, Box } from '@la-mk/blocks-ui';
 import { ProductCard } from '../shared/product/ProductCard';
 import { SeeAllLink } from './SeeAllLink';
 import { useTranslation } from '../../common/i18n';

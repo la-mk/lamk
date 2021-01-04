@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Flex } from '@sradevski/blocks-ui';
+import { Button, Flex } from '@la-mk/blocks-ui';
 import { Addresses } from './Addresses';
 import { useTranslation } from '../../common/i18n';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { Page } from '../shared/Page';
 
 export const MyAddresses = ({ user }: { user: User }) => {

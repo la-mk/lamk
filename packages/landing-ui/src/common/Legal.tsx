@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Box, Heading } from '@sradevski/blocks-ui';
+import { Text, Box, Heading } from '@la-mk/blocks-ui';
 
 export const Legal = ({
   title,

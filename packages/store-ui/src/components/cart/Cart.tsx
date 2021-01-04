@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Flex, Result, Spinner, hooks } from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+import { Flex, Result, Spinner, hooks } from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { Summary } from '../shared/Summary';
 import {
   CartItemWithProduct,
   CartWithProducts,
   Cart as CartType,
-} from '@sradevski/la-sdk/dist/models/cart';
+} from '@la-mk/la-sdk/dist/models/cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCartWithProducts } from '../../state/modules/cart/cart.module';
 import { getCartWithProducts } from '../../state/modules/cart/cart.selector';
@@ -23,7 +23,7 @@ import { getStore } from '../../state/modules/store/store.selector';
 import { getCampaigns } from '../../state/modules/campaigns/campaigns.selector';
 import { setCampaigns } from '../../state/modules/campaigns/campaigns.module';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';
-import { AnalyticsEvents } from '@sradevski/analytics';
+import { AnalyticsEvents } from '@la-mk/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { OrderProductsList } from '../shared/product/OrderProductsList';
 import { ManagedSets } from '../sets/ManagedSets';

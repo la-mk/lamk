@@ -1,14 +1,14 @@
 import sampleSize from 'lodash/sampleSize';
 import React, { useEffect, useState } from 'react';
 import { ProductSet } from '../sets/ProductSet';
-import { Flex, Spinner, hooks, Box, Result } from '@sradevski/blocks-ui';
+import { Flex, Spinner, hooks, Box, Result } from '@la-mk/blocks-ui';
 import {
   getSubtitleForSet,
   getTitleForSet,
   useTranslation,
 } from '../../common/i18n';
-import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
-import { sdk } from '@sradevski/la-sdk';
+import { ProductSetResult } from '@la-mk/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { getCategories } from '../../state/modules/categories/categories.selector';
@@ -21,7 +21,7 @@ import { ProductTrio } from '../sets/ProductTrio';
 import { Banner } from './Banner';
 import { ProductDuo } from '../sets/ProductDuo';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 import { getLandingContent } from '../../state/modules/storeContents/storeContents.selector';
 
 export const Home = ({}: {}) => {

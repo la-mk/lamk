@@ -1,7 +1,7 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 import * as local from '@feathersjs/authentication-local';
 import { validate, unique, setFields } from '../../common/hooks/db';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { createCartForUser, removeCartForUser } from './serviceHooks/carts';
 import { queryWithCurrentUser } from '../../common/hooks/auth';
 import {

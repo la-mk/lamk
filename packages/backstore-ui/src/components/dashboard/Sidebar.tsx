@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@sradevski/blocks-ui';
+import { Button, Flex, Text } from '@la-mk/blocks-ui';
 import React from 'react';
 import { Link } from 'react-router-dom';
 

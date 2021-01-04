@@ -4,12 +4,12 @@ import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { NotAuthenticated, NotFound, BadRequest } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
-import { sdk } from '@sradevski/la-sdk';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
+import { sdk } from '@la-mk/la-sdk';
 import fixtures from '../../../../tests/fixtures';
 
 describe('"campaigns" service', () => {

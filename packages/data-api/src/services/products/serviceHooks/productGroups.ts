@@ -2,9 +2,9 @@ import * as _ from 'lodash';
 import { HookContext } from '@feathersjs/feathers';
 import { checkContext } from 'feathers-hooks-common';
 import { logger } from '../../../common/logger';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { HookContextWithState } from '../../../common/types';
 
 const createProductGroupsIfNotExist = async (

@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import csvtojson from 'csvtojson';
 import Bluebird from 'bluebird';
-import { setupSdk, sdk } from '@sradevski/la-sdk';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { setupSdk, sdk } from '@la-mk/la-sdk';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 
 const prepareSdk = async () => {
   setupSdk({

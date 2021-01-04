@@ -6,9 +6,9 @@ import {
   PoweredBy,
   Image,
   LanguagePicker,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import { withTheme } from 'styled-components';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { useTranslation } from '../../i18n';
 
 export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {

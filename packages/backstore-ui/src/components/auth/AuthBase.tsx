@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, LanguagePicker, Box, Card } from '@sradevski/blocks-ui';
+import { Flex, LanguagePicker, Box, Card } from '@la-mk/blocks-ui';
 import { useTranslation } from 'react-i18next';
 
 export const AuthBase = ({ children }: { children: React.ReactNode }) => {

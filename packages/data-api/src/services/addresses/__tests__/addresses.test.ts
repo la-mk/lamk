@@ -2,10 +2,10 @@ import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { NotAuthenticated, NotFound } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { User } from '@la-mk/la-sdk/dist/models/user';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import fixtures from '../../../../tests/fixtures';
 
 describe('"addresses" service', () => {

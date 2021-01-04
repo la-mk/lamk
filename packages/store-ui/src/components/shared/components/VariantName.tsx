@@ -1,6 +1,6 @@
 import React from 'react';
-import { Attributes } from '@sradevski/la-sdk/dist/models/product';
-import { Text, PickerBox, Flex } from '@sradevski/blocks-ui';
+import { Attributes } from '@la-mk/la-sdk/dist/models/product';
+import { Text, PickerBox, Flex } from '@la-mk/blocks-ui';
 import { TFunction } from 'next-i18next';
 
 export const VariantName = ({

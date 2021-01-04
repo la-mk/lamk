@@ -8,9 +8,9 @@ import {
   Image,
   Heading,
   Button,
-} from '@sradevski/blocks-ui';
+} from '@la-mk/blocks-ui';
 import Link from 'next/link';
-import { Menu } from '@sradevski/blocks-ui/dist/compound/FooterContent';
+import { Menu } from '@la-mk/blocks-ui/dist/compound/FooterContent';
 import { useTranslation } from '../common/i18n';
 import {
   PhoneFilled,

@@ -7,11 +7,11 @@ import {
   BadRequest,
 } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Cart } from '@sradevski/la-sdk/dist/models/cart';
+import { User } from '@la-mk/la-sdk/dist/models/user';
+import { Cart } from '@la-mk/la-sdk/dist/models/cart';
 import fixtures from '../../../../tests/fixtures';
-import { AuthManagement } from '@sradevski/la-sdk/dist/models/authManagement';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { AuthManagement } from '@la-mk/la-sdk/dist/models/authManagement';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { getExternalUserParams } from '../../../../tests/utils';
 
 // const getToken = (feathersApp: Application) => {

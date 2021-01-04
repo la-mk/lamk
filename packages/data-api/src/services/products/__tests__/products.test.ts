@@ -1,10 +1,10 @@
 import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-// import { sdk } from '@sradevski/la-sdk';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+// import { sdk } from '@la-mk/la-sdk';
 import fixtures from '../../../../tests/fixtures';
 import { BadRequest } from '../../../common/errors';
 

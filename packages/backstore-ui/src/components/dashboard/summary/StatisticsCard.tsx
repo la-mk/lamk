@@ -1,12 +1,12 @@
 import React from 'react';
-import { hooks, Spinner, Card, Text, Flex, Radio } from '@sradevski/blocks-ui';
+import { hooks, Spinner, Card, Text, Flex, Radio } from '@la-mk/blocks-ui';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import {
   AnalyticsTypes,
   AnalyticsFrequency,
-} from '@sradevski/la-sdk/dist/models/storeAnalytics';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/la-sdk/dist/models/storeAnalytics';
+import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from 'react-i18next';
 
 interface StatisticsCardProps {

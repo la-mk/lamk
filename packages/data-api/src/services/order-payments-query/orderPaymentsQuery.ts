@@ -1,14 +1,14 @@
 import { Application, Service } from '@feathersjs/feathers';
 import { hooks } from './hooks';
 import { GeneralError, BadRequest } from '../../common/errors';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import {
   PaymentMethod,
   StorePaymentMethods,
-} from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+} from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import got from 'got';
 import * as nestpay from '../../common/paymentProcessors/nestpay';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import { logger } from '../../common/logger';
 
 const getOrderTransactionHistory = async (

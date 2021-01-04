@@ -9,8 +9,8 @@ import {
   Modal,
   hooks,
   NewForm,
-} from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { useSelector } from 'react-redux';
 import {
   addCampaign,
@@ -19,10 +19,10 @@ import {
 } from '../../../state/modules/campaigns/campaigns.module';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { useTranslation } from 'react-i18next';
-import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 import { getGroups } from '../../../state/modules/products/products.selector';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { ProductGroup } from '@sradevski/la-sdk/dist/models/productGroup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 import { setGroups } from '../../../state/modules/products/products.module';
 
 interface ProductFormModalProps {

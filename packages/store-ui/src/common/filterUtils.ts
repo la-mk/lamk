@@ -2,9 +2,9 @@ import isNil from 'lodash/isNil';
 import isString from 'lodash/isString';
 import Router from 'next/router';
 import queryString from 'qs';
-import { FilterRouter } from '@sradevski/blocks-ui/dist/hooks/useFilter';
-import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
-import { Category } from '@sradevski/la-sdk/dist/models/category';
+import { FilterRouter } from '@la-mk/blocks-ui/dist/hooks/useFilter';
+import { ProductSetResult } from '@la-mk/la-sdk/dist/models/product';
+import { Category } from '@la-mk/la-sdk/dist/models/category';
 
 export const getFiltersFromSetQuery = (query: { [key: string]: any }) => {
   if (query.$sort) {

@@ -1,14 +1,14 @@
 import React from 'react';
-import { Flex, Text, Button, Box, Table, Divider } from '@sradevski/blocks-ui';
+import { Flex, Text, Button, Box, Table, Divider } from '@la-mk/blocks-ui';
 import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 import { TFunction } from 'next-i18next';
-import { CartItemWithProduct } from '@sradevski/la-sdk/dist/models/cart';
+import { CartItemWithProduct } from '@la-mk/la-sdk/dist/models/cart';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ProductImageWithTitle } from './ProductImageWithTitle';
 import { Quantity } from './Quantity';
-import { OrderItem } from '@sradevski/la-sdk/dist/models/order';
-import { TableColumnProps } from '@sradevski/blocks-ui/dist/basic/Table';
+import { OrderItem } from '@la-mk/la-sdk/dist/models/order';
+import { TableColumnProps } from '@la-mk/blocks-ui/dist/basic/Table';
 
 const getColumns = (
   t: TFunction,

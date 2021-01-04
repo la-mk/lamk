@@ -3,12 +3,12 @@ import { SET_USER } from '../modules/user/user.module';
 import { takeEvery, select, call, put, all } from 'redux-saga/effects';
 import { getStore } from '../modules/store/store.selector';
 import { getCartWithProducts } from '../modules/cart/cart.selector';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { setCartWithProducts } from '../modules/cart/cart.module';
 import {
   CartItemWithProduct,
   CartWithProducts,
-} from '@sradevski/la-sdk/dist/models/cart';
+} from '@la-mk/la-sdk/dist/models/cart';
 
 // We only refresh the local cart when a user logs in, since that is a required action to make an order
 function* getRefreshedCart() {

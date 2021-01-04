@@ -1,5 +1,5 @@
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
-import { sdk } from '@sradevski/la-sdk';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
+import { sdk } from '@la-mk/la-sdk';
 import { defaultGenerator, GeneratorFunc } from './helpers';
 
 const defaultFixture: Partial<Delivery> = {

@@ -1,11 +1,11 @@
 import { Head } from '../../src/common/pageComponents/Head';
 import { useTranslation } from '../../src/common/i18n';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { NextPageContext } from 'next';
-import { StoreContents } from '@sradevski/la-sdk/dist/models/storeContents';
+import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
 import { AboutUs } from '../../src/components/aboutUs/AboutUs';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { getTextSnippet } from '../../src/common/utils';
 
 function AboutPage({

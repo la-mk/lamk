@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Image, Heading, Text, Box } from '@sradevski/blocks-ui';
+import { Flex, Image, Heading, Text, Box } from '@la-mk/blocks-ui';
 
 const BarImage = ({ src, alt, overflow }) => {
   const margins = {

@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
-import { setupSdk } from '@sradevski/la-sdk';
+import { setupSdk } from '@la-mk/la-sdk';
 import { NextPageContext } from 'next';
 import env from '../src/common/env';
 

@@ -1,14 +1,14 @@
-import { sdk } from '@sradevski/la-sdk';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
-import { utils } from '@sradevski/blocks-ui';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
+import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
+import { utils } from '@la-mk/blocks-ui';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
 import { Head } from '../../src/common/pageComponents/Head';
 import { Products } from '../../src/components/products/Products';
 import { NextPageContext } from 'next';
 import { getStore } from '../../src/state/modules/store/store.selector';
 import { useTranslation } from '../../src/common/i18n';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import isEmpty from 'lodash/isEmpty';
 
 function ProductsPage({

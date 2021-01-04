@@ -1,4 +1,4 @@
-import { Campaign } from '@sradevski/la-sdk/dist/models/campaign';
+import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 
 const initialState: { campaigns: Campaign[] } = { campaigns: [] };
 

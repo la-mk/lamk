@@ -1,10 +1,7 @@
 import React from 'react';
 import { ProductCard } from '../shared/product/ProductCard';
-import {
-  Product,
-  ProductSetResult,
-} from '@sradevski/la-sdk/dist/models/product';
-import { Set } from '@sradevski/blocks-ui';
+import { Product, ProductSetResult } from '@la-mk/la-sdk/dist/models/product';
+import { Set } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';

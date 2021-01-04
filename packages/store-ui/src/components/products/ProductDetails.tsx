@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Tabs, Text } from '@sradevski/blocks-ui';
+import { Tabs, Text } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../common/i18n';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 
 export const ProductDetails = ({
   product,

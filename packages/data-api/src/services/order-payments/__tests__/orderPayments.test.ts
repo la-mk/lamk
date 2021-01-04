@@ -3,21 +3,21 @@ import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { MethodNotAllowed, BadRequest } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import {
   getExternalUserParams,
   getFixturesContent,
 } from '../../../../tests/utils';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import fixtures from '../../../../tests/fixtures';
-import { OrderPayments } from '@sradevski/la-sdk/dist/models/orderPayments';
-import { sdk } from '@sradevski/la-sdk';
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
-import { Product, OrderProduct } from '@sradevski/la-sdk/dist/models/product';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
+import { OrderPayments } from '@la-mk/la-sdk/dist/models/orderPayments';
+import { sdk } from '@la-mk/la-sdk';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
+import { Product, OrderProduct } from '@la-mk/la-sdk/dist/models/product';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import * as nestpay from '../../../common/paymentProcessors/nestpay';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 
 const FIXTURES_DIR = 'src/services/order-payments/__tests__/nestpay';
 

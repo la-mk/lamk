@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import env from '../../common/env';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 
 interface NestPayData {
   clientId: string;

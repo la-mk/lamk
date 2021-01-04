@@ -1,9 +1,9 @@
 import React from 'react';
 import { NestPay } from './NestPay';
 import { useTranslation } from '../../common/i18n';
-import { Order } from '@sradevski/la-sdk/dist/models/order';
-import { sdk } from '@sradevski/la-sdk';
-import { PaymentMethod } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
+import { sdk } from '@la-mk/la-sdk';
+import { PaymentMethod } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 
 //ISO 4217 currency code for Denar
 const DENAR_CURRENCY_ID = 807;

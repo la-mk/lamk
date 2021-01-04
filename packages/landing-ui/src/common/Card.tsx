@@ -1,4 +1,4 @@
-import { Box } from '@sradevski/blocks-ui';
+import { Box } from '@la-mk/blocks-ui';
 import styled from 'styled-components';
 
 export const Card = styled(Box)`

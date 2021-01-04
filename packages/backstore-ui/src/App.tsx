@@ -2,8 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 // @ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-import { Provider as BlocksUiProvider } from '@sradevski/blocks-ui';
-import { setupSdk } from '@sradevski/la-sdk';
+import { Provider as BlocksUiProvider } from '@la-mk/blocks-ui';
+import { setupSdk } from '@la-mk/la-sdk';
 import { ConnectedRouter } from 'connected-react-router';
 import { Root } from './components/Root';
 import { FullScreenSpinner } from './components/shared/components/FullScreenSpinner';

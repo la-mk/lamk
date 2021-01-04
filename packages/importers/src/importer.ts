@@ -1,7 +1,7 @@
 import Bluebird from 'bluebird';
-import { setupSdk, sdk } from '@sradevski/la-sdk';
+import { setupSdk, sdk } from '@la-mk/la-sdk';
 import { LamkProduct } from '.';
-import { Product } from '@sradevski/la-sdk/dist/models/product';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
 
 const prepareSdk = async () => {
   setupSdk({
@@ -17,13 +17,18 @@ const prepareSdk = async () => {
   });
 };
 
-const uploadImages = (productName: string, images: Array<{name: string, format: string, buffer: ArrayBuffer | null}>) => {
+const uploadImages = (
+  productName: string,
+  images: Array<{ name: string; format: string; buffer: ArrayBuffer | null }>
+) => {
   return Bluebird.map(
     images,
     image => {
-      if(!image.buffer){
-        console.log(`Empty image for product: ${productName}, url: ${image.name}`)
-        return Promise.resolve('')
+      if (!image.buffer) {
+        console.log(
+          `Empty image for product: ${productName}, url: ${image.name}`
+        );
+        return Promise.resolve('');
       }
 
       const uri = Buffer.from(image.buffer).toString('base64');
@@ -34,11 +39,12 @@ const uploadImages = (productName: string, images: Array<{name: string, format: 
         .then(img => img._id);
     },
     { concurrency: 2 }
-  )
-  .filter(x => x.length > 0);
-}
+  ).filter(x => x.length > 0);
+};
 
-export const importProducts = async (res: LamkProduct[]): Promise<Array<Product | {}>> => {
+export const importProducts = async (
+  res: LamkProduct[]
+): Promise<Array<Product | {}>> => {
   await prepareSdk();
   // agnesa-test
   const storeId = process.env.STORE_ID || '';

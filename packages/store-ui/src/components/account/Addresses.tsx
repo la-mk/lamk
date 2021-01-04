@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withTheme } from 'styled-components';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { User } from '@sradevski/la-sdk/dist/models/user';
-import { Address } from '@sradevski/la-sdk/dist/models/address/address';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { AnalyticsEvents } from '@sradevski/analytics';
-import { BlocksTheme } from '@sradevski/blocks-ui/dist/theme';
+import { User } from '@la-mk/la-sdk/dist/models/user';
+import { Address } from '@la-mk/la-sdk/dist/models/address/address';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { AnalyticsEvents } from '@la-mk/analytics';
+import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import {
   toast,
   Spinner,
@@ -15,8 +15,8 @@ import {
   Button,
   Grid,
   Result,
-} from '@sradevski/blocks-ui';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
 import { getAddresses } from '../../state/modules/user/user.selector';
 import { setAddresses } from '../../state/modules/user/user.module';
 import { trackEvent } from '../../state/modules/analytics/analytics.actions';

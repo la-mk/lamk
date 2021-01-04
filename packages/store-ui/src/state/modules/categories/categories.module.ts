@@ -1,4 +1,4 @@
-import { StoreCategory } from '@sradevski/la-sdk/dist/models/storeCategory';
+import { StoreCategory } from '@la-mk/la-sdk/dist/models/storeCategory';
 
 const initialState = { categories: null };
 

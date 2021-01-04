@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@sradevski/blocks-ui';
+import { Box } from '@la-mk/blocks-ui';
 
 type CurvedSectionProps = {
   children: React.ReactNode;

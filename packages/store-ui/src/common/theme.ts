@@ -1,4 +1,4 @@
-import { BlocksTheme, DeepPartial } from '@sradevski/blocks-ui/dist/theme';
+import { BlocksTheme, DeepPartial } from '@la-mk/blocks-ui/dist/theme';
 import tinycolor from 'tinycolor2';
 
 const getOtherColors = (brandColor: string) => {

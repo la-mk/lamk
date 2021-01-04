@@ -1,8 +1,8 @@
 import isString from 'lodash/isString';
 import React from 'react';
-import { FilterObject } from '@sradevski/blocks-ui/dist/hooks/useFilter';
+import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { CategoriesMenu } from '../categories/CategoriesMenu';
-import { utils, Button, Text, Flex } from '@sradevski/blocks-ui';
+import { utils, Button, Text, Flex } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import { CustomCard } from '../components/CustomCard';
 import { ReloadOutlined } from '@ant-design/icons';

@@ -6,12 +6,12 @@ import {
   MethodNotAllowed,
 } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
-import { sdk } from '@sradevski/la-sdk';
-import { StorePaymentMethods } from '@sradevski/la-sdk/dist/models/storePaymentMethods';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { sdk } from '@la-mk/la-sdk';
+import { StorePaymentMethods } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import fixtures from '../../../../tests/fixtures';
 
 describe('"storePaymentMethods" service', () => {

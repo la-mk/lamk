@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text, Image, Flex, Box } from '@sradevski/blocks-ui';
+import { Heading, Text, Image, Flex, Box } from '@la-mk/blocks-ui';
 import { useTranslation } from '../common/i18n';
 
 export const GeneratedStoreExample = () => {

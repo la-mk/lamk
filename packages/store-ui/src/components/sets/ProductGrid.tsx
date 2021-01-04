@@ -1,7 +1,7 @@
 import React from 'react';
-import { DataGrid, Box, hooks } from '@sradevski/blocks-ui';
+import { DataGrid, Box, hooks } from '@la-mk/blocks-ui';
 import { ProductCard } from '../shared/product/ProductCard';
-import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
+import { ProductSetResult } from '@la-mk/la-sdk/dist/models/product';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';
 import { useTranslation } from '../../common/i18n';

@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { Box, Button, Drawer, Flex, hooks, Text } from '@sradevski/blocks-ui';
+import { Box, Button, Drawer, Flex, hooks, Text } from '@la-mk/blocks-ui';
 import { DownOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useTranslation, getTitleForSet } from '../i18n';
-import { sdk } from '@sradevski/la-sdk';
-import { ProductSetResult } from '@sradevski/la-sdk/dist/models/product';
+import { sdk } from '@la-mk/la-sdk';
+import { ProductSetResult } from '@la-mk/la-sdk/dist/models/product';
 import { useTheme } from '@chakra-ui/react';
 import { getQueryForCategories, getSetHref } from '../filterUtils';
 import { getPromotedSets } from '../../state/modules/storeContents/storeContents.selector';

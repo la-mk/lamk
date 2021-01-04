@@ -6,8 +6,8 @@ import {
   put,
   delay,
 } from 'redux-saga/effects';
-import { sdk } from '@sradevski/la-sdk';
-import { toast } from '@sradevski/blocks-ui';
+import { sdk } from '@la-mk/la-sdk';
+import { toast } from '@la-mk/blocks-ui';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { SET_UI_LOADED } from '../modules/ui/ui.module';

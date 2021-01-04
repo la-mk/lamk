@@ -1,5 +1,5 @@
-import { Button, Flex, Heading, Text } from '@sradevski/blocks-ui';
-import { TreeviewEntry } from '@sradevski/blocks-ui/dist/basic/Treeview';
+import { Button, Flex, Heading, Text } from '@la-mk/blocks-ui';
+import { TreeviewEntry } from '@la-mk/blocks-ui/dist/basic/Treeview';
 import Link from 'next/link';
 import React from 'react';
 

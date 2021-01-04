@@ -3,7 +3,7 @@ import { NextPageContext } from 'next';
 import { Head } from '../../../../src/common/pageComponents/Head';
 import { Order } from '../../../../src/components/account/orders/Order';
 import { useTranslation } from '../../../../src/common/i18n';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { getStore } from '../../../../src/state/modules/store/store.selector';
 
 const OrderPage = ({

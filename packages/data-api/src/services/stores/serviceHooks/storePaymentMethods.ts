@@ -1,6 +1,6 @@
 import { HookContext } from '@feathersjs/feathers';
 import { checkContext } from 'feathers-hooks-common';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 
 export const createStorePaymentMethodsIfNotExists = async (
   ctx: HookContext,

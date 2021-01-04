@@ -1,6 +1,6 @@
 import { startOfDay, endOfDay } from 'date-fns';
 import { Db } from 'mongodb';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 
 export const getTotalRevenue = (db: Db, storeId: string) =>
   db

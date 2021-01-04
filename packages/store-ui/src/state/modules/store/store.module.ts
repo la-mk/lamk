@@ -1,4 +1,4 @@
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 const initialState = { store: null };
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Heading, Text, Flex, Grid, Box } from '@sradevski/blocks-ui';
+import { Heading, Text, Flex, Grid, Box } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import {
   StorePaymentMethods,
   PaymentMethodNames,
-} from '@sradevski/la-sdk/dist/models/storePaymentMethods';
-import { sdk } from '@sradevski/la-sdk';
+} from '@la-mk/la-sdk/dist/models/storePaymentMethods';
+import { sdk } from '@la-mk/la-sdk';
 import { SelectableCard } from '../shared/SelectableCard';
 import { CreditCards } from '../shared/icons/CreditCards';
 import { WalletMoney } from '../shared/icons/WalletMoney';

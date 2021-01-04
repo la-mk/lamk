@@ -1,8 +1,8 @@
 import React from 'react';
-import { Spinner, hooks, toast, Flex, Box } from '@sradevski/blocks-ui';
+import { Spinner, hooks, toast, Flex, Box } from '@la-mk/blocks-ui';
 
-import { sdk } from '@sradevski/la-sdk';
-import { Store as StoreType } from '@sradevski/la-sdk/dist/models/store';
+import { sdk } from '@la-mk/la-sdk';
+import { Store as StoreType } from '@la-mk/la-sdk/dist/models/store';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setStore } from '../../../state/modules/store/store.module';

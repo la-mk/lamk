@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Fade } from '@chakra-ui/react';
-import { Box } from '@sradevski/blocks-ui';
+import { Box } from '@la-mk/blocks-ui';
 
 export interface OverlayProps {
   children: React.ReactNode;

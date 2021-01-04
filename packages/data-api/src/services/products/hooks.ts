@@ -3,13 +3,13 @@ const { authenticate } = feathersAuthentication.hooks;
 import { requireAnyQueryParam, pickFields } from '../../common/hooks/filtering';
 import { checkContext } from 'feathers-hooks-common';
 import { HookContext } from '@feathersjs/feathers';
-import { sdk } from '@sradevski/la-sdk';
+import { sdk } from '@la-mk/la-sdk';
 import {
   validate,
   convertQueryToNumber,
   removeDuplicates,
 } from '../../common/hooks/db';
-import { Product, Variant } from '@sradevski/la-sdk/dist/models/product';
+import { Product, Variant } from '@la-mk/la-sdk/dist/models/product';
 import {
   createProductSearch,
   patchProductSearch,

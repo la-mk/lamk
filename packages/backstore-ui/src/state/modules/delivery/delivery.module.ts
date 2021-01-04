@@ -1,4 +1,4 @@
-import { Delivery } from '@sradevski/la-sdk/dist/models/delivery';
+import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 
 const initialState = { delivery: null };
 

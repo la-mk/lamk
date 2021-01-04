@@ -4,8 +4,8 @@ import { authenticate } from '@feathersjs/authentication/lib/hooks';
 import { queryWithCurrentUser } from '../../common/hooks/auth';
 import { HookContext } from '@feathersjs/feathers';
 import { validate } from '../../common/hooks/db';
-import { sdk } from '@sradevski/la-sdk';
-import { AnalyticsFrequency } from '@sradevski/la-sdk/dist/models/storeAnalytics';
+import { sdk } from '@la-mk/la-sdk';
+import { AnalyticsFrequency } from '@la-mk/la-sdk/dist/models/storeAnalytics';
 
 const convertGetToStandardResponse = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['get']);

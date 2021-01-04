@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Heading, Button, Text } from '@sradevski/blocks-ui';
+import { Flex, Heading, Button, Text } from '@la-mk/blocks-ui';
 import { TFunction } from 'next-i18next';
 
 export const StoreNotFound = ({ t }: { t: TFunction }) => {

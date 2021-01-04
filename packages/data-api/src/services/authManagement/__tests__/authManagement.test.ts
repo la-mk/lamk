@@ -2,11 +2,11 @@ import setup from '../../../server/server';
 import { Application } from '@feathersjs/express';
 import { MethodNotAllowed, BadRequest } from '../../../common/errors';
 import { Service } from '@feathersjs/feathers';
-import { User } from '@sradevski/la-sdk/dist/models/user';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 import fixtures from '../../../../tests/fixtures';
-import { AuthManagement } from '@sradevski/la-sdk/dist/models/authManagement';
+import { AuthManagement } from '@la-mk/la-sdk/dist/models/authManagement';
 import { getExternalUserParams } from '../../../../tests/utils';
-import { FindResult } from '@sradevski/la-sdk/dist/setup';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 
 describe('"authManagement" service', () => {
   let feathersApp: Application;

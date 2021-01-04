@@ -2,9 +2,9 @@ import { Head } from '../../src/common/pageComponents/Head';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../src/state/modules/user/user.selector';
 import { Personal } from '../../src/components/account/Personal';
-import { Result } from '@sradevski/blocks-ui';
+import { Result } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../src/common/i18n';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
 import { getStore } from '../../src/state/modules/store/store.selector';
 

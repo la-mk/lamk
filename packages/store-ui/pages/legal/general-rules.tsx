@@ -3,10 +3,10 @@ import { Head } from '../../src/common/pageComponents/Head';
 import { useTranslation } from '../../src/common/i18n';
 import { LegalContent } from '../../src/components/legal/LegalContent';
 import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
 import { getTextSnippet } from '../../src/common/utils';
-import { Result } from '@sradevski/blocks-ui';
+import { Result } from '@la-mk/blocks-ui';
 
 const getGeneralRules = ({
   storeName,

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Layout, Box } from '@sradevski/blocks-ui';
+import { Flex, Layout, Box } from '@la-mk/blocks-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStore } from '../../state/modules/store/store.selector';
 import { setUiLoaded } from '../../state/modules/ui/ui.module';

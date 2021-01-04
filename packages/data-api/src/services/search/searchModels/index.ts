@@ -1,5 +1,5 @@
-import { Product } from '@sradevski/la-sdk/dist/models/product';
-import { transliterate } from '@sradevski/nlp';
+import { Product } from '@la-mk/la-sdk/dist/models/product';
+import { transliterate } from '@la-mk/nlp';
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 

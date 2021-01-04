@@ -3,7 +3,7 @@ import { Head } from '../src/common/pageComponents/Head';
 import { NextPageContext } from 'next';
 import { getStore } from '../src/state/modules/store/store.selector';
 import { useTranslation } from '../src/common/i18n';
-import { Store } from '@sradevski/la-sdk/dist/models/store';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 function HomePage({ store }: { store: Store | undefined }) {
   const { t } = useTranslation();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box } from '@sradevski/blocks-ui';
+import { Flex, Box } from '@la-mk/blocks-ui';
 import { LineEndDot } from './LineEndDot';
 import { CurvedDashedLine } from './CurvedDashedLine';
 import { HumanLaptopPlant } from './HumanLaptopPlant';
