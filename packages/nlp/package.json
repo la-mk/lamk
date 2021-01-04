@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/la-mk/lamk.git",
     "directory": "packages/nlp"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "ISC",
   "author": "Stevche Radevski",
   "main": "dist/index.js",
