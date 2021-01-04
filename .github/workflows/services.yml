@@ -29,7 +29,7 @@ jobs:
           DOCKER_TOKEN=${{ secrets.DO_REGISTRY_TOKEN }}
 
           API_ENDPOINT="https://api.digitalocean.com/v2"
-          TAG_ENDPOINT="${API_ENDPOINT}/lamk/repositories/${DOCKER_REPO}/tags"
+          TAG_ENDPOINT="${API_ENDPOINT}/registry/lamk/repositories/${DOCKER_REPO}/tags"
 
           LATEST_TAG=$(curl -s -H "Authorization: Bearer ${DOCKER_TOKEN}" $TAG_ENDPOINT | jq -r '.tags[0].tag')
           CURRENT_TAG=`cat package.json | jq -r .version`
