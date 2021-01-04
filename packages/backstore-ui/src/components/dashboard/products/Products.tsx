@@ -331,7 +331,7 @@ export const Products = () => {
                   ...filters.filtering,
                   ...utils.filter.singleItemFilter(
                     'totalStock',
-                    tableFilters.totalStock?.[0],
+                    tableFilters.totalStock?.[0] as string,
                   ),
                   ...utils.filter.rangeFilter(
                     'maxDiscount',
@@ -344,11 +344,11 @@ export const Products = () => {
                   ),
                   ...utils.filter.multipleItemsFilter(
                     'category',
-                    tableFilters.category,
+                    tableFilters.category as string[],
                   ),
                   ...utils.filter.multipleItemsFilter(
                     'groups',
-                    tableFilters.groups,
+                    tableFilters.groups as string[],
                   ),
                 },
                 searching: filters.searching,

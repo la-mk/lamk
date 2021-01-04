@@ -24,7 +24,7 @@ const createProductGroupsIfNotExist = async (
       groupName: { $in: groupNames },
     },
     authenticated: true,
-    user: ctx.params.user._id,
+    user: ctx.params.user?._id,
   });
 
   await Promise.all(
@@ -42,7 +42,7 @@ const createProductGroupsIfNotExist = async (
               ...existing,
               itemCountInGroup: existing.itemCountInGroup + 1,
             },
-            { authenticated: true, user: ctx.params.user._id },
+            { authenticated: true, user: ctx.params.user?._id },
           );
         } else {
           await ctx.app.services['productGroups'].create(
@@ -51,7 +51,7 @@ const createProductGroupsIfNotExist = async (
               groupName,
               itemCountInGroup: 1,
             },
-            { authenticated: true, user: ctx.params.user._id },
+            { authenticated: true, user: ctx.params.user?._id },
           );
         }
       } catch (err) {
@@ -79,7 +79,7 @@ const removeOprhanedProductGroups = async (
       groupName: { $in: groupNames },
     },
     authenticated: true,
-    user: ctx.params.user._id,
+    user: ctx.params.user?._id,
   });
 
   // Only remove groups for which this product held the last group name.
@@ -101,7 +101,7 @@ const removeOprhanedProductGroups = async (
             ...group,
             itemCountInGroup: group.itemCountInGroup - 1,
           },
-          { authenticated: true, user: ctx.params.user._id },
+          { authenticated: true, user: ctx.params.user?._id },
         );
       } catch (err) {
         // We don't want to throw here, just log that there was an error.
@@ -118,7 +118,7 @@ const removeOprhanedProductGroups = async (
         _id: { $in: orphanedGroups.map(x => x._id) },
       },
     },
-    { authenticated: true, user: ctx.params.user._id },
+    { authenticated: true, user: ctx.params.user?._id },
   );
 };
 

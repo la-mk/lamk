@@ -15,9 +15,6 @@ module.exports = override(
       'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
       `,
         '@primary-color': '#118AB2',
-        '@menu-highlight-color': '#EF4351',
-        '@menu-dark-item-active-bg': '#EF4351',
-        '@layout-header-background': '#07074F',
       },
     },
   }),

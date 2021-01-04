@@ -20,7 +20,7 @@ export const queryWithCurrentUser = (fields: string[]) => {
     }
 
     if (fields.length === 1) {
-      ctx.params.query[fields[0]] = ctx.params.user._id;
+      ctx.params.query[fields[0]] = ctx.params.user?._id;
       return;
     }
 
@@ -29,7 +29,7 @@ export const queryWithCurrentUser = (fields: string[]) => {
         (ctx.params.query as Query).$or = [];
       }
 
-      (ctx.params.query as Query).$or.push({ [field]: ctx.params.user._id });
+      (ctx.params.query as Query).$or.push({ [field]: ctx.params.user?._id });
     });
   };
 };
@@ -50,7 +50,7 @@ export const setCurrentUser = (fields: string[]) => {
     }
 
     fields.map(field => {
-      ctx.data[field] = ctx.params.user._id;
+      ctx.data[field] = ctx.params.user?._id;
     });
   };
 };

@@ -26,6 +26,11 @@ class MyApp extends App<any> {
                 },
               },
             },
+            Button: {
+              baseStyle: {
+                fontWeight: 'normal',
+              },
+            },
           },
         }}
       >

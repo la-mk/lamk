@@ -137,7 +137,7 @@ export const Orders = () => {
               ...filters.filtering,
               ...utils.filter.multipleItemsFilter(
                 'status',
-                tableFilters.status,
+                tableFilters.status as string[],
               ),
             },
           });
