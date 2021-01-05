@@ -45,6 +45,13 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
           fontWeight: 'normal',
         },
       },
+      Menu: {
+        baseStyle: {
+          list: {
+            zIndex: 5,
+          },
+        },
+      },
       Heading: {
         sizes: {
           '4xl': {
@@ -167,6 +174,13 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
       Button: {
         baseStyle: {
           fontWeight: 'normal',
+        },
+      },
+      Menu: {
+        baseStyle: {
+          list: {
+            zIndex: 5,
+          },
         },
       },
       Heading: {

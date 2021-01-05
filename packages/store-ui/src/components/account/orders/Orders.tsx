@@ -12,6 +12,7 @@ import Router from 'next/router';
 import { useBreadcrumb } from '../../shared/hooks/useBreadcrumb';
 import { OrderDescription } from './OrderDescription';
 import { CustomCard } from '../../shared/components/CustomCard';
+import { BackButton } from '../BackButton';
 
 export const Orders = () => {
   const [orders, setOrders] = useState<FindResult<Order> | null>(null);
@@ -67,7 +68,8 @@ export const Orders = () => {
   }
 
   return (
-    <Page title={t('pages.myOrders')} maxWidth={'86rem'}>
+    <Page maxWidth={'86rem'}>
+      <BackButton />
       <DataGrid<Order>
         isFullWidth
         rowKey={'_id'}

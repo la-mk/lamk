@@ -57,7 +57,7 @@ export const AccountMenu = ({
       <MenuList>
         {user ? (
           <>
-            <Link href='/account/personal' passHref>
+            <Link href='/account' passHref>
               <MenuItem as='a' icon={<UserOutlined />}>
                 {t('pages.myAccount')}
               </MenuItem>

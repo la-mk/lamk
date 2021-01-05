@@ -47,6 +47,12 @@ export const Products = ({
     router: filterRouter,
   });
 
+  React.useEffect(() => {
+    if (initialFilters) {
+      setFilters(initialFilters);
+    }
+  }, [initialFilters]);
+
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
     { url: '/products', title: t('pages.product_plural') },

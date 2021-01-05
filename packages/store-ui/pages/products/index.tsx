@@ -9,7 +9,6 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { useTranslation } from '../../src/common/i18n';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
-import isEmpty from 'lodash/isEmpty';
 
 function ProductsPage({
   products,

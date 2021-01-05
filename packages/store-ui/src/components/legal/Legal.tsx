@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from '../../common/i18n';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Page } from '../shared/Page';
-import { Flex, Box, Text, Card } from '@la-mk/blocks-ui';
-import { HoverableLink } from '../shared/components/HoverableLink';
+import { Flex, Box, Text } from '@la-mk/blocks-ui';
+import { ClickableCard } from '../shared/ClickableCard';
 
 export const Legal = () => {
   const { t } = useTranslation();
@@ -41,17 +41,7 @@ export const Legal = () => {
         {submenus.map(submenu => {
           return (
             <Box m={3}>
-              <HoverableLink key={submenu.link} href={submenu.link}>
-                <Card
-                  minWidth={'16rem'}
-                  textAlign='center'
-                  bg='background.light'
-                  // @ts-ignore
-                  borderColor='background.light'
-                >
-                  <Text>{submenu.text}</Text>
-                </Card>
-              </HoverableLink>
+              <ClickableCard title={submenu.text} href={submenu.link} />
             </Box>
           );
         })}

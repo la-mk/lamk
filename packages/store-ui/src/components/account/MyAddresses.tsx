@@ -5,6 +5,7 @@ import { useTranslation } from '../../common/i18n';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { User } from '@la-mk/la-sdk/dist/models/user';
 import { Page } from '../shared/Page';
+import { BackButton } from './BackButton';
 
 export const MyAddresses = ({ user }: { user: User }) => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export const MyAddresses = ({ user }: { user: User }) => {
 
   return (
     <Page maxWidth={'86rem'}>
+      <BackButton />
       <Flex mb={6} align='center' justify='center'>
         <Button onClick={() => setShowAddAddressModal(true)}>
           {t('address.addNewAddress')}

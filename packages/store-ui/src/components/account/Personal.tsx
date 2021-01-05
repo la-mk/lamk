@@ -1,4 +1,11 @@
-import { BasicUserForm, hooks, Spinner, toast } from '@la-mk/blocks-ui';
+import {
+  BasicUserForm,
+  Button,
+  hooks,
+  Spinner,
+  Text,
+  toast,
+} from '@la-mk/blocks-ui';
 import pick from 'lodash/pick';
 import { sdk } from '@la-mk/la-sdk';
 import { User } from '@la-mk/la-sdk/dist/models/user';
@@ -7,6 +14,8 @@ import { useTranslation } from '../../common/i18n';
 import { patchUser } from '../../state/modules/user/user.module';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Page } from '../shared/Page';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { BackButton } from './BackButton';
 
 export const Personal = ({ user }: { user: User }) => {
   const { t } = useTranslation();
@@ -34,6 +43,7 @@ export const Personal = ({ user }: { user: User }) => {
 
   return (
     <Page maxWidth={'86rem'}>
+      <BackButton />
       <Spinner isLoaded={!showSpinner}>
         <BasicUserForm
           schema={sdk.utils.schema.pick(sdk.user.schema, [

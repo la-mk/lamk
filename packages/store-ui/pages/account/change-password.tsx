@@ -8,7 +8,7 @@ import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { NextPageContext } from 'next';
 import { getStore } from '../../src/state/modules/store/store.selector';
 
-function AccountPage({ store }: { store: Store | undefined }) {
+function ChangePasswordPage({ store }: { store: Store | undefined }) {
   const user = useSelector(getUser);
   const { t } = useTranslation();
 
@@ -33,7 +33,9 @@ function AccountPage({ store }: { store: Store | undefined }) {
   );
 }
 
-AccountPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
+ChangePasswordPage.getInitialProps = async (
+  ctx: NextPageContext & { store: any },
+) => {
   try {
     const state = ctx.store.getState();
     const store = getStore(state);
@@ -45,4 +47,4 @@ AccountPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
   return {};
 };
 
-export default AccountPage;
+export default ChangePasswordPage;

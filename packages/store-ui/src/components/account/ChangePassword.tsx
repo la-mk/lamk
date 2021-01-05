@@ -6,6 +6,7 @@ import { useTranslation } from '../../common/i18n';
 import { patchUser } from '../../state/modules/user/user.module';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Page } from '../shared/Page';
+import { BackButton } from './BackButton';
 
 export const ChangePassword = ({ user }: { user: User }) => {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ export const ChangePassword = ({ user }: { user: User }) => {
 
   return (
     <Page maxWidth='86rem'>
+      <BackButton />
       <Spinner isLoaded={!showSpinner}>
         <ChangePasswordForm
           schema={changePasswordSchema}
