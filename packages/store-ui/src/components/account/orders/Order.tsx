@@ -20,6 +20,7 @@ import { CustomCard } from '../../shared/components/CustomCard';
 import { OrderDescription } from './OrderDescription';
 import { ManagedSets } from '../../sets/ManagedSets';
 import { OrderSteps } from './OrderSteps';
+import { BackButton } from '../BackButton';
 
 export const Order = ({ orderId }: { orderId: string }) => {
   const [caller, showSpinner] = hooks.useCall();
@@ -65,6 +66,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
 
   return (
     <Page>
+      <BackButton />
       <Spinner isLoaded={!showSpinner}>
         <OrderSteps t={t} status={order.status} isCardPayment={isCardPayment} />
 
@@ -75,8 +77,8 @@ export const Order = ({ orderId }: { orderId: string }) => {
           align={'flex-end'}
           wrap='wrap-reverse'
         >
-          <Flex maxWidth={'60rem'} flex={2} direction='column' mx={3}>
-            <CustomCard my={3} minWidth={'18rem'}>
+          <Flex maxWidth={'60rem'} mx={[1, 3, 3]} flex={2} direction='column'>
+            <CustomCard my={3}>
               <OrderDescription
                 hideDetailsButton
                 order={order}
@@ -84,7 +86,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
               />
             </CustomCard>
             {order.deliverTo && (
-              <CustomCard minWidth={'18rem'} mt={3}>
+              <CustomCard mt={3}>
                 <ShippingDescription address={order.deliverTo} />
               </CustomCard>
             )}
@@ -96,13 +98,10 @@ export const Order = ({ orderId }: { orderId: string }) => {
             width='100%'
             flex={1}
             maxWidth={'60rem'}
-            minWidth={'18rem'}
-            mx={3}
+            mx={[1, 3, 3]}
             my={3}
           >
             <Summary
-              maxWidth={'60rem'}
-              width='100%'
               hideFreeShipping
               items={order.ordered}
               delivery={order.delivery}

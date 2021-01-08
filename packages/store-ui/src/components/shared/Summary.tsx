@@ -63,8 +63,8 @@ export const Summary = ({
   return (
     <CustomCard
       height='fit-content'
-      maxWidth={'30rem'}
-      minWidth={'18rem'}
+      minWidth={['18rem', '22rem', '22rem']}
+      width='100%'
       title={t('common.summary')}
       {...props}
     >

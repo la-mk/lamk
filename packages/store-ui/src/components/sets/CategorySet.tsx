@@ -36,7 +36,7 @@ export const CategorySet = ({
               >
                 <ImageBackgroundBox
                   height={'18rem'}
-                  minWidth={'20rem'}
+                  minWidth={'18rem'}
                   maxWidth={'24rem'}
                   // @ts-ignore
                   borderRadius={'md'}

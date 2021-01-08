@@ -219,7 +219,7 @@ export const Checkout = () => {
           <Flex
             px={2}
             maxWidth={'60rem'}
-            minWidth={['20rem', '24rem', '24rem']}
+            minWidth={['18rem', '24rem', '24rem']}
             flex={1}
             direction='column'
             mx={[1, 2, 4]}
@@ -240,7 +240,7 @@ export const Checkout = () => {
           <Flex
             align={'center'}
             justify='center'
-            minWidth={'20rem'}
+            minWidth={'18rem'}
             maxWidth={['48rem', '48rem', '36rem']}
             width='100%'
             flex={1}

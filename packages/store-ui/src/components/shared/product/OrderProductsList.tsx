@@ -94,10 +94,8 @@ const OrderProductListItem = ({
   return (
     <Flex
       key={item.product._id}
-      minWidth={['20rem', '26rem', '26rem']}
-      maxWidth={'34rem'}
       width='100%'
-      px={3}
+      px={[2, 3, 3]}
       pt={5}
       mb={5}
       direction='column'
@@ -169,7 +167,12 @@ export const OrderProductsList = ({
   return (
     <Flex width='100%' direction='column'>
       <Box display={['block', 'block', 'none']}>
-        <Flex align='center' justify='center' direction='column'>
+        <Flex
+          minWidth={'18rem'}
+          align='center'
+          justify='center'
+          direction='column'
+        >
           {items.map(item => (
             <>
               <Divider mb={2} />

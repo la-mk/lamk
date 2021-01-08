@@ -41,8 +41,8 @@ export const Banner = ({
                 bottom: '20%',
                 opacity: 0.85,
               }}
-              width={['80%', '70%', '60%']}
-              ml={['10%', '15%', '20%']}
+              width={['90%', '70%', '60%']}
+              ml={['5%', '15%', '20%']}
               //@ts-ignore
               borderRadius={0}
               bg='background.light'
@@ -54,15 +54,15 @@ export const Banner = ({
                 top: '20%',
                 bottom: '20%',
               }}
-              width={['80%', '70%', '60%']}
-              ml={['10%', '15%', '20%']}
+              width={['90%', '70%', '60%']}
+              ml={['5%', '15%', '20%']}
               align='center'
               justify='center'
               direction='column'
             >
               <Heading
                 mb={6}
-                px={[3, 4, 5]}
+                px={[2, 4, 5]}
                 align='center'
                 as='h1'
                 size={'3xl'}

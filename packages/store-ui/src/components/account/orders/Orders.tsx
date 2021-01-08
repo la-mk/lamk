@@ -71,9 +71,10 @@ export const Orders = () => {
     <Page maxWidth={'86rem'}>
       <BackButton />
       <DataGrid<Order>
+        mt={5}
         isFullWidth
         rowKey={'_id'}
-        spacing={8}
+        spacing={[7, 7, 8]}
         pagination={{
           currentPage: filters.pagination ? filters.pagination.currentPage : 1,
           pageSize: filters.pagination ? filters.pagination.pageSize : 10,
@@ -89,7 +90,7 @@ export const Orders = () => {
         isLoaded={!showSpinner}
         items={orders ? orders.data : []}
         renderItem={order => (
-          <CustomCard mx='auto' width='100%'>
+          <CustomCard mx='auto' width='100%' overflow='hidden'>
             <OrderDescription order={order} storeId={store._id} />
           </CustomCard>
         )}
