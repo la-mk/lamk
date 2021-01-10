@@ -25,7 +25,12 @@ ChakraDrawer.defaultProps = {
   preserveScrollBarGap: true,
 };
 
-export const Drawer = ({ title, children, bg, ...props }: DrawerProps) => {
+export const Drawer = ({
+  title,
+  children,
+  bg = 'white',
+  ...props
+}: DrawerProps) => {
   return (
     <ChakraDrawer {...props}>
       <ChakraDrawerOverlay>
