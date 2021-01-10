@@ -14,19 +14,23 @@ volumes:
 
 services:
   reverse-proxy:
-    image: traefik:v2.1.1
+    image: traefik:v2.3.6
     container_name: reverse-proxy-dev
     command:
       - --log.level=DEBUG
       - --api.insecure=true
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
 
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --entrypoints.websecure.address=:443
       # This is just for dev
       - --providers.file.directory=/configuration/
       - --providers.file.watch=true
+
     ports:
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
@@ -57,12 +61,6 @@ services:
       - main-network
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.object-store-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.object-store-http.priority=1000
-      - traefik.http.routers.object-store-http.entrypoints=web
-      - traefik.http.routers.object-store-http.rule=Host(`artifacts.lamk.dev`)
-      - traefik.http.routers.object-store-htttp.middlewares=object-store-https
 
       - traefik.http.routers.object-store.priority=1000
       - traefik.http.routers.object-store.rule=Host(`artifacts.lamk.dev`)
@@ -85,12 +83,6 @@ services:
       - main-network
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.search-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.search-http.priority=1000
-      - traefik.http.routers.search-http.entrypoints=web
-      - traefik.http.routers.search-http.rule=Host(`search.lamk.dev`)
-      - traefik.http.routers.search-http.middlewares=search-https
 
       - traefik.http.routers.search.priority=1000
       - traefik.http.routers.search.rule=Host(`search.lamk.dev`)
@@ -120,12 +112,6 @@ services:
       - 9229:9229 #debug port
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.data-api-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.data-api-http.priority=1000
-      - traefik.http.routers.data-api-http.entrypoints=web
-      - traefik.http.routers.data-api-http.rule=Host(`api.lamk.dev`)
-      - traefik.http.routers.data-api-http.middlewares=data-api-https
 
       - traefik.http.routers.data-api.priority=1000
       - traefik.http.routers.data-api.rule=Host(`api.lamk.dev`)
@@ -164,8 +150,6 @@ services:
       args:
         - GPR_TOKEN=$GPR_TOKEN
     container_name: store-ui-dev
-    depends_on:
-      - data-api
     volumes:
       - ./packages/store-ui:/usr/src/app:cached
       - store-ui_node_modules:/usr/src/app/node_modules
@@ -175,13 +159,6 @@ services:
       - 80
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.store-ui-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.store-ui-http.priority=1
-      - traefik.http.routers.store-ui-http.entrypoints=web
-      - traefik.http.routers.store-ui-http.rule=HostRegexp(`{subdomain:.+}.lamk.dev`)
-      - traefik.http.routers.store-ui-http.middlewares=store-ui-https
-      - traefik.http.routers.store-ui-http.service=store-ui #never called due to redirect
 
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
       - traefik.http.routers.store-ui.entrypoints=websecure
@@ -209,8 +186,6 @@ services:
       args:
         - GPR_TOKEN=$GPR_TOKEN
     container_name: backstore-ui-dev
-    depends_on:
-      - data-api
     volumes:
       - ./packages/backstore-ui:/usr/src/app:cached
       - backstore-ui_node_modules:/usr/src/app/node_modules
@@ -220,12 +195,6 @@ services:
       - 80
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.backstore-ui-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.backstore-ui-http.priority=1000
-      - traefik.http.routers.backstore-ui-http.entrypoints=web
-      - traefik.http.routers.backstore-ui-http.rule=Host(`admin.lamk.dev`)
-      - traefik.http.routers.backstore-ui-http.middlewares=backstore-ui-https
 
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`admin.lamk.dev`)

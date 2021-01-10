@@ -9,7 +9,7 @@ networks:
 
 services:
   reverse-proxy:
-    image: traefik:v2.1.1
+    image: traefik:v2.3.6
     container_name: reverse-proxy
     restart: always
     command:
@@ -17,6 +17,10 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false # Don't expose all services by default, use `traefik.enable`
       - --entrypoints.web.address=:80
+
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
       - --entrypoints.websecure.address=:443
 
       # The DNS challenge requires you to have a DO_AUTH_TOKEN environment variable set.
@@ -32,6 +36,7 @@ services:
       - --certificatesresolvers.custom-certs.acme.storage=/certs/customcert.json
       - --certificatesresolvers.custom-certs.acme.httpChallenge=true
       - --certificatesResolvers.custom-certs.acme.httpChallenge.entryPoint=web
+
     ports:
       - "80:80"
       - "443:443"
@@ -61,13 +66,6 @@ services:
       - main-network
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.search-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.search-http.priority=1000
-      - traefik.http.routers.search-http.entrypoints=web
-      - traefik.http.routers.search-http.rule=Host(`search.${SYSTEM_TLD}`)
-      - traefik.http.routers.search-http.middlewares=search-https
-
       - traefik.http.routers.search.priority=1000
       - traefik.http.routers.search.rule=Host(`search.${SYSTEM_TLD}`)
       - traefik.http.services.search.loadbalancer.server.port=8108
@@ -90,13 +88,6 @@ services:
       - 80
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.data-api-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.data-api-http.priority=1000
-      - traefik.http.routers.data-api-http.entrypoints=web
-      - traefik.http.routers.data-api-http.rule=Host(`api.${SYSTEM_TLD}`)
-      - traefik.http.routers.data-api-http.middlewares=data-api-https
-
       - traefik.http.routers.data-api.priority=1000
       - traefik.http.routers.data-api.rule=Host(`api.${SYSTEM_TLD}`)
       - traefik.http.services.data-api.loadbalancer.server.port=80
@@ -129,22 +120,12 @@ services:
     image: registry.digitalocean.com/lamk/store-ui:1.0.126
     container_name: store-ui
     restart: always
-    depends_on:
-      - data-api
     networks:
       - main-network
     expose:
       - 80
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.store-ui-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.store-ui-http.priority=1
-      - traefik.http.routers.store-ui-http.entrypoints=web
-      - traefik.http.routers.store-ui-http.rule=HostRegexp(`{subdomain:.+}.${SYSTEM_TLD}`)
-      - traefik.http.routers.store-ui-http.middlewares=store-ui-https
-      - traefik.http.routers.store-ui-http.service=store-ui #never called due to redirect
-
       - traefik.http.routers.store-ui.priority=1 #Set to low priority so our services resolve before stores
       - traefik.http.routers.store-ui.entrypoints=websecure
       - traefik.http.routers.store-ui.rule=HostRegexp(`{subdomain:.+}.${SYSTEM_TLD}`)
@@ -155,27 +136,17 @@ services:
       - traefik.http.routers.store-ui.tls.certresolver=cert-resolve
       - traefik.http.routers.store-ui.tls.domains[0].main=*.${SYSTEM_TLD}
 
-      # Custom domains
-      - traefik.http.middlewares.custom-domain-https.redirectscheme.scheme=https
-
       # middleware: https://www. to  https://
       - traefik.http.middlewares.trim_www.redirectregex.regex=^https://www\.(.+)
       - traefik.http.middlewares.trim_www.redirectregex.replacement=https://$${1}
-      - traefik.http.middlewares.trim_www.redirectregex.permanent=false
+      - traefik.http.middlewares.trim_www.redirectregex.permanent=true
 
-      - traefik.http.routers.custom-domain-http.priority=1
-      - traefik.http.routers.custom-domain-http.entrypoints=web
-      - traefik.http.routers.custom-domain-http.rule=Host(${ESCAPED_CUSTOM_DOMAINS})
-      - traefik.http.routers.custom-domain-http.middlewares=custom-domain-https
-      - traefik.http.routers.custom-domain-http.service=custom-domain
-
+      - traefik.http.routers.custom-domain.middlewares=trim_www
       - traefik.http.routers.custom-domain.priority=1 #Set to low priority so our services resolve before stores
       - traefik.http.routers.custom-domain.entrypoints=websecure
       - traefik.http.routers.custom-domain.rule=Host(${ESCAPED_CUSTOM_DOMAINS})
       - traefik.http.routers.custom-domain.service=custom-domain
       - traefik.http.services.custom-domain.loadbalancer.server.port=80
-
-      - traefik.http.routers.custom-domain.middlewares=trim_www
 
       - traefik.http.routers.custom-domain.tls=true
       - traefik.http.routers.custom-domain.tls.certresolver=custom-certs
@@ -195,26 +166,18 @@ services:
     image: registry.digitalocean.com/lamk/backstore-ui:1.0.100
     container_name: backstore-ui
     restart: always
-    depends_on:
-      - data-api
     networks:
       - main-network
     expose:
       - 80
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.backstore-ui-https.redirectscheme.scheme=https
-
-      - traefik.http.routers.backstore-ui-http.priority=1000
-      - traefik.http.routers.backstore-ui-http.entrypoints=web
-      - traefik.http.routers.backstore-ui-http.rule=Host(`admin.${SYSTEM_TLD}`)
-      - traefik.http.routers.backstore-ui-http.middlewares=backstore-ui-https
 
       - traefik.http.routers.backstore-ui.priority=1000
       - traefik.http.routers.backstore-ui.rule=Host(`admin.${SYSTEM_TLD}`)
-      - traefik.http.services.backstore-ui.loadbalancer.server.port=80
       - traefik.http.routers.backstore-ui.entrypoints=websecure
       - traefik.http.routers.backstore-ui.tls=true
+      - traefik.http.services.backstore-ui.loadbalancer.server.port=80
       # - traefik.http.routers.backstore-ui.tls.certresolver=cert-resolve
       # - traefik.http.routers.backstore-ui.tls.domains[0].main=admin.${SYSTEM_TLD}
     environment:
