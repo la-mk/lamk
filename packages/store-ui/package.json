@@ -31,7 +31,7 @@
     "@la-mk/blocks-ui": "0.0.246",
     "@la-mk/la-sdk": "0.0.149",
     "@la-mk/nlp": "0.0.4",
-    "@la-mk/translations": "0.0.116",
+    "@la-mk/translations": "0.0.117",
     "connected-next-router": "^4.0.1",
     "date-fns": "^2.16.1",
     "env-var": "^7.0.0",

@@ -2,6 +2,8 @@ import { Box, Button, Flex, hooks, Text } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../../src/state/modules/user/user.selector';
 import React from 'react';
 import {
   ArrowRightOutlined,
@@ -14,6 +16,7 @@ import { TFunction } from 'next-i18next';
 import { useTranslation } from '../../common/i18n';
 import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { ClickableCard } from '../shared/ClickableCard';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 
 const getAccountMenu = (t: TFunction) => [
   {
@@ -79,6 +82,7 @@ export const AccountMenu = () => {
   const { t } = useTranslation();
   const { pathname } = useRouter();
   const theme = useTheme();
+  const user = useSelector(getUser);
   const isMobile = hooks.useBreakpoint([true, false, false]);
 
   return (
@@ -95,8 +99,8 @@ export const AccountMenu = () => {
       width={['100%', '14rem', '14rem']}
     >
       <Flex align='center' direction='column' p={4}>
-        <Text color='mutedText.dark'>Welcome back,</Text>
-        <Text size='lg'>Dear Guest</Text>
+        <Text color='mutedText.dark'>{t('common.welcomeBack')},</Text>
+        <Text size='lg'>{user?.firstName ?? t('common.guest')}</Text>
       </Flex>
 
       <Flex direction='column' align='center' width='100%'>

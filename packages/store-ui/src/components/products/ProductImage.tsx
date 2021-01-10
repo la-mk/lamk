@@ -38,8 +38,8 @@ export const ProductImage = ({
         style={{ position: 'relative' }}
       >
         <ImageMagnifier
-          magnifierSize={180}
-          zoomFactor={1.15}
+          magnifierSize={320}
+          zoomFactor={0.5}
           src={sdk.artifact.getUrlForImage(selectedImage, store._id)}
         >
           {imageProps => (

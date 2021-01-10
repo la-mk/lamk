@@ -558,6 +558,7 @@
     "email": "Email address",
     "filter_plural": "Filters",
     "firstName": "First name",
+    "guest": "Guest",
     "lastName": "Last name",
     "name": "Name",
     "newPassword": "New password",
@@ -571,6 +572,7 @@
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
+    "welcomeBack": "Welcome back",
     "zipcode": "Zipcode"
   },
   "countries": {

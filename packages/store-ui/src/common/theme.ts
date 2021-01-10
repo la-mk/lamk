@@ -106,7 +106,7 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
       // TODO: Start using rem's for the card
       ProductCard: {
         badge: {
-          position: 'left',
+          position: 'right',
           colors: {
             discounted: colors.danger,
             new: '#D9E93C',

@@ -558,6 +558,7 @@
     "email": "Емаил",
     "filter_plural": "Филтри",
     "firstName": "Име",
+    "guest": "Посетител",
     "lastName": "Презиме",
     "name": "Име",
     "newPassword": "Нова лозинка",
@@ -571,6 +572,7 @@
     "street": "Улица",
     "streetExample": "пр. Солунска 25",
     "summary": "Преглед",
+    "welcomeBack": "Дојбре дојдовте",
     "zipcode": "Поштенски код"
   },
   "countries": {
