@@ -19,16 +19,16 @@ class MyApp extends App<any> {
         translations={{}}
         theme={{
           components: {
+            Button: {
+              baseStyle: {
+                fontWeight: 'normal',
+              },
+            },
             Menu: {
               baseStyle: {
                 list: {
                   zIndex: 10000,
                 },
-              },
-            },
-            Button: {
-              baseStyle: {
-                fontWeight: 'normal',
               },
             },
           },
