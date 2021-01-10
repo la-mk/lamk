@@ -101,21 +101,20 @@ export const Home = ({}: {}) => {
         store={store}
       />
 
-      <Flex mt={7} direction='column'>
-        {categoriesForSet.length > 1 && (
-          <Box px={[2, 4, 5]} mb={8}>
-            <CategorySet
-              categoriesToShow={categoriesForSet}
-              categories={categories}
-              title={t('chosenSets.selectedCategories')}
-              subtitle={t('chosenSets.selectedCategoriesExplanation')}
-            />
-          </Box>
-        )}
+      <Spinner isLoaded={!showSpinner}>
+        <Flex mt={7} direction='column'>
+          {categoriesForSet.length > 1 && (
+            <Box px={[2, 4, 5]} mb={8}>
+              <CategorySet
+                categoriesToShow={categoriesForSet}
+                categories={categories}
+                title={t('chosenSets.selectedCategories')}
+                subtitle={t('chosenSets.selectedCategoriesExplanation')}
+              />
+            </Box>
+          )}
 
-        {!showSpinner &&
-          productSetsWithData &&
-          productSetsWithData.length === 0 && (
+          {!showSpinner && !productSetsWithData && (
             <Result
               status='empty'
               mt={8}
@@ -123,7 +122,6 @@ export const Home = ({}: {}) => {
             />
           )}
 
-        <Spinner isLoaded={!showSpinner}>
           <>
             {(productSetsWithData ?? []).map((set, index) => (
               <React.Fragment key={set.setTag.type + (set.setTag.value || '')}>
@@ -176,8 +174,8 @@ export const Home = ({}: {}) => {
               </React.Fragment>
             ))}
           </>
-        </Spinner>
-      </Flex>
+        </Flex>
+      </Spinner>
     </>
   );
 };
