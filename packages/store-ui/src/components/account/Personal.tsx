@@ -14,7 +14,6 @@ import { useTranslation } from '../../common/i18n';
 import { patchUser } from '../../state/modules/user/user.module';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Page } from '../shared/Page';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import { BackButton } from './BackButton';
 
 export const Personal = ({ user }: { user: User }) => {

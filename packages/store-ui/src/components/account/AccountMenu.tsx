@@ -17,6 +17,7 @@ import { useTranslation } from '../../common/i18n';
 import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { ClickableCard } from '../shared/ClickableCard';
 import { User } from '@la-mk/la-sdk/dist/models/user';
+import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 
 const getAccountMenu = (t: TFunction) => [
   {
@@ -84,6 +85,7 @@ export const AccountMenu = () => {
   const theme = useTheme();
   const user = useSelector(getUser);
   const isMobile = hooks.useBreakpoint([true, false, false]);
+  useBreadcrumb([{ url: '/', title: t('pages.home') }]);
 
   return (
     <Flex
