@@ -169,6 +169,8 @@
     "success": "Success!",
     "summary": "Summary",
     "unknown": "Unknown",
+    "welcomeBack": "Welcome back",
+    "guest": "Guest",
     "zipcode": "Zipcode"
   },
   "company": {
