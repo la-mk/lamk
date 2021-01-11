@@ -97,7 +97,7 @@ const ProductImage = ({
       {/* <ActionsOverlay /> */}
 
       <Image
-        style={{ objectFit: 'cover' }}
+        style={{ objectFit: 'contain' }}
         height={height}
         getSrc={params =>
           sdk.artifact.getUrlForImage(product.images[0], storeId, params)

@@ -44,7 +44,7 @@ export const ProductImage = ({
         >
           {imageProps => (
             <Image
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: 'contain' }}
               {...imageProps}
               getSrc={params =>
                 sdk.artifact.getUrlForImage(selectedImage, store._id, params)
