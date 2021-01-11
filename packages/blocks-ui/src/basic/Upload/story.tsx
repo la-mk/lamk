@@ -5,7 +5,7 @@ import { Provider } from '../../';
 
 storiesOf('Upload', module).add('standard', () => {
   const [images, setImages] = React.useState<any>([
-    'https://picsum.photos/200/300',
+    { _id: 'https://picsum.photos/200/300' },
   ]);
   return (
     <Provider>

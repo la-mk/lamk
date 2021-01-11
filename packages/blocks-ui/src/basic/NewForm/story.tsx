@@ -46,7 +46,30 @@ export const schema: any = {
     files: {
       type: 'array',
       items: {
-        type: 'string',
+        type: 'object',
+        required: [],
+        properties: {
+          _id: {
+            type: 'string',
+          },
+          height: {
+            type: 'number',
+            exclusiveMinimum: 0,
+          },
+          width: {
+            type: 'number',
+            exclusiveMinimum: 0,
+          },
+          // In kb
+          size: {
+            type: 'number',
+            exclusiveMinimum: 0,
+          },
+          mimeType: {
+            type: 'string',
+            enum: ['image/jpeg', 'image/png'],
+          },
+        },
       },
     },
     category: {
@@ -336,8 +359,18 @@ storiesOf('New Form', module)
         <NewForm
           imageUpload={{
             getImageUrl: id => id,
-            uploadImage: ({ file, onSuccess, onError }) => {
-              return Math.random() > 0.5 ? onSuccess(file) : onError(file);
+            uploadImage: () => {
+              return new Promise(resolve => {
+                setTimeout(
+                  () =>
+                    resolve({
+                      id: `https://picsum.photos/200/${Math.round(
+                        (Math.random() + 20) * 20
+                      )}`,
+                    }),
+                  3000
+                );
+              });
             },
             removeImage: () => Promise.resolve(),
           }}
@@ -525,7 +558,7 @@ storiesOf('New Form', module)
           <NewForm
             imageUpload={{
               getImageUrl: () => 'hey',
-              uploadImage: () => Promise.resolve(),
+              uploadImage: () => Promise.resolve() as any,
               removeImage: () => Promise.resolve(),
             }}
             schema={parsedSchema}

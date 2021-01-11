@@ -1,22 +1,30 @@
 import { LocalizationContext } from '../Provider';
 import { Spinner } from '../Spinner';
-import { Image } from '../Image/Image';
+import { Image as BlocksImage } from '../Image/Image';
 import React, { useCallback, useContext } from 'react';
 import { useDropzone, FileRejection } from 'react-dropzone';
 import { Box } from '../Box';
 import { Flex } from '../Flex';
-import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
 import { Text } from '../Text';
 import { DeleteOutlined, UploadOutlined } from '@ant-design/icons';
 import uniqueId from 'lodash/uniqueId';
 import { Button } from '../Button';
 
+export interface Media {
+  _id: string;
+  height: number;
+  width: number;
+  size: number;
+  mimeType: 'image/jpeg' | 'image/png';
+}
+
 export interface UploadProps {
-  value: string | string[];
+  value: Media | Media[];
   name: string;
   disabled?: boolean;
   multiple?: boolean;
-  onChange: (val: string | string[] | null | undefined) => void;
+  onChange: (val: Media | Media[] | null | undefined) => void;
   getImageUrl: (imageId: string) => string;
   remove: (imageId: string) => Promise<void>;
   upload: (file: File) => Promise<{ id: string }>;
@@ -29,6 +37,8 @@ export interface CustomFile {
   preview: string;
   status: UploadStatus;
   id: string;
+  mimeType?: 'image/jpeg' | 'image/png';
+  mediaInfo?: Media;
 }
 
 const Previewer = ({
@@ -80,12 +90,38 @@ const Previewer = ({
             minHeight="100px"
             height="100px" // @ts-ignore
           >
-            <Image height={100} src={file.preview} alt="uploaded image" />
+            <BlocksImage height={100} src={file.preview} alt="uploaded image" />
           </Box>
         </Box>
       </Spinner>
     </Box>
   );
+};
+
+const getMediaFromFile = (
+  id: string,
+  src: string,
+  mimeType: CustomFile['mimeType'],
+  size: number
+) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        _id: id,
+        height: img.height,
+        width: img.width,
+        // Bytes to kilobyes (these days a KB is 1000 bytes...)
+        size: size ?? 0 / 1000,
+        mimeType: mimeType,
+      } as Media);
+    };
+
+    img.onerror = () => {
+      reject();
+    };
+    img.src = src;
+  });
 };
 
 export const Upload = ({
@@ -104,20 +140,22 @@ export const Upload = ({
     Array<CustomFile>
   >([]);
 
-  const normalizedExistingFileIds = React.useMemo(() => {
+  const normalizedUploadedMedia = React.useMemo(() => {
     if (!value) {
       return [];
     }
 
-    return multiple ? (value as string[]) : [value as string];
+    return multiple ? (value as Media[]) : [value as Media];
   }, [value]);
 
-  const existingFiles = normalizedExistingFileIds.map(
-    (fileId: string) =>
+  const existingFiles = normalizedUploadedMedia.map(
+    file =>
       ({
-        id: fileId,
+        id: file._id,
         status: 'done',
-        preview: getImageUrl(fileId),
+        preview: getImageUrl(file._id),
+        mimeType: file.mimeType,
+        mediaInfo: file,
       } as CustomFile)
   );
 
@@ -138,6 +176,7 @@ export const Upload = ({
             preview: URL.createObjectURL(file),
             status: 'uploading' as UploadStatus,
             id: uniqueId(),
+            mimeType: file.type ?? 'image/jpeg',
           } as CustomFile)
       );
 
@@ -153,18 +192,24 @@ export const Upload = ({
 
       setUnprocessedFiles([...enhancedAcceptedFiles, ...enhancedRejectedFiles]);
 
-      const uploadedFileIds = (
+      const uploadedFiles = (
         await Promise.all(
           enhancedAcceptedFiles.map(async file => {
             try {
-              const uploadedFile = await upload(file.file);
-              // This is done in order to prevent memory leaks
-              URL.revokeObjectURL(file.preview);
+              const uploadedFileId = (await upload(file.file)).id;
               setUnprocessedFiles(files => {
                 return files.filter(f => f.id !== file.id);
               });
 
-              return uploadedFile.id;
+              const mediaFile = await getMediaFromFile(
+                uploadedFileId,
+                getImageUrl(uploadedFileId),
+                file.mimeType,
+                file.file.size
+              );
+              // This is done in order to prevent memory leaks
+              URL.revokeObjectURL(file.preview);
+              return mediaFile;
             } catch (e) {
               setUnprocessedFiles(files => {
                 const idx = files.findIndex(x => x.id === file.id);
@@ -183,26 +228,26 @@ export const Upload = ({
             return;
           })
         )
-      ).filter(x => !!x);
+      ).filter(x => !!x) as Media[];
 
       if (multiple) {
         onChange(
-          uniq([...normalizedExistingFileIds, ...(uploadedFileIds as string[])])
+          uniqBy([...normalizedUploadedMedia, ...uploadedFiles], x => x._id)
         );
       } else {
-        onChange(uploadedFileIds[0] ?? null);
+        onChange(uploadedFiles[0] ?? null);
       }
     },
-    [upload, normalizedExistingFileIds, onChange]
+    [upload, normalizedUploadedMedia, onChange]
   );
 
   const onRemove = useCallback(
     (id: string) => {
-      if (normalizedExistingFileIds.includes(id)) {
+      if (normalizedUploadedMedia.some(x => x._id === id)) {
         remove(id)
           .then(() => {
             if (multiple) {
-              onChange(normalizedExistingFileIds.filter(x => x !== id));
+              onChange(normalizedUploadedMedia.filter(x => x._id !== id));
             } else {
               onChange(null);
             }
@@ -220,14 +265,14 @@ export const Upload = ({
         });
       }
     },
-    [remove, normalizedExistingFileIds, multiple, onChange]
+    [remove, normalizedUploadedMedia, multiple, onChange]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: 'image/png, image/jpg, image/jpeg',
+    accept: 'image/png, image/jpeg',
     disabled,
-    maxFiles: 31,
+    maxFiles: 20,
     // 15MB
     maxSize: 15000000,
     multiple,
