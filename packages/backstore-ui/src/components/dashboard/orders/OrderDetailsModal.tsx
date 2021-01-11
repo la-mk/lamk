@@ -120,7 +120,7 @@ export const OrderDetailsModal = ({
                     order.campaigns,
                   )}
                   logoUrl={sdk.artifact.getUrlForImage(
-                    store?.logo,
+                    store?.logo?._id,
                     store?._id,
                     {
                       h: 64,
@@ -221,7 +221,7 @@ export const OrderDetailsModal = ({
                           alt={orderItem.product.name}
                           getSrc={params =>
                             sdk.artifact.getUrlForImage(
-                              orderItem.product.images[0],
+                              orderItem.product.media[0]?._id,
                               store?._id,
                               params,
                             )

@@ -105,7 +105,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
     {
       soldBy: storeId,
       unit: sdk.product.ProductUnit.ITEM,
-      images: [],
+      media: [],
       groups: [],
       variants: [{ price: 0 }],
     },
@@ -197,7 +197,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
         'soldBy',
         'name',
         'unit',
-        'images',
+        'media',
         'groups',
         'category',
         'description',
@@ -266,7 +266,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                       {t('common.basic')}
                     </Heading>
                   ),
-                  properties: ['soldBy', 'name', 'category', 'images'],
+                  properties: ['soldBy', 'name', 'category', 'media'],
                 },
                 {
                   sectionTitle: (
@@ -298,7 +298,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
             'ui:order': [
               'name',
               'category',
-              'images',
+              'media',
               'variants',
               'unit',
               'groups',
@@ -326,7 +326,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
               'ui:help': t('product.categoryTip'),
               'ui:placeholder': `${t('common.polite')} ${t('actions.select')}`,
             },
-            images: {
+            media: {
               'ui:widget': 'files',
               // TODO: Handle files title better
               'ui:title': ' ',

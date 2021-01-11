@@ -71,7 +71,7 @@ const getColumns = (
   [
     {
       title: t('common.image_plural'),
-      dataIndex: 'images',
+      dataIndex: 'media',
       width: '180px',
       align: 'center',
       render: (_text, product) => {
@@ -81,7 +81,11 @@ const getColumns = (
               height={60}
               alt={product.name}
               getSrc={params =>
-                sdk.artifact.getUrlForImage(product.images[0], storeId, params)
+                sdk.artifact.getUrlForImage(
+                  product.media[0]?._id,
+                  storeId,
+                  params,
+                )
               }
             />
           </Box>
