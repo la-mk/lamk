@@ -82,7 +82,7 @@ export const Header = ({ store }: HeaderProps) => {
         >
           <Image
             getSrc={params =>
-              sdk.artifact.getUrlForImage(store?.logo, store?._id, params)
+              sdk.artifact.getUrlForImage(store?.logo?._id, store?._id, params)
             }
             height={parseInt(desktopHeight)}
             alt='logo'

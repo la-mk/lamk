@@ -15,11 +15,11 @@ export const ProductImage = ({
   store: Store;
 }) => {
   const { t } = useTranslation();
-  const [selectedImage, setSelectedImage] = useState(product.images[0]);
+  const [selectedImage, setSelectedImage] = useState(product.media[0]?._id);
 
   React.useEffect(() => {
     if (product) {
-      setSelectedImage(product.images[0]);
+      setSelectedImage(product.media[0]?._id);
     }
   }, [product?._id]);
 
@@ -58,7 +58,7 @@ export const ProductImage = ({
       </Box>
       <Box mt={4} maxWidth={['100%', '100%', '80%']}>
         <Thumbnails
-          images={product.images}
+          media={product.media}
           imageBucket={store._id}
           selectedImage={selectedImage}
           onImageClick={setSelectedImage}

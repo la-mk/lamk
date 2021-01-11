@@ -184,9 +184,13 @@ class MyApp extends App<AppInitialProps> {
           <NextHead>
             <link
               rel='shortcut icon'
-              href={sdk.artifact.getUrlForImage(laStore.logo, laStore._id, {
-                h: 128,
-              })}
+              href={sdk.artifact.getUrlForImage(
+                laStore.logo?._id,
+                laStore._id,
+                {
+                  h: 128,
+                },
+              )}
             />
           </NextHead>
         )}

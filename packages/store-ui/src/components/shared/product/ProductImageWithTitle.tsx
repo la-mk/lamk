@@ -22,7 +22,7 @@ export const ProductImageWithTitle = ({
         <Image
           height={90}
           getSrc={params =>
-            sdk.artifact.getUrlForImage(product.images[0], storeId, params)
+            sdk.artifact.getUrlForImage(product.media[0]?._id, storeId, params)
           }
           alt={product.name}
         />

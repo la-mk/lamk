@@ -5,13 +5,14 @@ import { Button, Flex, Heading, Box } from '@la-mk/blocks-ui';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { useTranslation } from '../../common/i18n';
 import Link from 'next/link';
+import { Media } from '@la-mk/la-sdk/dist/internal-utils';
 
 export const Banner = ({
   banner,
   hideSlogan,
   store,
 }: {
-  banner?: string;
+  banner?: Media;
   hideSlogan?: boolean;
   store: Store;
 }) => {
@@ -24,7 +25,7 @@ export const Banner = ({
     <Flex bg='white'>
       <ImageBackgroundBox
         mx='auto'
-        url={sdk.artifact.getUrlForImage(banner, store._id, { h: 600 })}
+        url={sdk.artifact.getUrlForImage(banner?._id, store._id, { h: 600 })}
         height={['26rem', '38rem', '38rem']}
         maxWidth={'96rem'}
         width='100%'

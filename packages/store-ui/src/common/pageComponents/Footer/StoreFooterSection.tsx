@@ -17,7 +17,7 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
       <Box height={'6rem'} mb={5} bg='background.light'>
         <Image
           getSrc={params =>
-            sdk.artifact.getUrlForImage(store.logo, store._id, params)
+            sdk.artifact.getUrlForImage(store.logo?._id, store._id, params)
           }
           height={84}
           alt='logo'

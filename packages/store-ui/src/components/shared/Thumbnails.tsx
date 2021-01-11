@@ -1,29 +1,32 @@
 import React from 'react';
 import { Flex, Image, Box } from '@la-mk/blocks-ui';
 import { sdk } from '@la-mk/la-sdk';
+import { Media } from '@la-mk/la-sdk/dist/internal-utils';
 
 export interface ThumbnailsProps {
-  images: string[];
+  media: Media[];
   imageBucket: string;
   selectedImage: string;
   onImageClick: (imageId: string) => void;
 }
 
 export const Thumbnails = ({
-  images,
+  media,
   imageBucket,
   selectedImage,
   onImageClick,
 }: ThumbnailsProps) => {
   return (
     <Flex direction='row' wrap='wrap' justify='center'>
-      {images.map((imageId, index) => {
+      {media.map((mediaFile, index) => {
         return (
           <Flex
-            key={imageId}
+            key={mediaFile._id}
             // @ts-ignore
             style={
-              selectedImage === imageId ? { border: '1px solid lightgray' } : {}
+              selectedImage === mediaFile._id
+                ? { border: '1px solid lightgray' }
+                : {}
             }
             justify='center'
             align='center'
@@ -35,9 +38,9 @@ export const Thumbnails = ({
               height={70}
               alt={`product-thumbnail-${index}`}
               style={{ cursor: 'pointer' }}
-              onClick={() => onImageClick(imageId)}
+              onClick={() => onImageClick(mediaFile._id)}
               getSrc={params =>
-                sdk.artifact.getUrlForImage(imageId, imageBucket, params)
+                sdk.artifact.getUrlForImage(mediaFile._id, imageBucket, params)
               }
             />
           </Flex>

@@ -28,8 +28,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@la-mk/analytics": "0.0.10",
-    "@la-mk/blocks-ui": "0.0.246",
-    "@la-mk/la-sdk": "0.0.149",
+    "@la-mk/blocks-ui": "0.0.247",
+    "@la-mk/la-sdk": "0.0.152",
     "@la-mk/nlp": "0.0.4",
     "@la-mk/translations": "0.0.117",
     "connected-next-router": "^4.0.1",
