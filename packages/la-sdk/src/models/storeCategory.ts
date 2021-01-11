@@ -9,18 +9,15 @@ import { JSONSchemaType } from 'ajv';
 export const schema: JSONSchemaType<StoreCategory> = {
   type: 'object',
   additionalProperties: false,
-  required: [
-    ...categorySchema.required,
-    'forStore',
-  ],
+  required: [...categorySchema.required, 'forStore'],
   properties: {
     ...categorySchema.properties!,
     forStore: {
       type: 'string',
       format: 'uuid',
     },
-  }
-}
+  },
+};
 
 export interface StoreCategory extends Category {
   forStore: string;
@@ -47,6 +44,6 @@ export const getStoreCategorySdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
-    schema
+    schema,
   };
 };

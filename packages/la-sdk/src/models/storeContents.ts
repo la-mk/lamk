@@ -3,7 +3,12 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import {
+  defaultSchemaEntries,
+  DefaultSchema,
+  mediaSchema,
+  Media,
+} from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 import { ProductSet } from './product';
 
@@ -37,12 +42,7 @@ export const schema: JSONSchemaType<StoreContents> = {
       additionalProperties: false,
       required: ['sets'],
       properties: {
-        banner: {
-          // @ts-ignore the typings are wrong
-          type: ['string', 'null'],
-          minLength: 2,
-          maxLength: 4095,
-        },
+        banner: mediaSchema as any,
         sets: {
           type: 'array',
           maxItems: 12,
@@ -94,7 +94,7 @@ export interface StoreContents extends DefaultSchema {
     description: string;
   };
   landing?: {
-    banner?: string;
+    banner?: Media;
     sets: ProductSet[];
     hideSlogan?: boolean;
   };

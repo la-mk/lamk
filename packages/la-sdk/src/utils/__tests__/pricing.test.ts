@@ -139,10 +139,14 @@ describe('calculatePrices utility', () => {
       pricing.calculatePrices(
         orderItemFixtures,
         { ...deliveryFixture, freeDeliveryOver: 300 },
-        [{
-          ...campaignFixtures[0],
-          productRules: [{ type: ProductRuleTypes.GROUP, value: 'some-group' }],
-        }] as any
+        [
+          {
+            ...campaignFixtures[0],
+            productRules: [
+              { type: ProductRuleTypes.GROUP, value: 'some-group' },
+            ],
+          },
+        ] as any
       )
     ).toEqual({
       productsTotal: 700,
@@ -154,17 +158,16 @@ describe('calculatePrices utility', () => {
 
   test('calculates value correctly with multiple campaigns', () => {
     expect(
-      pricing.calculatePrices(
-        orderItemFixtures,
-        deliveryFixture,
-        [...campaignFixtures, {
+      pricing.calculatePrices(orderItemFixtures, deliveryFixture, [
+        ...campaignFixtures,
+        {
           reward: {
             type: RewardTypes.CONSTANT_DISCOUNT,
             value: 200,
           },
           productRules: [{ type: ProductRuleTypes.GROUP, value: 'some-group' }],
-        }] as any
-      )
+        },
+      ] as any)
     ).toEqual({
       productsTotal: 700,
       withCampaignsTotal: 460,

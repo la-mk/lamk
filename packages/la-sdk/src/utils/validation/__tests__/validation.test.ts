@@ -3,7 +3,13 @@ import * as validation from '..';
 const sampleSchema: any = {
   type: 'object',
   additionalProperties: false,
-  required: ['name', 'country', 'numberOfOffices', 'employeeNames', 'phoneNumbers'],
+  required: [
+    'name',
+    'country',
+    'numberOfOffices',
+    'employeeNames',
+    'phoneNumbers',
+  ],
   properties: {
     name: {
       type: 'string',
@@ -36,25 +42,25 @@ const sampleSchema: any = {
             maxLength: 63,
           },
         },
-        required: ['street', 'apartment']
+        required: ['street', 'apartment'],
       },
     },
     employeeNames: {
       type: 'array',
       items: {
-        type: 'string'
+        type: 'string',
       },
       minItems: 4,
-      maxItems: 8
+      maxItems: 8,
     },
     phoneNumbers: {
       type: 'array',
       items: {
         type: 'string',
         minLength: 4,
-        maxLength: 8
-      }
-    }
+        maxLength: 8,
+      },
+    },
   },
 };
 

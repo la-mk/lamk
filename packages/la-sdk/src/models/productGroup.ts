@@ -6,7 +6,6 @@ import { validate, validateSingle } from '../utils/validation';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
-
 export const schema: JSONSchemaType<ProductGroup> = {
   type: 'object',
   additionalProperties: false,
@@ -25,14 +24,14 @@ export const schema: JSONSchemaType<ProductGroup> = {
     groupName: {
       type: 'string',
       minLength: 2,
-      maxLength: 127
+      maxLength: 127,
     },
     itemCountInGroup: {
       type: 'integer',
-      minimum: 0
-    }
-  }
-}
+      minimum: 0,
+    },
+  },
+};
 
 export interface ProductGroup extends DefaultSchema {
   forStore: string;
@@ -62,6 +61,6 @@ export const getProductGroupSdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
-    schema
+    schema,
   };
 };

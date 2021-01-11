@@ -3,7 +3,12 @@ import { Application, Params } from '@feathersjs/feathers';
 import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
-import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import {
+  defaultSchemaEntries,
+  DefaultSchema,
+  mediaSchema,
+  Media,
+} from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
 export const schema: JSONSchemaType<Store> = {
@@ -104,12 +109,7 @@ export const schema: JSONSchemaType<Store> = {
         },
       },
     },
-    logo: {
-      // @ts-ignore the typings are wrong
-      type: ['string', 'null'],
-      minLength: 2,
-      maxLength: 4095,
-    },
+    logo: mediaSchema as any,
     isPublished: {
       type: 'boolean',
     },
@@ -134,7 +134,7 @@ export interface Store extends DefaultSchema {
     phoneNumber: string;
     alternatePhoneNumber?: string;
   };
-  logo?: string;
+  logo?: Media | null;
   isPublished: boolean;
 }
 

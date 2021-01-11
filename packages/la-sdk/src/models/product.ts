@@ -6,7 +6,12 @@ import { getCrudMethods } from '../setup';
 import { OmitServerProperties } from '../utils';
 import { validate, validateSingle } from '../utils/validation';
 import pick from 'lodash/pick';
-import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
+import {
+  defaultSchemaEntries,
+  DefaultSchema,
+  mediaSchema,
+  Media,
+} from '../internal-utils';
 import { omitBy, isNil } from 'lodash';
 import { JSONSchemaType } from 'ajv';
 
@@ -84,7 +89,7 @@ export const schema: JSONSchemaType<Product> = {
     'soldBy',
     'name',
     'unit',
-    'images',
+    'media',
     'groups',
     'category',
     'variants',
@@ -105,14 +110,10 @@ export const schema: JSONSchemaType<Product> = {
       enum: Object.values(ProductUnit),
       default: ProductUnit.ITEM,
     },
-    images: {
+    media: {
       type: 'array',
-      maxItems: 10,
-      items: {
-        type: 'string',
-        minLength: 2,
-        maxLength: 1023,
-      },
+      maxItems: 20,
+      items: mediaSchema as any,
     },
     groups: {
       type: 'array',
@@ -231,7 +232,7 @@ export interface Product extends DefaultSchema {
   unit: ProductUnit;
   category: string;
   groups: string[];
-  images: string[];
+  media: Media[];
   description?: string;
   variants: Variant[];
   totalStock?: number;

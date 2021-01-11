@@ -6,7 +6,7 @@ import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
 export const schema: JSONSchemaType<Category> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
   required: [...defaultSchemaEntries.required, 'level1', 'level2', 'level3'],
   properties: {
@@ -14,19 +14,19 @@ export const schema: JSONSchemaType<Category> = {
     level1: {
       type: 'string',
       minLength: 2,
-      maxLength: 255
+      maxLength: 255,
     },
     level2: {
       type: 'string',
       minLength: 2,
-      maxLength: 255
+      maxLength: 255,
     },
     level3: {
       type: 'string',
       minLength: 2,
-      maxLength: 255
+      maxLength: 255,
     },
-  }
+  },
 };
 
 export interface Category extends DefaultSchema {
@@ -50,6 +50,6 @@ export const getCategorySdk = (client: Application) => {
     validateSingle: (val: any, selector: string) => {
       return validateSingle(schema, val, selector);
     },
-    schema
+    schema,
   };
 };

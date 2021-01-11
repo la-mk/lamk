@@ -8,18 +8,57 @@ export const defaultSchemaEntries: JSONSchemaType<DefaultSchema> = {
   properties: {
     _id: {
       type: 'string',
-      format: 'uuid'
+      format: 'uuid',
     },
     createdAt: {
       type: 'string',
-      format: 'date-time'
+      format: 'date-time',
     },
     modifiedAt: {
       type: 'string',
-      format: 'date-time'
+      format: 'date-time',
     },
-  }
+  },
 };
+
+export const mediaSchema: JSONSchemaType<Media> = {
+  type: 'object',
+  additionalProperties: false,
+  required: [
+    ...defaultSchemaEntries.required,
+    'height',
+    'width',
+    'size',
+    'mimeType',
+  ],
+  properties: {
+    ...defaultSchemaEntries.properties!,
+    height: {
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    width: {
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    // In kb
+    size: {
+      type: 'number',
+      exclusiveMinimum: 0,
+    },
+    mimeType: {
+      type: 'string',
+      enum: ['image/jpeg', 'image/png'],
+    },
+  },
+};
+
+export interface Media extends DefaultSchema {
+  height: number;
+  width: number;
+  size: number;
+  mimeType: 'image/jpeg' | 'image/png';
+}
 
 export interface DefaultSchema {
   _id: string;

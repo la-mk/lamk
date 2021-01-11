@@ -13,30 +13,36 @@ export enum DeliveryMethods {
 }
 
 export const schema: JSONSchemaType<Delivery> = {
-  type:  'object',
+  type: 'object',
   additionalProperties: false,
-  required: [...defaultSchemaEntries.required, 'forStore', 'method', 'price', 'freeDeliveryOver'],
+  required: [
+    ...defaultSchemaEntries.required,
+    'forStore',
+    'method',
+    'price',
+    'freeDeliveryOver',
+  ],
   properties: {
     ...defaultSchemaEntries.properties!,
     forStore: {
       type: 'string',
-      format: 'uuid'
+      format: 'uuid',
     },
     method: {
       type: 'string',
       enum: Object.values(DeliveryMethods),
-      default: DeliveryMethods.DOOR_TO_DOOR
+      default: DeliveryMethods.DOOR_TO_DOOR,
     },
     price: {
       type: 'number',
-      minimum: 0
+      minimum: 0,
     },
     freeDeliveryOver: {
       type: 'number',
-      minimum: 0
-    }
-  }
-}
+      minimum: 0,
+    },
+  },
+};
 
 export interface Delivery extends DefaultSchema {
   forStore: string;
@@ -68,6 +74,6 @@ export const getDeliverySdk = (client: Application) => {
     },
 
     DeliveryMethods,
-    schema
+    schema,
   };
 };
