@@ -24,15 +24,8 @@ export const defaultSchemaEntries: JSONSchemaType<DefaultSchema> = {
 export const mediaSchema: JSONSchemaType<Media> = {
   type: 'object',
   additionalProperties: false,
-  required: [
-    ...defaultSchemaEntries.required,
-    'height',
-    'width',
-    'size',
-    'mimeType',
-  ],
+  required: ['_id', 'height', 'width', 'size', 'mimeType'],
   properties: {
-    ...defaultSchemaEntries.properties!,
     // TODO: Currently we append the image format to the _id, so it is not just a plain UUID. We can probably remove that.
     _id: {
       type: 'string',
@@ -57,7 +50,8 @@ export const mediaSchema: JSONSchemaType<Media> = {
   },
 };
 
-export interface Media extends DefaultSchema {
+export interface Media {
+  _id: string;
   height: number;
   width: number;
   size: number;
