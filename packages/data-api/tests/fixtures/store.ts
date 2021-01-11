@@ -5,7 +5,13 @@ import { defaultGenerator, GeneratorFunc } from './helpers';
 const defaultFixture: Partial<Store> = {
   name: 'Test campaigns',
   slug: 'campaigns-test',
-  logo: '2345',
+  logo: {
+    _id: '2345',
+    height: 100,
+    width: 100,
+    mimeType: 'image/png',
+    size: 1234,
+  },
   company: {
     companyName: 'Test',
     companyAddress: 'Test',

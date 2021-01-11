@@ -8,8 +8,8 @@ const defaultFixture: Partial<Product> = {
   variants: [{ price: 1234 }],
 
   category: 'some-category',
-  images: [] as string[],
-  groups: [] as string[],
+  media: [],
+  groups: [],
 };
 
 export default {

@@ -60,8 +60,8 @@ export const sendOrderNotification = async (ctx: HookContext) => {
   const templateData = {
     storeName: store?.name ?? storeDomain,
     storeUrl,
-    storeLogoUrl: store.logo
-      ? sdk.artifact.getUrlForImage(store.logo, store._id, {
+    storeLogoUrl: store.logo?._id
+      ? sdk.artifact.getUrlForImage(store.logo._id, store._id, {
           h: 64,
           dpr: 2,
         })
