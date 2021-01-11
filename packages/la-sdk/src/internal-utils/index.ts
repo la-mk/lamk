@@ -33,6 +33,10 @@ export const mediaSchema: JSONSchemaType<Media> = {
   ],
   properties: {
     ...defaultSchemaEntries.properties!,
+    // TODO: Currently we append the image format to the _id, so it is not just a plain UUID. We can probably remove that.
+    _id: {
+      type: 'string',
+    },
     height: {
       type: 'number',
       exclusiveMinimum: 0,
