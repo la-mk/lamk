@@ -54,7 +54,9 @@
     "resetPassword": "Reset password",
     "resetPasswordExplanation": "Set your email and new password in the form below",
     "resetPasswordSuccess": "Password reset successfully",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "welcomeToAccount": "Welcome to your account page",
+    "welcomeToAccountExplanation": "You can view your orders, edit your addresses, and manage your account"
   },
   "campaignBanners": {
     "setDiscountSubtitle": "All discounts are calculated on checkout",
