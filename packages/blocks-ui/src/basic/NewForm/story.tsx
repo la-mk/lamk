@@ -72,6 +72,32 @@ export const schema: any = {
         },
       },
     },
+    file: {
+      type: 'object',
+      required: [],
+      properties: {
+        _id: {
+          type: 'string',
+        },
+        height: {
+          type: 'number',
+          exclusiveMinimum: 0,
+        },
+        width: {
+          type: 'number',
+          exclusiveMinimum: 0,
+        },
+        // In kb
+        size: {
+          type: 'number',
+          exclusiveMinimum: 0,
+        },
+        mimeType: {
+          type: 'string',
+          enum: ['image/jpeg', 'image/png'],
+        },
+      },
+    },
     category: {
       type: 'string',
     },
@@ -195,7 +221,7 @@ const uiSchema = {
             Hey there
           </Heading>
         ),
-        properties: ['aboutUs', 'isPromoted', 'files'],
+        properties: ['aboutUs', 'isPromoted', 'files', 'file'],
       },
       {
         sectionTitle: (
@@ -248,6 +274,9 @@ const uiSchema = {
   },
   files: {
     'ui:widget': 'files',
+  },
+  file: {
+    'ui:widget': 'file',
   },
   category: {
     'ui:widget': 'cascader',

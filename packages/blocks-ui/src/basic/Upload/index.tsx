@@ -10,6 +10,7 @@ import { Text } from '../Text';
 import { DeleteOutlined, UploadOutlined } from '@ant-design/icons';
 import uniqueId from 'lodash/uniqueId';
 import { Button } from '../Button';
+import isEmpty from 'lodash/isEmpty';
 
 export interface Media {
   _id: string;
@@ -141,7 +142,7 @@ export const Upload = ({
   >([]);
 
   const normalizedUploadedMedia = React.useMemo(() => {
-    if (!value) {
+    if (isEmpty(value)) {
       return [];
     }
 

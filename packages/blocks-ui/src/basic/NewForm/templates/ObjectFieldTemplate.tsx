@@ -30,7 +30,10 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
         />
       )}
 
-      {!sections && (
+      {/* Because of our custom ObjectField, properties might be a widget */}
+      {!Array.isArray(props.properties) && props.properties}
+
+      {Array.isArray(props.properties) && !sections && (
         <Flex wrap={'wrap'} mx={'-1rem'} overflow="hidden">
           {props.properties.map((prop: any, i) => (
             <React.Fragment key={i}>{prop.content}</React.Fragment>
@@ -38,7 +41,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
         </Flex>
       )}
 
-      {sections &&
+      {Array.isArray(props.properties) &&
+        sections &&
         sections.map((section, i) => {
           return (
             <Flex key={i} direction={'column'} wrap={'nowrap'}>

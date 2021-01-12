@@ -80,6 +80,7 @@ export const NewForm = <T extends any>({
         }}
         {...props}
         {...templates}
+        // @ts-ignore
         fields={fields}
         widgets={widgets}
         transformErrors={transformErrors}
