@@ -72,6 +72,8 @@
     "resetPasswordSuccess": "Password reset successfully",
     "askedResetPasswordOn": "You requested for a password reset on",
     "didntAskResetExplanation": "If you didn't request a password reset, you can ignore this email. Your existing password will remain unchanged",
+    "welcomeToAccount": "Welcome to your account page",
+    "welcomeToAccountExplanation": "You can view your orders, edit your addresses, and manage your account",
     "login": "Log in",
     "logout": "Log out",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
