@@ -99,7 +99,7 @@ const TextWidget = ({
 
   const handleTextChange = React.useCallback(
     ({ target }: any) =>
-      onChange(target.value === '' ? options.emptyValue : target.value),
+      onChange(target.value === '' ? options.emptyValue : target.value.trim()),
     [onChange]
   );
 
