@@ -103,16 +103,24 @@ const TextWidget = ({
     [onChange]
   );
 
+  const type =
+    isSchemaOfType(schema, 'number') || isSchemaOfType(schema, 'integer')
+      ? 'number'
+      : (options.inputType as string);
+
+  const changeHandler =
+    type === 'number' ? handleNumberChange : handleTextChange;
+
   const handleBlur = React.useCallback(
     ({ target }: any) => {
-      if (target.value) {
+      if (target.value && type !== 'number') {
         onChange(
           target.value === '' ? options.emptyValue : target.value.trim()
         );
       }
       onBlur(id, target.value);
     },
-    [onBlur]
+    [type, onBlur]
   );
 
   const handleFocus = React.useCallback(
@@ -142,14 +150,6 @@ const TextWidget = ({
       />
     );
   }
-
-  const type =
-    isSchemaOfType(schema, 'number') || isSchemaOfType(schema, 'integer')
-      ? 'number'
-      : (options.inputType as string);
-
-  const changeHandler =
-    type === 'number' ? handleNumberChange : handleTextChange;
 
   return (
     <Input
