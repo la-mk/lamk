@@ -99,12 +99,19 @@ const TextWidget = ({
 
   const handleTextChange = React.useCallback(
     ({ target }: any) =>
-      onChange(target.value === '' ? options.emptyValue : target.value.trim()),
+      onChange(target.value === '' ? options.emptyValue : target.value),
     [onChange]
   );
 
   const handleBlur = React.useCallback(
-    ({ target }: any) => onBlur(id, target.value),
+    ({ target }: any) => {
+      if (target.value) {
+        onChange(
+          target.value === '' ? options.emptyValue : target.value.trim()
+        );
+      }
+      onBlur(id, target.value);
+    },
     [onBlur]
   );
 

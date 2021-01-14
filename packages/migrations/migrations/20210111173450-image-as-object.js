@@ -78,6 +78,39 @@ module.exports = {
       },
       { concurrency: 30 }
     );
+
+    const orders = await db.collection("orders").find({}).toArray();
+    await Bluebird.map(
+      orders,
+      (order) => {
+        const ordered = order.ordered.map((x) => {
+          const media = (x.product.images || []).map((image) => ({
+            _id: image,
+            height: 1000,
+            width: 1000,
+            size: 100,
+            mimeType: "image/png",
+          }));
+
+          const res = {
+            ...x,
+            product: {
+              ...x.product,
+              media,
+            },
+          };
+
+          delete res.product.images;
+          return res;
+        });
+
+        console.log(`Updating order: ${order._id}`);
+        return db
+          .collection("orders")
+          .updateMany({ _id: order._id }, { $set: { ordered: ordered } });
+      },
+      { concurrency: 30 }
+    );
   },
 
   async down(db, client) {
