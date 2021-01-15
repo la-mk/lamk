@@ -38,7 +38,7 @@ export const mediaSchema: JSONSchemaType<Media> = {
       type: 'number',
       exclusiveMinimum: 0,
     },
-    // In kb
+    // In bytes
     size: {
       type: 'number',
       exclusiveMinimum: 0,

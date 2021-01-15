@@ -112,8 +112,7 @@ const getMediaFromFile = (
         _id: id,
         height: img.height,
         width: img.width,
-        // Bytes to kilobyes (these days a KB is 1000 bytes...)
-        size: size ?? 0 / 1000,
+        size,
         mimeType: mimeType,
       } as Media);
     };
