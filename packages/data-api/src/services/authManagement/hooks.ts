@@ -43,7 +43,7 @@ export const handleResetToken = async (ctx: CustomHookContext) => {
     : undefined;
 
   const templateData = {
-    storeName: storeInfo?.name ?? 'admin.la.mk',
+    storeName: storeInfo?.name ?? 'la.mk',
     storeUrl: `https://${storeDomain ?? 'admin.la.mk'}`,
     resetLink: storeDomain
       ? `https://${storeDomain}/auth/resetPassword?resetToken=${authManagement?.resetToken}`
@@ -52,9 +52,9 @@ export const handleResetToken = async (ctx: CustomHookContext) => {
 
   if (authManagement?.resetToken && authManagement?.email) {
     await ctx.app.services['email'].create({
-      from: 'noreply@la.mk',
+      from: { email: 'noreply@la.mk', name: templateData.storeName },
       to: authManagement.email,
-      subject: `la.mk - ${t('auth.resetPassword')}`,
+      subject: `${templateData.storeName} - ${t('auth.resetPassword')}`,
       html: await getEmailTemplate('reset-password', templateData),
       text: `
         Reset your password

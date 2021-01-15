@@ -9,7 +9,7 @@ type MailClient = typeof sendgridClient;
 
 // The actual data sengrid accepts is much larger than this, but this should do for now.
 export interface EmailServiceData {
-  from: string;
+  from: { name: string; email: string };
   to: string;
   subject: string;
   text: string;
@@ -32,7 +32,7 @@ class EmailService implements Service<EmailServiceData> {
   // @ts-ignore
   async create(data: EmailServiceData) {
     const msg = {
-      from: data.from.toLowerCase(),
+      from: { ...data.from, email: data.from.email.toLowerCase() },
       to: data.to.toLowerCase(),
       subject: data.subject,
       text: data.text,

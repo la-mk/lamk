@@ -81,9 +81,9 @@ export const sendOrderNotification = async (ctx: HookContext) => {
 
   try {
     await ctx.app.services['email'].create({
-      from: 'noreply@la.mk',
+      from: { email: 'noreply@la.mk', name: templateData.storeName },
       to: orderedByUser.email,
-      subject: `la.mk - ${t('cart.orderSuccess')}`,
+      subject: `${templateData.storeName} - ${t('cart.orderSuccess')}`,
       html: await getEmailTemplate('order-success', templateData),
       text: `
         Your order was successful!
