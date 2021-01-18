@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/la-mk/lamk.git",
     "directory": "packages/blocks-ui"
   },
-  "version": "0.0.252",
+  "version": "0.0.253",
   "description": "",
   "module": "dist/blocks-ui.esm.js",
   "typings": "dist/index.d.ts",
@@ -76,6 +76,10 @@
     "qs": "^6.9.4",
     "rc-cascader": "^1.4.1",
     "react-dropzone": "^11.2.4",
-    "tinycolor2": "^1.4.2"
+    "rehype-react": "^6.1.0",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^8.0.0",
+    "tinycolor2": "^1.4.2",
+    "unified": "^9.2.0"
   }
 }
