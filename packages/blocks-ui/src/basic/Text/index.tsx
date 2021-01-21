@@ -42,7 +42,7 @@ export const Text = React.forwardRef(
     return (
       <ChakraText
         ref={ref}
-        fontSize={size}
+        fontSize={size ?? 'md'}
         color="text.dark"
         as="span"
         {...props}

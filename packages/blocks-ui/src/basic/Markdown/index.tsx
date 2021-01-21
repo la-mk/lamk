@@ -55,9 +55,7 @@ export const getProcessor = () => {
             </Flex>
           );
         },
-        h1: (props: any) => (
-          <Heading as="h1" size="3xl" mb={5} mt={6} {...props} />
-        ),
+        h1: (props: any) => <Heading as="h1" size="3xl" mb={5} {...props} />,
         h2: (props: any) => (
           <Heading as="h2" size="2xl" mb={5} mt={6} {...props} />
         ),
