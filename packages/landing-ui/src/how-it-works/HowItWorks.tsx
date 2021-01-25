@@ -1,6 +1,5 @@
 import React from 'react';
 import { Flex, Box, Image } from '@la-mk/blocks-ui';
-// import { Video } from '../common/Video';
 import { Hero } from './Hero';
 import { HowToList } from './HowToList';
 import { GeneratedStoreExample } from './GeneratedStoreExample';
