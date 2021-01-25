@@ -4,17 +4,13 @@ import {
   DataGrid,
   Divider,
   Flex,
-  Heading,
   hooks,
-  Image,
   Result,
   Text,
 } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import Router from 'next/router';
 import { TitleSection } from './TitleSection';
-import { CurvedSection } from '../common/CurvedSection';
-import { withTheme } from 'styled-components';
 import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { Trans } from 'react-i18next';
 import { useTranslation } from '../common/i18n';
@@ -45,101 +41,99 @@ const PostItem = ({ post }: { post: Post }) => {
   );
 };
 
-export const Posts = withTheme(
-  ({ posts, theme }: { posts: Post[]; theme: BlocksTheme }) => {
-    const { t } = useTranslation();
+export const Posts = ({ posts }: { posts: Post[] }) => {
+  const { t } = useTranslation();
 
-    const publishedPosts = posts?.filter(post => {
-      const publishDate = new Date(post.date);
-      return publishDate.getTime() < Date.now();
-    });
+  const publishedPosts = posts?.filter(post => {
+    const publishDate = new Date(post.date);
+    return publishDate.getTime() < Date.now();
+  });
 
-    const [filters, setFilters] = hooks.useFilter(
-      {
-        sorting: {
-          field: 'createdAt',
-          order: 'descend',
-        },
-        pagination: {
-          currentPage: 1,
-          pageSize: 10,
-        },
+  const [filters, setFilters] = hooks.useFilter(
+    {
+      sorting: {
+        field: 'createdAt',
+        order: 'descend',
       },
-      {
-        storage: 'url',
-        router: Router,
+      pagination: {
+        currentPage: 1,
+        pageSize: 10,
       },
-    );
+    },
+    {
+      storage: 'url',
+      router: Router,
+    },
+  );
 
-    return (
-      <>
-        <HeroTitle description={t('landingBlog.heroExplanation')}>
-          <Trans t={t} i18nKey='landingBlog.heroSlogan'>
-            Spreading&nbsp;
-            <Text
-              lineHeight={1.3}
-              align='center'
-              // @ts-ignore
-              fontSize='inherit'
-              color='primary.500'
-            >
-              Knowledge
-            </Text>
-          </Trans>
-        </HeroTitle>
+  return (
+    <>
+      <HeroTitle description={t('landingBlog.heroExplanation')}>
+        <Trans t={t} i18nKey='landingBlog.heroSlogan'>
+          Spreading&nbsp;
+          <Text
+            lineHeight={1.3}
+            align='center'
+            // @ts-ignore
+            fontSize='inherit'
+            color='primary.500'
+          >
+            Knowledge
+          </Text>
+        </Trans>
+      </HeroTitle>
 
-        <Flex
-          mb={8}
-          mx={'auto'}
-          p={3}
-          align='center'
-          justify='center'
-          direction='column'
-          maxWidth='48rem'
-        >
-          {publishedPosts.length === 0 && (
-            <Result
-              status='empty'
-              title={t('store.emptyBlog')}
-              description={t('store.emptyBlogExplanation')}
-            />
-          )}
-          {publishedPosts.length > 0 && (
-            <DataGrid<Post>
-              px={4}
-              isFullWidth
-              rowKey={'slug'}
-              spacing={[6, 6, 7]}
-              pagination={{
-                currentPage: filters.pagination
-                  ? filters.pagination.currentPage
-                  : 1,
-                pageSize: filters.pagination ? filters.pagination.pageSize : 10,
-                totalItems: publishedPosts.length,
-                onChange: (currentPage, pageSize) => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  setFilters({
-                    ...filters,
-                    pagination: { currentPage, pageSize },
-                  });
-                },
-              }}
-              isLoaded
-              items={publishedPosts}
-              renderItem={post => (
-                <Box>
-                  <Link href={`/blog/${post.slug}`} passHref>
-                    <Box as='a'>
-                      <PostItem post={post} />
-                    </Box>
-                  </Link>
-                  <Divider mt={[6, 6, 7]} />
-                </Box>
-              )}
-            ></DataGrid>
-          )}
-        </Flex>
-      </>
-    );
-  },
-);
+      <Flex
+        mb={8}
+        mx={'auto'}
+        p={3}
+        align='center'
+        justify='center'
+        direction='column'
+        maxWidth='48rem'
+      >
+        {publishedPosts.length === 0 && (
+          <Result
+            status='empty'
+            title={t('store.emptyBlog')}
+            description={t('store.emptyBlogExplanation')}
+          />
+        )}
+        {publishedPosts.length > 0 && (
+          <DataGrid<Post>
+            px={4}
+            isFullWidth
+            rowKey={'slug'}
+            spacing={[6, 6, 7]}
+            pagination={{
+              currentPage: filters.pagination
+                ? filters.pagination.currentPage
+                : 1,
+              pageSize: filters.pagination ? filters.pagination.pageSize : 10,
+              totalItems: publishedPosts.length,
+              onChange: (currentPage, pageSize) => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setFilters({
+                  ...filters,
+                  pagination: { currentPage, pageSize },
+                });
+              },
+            }}
+            isLoaded
+            items={publishedPosts}
+            renderItem={post => (
+              <Box>
+                <Link href={`/blog/${post.slug}`} passHref>
+                  <Box as='a'>
+                    <PostItem post={post} />
+                  </Box>
+                </Link>
+                <Divider mt={[6, 6, 7]} />
+              </Box>
+            )}
+          ></DataGrid>
+        )}
+      </Flex>
+    </>
+  );
+};
