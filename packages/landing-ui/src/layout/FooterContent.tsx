@@ -39,6 +39,10 @@ const getMenus = (t: any): Menu[] => [
         text: t('landing.faqPage'),
       },
       {
+        link: '/blog',
+        text: t('landing.blogPage'),
+      },
+      {
         link: '/contact',
         text: t('landing.contactUsPage'),
       },

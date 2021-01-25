@@ -1,10 +1,10 @@
 import React from 'react';
-import { Accordion, Box, Heading, Flex, Text } from '@la-mk/blocks-ui';
-import { CurvedSection } from '../common/CurvedSection';
+import { Accordion, Box, Heading, Text } from '@la-mk/blocks-ui';
 import { withTheme } from 'styled-components';
 import { TFunction } from 'next-i18next';
 import { Trans } from 'react-i18next';
 import { useTranslation } from '../common/i18n';
+import { HeroTitle } from '../common/HeroTitle';
 
 interface FaqItem {
   question: string;
@@ -101,43 +101,20 @@ export const Faq = withTheme(({ theme }) => {
 
   return (
     <Box>
-      <CurvedSection
-        direction='down'
-        backgroundColor={theme.colors.background.light}
-      >
-        <Flex
-          align='center'
-          justify='center'
-          direction={['column', 'row', 'row']}
-          mt={[4, 6, 7]}
-        >
-          <Box maxWidth={'36rem'}>
-            <Heading align='center' color='secondary' as='h1' mb={2} size='3xl'>
-              <Trans t={t} i18nKey='landingFaq.heroSlogan'>
-                Frequently&nbsp;
-                <Text
-                  lineHeight={1.3}
-                  align='center'
-                  // @ts-ignore
-                  fontSize='inherit'
-                  color='primary.500'
-                >
-                  Asked Questions
-                </Text>
-              </Trans>
-            </Heading>
-
-            <Text
-              as='p'
-              mt={6}
-              size={'lg'}
-              align={['center', 'center', 'center']}
-            >
-              {t('landingFaq.heroExplanation')}
-            </Text>
-          </Box>
-        </Flex>
-      </CurvedSection>
+      <HeroTitle description={t('landingFaq.heroExplanation')}>
+        <Trans t={t} i18nKey='landingFaq.heroSlogan'>
+          Frequently&nbsp;
+          <Text
+            lineHeight={1.3}
+            align='center'
+            // @ts-ignore
+            fontSize='inherit'
+            color='primary.500'
+          >
+            Asked Questions
+          </Text>
+        </Trans>
+      </HeroTitle>
 
       <Box maxWidth={'60rem'} mx={'auto'} px={[4, 6, 7]} mb={7}>
         <Text as='p'>{t('landingFaq.additionalExplanation')}</Text>

@@ -18,6 +18,11 @@ class MyApp extends App<any> {
       <ThemeProvider
         translations={{}}
         theme={{
+          colors: {
+            heading: {
+              dark: '#07074F',
+            },
+          },
           components: {
             Button: {
               baseStyle: {

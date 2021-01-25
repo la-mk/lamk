@@ -28,11 +28,11 @@ export const CurvedSection = ({
           />
         </svg>
       )}
-      <Box py={5} px={[3, 4, 5]} bg={backgroundColor}>
+      <Box py={4} px={[3, 4, 5]} bg={backgroundColor}>
         {children}
       </Box>
       {direction === 'down' && (
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 300'>
           <path
             fill={backgroundColor}
             fillOpacity='1'

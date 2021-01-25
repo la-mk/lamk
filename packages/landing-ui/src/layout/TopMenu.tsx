@@ -71,6 +71,12 @@ export const TopMenu = ({ closeDrawer }: { closeDrawer?: () => void }) => {
       <MenuItem
         isCurrentPath={isCurrentPath}
         onClick={closeDrawer}
+        href='/blog'
+        title={t('landing.blogPage')}
+      />
+      <MenuItem
+        isCurrentPath={isCurrentPath}
+        onClick={closeDrawer}
         href='/contact'
         title={t('landing.contactUsPage')}
       />

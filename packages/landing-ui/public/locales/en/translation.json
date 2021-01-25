@@ -602,6 +602,7 @@
   },
   "landing": {
     "adminPanel": "Admin panel",
+    "blogPage": "Blog",
     "contactUsPage": "Contact us",
     "corePointsAdmin": "Admin panel for the modern age",
     "corePointsAdminDetails": "Manage your products, orders, campaigns and more from a single place. The built-in analytics give you an overview of your orders, revenue, and visits of your online store",
@@ -628,6 +629,10 @@
     "stepStartSellingDetails": "Add your preferred delivery and payment methods, and start selling",
     "warmingUp": "Join us!",
     "warmingUpDetails": "This is just the beginning. Our goal is, together with you, to create and maintain the best platform in the region. Join us now!"
+  },
+  "landingBlog": {
+    "heroExplanation": "Want to learn more about e-commerce? Want to open an online store in Macedonia? We share tips about opening an online business, marketing tips, and more",
+    "heroSlogan": "Spreading <1>Knowledge</1>"
   },
   "landingContact": {
     "emailExample": "me@example.com",

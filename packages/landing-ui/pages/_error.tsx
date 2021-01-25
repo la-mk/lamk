@@ -6,7 +6,7 @@ import { Head } from '../src/common/Head';
 
 const Error = ({ status, title, description, t }) => {
   return (
-    <Flex mt={8} direction='column' justify='center'>
+    <Flex my={8} direction='column' justify='center'>
       <Head
         siteName='la.mk'
         title={`${status} | ${title}`}
