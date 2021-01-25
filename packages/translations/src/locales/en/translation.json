@@ -268,8 +268,6 @@
     "corePointsSupportDetails": "We are here to help with whatever you need. Whether you are stuck, or you have a feature you can't live without, we want to hear from you. Message us using the built-in chat in the admin panel, and we will help you succeed",
     "faqPage": "FAQ",
     "blogPage": "Blog",
-    "blogSlogan": "Spreading knowledge",
-    "blogExplanation": "Want to learn more about e-commerce? Want to open an online store in Macedonia? We share tips about opening an online business, marketing tips, and more",
     "resources": "Resources",
     "adminPanel": "Admin panel",
     "demoShop": "Demo shop",
@@ -331,6 +329,10 @@
     "paymentsAnswerCardDirectly": "Yes! All credit card payments are processed by your bank and transferred directly to your bank account.",
     "paymentsQuestionCardExplain": "How can I enable card payments?",
     "paymentsAnswerCardExplain": "You need to apply for e-commerce payments at your company's bank with a short business plan. Once they approve your application, they will send you a couple of ID and password information, which you simply input in the admin panel, and you're set!"
+  },
+  "landingBlog": {
+    "heroSlogan": "Spreading <1>Knowledge</1>",
+    "heroExplanation": "Want to learn more about e-commerce? Want to open an online store in Macedonia? We share tips about opening an online business, marketing tips, and more"
   },
   "legal": {
     "legalNotAvailable": "We are still preparing our legal policies, reach out for more information",
