@@ -482,7 +482,9 @@
     "storeEnabledBy": "Store enabled by",
     "storeUrl": "Store URL",
     "updatingStoreTip": "Updating store...",
-    "emptyStoreExplanation": "We are still preparing our store, visit us again soon."
+    "emptyStoreExplanation": "We are still preparing our store, visit us again soon.",
+    "emptyBlog": "We are busy typing...",
+    "emptyBlogExplanation": "Come back later and we'll have something ready for you to read"
   },
   "uploads": {
     "hint": "Support for single or bulk upload"
