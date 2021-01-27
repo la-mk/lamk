@@ -6,6 +6,7 @@ import templates from './templates';
 import { Flex } from '../Flex';
 import { FormContext, FormContextProps } from './Context';
 import styled from 'styled-components';
+import isEmpty from 'lodash/isEmpty';
 
 export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
@@ -18,18 +19,22 @@ const StyledForm = (styled(Form)`
   overflow: hidden;
 ` as React.ComponentType) as new <T>() => Form<T>;
 
-const recursiveSetUndefinedToValue = (data: any, value: any = null) => {
+const recursivelyNormalizeData = (data: any) => {
   if (!data || !(typeof data === 'object')) {
     return data;
   }
 
   Object.entries(data).forEach(([key, val]) => {
     if (typeof data[key] === 'object') {
-      return recursiveSetUndefinedToValue(data[key], value);
+      if (isEmpty(data[key])) {
+        data[key] = null;
+        return;
+      }
+      return recursivelyNormalizeData(data[key]);
     }
 
     if (val === undefined) {
-      data[key] = value;
+      data[key] = null;
       return;
     }
   });
@@ -74,7 +79,7 @@ export const NewForm = <T extends any>({
           }
 
           return onSubmit({
-            formData: recursiveSetUndefinedToValue(formData),
+            formData: recursivelyNormalizeData(formData),
             ...rest,
           });
         }}

@@ -18,7 +18,7 @@ export const schema: any = {
     },
     aboutUs: {
       nullable: true,
-      type: 'object',
+      type: ['object', 'null'],
       additionalProperties: false,
       required: [],
       properties: {
@@ -27,6 +27,39 @@ export const schema: any = {
           type: 'string',
           minLength: 2,
           maxLength: 65535,
+        },
+      },
+    },
+    company: {
+      // @ts-ignore the typings are wrong
+      type: ['object', 'null'],
+      additionalProperties: false,
+      required: [
+        'companyName',
+        'companyAddress',
+        'registryNumber',
+        'taxNumber',
+      ],
+      properties: {
+        companyName: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 511,
+        },
+        companyAddress: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 1023,
+        },
+        registryNumber: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 127,
+        },
+        taxNumber: {
+          type: 'string',
+          minLength: 2,
+          maxLength: 127,
         },
       },
     },
@@ -73,7 +106,7 @@ export const schema: any = {
       },
     },
     file: {
-      type: 'object',
+      type: ['object', 'null'],
       required: [],
       properties: {
         _id: {
@@ -106,7 +139,7 @@ export const schema: any = {
     },
     landing: {
       nullable: true,
-      type: 'object',
+      type: ['object', 'null'],
       additionalProperties: false,
       required: ['sets'],
       properties: {
@@ -221,7 +254,7 @@ const uiSchema = {
             Hey there
           </Heading>
         ),
-        properties: ['aboutUs', 'isPromoted', 'files', 'file'],
+        properties: ['aboutUs', 'company', 'isPromoted', 'files', 'file'],
       },
       {
         sectionTitle: (

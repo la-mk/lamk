@@ -27,7 +27,8 @@ export enum ProductUnit {
 }
 
 export const attributesSchema: JSONSchemaType<Attributes> = {
-  type: 'object',
+  // @ts-ignore the typings are wrong
+  type: ['object', 'null'],
   additionalProperties: false,
   required: [],
   properties: {
