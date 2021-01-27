@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.104",
+  "version": "1.0.105",
   "private": true,
   "scripts": {
     "dev": "react-app-rewired start",
@@ -41,7 +41,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@la-mk/analytics": "0.0.10",
-    "@la-mk/blocks-ui": "0.0.251",
+    "@la-mk/blocks-ui": "0.0.256",
     "@la-mk/la-sdk": "0.0.152",
     "@la-mk/translations": "0.0.115",
     "@react-pdf/renderer": "^2.0.0-beta.6",

@@ -24,8 +24,10 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
     <NewForm<Store>
       imageUpload={{
         getImageUrl: imageId =>
-          sdk.artifact.getUrlForImage(imageId, store?._id ?? '', { h: 80 }) ??
-          '',
+          // TODO: Since the ID of the user and store are the same, and the store doesn't exist yet when the logo is first uploaded, we rely on the user ID here.
+          sdk.artifact.getUrlForImage(imageId, store?._id ?? userId ?? '', {
+            h: 80,
+          }) ?? '',
         uploadImage: getImageUploader({ maxHeight: 800, maxWidth: 800 }),
         removeImage: imageId => sdk.artifact.remove(imageId as any) as any,
       }}

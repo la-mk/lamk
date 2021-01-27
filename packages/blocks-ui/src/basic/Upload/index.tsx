@@ -213,7 +213,7 @@ export const Upload = ({
             } catch (e) {
               setUnprocessedFiles(files => {
                 const idx = files.findIndex(x => x.id === file.id);
-                if (idx != null) {
+                if (idx < 0) {
                   return files;
                 }
 

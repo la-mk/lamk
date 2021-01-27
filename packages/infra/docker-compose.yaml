@@ -163,7 +163,7 @@ services:
       NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
 
   backstore-ui:
-    image: registry.digitalocean.com/lamk/backstore-ui:1.0.104
+    image: registry.digitalocean.com/lamk/backstore-ui:1.0.105
     container_name: backstore-ui
     restart: always
     networks:
