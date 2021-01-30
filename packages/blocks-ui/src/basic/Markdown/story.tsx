@@ -48,7 +48,7 @@ storiesOf('Markdown', module)
     return (
       <Provider>
         <div>
-          <MarkdownViewer>{exampleMd}</MarkdownViewer>
+          <MarkdownViewer titleLevelOffset={1}>{exampleMd}</MarkdownViewer>
         </div>
       </Provider>
     );
