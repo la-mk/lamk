@@ -56,6 +56,7 @@ import { Box } from '../Box';
 import unified from 'unified';
 import markdown from 'remark-parse';
 import remarkToSlate, { serialize } from 'remark-slate';
+import { ErrorBoundary } from '../ErrorBoundary';
 // import gfm from 'remark-gfm';
 // import stringify from 'remark-stringify';
 // import { slateToRemark, remarkToSlate } from 'remark-slate-transformer';
@@ -105,7 +106,11 @@ const toMarkdown = (value: Node[]) => {
     .join('');
 };
 
-const fromMarkdown = (value: string) => {
+const fromMarkdown = (value?: string) => {
+  if (!value) {
+    return [];
+  }
+
   return fromProcessor.processSync(value).result as Node[];
 };
 
@@ -160,15 +165,25 @@ export interface MarkdownEditorProps {
   onBlur?: (markdownResult: string) => void;
   onFocus?: any;
   placeholder?: string;
+  autoFocus?: boolean;
+  disabled?: boolean;
+  readOnly?: boolean;
+  id?: string;
+  height?: string;
 }
 
 export const MarkdownEditor = ({
+  id,
   value,
   initialValue,
   onChange,
   onBlur,
   onFocus,
   placeholder,
+  autoFocus,
+  disabled,
+  readOnly,
+  height,
 }: MarkdownEditorProps) => {
   const editor = useMemo(
     () => withReact(pipe(createEditor(), ...withPlugins)),
@@ -176,9 +191,12 @@ export const MarkdownEditor = ({
   );
 
   useEffect(() => {
-    if (initialValue) {
-      onChange(fromMarkdown(initialValue));
-    }
+    const markdownArray = fromMarkdown(initialValue);
+    onChange(
+      markdownArray.length === 0
+        ? [{ type: 'p', children: [{ text: '' }] }]
+        : markdownArray
+    );
   }, [initialValue]);
 
   const handleBlur = useCallback(() => {
@@ -190,72 +208,108 @@ export const MarkdownEditor = ({
   }, [onFocus, value]);
 
   return (
-    <Slate editor={editor} value={value} onChange={onChange}>
-      <HeadingToolbar styles={{ root: { flexWrap: 'wrap', padding: '0 8px' } }}>
-        <ToolbarElement type={options.h1.type} icon={<TitleIcon level={1} />} />
-        <ToolbarElement type={options.h2.type} icon={<TitleIcon level={2} />} />
-        <ToolbarElement type={options.h3.type} icon={<TitleIcon level={3} />} />
-        <ToolbarElement type={options.h4.type} icon={<TitleIcon level={4} />} />
+    <ErrorBoundary>
+      <Box
+        // @ts-ignore
+        style={{
+          border: `1px solid rgb(238, 238, 238)`,
+          borderRadius: '8px',
+        }}
+      >
+        <Slate editor={editor} value={value} onChange={onChange}>
+          <HeadingToolbar
+            styles={{
+              root: {
+                flexWrap: 'wrap',
+                padding: '4px 8px',
+                margin: 0,
+                borderBottom: `1px solid rgb(238, 238, 238)`,
+              },
+            }}
+          >
+            <ToolbarElement
+              type={options.h1.type}
+              icon={<TitleIcon level={1} />}
+            />
+            <ToolbarElement
+              type={options.h2.type}
+              icon={<TitleIcon level={2} />}
+            />
+            <ToolbarElement
+              type={options.h3.type}
+              icon={<TitleIcon level={3} />}
+            />
+            <ToolbarElement
+              type={options.h4.type}
+              icon={<TitleIcon level={4} />}
+            />
 
-        <Box mx={2} height={30}>
-          <Divider orientation="vertical" />
-        </Box>
-        <ToolbarList
-          {...options}
-          typeList={options.ul.type}
-          icon={<UnorderedListOutlined />}
-        />
-        <ToolbarList
-          {...options}
-          typeList={options.ol.type}
-          icon={<OrderedListOutlined />}
-        />
-        <ToolbarElement
-          type={options.blockquote.type}
-          icon={<HighlightOutlined />}
-        />
+            <Box mx={2} height={30}>
+              <Divider orientation="vertical" />
+            </Box>
+            <ToolbarList
+              {...options}
+              typeList={options.ul.type}
+              icon={<UnorderedListOutlined />}
+            />
+            <ToolbarList
+              {...options}
+              typeList={options.ol.type}
+              icon={<OrderedListOutlined />}
+            />
+            <ToolbarElement
+              type={options.blockquote.type}
+              icon={<HighlightOutlined />}
+            />
 
-        <Box mx={2} height={30}>
-          <Divider orientation="vertical" />
-        </Box>
+            <Box mx={2} height={30}>
+              <Divider orientation="vertical" />
+            </Box>
 
-        <ToolbarMark type={MARK_BOLD} icon={<BoldOutlined />} />
-        <ToolbarMark type={MARK_ITALIC} icon={<ItalicOutlined />} />
-        {/* <ToolbarMark type={MARK_UNDERLINE} icon={<UnderlineOutlined />} /> */}
+            <ToolbarMark type={MARK_BOLD} icon={<BoldOutlined />} />
+            <ToolbarMark type={MARK_ITALIC} icon={<ItalicOutlined />} />
+            {/* <ToolbarMark type={MARK_UNDERLINE} icon={<UnderlineOutlined />} /> */}
+            {/* 
+          <Box mx={2} height={30}>
+            <Divider orientation="vertical" />
+          </Box> */}
 
-        <Box mx={2} height={30}>
-          <Divider orientation="vertical" />
-        </Box>
-
-        {/* <ToolbarLink {...options} icon={<LinkOutlined />} /> */}
-        {/* <ToolbarImage {...options} icon={<FileImageOutlined />} /> */}
-      </HeadingToolbar>
-      <BalloonToolbar arrow>
-        <ToolbarMark
-          reversed
-          type={MARK_BOLD}
-          icon={<BoldOutlined />}
-          tooltip={{ content: 'Bold (⌘B)' }}
-        />
-        <ToolbarMark
-          reversed
-          type={MARK_ITALIC}
-          icon={<ItalicOutlined />}
-          tooltip={{ content: 'Italic (⌘I)' }}
-        />
-        {/* <ToolbarMark
+            {/* <ToolbarLink {...options} icon={<LinkOutlined />} /> */}
+            {/* <ToolbarImage {...options} icon={<FileImageOutlined />} /> */}
+          </HeadingToolbar>
+          <BalloonToolbar arrow>
+            <ToolbarMark
+              reversed
+              type={MARK_BOLD}
+              icon={<BoldOutlined />}
+              tooltip={{ content: 'Bold (⌘B)' }}
+            />
+            <ToolbarMark
+              reversed
+              type={MARK_ITALIC}
+              icon={<ItalicOutlined />}
+              tooltip={{ content: 'Italic (⌘I)' }}
+            />
+            {/* <ToolbarMark
           reversed
           type={MARK_UNDERLINE}
           icon={<UnderlineOutlined />}
           tooltip={{ content: 'Underline (⌘U)' }}
         /> */}
-      </BalloonToolbar>
-      <EditablePlugins
-        plugins={plugins}
-        placeholder={placeholder ?? ''}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-      />
-    </Slate>
+          </BalloonToolbar>
+          <EditablePlugins
+            style={{ padding: '8px', height, overflow: 'auto' }}
+            id={id}
+            autoFocus={autoFocus}
+            plugins={plugins}
+            placeholder={placeholder ?? ''}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            disabled={disabled}
+            readOnly={readOnly}
+          />
+        </Slate>
+      </Box>
+    </ErrorBoundary>
   );
 };

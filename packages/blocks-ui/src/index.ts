@@ -33,6 +33,7 @@ export { Positioner, PositionerProps } from './basic/Positioner';
 export { Result, ResultProps } from './basic/Result';
 export { Flex, FlexProps } from './basic/Flex';
 export { DataGrid, DataGridProps } from './basic/DataGrid/DataGrid';
+export { ErrorBoundary, ErrorBoundaryProps } from './basic/ErrorBoundary';
 export { NewForm } from './basic/NewForm/NewForm';
 export { Grid, GridProps } from './basic/Grid';
 export { Image } from './basic/Image/Image';

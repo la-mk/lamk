@@ -28,6 +28,8 @@ interface LocalizationContext {
   update?: string;
   upload?: string;
   uploadHint?: string;
+  genericError?: string;
+  genericErrorExplanation?: string;
 }
 
 export const LocalizationContext = React.createContext<LocalizationContext>({});

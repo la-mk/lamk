@@ -1,5 +1,5 @@
 import React from 'react';
-import Form, { FormProps as RjsfFormProps, AjvError } from '@rjsf/core';
+import Form, { FormProps as RjsfFormProps, AjvError, Widget } from '@rjsf/core';
 import fields from './fields';
 import widgets from './widgets';
 import templates from './templates';
@@ -10,6 +10,7 @@ import isEmpty from 'lodash/isEmpty';
 
 export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
+  customWidgets?: { [key: string]: Widget };
 }
 
 // Here, in ObjectFieldTemplate, ArrayFieldTemplate, and FieldTemplate we apply certain margins as a way to provide a gutter to a flex-based grid.
@@ -26,6 +27,7 @@ const recursivelyNormalizeData = (data: any) => {
 
   Object.entries(data).forEach(([key, val]) => {
     if (typeof data[key] === 'object') {
+      // This won't be needed when https://github.com/rjsf-team/react-jsonschema-form/issues/1581 is closed.
       if (isEmpty(data[key])) {
         data[key] = null;
         return;
@@ -47,6 +49,7 @@ export const NewForm = <T extends any>({
   onSubmit,
   getErrorMessage,
   imageUpload,
+  customWidgets,
   ...props
 }: FormProps<T>) => {
   const transformErrors = (errors: AjvError[]) => {
@@ -87,7 +90,7 @@ export const NewForm = <T extends any>({
         {...templates}
         // @ts-ignore
         fields={fields}
-        widgets={widgets}
+        widgets={{ ...widgets, ...customWidgets }}
         transformErrors={transformErrors}
       >
         <Flex mx={4} mt={4} justify="center" align="center">

@@ -59,6 +59,7 @@ storiesOf('Markdown', module)
     return (
       <Provider>
         <MarkdownEditor
+          height={'30rem'}
           initialValue={exampleMd}
           value={value}
           onChange={setValue}

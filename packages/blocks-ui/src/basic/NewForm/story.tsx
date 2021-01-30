@@ -6,6 +6,7 @@ import { Heading } from '../Heading';
 import * as React from 'react';
 import { Provider } from '../Provider';
 import { NewForm } from './NewForm';
+import RichTextWidget from './widgets/extra/RichTextWidget';
 
 export const schema: any = {
   type: 'object',
@@ -270,9 +271,9 @@ const uiSchema = {
     description: {
       'ui:title': 'About you',
       'ui:description': 'Tell us more about yourself',
-      'ui:widget': 'textarea',
+      'ui:widget': 'richText',
       'ui:options': {
-        rows: 4,
+        height: '20rem',
       },
     },
   },
@@ -419,6 +420,9 @@ storiesOf('New Form', module)
     return (
       <Provider>
         <NewForm
+          customWidgets={{
+            richText: RichTextWidget,
+          }}
           imageUpload={{
             getImageUrl: id => id,
             uploadImage: () => {
