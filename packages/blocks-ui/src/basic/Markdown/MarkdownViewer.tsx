@@ -1,6 +1,7 @@
 import React from 'react';
 import unified from 'unified';
 import parse from 'remark-parse';
+import breaks from 'remark-breaks';
 import rehype from 'remark-rehype';
 import react from 'rehype-react';
 import { Divider } from '../Divider';
@@ -25,10 +26,16 @@ let getProcessor = (
 ) =>
   unified()
     .use(parse)
+    .use(breaks)
     .use(rehype)
     .use(react, {
       createElement: React.createElement,
       components: {
+        br: () => (
+          <Text as="span" display="block">
+            &#65279;
+          </Text>
+        ),
         p: (props: any) => <Text as="p" {...props} />,
         b: (props: any) => <Text as="b" {...props} />,
         i: (props: any) => <Text as="i" {...props} />,

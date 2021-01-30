@@ -12,12 +12,10 @@ const exampleMd = `
 _______
 
 **bold text**
-
 *italicized text*
+<br>
 > blockquote
-
-&nbsp;
-
+<br>
 1. First item
 2. Second item
 3. Third item
@@ -26,9 +24,9 @@ _______
 - Second item
 - Third item
 
-
 \`code\`
 
+<a href="/test">Some html</a>
 
 [Duck Duck Go](https://duckduckgo.com)
 
