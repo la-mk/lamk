@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
 import { createEditor, Node } from 'slate';
-import { withHistory } from 'slate-history';
+// import { withHistory } from 'slate-history';
 import { Slate, withReact } from 'slate-react';
 import {
   ListPlugin,
@@ -141,7 +141,8 @@ const plugins = [
 
 const withPlugins = [
   withReact,
-  withHistory,
+  // It seems due to History, https://github.com/udecode/slate-plugins/issues/285 happens, so we comment it out for now
+  // withHistory,
   withList(),
   withMarks(),
   // withLink(),
