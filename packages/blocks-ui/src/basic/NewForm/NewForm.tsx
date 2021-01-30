@@ -10,7 +10,7 @@ import isEmpty from 'lodash/isEmpty';
 
 export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
-  customWidgets?: { [key: string]: Widget };
+  extraWidgets?: { [key: string]: Widget };
 }
 
 // Here, in ObjectFieldTemplate, ArrayFieldTemplate, and FieldTemplate we apply certain margins as a way to provide a gutter to a flex-based grid.
@@ -49,7 +49,7 @@ export const NewForm = <T extends any>({
   onSubmit,
   getErrorMessage,
   imageUpload,
-  customWidgets,
+  extraWidgets,
   ...props
 }: FormProps<T>) => {
   const transformErrors = (errors: AjvError[]) => {
@@ -90,7 +90,7 @@ export const NewForm = <T extends any>({
         {...templates}
         // @ts-ignore
         fields={fields}
-        widgets={{ ...widgets, ...customWidgets }}
+        widgets={{ ...widgets, ...extraWidgets }}
         transformErrors={transformErrors}
       >
         <Flex mx={4} mt={4} justify="center" align="center">

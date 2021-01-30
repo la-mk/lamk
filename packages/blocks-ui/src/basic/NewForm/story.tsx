@@ -6,7 +6,7 @@ import { Heading } from '../Heading';
 import * as React from 'react';
 import { Provider } from '../Provider';
 import { NewForm } from './NewForm';
-import RichTextWidget from './widgets/extra/RichTextWidget';
+import extraWidgets from './widgets/extra';
 
 export const schema: any = {
   type: 'object',
@@ -420,9 +420,7 @@ storiesOf('New Form', module)
     return (
       <Provider>
         <NewForm
-          customWidgets={{
-            richText: RichTextWidget,
-          }}
+          extraWidgets={extraWidgets}
           imageUpload={{
             getImageUrl: id => id,
             uploadImage: () => {

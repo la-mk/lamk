@@ -107,6 +107,7 @@ export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
 export { LanguagePicker, LanguagePickerProps } from './compound/LanguagePicker';
 
+export { default as extraWidgets } from './basic/NewForm/widgets/extra';
 export { toast } from './basic/Toast';
 export { default as hooks } from './hooks';
 export { default as utils } from './utils';
