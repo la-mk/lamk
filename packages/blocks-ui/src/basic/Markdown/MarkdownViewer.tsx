@@ -13,12 +13,12 @@ import { Flex } from '../Flex';
 import { Video } from './Video';
 
 const headerMap = [
-  { as: 'h1', size: '3xl' },
-  { as: 'h2', size: '2xl' },
-  { as: 'h3', size: 'xl' },
-  { as: 'h4', size: 'lg' },
-  { as: 'h5', size: 'md' },
-  { as: 'h6', size: 'sm' },
+  { as: 'h1', size: '2xl' },
+  { as: 'h2', size: 'xl' },
+  { as: 'h3', size: 'lg' },
+  { as: 'h4', size: 'md' },
+  { as: 'h5', size: 'sm' },
+  { as: 'h6', size: 'xs' },
 ];
 
 let getProcessor = (
@@ -31,11 +31,6 @@ let getProcessor = (
     .use(react, {
       createElement: React.createElement,
       components: {
-        br: () => (
-          <Text as="span" display="block">
-            &#65279;
-          </Text>
-        ),
         p: (props: any) => <Text as="p" {...props} />,
         b: (props: any) => <Text as="b" {...props} />,
         i: (props: any) => <Text as="i" {...props} />,
@@ -55,7 +50,12 @@ let getProcessor = (
           );
         },
         h1: (props: any) => (
-          <Heading {...headerMap[0 + titleLevelOffset]} mb={5} {...props} />
+          <Heading
+            {...headerMap[0 + titleLevelOffset]}
+            mb={5}
+            mt={6}
+            {...props}
+          />
         ),
         h2: (props: any) => (
           <Heading
