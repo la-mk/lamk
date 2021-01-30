@@ -59,7 +59,7 @@ export const CompanyForm = ({
           phoneNumber: {
             'ui:title': t('common.phoneNumber'),
           },
-          alternativePhoneNumber: {
+          alternatePhoneNumber: {
             'ui:title': t('common.alternatePhoneNumber'),
           },
         },
