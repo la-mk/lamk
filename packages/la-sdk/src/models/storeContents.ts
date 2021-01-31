@@ -10,7 +10,7 @@ import {
   Media,
 } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
-import { ProductSet } from './product';
+import { ProductSet, ProductSetType } from './product';
 
 export const schema: JSONSchemaType<StoreContents> = {
   type: 'object',
@@ -55,8 +55,8 @@ export const schema: JSONSchemaType<StoreContents> = {
                 properties: {
                   type: {
                     type: 'string',
-                    const: 'latest',
-                    default: 'latest',
+                    const: ProductSetType.LATEST,
+                    default: ProductSetType.LATEST,
                   },
                   isPromoted: {
                     type: 'boolean',
@@ -71,8 +71,8 @@ export const schema: JSONSchemaType<StoreContents> = {
                 properties: {
                   type: {
                     type: 'string',
-                    const: 'discounted',
-                    default: 'discounted',
+                    const: ProductSetType.DISCOUNTED,
+                    default: ProductSetType.DISCOUNTED,
                   },
                   isPromoted: {
                     type: 'boolean',
@@ -88,8 +88,8 @@ export const schema: JSONSchemaType<StoreContents> = {
                 properties: {
                   type: {
                     type: 'string',
-                    const: 'group',
-                    default: 'group',
+                    const: ProductSetType.GROUP,
+                    default: ProductSetType.GROUP,
                   },
                   // @ts-ignore
                   title: {
@@ -122,8 +122,8 @@ export const schema: JSONSchemaType<StoreContents> = {
                 properties: {
                   type: {
                     type: 'string',
-                    const: 'category',
-                    default: 'category',
+                    const: ProductSetType.CATEGORY,
+                    default: ProductSetType.CATEGORY,
                   },
                   // @ts-ignore
                   title: {

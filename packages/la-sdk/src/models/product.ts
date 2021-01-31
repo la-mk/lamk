@@ -260,10 +260,17 @@ export interface OrderProduct
     >,
     Variant {}
 
+export enum ProductSetType {
+  CATEGORY = 'category',
+  DISCOUNTED = 'discounted',
+  LATEST = 'latest',
+  GROUP = 'group',
+}
+
 export interface ProductSet {
   title?: string;
   subtitle?: string;
-  type: 'category' | 'discounted' | 'latest' | 'group';
+  type: ProductSetType;
   value?: string;
   isPromoted: boolean;
 }
@@ -447,6 +454,7 @@ export const getProductSdk = (client: Application) => {
     },
 
     ProductUnit,
+    ProductSetType,
     schema,
   };
 };
