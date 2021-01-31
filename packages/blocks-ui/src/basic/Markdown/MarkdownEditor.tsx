@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
 import { createEditor, Node } from 'slate';
-// import { withHistory } from 'slate-history';
+import { withHistory } from 'slate-history';
 import { Slate, withReact } from 'slate-react';
 import {
   ListPlugin,
@@ -141,8 +141,7 @@ const plugins = [
 
 const withPlugins = [
   withReact,
-  // It seems due to History, https://github.com/udecode/slate-plugins/issues/285 happens, so we comment it out for now
-  // withHistory,
+  withHistory,
   withList(),
   withMarks(),
   // withLink(),
@@ -193,12 +192,17 @@ export const MarkdownEditor = ({
 
   useEffect(() => {
     const markdownArray = fromMarkdown(initialValue);
+    while (value?.length > markdownArray.length) {
+      markdownArray.push({ type: 'p', children: [{ text: '' }] });
+    }
     onChange(
       markdownArray.length === 0
         ? [{ type: 'p', children: [{ text: '' }] }]
         : markdownArray
     );
-  }, [initialValue]);
+
+    // TODO: Not including initialValue prevents a crash: // https://github.com/udecode/slate-plugins/issues/285 since the parsed will have different array structure than the existing one (less elements, etc.)
+  }, []);
 
   const handleBlur = useCallback(() => {
     onBlur?.(toMarkdown(value));

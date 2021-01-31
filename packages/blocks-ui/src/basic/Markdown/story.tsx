@@ -83,16 +83,17 @@ storiesOf('Markdown', module)
     );
   })
   .add('editor', () => {
+    const [stringVal, setStringVal] = React.useState(exampleMd);
     const [value, setValue] = React.useState<any[]>([]);
 
     return (
       <Provider>
         <MarkdownEditor
           height={'30rem'}
-          initialValue={exampleMd}
+          initialValue={stringVal}
           value={value}
           onChange={setValue}
-          onBlur={console.log}
+          onBlur={setStringVal}
         />
       </Provider>
     );
