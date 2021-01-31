@@ -12,12 +12,14 @@ export const AboutUs = () => {
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
-  const [storeContentsFormData, setStoreContentsFormData] = hooks.useFormState<
-    StoreContents
-  >(storeContents, { forStore: store?._id, landing: { sets: [] } }, [
+  const [
+    storeContentsFormData,
+    setStoreContentsFormData,
+  ] = hooks.useFormState<StoreContents>(
     storeContents,
-    store?._id,
-  ]);
+    { forStore: store?._id, landing: { sets: [] } },
+    [storeContents, store?._id],
+  );
 
   useEffect(() => {
     if (!store) {

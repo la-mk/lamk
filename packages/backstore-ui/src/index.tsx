@@ -4,7 +4,6 @@ import { createGlobalStyle } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 import { App } from './App';
 import './config/i18n';
-import { FullScreenSpinner } from './components/shared/components/FullScreenSpinner';
 
 const GlobalStyle = createGlobalStyle`
   .ant-btn.anticon {
@@ -25,11 +24,8 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// Remove spinner in index.html shown while loading script resources
-document.getElementById('loading-spinner')?.remove();
-
 ReactDOM.render(
-  <Suspense fallback={<FullScreenSpinner />}>
+  <Suspense fallback={null}>
     <GlobalStyle />
     <App />
   </Suspense>,

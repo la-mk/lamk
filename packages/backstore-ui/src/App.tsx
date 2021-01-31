@@ -56,6 +56,11 @@ export const App = () => {
     });
   };
 
+  React.useEffect(() => {
+    // Remove spinner in index.html shown while loading script resources
+    document.getElementById('loading-spinner')?.remove();
+  }, []);
+
   return (
     <Provider store={store.store}>
       <PersistGate

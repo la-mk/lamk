@@ -17,47 +17,26 @@
       rel='stylesheet'
     />
     <style>
-      #loading-spinner {
-        width: 40px;
-        height: 40px;
 
+      @keyframes index-spinner {
+        from {transform:rotate(0deg);}
+        to {transform: rotate(360deg);}
+      }
+
+      #loading-spinner:before {
+        content: '';
+        box-sizing: border-box;
         position: absolute;
         top: calc(50% - 20px);
         left: calc(50% - 20px);
-      }
-
-      .double-bounce1, .double-bounce2 {
-        width: 100%;
-        height: 100%;
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        margin-left: -20px;
         border-radius: 50%;
-        background-color: #118AB2;
-        opacity: 0.6;
-        position: absolute;
-        top: 0;
-        left: 0;
-        
-        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-        animation: sk-bounce 2.0s infinite ease-in-out;
-      }
-
-      .double-bounce2 {
-        -webkit-animation-delay: -1.0s;
-        animation-delay: -1.0s;
-      }
-
-      @-webkit-keyframes sk-bounce {
-        0%, 100% { -webkit-transform: scale(0.0) }
-        50% { -webkit-transform: scale(1.0) }
-      }
-
-      @keyframes sk-bounce {
-        0%, 100% { 
-          transform: scale(0.0);
-          -webkit-transform: scale(0.0);
-        } 50% { 
-          transform: scale(1.0);
-          -webkit-transform: scale(1.0);
-        }
+        border: 2px solid #cccccc;
+        border-top-color: #118AB2;
+        animation: index-spinner .45s linear infinite;
       }
     </style>
 
@@ -97,10 +76,8 @@
   <body style="background: #F6F8FF">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <!-- This gets removed from the dom as soon as the app has loaded -->
-    <div id="loading-spinner">
-      <div class="double-bounce1"></div>
-      <div class="double-bounce2"></div>
-    </div>
+    <div id="loading-spinner"></div>
+    
     <div id="root" style="height: 100%"></div>
   </body>
 </html>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { ErrorBoundary } from '@la-mk/blocks-ui';
 import { OrdersRouter } from './orders/Orders.router';
 import { DashboardLayout } from './DashboardLayout';
 import { ProductsRouter } from './products/Products.router';
@@ -10,7 +11,6 @@ import { PaymentRouter } from './payment/Payment.router';
 import { PreferencesRouter } from './preferences/Preferences.router';
 import { AccountRouter } from './account/Account.router';
 import { Summary } from './summary/Summary';
-import { ErrorBoundary } from '../shared/components/ErrorBoundary';
 
 export const DashboardRouter = () => {
   return (

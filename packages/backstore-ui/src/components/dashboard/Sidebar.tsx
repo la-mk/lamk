@@ -17,7 +17,7 @@ export const Sidebar = ({ isCollapsed, currentKey, items }: SidebarProps) => {
     <Flex direction='column'>
       {items.map(item => {
         return (
-          <Link to={item.href}>
+          <Link key={item.href} to={item.href}>
             <Button
               // @ts-ignore
               borderRadius={'none'}

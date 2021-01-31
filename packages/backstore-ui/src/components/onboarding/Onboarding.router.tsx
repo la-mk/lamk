@@ -1,8 +1,8 @@
+import { ErrorBoundary } from '@la-mk/blocks-ui';
 import toInteger from 'lodash/toInteger';
 import React from 'react';
 import { Route, Redirect, Switch, RouteComponentProps } from 'react-router-dom';
 import { Onboarding } from './Onboarding';
-import { ErrorBoundary } from '../shared/components/ErrorBoundary';
 
 export const OnboardingRouter = () => {
   return (

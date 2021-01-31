@@ -12,6 +12,7 @@ import {
   Switch,
   NewForm,
 } from '@la-mk/blocks-ui';
+
 import { Product } from '@la-mk/la-sdk/dist/models/product';
 import { sdk } from '@la-mk/la-sdk';
 import { getImageUploader } from '../../shared/utils/artifacts';
