@@ -90,7 +90,7 @@ storiesOf('Markdown', module)
       <Provider>
         <MarkdownEditor
           height={'30rem'}
-          initialValue={stringVal}
+          stringifiedValue={stringVal}
           value={value}
           onChange={setValue}
           onBlur={setStringVal}

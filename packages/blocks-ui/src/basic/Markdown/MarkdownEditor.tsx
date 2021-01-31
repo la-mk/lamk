@@ -160,7 +160,7 @@ const TitleIcon = ({ level }: { level: number }) => {
 
 export interface MarkdownEditorProps {
   value: Node[];
-  initialValue?: string;
+  stringifiedValue?: string;
   onChange: (val: Node[]) => void;
   onBlur?: (markdownResult: string) => void;
   onFocus?: any;
@@ -175,7 +175,7 @@ export interface MarkdownEditorProps {
 export const MarkdownEditor = ({
   id,
   value,
-  initialValue,
+  stringifiedValue,
   onChange,
   onBlur,
   onFocus,
@@ -191,7 +191,7 @@ export const MarkdownEditor = ({
   );
 
   useEffect(() => {
-    const markdownArray = fromMarkdown(initialValue);
+    const markdownArray = fromMarkdown(stringifiedValue);
     while (value?.length > markdownArray.length) {
       markdownArray.push({ type: 'p', children: [{ text: '' }] });
     }
@@ -202,7 +202,7 @@ export const MarkdownEditor = ({
     );
 
     // TODO: Not including initialValue prevents a crash: // https://github.com/udecode/slate-plugins/issues/285 since the parsed will have different array structure than the existing one (less elements, etc.)
-  }, []);
+  }, [stringifiedValue]);
 
   const handleBlur = useCallback(() => {
     onBlur?.(toMarkdown(value));
