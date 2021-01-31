@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '@la-mk/blocks-ui';
+import { MarkdownViewer } from '@la-mk/blocks-ui';
 import { Page } from '../shared/Page';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { useTranslation } from '../../common/i18n';
@@ -15,9 +15,7 @@ export const LegalContent = ({ url, title, body }) => {
 
   return (
     <Page maxWidth={'86rem'} title={title}>
-      <Text align='justify' color='text.dark' as='p' whiteSpace='pre-wrap'>
-        {body}
-      </Text>
+      <MarkdownViewer titleLevelOffset={1}>{body}</MarkdownViewer>
     </Page>
   );
 };
