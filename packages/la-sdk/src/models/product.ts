@@ -261,10 +261,10 @@ export interface OrderProduct
     Variant {}
 
 export interface ProductSet {
-  title: string;
+  title?: string;
   subtitle?: string;
   type: 'category' | 'discounted' | 'latest' | 'group';
-  value: string;
+  value?: string;
   isPromoted: boolean;
 }
 

@@ -49,31 +49,55 @@ export const schema: JSONSchemaType<StoreContents> = {
           items: {
             type: 'object',
             additionalProperties: false,
-            required: ['title', 'type', 'value', 'isPromoted'],
+            required: ['type', 'isPromoted'],
+            // @ts-ignore the typings don't understand dependencies, ignore it
             properties: {
-              title: {
-                type: 'string',
-                minLength: 2,
-                maxLength: 511,
-              },
-              subtitle: {
-                // @ts-ignore the typings are wrong
-                type: ['string', 'null'],
-                maxLength: 511,
-              },
               type: {
                 type: 'string',
-                enum: ['group', 'category'],
+                enum: ['group', 'category', 'latest', 'discounted'],
                 default: 'group',
-              },
-              value: {
-                type: 'string',
-                minLength: 2,
-                maxLength: 255,
               },
               isPromoted: {
                 type: 'boolean',
                 default: false,
+              },
+            },
+            dependencies: {
+              // @ts-ignore the typings don't understand dependencies, ignore it
+              type: {
+                oneOf: [
+                  {
+                    properties: {
+                      type: {
+                        enum: ['latest', 'discounted'],
+                      },
+                    },
+                  },
+                  {
+                    required: ['title', 'value'],
+                    properties: {
+                      type: {
+                        enum: ['group', 'category'],
+                      },
+                      title: {
+                        type: 'string',
+                        minLength: 2,
+                        maxLength: 511,
+                      },
+                      subtitle: {
+                        // @ts-ignore the typings are wrong
+                        type: ['string', 'null'],
+                        maxLength: 511,
+                      },
+
+                      value: {
+                        type: 'string',
+                        minLength: 2,
+                        maxLength: 255,
+                      },
+                    },
+                  },
+                ],
               },
             },
           },
