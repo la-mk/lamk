@@ -47,59 +47,108 @@ export const schema: JSONSchemaType<StoreContents> = {
           type: 'array',
           maxItems: 12,
           items: {
-            type: 'object',
-            additionalProperties: false,
-            required: ['type', 'isPromoted'],
-            // @ts-ignore the typings don't understand dependencies, ignore it
-            properties: {
-              type: {
-                type: 'string',
-                enum: ['group', 'category', 'latest', 'discounted'],
-                default: 'group',
-              },
-              isPromoted: {
-                type: 'boolean',
-                default: false,
-              },
-            },
-            dependencies: {
-              // @ts-ignore the typings don't understand dependencies, ignore it
-              type: {
-                oneOf: [
-                  {
-                    properties: {
-                      type: {
-                        enum: ['latest', 'discounted'],
-                      },
-                    },
+            oneOf: [
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'isPromoted'],
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'latest',
+                    default: 'latest',
                   },
-                  {
-                    required: ['title', 'value'],
-                    properties: {
-                      type: {
-                        enum: ['group', 'category'],
-                      },
-                      title: {
-                        type: 'string',
-                        minLength: 2,
-                        maxLength: 511,
-                      },
-                      subtitle: {
-                        // @ts-ignore the typings are wrong
-                        type: ['string', 'null'],
-                        maxLength: 511,
-                      },
-
-                      value: {
-                        type: 'string',
-                        minLength: 2,
-                        maxLength: 255,
-                      },
-                    },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
                   },
-                ],
+                },
               },
-            },
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'isPromoted'],
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'discounted',
+                    default: 'discounted',
+                  },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
+                  },
+                },
+              },
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'title', 'value', 'isPromoted'],
+                // @ts-ignore the typings don't understand dependencies
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'group',
+                    default: 'group',
+                  },
+                  // @ts-ignore
+                  title: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 511,
+                  },
+                  subtitle: {
+                    // @ts-ignore the typings are wrong
+                    type: ['string', 'null'],
+                    maxLength: 511,
+                  },
+                  // @ts-ignore
+                  value: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 255,
+                  },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
+                  },
+                },
+              },
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'title', 'value', 'isPromoted'],
+                // @ts-ignore the typings don't understand dependencies
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'category',
+                    default: 'category',
+                  },
+                  // @ts-ignore
+                  title: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 511,
+                  },
+                  subtitle: {
+                    // @ts-ignore the typings are wrong
+                    type: ['string', 'null'],
+                    maxLength: 511,
+                  },
+                  // @ts-ignore
+                  value: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 255,
+                  },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
+                  },
+                },
+              },
+            ],
           },
         },
 
