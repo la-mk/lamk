@@ -7,7 +7,7 @@ const getLogObject = (context: HookContext) => {
   return `
   ${context.type} app.service('${context.path}').${context.method}()
   Params: ${JSON.stringify(context.params.query)}, ID: ${context.id}, 
-  Data: ${JSON.stringify(_.omit(context.data, 'uri'))},
+  Data: ${JSON.stringify(_.omit(context.data, ['uri', 'password']))},
   ${
     context.result
       ? `Result: ${JSON.stringify(_.omit(context.result, 'uri')).slice(0, 100)}`

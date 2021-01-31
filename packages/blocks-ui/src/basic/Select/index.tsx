@@ -37,7 +37,11 @@ export const Select = ({ options, ...props }: SelectProps) => {
     <ChakraSelect {...props}>
       {!!options &&
         options.map(option => {
-          return <option value={option.value}>{option.label}</option>;
+          return (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          );
         })}
     </ChakraSelect>
   );

@@ -8,6 +8,7 @@ export const hooks = {
   before: {
     find: [disallow()],
     get: [disallow()],
+    // TODO: This only works where userID === storeID.
     create: [authenticate('jwt'), setCurrentUser(['storeId'])],
     patch: [disallow()],
     remove: [authenticate('jwt'), queryWithCurrentUser(['storeId'])],
