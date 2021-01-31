@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/la-mk/lamk.git",
     "directory": "packages/blocks-ui"
   },
-  "version": "0.0.267",
+  "version": "0.0.268",
   "description": "",
   "module": "dist/blocks-ui.esm.js",
   "typings": "dist/index.d.ts",
@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
-    "@chakra-ui/react": "^1.0.3",
+    "@chakra-ui/react": "^1.2.1",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
     "@jaames/iro": "^5.2.3",
@@ -79,7 +79,6 @@
     "react-dropzone": "^11.2.4",
     "react-error-boundary": "^3.1.0",
     "rehype-react": "^6.1.0",
-    "remark-breaks": "^2.0.1",
     "remark-parse": "^9.0.0",
     "remark-rehype": "^8.0.0",
     "remark-slate": "^1.4.0",

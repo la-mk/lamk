@@ -12,13 +12,15 @@ const exampleMd = `
 _______
 
 **bold text**
+
 *italicized text*
-<br>
+
 > blockquote
-<br>
+
 1. First item
 2. Second item
 3. Third item
+
 
 - First item
 - Second item
@@ -29,10 +31,7 @@ _______
 <a href="/test">Some html</a>
 
 [Duck Duck Go](https://duckduckgo.com)
-
-
 <fake@example.com>
-
 ![alt text for image](https://picsum.photos/300/300)
 ![alt text for video  ](https://www.youtube.com/embed/Hsd5k8mWdV0)
 
@@ -41,43 +40,19 @@ Hey there
 
 `;
 
-const anotherExample = `
-Со Политикатата на приватност, ќе ви појасниме каде и како се чуваат личните податоци на сите регистрирани купувачи на нашата интернет страна. Оваа политика на приватност се однесува само за ${'slug'}.la.mk, ${'customDomain' ??
-  ''} и поддомените. Доколку е присутен линк кој ќе Ве поврзе со други страни, ние не превземаме никаква одговорност во однос на заштитата на личните податоци која ја обезбедуваат тие интернет страни. 
-<br>
-Секој корисник при регистрација и купување, изјавува дека е запознаен и се согласува со нашата Политика на приватност. 
-<br>
-Доколку се регистрирате, сите лични податоци кои ќе ги внесете преку формата за регистрација, ќе се користат за потребите за достава на производот, реализација на плаќањето, како и за рекламирање на производи и услуги обезбедени од наша страна, доколку ја имате избрано оваа опција, а се чуваат согласно одредбите од Законот за заштита на лични податоци и не се отстапуваат на трети страни. 
-<br>
-Од информациите кои ни се потребни при регистрацијата и/или при нарачка ги издвојуваме:
-Име и презиме
-e-mail адреса
-Адреса за испорака на нарачката и
-телефон за контакт.
-<br>
-Податоците кои ги собираме и се чуваат кај нас, нема да се објавуваат, продаваат или доставуваат на трета страна освен на надлежните органи на начин определен со законските прописи на Република Северна Македонија. Друштво за производство, услуги и трговија на големо и мало ${'companyName'} со седиште: ${'companyAddress'} и Е.М.Б.С ,${'registryNumber'} Е.Д.Б ${'taxNumber'} го задржува правото да ги користи IP aдресите и другите податоци на корисниците за откривање на нивниот идентитет во случај на спроведување на законот и законските постапки. 
-<br>
-Во секој момент може да извршите промена, ажурирање или корекција на Вашите неточни лични податоци и информации.
-<br>
-${'companyName'} има усвоена политика за сигурност и заштита на податоци, со што ја демонстрира посветеноста на нашата фирма кон заштитата на приватноста на клиентите. Со исклучок на податоците од финансиска природа, сите информации кои ги собираме од веб страната се исклучиво за наша употреба (релација со корисници, следење на нарачка итн.) и истите не се предаваат на други лица за било каков основ. Не собираме никакви информации од финансиска природа, како број на картичка и сл. Податоците околу кредитната картичка и банкарската сметка ќе бидат чувани и користени исклучиво од страна на банката со цел наплата на продуктите/нарачките преку извршување на  трансакција. Трансакцијата при наплаќање на производот е пренасочена и се процесира преку порталот за наплата од кредитни картички на банката. Порталот користи современа заштита на податоците и сите процеси се одвиваат преку сигурна конекција со банката.
-<br>
-Малолетни лица не смеат да даваат лични податоци без одобрение од нивните родители или старатели и се обврзуваме дека нема намерно да собираме или користиме податоци од малолетни лица. Ги превземаме сите заштитни мерки за заштита на личните податоци на купувачите со цел да се минимизира ризикот од неовластен пристап и злоупотреба на истите. 
-<br>
-Оваа политика на приватност стапува на сила од Јануари 2020 година. Промените во политиката на приватност ќе бидат јавно објавени на интернет странатa на ${'slug'}.la.mk, ${'customDomain' ??
-  ''} најмалку 10 дена пред да стапат во сила.
-<br>
-- Заштита на лични податоци 
-- Барање за доставување на информации за обработка на личните податоци 
-- Барање за дополнување, измена или бришење на податоците 
-- Барање за запирање на обработката на личните податоци
-`;
+// const anotherExample = `
+// # Hey there, this is the description for the store
+// Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ex turpis, blandit eget nisl vitae, convallis mattis lorem. Ut nisi sem, vehicula sit amet egestas sed, suscipit eget tortor. Nam eget nulla tellus. Mauris dignissim commodo mi, ac tincidunt dui vestibulum eu. Nullam semper turpis nec diam vehicula, et ornare metus venenatis. Cras eget urna maximus, laoreet lectus nec, consectetur enim. Vestibulum ultricies ac dolor non commodo. Quisque porta mattis congue. Quisque ornare sit amet massa sit amet aliquet. Morbi et enim orci. In condimentum pellentesque purus, at lacinia sem malesuada sed. Curabitur id odio at tellus vestibulum cursus id nec purus. Praesent sapien erat, elementum nec fermentum a, eleifend nec tellus. Nulla fringilla turpis et metus sodales, quis ultricies sapien facilisis. Proin eu ipsum tortor
+
+// Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ex turpis, blandit eget nisl vitae, convallis mattis lorem. Ut nisi sem, vehicula sit amet egestas sed, suscipit eget tortor. Nam eget nulla tellus. Mauris dignissim commodo mi, ac tincidunt dui vestibulum eu. Nullam semper turpis nec diam vehicula, et ornare metus venenatis. Cras eget urna maximus, laoreet lectus nec, consectetur enim. Vestibulum ultricies ac dolor non commodo. Quisque porta mattis congue. Quisque ornare sit amet.
+// `;
 
 storiesOf('Markdown', module)
   .add('standard', () => {
     return (
       <Provider>
         <div>
-          <MarkdownViewer titleLevelOffset={1}>{anotherExample}</MarkdownViewer>
+          <MarkdownViewer titleLevelOffset={1}>{exampleMd}</MarkdownViewer>
         </div>
       </Provider>
     );

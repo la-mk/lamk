@@ -69,6 +69,7 @@ export {
   MenuButtonProps,
 } from './basic/Menu';
 export { Modal, ModalProps } from './basic/Modal';
+export { List, ListProps } from './basic/List';
 export { Pagination, PaginationProps } from './basic/Pagination';
 export { Provider } from './basic/Provider';
 export { Radio, RadioProps } from './basic/Radio';

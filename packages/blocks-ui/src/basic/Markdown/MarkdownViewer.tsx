@@ -1,7 +1,6 @@
 import React from 'react';
 import unified from 'unified';
 import parse from 'remark-parse';
-import breaks from 'remark-breaks';
 import rehype from 'remark-rehype';
 import react from 'rehype-react';
 import { Divider } from '../Divider';
@@ -11,6 +10,7 @@ import { Button } from '../Button';
 import { Image } from '../Image/Image';
 import { Flex } from '../Flex';
 import { Video } from './Video';
+import { List } from '../List';
 
 const headerMap = [
   { as: 'h1', size: '2xl' },
@@ -21,20 +21,27 @@ const headerMap = [
   { as: 'h6', size: 'xs' },
 ];
 
+const getListItems = (children: any) => {
+  return (children ?? [])
+    .filter((child: any) => typeof child === 'object')
+    .map((child: any) => child.props.children[0])
+    .filter((child: any) => !!child)
+    .map((content: string) => ({ content }));
+};
+
 let getProcessor = (
   titleLevelOffset: MarkdownViewerProps['titleLevelOffset'] = 0
 ) =>
   unified()
     .use(parse)
-    .use(breaks)
     .use(rehype)
     .use(react, {
       createElement: React.createElement,
       components: {
-        p: (props: any) => <Text as="p" {...props} />,
+        p: (props: any) => <Text as="p" mb={4} {...props} />,
         b: (props: any) => <Text as="b" {...props} />,
         i: (props: any) => <Text as="i" {...props} />,
-        blockquote: (props: any) => <Text as="blockquote" {...props} />,
+        blockquote: (props: any) => <Text as="blockquote" mb={3} {...props} />,
         code: (props: any) => <Text as="code" {...props} />,
         a: (props: any) => <Button as="a" variant="link" {...props} />,
         img: (props: any) => {
@@ -82,6 +89,24 @@ let getProcessor = (
           />
         ),
         hr: (props: any) => <Divider my={6} {...props} />,
+        ul: (props: any) => {
+          return (
+            <List
+              mb={4}
+              variant="unordered"
+              items={getListItems(props.children)}
+            />
+          );
+        },
+        ol: (props: any) => {
+          return (
+            <List
+              mb={4}
+              variant="ordered"
+              items={getListItems(props.children)}
+            />
+          );
+        },
       },
     });
 
