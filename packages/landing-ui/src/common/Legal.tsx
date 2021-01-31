@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Box, Heading } from '@la-mk/blocks-ui';
+import { Text, Box, Heading, MarkdownViewer } from '@la-mk/blocks-ui';
 
 export const Legal = ({
   title,
@@ -13,9 +13,7 @@ export const Legal = ({
       <Heading align='center' as='h1' size='2xl' mb={7}>
         {title}
       </Heading>
-      <Text align='justify' color='text.dark' as='p' whiteSpace='pre-wrap'>
-        {content}
-      </Text>
+      <MarkdownViewer titleLevelOffset={1}>{content}</MarkdownViewer>
     </Box>
   );
 };

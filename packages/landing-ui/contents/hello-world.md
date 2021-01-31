@@ -1,6 +1,6 @@
 ---
 title: Прв блог
-slug: first-blog
+slug: hello-world
 date: '3020-05-23T14:45:15Z'
 summary: 'Pellentesque condimentum velit vel justo rutrum, sit amet commodo diam tincidunt. Nunc diam massa, interdum ut aliquet at, scelerisque ac ex. Integer cursus sem ac pretium posuere. Ut at odio nulla. Phasellus nec ante luctus, egestas dui id, maximus dui.'
 ---

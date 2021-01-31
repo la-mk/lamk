@@ -26,7 +26,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@la-mk/analytics": "0.0.10",
-    "@la-mk/blocks-ui": "0.0.256",
+    "@la-mk/blocks-ui": "0.0.268",
     "@la-mk/translations": "0.0.122",
     "env-var": "^7.0.0",
     "front-matter": "^4.0.2",
