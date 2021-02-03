@@ -6,7 +6,6 @@ import templates from './templates';
 import { Flex } from '../Flex';
 import { FormContext, FormContextProps } from './Context';
 import styled from 'styled-components';
-import isEmpty from 'lodash/isEmpty';
 
 export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
@@ -27,11 +26,6 @@ const recursivelyNormalizeData = (data: any) => {
 
   Object.entries(data).forEach(([key, val]) => {
     if (typeof data[key] === 'object') {
-      // This won't be needed when https://github.com/rjsf-team/react-jsonschema-form/issues/1581 is closed.
-      if (isEmpty(data[key])) {
-        data[key] = null;
-        return;
-      }
       return recursivelyNormalizeData(data[key]);
     }
 

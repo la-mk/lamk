@@ -158,37 +158,105 @@ export const schema: any = {
           type: 'array',
           maxItems: 12,
           items: {
-            type: 'object',
-            additionalProperties: false,
-            required: ['title', 'type', 'value', 'isPromoted'],
-            properties: {
-              title: {
-                type: 'string',
-                minLength: 2,
-                maxLength: 511,
+            oneOf: [
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'isPromoted'],
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'latest',
+                    default: 'latest',
+                  },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
+                  },
+                },
               },
-              subtitle: {
-                nullable: true,
-                type: 'string',
-                minLength: 2,
-                maxLength: 511,
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'isPromoted'],
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'discounted',
+                    default: 'discounted',
+                  },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
+                  },
+                },
               },
-              type: {
-                type: 'string',
-                enum: ['group', 'category'],
-                minLength: 2,
-                maxLength: 127,
-                default: 'group',
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'title', 'value', 'isPromoted'],
+                // @ts-ignore the typings don't understand dependencies
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'group',
+                    default: 'group',
+                  },
+                  title: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 511,
+                  },
+                  subtitle: {
+                    // @ts-ignore the typings are wrong
+                    type: ['string', 'null'],
+                    maxLength: 511,
+                  },
+
+                  value: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 255,
+                  },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
+                  },
+                },
               },
-              value: {
-                type: 'string',
-                minLength: 2,
-                maxLength: 255,
+              {
+                type: 'object',
+                additionalProperties: false,
+                required: ['type', 'title', 'value', 'isPromoted'],
+                // @ts-ignore the typings don't understand dependencies
+                properties: {
+                  type: {
+                    type: 'string',
+                    const: 'category',
+                    default: 'category',
+                  },
+                  title: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 511,
+                  },
+                  subtitle: {
+                    // @ts-ignore the typings are wrong
+                    type: ['string', 'null'],
+                    maxLength: 511,
+                  },
+                  value: {
+                    type: 'string',
+                    minLength: 2,
+                    maxLength: 255,
+                  },
+                  isPromoted: {
+                    type: 'boolean',
+                    default: false,
+                  },
+                },
               },
-              isPromoted: {
-                type: 'boolean',
-              },
-            },
+            ],
           },
         },
 
@@ -378,17 +446,15 @@ const uiSchema = {
         itemTitles: ['Hey', <strong>There</strong>],
       },
       items: {
+        'ui:widget': 'select',
+        'ui:options': {
+          asOneOf: true,
+        },
         title: {
           'ui:title': 'Set title',
         },
         type: {
-          'ui:widget': 'select',
-          'ui:options': {
-            customEnumOptions: [
-              { value: 'group', label: 'Group' },
-              { value: 'category', label: 'Category' },
-            ],
-          },
+          'ui:widget': 'hidden',
         },
       },
     },

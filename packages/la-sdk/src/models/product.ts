@@ -284,12 +284,12 @@ export interface ProductSetResult {
 
 const getQueryForSet = (productSet: Pick<ProductSet, 'type' | 'value'>) => {
   switch (productSet.type) {
-    case 'category':
+    case ProductSetType.CATEGORY:
       return {
         category: productSet.value,
       };
 
-    case 'discounted': {
+    case ProductSetType.DISCOUNTED: {
       return {
         minDiscount: {
           $gt: 0,
@@ -297,7 +297,7 @@ const getQueryForSet = (productSet: Pick<ProductSet, 'type' | 'value'>) => {
       };
     }
 
-    case 'latest': {
+    case ProductSetType.LATEST: {
       return {
         $sort: {
           createdAt: -1,
@@ -305,7 +305,7 @@ const getQueryForSet = (productSet: Pick<ProductSet, 'type' | 'value'>) => {
       };
     }
 
-    case 'group': {
+    case ProductSetType.GROUP: {
       return {
         groups: productSet.value,
       };
