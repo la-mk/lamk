@@ -44,32 +44,15 @@ export const SubMenu = props => {
 
   const sets: Array<ProductSetResult> = [
     ...promotedSets.map(set => ({
-      setTag: set,
+      setTag: {
+        ...set,
+        title:
+          set.title ?? t(getTitleForSet({ type: set.type, value: undefined })),
+      },
       filter: {
         query: sdk.product.getQueryForSet({ type: set.type, value: set.value }),
       },
     })),
-    {
-      setTag: {
-        type: 'discounted',
-        title: t(getTitleForSet({ type: 'discounted', value: undefined })),
-      },
-      filter: {
-        query: sdk.product.getQueryForSet({
-          type: 'discounted',
-          value: undefined,
-        }),
-      },
-    },
-    {
-      setTag: {
-        type: 'latest',
-        title: t(getTitleForSet({ type: 'latest', value: undefined })),
-      },
-      filter: {
-        query: sdk.product.getQueryForSet({ type: 'latest', value: undefined }),
-      },
-    },
   ];
 
   return (

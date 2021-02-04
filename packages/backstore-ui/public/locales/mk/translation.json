@@ -1,19 +1,19 @@
 {
   "actions": {
-    "add": "Додадете",
-    "cancel": "Откажете",
+    "add": "Додај",
+    "cancel": "Откажи",
     "continue": "Продолжи",
-    "create": "Создадете",
-    "delete": "Избришете",
+    "create": "Создади",
+    "delete": "Избриши",
     "downloadInvoice": "Преземи фактура",
-    "goToDashboard": "Одете на главен панел",
-    "loginInstead": "Или логирајте се",
-    "publish": "Објавете",
-    "save": "Зачувајте",
-    "search": "Пребарајте",
-    "select": "Одберете",
-    "sendPasswordResetLink": "Испратете линк за ресетирање",
-    "update": "Обновете"
+    "goToDashboard": "Оди на главен панел",
+    "loginInstead": "Или логирај се",
+    "publish": "Објави",
+    "save": "Зачувај",
+    "search": "Пребарај",
+    "select": "Одбери",
+    "sendPasswordResetLink": "Испрати линк за ресетирање",
+    "update": "Обнови"
   },
   "analytics": {
     "lifetimeOrderCount": "Вкупно порачки",
@@ -530,15 +530,6 @@
     "worksuit": "Комбилизони",
     "yoghurt": "Јогурт"
   },
-  "chosenSets": {
-    "categoryExplanation": "Категории кои ќе ви се допаднат",
-    "discounted": "Производи на попуст",
-    "discountedExplanation": "Производи по најдобри цени",
-    "latest": "Најнови производи",
-    "latestExplanation": "Производи кои штотоку ги добивме",
-    "selectedCategories": "Одбрани категории",
-    "selectedCategoriesExplanation": "Категории одбрани само за вас"
-  },
   "commerce": {
     "buyer": "Купувач",
     "campaign_plural": "Кампањи",
@@ -709,13 +700,16 @@
     "all": "Сите",
     "group": "Група"
   },
-  "results": {
-    "genericError": "Се појави грешка",
-    "serverErrorExplanation": "Се појави грешка при вашето барање, пробајте повторно. Доколку сеуште имате проблем, контактирајте не"
-  },
-  "setTypes": {
+  "productSets": {
     "category": "Категорија",
-    "group": "Група"
+    "categoryExplanation": "Категории кои ќе ви се допаднат",
+    "discounted": "Производи на попуст",
+    "discountedExplanation": "Производи по најдобри цени",
+    "group": "Група",
+    "latest": "Најнови производи",
+    "latestExplanation": "Производи кои штотоку ги добивме",
+    "selectedCategories": "Одбрани категории",
+    "selectedCategoriesExplanation": "Категории одбрани само за вас"
   },
   "sets": {
     "setPromoted": "Се промовира",

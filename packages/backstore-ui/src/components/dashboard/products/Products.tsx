@@ -116,13 +116,17 @@ const getColumns = (
       filters: [
         {
           text: t('product.discount'),
-          value: 'discounted',
+          value: sdk.product.ProductSetType.DISCOUNTED,
         },
       ],
-      filteredValue: filters.filtering.maxDiscount ? ['discounted'] : undefined,
+      filteredValue: filters.filtering.maxDiscount
+        ? [sdk.product.ProductSetType.DISCOUNTED]
+        : undefined,
       filterMultiple: false,
       onFilter: (value, record) =>
-        value === 'discounted' ? (record.maxDiscount ?? 0) > 0 : true,
+        value === sdk.product.ProductSetType.DISCOUNTED
+          ? (record.maxDiscount ?? 0) > 0
+          : true,
       sortOrder:
         filters.sorting?.field === 'minCalculatedPrice'
           ? filters.sorting?.order
@@ -339,7 +343,7 @@ export const Products = () => {
                   ),
                   ...utils.filter.rangeFilter(
                     'maxDiscount',
-                    tableFilters.minCalculatedPrice?.[0] === 'discounted'
+                    tableFilters.minCalculatedPrice?.[0] === sdk.product.ProductSetType.DISCOUNTED
                       ? 1
                       : null,
                     null,

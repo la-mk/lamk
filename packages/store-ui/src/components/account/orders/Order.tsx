@@ -119,12 +119,18 @@ export const Order = ({ orderId }: { orderId: string }) => {
           setTags={[
             {
               title: t(
-                getTitleForSet({ type: 'discounted', value: undefined }),
+                getTitleForSet({
+                  type: sdk.product.ProductSetType.DISCOUNTED,
+                  value: undefined,
+                }),
               ),
               subtitle: t(
-                getSubtitleForSet({ type: 'discounted', value: undefined }),
+                getSubtitleForSet({
+                  type: sdk.product.ProductSetType.DISCOUNTED,
+                  value: undefined,
+                }),
               ),
-              type: 'discounted',
+              type: sdk.product.ProductSetType.DISCOUNTED,
               value: undefined,
               isPromoted: false,
             },

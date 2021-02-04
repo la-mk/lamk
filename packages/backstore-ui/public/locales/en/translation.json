@@ -530,15 +530,6 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
-  "chosenSets": {
-    "categoryExplanation": "Categories you might like",
-    "discounted": "Products on sale",
-    "discountedExplanation": "Get it at the best price",
-    "latest": "Latest products",
-    "latestExplanation": "Products that just have arrived",
-    "selectedCategories": "Picked categories",
-    "selectedCategoriesExplanation": "Categories picked just for you"
-  },
   "commerce": {
     "buyer": "Buyer",
     "campaign_plural": "Campaigns",
@@ -709,13 +700,16 @@
     "all": "All",
     "group": "Group"
   },
-  "results": {
-    "genericError": "Error occured",
-    "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists"
-  },
-  "setTypes": {
+  "productSets": {
     "category": "Category",
-    "group": "Group"
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "group": "Group",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
   },
   "sets": {
     "setPromoted": "Promoted",

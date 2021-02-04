@@ -532,15 +532,6 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
-  "chosenSets": {
-    "categoryExplanation": "Categories you might like",
-    "discounted": "Products on sale",
-    "discountedExplanation": "Get it at the best price",
-    "latest": "Latest products",
-    "latestExplanation": "Products that just have arrived",
-    "selectedCategories": "Picked categories",
-    "selectedCategoriesExplanation": "Categories picked just for you"
-  },
   "commerce": {
     "delivery": "Delivery",
     "product": "Product",
@@ -707,6 +698,17 @@
     "all": "All",
     "group": "Group"
   },
+  "productSets": {
+    "category": "Category",
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "group": "Group",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
+  },
   "results": {
     "genericError": "Error occured",
     "pageNotFound": "Not found",
@@ -730,10 +732,6 @@
     "securePaymentsExplanation": "Fast and easy ways to pay",
     "support": "Constant support",
     "supportExplanation": "Always at your service"
-  },
-  "setTypes": {
-    "category": "Category",
-    "group": "Group"
   },
   "store": {
     "emptyStoreExplanation": "We are still preparing our store, visit us again soon.",

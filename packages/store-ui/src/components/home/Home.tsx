@@ -55,12 +55,17 @@ export const Home = ({}: {}) => {
 
     if (categories.length) {
       categorySetTags = sampleSize(categories, 3).map(category => ({
-        type: 'category',
+        type: sdk.product.ProductSetType.CATEGORY,
         value: category.level3,
-        title: t(getTitleForSet({ type: 'category', value: category.level3 })),
+        title: t(
+          getTitleForSet({
+            type: sdk.product.ProductSetType.CATEGORY,
+            value: category.level3,
+          }),
+        ),
         subtitle: t(
           getSubtitleForSet({
-            type: 'category',
+            type: sdk.product.ProductSetType.CATEGORY,
             value: category.level3,
           }),
         ),
@@ -69,19 +74,13 @@ export const Home = ({}: {}) => {
 
     caller(
       sdk.product.getProductSetsForStore(store._id, [
-        ...(landingContent?.sets ?? []),
-        {
-          type: 'discounted',
-          title: t(getTitleForSet({ type: 'discounted', value: undefined })),
-          subtitle: t(
-            getSubtitleForSet({ type: 'discounted', value: undefined }),
-          ),
-        },
-        {
-          type: 'latest',
-          title: t(getTitleForSet({ type: 'latest', value: undefined })),
-          subtitle: t(getSubtitleForSet({ type: 'latest', value: undefined })),
-        },
+        ...(landingContent?.sets ?? []).map(set => {
+          return {
+            ...set,
+            title: set.title ?? t(getTitleForSet(set)),
+            subtitle: set.subtitle ?? t(getSubtitleForSet(set)),
+          };
+        }),
         ...categorySetTags,
       ]),
       setProductSets,
@@ -108,8 +107,8 @@ export const Home = ({}: {}) => {
               <CategorySet
                 categoriesToShow={categoriesForSet}
                 categories={categories}
-                title={t('chosenSets.selectedCategories')}
-                subtitle={t('chosenSets.selectedCategoriesExplanation')}
+                title={t('productSets.selectedCategories')}
+                subtitle={t('productSets.selectedCategoriesExplanation')}
               />
             </Box>
           )}

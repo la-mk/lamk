@@ -1,6 +1,7 @@
 import NextI18Next from 'next-i18next';
 import { ProductSet } from '@la-mk/la-sdk/dist/models/product';
 import path from 'path';
+import { sdk } from '@la-mk/la-sdk';
 
 export const NextI18NextInstance = new NextI18Next({
   defaultNS: 'translation',
@@ -19,10 +20,10 @@ export const {
 
 export const getTitleForSet = (setTag: Pick<ProductSet, 'type' | 'value'>) => {
   switch (setTag.type) {
-    case 'category':
+    case sdk.product.ProductSetType.CATEGORY:
       return `categories.${setTag.value}`;
     default:
-      return `chosenSets.${setTag.type}`;
+      return `productSets.${setTag.type}`;
   }
 };
 
@@ -30,9 +31,9 @@ export const getSubtitleForSet = (
   setTag: Pick<ProductSet, 'type' | 'value'>,
 ) => {
   switch (setTag.type) {
-    case 'category':
-      return `chosenSets.categoryExplanation`;
+    case sdk.product.ProductSetType.CATEGORY:
+      return `productSets.categoryExplanation`;
     default:
-      return `chosenSets.${setTag.type}Explanation`;
+      return `productSets.${setTag.type}Explanation`;
   }
 };

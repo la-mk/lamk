@@ -7,6 +7,7 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { getImageUploader } from '../../shared/utils/artifacts';
+import cloneDeep from 'lodash/cloneDeep';
 // import { getGroups } from '../../../state/modules/products/products.selector';
 // import { setGroups } from '../../../state/modules/products/products.module';
 // import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
@@ -16,12 +17,14 @@ export const LandingPreferences = () => {
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
-  const [storeContentsFormData, setStoreContentsFormData] = hooks.useFormState<
-    StoreContents
-  >(storeContents, { forStore: store?._id, landing: { sets: [] } }, [
+  const [
+    storeContentsFormData,
+    setStoreContentsFormData,
+  ] = hooks.useFormState<StoreContents>(
     storeContents,
-    store?._id,
-  ]);
+    { forStore: store?._id, landing: { sets: [] } },
+    [storeContents, store?._id],
+  );
   // const [groupsCaller] = hooks.useCall();
   // const groups: string[] | undefined = useSelector(getGroups);
 
@@ -62,6 +65,16 @@ export const LandingPreferences = () => {
     );
   };
 
+  const pickedSchema = cloneDeep(
+    sdk.utils.schema.pick(sdk.storeContents.schema, ['landing']),
+  );
+
+  pickedSchema.properties.landing?.properties?.sets?.items?.oneOf?.forEach(
+    (entry: any) => {
+      entry.title = t(`productSets.${entry.properties.type.const}`);
+    },
+  );
+
   return (
     <Flex mt={3} direction='column'>
       <Spinner isLoaded={!showSpinner}>
@@ -77,9 +90,7 @@ export const LandingPreferences = () => {
             }),
             removeImage: imageId => sdk.artifact.remove(imageId as any) as any,
           }}
-          schema={
-            sdk.utils.schema.pick(sdk.storeContents.schema, ['landing']) as any
-          }
+          schema={pickedSchema}
           uiSchema={{
             landing: {
               'ui:options': {
@@ -97,31 +108,40 @@ export const LandingPreferences = () => {
                 'ui:widget': 'tabs',
                 'ui:options': {
                   itemTitles: (storeContentsFormData as StoreContents)?.landing?.sets?.map(
-                    set => set.title ?? '...',
+                    set => set.title ?? t(`productSets.${set.type}`),
                   ),
                 },
                 items: {
+                  'ui:order': [
+                    'type',
+                    'value',
+                    'title',
+                    'subtitle',
+                    'isPromoted',
+                  ],
+                  'ui:title': t(`sets.setType`),
+                  'ui:options': {
+                    asOneOf: true,
+                  },
+                  type: {
+                    'ui:widget': 'hidden',
+                  },
                   title: {
                     'ui:title': t(`sets.setTitle`),
                   },
                   subtitle: {
                     'ui:title': t(`sets.setSubtitle`),
                   },
-                  type: {
-                    'ui:title': t(`sets.setType`),
-                    'ui:widget': 'select',
-                    'ui:options': {
-                      customEnumOptions: ['group', 'category'].map(val => ({
-                        value: val,
-                        label: t(`setTypes.${val}`),
-                      })),
-                    },
-                  },
+
                   value: {
+                    'ui:options': {
+                      mt: 2,
+                    },
                     'ui:title': t('sets.value'),
                   },
                   isPromoted: {
                     'ui:options': {
+                      mt: 2,
                       label: t(`sets.setPromoted`),
                     },
                   },

@@ -61,7 +61,7 @@ export const validate = (
     const errors = validator(data, ignoreRequired);
 
     if (errors) {
-      console.error(data, errors);
+      console.error(data, JSON.stringify(errors));
       throw new BadRequest('The passed data is invalid', errors);
     }
   };

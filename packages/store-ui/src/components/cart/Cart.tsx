@@ -181,11 +181,19 @@ export const Cart = () => {
         storeId={store._id}
         setTags={[
           {
-            title: t(getTitleForSet({ type: 'latest', value: undefined })),
-            subtitle: t(
-              getSubtitleForSet({ type: 'latest', value: undefined }),
+            title: t(
+              getTitleForSet({
+                type: sdk.product.ProductSetType.LATEST,
+                value: undefined,
+              }),
             ),
-            type: 'latest',
+            subtitle: t(
+              getSubtitleForSet({
+                type: sdk.product.ProductSetType.LATEST,
+                value: undefined,
+              }),
+            ),
+            type: sdk.product.ProductSetType.LATEST,
             value: undefined,
             isPromoted: false,
           },

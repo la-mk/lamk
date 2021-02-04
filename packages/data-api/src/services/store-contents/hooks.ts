@@ -5,6 +5,20 @@ import { disallow } from 'feathers-hooks-common';
 import { sdk } from '@la-mk/la-sdk';
 import { validate, unique } from '../../common/hooks/db';
 import { queryWithCurrentUser } from '../../common/hooks/auth';
+import { HookContext } from '@feathersjs/feathers';
+
+const populateDefaultSets = async (ctx: HookContext) => {
+  if (!ctx.data.landing) {
+    ctx.data.landing = { sets: [] };
+  }
+
+  if (!ctx.data.landing.sets.length) {
+    ctx.data.landing.sets = [
+      { type: sdk.product.ProductSetType.LATEST, isPromoted: true },
+      { type: sdk.product.ProductSetType.DISCOUNTED, isPromoted: true },
+    ];
+  }
+};
 
 export const hooks = {
   before: {
@@ -14,6 +28,7 @@ export const hooks = {
     // We create store contents on store creation
     create: [
       disallow('external'),
+      populateDefaultSets,
       validate(sdk.storeContents.validate),
       unique(['forStore']),
     ],

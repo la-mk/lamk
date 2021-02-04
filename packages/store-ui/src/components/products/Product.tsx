@@ -232,21 +232,35 @@ export const Product = ({ product }: ProductProps) => {
         setTags={[
           {
             title: t(
-              getTitleForSet({ type: 'category', value: product.category }),
+              getTitleForSet({
+                type: sdk.product.ProductSetType.CATEGORY,
+                value: product.category,
+              }),
             ),
             subtitle: t(
-              getSubtitleForSet({ type: 'category', value: product.category }),
+              getSubtitleForSet({
+                type: sdk.product.ProductSetType.CATEGORY,
+                value: product.category,
+              }),
             ),
-            type: 'category',
+            type: sdk.product.ProductSetType.CATEGORY,
             value: product.category,
             isPromoted: false,
           },
           {
-            title: t(getTitleForSet({ type: 'discounted', value: undefined })),
-            subtitle: t(
-              getSubtitleForSet({ type: 'discounted', value: undefined }),
+            title: t(
+              getTitleForSet({
+                type: sdk.product.ProductSetType.DISCOUNTED,
+                value: undefined,
+              }),
             ),
-            type: 'discounted',
+            subtitle: t(
+              getSubtitleForSet({
+                type: sdk.product.ProductSetType.DISCOUNTED,
+                value: undefined,
+              }),
+            ),
+            type: sdk.product.ProductSetType.DISCOUNTED,
             value: undefined,
             isPromoted: false,
           },
