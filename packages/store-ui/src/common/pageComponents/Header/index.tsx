@@ -1,5 +1,13 @@
 import React from 'react';
-import { Badge, Positioner, Box, Flex, Input, Image } from '@la-mk/blocks-ui';
+import {
+  Badge,
+  Positioner,
+  Box,
+  Flex,
+  Input,
+  Image,
+  hooks,
+} from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import queryString from 'qs';
 import {
@@ -12,7 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { sdk } from '@la-mk/la-sdk';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { getFiltersFromSearch } from '../../filterUtils';
+import { filterRouter, getFiltersFromSearch } from '../../filterUtils';
 import { getCartCount } from '../../../state/modules/cart/cart.selector';
 import { logout } from '../../../state/modules/auth/auth.module';
 import { getUser } from '../../../state/modules/user/user.selector';
@@ -34,6 +42,19 @@ export const Header = ({ store }: HeaderProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const theme = useTheme();
+  const [filters] = hooks.useFilter(
+    {},
+    {
+      storage: 'url',
+      router: filterRouter,
+    },
+  );
+  const [searchVal, setSearchVal] = React.useState(filters.searching ?? '');
+
+  React.useEffect(() => {
+    setSearchVal(filters.searching ?? '');
+  }, [filters.searching]);
+
   const ownTheme = theme.sections.Header;
 
   const handleLogout = () => {
@@ -58,8 +79,10 @@ export const Header = ({ store }: HeaderProps) => {
       <Input
         type='search'
         size='lg'
+        value={searchVal}
+        onChange={(_e, val: string) => setSearchVal(val)}
         onSearch={val => {
-          // We don't want to preserve the existing parameters for now, see if this would be an issue.
+          // We don't want to preserve the existing parameters for now, see if this woseeld be an issue.
           const productsUrl = `/products?${queryString.stringify({
             // ...router.query,
             ...getFiltersFromSearch(val),
