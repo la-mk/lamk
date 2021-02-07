@@ -357,7 +357,8 @@
     "orderNotFound": "Order not found",
     "orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",
     "retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
-    "seeOrder": "View order"
+    "seeOrder": "View order",
+    "note": "Note"
   },
   "pages": {
     "aboutUs": "About us",
