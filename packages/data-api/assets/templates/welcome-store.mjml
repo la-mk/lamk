@@ -68,11 +68,11 @@
 
       <mj-section padding="32px 0">
         <mj-column width="25%">
-          <mj-image width="100px" href="https://la.mk/blog" src="https://cdn.recast.ai/newsletter/183.png"></mj-image>
+          <mj-image width="100px" href="https://la.mk/blog/get-started-create-store" src="https://cdn.recast.ai/newsletter/183.png"></mj-image>
         </mj-column>
         <mj-column width="75%">
           <mj-text>
-            <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog" style="color: #EF4351; text-decoration: none">
+            <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog/get-started-create-store" style="color: #EF4351; text-decoration: none">
                 {{tWatchIntroTitle}}
               </a> </h3>
             <p style="font-size: 14px">{{tWatchIntroExplanation}}</p>

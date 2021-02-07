@@ -60,10 +60,16 @@ export const DeliveryForm = ({
             price: {
               'ui:title': t('common.price'),
               'ui:description': t('delivery.priceExplanation'),
+              'ui:options': {
+                prefix: 'ден',
+              },
             },
             freeDeliveryOver: {
               'ui:title': t('delivery.freeDelivery'),
               'ui:description': t('delivery.freeDeliveryExplanation'),
+              'ui:options': {
+                prefix: 'ден',
+              },
             },
           }}
           onSubmit={onSubmit}
