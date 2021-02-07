@@ -633,6 +633,7 @@
     "setupStoreTitle": "Let's kick things off by creating our store"
   },
   "order": {
+    "note": "Note",
     "orderDate": "Order date",
     "orderId": "Order ID"
   },

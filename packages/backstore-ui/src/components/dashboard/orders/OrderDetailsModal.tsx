@@ -185,6 +185,19 @@ export const OrderDetailsModal = ({
               )}
             </Card>
           </Flex>
+
+          {order.buyerNote && (
+            <Card my={3} width={'100%'}>
+              <Flex justify='space-between'>
+                <Heading size='sm' as='h2'>
+                  {t('order.note')}
+                </Heading>
+              </Flex>
+              <Divider mt={3} mb={4} />
+              {order.buyerNote}
+            </Card>
+          )}
+
           <Card mt={3}>
             <Flex>
               <Heading size='sm' as='h2'>
