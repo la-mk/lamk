@@ -103,7 +103,8 @@
     "emptyCartDescription": "You have no items in the cart",
     "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
     "orderSuccess": "Your order has been placed",
-    "productAlreadyInCart": "Product already in cart"
+    "productAlreadyInCart": "Product already in cart",
+    "leaveNote": "Leave a note to the store"
   },
   "commerce": {
     "buyer": "Buyer",

@@ -104,7 +104,8 @@
     "emptyCartDescription": "Вашата корпа е празна",
     "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\"",
     "orderSuccess": "Вашата порачка беше успешна",
-    "productAlreadyInCart": "Производот е веќе во корпата"
+    "productAlreadyInCart": "Производот е веќе во корпата",
+    "leaveNote": "Оставете белешка на продавницата"
   },
   "commerce": {
     "buyer": "Купувач",
