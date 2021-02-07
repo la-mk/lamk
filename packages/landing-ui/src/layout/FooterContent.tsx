@@ -145,7 +145,7 @@ export const FooterContent = () => {
         direction={['column', 'row', 'row']}
       >
         <Text color='text.light' size='sm' mr={[0, 3, 3]}>
-          la.mk © 2020 All rights reserved
+          la.mk © 2021 All rights reserved
         </Text>
 
         <Flex ml={[0, 3, 3]} justify='center' align='center'>
