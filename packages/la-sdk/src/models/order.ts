@@ -83,6 +83,11 @@ export const schema: JSONSchemaType<Order> = {
       enum: Object.values(PaymentMethodNames),
       default: PaymentMethodNames.CREDIT_CARD,
     },
+    buyerNote: {
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
+      maxLength: 2047,
+    },
     // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
     calculatedTotal: {
       type: 'number',
@@ -106,6 +111,7 @@ export interface Order extends DefaultSchema {
   delivery: Delivery;
   deliverTo: Address;
   paymentMethod: PaymentMethodNames;
+  buyerNote?: string;
   calculatedTotal: number;
 }
 
