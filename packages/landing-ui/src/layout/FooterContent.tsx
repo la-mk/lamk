@@ -18,6 +18,7 @@ import {
   FacebookFilled,
   TwitterSquareFilled,
   InstagramFilled,
+  YoutubeFilled,
 } from '@ant-design/icons';
 
 const getMenus = (t: any): Menu[] => [
@@ -163,7 +164,6 @@ export const FooterContent = () => {
               </Text>
             }
           />
-
           <Button
             as='a'
             variant='link'
@@ -174,6 +174,19 @@ export const FooterContent = () => {
             leftIcon={
               <Text color='text.light'>
                 <InstagramFilled />
+              </Text>
+            }
+          />
+          <Button
+            as='a'
+            variant='link'
+            href='https://www.youtube.com/channel/UCi7hOMEuhFUVUX2KnZ9xV0Q'
+            target='_blank'
+            rel='noreferrer noopener'
+            px={3}
+            leftIcon={
+              <Text color='text.light'>
+                <YoutubeFilled />
               </Text>
             }
           />

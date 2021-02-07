@@ -123,6 +123,8 @@
             </mj-social-element>
             <mj-social-element padding="0 12px" name="instagram" background-color="#687C94" href="https://instagram.com/_la.mk">
             </mj-social-element>
+            <mj-social-element padding="0 12px" name="youtube" background-color="#687C94" href="https://www.youtube.com/channel/UCi7hOMEuhFUVUX2KnZ9xV0Q">
+            </mj-social-element>
             <mj-social-element padding="0 12px" name="twitter" background-color="#687C94" href="https://twitter.com/__la.mk">
             </mj-social-element>
           </mj-social>
