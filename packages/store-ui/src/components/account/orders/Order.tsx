@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Steps, Result, Spinner, hooks } from '@la-mk/blocks-ui';
+import {
+  Flex,
+  Steps,
+  Result,
+  Spinner,
+  hooks,
+  Heading,
+  Text,
+} from '@la-mk/blocks-ui';
 import { Order as OrderType } from '@la-mk/la-sdk/dist/models/order';
 import { ShippingDescription } from '../../shared/ShippingDescription';
 import { sdk } from '@la-mk/la-sdk';
@@ -86,8 +94,17 @@ export const Order = ({ orderId }: { orderId: string }) => {
               />
             </CustomCard>
             {order.deliverTo && (
-              <CustomCard mt={3}>
+              <CustomCard my={3}>
                 <ShippingDescription address={order.deliverTo} />
+              </CustomCard>
+            )}
+
+            {order.buyerNote && (
+              <CustomCard mt={3}>
+                <Heading mb={3} noOfLines={1} as='h4' size='sm'>
+                  {t('order.note')}
+                </Heading>
+                <Text color='mutedText.dark'>{order.buyerNote}</Text>
               </CustomCard>
             )}
           </Flex>

@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { Flex, Text, Divider, Button, toast, Box } from '@la-mk/blocks-ui';
+import {
+  Flex,
+  Text,
+  Divider,
+  Button,
+  toast,
+  Box,
+  Textarea,
+} from '@la-mk/blocks-ui';
 import { CartItemWithProduct } from '@la-mk/la-sdk/dist/models/cart';
 import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,7 +29,7 @@ interface SummaryProps {
   buttonTitle?: string;
   disabled?: boolean;
   showProductsSummary?: boolean;
-  onCheckout?: () => void;
+  onCheckout?: (options?: { buyerNote?: string }) => void;
   showContinueShopping?: boolean;
   hideFreeShipping?: boolean;
   title?: string;
@@ -41,6 +49,7 @@ export const Summary = ({
   ...props
 }: SummaryProps & React.ComponentProps<typeof Box>) => {
   const user = useSelector(getUser);
+  const [note, setNote] = React.useState('');
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -56,7 +65,7 @@ export const Summary = ({
     if (!user) {
       dispatch(toggleAuthModal(true));
     } else {
-      onCheckout();
+      onCheckout(note ? { buyerNote: note } : undefined);
     }
   };
 
@@ -113,13 +122,24 @@ export const Summary = ({
         </Text>
       </Flex>
 
+      {onCheckout && !showContinueShopping && (
+        <Textarea
+          mt={6}
+          rows={4}
+          resize='none'
+          placeholder={t('cart.leaveNote')}
+          value={note}
+          onChange={e => setNote(e.target.value)}
+        />
+      )}
+
       {onCheckout && (
         <Button
           isDisabled={disabled}
           onClick={handleCheckout}
           isFullWidth
           size='lg'
-          mt={6}
+          mt={4}
         >
           {buttonTitle}
         </Button>

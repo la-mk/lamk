@@ -70,6 +70,7 @@
     "addedToCart": "Added to cart",
     "cantCalculateShipping": "Could not calculate shipping cost, final price might not be accurate",
     "emptyCartDescription": "You have no items in the cart",
+    "leaveNote": "Leave a note to the store",
     "orderSuccess": "Your order has been placed",
     "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
     "productAlreadyInCart": "Product already in cart"
@@ -627,6 +628,7 @@
     "legalNotAvailable": "We are still preparing our legal policies, reach out for more information"
   },
   "order": {
+    "note": "Note",
     "orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",
     "orderNotFound": "Order not found",
     "orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",

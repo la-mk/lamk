@@ -152,7 +152,7 @@ export const Checkout = () => {
     );
   }
 
-  const handleOrder = () => {
+  const handleOrder = (options?: { buyerNote: string }) => {
     const ordered = cart.items
       .filter(item => item.fromStore === store._id)
       .map(item => ({
@@ -178,6 +178,7 @@ export const Checkout = () => {
         deliverTo,
         paymentMethod,
         ordered,
+        ...options,
         // This is just to make the typings happy, as it will be calculated server-side.
         calculatedTotal: 0,
       }),

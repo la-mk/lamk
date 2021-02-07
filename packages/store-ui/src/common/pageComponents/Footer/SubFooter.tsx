@@ -12,7 +12,7 @@ import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { useTranslation } from '../../i18n';
 
 export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   return (
     <Flex
       justify={['center', 'space-between', 'space-between']}
@@ -22,7 +22,7 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
       direction={['column', 'row', 'row']}
     >
       <Text color='text.light' size='sm' mr={[0, 3, 3]} mb={[3, 0, 0]}>
-        © 2020 All rights reserved
+        © 2021 All rights reserved
       </Text>
 
       <PoweredBy logoUrl={'/images/lamk-logo/horizontal-inverse.svg'} inverse />
