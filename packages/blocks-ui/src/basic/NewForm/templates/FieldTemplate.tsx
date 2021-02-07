@@ -2,6 +2,7 @@ import React from 'react';
 import { FieldTemplateProps } from '@rjsf/core';
 import { Box } from '../../Box';
 import { Text } from '../../Text';
+import { isSchemaOfType } from '../utils';
 
 export default ({
   children,
@@ -13,11 +14,14 @@ export default ({
   hidden,
   label,
   uiSchema,
+  schema,
 }: FieldTemplateProps) => {
   if (hidden) {
     return children;
   }
 
+  // RJSF doesn't check for arrays in the type (object and null), so we manually do it here.
+  const isObject = isSchemaOfType(schema, 'object');
   const { mt, mb, minWidth, maxWidth, flex } = (uiSchema['ui:options'] ??
     {}) as {
     mt: string | number | string[] | number[] | undefined;
@@ -46,8 +50,8 @@ export default ({
       minWidth={normalizedMinWidth}
       maxWidth={normalizedMaxWidth}
     >
-      {displayLabel ? label : null}
-      {displayLabel && description ? description : null}
+      {displayLabel && !isObject ? label : null}
+      {displayLabel && !isObject && description ? description : null}
       {children}
       <Box>
         {rawErrors?.[0] && (
