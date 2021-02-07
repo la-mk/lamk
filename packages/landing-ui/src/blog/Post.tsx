@@ -14,16 +14,16 @@ export const Post = ({ post }: { post: PostType }) => {
           },
 
           fontSizes: {
-            xs: '0.8rem',
+            xs: '0.7rem',
             sm: '0.9rem',
-            md: '1.1rem',
-            lg: '1.4rem',
-            xl: '1.6rem',
-            '2xl': '2rem',
-            '3xl': '2.3rem',
-            '4xl': '2.6rem',
+            md: '1rem',
+            lg: '1.3rem',
+            xl: '1.4rem',
+            '2xl': '1.5rem',
+            '3xl': '1.9rem',
+            '4xl': '2.3rem',
             '5xl': '2.9rem',
-            '6xl': '3.2rem',
+            '6xl': '3.8rem',
           },
         }}
       >
