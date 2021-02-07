@@ -86,7 +86,7 @@ export const schema: JSONSchemaType<Order> = {
     buyerNote: {
       // @ts-ignore the typings are wrong
       type: ['string', 'null'],
-      maxLength: 2047,
+      maxLength: 1023,
     },
     // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
     calculatedTotal: {
