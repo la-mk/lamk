@@ -1,6 +1,6 @@
 <mjml>
   <mj-head>
-    <mj-title>{{tResetYourPassword}}</mj-title>
+    <mj-title>{{tWelcomeToLamk}}</mj-title>
     <mj-attributes>
       <mj-all padding="0px"></mj-all>
     </mj-attributes>
@@ -16,6 +16,16 @@
       a {
         text-decoration: none;
         color: inherit;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .illustration-welcome img {
+        max-width: 400px;
+        height: 250px;
+        margin: auto
       }
     </mj-style>
   </mj-head>
@@ -36,29 +46,63 @@
     </mj-section>
 
     <mj-wrapper padding="32px" background-color="#ffffff">
-      <mj-section padding="16px 0">
-        <mj-column>
-          <mj-text align="center" font-size="28px" font-weight="300" color="#687C94">{{tResetPassword}}</mj-text>
-        </mj-column>
-      </mj-section>
 
       <mj-section padding="16px 0">
         <mj-column>
-          <mj-text line-height="150%" align="center" font-size="16px" font-weight="300" color="#070708">{{tAskedResetPasswordOn}} <a href="{{storeUrl}}" target="_blank"><strong>{{storeName}}</strong></a>, {{tStoreEnabledBy}} <a href="https://la.mk" target="_blank"><strong>la.mk</strong></a>.</mj-text>
+          <mj-image css-class="illustration-welcome" src="https://la.mk/responsive-store-girl.svg" alt="logo"></mj-image>
         </mj-column>
       </mj-section>
 
-      <mj-section>
+
+      <mj-section padding="16px 0">
         <mj-column>
-          <mj-button href="{{resetLink}}" padding="32px 0 16px 0" background-color="#EF4351" height="36px" font-size="18px">{{tResetPassword}}</mj-button>
+          <mj-text align="center" font-size="28px" font-weight="300" color="#687C94">{{tWelcomeToLamk}}</mj-text>
         </mj-column>
       </mj-section>
 
-      <mj-section>
+      <mj-section padding="16px 0 32px 0">
         <mj-column>
-          <mj-text line-height="150%" align="center" font-weight="300" padding="16px 0" font-size="14px" color="#687C94">{{tDidntAskResetExplanation}}.</mj-text>
+          <mj-text line-height="150%" align="center" font-size="18px" font-weight="400" color="#070708">{{tWelcomeToLamkExplanation}}.</mj-text>
         </mj-column>
       </mj-section>
+
+      <mj-section padding="32px 0">
+        <mj-column width="25%">
+          <mj-image width="100px" href="https://la.mk/blog" src="https://cdn.recast.ai/newsletter/183.png"></mj-image>
+        </mj-column>
+        <mj-column width="75%">
+          <mj-text>
+            <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog" style="color: #EF4351; text-decoration: none">
+                {{tWatchIntroTitle}}
+              </a> </h3>
+            <p style="font-size: 14px">{{tWatchIntroExplanation}}</p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section padding="32px 0">
+        <mj-column width="75%">
+          <mj-text align="right">
+            <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog" style="color: #EF4351; text-decoration: none;">
+                {{tReadMoreBlogTitle}}
+              </a></h3>
+            <p style="font-size: 14px">{{tReadMoreBlogExplanation}}</p>
+          </mj-text>
+        </mj-column>
+
+        <mj-column width="25%">
+          <mj-image width="100px" href="https://la.mk/blog" src="https://cdn.recast.ai/newsletter/183.png"></mj-image>
+        </mj-column>
+      </mj-section>
+
+
+      <mj-section padding="32px 0 16px 0">
+        <mj-column>
+          <mj-text line-height="150%" align="center" font-size="14px" font-weight="400" color="#687C94">{{tNeedHelpContactUs}}.</mj-text>
+        </mj-column>
+      </mj-section>
+
+
     </mj-wrapper>
 
     <mj-section>

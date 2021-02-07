@@ -490,15 +490,6 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
-  "chosenSets": {
-    "categoryExplanation": "Categories you might like",
-    "discounted": "Products on sale",
-    "discountedExplanation": "Get it at the best price",
-    "latest": "Latest products",
-    "latestExplanation": "Products that just have arrived",
-    "selectedCategories": "Picked categories",
-    "selectedCategoriesExplanation": "Categories picked just for you"
-  },
   "common": {
     "summary": "Summary"
   },
@@ -553,6 +544,15 @@
     "subtotal": "Subtotal",
     "total": "Total"
   },
+  "howItWorks": {
+    "heroExplanation": "The la.mk platform allows you to create a real online store with no technical knowledge required. Some of the characteristics that make us unique are the ease of use and management of the store, as well as the speed at which we improve."
+  },
+  "landing": {
+    "corePointsSupportDetails": "We are here to help with whatever you need. Whether you are stuck, or you have a feature you can't live without, we want to hear from you. Message us using the built-in chat in the admin panel, and we will help you succeed"
+  },
+  "landingBlog": {
+    "heroExplanation": "Want to learn more about e-commerce? Want to open an online store in Macedonia? We share tips about opening an online business, marketing tips, and more"
+  },
   "order": {
     "seeOrder": "View order"
   },
@@ -586,12 +586,23 @@
     "all": "All",
     "group": "Group"
   },
-  "setTypes": {
+  "productSets": {
     "category": "Category",
-    "group": "Group"
+    "categoryExplanation": "Categories you might like",
+    "discounted": "Products on sale",
+    "discountedExplanation": "Get it at the best price",
+    "group": "Group",
+    "latest": "Latest products",
+    "latestExplanation": "Products that just have arrived",
+    "selectedCategories": "Picked categories",
+    "selectedCategoriesExplanation": "Categories picked just for you"
   },
   "store": {
-    "storeEnabledBy": "Store enabled by"
+    "readMoreBlog": "Read more on our blog",
+    "storeEnabledBy": "Store enabled by",
+    "watchLamkIntro": "Learn how to get started with la.mk",
+    "watchLamkIntroExplanation": "If you are not sure how to get started, follow our step-by-step guide where we guide you how to prepare your store, add your products, and start selling in no time.",
+    "welcomeToLamk": "Welcome to la.mk!"
   },
   "units": {
     "cm": "centimeter",

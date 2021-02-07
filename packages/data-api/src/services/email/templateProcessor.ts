@@ -6,6 +6,7 @@ import * as process from 'process';
 import { t } from '../../common/i18n';
 
 interface Templates {
+  'welcome-store'?: string;
   'reset-password'?: string;
   'order-success'?: string;
 }
@@ -15,6 +16,19 @@ const getTranslationsForTemplate = (
   context: any,
 ) => {
   switch (templateName) {
+    // tWelcomeToLamk, tGoToAdminPanel, tWatchIntroTitle, tWatchIntroExplanation, tReadMoreBlogTitle, tReadMoreBlogExplanation, tNeedHelpContactUs
+    case 'welcome-store': {
+      return {
+        tWelcomeToLamk: t('store.welcomeToLamk'),
+        tWelcomeToLamkExplanation: t('howItWorks.heroExplanation'),
+        tWatchIntroTitle: t('store.watchLamkIntro'),
+        tWatchIntroExplanation: t('store.watchLamkIntroExplanation'),
+        tReadMoreBlogTitle: t('store.readMoreBlog'),
+        tReadMoreBlogExplanation: t('landingBlog.heroExplanation'),
+        tNeedHelpContactUs: t('landing.corePointsSupportDetails'),
+      };
+    }
+
     // storeName, storeUrl, resetLink
     case 'reset-password': {
       return {
