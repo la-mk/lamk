@@ -6,7 +6,9 @@ import { Timestamp } from './Timestamp';
 export const Post = ({ post }: { post: PostType }) => {
   return (
     <Box my={6} mx={'auto'} p={5} maxWidth='56rem'>
-      <Timestamp timestamp={post.date} />
+      <Box mb={-6}>
+        <Timestamp timestamp={post.date} />
+      </Box>
       <Provider
         theme={{
           lineHeights: {

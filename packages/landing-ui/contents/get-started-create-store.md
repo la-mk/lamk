@@ -2,12 +2,12 @@
 title: Започнете со la.mk и креирајте онлајн продавница
 slug: get-started-create-store
 date: '3020-05-23T14:45:15Z'
-summary: 'Pellentesque condimentum velit vel justo rutrum, sit amet commodo diam tincidunt. Nunc diam massa, interdum ut aliquet at, scelerisque ac ex. Integer cursus sem ac pretium posuere. Ut at odio nulla. Phasellus nec ante luctus, egestas dui id, maximus dui.'
+summary: 'Ве водиме, чекор по чекор, до успешно отворање на супер брза, SEO оптимизирана и лесна за користење интернет продавница. Во помалку од 5 минути, вие ќе имате целосно функционална онлајн продавница, со лично ваш домен, прилагодена за вашиот бренд.'
 ---
 
 # Добре дојдовте на la.mk!
 
-![alt text for video](https://www.youtube.com/embed/Hsd5k8mWdV0)
+Добре дојдовте на la.mk, платформа за брзо и едноставно креирање на онлајн продавница. Во овој артикл ве водиме, чекор по чекор, до успешно отворање на супер брза, SEO оптимизирана и лесна за користење интернет продавница. Во помалку од 5 минути, вие ќе имате целосно функционална онлајн продавница, со лично ваш домен, прилагодена за вашиот бренд.
 
 ## Креирајте сметка на la.mk
 
@@ -63,18 +63,18 @@ summary: 'Pellentesque condimentum velit vel justo rutrum, sit amet commodo diam
 
 ![add product modal](/blog/get-started-create-store/add-product-modal.png)
 
-<br>
+Доколку сега ја посетите вашата продавница, ќе видите дека производот е веќе достапен на почетната страна, и веќе имаме неколку сетови на производи (нови производи, производи од истата категорија, и слично).
 
 ![online store home page](/blog/get-started-create-store/store-home-added-product.png)
 
-<br>
+Доколку го изберете производот, тоа ќе ве одведе до страната за подетален преглед на истиот, каде што можете да го додадете во кошничката и да направите порачка (но ќе го оставиме тој процес за нареден артикл).
 
 ![product details page](/blog/get-started-create-store/product-details.png)
 
 ## Вашата онлајн продавница
 
-List all merits, how they'll benefit from continuous improvements, and how we manage all complexity behind keeping the site performant etc.
+Тоа е се што е потребно за да почнете со онлајн продажба. Ние се грижиме за секој технички аспект како хостирање, додавање на нови функционалности, оптимизирање на продавницата за брзина и SEO, и многу повеќе. Се што останува на вас е да продавате.
 
-## Администраторски панел
+Има голем дел на функционалности и детали кои не ги споменавме, но тоа останува за некој од нашите наредни артикли. Следете нè и придружете нѝ се, и заедно ќе ја создадеме најдобрата платформа во регионот.
 
-Explain what the role of the admin panel is.
+[Отворете ја вашата продавница денес](https://admin.la.mk)
