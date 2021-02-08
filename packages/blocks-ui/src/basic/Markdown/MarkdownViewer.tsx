@@ -51,7 +51,7 @@ let getProcessor = (
             return <Video src={props.src} />;
           }
           return (
-            <Flex align="center" justify="center" my={3}>
+            <Flex align="center" justify="center" mt={3} mb={5}>
               <Image {...props} />
             </Flex>
           );
@@ -60,7 +60,7 @@ let getProcessor = (
           <Heading
             {...headerMap[0 + titleLevelOffset]}
             mb={5}
-            mt={6}
+            mt={7}
             {...props}
           />
         ),
@@ -68,7 +68,7 @@ let getProcessor = (
           <Heading
             {...headerMap[1 + titleLevelOffset]}
             mb={5}
-            mt={6}
+            mt={7}
             {...props}
           />
         ),
@@ -76,7 +76,7 @@ let getProcessor = (
           <Heading
             {...headerMap[2 + titleLevelOffset]}
             mb={4}
-            mt={5}
+            mt={6}
             {...props}
           />
         ),
@@ -84,7 +84,7 @@ let getProcessor = (
           <Heading
             {...headerMap[3 + titleLevelOffset]}
             mb={4}
-            mt={5}
+            mt={6}
             {...props}
           />
         ),

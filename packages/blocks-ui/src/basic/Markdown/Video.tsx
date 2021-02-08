@@ -12,7 +12,8 @@ export const Video = ({ src }: { src: string }) => {
       pt="56.25%"
       align="center"
       justify="center"
-      my={3}
+      mt={3}
+      mb={5}
     >
       <iframe
         style={{ position: 'absolute', top: 0, left: 0 }}
