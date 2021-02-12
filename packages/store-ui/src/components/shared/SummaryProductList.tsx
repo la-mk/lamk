@@ -13,7 +13,7 @@ export const SummaryProductList = ({
 }) => {
   return (
     <Grid spacing={5}>
-      {items.map((cartItem, index) => {
+      {items.map(cartItem => {
         return (
           <ProductImageWithTitle
             product={cartItem.product}
