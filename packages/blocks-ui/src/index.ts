@@ -103,7 +103,6 @@ export {
   ResetPasswordForm,
   ResetPasswordFormProps,
 } from './compound/forms/ResetPasswordForm';
-export { HeadElements, HeadElementsProps } from './compound/HeadElements';
 export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
 export { LanguagePicker, LanguagePickerProps } from './compound/LanguagePicker';
