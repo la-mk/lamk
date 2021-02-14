@@ -79,7 +79,7 @@ services:
       TYPESENSE_API_KEY: $SEARCH_SERVICE_API_KEY
 
   data-api:
-    image: registry.digitalocean.com/lamk/data-api:1.0.96
+    image: registry.digitalocean.com/lamk/data-api:1.0.97
     container_name: data-api
     restart: always
     networks:
@@ -117,7 +117,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: registry.digitalocean.com/lamk/store-ui:1.0.136
+    image: registry.digitalocean.com/lamk/store-ui:1.0.137
     container_name: store-ui
     restart: always
     networks:

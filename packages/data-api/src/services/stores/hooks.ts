@@ -125,7 +125,7 @@ export const hooks = {
     create: [
       createStoreContentsIfNotExists,
       createStorePaymentMethodsIfNotExists,
-      // sendWelcomeEmail,
+      sendWelcomeEmail,
     ],
     patch: [],
     remove: [removeStoreContents, removeStorePaymentMethods],

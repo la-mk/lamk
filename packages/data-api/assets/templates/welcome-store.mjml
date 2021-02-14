@@ -81,17 +81,15 @@
       </mj-section>
 
       <mj-section padding="32px 0">
-        <mj-column width="75%">
-          <mj-text align="right">
+        <mj-column width="100%">
+          <mj-text align="center">
             <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog" style="color: #EF4351; text-decoration: none;">
-                {{tReadMoreBlogTitle}}
+                {{tReadMoreBlogTitle}}x
               </a></h3>
             <p style="font-size: 14px">{{tReadMoreBlogExplanation}}</p>
           </mj-text>
-        </mj-column>
 
-        <mj-column width="25%">
-          <mj-image width="100px" href="https://la.mk/blog" src="https://cdn.recast.ai/newsletter/183.png"></mj-image>
+          <mj-image width="200px" href="https://la.mk/blog" src="https://la.mk/warming-up-people.svg"></mj-image>
         </mj-column>
       </mj-section>
 
