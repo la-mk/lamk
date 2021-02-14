@@ -56,13 +56,13 @@
 
       <mj-section padding="16px 0">
         <mj-column>
-          <mj-text align="center" font-size="28px" font-weight="300" color="#687C94">{{tWelcomeToLamk}}</mj-text>
+          <mj-text align="center" font-size="32px" font-weight="300" color="#687C94">{{tWelcomeToLamk}}</mj-text>
         </mj-column>
       </mj-section>
 
       <mj-section padding="16px 0 32px 0">
         <mj-column>
-          <mj-text line-height="150%" align="center" font-size="18px" font-weight="400" color="#070708">{{tWelcomeToLamkExplanation}}.</mj-text>
+          <mj-text line-height="150%" align="center" font-size="16px" font-weight="400" color="#070708">{{tWelcomeToLamkExplanation}}</mj-text>
         </mj-column>
       </mj-section>
 
@@ -75,7 +75,7 @@
             <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog/get-started-create-store" style="color: #EF4351; text-decoration: none">
                 {{tWatchIntroTitle}}
               </a> </h3>
-            <p style="font-size: 14px">{{tWatchIntroExplanation}}</p>
+            <p style="font-size: 14px; color: #404C4D; line-height: 125%;">{{tWatchIntroExplanation}}</p>
           </mj-text>
         </mj-column>
       </mj-section>
@@ -86,7 +86,7 @@
             <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog" style="color: #EF4351; text-decoration: none;">
                 {{tReadMoreBlogTitle}}
               </a></h3>
-            <p style="font-size: 14px">{{tReadMoreBlogExplanation}}</p>
+            <p style="font-size: 14px; color: #404C4D; line-height: 125%;">{{tReadMoreBlogExplanation}}</p>
           </mj-text>
 
           <mj-image width="200px" href="https://la.mk/blog" src="https://la.mk/warming-up-people.svg"></mj-image>
