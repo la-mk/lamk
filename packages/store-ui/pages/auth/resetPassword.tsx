@@ -16,7 +16,8 @@ function ResetPasswordPage({
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/auth/resetPassword`}
+        store={store}
         title={t('auth.resetPassword')}
         description={`${t('auth.resetPassword')}, ${store?.name}`}
       />

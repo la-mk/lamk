@@ -18,7 +18,8 @@ const OrderPayPage = ({
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/orders/${orderId}/pay`}
+        store={store}
         title={t('pages.payment')}
         description={`${t('pages.payment')}, ${t('pages.order')} ${orderId}`}
       />

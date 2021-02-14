@@ -31,7 +31,12 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
   if (!store.company) {
     return (
       <>
-        <Head siteName={store?.name} title={title} description={title} />
+        <Head
+          url={`/legal/return-and-refund`}
+          store={store}
+          title={title}
+          description={title}
+        />
         <Result
           status='empty'
           mt={8}
@@ -48,7 +53,8 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/legal/return-and-refund`}
+        store={store}
         title={title}
         description={getTextSnippet(returnAndRefundPolicy)}
       />

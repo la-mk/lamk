@@ -24,7 +24,8 @@ function ChangePasswordPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={'/account/change-password'}
+        store={store}
         title={t('pages.myAccount')}
         description={`${t('pages.myAccount')}, ${nameDescription}`}
       />

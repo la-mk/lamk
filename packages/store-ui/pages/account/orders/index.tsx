@@ -11,7 +11,8 @@ function OrdersPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={'/account/orders'}
+        store={store}
         title={t('pages.order_plural')}
         description={`${t('pages.order_plural')}, ${store?.name}`}
       />

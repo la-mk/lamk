@@ -10,6 +10,7 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { transliterate } from '@la-mk/nlp';
 import { TFunction } from 'next-i18next';
+import { width } from 'styled-system';
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 const getProductSummary = (product: ProductType, t: TFunction) => {
@@ -37,7 +38,8 @@ const ProductPage = ({
     return (
       <>
         <Head
-          siteName={store?.name}
+          url={`/products`}
+          store={store}
           title={t('results.pageNotFound')}
           description={t('results.productNotFound')}
         />
@@ -53,12 +55,27 @@ const ProductPage = ({
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/products/${product._id}`}
+        store={store}
         title={product.name}
         description={getProductSummary(product, t)}
-        previewImages={product.media.map(mediaFile =>
-          sdk.artifact.getUrlForImage(mediaFile._id, store._id, { h: 300 }),
-        )}
+        images={product.media.map(mediaFile => ({
+          url: sdk.artifact.getUrlForImage(mediaFile._id, store._id, {
+            h: 300,
+          }),
+          height: mediaFile.height,
+          width: mediaFile.width,
+        }))}
+        product={{
+          productName: product.name,
+          description: product.description,
+          aggregateOffer: {
+            priceCurrency: 'MKD',
+            lowPrice: product.minCalculatedPrice.toFixed(2),
+            highPrice: product.maxCalculatedPrice.toFixed(2),
+            offerCount: product.variants.length.toString(),
+          },
+        }}
       />
       <Product product={product} />
     </>

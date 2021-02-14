@@ -35,7 +35,12 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
   if (!store.company) {
     return (
       <>
-        <Head siteName={store?.name} title={title} description={title} />
+        <Head
+          url={`/legal/general-rules`}
+          store={store}
+          title={title}
+          description={title}
+        />
         <Result
           status='empty'
           mt={8}
@@ -56,7 +61,8 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/legal/general-rules`}
+        store={store}
         title={title}
         description={getTextSnippet(generalRules)}
       />

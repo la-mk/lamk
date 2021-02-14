@@ -10,7 +10,8 @@ function LegalPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/legal`}
+        store={store}
         title={t('pages.legal')}
         description={`${t('pages.legal')}, ${store?.name}`}
       />

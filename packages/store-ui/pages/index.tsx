@@ -11,7 +11,8 @@ function HomePage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url=''
+        store={store}
         title={t('pages.home')}
         description={
           store?.slogan ??

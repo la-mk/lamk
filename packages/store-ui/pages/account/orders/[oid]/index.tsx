@@ -18,7 +18,8 @@ const OrderPage = ({
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/orders/${orderId}`}
+        store={store}
         title={t('pages.order')}
         description={`${t('pages.order')}, ${store?.name}`}
       />

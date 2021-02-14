@@ -24,7 +24,8 @@ function AddressesPage({ store }: { store: Store | undefined }) {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={'/account/addresses'}
+        store={store}
         title={t('pages.myAccount')}
         description={`${t('pages.myAccount')}, ${nameDescription}`}
       />

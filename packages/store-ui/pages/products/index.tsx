@@ -24,7 +24,8 @@ function ProductsPage({
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={'/products'}
+        store={store}
         title={t('pages.product_plural')}
         description={t('seoDescriptions.product_plural')}
       />

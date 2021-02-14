@@ -1,13 +1,24 @@
 import React from 'react';
 import { Head } from '../src/common/pageComponents/Head';
 import { Result, Button, Flex } from '@la-mk/blocks-ui';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useTranslation } from '../src/common/i18n';
+import { getStore } from '../src/state/modules/store/store.selector';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 const Error = ({ status, title, description, t }) => {
+  const store: Store = useSelector(getStore);
+
   return (
     <Flex mt={8} direction='column' justify='center'>
-      <Head title={`${status} | ${title}`} description={description} />
+      <Head
+        url={`/${status}`}
+        store={store}
+        title={title}
+        titlePrefix={status}
+        description={description}
+      />
       <Result status={status} title={title} description={description} />
 
       <Link href='/' passHref>

@@ -57,7 +57,12 @@ const PrivacyPage = ({ store }: { store: Store }) => {
   if (!store.company) {
     return (
       <>
-        <Head siteName={store?.name} title={title} description={title} />
+        <Head
+          url={`/legal/privacy`}
+          store={store}
+          title={title}
+          description={title}
+        />
         <Result
           status='empty'
           mt={8}
@@ -79,7 +84,8 @@ const PrivacyPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        siteName={store?.name}
+        url={`/legal/privacy`}
+        store={store}
         title={title}
         description={getTextSnippet(privacyPolicy)}
       />
