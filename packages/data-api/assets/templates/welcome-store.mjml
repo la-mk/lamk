@@ -84,7 +84,7 @@
         <mj-column width="100%">
           <mj-text align="center">
             <h3 style="font-weight: bold; margin-top: 0; margin-bottom: 0"> <a href="https://la.mk/blog" style="color: #EF4351; text-decoration: none;">
-                {{tReadMoreBlogTitle}}x
+                {{tReadMoreBlogTitle}}
               </a></h3>
             <p style="font-size: 14px">{{tReadMoreBlogExplanation}}</p>
           </mj-text>

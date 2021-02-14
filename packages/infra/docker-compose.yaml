@@ -79,7 +79,7 @@ services:
       TYPESENSE_API_KEY: $SEARCH_SERVICE_API_KEY
 
   data-api:
-    image: registry.digitalocean.com/lamk/data-api:1.0.97
+    image: registry.digitalocean.com/lamk/data-api:1.0.98
     container_name: data-api
     restart: always
     networks:

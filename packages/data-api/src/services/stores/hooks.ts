@@ -31,7 +31,7 @@ import { logger } from '../../common/logger';
 // TODO: We don't have to wait when sending an email, but this will do for now.
 export const sendWelcomeEmail = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['create']);
-  const user = await ctx.app.services['user'].get(ctx.params.user?._id ?? '');
+  const user = await ctx.app.services['users'].get(ctx.params.user?._id ?? '');
 
   if (!user || !user.email) {
     logger.error(
