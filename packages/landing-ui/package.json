@@ -28,12 +28,12 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@la-mk/analytics": "0.0.10",
-    "@la-mk/blocks-ui": "0.0.272",
+    "@la-mk/blocks-ui": "0.0.273",
     "@la-mk/translations": "0.0.122",
     "date-fns": "^2.17.0",
     "env-var": "^7.0.0",
     "front-matter": "^4.0.2",
-    "next": "^10.0.4",
+    "next": "^10.0.6",
     "next-i18next": "^7.0.1",
     "next-seo": "^4.19.0",
     "react": "^17.0.1",
@@ -56,7 +56,7 @@
     "imagemin-cli": "^6.0.0",
     "lint-staged": "^10.5.3",
     "next-compose-plugins": "^2.2.1",
-    "next-transpile-modules": "^6.0.0",
+    "next-transpile-modules": "^6.3.0",
     "prettier": "^2.2.1",
     "svgo": "^1.3.2",
     "typescript": "^4.1.3"
