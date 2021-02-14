@@ -9,7 +9,7 @@
     "dev": "next -p 7001",
     "build": "next build && next export",
     "start": "next start",
-    "optimize-images": "npm run optimize-svg && npm run optimize-png", 
+    "optimize-images": "npm run optimize-svg && npm run optimize-png",
     "optimize-svg": "svgo -f ./public",
     "optimize-png": "find ./public -type f -name '*.png' | while read fname; do imagemin $fname > ${fname}.tmp && mv ${fname}.tmp ${fname}; done;",
     "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\"]' 'public/locales'"
@@ -30,6 +30,7 @@
     "@la-mk/analytics": "0.0.10",
     "@la-mk/blocks-ui": "0.0.271",
     "@la-mk/translations": "0.0.122",
+    "date-fns": "^2.17.0",
     "env-var": "^7.0.0",
     "front-matter": "^4.0.2",
     "next": "^10.0.4",
