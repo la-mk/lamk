@@ -9,7 +9,7 @@ function BlogPage({ posts }: { posts: PostType[] }) {
   return (
     <>
       <Head
-        url='https://la.mk/blog'
+        url='/blog'
         title={t('landing.blogPage')}
         description={'landingBlog.heroExplanation'}
       />

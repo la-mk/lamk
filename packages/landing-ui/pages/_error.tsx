@@ -8,7 +8,7 @@ const Error = ({ status, title, description, t }) => {
   return (
     <Flex my={8} direction='column' justify='center'>
       <Head
-        url='https://la.mk/404'
+        url={`/${status}`}
         title={title}
         titlePrefix={status}
         description={description}

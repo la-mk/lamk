@@ -89,7 +89,7 @@ function FaqPage() {
   return (
     <>
       <Head
-        url='https://la.mk/faq'
+        url='/faq'
         title={t('landing.faqPage')}
         description={t('landingFaq.heroExplanation')}
         faq={faqGroups

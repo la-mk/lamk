@@ -7,7 +7,7 @@ const PostPage = ({ post }: { post: PostType }) => {
   return (
     <>
       <Head
-        url={`https://la.mk/blog/${post.slug}`}
+        url={`/blog/${post.slug}`}
         title={post.title}
         description={post.summary}
         article={{

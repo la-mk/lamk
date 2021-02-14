@@ -8,7 +8,7 @@ function HomePage() {
   return (
     <>
       <Head
-        url='https://la.mk'
+        url=''
         title={t('landing.homePage')}
         description={t('company.subTagline')}
       />

@@ -7,7 +7,7 @@ function HowItWorksPage() {
   return (
     <>
       <Head
-        url='https://la.mk/how-it-works'
+        url='/how-it-works'
         title={t('landing.howItWorksPage')}
         description={t('howItWorks.heroExplanation')}
       />

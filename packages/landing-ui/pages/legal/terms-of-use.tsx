@@ -72,7 +72,7 @@ const TermsOfUsePage = () => {
   return (
     <>
       <Head
-        url={'https://la.mk/legal/terms-of-use'}
+        url={'/legal/terms-of-use'}
         title={title}
         description={termsOfUse.split('\n')[0]}
       />

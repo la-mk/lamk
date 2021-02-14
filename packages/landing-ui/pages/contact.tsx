@@ -7,7 +7,7 @@ function ContactPage() {
   return (
     <>
       <Head
-        url='https://la.mk/contract'
+        url='/contract'
         title={t('landing.contactUsPage')}
         description={t('landingContact.heroExplanation')}
       />

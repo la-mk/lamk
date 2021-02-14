@@ -5,7 +5,6 @@ import {
   ArticleJsonLd,
   CorporateContactJsonLd,
   FAQPageJsonLd,
-  ProductJsonLd,
 } from 'next-seo';
 
 export interface HeadBaseProps {
@@ -24,17 +23,6 @@ export interface HeadBaseProps {
   };
   article?: NextSeoProps['openGraph']['article'];
   faq?: Array<{ questionName: string; acceptedAnswerText: string }>;
-  product?: {
-    productName: string;
-    images: string[];
-    description?: string;
-    sku?: string;
-    offers: Array<{
-      price: string;
-      priceCurrency: string;
-      url: string;
-    }>;
-  };
 }
 
 export const Head = ({
@@ -52,8 +40,9 @@ export const Head = ({
     phoneNumber: '+389 77 647 585',
   },
   faq,
-  product,
 }: HeadBaseProps) => {
+  const fullUrl = `${homeUrl}${url}`;
+
   return (
     <>
       <NextSeo
@@ -63,7 +52,7 @@ export const Head = ({
         canonical={canonical}
         openGraph={{
           type: article ? 'article' : 'website',
-          url,
+          url: fullUrl,
           images,
           article,
           site_name: name,
@@ -74,7 +63,7 @@ export const Head = ({
       />
       {article && (
         <ArticleJsonLd
-          url={url}
+          url={fullUrl}
           title={title}
           images={images?.map(x => x.url)}
           datePublished={article.publishedTime}
@@ -106,12 +95,6 @@ export const Head = ({
         />
       )}
       {faq && <FAQPageJsonLd mainEntity={faq} />}
-      {product && (
-        <ProductJsonLd
-          {...product}
-          offers={product.offers.map(x => ({ ...x, seller: { name } }))}
-        />
-      )}
     </>
   );
 };

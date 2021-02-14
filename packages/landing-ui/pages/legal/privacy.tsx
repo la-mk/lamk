@@ -60,7 +60,7 @@ const PrivacyPage = () => {
   return (
     <>
       <Head
-        url={'https://la.mk/legal/privacy'}
+        url={'/legal/privacy'}
         title={title}
         description={privacyPolicy.split('\n')[0]}
       />
