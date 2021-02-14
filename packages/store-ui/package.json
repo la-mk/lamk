@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "1.0.138",
+  "version": "1.0.139",
   "description": "Store UI",
   "main": "pages/index.ts",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -28,7 +28,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@la-mk/analytics": "0.0.10",
-    "@la-mk/blocks-ui": "0.0.272",
+    "@la-mk/blocks-ui": "0.0.273",
     "@la-mk/la-sdk": "0.0.159",
     "@la-mk/nlp": "0.0.4",
     "@la-mk/translations": "0.0.126",
@@ -39,7 +39,7 @@
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
     "mem": "^8.0.0",
-    "next": "^10.0.4",
+    "next": "^10.0.6",
     "next-i18next": "^7.0.1",
     "next-redux-wrapper": "^6.0.2",
     "next-seo": "^4.19.0",
@@ -68,7 +68,7 @@
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
     "next-compose-plugins": "^2.2.1",
-    "next-transpile-modules": "^6.0.0",
+    "next-transpile-modules": "^6.3.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
