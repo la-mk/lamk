@@ -7,10 +7,13 @@ const PostPage = ({ post }: { post: PostType }) => {
   return (
     <>
       <Head
-        previewImages={['https://la.mk/logo-padding.png']}
-        siteName='la.mk'
+        url={`https://la.mk/blog/${post.slug}`}
         title={post.title}
         description={post.summary}
+        article={{
+          publishedTime: post.date,
+          modifiedTime: post.date,
+        }}
       />
       <Post post={post} />
     </>

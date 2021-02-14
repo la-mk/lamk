@@ -38,7 +38,7 @@ const GeneralRulesPage = () => {
   return (
     <>
       <Head
-        siteName={'la.mk'}
+        url={'https://la.mk/legal/general-rules'}
         title={title}
         description={generalRules.split('\n')[0]}
       />

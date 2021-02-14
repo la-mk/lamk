@@ -7,8 +7,7 @@ function ContactPage() {
   return (
     <>
       <Head
-        previewImages={['https://la.mk/logo-padding.png']}
-        siteName='la.mk'
+        url='https://la.mk/contract'
         title={t('landing.contactUsPage')}
         description={t('landingContact.heroExplanation')}
       />

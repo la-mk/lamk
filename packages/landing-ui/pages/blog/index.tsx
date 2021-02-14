@@ -9,8 +9,7 @@ function BlogPage({ posts }: { posts: PostType[] }) {
   return (
     <>
       <Head
-        previewImages={['https://la.mk/logo-padding.png']}
-        siteName='la.mk'
+        url='https://la.mk/blog'
         title={t('landing.blogPage')}
         description={'landingBlog.heroExplanation'}
       />

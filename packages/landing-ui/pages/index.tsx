@@ -8,8 +8,7 @@ function HomePage() {
   return (
     <>
       <Head
-        previewImages={['https://la.mk/logo-padding.png']}
-        siteName='la.mk'
+        url='https://la.mk'
         title={t('landing.homePage')}
         description={t('company.subTagline')}
       />
