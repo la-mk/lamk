@@ -45,8 +45,10 @@ export const Head = ({
   faq,
   product,
 }: HeadBaseProps) => {
-  const homeUrl =
-    `https://${store?.customDomain}` ?? `https://${store?.slug}.la.mk`;
+  const homeUrl = store?.customDomain
+    ? `https://${store.customDomain}`
+    : `https://${store?.slug}.la.mk`;
+
   const name = store?.name ?? store?.slug;
   const logoUrl = sdk.artifact.getUrlForImage(store?.logo?._id, store?._id);
   const contact = store?.contact;
