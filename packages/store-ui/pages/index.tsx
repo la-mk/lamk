@@ -13,7 +13,7 @@ function HomePage({ store }: { store: Store | undefined }) {
       <Head
         url=''
         store={store}
-        title={t('pages.home')}
+        title={store?.name ?? store?.slug ?? t('pages.home')}
         description={
           store?.slogan ??
           `${store?.name} - ${t('seoDescriptions.storeGeneric')}`
