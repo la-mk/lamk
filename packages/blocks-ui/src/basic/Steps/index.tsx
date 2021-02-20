@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Flex, FlexProps } from '../Flex';
 import { Text } from '../Text';
 import { Divider } from '../Divider';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { X, Check } from 'react-feather';
 import { Box } from '../Box';
 
 interface StepProps {
@@ -19,8 +19,8 @@ const color: { [key in StepProps['status']]: string } = {
 };
 
 const content = {
-  danger: <CloseOutlined />,
-  success: <CheckOutlined />,
+  danger: <X />,
+  success: <Check />,
   pending: undefined,
 };
 
@@ -70,6 +70,7 @@ const Circle = ({ status, index }: StepProps & { index: number }) => {
       maxHeight={7}
       maxWidth={7}
       mr={2}
+      p={1}
     >
       {content[status] ?? index + 1}
     </Flex>

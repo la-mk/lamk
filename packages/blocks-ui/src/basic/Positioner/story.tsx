@@ -2,23 +2,14 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { Badge } from '../Badge';
 import { Provider } from '../../';
-import { CheckCircleFilled, ShoppingCartOutlined } from '@ant-design/icons';
+import { CheckCircle, ShoppingCart } from 'react-feather';
 import { Positioner } from '.';
 import { Box } from '../Box';
 
 storiesOf('Positioner', module).add('standard', () => (
   <Provider>
     <>
-      <Positioner
-        overlayContent={
-          <CheckCircleFilled
-            style={{
-              color: 'green',
-              fontSize: 20,
-            }}
-          />
-        }
-      >
+      <Positioner overlayContent={<CheckCircle color="green" size={20} />}>
         <Box width="200px" height="100px" bg="lightgray" />
       </Positioner>
       <Positioner
@@ -35,7 +26,7 @@ storiesOf('Positioner', module).add('standard', () => (
           </Badge>
         }
       >
-        <ShoppingCartOutlined style={{ fontSize: 20 }} />
+        <ShoppingCart size={20} />
       </Positioner>
     </>
   </Provider>

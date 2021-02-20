@@ -14,11 +14,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/react';
-import {
-  SearchOutlined,
-  EyeOutlined,
-  EyeInvisibleOutlined,
-} from '@ant-design/icons';
+import { Search as SearchIcon, Eye, EyeOff } from 'react-feather';
 import { InputSize, InputVariant } from '../../system';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
@@ -103,7 +99,7 @@ const Password = ({
           variant="ghost"
           size="sm"
           onClick={handleClick}
-          leftIcon={show ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+          leftIcon={show ? <EyeOff size={18} /> : <Eye size={18} />}
         />
       </InputRightElement>
 
@@ -152,7 +148,7 @@ const Search = ({
           variant="ghost"
           size="sm"
           onClick={handleOnSearch}
-          leftIcon={<SearchOutlined />}
+          leftIcon={<SearchIcon size={18} />}
         />
       </InputRightElement>
 

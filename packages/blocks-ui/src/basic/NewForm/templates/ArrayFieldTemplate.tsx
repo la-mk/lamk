@@ -1,9 +1,4 @@
-import {
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { ArrowUp, ArrowDown, Trash2, Plus } from 'react-feather';
 import * as React from 'react';
 import { ArrayFieldTemplateProps } from '@rjsf/core';
 import { Flex } from '../../Flex';
@@ -146,7 +141,7 @@ export default ({
                           element.index - 1
                         )}
                       >
-                        <ArrowUpOutlined />
+                        <ArrowUp />
                       </Button>
                     )}
 
@@ -163,7 +158,7 @@ export default ({
                           element.index + 1
                         )}
                       >
-                        <ArrowDownOutlined />
+                        <ArrowDown />
                       </Button>
                     )}
 
@@ -174,7 +169,7 @@ export default ({
                         isDisabled={element.disabled || element.readonly}
                         onClick={element.onDropIndexClick(element.index)}
                       >
-                        <DeleteOutlined />
+                        <Trash2 />
                       </Button>
                     )}
                   </Flex>
@@ -185,7 +180,7 @@ export default ({
 
           {showAdd && (
             <Button size="sm" mt={3} onClick={onAddClick}>
-              <PlusOutlined />
+              <Plus />
             </Button>
           )}
         </>

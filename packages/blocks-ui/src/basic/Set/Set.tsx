@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { ChevronLeft, ChevronRight } from 'react-feather';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { Box, BoxProps } from '../Box';
@@ -99,16 +99,14 @@ export function Set<T>({
         variant="ghost"
         onClick={() => handleArrowClick('left')}
         direction="left"
-      >
-        <LeftOutlined />
-      </ArrowButton>
+        leftIcon={<ChevronLeft />}
+      />
       <ArrowButton
         variant="ghost"
         onClick={() => handleArrowClick('right')}
         direction="right"
-      >
-        <RightOutlined />
-      </ArrowButton>
+        leftIcon={<ChevronRight />}
+      />
     </SetContainer>
   );
 }

@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { Button, ButtonGroup } from './';
 import { Provider } from '../../';
-import { AimOutlined } from '@ant-design/icons';
+import { Plus } from 'react-feather';
 
 storiesOf('Button', module).add('standard', () => (
   <Provider>
@@ -22,7 +22,7 @@ storiesOf('Button', module).add('standard', () => (
         mx={2}
         variant="ghost"
         aria-label="Test"
-        leftIcon={<AimOutlined />}
+        leftIcon={<Plus />}
         onClick={() => null}
       />
     </div>

@@ -4,11 +4,7 @@ import { Flex } from '../Flex';
 import { Text } from '../Text';
 import { EmptyIcon } from './default-icons/EmptyIcon';
 import { NotFoundIcon } from './default-icons/NotFoundIcon';
-import {
-  CheckCircleFilled,
-  ExclamationCircleFilled,
-  WarningFilled,
-} from '@ant-design/icons';
+import { CheckCircle, AlertTriangle, AlertCircle } from 'react-feather';
 
 export interface ResultProps extends SpaceProps {
   status: 'empty' | 'success' | 'warning' | 'error' | '404' | '500';
@@ -35,19 +31,13 @@ export const Result = ({
         />
       )}
       {!icon && status === 'success' && (
-        <CheckCircleFilled
-          style={{ fontSize: 72, color: theme.colors.green['500'] }}
-        />
+        <CheckCircle size={72} color={theme.colors.green['500']} />
       )}
       {!icon && status === 'warning' && (
-        <WarningFilled
-          style={{ fontSize: 72, color: theme.colors.orange['500'] }}
-        />
+        <AlertTriangle size={72} color={theme.colors.orange['500']} />
       )}
       {!icon && (status === 'error' || status === '500') && (
-        <ExclamationCircleFilled
-          style={{ fontSize: 72, color: theme.colors.red['500'] }}
-        />
+        <AlertCircle size={72} color={theme.colors.orange['500']} />
       )}
       {!icon && status === '404' && <NotFoundIcon />}
 

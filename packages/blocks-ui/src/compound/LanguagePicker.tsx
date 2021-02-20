@@ -7,7 +7,7 @@ import {
   MenuList,
   MenuOptionGroup,
 } from '../basic/Menu';
-import { GlobalOutlined } from '@ant-design/icons';
+import { Globe } from 'react-feather';
 import { Button } from '../basic/Button';
 import { Portal } from '@chakra-ui/react';
 
@@ -29,7 +29,7 @@ export const LanguagePicker = ({
         colorScheme={darkMode ? 'white' : 'blackAlpha'}
         as={Button}
         variant="link"
-        leftIcon={<GlobalOutlined style={{ marginRight: 0 }} />}
+        leftIcon={<Globe size={18} />}
       >
         <Text color={darkMode ? 'text.light' : 'text.dark'}>
           {languageCode.toUpperCase()}

@@ -10,7 +10,7 @@ import {
   SpaceProps,
 } from '@chakra-ui/react';
 
-import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
+import { Plus, X } from 'react-feather';
 
 import { Size } from '../../system';
 import { Button } from '../Button';
@@ -46,17 +46,23 @@ export const Tabs = ({
             <ChakraTab key={index}>
               {item.title}
               {item.isClosable && onRemove && (
-                <Button variant="link" ml={3} onClick={() => onRemove(index)}>
-                  <CloseOutlined />
-                </Button>
+                <Button
+                  variant="link"
+                  ml={3}
+                  onClick={() => onRemove(index)}
+                  leftIcon={<X size={18} />}
+                ></Button>
               )}
             </ChakraTab>
           );
         })}
         {isExpandable && onAdd && (
-          <Button mx={2} variant="ghost" onClick={onAdd}>
-            <PlusOutlined />
-          </Button>
+          <Button
+            mx={2}
+            variant="ghost"
+            onClick={onAdd}
+            leftIcon={<Plus size={18} />}
+          />
         )}
       </ChakraTabList>
 

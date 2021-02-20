@@ -42,15 +42,15 @@ import {
   MARK_ITALIC,
 } from '@udecode/slate-plugins';
 import {
-  BoldOutlined,
-  HighlightOutlined,
-  ItalicOutlined,
+  Bold,
+  Italic,
+  Triangle,
   // LinkOutlined,
   // FileImageOutlined,
   // UnderlineOutlined,
-  OrderedListOutlined,
-  UnorderedListOutlined,
-} from '@ant-design/icons';
+  List,
+  Menu,
+} from 'react-feather';
 import { Divider } from '../Divider';
 import { Box } from '../Box';
 import unified from 'unified';
@@ -255,24 +255,24 @@ export const MarkdownEditor = ({
             <ToolbarList
               {...options}
               typeList={options.ul.type}
-              icon={<UnorderedListOutlined />}
+              icon={<List />}
             />
             <ToolbarList
               {...options}
               typeList={options.ol.type}
-              icon={<OrderedListOutlined />}
+              icon={<Menu />}
             />
             <ToolbarElement
               type={options.blockquote.type}
-              icon={<HighlightOutlined />}
+              icon={<Triangle />}
             />
 
             <Box mx={2} height={30}>
               <Divider orientation="vertical" />
             </Box>
 
-            <ToolbarMark type={MARK_BOLD} icon={<BoldOutlined />} />
-            <ToolbarMark type={MARK_ITALIC} icon={<ItalicOutlined />} />
+            <ToolbarMark type={MARK_BOLD} icon={<Bold />} />
+            <ToolbarMark type={MARK_ITALIC} icon={<Italic />} />
             {/* <ToolbarMark type={MARK_UNDERLINE} icon={<UnderlineOutlined />} /> */}
             {/* 
           <Box mx={2} height={30}>
@@ -286,13 +286,13 @@ export const MarkdownEditor = ({
             <ToolbarMark
               reversed
               type={MARK_BOLD}
-              icon={<BoldOutlined />}
+              icon={<Bold />}
               tooltip={{ content: 'Bold (⌘B)' }}
             />
             <ToolbarMark
               reversed
               type={MARK_ITALIC}
-              icon={<ItalicOutlined />}
+              icon={<Italic />}
               tooltip={{ content: 'Italic (⌘I)' }}
             />
             {/* <ToolbarMark

@@ -7,7 +7,7 @@ import { Box } from '../Box';
 import { Flex } from '../Flex';
 import uniqBy from 'lodash/uniqBy';
 import { Text } from '../Text';
-import { DeleteOutlined, UploadOutlined } from '@ant-design/icons';
+import { Trash2, UploadCloud } from 'react-feather';
 import uniqueId from 'lodash/uniqueId';
 import { Button } from '../Button';
 import isEmpty from 'lodash/isEmpty';
@@ -84,7 +84,7 @@ const Previewer = ({
               display={isRemoveVisible ? undefined : 'none'}
               onClick={() => onRemove(file.id!)}
               size="xs"
-              leftIcon={<DeleteOutlined />}
+              leftIcon={<Trash2 />}
             />
           </Flex>
           <Box
@@ -301,7 +301,7 @@ export const Upload = ({
           direction="column"
         >
           <Text size="2xl">
-            <UploadOutlined />
+            <UploadCloud />
           </Text>
           <Text size="lg">{localization.upload || 'Upload'}</Text>
           <Text size="sm" color="mutedText.dark">

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, ButtonProps, As, SpaceProps, HStack } from '@chakra-ui/react';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { ChevronLeft, ChevronRight } from 'react-feather';
 import { Size } from '../../system';
 import hooks from '../../hooks';
 import range from 'lodash/range';
-import { Box } from '../Box';
+import { Flex } from '../Flex';
 
 const DOTS_JUMP_COUNT = 5;
 
@@ -29,9 +29,13 @@ const PaginationButton = ({
       {...props}
     >
       {/* This prevents the pagination size from jumping when the page turn two or three digits*/}
-      <Box minWidth={`${Math.min(totalPages.toString().length, 3)}em`}>
+      <Flex
+        align="center"
+        justify="center"
+        minWidth={`${Math.min(totalPages.toString().length, 3)}em`}
+      >
         {children}
-      </Box>
+      </Flex>
     </Button>
   );
 };
@@ -92,7 +96,7 @@ export const Pagination = ({
           {...buttonProps}
           disabled={currentPage <= 1 || buttonProps.disabled}
         >
-          <LeftOutlined />
+          <ChevronLeft />
         </PaginationButton>
       )}
 
@@ -162,7 +166,7 @@ export const Pagination = ({
           {...buttonProps}
           disabled={currentPage >= totalPages || buttonProps.disabled}
         >
-          <RightOutlined />
+          <ChevronRight />
         </PaginationButton>
       )}
     </HStack>

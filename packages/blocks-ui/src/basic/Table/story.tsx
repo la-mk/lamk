@@ -4,7 +4,7 @@ import { Table } from './';
 import { Provider } from '../../';
 import { Text } from '../Text';
 import { Button } from '../Button';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Trash2 } from 'react-feather';
 
 const columns = [
   {
@@ -31,9 +31,11 @@ const columns = [
   {
     key: 'action',
     render: (_val: any, item: any) => (
-      <Button variant="link" onClick={() => console.log(item)}>
-        <DeleteOutlined />
-      </Button>
+      <Button
+        leftIcon={<Trash2 size={18} />}
+        variant="link"
+        onClick={() => console.log(item)}
+      />
     ),
   },
 ] as any;
