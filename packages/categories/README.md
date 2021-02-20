@@ -16,6 +16,7 @@ Until we get admin users, just remove the `disallow` hook from categories locall
 
 You need to set several environment variables before you can import products, namely:
 - API_ENDPOINT
+- NODE_TLS_REJECT_UNAUTHORIZED=0
 
 You can create a `.env` file and run: `source .env && node dist/index.js import ./categories.csv`
 
