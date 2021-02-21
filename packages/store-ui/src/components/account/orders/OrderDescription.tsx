@@ -3,7 +3,7 @@ import { Flex, Box, Heading, Text, Button } from '@la-mk/blocks-ui';
 import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from '../../../common/i18n';
 import Link from 'next/link';
-import { EyeFilled } from '@ant-design/icons';
+import { Eye } from 'react-feather';
 import { OrderProductsList } from '../../shared/product/OrderProductsList';
 import { formatDistanceToNow } from 'date-fns';
 import { mk, enUS } from 'date-fns/locale';
@@ -59,7 +59,7 @@ export const OrderDescription = ({
             href='/account/orders/[pid]'
             as={`/account/orders/${order._id}`}
           >
-            <Button as='a' variant='link' leftIcon={<EyeFilled />}>
+            <Button as='a' variant='link' leftIcon={<Eye size='1.2rem' />}>
               {t('common.details')}
             </Button>
           </Link>

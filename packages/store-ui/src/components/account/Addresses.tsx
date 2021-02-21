@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withTheme } from 'styled-components';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Edit3, Trash2 } from 'react-feather';
 import { User } from '@la-mk/la-sdk/dist/models/user';
 import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
@@ -143,7 +143,7 @@ export const Addresses = withTheme(
                             // @ts-ignore
                             color={isChecked ? 'heading.light' : 'heading.dark'}
                             variant='ghost'
-                            leftIcon={<EditOutlined />}
+                            leftIcon={<Edit3 size='1.2rem' />}
                           />
 
                           <Button
@@ -155,7 +155,7 @@ export const Addresses = withTheme(
                             variant='ghost'
                             // @ts-ignore
                             color={isChecked ? 'heading.light' : 'heading.dark'}
-                            leftIcon={<DeleteOutlined />}
+                            leftIcon={<Trash2 size='1.2rem' />}
                           />
                         </Flex>
                       }

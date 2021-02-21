@@ -13,7 +13,7 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
   }
 
   return (
-    <Flex direction='column' align={'center'}>
+    <Flex direction='column' align={'flex-start'}>
       <Box height={'6rem'} mb={5} bg='background.light'>
         <Image
           getSrc={params =>

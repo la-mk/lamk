@@ -3,7 +3,7 @@ import React from 'react';
 import { hooks, Radio, Text } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { ChevronDown, ChevronUp } from 'react-feather';
 
 interface SortFilterProps {
   filters: FilterObject;
@@ -65,7 +65,7 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
             value: 'cheap',
             children: isMobile ? (
               <Text whiteSpace='nowrap'>
-                <DownOutlined style={{ marginRight: 4 }} />
+                <ChevronDown style={{ marginRight: 4 }} />
                 {t('common.price')}
               </Text>
             ) : (
@@ -76,7 +76,7 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
             value: 'expensive',
             children: isMobile ? (
               <Text whiteSpace='nowrap'>
-                <UpOutlined style={{ marginRight: 4 }} />
+                <ChevronUp style={{ marginRight: 4 }} />
                 {t('common.price')}
               </Text>
             ) : (

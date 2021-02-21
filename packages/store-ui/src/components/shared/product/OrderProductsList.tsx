@@ -4,7 +4,7 @@ import { Price } from './Price';
 import { useTranslation } from '../../../common/i18n';
 import { TFunction } from 'next-i18next';
 import { CartItemWithProduct } from '@la-mk/la-sdk/dist/models/cart';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Trash2 } from 'react-feather';
 import { ProductImageWithTitle } from './ProductImageWithTitle';
 import { Quantity } from './Quantity';
 import { OrderItem } from '@la-mk/la-sdk/dist/models/order';
@@ -71,7 +71,7 @@ const getColumns = (
             render: (val, item) => (
               <Button
                 variant='ghost'
-                leftIcon={<DeleteOutlined />}
+                leftIcon={<Trash2 size='1.2rem' />}
                 aria-label={t('actions.delete')}
                 onClick={() => handleRemove(item)}
               />
@@ -108,7 +108,7 @@ const OrderProductListItem = ({
           <Button
             variant='ghost'
             onClick={() => handleRemove(item)}
-            leftIcon={<DeleteOutlined />}
+            leftIcon={<Trash2 size='1.2rem' />}
           />
         )}
       </Box>

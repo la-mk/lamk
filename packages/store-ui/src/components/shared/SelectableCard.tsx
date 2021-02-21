@@ -1,6 +1,6 @@
 import React from 'react';
-import { CardProps, Positioner, Text } from '@la-mk/blocks-ui';
-import { CheckCircleFilled } from '@ant-design/icons';
+import { CardProps, Positioner } from '@la-mk/blocks-ui';
+import { Check } from 'react-feather';
 import { withTheme } from 'styled-components';
 import { CustomCard } from './components/CustomCard';
 
@@ -16,12 +16,7 @@ export const SelectableCard = withTheme(
       <Positioner
         overlayContent={
           isChecked ? (
-            <CheckCircleFilled
-              style={{
-                color: theme.colors.primary['500'],
-                fontSize: 20,
-              }}
-            />
+            <Check color={theme.colors.green['500']} size='1.4rem' />
           ) : null
         }
       >

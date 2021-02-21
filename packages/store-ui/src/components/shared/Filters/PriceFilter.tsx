@@ -6,7 +6,7 @@ import { Input, Flex, Text, utils, Button } from '@la-mk/blocks-ui';
 import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { useTranslation } from '../../../common/i18n';
 import { CustomCard } from '../components/CustomCard';
-import { ReloadOutlined } from '@ant-design/icons';
+import { RefreshCw } from 'react-feather';
 
 const parsePriceFilter = (
   filtering: FilterObject['filtering'],
@@ -112,7 +112,7 @@ export const PriceFilter = ({
             setRange([min, max]);
             handleChangeDone(min, max);
           }}
-          leftIcon={<ReloadOutlined />}
+          leftIcon={<RefreshCw size='1rem' />}
           size='sm'
         >
           {t('actions.reset')}

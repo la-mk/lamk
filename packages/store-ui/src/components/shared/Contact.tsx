@@ -1,7 +1,7 @@
 import React from 'react';
-import { PhoneFilled, MailFilled } from '@ant-design/icons';
+import { Phone, Mail } from 'react-feather';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { Text } from '@la-mk/blocks-ui';
+import { Flex, Text } from '@la-mk/blocks-ui';
 
 const ContactEntry = ({
   icon,
@@ -17,8 +17,11 @@ const ContactEntry = ({
   }
 
   return (
-    <Text my={1} color={darkMode ? 'mutedText.light' : 'mutedText.dark'}>
-      {icon}
+    <Flex my={1} align='center'>
+      <Text color={darkMode ? 'mutedText.light' : 'mutedText.dark'}>
+        {icon}
+      </Text>
+
       <Text
         size='sm'
         color={darkMode ? 'mutedText.light' : 'mutedText.dark'}
@@ -26,7 +29,7 @@ const ContactEntry = ({
       >
         {value}
       </Text>
-    </Text>
+    </Flex>
   );
 };
 
@@ -46,19 +49,23 @@ export const Contact = ({
       {phoneNumber && (
         <ContactEntry
           darkMode={darkMode}
-          icon={<PhoneFilled />}
+          icon={<Phone size='1rem' />}
           value={phoneNumber}
         />
       )}
       {!hideAlternate && alternatePhoneNumber && (
         <ContactEntry
           darkMode={darkMode}
-          icon={<PhoneFilled />}
+          icon={<Phone size='1rem' />}
           value={alternatePhoneNumber}
         />
       )}
       {email && (
-        <ContactEntry darkMode={darkMode} icon={<MailFilled />} value={email} />
+        <ContactEntry
+          darkMode={darkMode}
+          icon={<Mail size='1rem' />}
+          value={email}
+        />
       )}
     </>
   );

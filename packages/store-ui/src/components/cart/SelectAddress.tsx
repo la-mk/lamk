@@ -3,7 +3,7 @@ import { Heading, Button, Flex, hooks } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { User } from '@la-mk/la-sdk/dist/models/user';
 import { Address } from '@la-mk/la-sdk/dist/models/address/address';
-import { PlusOutlined } from '@ant-design/icons';
+import { Plus } from 'react-feather';
 import { Addresses } from '../account/Addresses';
 
 interface SelectAddressProps {
@@ -34,7 +34,7 @@ export const SelectAddress = ({
         <Button
           variant='link'
           onClick={() => setAddressModalVisible(true)}
-          leftIcon={<PlusOutlined />}
+          leftIcon={<Plus size='1.2rem' />}
         >
           {addAddressText}
         </Button>

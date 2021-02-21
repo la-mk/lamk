@@ -10,7 +10,7 @@ import {
   Divider,
   Result,
 } from '@la-mk/blocks-ui';
-import { FilterOutlined } from '@ant-design/icons';
+import { Filter } from 'react-feather';
 import { ProductCard } from '../shared/product/ProductCard';
 import { Page } from '../shared/Page';
 import { Product } from '@la-mk/la-sdk/dist/models/product';
@@ -99,7 +99,7 @@ export const Products = ({
             <Button
               size='lg'
               variant='ghost'
-              leftIcon={<FilterOutlined />}
+              leftIcon={<Filter size='1.2rem' />}
               onClick={() => setIsDrawerVisible(true)}
             >
               {t('common.filter_plural')}

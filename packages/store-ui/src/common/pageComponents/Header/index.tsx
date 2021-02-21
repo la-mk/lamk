@@ -10,11 +10,7 @@ import {
 } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import queryString from 'qs';
-import {
-  ShoppingOutlined,
-  ShopOutlined,
-  ShoppingCartOutlined,
-} from '@ant-design/icons';
+import { ShoppingBag, ShoppingCart, Search, Briefcase } from 'react-feather';
 import { useTheme } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -27,7 +23,6 @@ import { getUser } from '../../../state/modules/user/user.selector';
 import { toggleAuthModal } from '../../../state/modules/ui/ui.module';
 import { useTranslation } from '../../i18n';
 import { NavButton } from './NavButton';
-import { SearchOutlined } from '@ant-design/icons';
 import { AccountMenu } from './AccountMenu';
 import { Contact } from '../../../components/shared/Contact';
 
@@ -171,7 +166,7 @@ export const Header = ({ store }: HeaderProps) => {
             {ownTheme.menu.variant === 'minimal' && (
               <NavButton
                 title={t('actions.search')}
-                icon={<SearchOutlined />}
+                icon={<Search size='1.5rem' />}
                 hideTitle
               />
             )}
@@ -179,7 +174,7 @@ export const Header = ({ store }: HeaderProps) => {
             <Link passHref href='/products'>
               <NavButton
                 title={t('pages.product_plural')}
-                icon={<ShoppingOutlined />}
+                icon={<ShoppingBag size='1.5rem' />}
                 hideTitle={ownTheme.menu.variant === 'minimal'}
               />
             </Link>
@@ -187,7 +182,7 @@ export const Header = ({ store }: HeaderProps) => {
             <Link passHref href='/about'>
               <NavButton
                 title={t('pages.aboutUs')}
-                icon={<ShopOutlined />}
+                icon={<Briefcase size='1.5rem' />}
                 hideTitle={ownTheme.menu.variant === 'minimal'}
               />
             </Link>
@@ -210,7 +205,7 @@ export const Header = ({ store }: HeaderProps) => {
                       </Badge>
                     }
                   >
-                    <ShoppingCartOutlined />
+                    <ShoppingCart size='1.5rem' />
                   </Positioner>
                 }
               />

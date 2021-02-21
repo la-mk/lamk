@@ -6,12 +6,7 @@ import {
   MenuList,
   MenuDivider,
 } from '@la-mk/blocks-ui';
-import {
-  ShoppingOutlined,
-  UserOutlined,
-  LogoutOutlined,
-  LoginOutlined,
-} from '@ant-design/icons';
+import { ShoppingBag, User as UserIcon, LogOut, LogIn } from 'react-feather';
 import { useTheme } from '@chakra-ui/react';
 import Link from 'next/link';
 import { NavButton } from './NavButton';
@@ -47,7 +42,7 @@ export const AccountMenu = ({
                 variant={ownTheme.account.variant}
                 title={t('auth.account')}
                 hideTitle
-                icon={<UserOutlined />}
+                icon={<UserIcon size='1.2rem' />}
                 size='sm'
               />
             )),
@@ -58,24 +53,24 @@ export const AccountMenu = ({
         {user ? (
           <>
             <Link href='/account' passHref>
-              <MenuItem as='a' icon={<UserOutlined />}>
+              <MenuItem as='a' icon={<UserIcon size='1.2rem' />}>
                 {t('pages.myAccount')}
               </MenuItem>
             </Link>
 
             <Link href='/account/orders' passHref>
-              <MenuItem as='a' icon={<ShoppingOutlined />}>
+              <MenuItem as='a' icon={<ShoppingBag size='1.2rem' />}>
                 {t('pages.myOrders')}
               </MenuItem>
             </Link>
             <MenuDivider />
-            <MenuItem onClick={handleLogout} icon={<LogoutOutlined />}>
+            <MenuItem onClick={handleLogout} icon={<LogOut size='1.2rem' />}>
               {t('auth.logout')}
             </MenuItem>
           </>
         ) : (
           <>
-            <MenuItem onClick={handleLogin} icon={<LoginOutlined />}>
+            <MenuItem onClick={handleLogin} icon={<LogIn size='1.2rem' />}>
               {t('auth.login')}
             </MenuItem>
           </>

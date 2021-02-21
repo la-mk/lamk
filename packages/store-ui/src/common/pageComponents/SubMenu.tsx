@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Box, Button, Drawer, Flex, hooks, Text } from '@la-mk/blocks-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from 'react-feather';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useTranslation, getTitleForSet } from '../i18n';
@@ -97,8 +97,8 @@ export const SubMenu = props => {
                   setIsCategoriesVisible(x => !x);
                 }}
                 leftIcon={
-                  <Text size='xs' color='text.light'>
-                    <DownOutlined />
+                  <Text size='sm' color='text.light'>
+                    <ChevronDown size='1rem' />
                   </Text>
                 }
               >

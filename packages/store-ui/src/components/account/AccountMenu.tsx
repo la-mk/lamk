@@ -5,13 +5,7 @@ import { useTheme } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../../src/state/modules/user/user.selector';
 import React from 'react';
-import {
-  ArrowRightOutlined,
-  HomeOutlined,
-  LockOutlined,
-  ShoppingOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { ArrowRight, Home, Lock, ShoppingBag, User } from 'react-feather';
 import { TFunction } from 'next-i18next';
 import { useTranslation } from '../../common/i18n';
 import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
@@ -21,22 +15,22 @@ import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 const getAccountMenu = (t: TFunction) => [
   {
     title: t('pages.personalDetails'),
-    icon: <UserOutlined />,
+    icon: <User size='1.2rem' />,
     href: '/account/personal',
   },
   {
     title: t('pages.changePassword'),
-    icon: <LockOutlined />,
+    icon: <Lock size='1.2rem' />,
     href: '/account/change-password',
   },
   {
     title: t('pages.myAddresses'),
-    icon: <HomeOutlined />,
+    icon: <Home size='1.2rem' />,
     href: '/account/addresses',
   },
   {
     title: t('pages.myOrders'),
-    icon: <ShoppingOutlined />,
+    icon: <ShoppingBag size='1.2rem' />,
     href: '/account/orders',
   },
 ];
@@ -70,7 +64,7 @@ const MenuButton = ({
         <Flex align='center' justify='space-between' width='100%'>
           {item.title}
           <Text as='div' size='xs' ml='auto'>
-            <ArrowRightOutlined />
+            <ArrowRight size='1.2rem' />
           </Text>
         </Flex>
       </Button>

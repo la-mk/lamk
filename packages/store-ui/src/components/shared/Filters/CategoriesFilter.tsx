@@ -5,7 +5,7 @@ import { CategoriesMenu } from '../categories/CategoriesMenu';
 import { utils, Button, Text, Flex } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../../common/i18n';
 import { CustomCard } from '../components/CustomCard';
-import { ReloadOutlined } from '@ant-design/icons';
+import { RefreshCw } from 'react-feather';
 
 const parseCategoryFilter = (filtering: FilterObject['filtering']) => {
   if (!filtering || !filtering.category) {
@@ -52,7 +52,7 @@ export const CategoriesFilter = ({
           variant='link'
           onClick={() => handleSelectedCategoriesChange([])}
           size='sm'
-          leftIcon={<ReloadOutlined />}
+          leftIcon={<RefreshCw size='1rem' />}
         >
           {t('actions.reset')}
         </Button>

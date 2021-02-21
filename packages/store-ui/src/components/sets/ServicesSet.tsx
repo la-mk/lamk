@@ -12,7 +12,7 @@ import { sdk } from '@la-mk/la-sdk';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 import { useTheme } from '@chakra-ui/react';
-import { CustomerServiceOutlined } from '@ant-design/icons';
+import { Headphones } from 'react-feather';
 
 interface Service {
   icon?: React.ReactElement;
@@ -62,7 +62,7 @@ const getServices = (t: TFunction, freeDeliveryPrice: number): Service[] => [
   {
     title: t('services.support'),
     subtitle: t('services.supportExplanation'),
-    icon: <CustomerServiceOutlined />,
+    icon: <Headphones />,
   },
 ];
 

@@ -20,6 +20,7 @@ export const NavButton = React.forwardRef(
         aria-label={title}
         leftIcon={
           <Text
+            lineHeight={0}
             size={props.variant === 'solid' ? 'md' : '2xl'}
             color={props.variant === 'solid' ? 'text.light' : 'text.dark'}
           >

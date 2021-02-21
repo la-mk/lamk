@@ -1,10 +1,6 @@
 import React from 'react';
 import { Flex, Text, Heading } from '@la-mk/blocks-ui';
-import {
-  UserOutlined,
-  EnvironmentOutlined,
-  PhoneOutlined,
-} from '@ant-design/icons';
+import { User, MapPin, Phone } from 'react-feather';
 
 const DescriptionEntry = ({
   title,
@@ -44,20 +40,20 @@ export const ShippingDescription = ({ address, inverse, actions }: any) => {
       <Flex direction='column'>
         <DescriptionEntry
           mb={3}
-          title={<UserOutlined />}
+          title={<User size='1rem' />}
           item={address.person}
           inverse={inverse}
         />
 
         <DescriptionEntry
           mb={3}
-          title={<EnvironmentOutlined />}
+          title={<MapPin size='1rem' />}
           item={`${address.street}, ${address.city}, ${address.country}`}
           inverse={inverse}
         />
 
         <DescriptionEntry
-          title={<PhoneOutlined />}
+          title={<Phone size='1rem' />}
           item={address.phoneNumber}
           inverse={inverse}
         />

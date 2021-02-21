@@ -1,5 +1,5 @@
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Button, hooks, Text } from '@la-mk/blocks-ui';
+import { ArrowLeft } from 'react-feather';
+import { Button, hooks } from '@la-mk/blocks-ui';
 import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from '../../common/i18n';
@@ -18,11 +18,7 @@ export const BackButton = () => {
         mb={5}
         as='a'
         variant='link'
-        leftIcon={
-          <Text as='div' size='xs'>
-            <ArrowLeftOutlined />
-          </Text>
-        }
+        leftIcon={<ArrowLeft size={'1.2rem'} />}
       >
         {t('actions.goToAccount')}
       </Button>
