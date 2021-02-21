@@ -50,7 +50,7 @@ export const Tabs = ({
                   variant="link"
                   ml={3}
                   onClick={() => onRemove(index)}
-                  leftIcon={<X size={18} />}
+                  leftIcon={<X size="1.2rem" />}
                 ></Button>
               )}
             </ChakraTab>
@@ -61,7 +61,7 @@ export const Tabs = ({
             mx={2}
             variant="ghost"
             onClick={onAdd}
-            leftIcon={<Plus size={18} />}
+            leftIcon={<Plus size="1.2rem" />}
           />
         )}
       </ChakraTabList>

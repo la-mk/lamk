@@ -29,7 +29,7 @@ export const LanguagePicker = ({
         colorScheme={darkMode ? 'white' : 'blackAlpha'}
         as={Button}
         variant="link"
-        leftIcon={<Globe size={18} />}
+        leftIcon={<Globe size="1.2rem" />}
       >
         <Text color={darkMode ? 'text.light' : 'text.dark'}>
           {languageCode.toUpperCase()}

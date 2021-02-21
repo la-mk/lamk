@@ -32,7 +32,7 @@ const columns = [
     key: 'action',
     render: (_val: any, item: any) => (
       <Button
-        leftIcon={<Trash2 size={18} />}
+        leftIcon={<Trash2 size="1.2rem" />}
         variant="link"
         onClick={() => console.log(item)}
       />

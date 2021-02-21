@@ -99,7 +99,7 @@ const Password = ({
           variant="ghost"
           size="sm"
           onClick={handleClick}
-          leftIcon={show ? <EyeOff size={18} /> : <Eye size={18} />}
+          leftIcon={show ? <EyeOff size="1.2rem" /> : <Eye size="1.2rem" />}
         />
       </InputRightElement>
 
@@ -148,7 +148,7 @@ const Search = ({
           variant="ghost"
           size="sm"
           onClick={handleOnSearch}
-          leftIcon={<SearchIcon size={18} />}
+          leftIcon={<SearchIcon size="1.2rem" />}
         />
       </InputRightElement>
 
