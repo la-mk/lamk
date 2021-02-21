@@ -162,8 +162,8 @@ export const ImageMagnifier = ({
       imageRef.current?.removeEventListener('touchstart', onTouchStart);
       imageRef.current?.removeEventListener('touchend', onTouchEnd);
 
-      window.addEventListener('resize', debouncedSetImageBounds);
-      window.addEventListener('scroll', debouncedSetImageBounds, true);
+      window.removeEventListener('resize', debouncedSetImageBounds);
+      window.removeEventListener('scroll', debouncedSetImageBounds, true);
     };
   }, [
     imageRef?.current,

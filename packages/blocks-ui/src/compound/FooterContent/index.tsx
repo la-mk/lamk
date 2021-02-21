@@ -4,7 +4,6 @@ import { Heading } from '../../basic/Heading';
 import { Button } from '../../basic/Button';
 import { Flex } from '../../basic/Flex';
 import { Box } from '../../basic/Box';
-import styled from 'styled-components';
 import { Accordion } from '../../basic/Accordion';
 
 export interface Menu {

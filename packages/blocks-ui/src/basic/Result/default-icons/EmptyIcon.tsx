@@ -8,7 +8,7 @@ export const EmptyIcon = ({
   darkPrimary: string;
 }) => (
   <svg
-    enable-background="new 0 0 36 36"
+    enableBackground="new 0 0 36 36"
     height="128"
     viewBox="0 0 36 36"
     width="128"

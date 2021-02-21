@@ -10,8 +10,8 @@ const MissingImageSvg = ({
   width?: string | number;
 }) => (
   <svg
-    height={height ?? 'inherit'}
-    width={width ?? 'inherit'}
+    height={height ?? '100%'}
+    width={width ?? '100%'}
     fill="#f2f2f2"
     xmlns="https://www.w3.org/2000/svg"
     viewBox="0 0 3372 3352"

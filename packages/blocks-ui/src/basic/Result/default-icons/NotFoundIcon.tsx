@@ -3,7 +3,7 @@ import React from 'react';
 export const NotFoundIcon = () => (
   <svg
     id="Layer_1"
-    enable-background="new 0 0 512 512"
+    enableBackground="new 0 0 512 512"
     height="256"
     viewBox="0 0 512 512"
     width="256"
