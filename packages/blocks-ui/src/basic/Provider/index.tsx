@@ -56,10 +56,6 @@ const GlobalStyle = createGlobalStyle`
     appearance: none;
   }
 
-  .anticon {
-    vertical-align: 0;
-  }
-
   ${globalCascaderStyles}
 `;
 

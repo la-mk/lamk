@@ -54,12 +54,6 @@ const SubmenuTitle = ({ menu, Link }: { menu: Menu; Link: any }) => {
   );
 };
 
-const CollapsePanelContainer = styled(Box)`
-  & .ant-collapse-arrow {
-    color: ${props => props.theme.colors.text.light} !important;
-  }
-`;
-
 export const FooterContent = ({
   menus,
   Link,
@@ -82,18 +76,14 @@ export const FooterContent = ({
         </Flex>
       </Box>
 
-      <CollapsePanelContainer
-        width="100%"
-        my={[4, 4, 0]}
-        display={['block', 'block', 'none']}
-      >
+      <Box width="100%" my={[4, 4, 0]} display={['block', 'block', 'none']}>
         <Accordion
           items={menus.map(menu => ({
             title: menu.text,
             content: <Submenu Link={Link} submenus={menu.submenus} />,
           }))}
         />
-      </CollapsePanelContainer>
+      </Box>
     </>
   );
 };
