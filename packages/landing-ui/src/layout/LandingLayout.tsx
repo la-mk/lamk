@@ -8,7 +8,7 @@ import {
   Drawer,
   hooks,
 } from '@la-mk/blocks-ui';
-import { MenuOutlined } from '@ant-design/icons';
+import { Menu } from 'react-feather';
 import styled, { withTheme } from 'styled-components';
 import Link from 'next/link';
 import { TopMenu } from './TopMenu';
@@ -87,7 +87,7 @@ export const LandingLayout = withTheme(
                     my={'auto'}
                     onClick={() => setIsDrawerVisible(!isDrawerVisible)}
                     leftIcon={
-                      <MenuOutlined
+                      <Menu
                         style={{ fontSize: 28, color: theme.colors.primary }}
                       />
                     }

@@ -13,13 +13,14 @@ import Link from 'next/link';
 import { Menu } from '@la-mk/blocks-ui/dist/compound/FooterContent';
 import { useTranslation } from '../common/i18n';
 import {
-  PhoneFilled,
-  MailFilled,
-  FacebookFilled,
-  TwitterSquareFilled,
-  InstagramFilled,
-  YoutubeFilled,
-} from '@ant-design/icons';
+  Phone,
+  Mail,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+} from 'react-feather';
+import { withTheme } from 'styled-components';
 
 const getMenus = (t: any): Menu[] => [
   {
@@ -94,16 +95,16 @@ const ContactEntry = ({
   }
 
   return (
-    <Text my={1} color='primary'>
+    <Flex my={1} align='center'>
       {icon}
       <Text size='sm' color='text.light' ml={4}>
         {value}
       </Text>
-    </Text>
+    </Flex>
   );
 };
 
-export const FooterContent = () => {
+export const FooterContent = withTheme(({ theme }) => {
   const { t } = useTranslation();
 
   return (
@@ -128,8 +129,14 @@ export const FooterContent = () => {
               {t('common.contactDetails').toUpperCase()}
             </Heading>
 
-            <ContactEntry icon={<PhoneFilled />} value={'+389 77 647 585'} />
-            <ContactEntry icon={<MailFilled />} value={'contact@la.mk'} />
+            <ContactEntry
+              icon={<Phone size='1.2rem' />}
+              value={'+389 77 647 585'}
+            />
+            <ContactEntry
+              icon={<Mail size='1.2rem' />}
+              value={'contact@la.mk'}
+            />
           </Flex>
         </Box>
 
@@ -159,9 +166,7 @@ export const FooterContent = () => {
             px={3}
             py={2}
             leftIcon={
-              <Text color='text.light'>
-                <FacebookFilled />
-              </Text>
+              <Facebook size='1.2rem' color={theme.colors.text.light} />
             }
           />
           <Button
@@ -172,9 +177,7 @@ export const FooterContent = () => {
             rel='noreferrer noopener'
             px={3}
             leftIcon={
-              <Text color='text.light'>
-                <InstagramFilled />
-              </Text>
+              <Instagram size='1.2rem' color={theme.colors.text.light} />
             }
           />
           <Button
@@ -184,11 +187,7 @@ export const FooterContent = () => {
             target='_blank'
             rel='noreferrer noopener'
             px={3}
-            leftIcon={
-              <Text color='text.light'>
-                <YoutubeFilled />
-              </Text>
-            }
+            leftIcon={<Youtube size='1.2rem' color={theme.colors.text.light} />}
           />
 
           <Button
@@ -198,14 +197,10 @@ export const FooterContent = () => {
             target='_blank'
             rel='noreferrer noopener'
             px={3}
-            leftIcon={
-              <Text color='text.light'>
-                <TwitterSquareFilled />
-              </Text>
-            }
+            leftIcon={<Twitter size='1.2rem' color={theme.colors.text.light} />}
           />
         </Flex>
       </Flex>
     </Box>
   );
-};
+});
