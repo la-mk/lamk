@@ -6,18 +6,6 @@ import { App } from './App';
 import './config/i18n';
 
 const GlobalStyle = createGlobalStyle`
-  .ant-btn.anticon {
-    vertical-align: 0;
-  }
-  .anticon {
-    vertical-align: 0em;
-  }
-
-  i {
-    vertical-align: middle;
-  }
-
-
   /* This is used by Text strong */
   strong {
     font-weight: 500 !important;

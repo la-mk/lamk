@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Box,
   Text,
   Menu,
   MenuItem,
@@ -12,11 +11,7 @@ import {
 } from '@la-mk/blocks-ui';
 import { Portal } from '@chakra-ui/react';
 
-import {
-  LogoutOutlined,
-  DownOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+import { LogOut, ChevronDown, Settings } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../state/modules/auth/auth.module';
 import { useTranslation } from 'react-i18next';
@@ -40,9 +35,13 @@ export const Account = ({
         <Flex width='100%' align='center' justify='center' direction='column'>
           <Avatar size='sm' />
           {!isSidebarCollapsed && (
-            <Text color='text.light'>
-              {t('auth.account')} <DownOutlined />
-            </Text>
+            <Flex align='center'>
+              <Text color='text.light'>
+                <ChevronDown size='1.2rem' />
+              </Text>
+
+              <Text color='text.light'>{t('auth.account')}</Text>
+            </Flex>
           )}
         </Flex>
       </MenuButton>
@@ -51,7 +50,7 @@ export const Account = ({
         <MenuList>
           <Link to='/dashboard/account'>
             <MenuItem>
-              <SettingOutlined />
+              <Settings size='1.2rem' />
               <Text ml={2}>{t('common.preferences')}</Text>
             </MenuItem>
           </Link>
@@ -59,10 +58,8 @@ export const Account = ({
           <MenuDivider />
 
           <MenuItem key='logout' onClick={handleLogout}>
-            <Box>
-              <LogoutOutlined />
-              <Text ml={2}>{t('auth.logout')}</Text>
-            </Box>
+            <LogOut size='1.2rem' />
+            <Text ml={2}>{t('auth.logout')}</Text>
           </MenuItem>
         </MenuList>
       </Portal>

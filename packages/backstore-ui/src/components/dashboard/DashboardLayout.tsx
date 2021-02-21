@@ -9,16 +9,16 @@ import {
   LanguagePicker,
 } from '@la-mk/blocks-ui';
 import {
-  DashboardOutlined,
-  ShoppingCartOutlined,
-  AppstoreOutlined,
-  CodeSandboxOutlined,
-  TagOutlined,
-  ShopOutlined,
-  BankOutlined,
-  RightOutlined,
-  LeftOutlined,
-} from '@ant-design/icons';
+  ShoppingBag,
+  CreditCard,
+  ChevronRight,
+  ChevronLeft,
+  Tag,
+  Truck,
+  Grid,
+  Home,
+  Briefcase,
+} from 'react-feather';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { Location } from 'history';
@@ -69,43 +69,45 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
                 currentKey={location.pathname}
                 items={[
                   {
-                    icon: (props: any) => <DashboardOutlined {...props} />,
+                    icon: (props: any) => <Home size='1rem' {...props} />,
                     title: t('common.summary'),
                     href: '/dashboard/summary',
                   },
 
                   {
-                    icon: (props: any) => <ShoppingCartOutlined {...props} />,
+                    icon: (props: any) => (
+                      <ShoppingBag size='1rem' {...props} />
+                    ),
                     title: t('commerce.order_plural'),
                     href: '/dashboard/orders',
                   },
 
                   {
-                    icon: (props: any) => <AppstoreOutlined {...props} />,
+                    icon: (props: any) => <Grid size='1rem' {...props} />,
                     title: t('commerce.product_plural'),
                     href: '/dashboard/products',
                   },
 
                   {
-                    icon: (props: any) => <CodeSandboxOutlined {...props} />,
+                    icon: (props: any) => <Truck size='1rem' {...props} />,
                     title: t('commerce.delivery'),
                     href: '/dashboard/delivery',
                   },
 
                   {
-                    icon: (props: any) => <BankOutlined {...props} />,
+                    icon: (props: any) => <CreditCard size='1rem' {...props} />,
                     title: t('commerce.payment'),
                     href: '/dashboard/payment',
                   },
 
                   {
-                    icon: (props: any) => <TagOutlined {...props} />,
+                    icon: (props: any) => <Tag size='1rem' {...props} />,
                     title: t('commerce.campaign_plural'),
                     href: '/dashboard/campaigns',
                   },
 
                   {
-                    icon: (props: any) => <ShopOutlined {...props} />,
+                    icon: (props: any) => <Briefcase size='1rem' {...props} />,
                     title: t('commerce.store'),
                     href: '/dashboard/store',
                   },
@@ -126,9 +128,14 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
                   py={4}
                   variant='link'
                   onClick={() => setIsSidebarCollapsed(x => !x)}
-                >
-                  {isSidebarCollapsed ? <RightOutlined /> : <LeftOutlined />}
-                </Button>
+                  leftIcon={
+                    isSidebarCollapsed ? (
+                      <ChevronRight size='1.2rem' />
+                    ) : (
+                      <ChevronLeft size='1.2rem' />
+                    )
+                  }
+                />
               </Box>
             </FixedSider>
           </SiderContainer>
