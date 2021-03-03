@@ -3,21 +3,25 @@
 ## Setup
 
 ### Installing and updating packages
+
 Both package.json and the source code are watched by `nodemon` and rerun when needed, so all you need to do is run `npm i <package-name>` locally and that package will be updated in the container as well.
 
 ## Environment Variables
 
 In order to be able to run the development environment locally, you need to set the following variables:
-- `GPR_TOKEN` - Github access token with `read:packages` permissions only. 
+
+- `GPR_TOKEN` - Github access token with `read:packages` permissions only.
   Don't add any other permissions to the token, as its leakage might become a significant security risk. You can generate a github access token [here](https://github.com/settings/tokens).
 
 ## DNS setup
+
 - Install `mkcert` to create a local certificate: https://github.com/FiloSottile/mkcert#macos
 - Run `mkcert -install` to install the local CA as trusted
 - Run `mkcert -cert-file cert.pem -key-file key.pem "*.lamk.dev"` to create a certificate, move both to a `./volumes/certs` folder at the project root (it is gitignored, so you need to create one)
-- You need to alias `10.254.254.254` to localhost by running `sudo ifconfig lo0 alias 10.254.254.254`. This is required on every restart of the computer. The reason this is used is so that you can use a TLD to refer to your local environment.
+- You need to alias `10.254.254.254` to localhost by running `sudo ifconfig lo0 alias 10.254.254.254` on Mac, or `ifconfig lo:0 10.254.254.254 netmask 250.0.0.0 up` on Ubuntu. This is required on every restart of the computer. The reason this is used is so that you can use a TLD to refer to your local environment.
 
 ## Docker Cheatsheet
+
 - To recreate the containers, you can run `docker-compose up --force-recreate --build -d`
 - Run all the containers `docker-compose up -d`
 - Run a script inside a container `docker exec <container-name> sh -c "npm install <package-name>"`
@@ -29,6 +33,7 @@ In order to be able to run the development environment locally, you need to set 
 ## Deploying to DO
 
 You need several environment variables set locally, namely:
+
 - SYSTEM_TLD
 - GPR_TOKEN
 - DOCKERHUB_TOKEN
@@ -42,7 +47,7 @@ If there is an existing deployment already, first you need to taint the services
 
 Next, you need to set the workspace for terraform. You can do that using `terraform workspace select default/prod`, where default is the staging environment. This makes sure that the two environments have separate state.
 
-Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars.tfvars --var-file=./stg/secrets.tfvars` (change to prod folder for production deployment). The rest is handled automatically. 
+Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars.tfvars --var-file=./stg/secrets.tfvars` (change to prod folder for production deployment). The rest is handled automatically.
 
 Finally, you need to whitelist the ip address of the new server that was created in MongoDB Atlas.
 
@@ -59,4 +64,3 @@ Backups will be automatically handled by MongoDB Atlas once we have a need for a
 `mongorestore --uri="<connectionstring>"`
 
 See MongoDB Atlas for the exact command to run `(in the cluster page, press ... -> Command line)`
-

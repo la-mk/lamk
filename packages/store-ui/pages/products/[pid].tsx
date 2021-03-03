@@ -10,7 +10,6 @@ import { getStore } from '../../src/state/modules/store/store.selector';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { transliterate } from '@la-mk/nlp';
 import { TFunction } from 'next-i18next';
-import { width } from 'styled-system';
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 const getProductSummary = (product: ProductType, t: TFunction) => {
@@ -22,7 +21,7 @@ const getProductSummary = (product: ProductType, t: TFunction) => {
 
   return `${transliteratedName}, ${t('common.price')}: ${
     product.minCalculatedPrice
-  } ден. ${partialDescription ?? ''}...`;
+  } ден. ${partialDescription ?? ''}`;
 };
 
 const ProductPage = ({
