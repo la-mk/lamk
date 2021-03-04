@@ -1,0 +1,11 @@
+mirrors:
+  registry.digitalocean.com:
+    endpoint:
+      - https://registry.digitalocean.com/lamk
+
+configs:
+  registry.digitalocean.com:
+    auth:
+      auth: 013e83f508d520deeab26aabdf4c7482553b2c20106b6f67bd985463eb8796db
+      password: 013e83f508d520deeab26aabdf4c7482553b2c20106b6f67bd985463eb8796db
+

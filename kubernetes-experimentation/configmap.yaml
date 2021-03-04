@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-configmap
+  # This is how you can namespace a config.
+  # namespace: my-namespace
+data:
+  test-entry: test-value
+  # When using, in the deployment env you need to say `valueFrom: configMapKeyRef: name: key:`
