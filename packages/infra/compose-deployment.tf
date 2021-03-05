@@ -81,7 +81,7 @@ variable "nestpay-gateway-endpoint" {
 ########## DO DATA ##############
 
 data "digitalocean_ssh_key" "droplets-ssh-key" {
-  name = "steve-do"
+  name = "Nuc"
 }
 
 ########### PROVIDER DEFINITION ###########
@@ -111,7 +111,7 @@ resource "digitalocean_droplet" "services-1" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/do_rsa")
+    private_key = file("~/.ssh/digitalocean")
     host        = self.ipv4_address
   }
 

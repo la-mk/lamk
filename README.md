@@ -18,7 +18,7 @@ In order to be able to run the development environment locally, you need to set 
 - Install `mkcert` to create a local certificate: https://github.com/FiloSottile/mkcert#macos
 - Run `mkcert -install` to install the local CA as trusted
 - Run `mkcert -cert-file cert.pem -key-file key.pem "*.lamk.dev"` to create a certificate, move both to a `./volumes/certs` folder at the project root (it is gitignored, so you need to create one)
-- You need to alias `10.254.254.254` to localhost by running `sudo ifconfig lo0 alias 10.254.254.254` on Mac, or `ifconfig lo:0 10.254.254.254 netmask 250.0.0.0 up` on Ubuntu. This is required on every restart of the computer. The reason this is used is so that you can use a TLD to refer to your local environment.
+- You need to alias `10.254.254.254` to localhost by running `sudo ifconfig lo0 alias 10.254.254.254` on Mac, or `ifconfig lo:0 10.254.254.254 netmask 255.0.0.0 up` on Ubuntu. This is required on every restart of the computer. The reason this is used is so that you can use a TLD to refer to your local environment.
 
 ## Docker Cheatsheet
 
