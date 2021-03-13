@@ -7,6 +7,8 @@ export interface SignupFormProps extends FormProps<any> {
   signup: (credentials: SignupCredentials) => void;
   onLoginNowClick: () => void;
   logoUrl?: string;
+  privacyPolicyLink?: string;
+  termsOfServiceLink?: string;
 }
 
 export interface SignupCredentials {
@@ -18,6 +20,8 @@ export const SignupForm = ({
   signup,
   onLoginNowClick,
   logoUrl,
+  privacyPolicyLink,
+  termsOfServiceLink,
   ...otherProps
 }: SignupFormProps) => {
   const localization = useContext(LocalizationContext);
@@ -30,6 +34,8 @@ export const SignupForm = ({
       primaryText={localization.signup || 'Sign up'}
       secondaryText={localization.login || 'Log in'}
       onSecondary={onLoginNowClick}
+      privacyPolicyLink={privacyPolicyLink}
+      termsOfServiceLink={termsOfServiceLink}
     />
   );
 };

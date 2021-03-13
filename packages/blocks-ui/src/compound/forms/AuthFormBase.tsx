@@ -17,6 +17,8 @@ interface AuthFormBaseProps extends FormProps<any> {
   primaryText: string;
   secondaryText: string;
   forgotPasswordText?: string;
+  privacyPolicyLink?: string;
+  termsOfServiceLink?: string;
 }
 
 export const AuthFormBase = ({
@@ -27,6 +29,8 @@ export const AuthFormBase = ({
   primaryText,
   secondaryText,
   forgotPasswordText,
+  privacyPolicyLink,
+  termsOfServiceLink,
   ...otherProps
 }: AuthFormBaseProps) => {
   const localization = useContext(LocalizationContext);
@@ -81,6 +85,43 @@ export const AuthFormBase = ({
         <Button mt={4} variant="link" onClick={onForgotPassword}>
           {forgotPasswordText}
         </Button>
+      )}
+
+      {termsOfServiceLink && (
+        <Text color="mutedText.dark" size="xs" align="center" mt={3}>
+          {localization.registerConfirmTermsOfService ??
+            'By registering, I confirm that I have read and accepted the'}{' '}
+          <Button
+            as="a"
+            size="xs"
+            variant="link"
+            href={termsOfServiceLink}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            {localization.termsOfService ?? 'terms of service'}
+          </Button>
+          .
+        </Text>
+      )}
+
+      {privacyPolicyLink && (
+        <Text color="mutedText.dark" size="xs" align="center" mt={3}>
+          {localization.collectAccountInfoReviewPolicy ??
+            'In order to be able to deliver and operate this service, we collect certain account information. Please review our'}{' '}
+          <Button
+            as="a"
+            size="xs"
+            variant="link"
+            href={privacyPolicyLink}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            {localization.privacyPolicy ?? 'privacy policy'}
+          </Button>{' '}
+          {localization.forMoreDetails}
+          for more details.
+        </Text>
       )}
     </BaseSection>
   );

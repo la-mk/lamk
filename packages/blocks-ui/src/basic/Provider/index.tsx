@@ -30,6 +30,11 @@ interface LocalizationContext {
   uploadHint?: string;
   genericError?: string;
   genericErrorExplanation?: string;
+  registerConfirmTermsOfService?: string;
+  termsOfService?: string;
+  collectAccountInfoReviewPolicy?: string;
+  privacyPolicy?: string;
+  forMoreDetails?: string;
 }
 
 export const LocalizationContext = React.createContext<LocalizationContext>({});

@@ -44,6 +44,8 @@ storiesOf('Forms', module)
         logoUrl="/"
         signup={console.log}
         onLoginNowClick={() => null}
+        privacyPolicyLink={'https://test.link'}
+        termsOfServiceLink={'https://test.link'}
         getErrorMessage={(errorName: any, context: any) => {
           console.log(errorName, context);
           return '';
