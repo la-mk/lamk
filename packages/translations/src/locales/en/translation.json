@@ -78,7 +78,12 @@
     "logout": "Log out",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "signup": "Sign up",
-    "signupClosedBeta": "We are in closed-beta, so signups are currently disabled"
+    "signupClosedBeta": "We are in closed-beta, so signups are currently disabled",
+    "registerConfirmTermsOfService": "By registering, I confirm that I have read and accepted the",
+    "termsOfService": "terms of service",
+    "collectAccountInfoReviewPolicy": "In order to be able to deliver and operate this service, we collect certain account information. Please review our",
+    "privacyPolicy": "privacy policy",
+    "forMoreDetails": "for more details"
   },
   "campaign": {
     "active": "Active",
