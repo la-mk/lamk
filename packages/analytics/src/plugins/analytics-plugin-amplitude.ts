@@ -56,11 +56,14 @@ export default function amplitude(pluginConfig: AmplitudeConfig) {
         );
     },
 
-    identify: ({ payload }: { payload: any }) => {
+    identify: ({ payload, optOut }: { payload: any; optOut: boolean }) => {
       if (!amplitudeSdk) {
         return;
       }
 
+      if (optOut) {
+        amplitudeSdk.getInstance().setOptOut(optOut);
+      }
       amplitudeSdk.getInstance().setUserId(payload.userId);
       amplitudeSdk.getInstance().setUserProperties(payload.traits);
     },
