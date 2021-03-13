@@ -119,8 +119,7 @@ export const AuthFormBase = ({
           >
             {localization.privacyPolicy ?? 'privacy policy'}
           </Button>{' '}
-          {localization.forMoreDetails}
-          for more details.
+          {localization.forMoreDetails ?? 'for more details'}.
         </Text>
       )}
     </BaseSection>
