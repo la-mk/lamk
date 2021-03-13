@@ -81,7 +81,7 @@ variable "nestpay-gateway-endpoint" {
 ########## DO DATA ##############
 
 data "digitalocean_ssh_key" "droplets-ssh-key" {
-  name = "Nuc"
+  name = "mac-pro"
 }
 
 ########### PROVIDER DEFINITION ###########

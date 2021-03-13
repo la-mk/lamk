@@ -77,6 +77,8 @@ export const AuthModal = () => {
           <SignupForm
             schema={authSchema}
             logoUrl='/images/lamk-logo/horizontal.svg'
+            privacyPolicyLink='/legal/privacy'
+            termsOfServiceLink='/legal/terms-of-use'
             signup={handleSignup}
             onLoginNowClick={() => setMethod('login')}
             getErrorMessage={(errorName, context) =>

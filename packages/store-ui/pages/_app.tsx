@@ -44,6 +44,11 @@ const getTranslations = (t: (key: string) => string) => {
     or: t('common.or'),
     authSameAccount: t('auth.authSameAccount'),
     update: t('actions.update'),
+    registerConfirmTermsOfService: t('auth.registerConfirmTermsOfService'),
+    termsOfService: t('auth.termsOfService'),
+    collectAccountInfoReviewPolicy: t('auth.collectAccountInfoReviewPolicy'),
+    privacyPolicy: t('auth.privacyPolicy'),
+    forMoreDetails: t('auth.forMoreDetails'),
   };
 };
 
