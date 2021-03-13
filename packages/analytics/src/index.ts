@@ -1,4 +1,4 @@
-import Analytics from 'analytics';
+import Analytics, { AnalyticsInstance } from 'analytics';
 import amplitudePlugin from './plugins/analytics-plugin-amplitude';
 import debugPlugin from './plugins/analytics-plugin-debug';
 export { session, SessionInfo } from './session';
@@ -24,7 +24,9 @@ export enum AnalyticsEvents {
   pageView = 'page view',
 }
 
-export type AnalyticsClient = ReturnType<typeof Analytics>;
+export type AnalyticsClient = ReturnType<typeof Analytics> & {
+  optIn: () => Promise<void>;
+};
 export interface AnalyticsOptions {
   debug: boolean;
   app: string;
@@ -43,13 +45,20 @@ export const getAnalyticsClient = ({
     amplitudePlugin({
       eventPrefix,
       trackingId,
+      enabled: false,
     }),
   ];
 
-  return Analytics({
+  const client: AnalyticsInstance = Analytics({
     app: app,
     debug,
     version: '1',
     plugins,
   });
+
+  (client as AnalyticsClient).optIn = () => {
+    return client.plugins.enable('amplitude' as any);
+  };
+
+  return client as AnalyticsClient;
 };

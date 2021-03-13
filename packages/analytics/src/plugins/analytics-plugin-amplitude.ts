@@ -1,6 +1,8 @@
 export interface AmplitudeConfig {
   trackingId: string;
   eventPrefix: string;
+  // Used internally by analytics library
+  enabled?: boolean;
 }
 // Currently it works only in the browser, so we lazily load the sdk inside the initialization method.
 export default function amplitude(pluginConfig: AmplitudeConfig) {
@@ -56,14 +58,11 @@ export default function amplitude(pluginConfig: AmplitudeConfig) {
         );
     },
 
-    identify: ({ payload, optOut }: { payload: any; optOut: boolean }) => {
+    identify: ({ payload }: { payload: any }) => {
       if (!amplitudeSdk) {
         return;
       }
 
-      if (optOut) {
-        amplitudeSdk.getInstance().setOptOut(optOut);
-      }
       amplitudeSdk.getInstance().setUserId(payload.userId);
       amplitudeSdk.getInstance().setUserProperties(payload.traits);
     },
