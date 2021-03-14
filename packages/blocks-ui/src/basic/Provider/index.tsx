@@ -26,6 +26,7 @@ interface LocalizationContext {
   or?: string;
   authSameAccount?: string;
   update?: string;
+  decline?: string;
   upload?: string;
   uploadHint?: string;
   genericError?: string;
@@ -35,6 +36,9 @@ interface LocalizationContext {
   collectAccountInfoReviewPolicy?: string;
   privacyPolicy?: string;
   forMoreDetails?: string;
+  cookiesExplanation?: string;
+  readMoreCookies?: string;
+  acceptCookies?: string;
 }
 
 export const LocalizationContext = React.createContext<LocalizationContext>({});

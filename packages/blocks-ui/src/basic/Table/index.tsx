@@ -50,7 +50,10 @@ export const Table = <T extends any>({
             <Tr key={get(entry, rowKey)}>
               {columns.map(column => {
                 return (
-                  <Td isNumeric={column.isNumeric}>
+                  <Td
+                    key={entry[column.key] as any}
+                    isNumeric={column.isNumeric}
+                  >
                     {column.render?.(entry[column.key], entry) ??
                       entry[column.key]}
                   </Td>

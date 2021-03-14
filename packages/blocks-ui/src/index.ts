@@ -106,6 +106,7 @@ export {
 export { FooterContent } from './compound/FooterContent';
 export { PoweredBy } from './compound/PoweredBy';
 export { LanguagePicker, LanguagePickerProps } from './compound/LanguagePicker';
+export { CookieBanner, CookieBannerProps } from './compound/CookieBanner';
 
 export { default as extraWidgets } from './basic/NewForm/widgets/extra';
 export { toast } from './basic/Toast';
