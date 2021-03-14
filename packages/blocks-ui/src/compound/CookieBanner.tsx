@@ -82,7 +82,18 @@ export const CookieBanner = ({
             {localization.acceptCookies ?? 'Accept cookies'}
           </Button>
 
-          <Button ml={3} variant="link">
+          <Button
+            ml={3}
+            variant="link"
+            onClick={() => {
+              onConsentsChanged(
+                requests.reduce((aggr: Consent, request) => {
+                  aggr[request.key] = false;
+                  return aggr;
+                }, {})
+              );
+            }}
+          >
             {localization.decline ?? 'Decline'}
           </Button>
         </Flex>
