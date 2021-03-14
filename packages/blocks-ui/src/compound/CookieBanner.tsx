@@ -51,8 +51,9 @@ export const CookieBanner = ({
           <Text as="p">
             {localization.cookiesExplanation ??
               'We use cookies to deliver a better user experience'}
+            .
           </Text>
-          <Text as="p">
+          <Text mt={3} as="p">
             {localization.readMoreCookies ?? 'Read more in our'}{' '}
             <Button
               variant="link"
