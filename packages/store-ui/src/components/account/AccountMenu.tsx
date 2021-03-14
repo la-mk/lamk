@@ -75,7 +75,8 @@ const MenuButton = ({
 export const AccountMenu = () => {
   const { t } = useTranslation();
   const { pathname } = useRouter();
-  const theme = useTheme();
+  // TODO: Remove gray when blocks-ui is updated to contain the typings for it
+  const theme = useTheme<BlocksTheme & { colors: { gray: any } }>();
   const user = useSelector(getUser);
   const isMobile = hooks.useBreakpoint([true, false, false]);
   useBreadcrumb([{ url: '/', title: t('pages.home') }]);

@@ -200,5 +200,7 @@ export interface BlocksTheme extends DeepPartial<Omit<ChakraTheme, 'colors'>> {
       light?: string;
       dark?: string;
     };
+
+    gray?: ChakraTheme['colors']['gray'];
   };
 }
