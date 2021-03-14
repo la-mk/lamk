@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Text } from '@la-mk/blocks-ui';
+import { Button, Flex, Heading } from '@la-mk/blocks-ui';
 import { TreeviewEntry } from '@la-mk/blocks-ui/dist/basic/Treeview';
 import Link from 'next/link';
 import React from 'react';
@@ -24,7 +24,7 @@ const CategorySection = ({
       </Heading>
 
       {item.children?.map(x => (
-        <Link href={getHref(x.key)} passHref>
+        <Link key={x.key} href={getHref(x.key)} passHref>
           <Button my={2} as='a' variant='link' size='sm' onClick={onClick}>
             {x.title}
           </Button>
@@ -48,7 +48,12 @@ export const CategoriesGrid = ({
   return (
     <Flex direction='row' wrap='wrap'>
       {items?.map(item => (
-        <CategorySection item={item} getHref={getHref} onClick={onClick} />
+        <CategorySection
+          key={item.key}
+          item={item}
+          getHref={getHref}
+          onClick={onClick}
+        />
       ))}
     </Flex>
   );

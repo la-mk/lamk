@@ -26,7 +26,7 @@ import { SelectAddress } from './SelectAddress';
 import { SelectPaymentMethod } from './SelectPaymentMethod';
 import { StorePaymentMethods } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
-import { trackEvent } from '../../state/modules/analytics/analytics.actions';
+import { trackEvent } from '../../state/modules/analytics/analytics.module';
 import { AnalyticsEvents } from '@la-mk/analytics';
 import { useBreadcrumb } from '../shared/hooks/useBreadcrumb';
 import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';

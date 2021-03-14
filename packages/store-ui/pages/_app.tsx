@@ -1,7 +1,7 @@
 import React from 'react';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import { default as NextHead } from 'next/head';
-import { Provider as ThemeProvider } from '@la-mk/blocks-ui';
+import { Provider as ThemeProvider, CookieBanner } from '@la-mk/blocks-ui';
 import { ConnectedRouter } from 'connected-next-router';
 import { withRedux } from '../src/state/configureStore';
 import { StoreLayout } from '../src/common/pageComponents/StoreLayout';
@@ -13,12 +13,19 @@ import { getStore } from '../src/state/modules/store/store.selector';
 import { appWithTranslation, useTranslation } from '../src/common/i18n';
 import { connect } from 'react-redux';
 import memoize from 'mem';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { initializeAnalytics } from '../src/common/analytics';
 import { getTheme } from '../src/common/theme';
 import { StoreNotFound } from '../src/common/pageComponents/StoreNotFound';
 import { setLandingContent } from '../src/state/modules/storeContents/storeContents.module';
 import { setCategories } from '../src/state/modules/categories/categories.module';
 import { NextPageContext } from 'next';
+import {
+  ConsentPreferences,
+  consentsChange,
+} from '../src/state/modules/analytics/analytics.module';
+import { getConsents } from '../src/state/modules/analytics/analytics.selector';
 
 const getTranslations = (t: (key: string) => string) => {
   return {
@@ -49,6 +56,10 @@ const getTranslations = (t: (key: string) => string) => {
     collectAccountInfoReviewPolicy: t('auth.collectAccountInfoReviewPolicy'),
     privacyPolicy: t('auth.privacyPolicy'),
     forMoreDetails: t('auth.forMoreDetails'),
+    cookiesExplanation: t('auth.cookiesExplanation'),
+    readMoreCookies: t('auth.readMoreCookies'),
+    acceptCookies: t('actions.acceptCookies'),
+    decline: t('actions.decline'),
   };
 };
 
@@ -126,6 +137,8 @@ const setInitialDataInState = async (ctx: NextPageContext) => {
 
 const Main = ({ laStore, children }) => {
   const { t } = useTranslation();
+  const consents = useSelector(getConsents);
+  const dispatch = useDispatch();
   const brandColor = laStore?.color;
 
   return (
@@ -139,6 +152,18 @@ const Main = ({ laStore, children }) => {
             <>
               {children}
               <AuthModal />
+              <CookieBanner
+                onConsentsChanged={updatedConsents =>
+                  dispatch(
+                    consentsChange(
+                      (updatedConsents as unknown) as ConsentPreferences,
+                    ),
+                  )
+                }
+                consents={consents}
+                privacyPolicyLink={'/legal/privacy'}
+                requests={[{ key: 'analytics', title: 'Analytics' }]}
+              />
             </>
           </StoreLayout>
         ) : (

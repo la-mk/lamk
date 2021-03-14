@@ -1,10 +1,12 @@
 {
   "actions": {
+    "acceptCookies": "Accept cookies",
     "add": "Add",
     "addToCart": "Add to Cart",
     "cancel": "Cancel",
     "create": "Create",
     "createStoreNow": "Create store now",
+    "decline": "Decline",
     "delete": "Delete",
     "goBack": "Go back",
     "goToAccount": "Go to account menu",
@@ -45,6 +47,7 @@
     "accountUpdateSuccess": "Account successfully updated",
     "authSameAccount": "You can use the same account on every store that is",
     "collectAccountInfoReviewPolicy": "In order to be able to deliver and operate this service, we collect certain account information. Please review our",
+    "cookiesExplanation": "Our site uses cookies to deliver the best possible shopping experience, directly to you. We respect your privacy, and we only collect essential, anonymous data for statistical analysis purposes",
     "forMoreDetails": "for more details",
     "forgotPassword": "Forgot your password?",
     "forgotPasswordExplanation": "We will send you a email with a link to reset your password",
@@ -54,6 +57,7 @@
     "logout": "Log out",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "privacyPolicy": "privacy policy",
+    "readMoreCookies": "You can read more about how we use cookies and how we manage your data in our",
     "registerConfirmTermsOfService": "By registering, I confirm that I have read and accepted the",
     "resetPassword": "Reset password",
     "resetPasswordExplanation": "Set your email and new password in the form below",

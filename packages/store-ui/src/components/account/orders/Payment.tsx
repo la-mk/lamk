@@ -21,7 +21,7 @@ import { Success } from '../../cart/Success';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { StorePaymentMethods } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import Link from 'next/link';
-import { trackEvent } from '../../../state/modules/analytics/analytics.actions';
+import { trackEvent } from '../../../state/modules/analytics/analytics.module';
 import { AnalyticsEvents } from '@la-mk/analytics';
 import { useBreadcrumb } from '../../shared/hooks/useBreadcrumb';
 

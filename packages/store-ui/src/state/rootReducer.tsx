@@ -6,6 +6,7 @@ import delivery from './modules/delivery/delivery.module';
 import campaigns from './modules/campaigns/campaigns.module';
 import categories from './modules/categories/categories.module';
 import storeContents from './modules/storeContents/storeContents.module';
+import analytics from './modules/analytics/analytics.persist';
 import { routerReducer } from 'connected-next-router';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
@@ -20,6 +21,7 @@ const getReducersSet = () => ({
   campaigns,
   categories,
   storeContents,
+  analytics,
   router: routerReducer,
 });
 
@@ -50,6 +52,7 @@ const registerReducers = (isServer: boolean) => {
         'campaigns',
         'categories',
         'storeContents',
+        'analytics',
         'router',
       ],
     };
