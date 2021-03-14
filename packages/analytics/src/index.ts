@@ -27,6 +27,7 @@ export enum AnalyticsEvents {
 export type AnalyticsClient = ReturnType<typeof Analytics> & {
   optIn: () => Promise<void>;
 };
+
 export interface AnalyticsOptions {
   debug: boolean;
   app: string;
