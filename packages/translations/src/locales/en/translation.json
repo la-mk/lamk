@@ -38,7 +38,9 @@
     "toCheckout": "To checkout",
     "toPayment": "Proceed to payment",
     "update": "Update",
-    "watchDemo": "Watch demo"
+    "watchDemo": "Watch demo",
+    "decline": "Decline",
+    "acceptCookies": "Accept cookies"
   },
   "address": {
     "addNewAddress": "Add new address",
@@ -83,7 +85,9 @@
     "termsOfService": "terms of service",
     "collectAccountInfoReviewPolicy": "In order to be able to deliver and operate this service, we collect certain account information. Please review our",
     "privacyPolicy": "privacy policy",
-    "forMoreDetails": "for more details"
+    "forMoreDetails": "for more details",
+    "cookiesExplanation": "Our site uses cookies to deliver the best possible shopping experience, directly to you. We respect your privacy, and we only collect essential, anonymous data for statistical analysis purposes",
+    "readMoreCookies": "You can read more about how we use cookies and how we manage your data in our"
   },
   "campaign": {
     "active": "Active",
