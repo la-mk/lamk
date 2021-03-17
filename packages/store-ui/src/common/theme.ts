@@ -96,6 +96,7 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
       SubMenu: {
         menu: {
           position: 'left',
+          spacing: 'small',
         },
       },
       Services: {
@@ -228,6 +229,7 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
         menu: {
           position: 'center',
           textTransform: 'uppercase',
+          spacing: 'large',
         },
       },
       Services: {
@@ -278,5 +280,6 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
 };
 
 export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
-  return getGenericTheme(brandColor);
+  // return getGenericTheme(brandColor);
+  return getFashionTheme(brandColor);
 };

@@ -22,11 +22,11 @@ export const SubMenu = props => {
   >();
   const [isCategoriesVisible, setIsCategoriesVisible] = React.useState(false);
   const isMobile = hooks.useBreakpoint([true, false, false]);
+  const { t } = useTranslation();
   const theme = useTheme();
   const ownTheme = theme.sections.SubMenu;
 
   const promotedSets = useSelector(getPromotedSets);
-  const { t } = useTranslation();
 
   const getGroupedCategories = useCallback(() => {
     return createGetGroupedCategories((categoryKey: string) =>
@@ -64,43 +64,65 @@ export const SubMenu = props => {
       align='center'
       px={[3, 4, 5]}
       whiteSpace='nowrap'
+      // @ts-ignore
+      style={{ overflowX: 'auto' }}
     >
-      <Box
-        mx={ownTheme.menu.position === 'left' ? 0 : 'auto'}
-        px={1}
-        // @ts-ignore
-        style={{ overflowX: 'auto' }}
-      >
-        {groupedCategories.map(groupedCategory => {
-          return (
-            <Box display='inline-block' key={groupedCategory.key}>
-              <Button
-                p={4}
-                py={5}
-                variant='link'
-                // @ts-ignore
-                onMouseEnter={e => {
-                  if (isMobile) {
-                    return;
-                  }
-                  setViewedCategory(groupedCategory.key);
-                  setIsCategoriesVisible(true);
-                }}
-                onMouseLeave={e => {
-                  if (isMobile) {
-                    return;
-                  }
-                  setIsCategoriesVisible(false);
-                }}
-                onClick={e => {
-                  setViewedCategory(groupedCategory.key);
-                  setIsCategoriesVisible(x => !x);
-                }}
-                leftIcon={
-                  <Text size='sm' color='text.light'>
-                    <ChevronDown size='1rem' />
-                  </Text>
+      {/* We use these boxes to center the menu items, while x overflow works (it wouldn't with justify center) */}
+      <Box ml={ownTheme.menu.position === 'left' ? 0 : 'auto'} />
+
+      {groupedCategories.map(groupedCategory => {
+        return (
+          <Box display='inline-block' key={groupedCategory.key}>
+            <Button
+              p={ownTheme.menu.spacing === 'large' ? [5, 5, 6] : [4, 4, 4]}
+              py={[5, 5, 5]}
+              variant='link'
+              // @ts-ignore
+              onMouseEnter={e => {
+                if (isMobile) {
+                  return;
                 }
+                setViewedCategory(groupedCategory.key);
+                setIsCategoriesVisible(true);
+              }}
+              onMouseLeave={e => {
+                if (isMobile) {
+                  return;
+                }
+                setIsCategoriesVisible(false);
+              }}
+              onClick={e => {
+                setViewedCategory(groupedCategory.key);
+                setIsCategoriesVisible(x => !x);
+              }}
+              leftIcon={
+                <Text size='sm' color='text.light'>
+                  <ChevronDown size='1rem' />
+                </Text>
+              }
+            >
+              <Text
+                whiteSpace='nowrap'
+                color='text.light'
+                // @ts-ignore
+                textTransform={ownTheme.menu.textTransform}
+              >
+                {groupedCategory.title}
+              </Text>
+            </Button>
+          </Box>
+        );
+      })}
+
+      {sets.map(set => {
+        return (
+          // Wrapping it in Box so it overflows as expected on mobile.
+          <Box display='inline-block' key={set.setTag.title}>
+            <Link key={set.setTag.title} href={getSetHref(set)} passHref>
+              <Button
+                p={ownTheme.menu.spacing === 'large' ? [5, 5, 6] : [4, 4, 4]}
+                py={[5, 5, 5]}
+                variant='link'
               >
                 <Text
                   whiteSpace='nowrap'
@@ -108,33 +130,15 @@ export const SubMenu = props => {
                   // @ts-ignore
                   textTransform={ownTheme.menu.textTransform}
                 >
-                  {groupedCategory.title}
+                  {set.setTag.title}
                 </Text>
               </Button>
-            </Box>
-          );
-        })}
+            </Link>
+          </Box>
+        );
+      })}
 
-        {sets.map(set => {
-          return (
-            // Wrapping it in Box so it overflows as expected on mobile.
-            <Box display='inline-block' key={set.setTag.title}>
-              <Link key={set.setTag.title} href={getSetHref(set)} passHref>
-                <Button p={4} variant='link'>
-                  <Text
-                    whiteSpace='nowrap'
-                    color='text.light'
-                    // @ts-ignore
-                    textTransform={ownTheme.menu.textTransform}
-                  >
-                    {set.setTag.title}
-                  </Text>
-                </Button>
-              </Link>
-            </Box>
-          );
-        })}
-      </Box>
+      <Box mr={ownTheme.menu.position === 'left' ? 0 : 'auto'} />
 
       {!isMobile && (
         <CategoriesOverlay
