@@ -99,6 +99,11 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
           spacing: 'small',
         },
       },
+      Home: {
+        banner: {
+          variant: 'minimal',
+        },
+      },
       Services: {
         count: 3,
         variant: 'dark',
@@ -230,6 +235,11 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
           position: 'center',
           textTransform: 'uppercase',
           spacing: 'large',
+        },
+      },
+      Home: {
+        banner: {
+          variant: 'bold',
         },
       },
       Services: {
