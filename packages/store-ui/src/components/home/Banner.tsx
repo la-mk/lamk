@@ -44,7 +44,7 @@ const BoldThemeContent = ({
     <Flex
       // @ts-ignore
       borderColor='background.light'
-      borderWidth='1px'
+      borderWidth='2px'
       height='100%'
       width='100%'
       align='center'
@@ -60,14 +60,7 @@ const BoldThemeContent = ({
       >
         {storeName}
       </DecoratedHeading>
-      <Heading
-        mb={6}
-        px={[2, 4, 5]}
-        align='center'
-        as='h1'
-        size={'2xl'}
-        color='heading.light'
-      >
+      <Heading mb={6} align='center' as='h1' size={'2xl'} color='heading.light'>
         {slogan}
       </Heading>
 

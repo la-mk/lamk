@@ -35,7 +35,6 @@ export const Home = ({}: {}) => {
   const [productSets, setProductSets] = useState<
     ProductSetResult[] | undefined
   >();
-  const [categoriesForSet, setCategoriesForSet] = useState<string[]>([]);
 
   useBreadcrumb([{ url: '/', title: t('pages.home') }]);
 
@@ -43,13 +42,6 @@ export const Home = ({}: {}) => {
     if (!store || !categories?.length) {
       return;
     }
-
-    setCategoriesForSet(
-      sampleSize(
-        Array.from(new Set(categories.map(category => category.level2))),
-        3,
-      ),
-    );
 
     let categorySetTags = [];
 
@@ -102,10 +94,9 @@ export const Home = ({}: {}) => {
 
       <Spinner isLoaded={!showSpinner}>
         <Flex mt={7} direction='column'>
-          {categoriesForSet.length > 1 && (
+          {categories.length > 1 && (
             <Box px={[2, 4, 5]} mb={8}>
               <CategorySet
-                categoriesToShow={categoriesForSet}
                 categories={categories}
                 title={t('productSets.selectedCategories')}
                 subtitle={t('productSets.selectedCategoriesExplanation')}

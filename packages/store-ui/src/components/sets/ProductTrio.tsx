@@ -15,6 +15,7 @@ interface ProductSetProps {
 export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
   const { t } = useTranslation();
   const areCardsHorizontal = hooks.useBreakpoint([false, false, true]);
+  const areAllEmphasized = hooks.useBreakpoint([true, false, false]);
 
   const allHref = getSetHref(set);
   const products = set.data;
@@ -42,20 +43,22 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
 
         <Flex
           ml={[0, 0, 6]}
-          direction={['row', 'row', 'column']}
-          align={['flex-start', 'flex-start', 'center']}
+          direction={['column', 'row', 'column']}
+          align={['centar', 'flex-start', 'center']}
           justify='center'
         >
-          <Box mb={[0, 0, 4]} mr={[3, 4, 0]}>
+          <Box mb={[0, 0, 4]} mr={[0, 4, 0]}>
             <ProductCard
+              emphasized={areAllEmphasized}
               detailed
               horizontal={areCardsHorizontal}
               product={productOne}
               storeId={storeId}
             />
           </Box>
-          <Box mt={[0, 0, 4]} ml={[3, 4, 0]}>
+          <Box mt={[0, 0, 4]} ml={[0, 4, 0]}>
             <ProductCard
+              emphasized={areAllEmphasized}
               detailed
               horizontal={areCardsHorizontal}
               product={productTwo}

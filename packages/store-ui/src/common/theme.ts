@@ -104,10 +104,20 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
           variant: 'minimal',
         },
       },
+      Categories: {
+        layout: 'grid',
+        variant: 'illustrated',
+        count: 3,
+      },
       Services: {
         count: 3,
         variant: 'dark',
         decoration: 'icon',
+      },
+      Sets: {
+        heading: {
+          variant: 'plain',
+        },
       },
       // TODO: Start using rem's for the card
       ProductCard: {
@@ -242,11 +252,19 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
           variant: 'bold',
         },
       },
+      Categories: {
+        layout: 'masonry',
+        variant: 'bold',
+        count: 4,
+      },
       Services: {
         count: 4,
         variant: 'rainbow',
         decoration: 'divider',
         textTransform: 'uppercase',
+      },
+      Sets: {
+        heading: { variant: 'decorated' },
       },
       ProductCard: {
         badge: {
@@ -261,17 +279,17 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
           background: colors.background.light,
           width: {
             default: [296, 348, 348],
-            emphasized: [320, 480, 796],
+            emphasized: [320, 496, 496],
           },
         },
         image: {
           width: {
             default: [296, 348, 348],
-            emphasized: [320, 480, 796],
+            emphasized: [320, 496, 496],
           },
           height: {
             default: [380, 448, 448],
-            emphasized: [412, 618, 1024],
+            emphasized: [412, 640, 640],
           },
         },
         description: {
@@ -290,6 +308,6 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
 };
 
 export const getTheme = (brandColor = '#EF4351'): DeepPartial<BlocksTheme> => {
-  // return getGenericTheme(brandColor);
-  return getFashionTheme(brandColor);
+  return getGenericTheme(brandColor);
+  // return getFashionTheme(brandColor);
 };

@@ -27,7 +27,7 @@ export const ProductDuo = ({ set, storeId }: ProductSetProps) => {
         justify='center'
         direction={['column', 'column', 'row']}
       >
-        <Box mr={productTwo ? [0, 0, 7] : 0}>
+        <Box mr={productTwo ? [0, 0, 5] : 0}>
           <ProductCard
             emphasized
             detailed
@@ -36,7 +36,7 @@ export const ProductDuo = ({ set, storeId }: ProductSetProps) => {
           />
         </Box>
         {productTwo && (
-          <Box ml={[0, 0, 7]}>
+          <Box ml={[0, 0, 5]}>
             <ProductCard
               emphasized
               detailed

@@ -54,7 +54,9 @@ export const DecoratedHeading = ({
   return (
     <Flex mb={3} align='center' justify='center'>
       <Decoration direction='right' />
-      <Heading {...props}>{children}</Heading>
+      <Heading px={[2, 3, 4]} {...props}>
+        {children}
+      </Heading>
       <Decoration direction='left' />
     </Flex>
   );
