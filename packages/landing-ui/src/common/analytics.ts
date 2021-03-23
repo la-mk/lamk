@@ -28,7 +28,7 @@ export const track = (eventName: AnalyticsEvents, payload: any = {}) => {
   });
 };
 
-export const trackInitialLoad = () => {
+export const trackInitialLoad = async () => {
   // If the site is loaded from scratch multiple times within a session, don't log anymore.
   const sessionExpired = session.isSessionExpired();
   if (!sessionExpired) {
@@ -36,5 +36,7 @@ export const trackInitialLoad = () => {
   }
 
   session.initializeSession();
+  // TODO: For now we just opt-in by default, fix it.
+  await analytics.optIn();
   track(AnalyticsEvents.openMarketingSite);
 };

@@ -43,6 +43,7 @@ export const LandingLayout = withTheme(
     // Fire an event to know that the UI has loaded on the client-side.
     useEffect(() => {
       trackInitialLoad();
+
       const onRouteChange = () => {
         const sessionInfo = session.getSessionInfo();
         if (!sessionInfo) {
