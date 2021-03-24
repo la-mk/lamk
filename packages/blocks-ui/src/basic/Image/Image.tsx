@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { ReactSVG } from 'react-svg';
 import hooks from '../../hooks';
 
 const MissingImageSvg = ({
@@ -82,6 +83,18 @@ export const Image = ({
 
   if (fetchFailed || (!src && !getSrc)) {
     return <MissingImageSvg />;
+  }
+
+  // Inject the svg in the DOM so we can manipulate it with CSS.
+  // Maybe we want a better way to check if it is an SVG, but this will do for now.
+  if (src && src.endsWith('.svg')) {
+    return (
+      <ReactSVG
+        className={otherProps.className}
+        src={src}
+        fallback={() => <MissingImageSvg />}
+      />
+    );
   }
 
   if (!getSrc) {

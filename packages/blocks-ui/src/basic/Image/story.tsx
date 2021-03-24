@@ -29,6 +29,11 @@ storiesOf('Image', module).add('standard', () => (
         <Box height={160}>
           <Image getSrc={() => 'https://via.placeholder.com/80x160'} />
         </Box>
+
+        <Text>Svg</Text>
+        <Box height={80} minWidth={180}>
+          <Image src="https://la.mk/logo-horizontal.svg" />
+        </Box>
       </Flex>
 
       <Flex direction="column" height="100%" width="fit-content">
