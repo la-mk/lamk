@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backstore-ui
+  name: backstore-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstore-ui
+  template:
+    metadata:
+      labels:
+        app: backstore-ui
+    spec:
+      imagePullSecrets:
+        - name: do-registry-credentials
+      containers:
+      - image: registry.digitalocean.com/lamk/backstore-ui:1.0.108
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        name: backstore-ui
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        env:
+          - name: REACT_APP_API_ENDPOINT
+            value: "https://api.lamk.dev"
+          - name: REACT_APP_ARTIFACTS_ENDPOINT
+            value: "https://artifacts.lamk.dev/dev-bucket"
+          - name: REACT_APP_IMAGES_PROXY_ENDPOINT
+            value: "https://artifacts.lamk.dev/dev-bucket"
+          - name: REACT_APP_ENABLE_SIGNUP
+            value: "true"
+          - name: PORT
+            value: "80"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backstore-ui
+spec:
+  selector:
+    app: backstore-ui
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80

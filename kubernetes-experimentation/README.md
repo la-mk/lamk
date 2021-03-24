@@ -6,6 +6,11 @@ https://www.digitalocean.com/community/curriculums/kubernetes-for-full-stack-dev
 https://www.youtube.com/watch?v=X48VuDVv0do&ab_channel=TechWorldwithNana
 https://k3s.io/
 
+Using DO Kubernetes:
+- https://www.kabisa.nl/tech/real-world-phoenix-lets-d4y-using-k8s/
+- 
+
+
 ## Commands
 
 - `kubectl get nodes` - Get existing nodes

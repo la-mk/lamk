@@ -1,0 +1,22 @@
+image: traefik
+dashboard:
+  enabled: false
+serviceType: LoadBalancer
+rbac:
+  enabled: true
+# ssl:
+#   enabled: true                                # Enables SSL
+#   enforced: true                               # Redirects HTTP to HTTPS
+# acme:
+#   enabled: true                                # Enables Let's Encrypt certificates
+#   staging: true                               # Use Lets Encrypt staging area for this example. For production purposes set this to false
+#   email: sradevski@live.com                  # Email address that Let's Encrypt uses to notify about certificate expiry etc.
+#   challengeType: "dns-01"
+#   dnsProvider:
+#     name:  digitalocean                        # This is why you need your domain to be under Digital Ocean control
+#     digitalocean:
+#       DO_AUTH_TOKEN: $DIGITALOCEAN_TOKEN
+#   domains:
+#     enabled: true
+#     domainsList:
+#       - main: domain.example.com               # domain that belongs to this certificate
