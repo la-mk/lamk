@@ -40,6 +40,8 @@ In the first illustrations batch, these are the colors that were used:
 
 There were few custom colors, `#fafafa` in `women-watch` which should have been the shadows color, `#e1dec4` in `women-shoes` which should have been outlines, `#12dbb4` inn `ladder`, but that whole path can be removed, and a bunch of `#2f3a5a` which should be outlines.
 
+The other thing that needs to be done is replace the classes in each svg with a unique name (use the category name), otherwise there will be clashes.
+
 For now we'll can upload category images manually to S3 in a bucket called "categories". https://unsplash.com/, https://www.pexels.com/, is the place to look for category images.
 
 The categories images should be 4x3 ratio and 1200/900px widths. The extension should be jpg. https://www.befunky.com/ is a pretty nice tool for resizing.
