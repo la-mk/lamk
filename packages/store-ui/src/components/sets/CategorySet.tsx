@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Text, Heading } from '@la-mk/blocks-ui';
+import { Flex, Box, Text, Heading, Image } from '@la-mk/blocks-ui';
 import { Category } from '@la-mk/la-sdk/dist/models/category';
 import { useTranslation } from '../../common/i18n';
 import { SetTitle } from './SetTitle';
@@ -10,6 +10,14 @@ import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
 import { HoverableLink } from '../shared/components/HoverableLink';
 import { getLevel2CategoryHref } from '../../common/filterUtils';
 import { TFunction } from 'next-i18next';
+import styled from 'styled-components';
+
+const IllustrationWrapper = styled(Box)`
+  & svg {
+    height: 13rem;
+    margin: auto;
+  }
+`;
 
 interface CategorySetProps {
   categories: Category[];
@@ -17,13 +25,48 @@ interface CategorySetProps {
   subtitle: string;
 }
 
-const IllustratedCategory = ({
-  categoryName,
-  t,
-}: {
+interface CategoryProps {
   categoryName: string;
   t: TFunction;
-}) => {
+}
+
+const IllustratedCategory = ({ categoryName, t }: CategoryProps) => {
+  return (
+    <Flex
+      direction='column'
+      height={'18rem'}
+      minWidth={'18rem'}
+      maxWidth={'24rem'}
+      bg='background.light'
+    >
+      <IllustrationWrapper p={2}>
+        <Image
+          inlineSvg
+          src={sdk.artifact.getUrlForImage(
+            `${categoryName}.svg`,
+            'categories/illustrations',
+          )}
+        />
+      </IllustrationWrapper>
+      <Flex
+        mx={3}
+        my={2}
+        p={[2, 2, 3]}
+        align='center'
+        justify='center'
+        bg='background.dark'
+        // @ts-ignore
+        borderRadius={'md'}
+      >
+        <Text align='center' size='sm' color='text.light' letterSpacing='wider'>
+          {t(`categories.${categoryName}`).toUpperCase()}
+        </Text>
+      </Flex>
+    </Flex>
+  );
+};
+
+const ImageCategory = ({ categoryName, t }: CategoryProps) => {
   return (
     <ImageBackgroundBox
       height={'18rem'}

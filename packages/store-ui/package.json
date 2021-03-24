@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@la-mk/analytics": "0.0.13",
-    "@la-mk/blocks-ui": "0.0.281",
+    "@la-mk/blocks-ui": "0.0.283",
     "@la-mk/la-sdk": "0.0.159",
     "@la-mk/nlp": "0.0.4",
     "@la-mk/translations": "0.0.130",
