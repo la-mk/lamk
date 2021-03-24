@@ -92,7 +92,10 @@ export const Image = ({
   if (inlineSvg && src && src.endsWith('.svg')) {
     return (
       <ReactSVG
+        title={otherProps.title}
+        alt={otherProps.alt}
         className={otherProps.className}
+        style={otherProps.style}
         src={src}
         fallback={() => <MissingImageSvg />}
       />

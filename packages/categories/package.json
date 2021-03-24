@@ -14,7 +14,8 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "optimize-svg": "svgo -f ./images/illustrations-flat"
   },
   "peerDependencies": {},
   "lint-staged": {
@@ -40,6 +41,7 @@
   "dependencies": {
     "@la-mk/la-sdk": "0.0.149",
     "bluebird": "^3.7.2",
-    "csvtojson": "^2.0.10"
+    "csvtojson": "^2.0.10",
+    "svgo": "^2.2.2"
   }
 }
