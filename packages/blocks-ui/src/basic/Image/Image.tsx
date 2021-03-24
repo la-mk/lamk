@@ -44,6 +44,7 @@ export interface ImageProps
   height?: number | number[];
   width?: number | number[];
   imageRef?: React.Ref<HTMLImageElement>;
+  inlineSvg?: boolean;
 }
 
 const getSrcSet = (getSrc: Required<ImageProps>['getSrc'], parameters: any) => {
@@ -66,6 +67,7 @@ export const Image = ({
   height,
   width,
   imageRef,
+  inlineSvg,
   ...otherProps
 }: ImageProps) => {
   const [fetchFailed, setFetchFailed] = useState(false);
@@ -87,7 +89,7 @@ export const Image = ({
 
   // Inject the svg in the DOM so we can manipulate it with CSS.
   // Maybe we want a better way to check if it is an SVG, but this will do for now.
-  if (src && src.endsWith('.svg')) {
+  if (inlineSvg && src && src.endsWith('.svg')) {
     return (
       <ReactSVG
         className={otherProps.className}

@@ -32,7 +32,7 @@ storiesOf('Image', module).add('standard', () => (
 
         <Text>Svg</Text>
         <Box height={80} minWidth={180}>
-          <Image src="https://la.mk/logo-horizontal.svg" />
+          <Image inlineSvg src="https://la.mk/logo-horizontal.svg" />
         </Box>
       </Flex>
 
