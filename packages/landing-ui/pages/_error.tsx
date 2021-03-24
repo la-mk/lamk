@@ -52,7 +52,7 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
         <Error
           title={t('results.genericError')}
           description={t('results.genericError')}
-          status={errorCode.toString()}
+          status={errorCode?.toString() ?? '500'}
           t={t}
         />
       );
