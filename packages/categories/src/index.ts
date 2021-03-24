@@ -93,7 +93,8 @@ const main = async ([action, dataPath, imagesPath, illustrationsPath]: string[])
     case 'imgcompare': {
       const level2Categories = Array.from(new Set(categoriesAsJson.map(category => category.level2)));
       const images = (await loadFilesInDir(imagesPath)).map(img => img.split('.')[0]);
-      const illustrations = await loadFilesInDir(illustrationsPath);
+      const illustrations = (await loadFilesInDir(illustrationsPath)).map(img => img.split('.')[0]);
+
       console.log("Categories for which there are no images: \n")
       process.stdout.write(level2Categories.filter(x => !images.includes(x)).join('\n'));
 
