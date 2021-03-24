@@ -62,11 +62,11 @@ const loadDataFromPath = (dataPath: string) => {
   return fs.promises.readFile(path.normalize(dataPath), { encoding: 'utf8' });
 };
 
-const loadImagesFromPath = (imageDir: string) => {
-  return fs.promises.readdir(path.normalize(imageDir));
+const loadFilesInDir = (filesDir: string) => {
+  return fs.promises.readdir(path.normalize(filesDir));
 }
 
-const main = async ([action, dataPath, imagesPath]: string[]) => {
+const main = async ([action, dataPath, imagesPath, illustrationsPath]: string[]) => {
   const categoriesData = await loadDataFromPath(dataPath);
   const categoriesAsJson: Category[] = await csvtojson({ noheader: false }).fromString(
     categoriesData
@@ -92,12 +92,19 @@ const main = async ([action, dataPath, imagesPath]: string[]) => {
 
     case 'imgcompare': {
       const level2Categories = Array.from(new Set(categoriesAsJson.map(category => category.level2)));
-      const images = (await loadImagesFromPath(imagesPath)).map(img => img.split('.')[0]);
+      const images = (await loadFilesInDir(imagesPath)).map(img => img.split('.')[0]);
+      const illustrations = await loadFilesInDir(illustrationsPath);
       console.log("Categories for which there are no images: \n")
       process.stdout.write(level2Categories.filter(x => !images.includes(x)).join('\n'));
 
+      console.log("\n\nCategories for which there are no illustrations: \n")
+      process.stdout.write(level2Categories.filter(x => !illustrations.includes(x)).join('\n'));
+
       console.log("\n\nImages for which there are no categories: \n")
       process.stdout.write(images.filter(x => !level2Categories.includes(x)).join('\n'));
+
+      console.log("\n\nIllustrations for which there are no categories: \n")
+      process.stdout.write(illustrations.filter(x => !level2Categories.includes(x)).join('\n'));
       return;
     }
 
