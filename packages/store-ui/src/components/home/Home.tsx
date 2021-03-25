@@ -30,6 +30,7 @@ export const Home = ({}: {}) => {
   const landingContent = useSelector(getLandingContent);
   const categories: Category[] = useSelector(getCategories);
   const promotedCampaign = useSelector(getPromotedCampaign);
+  const isBrowser = typeof window !== 'undefined';
 
   const [caller, showSpinner] = hooks.useCall();
   const [productSets, setProductSets] = useState<
@@ -104,7 +105,7 @@ export const Home = ({}: {}) => {
             </Box>
           )}
 
-          {!showSpinner && !productSetsWithData && (
+          {!showSpinner && !productSetsWithData && isBrowser && (
             <Result
               status='empty'
               mt={8}
