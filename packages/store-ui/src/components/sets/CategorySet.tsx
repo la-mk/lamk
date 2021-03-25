@@ -30,6 +30,8 @@ interface CategoryProps {
   t: TFunction;
 }
 
+// The illustrations use the `--chakra...` CSS variables internally, so it depends on them to render properly.
+// TODO: Specify custom variables so there is no direct dependency on Chakra
 const IllustratedCategory = ({ categoryName, t }: CategoryProps) => {
   return (
     <Flex

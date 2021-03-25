@@ -143,6 +143,7 @@ const Main = ({ laStore, children }) => {
 
   return (
     <ThemeProvider
+      // @ts-ignore
       theme={getTheme(brandColor)}
       translations={getTranslations(t)}
     >
