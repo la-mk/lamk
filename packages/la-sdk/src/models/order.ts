@@ -20,6 +20,13 @@ export enum OrderStatus {
   COMPLETED = 'completed',
 }
 
+export enum DeliveryStatus {
+  REQUESTED = 'requested',
+  IN_TRANSIT = 'transit',
+  DELIVERED = 'delivered',
+  UNKNOWN = 'unknown',
+}
+
 export const orderStatusColor: { [key in OrderStatus]: string } = {
   [OrderStatus.INVALID]: '#A8A8A8',
   [OrderStatus.CANCELLED]: '#FF3838',
@@ -77,6 +84,47 @@ export const schema: JSONSchemaType<Order> = {
       items: campaignSchema,
     },
     delivery: deliverySchema,
+    deliveryStatus: {
+      type: ['object', 'null'],
+      additionalProperties: false,
+      required: ['events', 'status'],
+      properties: {
+        events: {
+          type: 'array',
+          items: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['timestamp'],
+            properties: {
+              timestamp: {
+                type: 'string',
+                format: 'date-time',
+              },
+              rawStatus: {
+                // @ts-ignore the typings are wrong
+                type: ['string', 'null'],
+                maxLength: 1023,
+              },
+              rawDescription: {
+                // @ts-ignore the typings are wrong
+                type: ['string', 'null'],
+                maxLength: 1023,
+              },
+            },
+          },
+        },
+        status: {
+          type: 'string',
+          enum: Object.values(DeliveryStatus),
+          default: DeliveryStatus.UNKNOWN,
+        },
+        deliveredOn: {
+          // @ts-ignore the typings are wrong
+          type: ['string', 'null'],
+          format: 'date-time',
+        },
+      },
+    },
     deliverTo: addressSchema as any,
     paymentMethod: {
       type: 'string',
@@ -159,6 +207,7 @@ export const getOrderSdk = (client: Application) => {
     },
 
     OrderStatus,
+    DeliveryStatus,
     orderStatusColor,
     schema,
   };
