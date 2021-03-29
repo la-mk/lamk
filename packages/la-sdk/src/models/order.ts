@@ -87,8 +87,22 @@ export const schema: JSONSchemaType<Order> = {
     deliveryStatus: {
       type: ['object', 'null'],
       additionalProperties: false,
-      required: ['events', 'status'],
+      required: ['trackingId', 'events', 'status'],
       properties: {
+        trackingId: {
+          type: 'string',
+          maxLength: 255,
+        },
+        status: {
+          type: 'string',
+          enum: Object.values(DeliveryStatus),
+          default: DeliveryStatus.UNKNOWN,
+        },
+        deliveredOn: {
+          // @ts-ignore the typings are wrong
+          type: ['string', 'null'],
+          format: 'date-time',
+        },
         events: {
           type: 'array',
           items: {
@@ -112,16 +126,6 @@ export const schema: JSONSchemaType<Order> = {
               },
             },
           },
-        },
-        status: {
-          type: 'string',
-          enum: Object.values(DeliveryStatus),
-          default: DeliveryStatus.UNKNOWN,
-        },
-        deliveredOn: {
-          // @ts-ignore the typings are wrong
-          type: ['string', 'null'],
-          format: 'date-time',
         },
       },
     },
