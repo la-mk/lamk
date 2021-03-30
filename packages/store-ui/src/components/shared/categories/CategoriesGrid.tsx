@@ -48,7 +48,12 @@ export const CategoriesGrid = ({
   return (
     <Flex direction='row' wrap='wrap'>
       {items?.map(item => (
-        <CategorySection item={item} getHref={getHref} onClick={onClick} />
+        <CategorySection
+          key={item.key}
+          item={item}
+          getHref={getHref}
+          onClick={onClick}
+        />
       ))}
     </Flex>
   );

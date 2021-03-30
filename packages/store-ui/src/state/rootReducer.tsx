@@ -66,7 +66,8 @@ const registerReducers = (isServer: boolean) => {
       case HYDRATE: {
         const res = {};
         mergeWith(res, state, action.payload, customizer);
-        return res;
+        // Hydration happens on each navigation, we don't want the router to change to the old data, nor do we want the UI to do the same.
+        return { ...res, router: state.router, ui: state.ui };
       }
       default:
         return rootReducer(state, action);

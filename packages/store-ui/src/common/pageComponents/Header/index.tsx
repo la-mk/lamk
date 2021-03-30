@@ -77,7 +77,7 @@ export const Header = ({ store }: HeaderProps) => {
         value={searchVal}
         onChange={(_e, val: string) => setSearchVal(val)}
         onSearch={val => {
-          // We don't want to preserve the existing parameters for now, see if this woseeld be an issue.
+          // We don't want to preserve the existing parameters for now, see if this would be an issue.
           const productsUrl = `/products?${queryString.stringify({
             // ...router.query,
             ...getFiltersFromSearch(val),

@@ -47,12 +47,6 @@ export const Products = ({
     router: filterRouter,
   });
 
-  React.useEffect(() => {
-    if (initialFilters) {
-      setFilters(initialFilters);
-    }
-  }, [initialFilters]);
-
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
     { url: '/products', title: t('pages.product_plural') },
@@ -76,7 +70,7 @@ export const Products = ({
           height='100%'
           display={['none', 'none', 'initial']}
           mr={3}
-          filters={filters || initialFilters}
+          filters={filters}
           setFilters={setFilters}
         />
         {/* The drawer is always visible, but the button to toggle it is only visible on mobile. The only time this is somewhat of an issue is when opening the modal, and then resizing the window, but even then the experience is pretty good. */}
@@ -87,11 +81,7 @@ export const Products = ({
           onClose={() => setIsDrawerVisible(false)}
           placement='left'
         >
-          <ProductsSidemenu
-            pt={3}
-            filters={filters || initialFilters}
-            setFilters={setFilters}
-          />
+          <ProductsSidemenu pt={3} filters={filters} setFilters={setFilters} />
         </Drawer>
 
         <Box mb={2} display={['initial', 'initial', 'none']}>
@@ -115,10 +105,7 @@ export const Products = ({
           justify='flex-start'
         >
           <Box mb={7}>
-            <SortFilter
-              filters={filters || initialFilters}
-              onChange={setFilters}
-            />
+            <SortFilter filters={filters} onChange={setFilters} />
           </Box>
 
           {products.total === 0 && (
