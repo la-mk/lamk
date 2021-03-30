@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@la-mk/analytics": "0.0.10",
-    "@la-mk/blocks-ui": "0.0.276",
+    "@la-mk/blocks-ui": "0.0.285",
     "@la-mk/la-sdk": "0.0.159",
     "@la-mk/translations": "0.0.127",
     "@react-pdf/renderer": "^2.0.0-beta.6",

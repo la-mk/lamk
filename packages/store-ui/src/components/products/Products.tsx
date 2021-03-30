@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DataGrid,
   hooks,
@@ -46,6 +46,12 @@ export const Products = ({
     storage: 'url',
     router: filterRouter,
   });
+
+  useEffect(() => {
+    if (initialFilters) {
+      setFilters(initialFilters);
+    }
+  }, [initialFilters]);
 
   useBreadcrumb([
     { url: '/', title: t('pages.home') },
