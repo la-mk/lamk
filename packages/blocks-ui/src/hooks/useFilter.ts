@@ -3,7 +3,7 @@ import merge from 'lodash/merge';
 import noop from 'lodash/noop';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   expandFilterObject,
   minifyFilterObject,
@@ -169,23 +169,26 @@ export const useFilter = (
   merge(mergedConfig, defaultConfig, config);
   const { storage, storageKey, router } = mergedConfig;
 
-  const initialState = useMemo(
-    () =>
-      initialFilters ? initialFilters : getStorageState(storage, storageKey),
-    []
+  const [filters, setFilters] = useState(
+    initialFilters ? initialFilters : getStorageState(storage, storageKey)
   );
 
-  const [filters, setFilters] = useState(initialState);
+  const handleSetFilter = useCallback(
+    (updatedFilters: FilterObject) => {
+      const normalized = resetPaginationIfNecessary(filters, updatedFilters);
+      const minified = minifyFilterObject(normalized);
+      addToStorage(minified, storage, storageKey, router);
+    },
+    [filters]
+  );
 
   // Listen to storage state changes and make it the source of truth.
   useEffect(() => {
     if (storage === 'url' && router?.routeChangeListener) {
       const listener = () => {
         const storageState = getStorageState(storage, storageKey);
-        if (!isEqual(filters, storageState)) {
-          const normalized = resetPaginationIfNecessary(filters, storageState);
-          setFilters(normalized);
-        }
+        const normalized = resetPaginationIfNecessary(filters, storageState);
+        setFilters(normalized);
       };
 
       return router.routeChangeListener(listener);
@@ -194,16 +197,6 @@ export const useFilter = (
 
     return;
   }, [filters, storage, storageKey]);
-
-  const handleSetFilter = useCallback(
-    (updatedFilters: FilterObject) => {
-      const normalized = resetPaginationIfNecessary(filters, updatedFilters);
-      const minified = minifyFilterObject(normalized);
-      addToStorage(minified, storage, storageKey, router);
-      setFilters(normalized);
-    },
-    [filters]
-  );
 
   return [filters, handleSetFilter];
 };
