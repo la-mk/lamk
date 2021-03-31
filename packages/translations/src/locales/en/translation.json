@@ -196,7 +196,8 @@
     "overPrice": "Over price",
     "priceExplanation": "This can be the average delivery cost.",
     "updatingDeliveryTip": "Updating delivery...",
-    "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
+    "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!",
+    "trackingId": "Tracking ID"
   },
   "emails": {
     "yourOrderFrom": "Your order from",
