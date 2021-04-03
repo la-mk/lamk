@@ -203,6 +203,10 @@ export const getOrderSdk = (client: Application) => {
       return crudMethods.patch(orderId, { status }, params);
     },
 
+    setTrackingId: (orderId: string, trackingId: string, params?: Params) => {
+      return crudMethods.patch(orderId, { trackingId }, params);
+    },
+
     validate: (data: Order, ignoreRequired = false) => {
       return validate(schema, data, ignoreRequired);
     },
