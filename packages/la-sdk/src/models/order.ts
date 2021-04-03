@@ -47,6 +47,8 @@ export const schema: JSONSchemaType<Order> = {
     'status',
     'campaigns',
     'delivery',
+    'deliveryStatus',
+    'deliveryEvents',
     'deliverTo',
     'paymentMethod',
   ],
@@ -84,47 +86,41 @@ export const schema: JSONSchemaType<Order> = {
       items: campaignSchema,
     },
     delivery: deliverySchema,
+    deliveryTracking: {
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
+      maxLength: 255,
+    },
     deliveryStatus: {
-      type: ['object', 'null'],
-      additionalProperties: false,
-      required: ['trackingId', 'events', 'status'],
-      properties: {
-        trackingId: {
-          type: 'string',
-          maxLength: 255,
-        },
-        status: {
-          type: 'string',
-          enum: Object.values(DeliveryStatus),
-          default: DeliveryStatus.UNKNOWN,
-        },
-        deliveredOn: {
-          // @ts-ignore the typings are wrong
-          type: ['string', 'null'],
-          format: 'date-time',
-        },
-        events: {
-          type: 'array',
-          items: {
-            type: 'object',
-            additionalProperties: false,
-            required: ['timestamp'],
-            properties: {
-              timestamp: {
-                type: 'string',
-                format: 'date-time',
-              },
-              rawStatus: {
-                // @ts-ignore the typings are wrong
-                type: ['string', 'null'],
-                maxLength: 1023,
-              },
-              rawDescription: {
-                // @ts-ignore the typings are wrong
-                type: ['string', 'null'],
-                maxLength: 1023,
-              },
-            },
+      type: 'string',
+      enum: Object.values(DeliveryStatus),
+      default: DeliveryStatus.UNKNOWN,
+    },
+    deliveredOn: {
+      // @ts-ignore the typings are wrong
+      type: ['string', 'null'],
+      format: 'date-time',
+    },
+    deliveryEvents: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['timestamp'],
+        properties: {
+          timestamp: {
+            type: 'string',
+            format: 'date-time',
+          },
+          rawStatus: {
+            // @ts-ignore the typings are wrong
+            type: ['string', 'null'],
+            maxLength: 1023,
+          },
+          rawDescription: {
+            // @ts-ignore the typings are wrong
+            type: ['string', 'null'],
+            maxLength: 1023,
           },
         },
       },
@@ -154,6 +150,12 @@ export interface OrderItem {
   quantity: number;
 }
 
+export interface DeliveryEvent {
+  timestamp: string;
+  rawStatus?: string;
+  rawDescription?: string;
+}
+
 export interface Order extends DefaultSchema {
   orderedFrom: string;
   orderedBy: string;
@@ -161,6 +163,10 @@ export interface Order extends DefaultSchema {
   status: OrderStatus;
   campaigns: Campaign[];
   delivery: Delivery;
+  deliveryTracking?: string;
+  deliveredOn?: string;
+  deliveryStatus: DeliveryStatus;
+  deliveryEvents: DeliveryEvent[];
   deliverTo: Address;
   paymentMethod: PaymentMethodNames;
   buyerNote?: string;
@@ -203,8 +209,16 @@ export const getOrderSdk = (client: Application) => {
       return crudMethods.patch(orderId, { status }, params);
     },
 
-    setTrackingId: (orderId: string, trackingId: string, params?: Params) => {
-      return crudMethods.patch(orderId, { trackingId }, params);
+    setDeliveryTracking: (
+      orderId: string,
+      trackingId: string,
+      params?: Params
+    ) => {
+      return crudMethods.patch(
+        orderId,
+        { deliveryTracking: trackingId },
+        params
+      );
     },
 
     validate: (data: Order, ignoreRequired = false) => {
