@@ -197,7 +197,8 @@
     "priceExplanation": "This can be the average delivery cost.",
     "updatingDeliveryTip": "Updating delivery...",
     "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!",
-    "trackingId": "Tracking ID"
+    "trackingId": "Tracking ID",
+    "trackingIdExplanation": "The tracking ID provided by the courier doing the delivery"
   },
   "emails": {
     "yourOrderFrom": "Your order from",

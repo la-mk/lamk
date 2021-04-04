@@ -198,7 +198,8 @@
     "priceExplanation": "Најчесто вредноста претставува просечна цена за достава",
     "updatingDeliveryTip": "Доставата се обновува...",
     "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава",
-    "trackingId": "Код на пратка"
+    "trackingId": "Код на пратка",
+    "trackingIdExplanation": "Кодот за следење на пратката доставен од вашиот курир"
   },
   "filters": {
     "recommended": "Препорачани",
