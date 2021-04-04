@@ -292,7 +292,7 @@ export const hooks = {
     // TODO: Add a state machine for how the order status can change.
     patch: [
       authenticate('jwt'),
-      settableFields(['status', 'modifiedAt']),
+      settableFields(['status', 'deliveryTracking', 'modifiedAt']),
       // Only the store can modify an order as things stand now.
       queryWithCurrentUser(['orderedFrom']),
       validate(sdk.order.validate),
