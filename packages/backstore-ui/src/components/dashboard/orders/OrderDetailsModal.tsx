@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Spinner,
   Flex,
   Select,
   Card,
-  Image,
   Text,
   Divider,
   hooks,
   Box,
   Heading,
-  DataGrid,
+  Input,
 } from '@la-mk/blocks-ui';
 import { sdk } from '@la-mk/la-sdk';
 import { Order } from '@la-mk/la-sdk/dist/models/order';
@@ -22,14 +21,41 @@ import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { InvoiceDownloadLink } from '../pdfs/invoice/InvoiceDownloadLink';
-import { VariantName } from '../../shared/components/VariantName';
-import isEmpty from 'lodash/isEmpty';
-import { Descriptions } from 'antd';
+import { ProductsList } from './ProductsList';
+import isEqual from 'lodash/isEqual';
 
 interface OrderDetailsModalProps {
   orderId?: string;
   onClose: () => void;
 }
+
+const DescriptionItem = ({
+  label,
+  description,
+  children,
+}: {
+  label: string;
+  description?: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <Flex my={2} direction='row' justify='space-between' align='center'>
+      <Box mr={2} width='100%'>
+        <Text whiteSpace='nowrap' as='strong'>
+          {label}
+        </Text>
+        {description && (
+          <Text as='p' color='mutedText.dark' size='xs'>
+            {description}
+          </Text>
+        )}
+      </Box>
+      <Text align='right' as='span' ml={2} width='100%'>
+        {children}
+      </Text>
+    </Flex>
+  );
+};
 
 export const OrderDetailsModal = ({
   orderId,
@@ -38,11 +64,27 @@ export const OrderDetailsModal = ({
   const [caller, showSpinner] = hooks.useCall();
   const store = useSelector(getStore);
   const order = useSelector<any, Order>(getOrder(orderId));
+  const [deliveryTracking, setDeliveryTracking] = useState<
+    Order['deliveryTracking']
+  >({ courierSlug: 'unknown', trackingId: '' });
   const { t } = useTranslation();
 
   const handleStatusChanged = (status: Order['status']) => {
     if (order) {
       caller<Order>(sdk.order.setStatus(order._id, status), setOrder);
+    }
+  };
+
+  const handleTrackingChanged = (tracking?: Order['deliveryTracking']) => {
+    if (!order) {
+      return;
+    }
+
+    if (!isEqual(order.deliveryTracking, tracking)) {
+      caller<Order>(
+        sdk.order.setDeliveryTracking(order._id, tracking),
+        setOrder,
+      );
     }
   };
 
@@ -54,54 +96,94 @@ export const OrderDetailsModal = ({
 
   return (
     <Modal
-      maxWidth={['96%', '88%', '82%']}
+      maxWidth={['98%', '88%', '80%']}
       isOpen={Boolean(order)}
       onClose={onClose}
       header={t('common.details')}
     >
       {order && (
         <Spinner isLoaded={!showSpinner}>
-          <Flex mb={3}>
-            <Descriptions size='middle' style={{ width: '100%' }} bordered>
-              <Descriptions.Item label={t('order.orderId')}>
-                {sdk.utils.getShortId(order)}
-              </Descriptions.Item>
-              <Descriptions.Item label={t('common.status')}>
-                {/* 
-                {Object.values(sdk.order.OrderStatus).map(status => {
-                    return (
-                      <Option key={status} value={status}>
-                        // TODO: Add missing props to blocks-ui 
-                        <Tag
-                          // @ts-ignore
-                          style={{ verticalAlign: 'middle' }}
-                          size='sm'
-                          // @ts-ignore
-                          bgColor={sdk.order.orderStatusColor[status]}
-                        >
-                          {t(`orderStatus.${status}`)}
-                        </Tag>
-                      </Option>
-                    );
-                  })}
-                */}
-                <Select
-                  onChange={e => handleStatusChanged(e.target.value as any)}
-                  value={order.status}
-                  options={Object.values(sdk.order.OrderStatus).map(status => ({
-                    label: t(`orderStatus.${status}`),
-                    value: status,
-                  }))}
-                />
-              </Descriptions.Item>
-              <Descriptions.Item label={t('order.orderDate')}>
-                {format(new Date(order.createdAt), 'MM/dd/yyyy')}
-              </Descriptions.Item>
-              <Descriptions.Item label={t('payment.paymentMethod')}>
-                {t(`paymentMethodNames.${order.paymentMethod}`)}
-              </Descriptions.Item>
-            </Descriptions>
-          </Flex>
+          <Card mb={3} width='100%'>
+            <Flex>
+              <Heading size='sm' as='h2'>
+                {t('common.summary')}
+              </Heading>
+            </Flex>
+            <Divider mt={3} mb={4} />
+
+            <Flex
+              direction={['column', 'column', 'row']}
+              justify='space-between'
+            >
+              <Box mr={[0, 0, 5]} flex={1}>
+                <DescriptionItem label={t('order.orderId')}>
+                  {sdk.utils.getShortId(order)}
+                </DescriptionItem>
+                <DescriptionItem label={t('order.orderDate')}>
+                  {format(new Date(order.createdAt), 'MM/dd/yyyy')}
+                </DescriptionItem>
+                <DescriptionItem label={t('payment.paymentMethod')}>
+                  {t(`paymentMethodNames.${order.paymentMethod}`)}
+                </DescriptionItem>
+              </Box>
+
+              <Box ml={[0, 0, 5]} flex={1}>
+                <DescriptionItem label={t('common.status')}>
+                  <Select
+                    ml='auto'
+                    width={'14rem'}
+                    onChange={e => handleStatusChanged(e.target.value as any)}
+                    value={order.status}
+                    options={Object.values(sdk.order.OrderStatus).map(
+                      status => ({
+                        label: t(`orderStatus.${status}`),
+                        value: status,
+                      }),
+                    )}
+                  />
+                </DescriptionItem>
+                <DescriptionItem
+                  label={t('delivery.trackingId')}
+                  description={t('delivery.trackingIdExplanation')}
+                >
+                  <Box ml='auto' width='14rem'>
+                    <Input
+                      // leftAddon={
+                      //   <Select
+                      //     width={'4rem'}
+                      //     variant='flushed'
+                      //     onChange={e =>
+                      //       setDeliveryTracking({
+                      //         trackingId: '',
+                      //         ...deliveryTracking,
+                      //         courierSlug: e.target.value,
+                      //       })
+                      //     }
+                      //     value={deliveryTracking?.courierSlug}
+                      //     options={[
+                      //       {
+                      //         label: 'Unknown',
+                      //         value: 'unknown',
+                      //       },
+                      //     ]}
+                      //   />
+                      // }
+                      onChange={e =>
+                        setDeliveryTracking({
+                          courierSlug: 'unknown',
+                          ...deliveryTracking,
+                          trackingId: e.target.value,
+                        })
+                      }
+                      onBlur={() => handleTrackingChanged(deliveryTracking)}
+                      placeholder='TRK123456789'
+                      value={deliveryTracking?.trackingId}
+                    />
+                  </Box>
+                </DescriptionItem>
+              </Box>
+            </Flex>
+          </Card>
 
           <Flex direction={['column', 'column', 'row']}>
             {/* TODO: This is copy-pasted from Store, together with the data calculation. Unify in one component*/}
@@ -132,56 +214,71 @@ export const OrderDetailsModal = ({
                 </InvoiceDownloadLink>
               </Flex>
               <Divider mt={3} mb={4} />
-              <Flex direction='row' justify='space-between'>
-                <Text as='strong'>{t('finance.subtotal')}</Text>
+              <DescriptionItem label={t('finance.subtotal')}>
                 <Text as='strong'>{prices.productsTotal} ден</Text>
-              </Flex>
+              </DescriptionItem>
+
               {prices.withCampaignsTotal !== prices.productsTotal && (
                 <Flex mt={2} direction='row' justify='space-between'>
-                  <Text as='strong'>{t('finance.campaignDiscount')}</Text>
-                  <Text as='strong' color='danger'>
-                    {(prices.withCampaignsTotal - prices.productsTotal).toFixed(
-                      1,
-                    )}{' '}
-                    ден
-                  </Text>
+                  <DescriptionItem label={t('finance.campaignDiscount')}>
+                    <Text as='strong' color='danger'>
+                      {(
+                        prices.withCampaignsTotal - prices.productsTotal
+                      ).toFixed(1)}{' '}
+                      ден
+                    </Text>
+                  </DescriptionItem>
                 </Flex>
               )}
-              <Flex mt={2} direction='row' justify='space-between'>
-                <Text as='strong'>{t('finance.shippingCost')}</Text>
+              <DescriptionItem label={t('finance.shippingCost')}>
                 <Text as='strong'>{prices.deliveryTotal} ден</Text>
-              </Flex>
+              </DescriptionItem>
               <Divider my={4} />
-              <Flex direction='row' justify='space-between'>
-                <Text as='strong'>{t('finance.total')}</Text>
+              <DescriptionItem label={t('finance.total')}>
                 <Text as='strong'>{prices.total} ден</Text>
-              </Flex>
+              </DescriptionItem>
             </Card>
+
             <Card ml={[0, 0, 2]} mt={[3, 3, 0]} width={['100%', '100%', '50%']}>
               <Flex>
                 <Heading size='sm' as='h2'>
                   {t('commerce.buyer')}
                 </Heading>
               </Flex>
-              <Divider my={3} />
+              <Divider mt={3} mb={4} />
               {order.deliverTo && (
-                <Descriptions size='small' column={1}>
-                  <Descriptions.Item label={t('common.name')}>
-                    {order.deliverTo.person}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('common.address')}>
-                    {order.deliverTo.street}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('common.city')}>
-                    {order.deliverTo.city} {order.deliverTo.zip}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('common.country')}>
-                    {order.deliverTo.country}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={t('common.phoneNumber')}>
-                    {order.deliverTo.phoneNumber}
-                  </Descriptions.Item>
-                </Descriptions>
+                <>
+                  <Box my={1}>
+                    <Text as='strong'>{t('common.name')}:</Text>
+                    <Text ml={2} as='span'>
+                      {order.deliverTo.person}
+                    </Text>
+                  </Box>
+                  <Box my={1}>
+                    <Text as='strong'>{t('common.address')}:</Text>
+                    <Text ml={2} as='span'>
+                      {order.deliverTo.street}
+                    </Text>
+                  </Box>
+                  <Box my={1}>
+                    <Text as='strong'>{t('common.city')}:</Text>
+                    <Text ml={2} as='span'>
+                      {order.deliverTo.city} {order.deliverTo.zip}
+                    </Text>
+                  </Box>
+                  <Box my={1}>
+                    <Text as='strong'>{t('common.country')}:</Text>
+                    <Text ml={2} as='span'>
+                      {order.deliverTo.country}
+                    </Text>
+                  </Box>
+                  <Box my={1}>
+                    <Text as='strong'>{t('common.phoneNumber')}:</Text>
+                    <Text ml={2} as='span'>
+                      {order.deliverTo.phoneNumber}
+                    </Text>
+                  </Box>
+                </>
               )}
             </Card>
           </Flex>
@@ -204,90 +301,12 @@ export const OrderDetailsModal = ({
                 {t('commerce.product_plural')}
               </Heading>
             </Flex>
-            <Divider my={3} />
+            <Divider mt={3} mb={4} />
             {Boolean(order?.ordered) && (
-              <DataGrid
-                isFullWidth
-                isLoaded
-                spacing={6}
-                // @ts-ignore
-                rowKey='product._id'
-                items={order.ordered}
-                renderItem={orderItem => (
-                  <Flex
-                    width={'100%'}
-                    minWidth='100%'
-                    justify='space-between'
-                    align={['flex-start', 'center', 'center']}
-                    direction={['column', 'row', 'row']}
-                  >
-                    <Flex align='center'>
-                      <Flex
-                        minWidth={'120px'}
-                        maxWidth={'120px'}
-                        height={'60px'}
-                        justify='center'
-                        align='center'
-                      >
-                        <Image
-                          height={60}
-                          alt={orderItem.product.name}
-                          getSrc={params =>
-                            sdk.artifact.getUrlForImage(
-                              orderItem.product.media[0]?._id,
-                              store?._id,
-                              params,
-                            )
-                          }
-                        />
-                      </Flex>
-                      <Flex direction='column'>
-                        <Text mx={2}>{orderItem.product.name}</Text>
-
-                        <Flex align='center'>
-                          {orderItem.product.sku && (
-                            <Text as='strong' mx={2}>
-                              {`${t('product.sku')}: ${orderItem.product.sku}`}
-                            </Text>
-                          )}
-                          {!isEmpty(orderItem.product.attributes) && (
-                            <>
-                              <Flex align='center' ml={2}>
-                                <Text as='strong'>{`${t(
-                                  'product.variant',
-                                )}: `}</Text>
-                                <Box ml={1}>
-                                  <VariantName
-                                    t={t}
-                                    attributes={orderItem.product.attributes}
-                                    shouldShowAttributes
-                                  />
-                                </Box>
-                              </Flex>
-                            </>
-                          )}
-                        </Flex>
-                      </Flex>
-                    </Flex>
-                    <Flex mt={[3, 0, 0]} mx={2} direction='column'>
-                      <Text>
-                        {t('commerce.quantity')}:{' '}
-                        {orderItem.quantity || t('common.unknown')}
-                        {' / '}
-                        <Text color='mutedText.dark'>
-                          {t(`units.${orderItem.product.unit}`)}
-                        </Text>
-                      </Text>
-                      <Text as='strong'>
-                        {t('finance.total')}:{' '}
-                        {`${
-                          orderItem.quantity *
-                          (orderItem.product.calculatedPrice ?? 0)
-                        } ден` || t('common.unknown')}
-                      </Text>
-                    </Flex>
-                  </Flex>
-                )}
+              <ProductsList
+                orderedProducts={order?.ordered}
+                store={store}
+                t={t}
               />
             )}
           </Card>

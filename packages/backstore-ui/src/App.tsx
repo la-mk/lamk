@@ -71,6 +71,27 @@ export const App = () => {
         <BlocksUiProvider
           theme={{
             colors: { primary: '#118AB2' },
+            components: {
+              Input: {
+                sizes: {
+                  md: {
+                    addon: {
+                      px: 2,
+                    },
+                  },
+                  sm: {
+                    addon: {
+                      px: 2,
+                    },
+                  },
+                  xs: {
+                    addon: {
+                      px: 1,
+                    },
+                  },
+                },
+              },
+            },
           }}
           translations={compoundLocale}
         >
