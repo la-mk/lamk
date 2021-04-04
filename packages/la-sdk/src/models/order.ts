@@ -224,14 +224,10 @@ export const getOrderSdk = (client: Application) => {
 
     setDeliveryTracking: (
       orderId: string,
-      trackingId: string,
+      deliveryTracking: Order['deliveryTracking'],
       params?: Params
     ) => {
-      return crudMethods.patch(
-        orderId,
-        { deliveryTracking: trackingId },
-        params
-      );
+      return crudMethods.patch(orderId, { deliveryTracking }, params);
     },
 
     validate: (data: Order, ignoreRequired = false) => {
