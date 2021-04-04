@@ -88,8 +88,18 @@ export const schema: JSONSchemaType<Order> = {
     delivery: deliverySchema,
     deliveryTracking: {
       // @ts-ignore the typings are wrong
-      type: ['string', 'null'],
-      maxLength: 255,
+      type: ['object', 'null'],
+      additionalProperties: false,
+      properties: {
+        trackingId: {
+          type: 'string',
+          maxLength: 255,
+        },
+        courierSlug: {
+          type: 'string',
+          maxLength: 255,
+        },
+      },
     },
     deliveryStatus: {
       type: 'string',
@@ -163,7 +173,10 @@ export interface Order extends DefaultSchema {
   status: OrderStatus;
   campaigns: Campaign[];
   delivery: Delivery;
-  deliveryTracking?: string;
+  deliveryTracking?: {
+    trackingId: string;
+    courierSlug: string;
+  };
   deliveredOn?: string;
   deliveryStatus: DeliveryStatus;
   deliveryEvents: DeliveryEvent[];
