@@ -19,9 +19,9 @@ const getProductSummary = (product: ProductType, t: TFunction) => {
     ' ',
   );
 
-  return `${transliteratedName}, ${t('common.price')}: ${
+  return `${partialDescription ?? ''}, ${t('common.price')}: ${
     product.minCalculatedPrice
-  } ден. ${partialDescription ?? ''}`;
+  } ден. ${transliteratedName}`;
 };
 
 const ProductPage = ({
