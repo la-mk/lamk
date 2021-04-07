@@ -10,14 +10,20 @@ import { LocationChangeAction } from 'connected-react-router';
 import { getUser } from '../modules/user/user.selector';
 import { SET_USER } from '../modules/user/user.module';
 import { setUiReady } from '../modules/ui/ui.module';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { User } from '@la-mk/la-sdk/dist/models/user';
+import { FindResult } from '@la-mk/la-sdk/dist/setup';
 
 // We want to fetch the store info on every navigation if it is missing, as it is the only mandatory data for everything else
 function* storeStateSaga(action: LocationChangeAction) {
-  const store = yield select(getStore);
-  const user = yield select(getUser);
+  const store = (yield select(getStore)) as Store;
+  const user = (yield select(getUser)) as User;
 
   if (user && !store) {
-    const stores = yield call(sdk.store.findOwned, user._id);
+    const stores = (yield call(
+      sdk.store.findOwned,
+      user._id,
+    )) as FindResult<Store>;
     const isPathOnboarding = document.location.pathname.includes('/onboarding');
     const isPathDashboard = document.location.pathname.includes('/dashboard');
 

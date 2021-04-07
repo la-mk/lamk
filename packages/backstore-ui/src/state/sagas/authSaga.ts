@@ -9,12 +9,15 @@ import { LOGOUT, LOGIN, SIGNUP } from '../modules/auth/auth.module';
 import { clearSession, setUiReady } from '../modules/ui/ui.module';
 import { setUser } from '../modules/user/user.module';
 import { toast } from '@la-mk/blocks-ui';
+import { User } from '@la-mk/la-sdk/dist/models/user';
 
 const authRoutes = ['/login', '/signup', '/forgotPassword', '/resetPassword'];
 
 function* afterAuthSaga() {
   try {
-    const authInfo = yield call(sdk.authentication.getAuthentication);
+    const authInfo = (yield call(sdk.authentication.getAuthentication)) as {
+      user: User;
+    };
     if (authInfo) {
       yield put(setUser(authInfo.user));
     }
@@ -35,7 +38,7 @@ function* authenticationCheckSaga(action: LocationChangeAction) {
     }
   }
 
-  const authInfo = yield call(afterAuthSaga);
+  const authInfo = (yield call(afterAuthSaga)) as { user: User };
   const isAuthRoute = authRoutes.includes(action.payload.location.pathname);
 
   // If the user is not logged in, redirect to login page.
