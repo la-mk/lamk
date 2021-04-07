@@ -12,22 +12,13 @@ const isValidHex = (val: string) => {
   return hexRegex.test(val);
 };
 
-interface IroColorPicker {
-  on: (action: string, callback: Function) => void;
-  color: {
-    hexString: string;
-    set: (value: any) => void;
-    setState: (state: any) => void;
-  };
-}
-
 export interface ColorPickerProps {
   value: string;
   onChange: (color: string) => void;
 }
 
 export const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
-  const colorPicker = useRef<IroColorPicker | null>(null);
+  const colorPicker = useRef<iro.ColorPicker | null>(null);
   const el = createRef<HTMLDivElement>();
 
   useEffect(() => {

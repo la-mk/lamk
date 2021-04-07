@@ -171,7 +171,7 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
       ...newColors,
       primary: calculateShades(theme.colors?.primary ?? '#EF4351'),
     },
-  });
+  } as any);
 };
 
 export interface BlocksTheme extends DeepPartial<Omit<ChakraTheme, 'colors'>> {
