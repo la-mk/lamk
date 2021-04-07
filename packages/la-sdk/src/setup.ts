@@ -34,7 +34,7 @@ export const setupClient = (options: SetupSdkOptions) => {
     }
   } else {
     const socket = io(host, {
-      timeout: 8000,
+      timeout: 15000,
       // This is needed if there is a cluster of services running, check https://docs.feathersjs.com/cookbook/general/scaling.html#cluster-configuration.
       // transports: ['websocket'],
       // upgrade: false,
