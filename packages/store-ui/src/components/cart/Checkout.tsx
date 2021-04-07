@@ -178,6 +178,8 @@ export const Checkout = () => {
         deliverTo,
         paymentMethod,
         ordered,
+        deliveryEvents: [],
+        deliveryStatus: sdk.order.DeliveryStatus.UNKNOWN,
         ...options,
         // This is just to make the typings happy, as it will be calculated server-side.
         calculatedTotal: 0,

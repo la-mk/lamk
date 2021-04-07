@@ -12,7 +12,7 @@ import { getBreadcrumbs } from '../../state/modules/ui/ui.selector';
 import Link from 'next/link';
 
 export const Breadcrumbs = props => {
-  const breadcrumbs = useSelector<BreadcrumbEntry[]>(getBreadcrumbs);
+  const breadcrumbs: BreadcrumbEntry[] = useSelector(getBreadcrumbs);
 
   if (breadcrumbs.length <= 1) {
     return null;

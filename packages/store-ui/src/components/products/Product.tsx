@@ -58,7 +58,7 @@ export const Product = ({ product }: ProductProps) => {
   const user = useSelector(getUser);
   const delivery = useSelector(getDelivery);
 
-  const previousPage = useSelector<string | undefined>(getPreviousPage);
+  const previousPage: string | undefined = useSelector(getPreviousPage);
   // If the product has at least one attribute, it means it has variants.
   const hasAttributes = sdk.product.hasVariants(product);
   const outOfStock = product.totalStock === 0;

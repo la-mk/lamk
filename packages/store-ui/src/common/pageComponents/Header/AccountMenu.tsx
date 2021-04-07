@@ -28,6 +28,11 @@ export const AccountMenu = ({
   const theme = useTheme();
   const ownTheme = theme.sections.Header;
 
+  //TODO: There is a strange overflow on the server-rendered code, so we delay rendering this button to the client. See if newer versions have the same issue
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   return (
     <Menu>
       <MenuButton
