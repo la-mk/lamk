@@ -66,6 +66,7 @@ export const initScheduler = async (app: Application) => {
   logger.info('Initializing scheduler...');
   const agenda = new Agenda({
     mongo: app.get('mongoDb'),
+    // @ts-ignore
     db: { collection: 'schedulerJobs' },
   }).name('analytics-agenda');
 
