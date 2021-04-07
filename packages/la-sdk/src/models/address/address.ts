@@ -6,6 +6,7 @@ import { validate, validateSingle } from '../../utils/validation';
 import { defaultSchemaEntries, DefaultSchema } from '../../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
+// @ts-ignore the typings are wrong
 export const schema: JSONSchemaType<Address> = {
   type: 'object',
   additionalProperties: false,
@@ -40,7 +41,6 @@ export const schema: JSONSchemaType<Address> = {
       default: 'MK',
     },
     region: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,

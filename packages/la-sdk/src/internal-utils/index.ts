@@ -21,8 +21,8 @@ export const defaultSchemaEntries: JSONSchemaType<DefaultSchema> = {
   },
 };
 
+// @ts-ignore the typings are wrong
 export const mediaSchema: JSONSchemaType<Media> = {
-  // @ts-ignore the typings are wrong
   type: ['object', 'null'],
   additionalProperties: false,
   required: ['_id', 'height', 'width', 'size', 'mimeType'],

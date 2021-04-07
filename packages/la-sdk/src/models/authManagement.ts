@@ -6,6 +6,7 @@ import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import pick from 'lodash/pick';
 import { JSONSchemaType } from 'ajv';
 
+// @ts-ignore the typings are wrong
 export const schema: JSONSchemaType<AuthManagement> = {
   type: 'object',
   additionalProperties: false,
@@ -17,24 +18,20 @@ export const schema: JSONSchemaType<AuthManagement> = {
       format: 'email',
     },
     verifyToken: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 8,
       maxLength: 255,
     },
     verifyTokenCreatedAt: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       format: 'date-time',
     },
     resetToken: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 8,
       maxLength: 255,
     },
     resetTokenCreatedAt: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       format: 'date-time',
     },

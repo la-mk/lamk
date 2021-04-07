@@ -20,6 +20,7 @@ export enum ProductRuleTypes {
   GROUP = 'group',
 }
 
+// @ts-ignore
 export const schema: JSONSchemaType<Campaign> = {
   type: 'object',
   additionalProperties: false,
@@ -57,7 +58,6 @@ export const schema: JSONSchemaType<Campaign> = {
       enum: Object.values(CampaignTypes),
       default: CampaignTypes.CART_DISCOUNT,
     },
-    // @ts-ignore
     reward: {
       oneOf: [
         {

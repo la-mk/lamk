@@ -5,6 +5,7 @@ import { validate, validateSingle } from '../utils/validation';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
+// @ts-ignore the typings are wrong
 export const schema: JSONSchemaType<User> = {
   type: 'object',
   additionalProperties: false,
@@ -30,19 +31,16 @@ export const schema: JSONSchemaType<User> = {
       default: false,
     },
     firstName: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,
     },
     lastName: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,
     },
     phoneNumber: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 31,

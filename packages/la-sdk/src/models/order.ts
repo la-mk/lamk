@@ -36,6 +36,7 @@ export const orderStatusColor: { [key in OrderStatus]: string } = {
   [OrderStatus.COMPLETED]: '#4CD137',
 };
 
+// @ts-ignore the typings are wrong
 export const schema: JSONSchemaType<Order> = {
   type: 'object',
   additionalProperties: false,
@@ -87,7 +88,6 @@ export const schema: JSONSchemaType<Order> = {
     },
     delivery: deliverySchema,
     deliveryTracking: {
-      // @ts-ignore the typings are wrong
       type: ['object', 'null'],
       additionalProperties: false,
       properties: {
@@ -107,7 +107,6 @@ export const schema: JSONSchemaType<Order> = {
       default: DeliveryStatus.UNKNOWN,
     },
     deliveredOn: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       format: 'date-time',
     },
@@ -123,12 +122,10 @@ export const schema: JSONSchemaType<Order> = {
             format: 'date-time',
           },
           rawStatus: {
-            // @ts-ignore the typings are wrong
             type: ['string', 'null'],
             maxLength: 1023,
           },
           rawDescription: {
-            // @ts-ignore the typings are wrong
             type: ['string', 'null'],
             maxLength: 1023,
           },
@@ -142,7 +139,6 @@ export const schema: JSONSchemaType<Order> = {
       default: PaymentMethodNames.CREDIT_CARD,
     },
     buyerNote: {
-      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       maxLength: 1023,
     },

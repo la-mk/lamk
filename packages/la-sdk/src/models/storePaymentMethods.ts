@@ -15,6 +15,7 @@ export enum PaymentProcessors {
   HALKBANK = 'halkbank',
 }
 
+// @ts-ignore ignore for now until we specify type dependencies for TS
 export const paymentMethodSchema: JSONSchemaType<PaymentMethod> = {
   oneOf: [
     {
