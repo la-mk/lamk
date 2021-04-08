@@ -7,11 +7,9 @@ import {
   Image,
   LanguagePicker,
 } from '@la-mk/blocks-ui';
-import { withTheme } from 'styled-components';
-import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { useTranslation } from '../../i18n';
 
-export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
+export const SubFooter = () => {
   const { i18n } = useTranslation();
   return (
     <Flex
@@ -54,4 +52,4 @@ export const SubFooter = withTheme(({ theme }: { theme: BlocksTheme }) => {
       </Flex>
     </Flex>
   );
-});
+};

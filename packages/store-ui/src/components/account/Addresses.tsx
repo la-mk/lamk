@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { withTheme } from 'styled-components';
+import { FinalBlocksTheme } from '@la-mk/blocks-ui/dist/theme';
+import { withTheme } from '@emotion/react';
 import { Edit3, Trash2 } from 'react-feather';
 import { User } from '@la-mk/la-sdk/dist/models/user';
 import { Address } from '@la-mk/la-sdk/dist/models/address/address';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { AnalyticsEvents } from '@la-mk/analytics';
-import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import {
   toast,
   Spinner,
@@ -34,7 +34,7 @@ interface AddressesProps {
   setShowAddModal: (show: boolean) => void;
   onSelected?: (address: Address) => void;
   selectedAddress?: Address;
-  theme: BlocksTheme;
+  theme: FinalBlocksTheme;
 }
 
 export const Addresses = withTheme(

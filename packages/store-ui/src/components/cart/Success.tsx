@@ -4,15 +4,15 @@ import Link from 'next/link';
 import { useTranslation } from '../../common/i18n';
 import { OrderSuccess } from '../shared/icons/OrderSuccess';
 import { Order } from '@la-mk/la-sdk/dist/models/order';
-import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
-import { withTheme } from 'styled-components';
+import { FinalBlocksTheme } from '@la-mk/blocks-ui/dist/theme';
+import { withTheme } from '@emotion/react';
 
 export const Success = withTheme(
   ({
     order,
     theme,
     ...otherProps
-  }: { order: Order; theme: BlocksTheme } & Omit<
+  }: { order: Order; theme: FinalBlocksTheme } & Omit<
     React.ComponentProps<typeof Flex>,
     'order'
   >) => {

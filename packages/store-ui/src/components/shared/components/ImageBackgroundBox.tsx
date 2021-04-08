@@ -1,5 +1,5 @@
+import styled from '@emotion/styled';
 import { Box } from '@la-mk/blocks-ui';
-import styled from 'styled-components';
 
 export const ImageBackgroundBox = styled(Box)<{ url: string }>`
   position: relative;

@@ -10,7 +10,7 @@ import { ImageBackgroundBox } from '../shared/components/ImageBackgroundBox';
 import { HoverableLink } from '../shared/components/HoverableLink';
 import { getLevel2CategoryHref } from '../../common/filterUtils';
 import { TFunction } from 'next-i18next';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const IllustrationWrapper = styled(Box)`
   & svg {

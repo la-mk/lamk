@@ -1,8 +1,8 @@
 import React from 'react';
 import { CardProps, Positioner } from '@la-mk/blocks-ui';
 import { Check } from 'react-feather';
-import { withTheme } from 'styled-components';
 import { CustomCard } from './components/CustomCard';
+import { withTheme } from '@emotion/react';
 
 interface SelectableCardProps extends CardProps {
   onClick: () => void;
