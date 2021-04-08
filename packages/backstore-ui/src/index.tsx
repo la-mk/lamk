@@ -1,20 +1,20 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { createGlobalStyle } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 import { App } from './App';
 import './config/i18n';
-
-const GlobalStyle = createGlobalStyle`
-  /* This is used by Text strong */
-  strong {
-    font-weight: 500 !important;
-  }
-`;
+import { css, Global } from '@emotion/react';
 
 ReactDOM.render(
   <Suspense fallback={null}>
-    <GlobalStyle />
+    <Global
+      styles={css`
+        /* This is used by Text strong */
+        strong {
+          font-weight: 500 !important;
+        }
+      `}
+    />
     <App />
   </Suspense>,
   document.getElementById('root'),

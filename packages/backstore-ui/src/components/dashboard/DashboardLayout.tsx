@@ -19,7 +19,7 @@ import {
   Home,
   Briefcase,
 } from 'react-feather';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { withRouter } from 'react-router-dom';
 import { Location } from 'history';
 import { Account } from './Account';

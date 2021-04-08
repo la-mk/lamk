@@ -1,5 +1,5 @@
 import { Steps } from 'antd';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const StickySteps = styled(Steps)`
   position: sticky;
