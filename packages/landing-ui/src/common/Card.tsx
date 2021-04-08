@@ -1,5 +1,5 @@
 import { Box } from '@la-mk/blocks-ui';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const Card = styled(Box)`
   border-radius: 8px;

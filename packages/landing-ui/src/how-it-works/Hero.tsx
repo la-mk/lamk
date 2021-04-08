@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box, Heading, Image, Flex, Text, hooks } from '@la-mk/blocks-ui';
-import { withTheme } from 'styled-components';
+import { withTheme } from '@emotion/react';
 import { Trans } from 'react-i18next';
 import { CurvedSection } from '../common/CurvedSection';
 import { useTranslation } from '../common/i18n';
 import { HeroButtons } from '../common/HeroButtons';
+import { FinalBlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 
-export const Hero = withTheme(({ theme }) => {
+export const Hero = withTheme(({ theme }: { theme: FinalBlocksTheme }) => {
   const { t } = useTranslation();
   const headingAlign = hooks.useBreakpoint<'start' | 'center'>([
     'center',

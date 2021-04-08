@@ -1,13 +1,14 @@
 import React from 'react';
 import { Flex, Heading, Text } from '@la-mk/blocks-ui';
-import { withTheme } from 'styled-components';
+import { withTheme } from '@emotion/react';
 import { CurvedSection } from '../common/CurvedSection';
 import { HeroIllustration } from './hero-illustration';
 import { Trans } from 'react-i18next';
 import { useTranslation } from '../common/i18n';
 import { HeroButtons } from '../common/HeroButtons';
+import { FinalBlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 
-export const Hero = withTheme(({ theme }) => {
+export const Hero = withTheme(({ theme }: { theme: FinalBlocksTheme }) => {
   const { t } = useTranslation();
 
   return (

@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Text } from '@la-mk/blocks-ui';
 import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import React from 'react';
-import { withTheme } from 'styled-components';
+import { withTheme } from '@emotion/react';
 import { CurvedSection } from './CurvedSection';
 
 export const HeroTitle = withTheme(

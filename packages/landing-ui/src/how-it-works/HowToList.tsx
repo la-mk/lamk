@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Heading, Flex, Image, Text } from '@la-mk/blocks-ui';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useTranslation } from '../common/i18n';
 import { Card } from '../common/Card';
 

@@ -9,7 +9,7 @@ import {
   hooks,
 } from '@la-mk/blocks-ui';
 import { Menu } from 'react-feather';
-import styled, { withTheme } from 'styled-components';
+import { withTheme } from '@emotion/react';
 import Link from 'next/link';
 import { TopMenu } from './TopMenu';
 import { trackInitialLoad, track } from '../common/analytics';
@@ -18,6 +18,7 @@ import { session, AnalyticsEvents } from '@la-mk/analytics';
 import { BlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 import { FooterContent } from './FooterContent';
 import { useTranslation } from '../common/i18n';
+import styled from '@emotion/styled';
 
 interface StoreLayoutProps {
   children?: React.ReactNode;

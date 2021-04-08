@@ -1,12 +1,11 @@
 import React from 'react';
 import { Box, Text } from '@la-mk/blocks-ui';
-import { withTheme } from 'styled-components';
 import { Trans } from 'react-i18next';
 import { ContactForm } from '../common/ContactForm';
 import { useTranslation } from '../common/i18n';
 import { HeroTitle } from '../common/HeroTitle';
 
-export const Contact = withTheme(({ theme }) => {
+export const Contact = () => {
   const { t } = useTranslation();
   return (
     <Box>
@@ -30,4 +29,4 @@ export const Contact = withTheme(({ theme }) => {
       </Box>
     </Box>
   );
-});
+};

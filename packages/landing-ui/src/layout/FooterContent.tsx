@@ -20,7 +20,8 @@ import {
   Instagram,
   Youtube,
 } from 'react-feather';
-import { withTheme } from 'styled-components';
+import { withTheme } from '@emotion/react';
+import { FinalBlocksTheme } from '@la-mk/blocks-ui/dist/theme';
 
 const getMenus = (t: any): Menu[] => [
   {
@@ -104,103 +105,109 @@ const ContactEntry = ({
   );
 };
 
-export const FooterContent = withTheme(({ theme }) => {
-  const { t } = useTranslation();
+export const FooterContent = withTheme(
+  ({ theme }: { theme: FinalBlocksTheme }) => {
+    const { t } = useTranslation();
 
-  return (
-    <Box>
-      <Flex
-        maxWidth={'68rem'}
-        px={[5, 8, 9]}
-        pt={[4, 6, 7]}
-        mx='auto'
-        direction={['column', 'column', 'row']}
-        align={['center', 'center', 'flex-start']}
-        justify={'space-between'}
-        color='text.light'
-      >
-        <Box minWidth={'192px'} mr={[0, 0, 5]}>
-          <Flex direction='column' align={'flex-start'}>
-            <Box maxHeight='96px' maxWidth='192px' width='100%' mb={5}>
-              <Image src={'/logo-horizontal-inverse.svg'} alt='logo' />
-            </Box>
+    return (
+      <Box>
+        <Flex
+          maxWidth={'68rem'}
+          px={[5, 8, 9]}
+          pt={[4, 6, 7]}
+          mx='auto'
+          direction={['column', 'column', 'row']}
+          align={['center', 'center', 'flex-start']}
+          justify={'space-between'}
+          color='text.light'
+        >
+          <Box minWidth={'192px'} mr={[0, 0, 5]}>
+            <Flex direction='column' align={'flex-start'}>
+              <Box maxHeight='96px' maxWidth='192px' width='100%' mb={5}>
+                <Image src={'/logo-horizontal-inverse.svg'} alt='logo' />
+              </Box>
 
-            <Heading mb={3} color='heading.light' as='h4' size='sm'>
-              {t('common.contactDetails').toUpperCase()}
-            </Heading>
+              <Heading mb={3} color='heading.light' as='h4' size='sm'>
+                {t('common.contactDetails').toUpperCase()}
+              </Heading>
 
-            <ContactEntry
-              icon={<Phone size='1.2rem' />}
-              value={'+389 77 647 585'}
+              <ContactEntry
+                icon={<Phone size='1.2rem' />}
+                value={'+389 77 647 585'}
+              />
+              <ContactEntry
+                icon={<Mail size='1.2rem' />}
+                value={'contact@la.mk'}
+              />
+            </Flex>
+          </Box>
+
+          <BaseFooterContent menus={getMenus(t)} Link={Link} />
+        </Flex>
+
+        <Divider display={['none', 'none', 'block']} mt={6} />
+
+        <Flex
+          justify={['center', 'space-between', 'space-between']}
+          align='center'
+          px={[5, 8, 9]}
+          py={4}
+          direction={['column', 'row', 'row']}
+        >
+          <Text color='text.light' size='sm' mr={[0, 3, 3]}>
+            la.mk © 2021 All rights reserved
+          </Text>
+
+          <Flex ml={[0, 3, 3]} justify='center' align='center'>
+            <Button
+              as='a'
+              variant='link'
+              href='https://www.facebook.com/social.la.mk'
+              target='_blank'
+              rel='noreferrer noopener'
+              px={3}
+              py={2}
+              leftIcon={
+                <Facebook size='1.2rem' color={theme.colors.text.light} />
+              }
             />
-            <ContactEntry
-              icon={<Mail size='1.2rem' />}
-              value={'contact@la.mk'}
+            <Button
+              as='a'
+              variant='link'
+              href='https://www.instagram.com/_la.mk/'
+              target='_blank'
+              rel='noreferrer noopener'
+              px={3}
+              leftIcon={
+                <Instagram size='1.2rem' color={theme.colors.text.light} />
+              }
+            />
+            <Button
+              as='a'
+              variant='link'
+              href='https://www.youtube.com/channel/UCi7hOMEuhFUVUX2KnZ9xV0Q'
+              target='_blank'
+              rel='noreferrer noopener'
+              px={3}
+              leftIcon={
+                <Youtube size='1.2rem' color={theme.colors.text.light} />
+              }
+            />
+
+            <Button
+              as='a'
+              variant='link'
+              href='https://twitter.com/__lamk'
+              target='_blank'
+              rel='noreferrer noopener'
+              px={3}
+              leftIcon={
+                <Twitter size='1.2rem' color={theme.colors.text.light} />
+              }
             />
           </Flex>
-        </Box>
-
-        <BaseFooterContent menus={getMenus(t)} Link={Link} />
-      </Flex>
-
-      <Divider display={['none', 'none', 'block']} mt={6} />
-
-      <Flex
-        justify={['center', 'space-between', 'space-between']}
-        align='center'
-        px={[5, 8, 9]}
-        py={4}
-        direction={['column', 'row', 'row']}
-      >
-        <Text color='text.light' size='sm' mr={[0, 3, 3]}>
-          la.mk © 2021 All rights reserved
-        </Text>
-
-        <Flex ml={[0, 3, 3]} justify='center' align='center'>
-          <Button
-            as='a'
-            variant='link'
-            href='https://www.facebook.com/social.la.mk'
-            target='_blank'
-            rel='noreferrer noopener'
-            px={3}
-            py={2}
-            leftIcon={
-              <Facebook size='1.2rem' color={theme.colors.text.light} />
-            }
-          />
-          <Button
-            as='a'
-            variant='link'
-            href='https://www.instagram.com/_la.mk/'
-            target='_blank'
-            rel='noreferrer noopener'
-            px={3}
-            leftIcon={
-              <Instagram size='1.2rem' color={theme.colors.text.light} />
-            }
-          />
-          <Button
-            as='a'
-            variant='link'
-            href='https://www.youtube.com/channel/UCi7hOMEuhFUVUX2KnZ9xV0Q'
-            target='_blank'
-            rel='noreferrer noopener'
-            px={3}
-            leftIcon={<Youtube size='1.2rem' color={theme.colors.text.light} />}
-          />
-
-          <Button
-            as='a'
-            variant='link'
-            href='https://twitter.com/__lamk'
-            target='_blank'
-            rel='noreferrer noopener'
-            px={3}
-            leftIcon={<Twitter size='1.2rem' color={theme.colors.text.light} />}
-          />
         </Flex>
-      </Flex>
-    </Box>
-  );
-});
+      </Box>
+    );
+  },
+);
