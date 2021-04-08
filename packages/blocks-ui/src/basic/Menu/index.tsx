@@ -14,18 +14,21 @@ import {
   MenuDivider as ChakraMenuDivider,
   SpaceProps,
   As,
+  LayoutProps,
 } from '@chakra-ui/react';
 import { ButtonProps } from '../Button';
-import { MaxWidthProps, MinWidthProps } from 'styled-system';
 
 export interface MenuProps
   extends Pick<ChakraMenuProps, 'closeOnSelect' | 'isLazy' | 'children'> {}
 
 export interface MenuButtonProps extends ButtonProps {}
 
-export interface MenuListProps extends MinWidthProps, MaxWidthProps {
+export type MenuListProps = { minWidth?: LayoutProps['minWidth'] } & {
+  maxWidth?: LayoutProps['maxWidth'];
+} & {
   children: React.ReactNode;
-}
+};
+
 export interface MenuItemProps
   extends Pick<
     ChakraMenuItemProps,

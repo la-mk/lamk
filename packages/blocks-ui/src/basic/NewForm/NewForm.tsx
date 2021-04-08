@@ -5,7 +5,7 @@ import widgets from './widgets';
 import templates from './templates';
 import { Flex } from '../Flex';
 import { FormContext, FormContextProps } from './Context';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
   getErrorMessage: (errorName: string, context: any) => string;
@@ -13,11 +13,11 @@ export interface FormProps<T> extends RjsfFormProps<T>, FormContextProps {
 }
 
 // Here, in ObjectFieldTemplate, ArrayFieldTemplate, and FieldTemplate we apply certain margins as a way to provide a gutter to a flex-based grid.
-const StyledForm = (styled(Form)`
+const StyledForm = styled(Form)`
   margin-left: -1rem;
   margin-right: -1rem;
   overflow: hidden;
-` as React.ComponentType) as new <T>() => Form<T>;
+`;
 
 const recursivelyNormalizeData = (data: any) => {
   if (!data || !(typeof data === 'object')) {

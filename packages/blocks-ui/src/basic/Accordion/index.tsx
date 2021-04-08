@@ -7,18 +7,18 @@ import {
   AccordionButton as ChakraAccordionButton,
   AccordionIcon as ChakraAccordionIcon,
   SpaceProps,
+  LayoutProps,
 } from '@chakra-ui/react';
 import { Box } from '../Box';
 
-// TODO: Export from Chakra
-import { DisplayProps } from 'styled-system';
-
-export interface AccordionProps extends SpaceProps, DisplayProps {
+export type AccordionProps = SpaceProps & {
+  display?: LayoutProps['display'];
+} & {
   items: Array<{
     title: string;
     content: React.ReactNode;
   }>;
-}
+};
 
 export const Accordion = ({ items }: AccordionProps) => {
   return (

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 

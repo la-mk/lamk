@@ -5,7 +5,7 @@ import {
   SpaceProps,
 } from '@chakra-ui/react';
 import { Flex } from '../Flex';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Size } from '../../system';
 
 export interface SpinnerProps

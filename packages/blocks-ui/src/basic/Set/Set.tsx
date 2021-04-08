@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { Button } from '../Button';
 import { Flex } from '../Flex';

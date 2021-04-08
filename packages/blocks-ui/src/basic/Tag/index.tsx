@@ -3,17 +3,15 @@ import {
   TagProps as ChakraTagProps,
   As,
   SpaceProps,
+  LayoutProps,
 } from '@chakra-ui/react';
-import { MinWidthProps } from 'styled-system';
 import { Size } from '../../system';
 
-export interface TagProps
-  extends Pick<ChakraTagProps, 'children' | 'colorScheme'>,
-    SpaceProps,
-    MinWidthProps {
-  size?: Size;
-  as?: As;
-}
+export type TagProps = Pick<ChakraTagProps, 'children' | 'colorScheme'> &
+  SpaceProps & { minWidth?: LayoutProps['minWidth'] } & {
+    size?: Size;
+    as?: As;
+  };
 
 ChakraTag.defaultProps = {
   variant: 'solid',

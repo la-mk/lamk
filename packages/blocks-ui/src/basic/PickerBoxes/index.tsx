@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex } from '../Flex';
 import { Button, ButtonProps } from '../Button';
 import { Text } from '../Text';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Size } from '../../system';
 
 export type PickerVariant = 'text' | 'color';
@@ -12,7 +12,7 @@ const ButtonWrapper = styled(Button)<{
   highlight: boolean;
   variant: PickerBoxProps['variant'];
 }>`
-  border-radius: ${props => props.theme.radii[0]}px;
+  border-radius: ${props => props.theme.radii.sm}px;
   border: ${props =>
     props.highlight
       ? `solid 2px ${props.theme.colors.primary['500']}`
@@ -57,9 +57,9 @@ export const PickerBox = ({
   return (
     <ButtonWrapper
       size={size}
-      highlight={highlight}
-      variant={variant}
-      value={value}
+      highlight={!!highlight}
+      variant={variant as any}
+      value={value!}
       isDisabled={disabled}
       {...otherProps}
     >

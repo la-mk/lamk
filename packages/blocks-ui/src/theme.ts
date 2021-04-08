@@ -90,7 +90,7 @@ const calculateShades = (color: string): any => {
   return optimizeColors(color);
 };
 
-export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
+export const getChakraTheme = (theme: BlocksTheme): FinalBlocksTheme => {
   const newColors = {};
 
   merge(
@@ -174,33 +174,41 @@ export const getChakraTheme = (theme: BlocksTheme): ChakraTheme => {
   } as any);
 };
 
-export interface BlocksTheme extends DeepPartial<Omit<ChakraTheme, 'colors'>> {
-  colors?: {
-    primary?: string;
-    secondary?: string;
-    danger?: string;
-    success?: string;
+export interface Colors {
+  primary: string;
+  secondary: string;
+  danger: string;
+  success: string;
 
-    background?: {
-      light?: string;
-      dark?: string;
-    };
-
-    heading?: {
-      light?: string;
-      dark?: string;
-    };
-
-    text?: {
-      light?: string;
-      dark?: string;
-    };
-
-    mutedText?: {
-      light?: string;
-      dark?: string;
-    };
-
-    gray?: ChakraTheme['colors']['gray'];
+  background: {
+    light: string;
+    dark: string;
   };
+
+  heading: {
+    light: string;
+    dark: string;
+  };
+
+  text: {
+    light: string;
+    dark: string;
+  };
+
+  mutedText: {
+    light: string;
+    dark: string;
+  };
+
+  gray: ChakraTheme['colors']['gray'];
+}
+
+export interface FinalBlocksTheme extends Omit<ChakraTheme, 'colors'> {
+  colors: Omit<Colors, 'primary'> & {
+    primary: ChakraTheme['colors']['gray'];
+  };
+}
+
+export interface BlocksTheme extends DeepPartial<Omit<ChakraTheme, 'colors'>> {
+  colors?: DeepPartial<Colors>;
 }
