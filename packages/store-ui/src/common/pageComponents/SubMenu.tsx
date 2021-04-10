@@ -16,18 +16,6 @@ import {
   GroupedCategories,
 } from '../../state/modules/categories/categories.selector';
 
-import { createStandaloneToast, UseToastOptions } from '@chakra-ui/react';
-
-const showToast = (options: UseToastOptions) => {
-  const standaloneToast = createStandaloneToast();
-  standaloneToast({
-    ...options,
-    variant: 'subtle',
-    position: 'top',
-    isClosable: true,
-  });
-};
-
 export const SubMenu = props => {
   const [viewedCategory, setViewedCategory] = React.useState<
     string | undefined
@@ -94,7 +82,6 @@ export const SubMenu = props => {
                 if (isMobile) {
                   return;
                 }
-                showToast({ description: 'hey', duration: 200000 });
                 setViewedCategory(groupedCategory.key);
                 setIsCategoriesVisible(true);
               }}
