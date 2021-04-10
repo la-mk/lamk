@@ -3,7 +3,8 @@ import { BlocksTheme, getChakraTheme } from '../../theme';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BreakpointProvider } from '../../hooks/useBreakpoint';
 import { globalStyles as globalCascaderStyles } from '../Cascader/globalStyles';
-import { css, Global, ThemeProvider } from '@emotion/react';
+import { css, Global } from '@emotion/react';
+import { init } from '../Toast';
 
 interface LocalizationContext {
   email?: string;
@@ -67,44 +68,48 @@ export const Provider = ({
   translations?: LocalizationContext;
   children: React.ReactElement;
 }) => {
-  const finalTheme = getChakraTheme(theme ?? {});
+  const finalTheme = React.useMemo(() => getChakraTheme(theme ?? {}), [theme]);
+  const breakpoints = React.useMemo(
+    () =>
+      getBreakpoints([
+        finalTheme.breakpoints.sm,
+        finalTheme.breakpoints.md,
+        finalTheme.breakpoints.lg,
+      ]),
+    [finalTheme]
+  );
+
+  init(finalTheme);
 
   return (
+    // The chakra provider uses emotion's provider in the background, so we can use styled.x and access the theme without problems.
     <ChakraProvider theme={finalTheme}>
-      <ThemeProvider theme={finalTheme}>
-        <Global
-          styles={css`
-            html {
-              height: 100%;
-              margin: 0;
-              padding: 0;
-            }
+      <Global
+        styles={css`
+          html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
 
-            html body {
-              height: 100%;
-              font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont,
-                'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif,
-                'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-              margin: 0;
-              -webkit-font-smoothing: antialiased;
-              -moz-osx-font-smoothing: grayscale;
-            }
+          html body {
+            height: 100%;
+            font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+              'Helvetica Neue', Helvetica, Arial, sans-serif,
+              'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
 
-            ${globalCascaderStyles}
-          `}
-        />
-        <BreakpointProvider
-          breakpoints={getBreakpoints([
-            finalTheme.breakpoints.sm,
-            finalTheme.breakpoints.md,
-            finalTheme.breakpoints.lg,
-          ])}
-        >
-          <LocalizationContext.Provider value={translations || {}}>
-            {children}
-          </LocalizationContext.Provider>
-        </BreakpointProvider>
-      </ThemeProvider>
+          ${globalCascaderStyles}
+        `}
+      />
+      <BreakpointProvider breakpoints={breakpoints}>
+        <LocalizationContext.Provider value={translations || {}}>
+          {children}
+        </LocalizationContext.Provider>
+      </BreakpointProvider>
     </ChakraProvider>
   );
 };

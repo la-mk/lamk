@@ -1,7 +1,13 @@
 import { createStandaloneToast, UseToastOptions } from '@chakra-ui/react';
+import { FinalBlocksTheme } from '../../theme';
+
+let theme: FinalBlocksTheme | undefined;
 
 const showToast = (options: UseToastOptions) => {
-  const standaloneToast = createStandaloneToast();
+  const standaloneToast = createStandaloneToast({
+    theme,
+  });
+
   standaloneToast({
     ...options,
     variant: 'subtle',
@@ -31,4 +37,8 @@ export const toast = {
       description: msg,
       status: 'info',
     }),
+};
+
+export const init = (builtTheme: FinalBlocksTheme) => {
+  theme = builtTheme;
 };
