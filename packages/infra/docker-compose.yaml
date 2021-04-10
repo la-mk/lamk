@@ -79,7 +79,7 @@ services:
       TYPESENSE_API_KEY: $SEARCH_SERVICE_API_KEY
 
   data-api:
-    image: registry.digitalocean.com/lamk/data-api:1.0.99
+    image: registry.digitalocean.com/lamk/data-api:1.0.101
     container_name: data-api
     restart: always
     networks:
@@ -117,7 +117,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: registry.digitalocean.com/lamk/store-ui:1.0.148
+    image: registry.digitalocean.com/lamk/store-ui:1.0.151
     container_name: store-ui
     restart: always
     networks:
@@ -163,7 +163,7 @@ services:
       NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
 
   backstore-ui:
-    image: registry.digitalocean.com/lamk/backstore-ui:1.0.108
+    image: registry.digitalocean.com/lamk/backstore-ui:1.0.110
     container_name: backstore-ui
     restart: always
     networks:
