@@ -18,7 +18,7 @@ exports[`email templates can render a reset password template 1`] = `
         </style>
         <![endif]--><!--[if !mso]><!--><link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\"><style type=\\"text/css\\">@import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);</style><!--<![endif]--><style type=\\"text/css\\">@media only screen and (min-width:480px) {
         .mj-column-per-100 { width:100% !important; max-width: 100%; }
-      }</style><style type=\\"text/css\\">@media only screen and (max-width:480px) {
+      }</style><style media=\\"screen and (min-width:480px)\\">.moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }</style><style type=\\"text/css\\">@media only screen and (max-width:480px) {
       table.mj-full-width-mobile { width: 100% !important; }
       td.mj-full-width-mobile { width: auto !important; }
     }</style><style type=\\"text/css\\">body {
@@ -54,7 +54,8 @@ exports[`email templates can render an order success template 1`] = `
         <![endif]--><!--[if !mso]><!--><link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\"><style type=\\"text/css\\">@import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);</style><!--<![endif]--><style type=\\"text/css\\">@media only screen and (min-width:480px) {
         .mj-column-per-100 { width:100% !important; max-width: 100%; }
 .mj-column-per-50 { width:50% !important; max-width: 50%; }
-      }</style><style type=\\"text/css\\">@media only screen and (max-width:480px) {
+      }</style><style media=\\"screen and (min-width:480px)\\">.moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
+.moz-text-html .mj-column-per-50 { width:50% !important; max-width: 50%; }</style><style type=\\"text/css\\">@media only screen and (max-width:480px) {
       table.mj-full-width-mobile { width: 100% !important; }
       td.mj-full-width-mobile { width: auto !important; }
     }</style><style type=\\"text/css\\">body {

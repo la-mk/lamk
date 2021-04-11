@@ -99,6 +99,8 @@ describe('"orderPayments" service', () => {
             },
           ],
           delivery: testDeliveries[0],
+          deliveryStatus: sdk.order.DeliveryStatus.UNKNOWN,
+          deliveryEvents: [],
           deliverTo: testAddresses[0],
           paymentMethod: sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
         },

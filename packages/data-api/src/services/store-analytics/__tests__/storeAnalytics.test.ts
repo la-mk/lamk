@@ -67,6 +67,8 @@ describe('"storeAnalytics" service', () => {
               quantity: 2,
             },
           ],
+          deliveryStatus: sdk.order.DeliveryStatus.UNKNOWN,
+          deliveryEvents: [],
           delivery: testDeliveries[0],
           deliverTo: testAddresses[0],
         },
