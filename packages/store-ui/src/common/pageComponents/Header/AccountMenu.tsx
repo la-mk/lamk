@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Box,
   Menu,
   MenuItem,
   MenuButton,
@@ -28,11 +27,6 @@ export const AccountMenu = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const ownTheme = theme.sections.Header;
-  // There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR. https://github.com/chakra-ui/chakra-ui/issues/3433
-  const boxProps =
-    typeof window === 'undefined'
-      ? { width: 0, height: 0, overflow: 'hidden' }
-      : {};
 
   return (
     <Menu>
@@ -55,35 +49,37 @@ export const AccountMenu = ({
           [],
         )}
       />
-      <Box {...boxProps}>
-        <MenuList>
-          {user ? (
-            <>
-              <Link href='/account' passHref>
-                <MenuItem as='a' icon={<UserIcon size='1.2rem' />}>
-                  {t('pages.myAccount')}
-                </MenuItem>
-              </Link>
+      {/* There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR. https://github.com/chakra-ui/chakra-ui/issues/3433 */}
+      <MenuList
+        // @ts-ignore
+        style={typeof window === 'undefined' ? { display: 'none' } : {}}
+      >
+        {user ? (
+          <>
+            <Link href='/account' passHref>
+              <MenuItem as='a' icon={<UserIcon size='1.2rem' />}>
+                {t('pages.myAccount')}
+              </MenuItem>
+            </Link>
 
-              <Link href='/account/orders' passHref>
-                <MenuItem as='a' icon={<ShoppingBag size='1.2rem' />}>
-                  {t('pages.myOrders')}
-                </MenuItem>
-              </Link>
-              <MenuDivider />
-              <MenuItem onClick={handleLogout} icon={<LogOut size='1.2rem' />}>
-                {t('auth.logout')}
+            <Link href='/account/orders' passHref>
+              <MenuItem as='a' icon={<ShoppingBag size='1.2rem' />}>
+                {t('pages.myOrders')}
               </MenuItem>
-            </>
-          ) : (
-            <>
-              <MenuItem onClick={handleLogin} icon={<LogIn size='1.2rem' />}>
-                {t('auth.login')}
-              </MenuItem>
-            </>
-          )}
-        </MenuList>
-      </Box>
+            </Link>
+            <MenuDivider />
+            <MenuItem onClick={handleLogout} icon={<LogOut size='1.2rem' />}>
+              {t('auth.logout')}
+            </MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem onClick={handleLogin} icon={<LogIn size='1.2rem' />}>
+              {t('auth.login')}
+            </MenuItem>
+          </>
+        )}
+      </MenuList>
     </Menu>
   );
 };
