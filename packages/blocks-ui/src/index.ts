@@ -82,6 +82,8 @@ export { Switch, SwitchProps } from './basic/Switch';
 export { Tabs, TabsProps } from './basic/Tabs';
 export { Tag, TagProps } from './basic/Tag';
 export { Text, TextProps } from './basic/Text';
+export { Timeline, TimelineProps } from './basic/Timeline';
+export { Tooltip, TooltipProps } from './basic/Tooltip';
 export { Treeview, TreeviewProps } from './basic/Treeview';
 export { Heading, HeadingProps } from './basic/Heading';
 export { Upload, UploadProps } from './basic/Upload';
