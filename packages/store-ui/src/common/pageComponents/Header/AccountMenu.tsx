@@ -28,8 +28,9 @@ export const AccountMenu = ({
   const theme = useTheme();
   const ownTheme = theme.sections.Header;
 
+  /* There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR. https://github.com/chakra-ui/chakra-ui/issues/3433 */
   return (
-    <Menu>
+    <Menu isLazy>
       <MenuButton
         // TODO: The MenuButton sends a child to the button even if you didn't provide any, PR in Chakra.
         // @ts-ignore
@@ -49,11 +50,7 @@ export const AccountMenu = ({
           [],
         )}
       />
-      {/* There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR. https://github.com/chakra-ui/chakra-ui/issues/3433 */}
-      <MenuList
-        // @ts-ignore
-        style={typeof window === 'undefined' ? { display: 'none' } : {}}
-      >
+      <MenuList>
         {user ? (
           <>
             <Link href='/account' passHref>
