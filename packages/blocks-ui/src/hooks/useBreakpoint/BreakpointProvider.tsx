@@ -16,7 +16,7 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
     0 as Breakpoint
   );
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     // Returning here doesn't matter since this will only run on the server
     if (typeof window === 'undefined') {
       return;
