@@ -28,7 +28,7 @@ export const AccountMenu = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const ownTheme = theme.sections.Header;
-  // There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR
+  // There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR. https://github.com/chakra-ui/chakra-ui/issues/3433
   const boxProps =
     typeof window === 'undefined'
       ? { width: 0, height: 0, overflow: 'hidden' }
