@@ -15,7 +15,7 @@ export const NavButton = React.forwardRef(
       <Button
         ref={ref}
         mx={2}
-        as='a'
+        as={props.href ? 'a' : undefined}
         variant='link'
         aria-label={title}
         leftIcon={

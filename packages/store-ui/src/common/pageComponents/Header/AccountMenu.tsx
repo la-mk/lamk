@@ -29,26 +29,33 @@ export const AccountMenu = ({
   const ownTheme = theme.sections.Header;
 
   /* There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR. https://github.com/chakra-ui/chakra-ui/issues/3433 */
+  if (typeof window === 'undefined') {
+    return (
+      <NavButton
+        variant={ownTheme.account.variant}
+        title={t('auth.account')}
+        hideTitle
+        icon={<UserIcon size='1.2rem' />}
+        size='sm'
+      />
+    );
+  }
+
   return (
-    <Menu isLazy>
+    <Menu>
       <MenuButton
-        // TODO: The MenuButton sends a child to the button even if you didn't provide any, PR in Chakra.
-        // @ts-ignore
-        as={React.useMemo(
-          () =>
-            React.forwardRef((props, ref) => (
-              <NavButton
-                ref={ref}
-                {...props}
-                variant={ownTheme.account.variant}
-                title={t('auth.account')}
-                hideTitle
-                icon={<UserIcon size='1.2rem' />}
-                size='sm'
-              />
-            )),
-          [],
-        )}
+        as={React.forwardRef((props, ref) => (
+          <NavButton
+            ref={ref}
+            {...props}
+            children={undefined}
+            variant={ownTheme.account.variant}
+            title={t('auth.account')}
+            hideTitle
+            icon={<UserIcon size='1.2rem' />}
+            size='sm'
+          />
+        ))}
       />
       <MenuList>
         {user ? (
