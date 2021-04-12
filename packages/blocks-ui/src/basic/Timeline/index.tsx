@@ -10,20 +10,20 @@ export interface TimelineProps {
 }
 
 export interface Event {
-  status: string;
+  title: string;
   description: string;
   timestamp: string;
 }
 
-const Circle = ({ diameter }: { diameter: number }) => {
+const Circle = ({ diameter, color }: { diameter: number; color: string }) => {
   return (
     <svg height={diameter + 2} width={diameter + 2}>
       <circle
         cx={diameter / 2 + 1}
         cy={diameter / 2 + 1}
         r={diameter / 2}
-        stroke="gray"
-        stroke-width="1"
+        stroke={color}
+        stroke-width="2"
         fill="white"
       />
     </svg>
@@ -57,7 +57,7 @@ const Line = ({
             ? `calc(100% - ${padding} - ${firstLineHeight} / 2)`
             : 0,
         left: iconDiameter / 2,
-        border: `1px ${color} solid`,
+        border: `1px ${color} dashed`,
       }}
     ></Box>
   );
@@ -74,10 +74,11 @@ const Event = ({
   index: number;
   total: number;
 }) => {
+  const theme = useTheme();
   const isFirst = index === 0;
   const isLast = index === total - 1;
-  const theme = useTheme();
   const firstLineHeight = `calc(${theme.fontSizes.lg} * ${theme.lineHeights.base})`;
+  const date = new Date(event.timestamp);
 
   return (
     <Flex
@@ -90,7 +91,7 @@ const Event = ({
         <Line
           padding={theme.space['3']}
           firstLineHeight={firstLineHeight}
-          color="gray"
+          color={theme.colors.gray['300']}
           placement="before"
           iconDiameter={iconDiameter}
         />
@@ -103,14 +104,14 @@ const Event = ({
         style={{ zIndex: 2 }}
         mr={4}
       >
-        <Circle diameter={iconDiameter} />
+        <Circle color={theme.colors.background.dark} diameter={iconDiameter} />
       </Flex>
 
       {!isLast && (
         <Line
           padding={theme.space['3']}
           firstLineHeight={firstLineHeight}
-          color="gray"
+          color={theme.colors.gray['300']}
           placement="after"
           iconDiameter={iconDiameter}
         />
@@ -118,13 +119,13 @@ const Event = ({
 
       <Flex maxWidth="16rem" direction="column">
         {/* @ts-ignore */}
-        <Flex style={{ whitespace: 'nowrap' }} align="center" mr={3}>
+        <Flex style={{ whitespace: 'nowrap' }} align="center" mr={[3, 3, 4]}>
           <Text noOfLines={1} size="lg">
-            {event.status}
+            {event.title}
           </Text>
 
-          <Text color="mutedText.dark" size="xs" ml={3}>
-            {new Date(event.timestamp).toLocaleDateString()}
+          <Text color="mutedText.dark" size="xs" ml={[3, 3, 4]}>
+            {`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}
           </Text>
         </Flex>
         <Tooltip label={event.description}>
