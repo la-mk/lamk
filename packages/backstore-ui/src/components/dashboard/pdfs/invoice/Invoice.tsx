@@ -21,12 +21,12 @@ Font.register({
     {
       src: '/fonts/SkolaSans-Regular.ttf',
       fontStyle: 'normal',
-      fontWeight: 'normal',
+      fontWeight: '400',
     },
     {
       src: '/fonts/SkolaSans-Bold.ttf',
       fontStyle: 'normal',
-      fontWeight: 'bold',
+      fontWeight: '600',
     },
   ],
 });

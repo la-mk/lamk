@@ -219,16 +219,14 @@ export const OrderDetailsModal = ({
               </DescriptionItem>
 
               {prices.withCampaignsTotal !== prices.productsTotal && (
-                <Flex mt={2} direction='row' justify='space-between'>
-                  <DescriptionItem label={t('finance.campaignDiscount')}>
-                    <Text as='strong' color='danger'>
-                      {(
-                        prices.withCampaignsTotal - prices.productsTotal
-                      ).toFixed(1)}{' '}
-                      ден
-                    </Text>
-                  </DescriptionItem>
-                </Flex>
+                <DescriptionItem label={t('finance.campaignDiscount')}>
+                  <Text as='strong' color='danger'>
+                    {(prices.withCampaignsTotal - prices.productsTotal).toFixed(
+                      1,
+                    )}{' '}
+                    ден
+                  </Text>
+                </DescriptionItem>
               )}
               <DescriptionItem label={t('finance.shippingCost')}>
                 <Text as='strong'>{prices.deliveryTotal} ден</Text>
