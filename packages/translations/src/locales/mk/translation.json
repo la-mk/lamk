@@ -17,6 +17,9 @@
     "goBack": "Оди назад",
     "goToCart": "Прегледај корпа",
     "goToDashboard": "Оди на главен панел",
+    "integrateNow": "Интегрирај сега",
+    "addIntegration": "Додај интеграција",
+    "updateIntegration": "Обнови интеграција",
     "loginInstead": "Или логирај се",
     "orderNow": "Порачај сега",
     "pay": "Плати",
@@ -271,6 +274,13 @@
     "storeLogo": "Лого на продавница",
     "storeName": "Име на продавница",
     "storeUrl": "Страна на продавница"
+  },
+  "integrations": {
+    "existingIntegrations": "Постоечки интеграции",
+    "supportedIntegrations": "Поддржани интеграции",
+    "integrationUpdateSuccess": "Интеграцијата беше успешно обновена",
+    "noIntegrationsFound": "Не можевме да најдеме постоечки интеграции",
+    "facebookChatDescription": "Додадете чат на вашата продавница, и комуницирајте преку Facebook со вашите клиенти"
   },
   "landing": {
     "contactUsPage": "Контакт",

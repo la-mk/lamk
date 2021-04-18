@@ -17,6 +17,9 @@
     "goToAccount": "Go to account menu",
     "goToCart": "Go to Cart",
     "goToDashboard": "Go to dashboard",
+    "integrateNow": "Integrate now",
+    "addIntegration": "Add integration",
+    "updateIntegration": "Update integration",
     "loginInstead": "Log in instead",
     "orderNow": "Order now",
     "pay": "Pay",
@@ -270,6 +273,13 @@
     "storeLogo": "Store logo",
     "storeName": "Store name",
     "storeUrl": "Store URL"
+  },
+  "integrations": {
+    "existingIntegrations": "Existing integrations",
+    "supportedIntegrations": "Supported integrations",
+    "integrationUpdateSuccess": "Integrations updated successfully",
+    "noIntegrationsFound": "Couldn't find any integrations",
+    "facebookChatDescription": "Add Facebook messenger to your store and communicate with your customers right from your Facebook page"
   },
   "landing": {
     "contactUsPage": "Contact us",
