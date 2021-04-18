@@ -17,10 +17,10 @@ import { getCampaignSdk } from './models/campaign';
 import { getStoreCategorySdk } from './models/storeCategory';
 import { getStoreAnalyticsSdk } from './models/storeAnalytics';
 import { getStorePaymentMethodsSdk } from './models/storePaymentMethods';
+import { getStoreIntegrationsSdk } from './models/storeIntegrations';
 import { getOrderPaymentsSdk } from './models/orderPayments';
 import { getContactUsSdk } from './models/contactUs';
 import { getAuthManagementSdk } from './models/authManagement';
-import { getIntegrationsSdk } from './models/integrations';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
@@ -45,8 +45,8 @@ export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
     storeCategory: getStoreCategorySdk(client),
     storeAnalytics: getStoreAnalyticsSdk(client),
     storePaymentMethods: getStorePaymentMethodsSdk(client),
+    storeIntegrations: getStoreIntegrationsSdk(client),
     orderPayments: getOrderPaymentsSdk(client),
-    integrations: getIntegrationsSdk(client),
     contactUs: getContactUsSdk(client),
     request: (serviceName: string) => getCrudMethods(client, serviceName),
     utils,

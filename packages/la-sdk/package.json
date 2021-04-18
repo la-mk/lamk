@@ -5,7 +5,7 @@
     "url": "ssh://git@github.com/la-mk/lamk.git",
     "directory": "packages/la-sdk"
   },
-  "version": "0.0.167",
+  "version": "0.0.168",
   "description": "",
   "license": "ISC",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -39,14 +39,14 @@
     "@feathersjs/feathers": "^4.5.11",
     "@feathersjs/rest-client": "^4.5.11",
     "@feathersjs/socketio-client": "^4.5.11",
-    "ajv": "^8.0.5",
-    "ajv-formats": "^2.0.2",
+    "ajv": "^7.2.4",
+    "ajv-formats": "^1.6.1",
     "bluebird": "^3.7.2",
     "iso-datestring-validator": "^2.1.4",
-    "lodash": "^4.17.20",
-    "lodash-es": "^4.17.20",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "node-fetch": "^2.6.1",
-    "socket.io-client": "^4.0.1"
+    "socket.io-client": "^2.4.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.33",

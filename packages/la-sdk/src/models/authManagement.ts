@@ -18,20 +18,24 @@ export const schema: JSONSchemaType<AuthManagement> = {
       format: 'email',
     },
     verifyToken: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 8,
       maxLength: 255,
     },
     verifyTokenCreatedAt: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       format: 'date-time',
     },
     resetToken: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 8,
       maxLength: 255,
     },
     resetTokenCreatedAt: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       format: 'date-time',
     },

@@ -27,14 +27,17 @@ export const paymentTransactionSchema: JSONSchemaType<PaymentTransaction> = {
       exclusiveMinimum: 0,
     },
     message: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       maxLength: 511,
     },
     processorId: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       maxLength: 63,
     },
     userIp: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       maxLength: 31,
     },

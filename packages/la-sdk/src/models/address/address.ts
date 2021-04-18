@@ -41,6 +41,7 @@ export const schema: JSONSchemaType<Address> = {
       default: 'MK',
     },
     region: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,

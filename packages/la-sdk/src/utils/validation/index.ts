@@ -29,7 +29,7 @@ const transformToErrorObject = (
   errors.forEach(err => {
     const args = err.params;
 
-    let path = toArrayPath(err.instancePath);
+    let path = toArrayPath(err.dataPath);
     if ('missingProperty' in args) {
       path.push(args.missingProperty);
     } else if ('additionalProperty' in args) {

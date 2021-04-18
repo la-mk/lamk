@@ -6,7 +6,7 @@ import { validate, validateSingle } from '../utils/validation';
 import { defaultSchemaEntries, DefaultSchema } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
-export const schema: JSONSchemaType<Integrations> = {
+export const schema: JSONSchemaType<StoreIntegrations> = {
   type: 'object',
   additionalProperties: false,
   required: [...defaultSchemaEntries.required, 'forStore'],
@@ -17,6 +17,7 @@ export const schema: JSONSchemaType<Integrations> = {
       format: 'uuid',
     },
     facebookChat: {
+      // @ts-ignore the typings are wrong
       type: ['object', 'null'],
       additionalProperties: false,
       required: ['pageId'],
@@ -31,18 +32,18 @@ export const schema: JSONSchemaType<Integrations> = {
   },
 };
 
-export interface Integrations extends DefaultSchema {
+export interface StoreIntegrations extends DefaultSchema {
   forStore: string;
   facebookChat?: {
     pageId: string;
   };
 }
 
-export const getIntegrationsSdk = (client: Application) => {
+export const getStoreIntegrationsSdk = (client: Application) => {
   const crudMethods = getCrudMethods<
-    OmitServerProperties<Integrations>,
-    Integrations
-  >(client, 'integrations');
+    OmitServerProperties<StoreIntegrations>,
+    StoreIntegrations
+  >(client, 'storeIntegrations');
 
   return {
     ...crudMethods,
@@ -53,7 +54,7 @@ export const getIntegrationsSdk = (client: Application) => {
       return crudMethods.find(options);
     },
 
-    validate: (data: Integrations, ignoreRequired = false) => {
+    validate: (data: StoreIntegrations, ignoreRequired = false) => {
       return validate(schema, data, ignoreRequired);
     },
     validateSingle: (val: any, selector: string) => {

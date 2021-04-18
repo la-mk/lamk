@@ -58,6 +58,7 @@ export const schema: JSONSchemaType<Campaign> = {
       enum: Object.values(CampaignTypes),
       default: CampaignTypes.CART_DISCOUNT,
     },
+    // @ts-ignore the typings are wrong
     reward: {
       oneOf: [
         {

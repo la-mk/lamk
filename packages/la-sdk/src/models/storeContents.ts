@@ -24,11 +24,13 @@ export const schema: JSONSchemaType<StoreContents> = {
       format: 'uuid',
     },
     aboutUs: {
+      // @ts-ignore the typings are wrong
       type: ['object', 'null'],
       additionalProperties: false,
       required: [],
       properties: {
         description: {
+          // @ts-ignore the typings are wrong
           type: ['string', 'null'],
           minLength: 2,
           maxLength: 65535,
@@ -36,6 +38,7 @@ export const schema: JSONSchemaType<StoreContents> = {
       },
     },
     landing: {
+      // @ts-ignore the typings are wrong
       type: ['object', 'null'],
       additionalProperties: false,
       required: ['sets'],
@@ -96,6 +99,7 @@ export const schema: JSONSchemaType<StoreContents> = {
                     maxLength: 511,
                   },
                   subtitle: {
+                    // @ts-ignore the typings are wrong
                     type: ['string', 'null'],
                     maxLength: 511,
                   },
@@ -129,6 +133,7 @@ export const schema: JSONSchemaType<StoreContents> = {
                     maxLength: 511,
                   },
                   subtitle: {
+                    // @ts-ignore the typings are wrong
                     type: ['string', 'null'],
                     maxLength: 511,
                   },

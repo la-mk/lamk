@@ -28,15 +28,18 @@ export enum ProductUnit {
 
 // @ts-ignore the typings are wrong
 export const attributesSchema: JSONSchemaType<Attributes> = {
+  // @ts-ignore the typings are wrong
   type: ['object', 'null'],
   additionalProperties: false,
   required: [],
   properties: {
     color: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       format: 'hexColor',
     },
     size: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 1,
       maxLength: 31,
@@ -57,20 +60,24 @@ export const variantSchema: JSONSchemaType<Variant> = {
     },
     // Discount is always a value in the base currency, even if we allow the user to input in % (we can just convert to a currency value).
     discount: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       minimum: 0,
     },
     // This field is calculated on the server-side using the price and discount. Use this when sorting and filtering.
     calculatedPrice: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     attributes: attributesSchema as any,
     sku: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       maxLength: 63,
     },
     stock: {
+      // @ts-ignore the typings are wrong
       type: ['integer', 'null'],
       minimum: 0,
     },
@@ -127,6 +134,7 @@ export const schema: JSONSchemaType<Product> = {
       maxLength: 255,
     },
     description: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       maxLength: 4095,
     },
@@ -141,35 +149,42 @@ export const schema: JSONSchemaType<Product> = {
 
     // The total stock of all variants
     totalStock: {
+      // @ts-ignore the typings are wrong
       type: ['integer', 'null'],
       minimum: 0,
     },
     // If variants have different prices, this is the minimum
     minPrice: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     // If variants have different prices, this is the maximum, otherwise min and max will be he same.
     maxPrice: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     // Same as min and max price
     minDiscount: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       minimum: 0,
     },
     // If variants have different prices, this is the maximum, otherwise min and max will be he same.
     maxDiscount: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       minimum: 0,
     },
     // Same as min and max price
     minCalculatedPrice: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       exclusiveMinimum: 0,
     },
     maxCalculatedPrice: {
+      // @ts-ignore the typings are wrong
       type: ['number', 'null'],
       exclusiveMinimum: 0,
     },

@@ -31,16 +31,19 @@ export const schema: JSONSchemaType<User> = {
       default: false,
     },
     firstName: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,
     },
     lastName: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 255,
     },
     phoneNumber: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 31,

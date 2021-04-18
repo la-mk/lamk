@@ -11,7 +11,6 @@ import {
 } from '../internal-utils';
 import { JSONSchemaType } from 'ajv';
 
-// @ts-ignore the typings are wrong
 export const schema: JSONSchemaType<Store> = {
   type: 'object',
   additionalProperties: false,
@@ -44,15 +43,18 @@ export const schema: JSONSchemaType<Store> = {
       default: '#7859d1',
     },
     slogan: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       maxLength: 255,
     },
     customDomain: {
+      // @ts-ignore the typings are wrong
       type: ['string', 'null'],
       minLength: 2,
       maxLength: 511,
     },
     company: {
+      // @ts-ignore the typings are wrong
       type: ['object', 'null'],
       additionalProperties: false,
       required: [
@@ -85,6 +87,7 @@ export const schema: JSONSchemaType<Store> = {
       },
     },
     contact: {
+      // @ts-ignore the typings are wrong
       type: ['object', 'null'],
       additionalProperties: false,
       required: ['email', 'phoneNumber'],
@@ -99,6 +102,7 @@ export const schema: JSONSchemaType<Store> = {
           maxLength: 63,
         },
         alternatePhoneNumber: {
+          // @ts-ignore the typings are wrong
           type: ['string', 'null'],
           minLength: 4,
           maxLength: 63,
