@@ -126,7 +126,8 @@
     "product_plural": "Производи",
     "quantity": "Количина",
     "revenue": "Приход",
-    "store": "Продавница"
+    "store": "Продавница",
+    "integrations": "Интеграции"
   },
   "common": {
     "action_plural": "Операции",

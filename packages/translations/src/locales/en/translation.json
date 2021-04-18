@@ -125,7 +125,8 @@
     "product_plural": "Products",
     "quantity": "Quantity",
     "revenue": "Revenue",
-    "store": "Store"
+    "store": "Store",
+    "integrations": "Integrations"
   },
   "common": {
     "action_plural": "Actions",
