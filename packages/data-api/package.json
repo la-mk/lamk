@@ -1,6 +1,6 @@
 {
   "name": "@lamk/data-api",
-  "version": "1.0.102",
+  "version": "1.0.103",
   "private": true,
   "description": "",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -75,7 +75,7 @@
     "@feathersjs/socket-commons": "^3.1.5",
     "@feathersjs/socketio": "^4.5.11",
     "@godaddy/terminus": "^4.7.1",
-    "@la-mk/la-sdk": "0.0.169",
+    "@la-mk/la-sdk": "0.0.170",
     "@la-mk/nlp": "0.0.4",
     "@la-mk/translations": "0.0.132",
     "@sendgrid/mail": "^7.4.2",

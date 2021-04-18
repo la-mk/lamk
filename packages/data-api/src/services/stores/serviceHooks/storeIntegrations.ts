@@ -17,7 +17,7 @@ export const createStoreIntegrationsIfNotExists = async (ctx: HookContext) => {
   }
 
   await ctx.app.services['storeIntegrations'].create(
-    { forStore: store._id },
+    { forStore: store._id, services: {} },
     { user: ctx.params.user, authenticated: true },
   );
 };
