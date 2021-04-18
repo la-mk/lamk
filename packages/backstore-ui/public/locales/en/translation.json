@@ -1,19 +1,22 @@
 {
   "actions": {
     "add": "Add",
+    "addIntegration": "Add integration",
     "cancel": "Cancel",
     "continue": "Continue",
     "create": "Create",
     "delete": "Delete",
     "downloadInvoice": "Download invoice",
     "goToDashboard": "Go to dashboard",
+    "integrateNow": "Integrate now",
     "loginInstead": "Log in instead",
     "publish": "Publish",
     "save": "Save",
     "search": "Search",
     "select": "Select",
     "sendPasswordResetLink": "Send password reset link",
-    "update": "Update"
+    "update": "Update",
+    "updateIntegration": "Update integration"
   },
   "analytics": {
     "lifetimeOrderCount": "Lifetime order count",
@@ -568,6 +571,7 @@
     "buyer": "Buyer",
     "campaign_plural": "Campaigns",
     "delivery": "Delivery",
+    "integrations": "Integrations",
     "order_plural": "Orders",
     "payment": "Payment",
     "product_plural": "Products",
@@ -587,10 +591,12 @@
     "details": "Details",
     "email": "Email address",
     "firstName": "First name",
+    "fullName": "Full name",
     "id": "ID",
     "image_plural": "Images",
     "interface": "Interface",
     "lastName": "Last name",
+    "message": "Message",
     "name": "Name",
     "newPassword": "New password",
     "optional": "Optional",
@@ -659,6 +665,18 @@
     "shippingCost": "Shipping cost",
     "subtotal": "Subtotal",
     "total": "Total"
+  },
+  "integrations": {
+    "existingIntegrations": "Existing integrations",
+    "facebookChatDescription": "Add Facebook messenger to your store and communicate with your customers right from your Facebook page",
+    "integrationUpdateSuccess": "Integrations updated successfully",
+    "noIntegrationsFound": "Couldn't find any integrations",
+    "supportedIntegrations": "Supported integrations"
+  },
+  "landingContact": {
+    "emailExample": "me@example.com",
+    "fullNameExample": "John Doe",
+    "messageExplanation": "Tell us more about your business or question"
   },
   "onboarding": {
     "setupCompanySubtitle": "Don't worry, you can modify things later as well.",

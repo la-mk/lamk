@@ -72,6 +72,11 @@ export const App = () => {
           theme={{
             colors: { primary: '#118AB2' },
             components: {
+              Button: {
+                baseStyle: {
+                  fontWeight: 'normal',
+                },
+              },
               Input: {
                 sizes: {
                   md: {

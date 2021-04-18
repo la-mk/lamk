@@ -1,19 +1,22 @@
 {
   "actions": {
     "add": "Додај",
+    "addIntegration": "Додај интеграција",
     "cancel": "Откажи",
     "continue": "Продолжи",
     "create": "Создади",
     "delete": "Избриши",
     "downloadInvoice": "Преземи фактура",
     "goToDashboard": "Оди на главен панел",
+    "integrateNow": "Интегрирај сега",
     "loginInstead": "Или логирај се",
     "publish": "Објави",
     "save": "Зачувај",
     "search": "Пребарај",
     "select": "Одбери",
     "sendPasswordResetLink": "Испрати линк за ресетирање",
-    "update": "Обнови"
+    "update": "Обнови",
+    "updateIntegration": "Обнови интеграција"
   },
   "analytics": {
     "lifetimeOrderCount": "Вкупно порачки",
@@ -568,6 +571,7 @@
     "buyer": "Купувач",
     "campaign_plural": "Кампањи",
     "delivery": "Достава",
+    "integrations": "Интеграции",
     "order_plural": "Порачки",
     "payment": "Плаќање",
     "product_plural": "Производи",
@@ -587,10 +591,12 @@
     "details": "Детали",
     "email": "Емаил",
     "firstName": "Име",
+    "fullName": "Име и презиме",
     "id": "Шифра",
     "image_plural": "Слики",
     "interface": "Интерфејс",
     "lastName": "Презиме",
+    "message": "Содржина",
     "name": "Име",
     "newPassword": "Нова лозинка",
     "optional": "Опционално",
@@ -659,6 +665,18 @@
     "shippingCost": "Цена за достава",
     "subtotal": "Цена на производи",
     "total": "Вкупна цена"
+  },
+  "integrations": {
+    "existingIntegrations": "Постоечки интеграции",
+    "facebookChatDescription": "Додадете чат на вашата продавница, и комуницирајте преку Facebook со вашите клиенти",
+    "integrationUpdateSuccess": "Интеграцијата беше успешно обновена",
+    "noIntegrationsFound": "Не можевме да најдеме постоечки интеграции",
+    "supportedIntegrations": "Поддржани интеграции"
+  },
+  "landingContact": {
+    "emailExample": "me@example.com",
+    "fullNameExample": "Миле Милевски",
+    "messageExplanation": "Кажете ни повеќе за вашиот бизнис или прашање"
   },
   "onboarding": {
     "setupCompanySubtitle": "Истите подесувања можат да се направат и подоцна",

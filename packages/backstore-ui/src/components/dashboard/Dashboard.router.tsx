@@ -11,6 +11,7 @@ import { PaymentRouter } from './payment/Payment.router';
 import { PreferencesRouter } from './preferences/Preferences.router';
 import { AccountRouter } from './account/Account.router';
 import { Summary } from './summary/Summary';
+import { IntegrationsRouter } from './integrations/Integrations.router';
 
 export const DashboardRouter = () => {
   return (
@@ -26,6 +27,10 @@ export const DashboardRouter = () => {
           <Route path='/dashboard/payment' component={PaymentRouter} />
           <Route path='/dashboard/preferences' component={PreferencesRouter} />
           <Route path='/dashboard/account' component={AccountRouter} />
+          <Route
+            path='/dashboard/integrations'
+            component={IntegrationsRouter}
+          />
           <Redirect to='/dashboard/summary' />
         </Switch>
       </ErrorBoundary>

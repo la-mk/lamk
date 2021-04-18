@@ -18,6 +18,7 @@ import {
   Grid,
   Home,
   Briefcase,
+  Link2,
 } from 'react-feather';
 import styled from '@emotion/styled';
 import { withRouter } from 'react-router-dom';
@@ -104,6 +105,12 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
                     icon: (props: any) => <Tag size='1rem' {...props} />,
                     title: t('commerce.campaign_plural'),
                     href: '/dashboard/campaigns',
+                  },
+
+                  {
+                    icon: (props: any) => <Link2 size='1rem' {...props} />,
+                    title: t('commerce.integrations'),
+                    href: '/dashboard/integrations',
                   },
 
                   {
