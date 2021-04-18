@@ -1,67 +1,21 @@
 import React from 'react';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import { default as NextHead } from 'next/head';
-import { Provider as ThemeProvider, CookieBanner } from '@la-mk/blocks-ui';
-import { ConnectedRouter } from 'connected-next-router';
 import { withRedux } from '../src/state/configureStore';
-import { StoreLayout } from '../src/common/pageComponents/StoreLayout';
 import { setStore } from '../src/state/modules/store/store.module';
-import { AuthModal } from '../src/components/auth/AuthModal';
 import { sdk, setupSdk } from '@la-mk/la-sdk';
 import env from '../src/common/env';
 import { getStore } from '../src/state/modules/store/store.selector';
-import { appWithTranslation, useTranslation } from '../src/common/i18n';
+import { appWithTranslation } from '../src/common/i18n';
 import { connect } from 'react-redux';
 import memoize from 'mem';
-import { useSelector, useDispatch } from 'react-redux';
 
 import { initializeAnalytics } from '../src/common/analytics';
-import { getTheme } from '../src/common/theme';
-import { StoreNotFound } from '../src/common/pageComponents/StoreNotFound';
 import { setLandingContent } from '../src/state/modules/storeContents/storeContents.module';
 import { setCategories } from '../src/state/modules/categories/categories.module';
 import { NextPageContext } from 'next';
-import {
-  ConsentPreferences,
-  consentsChange,
-} from '../src/state/modules/analytics/analytics.module';
-import { getConsents } from '../src/state/modules/analytics/analytics.selector';
-
-const getTranslations = (t: (key: string) => string) => {
-  return {
-    firstName: t('common.firstName'),
-    lastName: t('common.lastName'),
-    phoneNumber: t('common.phoneNumber'),
-    email: t('common.email'),
-    password: t('common.password'),
-    currentPassword: t('common.currentPassword'),
-    newPassword: t('common.newPassword'),
-    forgotPassword: t('auth.forgotPassword'),
-    forgotPasswordExplanation: t('auth.forgotPasswordExplanation'),
-    resetPassword: t('auth.resetPassword'),
-    resetPasswordExplanation: t('auth.resetPasswordExplanation'),
-    sendPasswordResetLink: t('actions.sendPasswordResetLink'),
-    loginInstead: t('actions.loginInstead'),
-    forgotPasswordSuccess: t('auth.forgotPasswordSuccess'),
-    forgotPasswordSuccessExplanation: t(
-      'auth.forgotPasswordSuccessExplanation',
-    ),
-    signup: t('auth.signup'),
-    login: t('auth.login'),
-    or: t('common.or'),
-    authSameAccount: t('auth.authSameAccount'),
-    update: t('actions.update'),
-    registerConfirmTermsOfService: t('auth.registerConfirmTermsOfService'),
-    termsOfService: t('auth.termsOfService'),
-    collectAccountInfoReviewPolicy: t('auth.collectAccountInfoReviewPolicy'),
-    privacyPolicy: t('auth.privacyPolicy'),
-    forMoreDetails: t('auth.forMoreDetails'),
-    cookiesExplanation: t('auth.cookiesExplanation'),
-    readMoreCookies: t('auth.readMoreCookies'),
-    acceptCookies: t('actions.acceptCookies'),
-    decline: t('actions.decline'),
-  };
-};
+import { Integrations } from '../src/common/pageComponents/Integrations';
+import { Main } from '../src/common/pageComponents/Main';
 
 const getSlugForCustomDomain = async (host: string) => {
   const laStoreResult = await sdk.store.find({ query: { customDomain: host } });
@@ -135,46 +89,6 @@ const setInitialDataInState = async (ctx: NextPageContext) => {
   }
 };
 
-const Main = ({ laStore, children }) => {
-  const { t } = useTranslation();
-  const consents = useSelector(getConsents);
-  const dispatch = useDispatch();
-  const brandColor = laStore?.color;
-
-  return (
-    <ThemeProvider
-      // @ts-ignore
-      theme={getTheme(brandColor)}
-      translations={getTranslations(t)}
-    >
-      <ConnectedRouter>
-        {laStore ? (
-          <StoreLayout>
-            <>
-              {children}
-              <AuthModal />
-              <CookieBanner
-                onConsentsChanged={updatedConsents =>
-                  dispatch(
-                    consentsChange(
-                      (updatedConsents as unknown) as ConsentPreferences,
-                    ),
-                  )
-                }
-                consents={consents}
-                privacyPolicyLink={'/legal/privacy'}
-                requests={[{ key: 'analytics', title: 'Analytics' }]}
-              />
-            </>
-          </StoreLayout>
-        ) : (
-          <StoreNotFound t={t} />
-        )}
-      </ConnectedRouter>
-    </ThemeProvider>
-  );
-};
-
 class MyApp extends App<AppInitialProps> {
   public static getInitialProps = async ({ Component, ctx }: AppContext) => {
     await setInitialDataInState(ctx);
@@ -229,6 +143,7 @@ class MyApp extends App<AppInitialProps> {
         <Main laStore={laStore}>
           {laStore ? <Component {...pageProps} /> : null}
         </Main>
+        <Integrations store={laStore} />
       </>
     );
   }

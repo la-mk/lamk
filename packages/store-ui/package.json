@@ -30,7 +30,7 @@
     "@emotion/styled": "^11.3.0",
     "@la-mk/analytics": "0.0.13",
     "@la-mk/blocks-ui": "0.0.289",
-    "@la-mk/la-sdk": "0.0.166",
+    "@la-mk/la-sdk": "0.0.171",
     "@la-mk/nlp": "0.0.4",
     "@la-mk/translations": "0.0.132",
     "connected-next-router": "^4.0.1",
