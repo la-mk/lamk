@@ -27,6 +27,10 @@ import { HookContext } from '@feathersjs/feathers';
 import { t } from '../../common/i18n';
 import { getEmailTemplate } from '../email/templateProcessor';
 import { logger } from '../../common/logger';
+import {
+  createStoreIntegrationsIfNotExists,
+  removeStoreIntegrations,
+} from './serviceHooks/storeIntegrations';
 
 // TODO: We don't have to wait when sending an email, but this will do for now.
 export const sendWelcomeEmail = async (ctx: HookContext) => {
@@ -125,9 +129,14 @@ export const hooks = {
     create: [
       createStoreContentsIfNotExists,
       createStorePaymentMethodsIfNotExists,
+      createStoreIntegrationsIfNotExists,
       sendWelcomeEmail,
     ],
     patch: [],
-    remove: [removeStoreContents, removeStorePaymentMethods],
+    remove: [
+      removeStoreContents,
+      removeStorePaymentMethods,
+      removeStoreIntegrations,
+    ],
   },
 };

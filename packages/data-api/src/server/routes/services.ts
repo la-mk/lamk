@@ -18,6 +18,7 @@ import { productGroups } from '../../services/product-groups/productGroups';
 import { campaigns } from '../../services/campaigns/campaigns';
 import { storeAnalytics } from '../../services/store-analytics/storeAnalytics';
 import { storePaymentMethods } from '../../services/store-payment-methods/storePaymentMethods';
+import { storeIntegrations } from '../../services/store-integrations/storeIntegrations';
 import { orderPayments } from '../../services/order-payments/orderPayments';
 import { orderPaymentsQuery } from '../../services/order-payments-query/orderPaymentsQuery';
 import { contactUs } from '../../services/contact-us/contactUs';
@@ -42,6 +43,7 @@ export const registerServices = (app: Application) => {
   campaigns(app);
   storeAnalytics(app);
   storePaymentMethods(app);
+  storeIntegrations(app);
   orderPayments(app);
   orderPaymentsQuery(app);
   contactUs(app);
