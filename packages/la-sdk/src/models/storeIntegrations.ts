@@ -30,7 +30,7 @@ export const schema: JSONSchemaType<StoreIntegrations> = {
             pageId: {
               type: 'string',
               maxLength: 63,
-              minlength: 2,
+              minLength: 2,
             },
           },
         },
