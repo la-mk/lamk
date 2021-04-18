@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 export interface ListItem {
-  content: string;
+  content: React.ReactNode;
   icon?: React.ElementType;
 }
 
