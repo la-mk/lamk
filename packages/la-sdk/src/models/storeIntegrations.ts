@@ -9,23 +9,30 @@ import { JSONSchemaType } from 'ajv';
 export const schema: JSONSchemaType<StoreIntegrations> = {
   type: 'object',
   additionalProperties: false,
-  required: [...defaultSchemaEntries.required, 'forStore'],
+  required: [...defaultSchemaEntries.required, 'forStore', 'services'],
   properties: {
     ...defaultSchemaEntries.properties!,
     forStore: {
       type: 'string',
       format: 'uuid',
     },
-    facebookChat: {
-      // @ts-ignore the typings are wrong
-      type: ['object', 'null'],
+    services: {
+      type: 'object',
       additionalProperties: false,
-      required: ['pageId'],
+      required: [],
       properties: {
-        pageId: {
-          type: 'string',
-          maxLength: 63,
-          minlength: 2,
+        facebookChat: {
+          // @ts-ignore the typings are wrong
+          type: ['object', 'null'],
+          additionalProperties: false,
+          required: ['pageId'],
+          properties: {
+            pageId: {
+              type: 'string',
+              maxLength: 63,
+              minlength: 2,
+            },
+          },
         },
       },
     },
@@ -34,8 +41,10 @@ export const schema: JSONSchemaType<StoreIntegrations> = {
 
 export interface StoreIntegrations extends DefaultSchema {
   forStore: string;
-  facebookChat?: {
-    pageId: string;
+  services: {
+    facebookChat?: {
+      pageId: string;
+    };
   };
 }
 
