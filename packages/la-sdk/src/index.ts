@@ -20,6 +20,7 @@ import { getStorePaymentMethodsSdk } from './models/storePaymentMethods';
 import { getOrderPaymentsSdk } from './models/orderPayments';
 import { getContactUsSdk } from './models/contactUs';
 import { getAuthManagementSdk } from './models/authManagement';
+import { getIntegrationsSdk } from './models/integrations';
 
 // eslint-disable-next-line
 export let sdk: ReturnType<typeof setupSdk>;
@@ -45,6 +46,7 @@ export const setupSdk = (options: SetupSdkOptions = { apiEndpoint: '' }) => {
     storeAnalytics: getStoreAnalyticsSdk(client),
     storePaymentMethods: getStorePaymentMethodsSdk(client),
     orderPayments: getOrderPaymentsSdk(client),
+    integrations: getIntegrationsSdk(client),
     contactUs: getContactUsSdk(client),
     request: (serviceName: string) => getCrudMethods(client, serviceName),
     utils,
