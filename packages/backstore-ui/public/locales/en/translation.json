@@ -591,12 +591,10 @@
     "details": "Details",
     "email": "Email address",
     "firstName": "First name",
-    "fullName": "Full name",
     "id": "ID",
     "image_plural": "Images",
     "interface": "Interface",
     "lastName": "Last name",
-    "message": "Message",
     "name": "Name",
     "newPassword": "New password",
     "optional": "Optional",
@@ -669,14 +667,13 @@
   "integrations": {
     "existingIntegrations": "Existing integrations",
     "facebookChatDescription": "Add Facebook messenger to your store and communicate with your customers right from your Facebook page",
+    "facebookChatStep1": "Go to your <1>Facebook business page</1> and log in with your business page account",
+    "facebookChatStep2": "In the <1>\"Website domain\"</1> section, click the edit button, and add your store domains (eg. <4>https://demo.la.mk</4>, <6>https://la.mk</6>)",
+    "facebookChatStep3": "Customize the frequently asked questions and the chat appearance in the rest of the page settings",
+    "facebookChatStep4": "Find your <1>Facebook Page ID</1>, and input it below (for a guide on how to find your <3>Page ID</3>, check <5>this link</5>).",
     "integrationUpdateSuccess": "Integrations updated successfully",
     "noIntegrationsFound": "Couldn't find any integrations",
     "supportedIntegrations": "Supported integrations"
-  },
-  "landingContact": {
-    "emailExample": "me@example.com",
-    "fullNameExample": "John Doe",
-    "messageExplanation": "Tell us more about your business or question"
   },
   "onboarding": {
     "setupCompanySubtitle": "Don't worry, you can modify things later as well.",

@@ -44,7 +44,7 @@
     "@la-mk/analytics": "0.0.13",
     "@la-mk/blocks-ui": "0.0.291",
     "@la-mk/la-sdk": "0.0.171",
-    "@la-mk/translations": "0.0.134",
+    "@la-mk/translations": "0.0.137",
     "@react-pdf/renderer": "^2.0.4",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",

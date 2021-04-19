@@ -591,12 +591,10 @@
     "details": "Детали",
     "email": "Емаил",
     "firstName": "Име",
-    "fullName": "Име и презиме",
     "id": "Шифра",
     "image_plural": "Слики",
     "interface": "Интерфејс",
     "lastName": "Презиме",
-    "message": "Содржина",
     "name": "Име",
     "newPassword": "Нова лозинка",
     "optional": "Опционално",
@@ -669,14 +667,13 @@
   "integrations": {
     "existingIntegrations": "Постоечки интеграции",
     "facebookChatDescription": "Додадете чат на вашата продавница, и комуницирајте преку Facebook со вашите клиенти",
+    "facebookChatStep1": "Одете во делот за подесување на чатот на вашата <1>Фејсбук бизнис страница</1> и логирајте се.",
+    "facebookChatStep2": "Во делот <1>\"Website domain\"</1>, притиснете на копчето за промени, и додадете ги домените на вашата продавница (пр. <4>https://demo.la.mk</4>, <6>https://la.mk</6>).",
+    "facebookChatStep3": "Прилагодете ги често поставуваните прашања и изгледот на чатот во останатиот дел од страната.",
+    "facebookChatStep4": "Најдете го вашиот <1>Facebook Page ID</1>, и внесете го во полето подолу (за информации како да го најдете вашиот <3>Page ID</3>, проверете го <5>овој линк</5>).",
     "integrationUpdateSuccess": "Интеграцијата беше успешно обновена",
     "noIntegrationsFound": "Не можевме да најдеме постоечки интеграции",
     "supportedIntegrations": "Поддржани интеграции"
-  },
-  "landingContact": {
-    "emailExample": "me@example.com",
-    "fullNameExample": "Миле Милевски",
-    "messageExplanation": "Кажете ни повеќе за вашиот бизнис или прашање"
   },
   "onboarding": {
     "setupCompanySubtitle": "Истите подесувања можат да се направат и подоцна",

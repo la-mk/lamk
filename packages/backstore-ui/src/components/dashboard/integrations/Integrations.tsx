@@ -13,7 +13,7 @@ import { sdk } from '@la-mk/la-sdk';
 import { StoreIntegrations } from '@la-mk/la-sdk/dist/models/storeIntegrations';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { IntegrationDetails } from './IntegrationDetails';
@@ -51,41 +51,50 @@ const getSupportedIntegrations = (
       },
       steps: [
         <Text>
-          Go to{' '}
-          <Button
-            as='a'
-            variant='link'
-            target='_blank'
-            rel='noreferrer noopener'
-            href='https://business.facebook.com/latest/inbox/chat_plugin'
-          >
-            Facebook business page
-          </Button>
-          , and log in if you haven't already
+          <Trans t={t} i18nKey='integrations.facebookChatStep1'>
+            Go to your
+            <Button
+              as='a'
+              variant='link'
+              target='_blank'
+              rel='noreferrer noopener'
+              href='https://business.facebook.com/latest/inbox/chat_plugin'
+            >
+              Facebook business page
+            </Button>
+            and log in if you haven't already
+          </Trans>
         </Text>,
         <Text>
-          In the <Text as='strong'>"Website Domain"</Text> section, click on the
-          edit button, and add your store domains (eg.{' '}
-          <Text as='u'>https://demo.la.mk</Text>,{' '}
-          <Text as='u'>https://la.mk</Text>)
+          <Trans t={t} i18nKey='integrations.facebookChatStep2'>
+            In the <Text as='strong'>"Website Domain"</Text> section, click on
+            the edit button, and add your store domains{' '}
+            <Text as='u'>https://demo.la.mk</Text>{' '}
+            <Text as='u'>https://la.mk</Text>
+          </Trans>
         </Text>,
         <Text>
-          Customize the frequently asked questions and appearance in the other
-          sections of the page
+          <Trans t={t} i18nKey='integrations.facebookChatStep3'>
+            Customize the frequently asked questions and appearance in the other
+            sections of the page
+          </Trans>
         </Text>,
         <Text>
-          Find your Facebook Page ID, and input it below (for a guide on how to
-          find your Page ID, check{' '}
-          <Button
-            as='a'
-            target='_blank'
-            rel='noreferrer noopener'
-            variant='link'
-            href='https://www.facebook.com/help/1503421039731588'
-          >
-            this link
-          </Button>
-          )
+          <Trans t={t} i18nKey='integrations.facebookChatStep4'>
+            Find your <Text as='strong'>Facebook Page ID</Text> and input it
+            below (for a guide on how to find your
+            <Text as='strong'>Page ID</Text>, check
+            <Button
+              as='a'
+              target='_blank'
+              rel='noreferrer noopener'
+              variant='link'
+              href='https://www.facebook.com/help/1503421039731588'
+            >
+              this link
+            </Button>
+            )
+          </Trans>
         </Text>,
       ],
     },
