@@ -279,7 +279,12 @@
     "supportedIntegrations": "Supported integrations",
     "integrationUpdateSuccess": "Integrations updated successfully",
     "noIntegrationsFound": "Couldn't find any integrations",
-    "facebookChatDescription": "Add Facebook messenger to your store and communicate with your customers right from your Facebook page"
+
+    "facebookChatDescription": "Add Facebook messenger to your store and communicate with your customers right from your Facebook page",
+    "facebookChatStep1": "Go to <1>Facebook business page</1> and log in with your business page account",
+    "facebookChatStep2": "In the <1>\"Website domain\"</1> section, click the edit button, and add your store domains (eg. <2>https://demo.la.mk</2>, <3>https://la.mk</3>)",
+    "facebookChatStep3": "Customize the frequently asked questions and appearance in the other sections of the page",
+    "facebookChatStep4": "Find your \"Facebook Page ID\", and input it below (for a guide on how to find your Page ID, check <1>this link</1>)"
   },
   "landing": {
     "contactUsPage": "Contact us",
