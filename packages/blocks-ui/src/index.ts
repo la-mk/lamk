@@ -110,6 +110,8 @@ export { PoweredBy } from './compound/PoweredBy';
 export { LanguagePicker, LanguagePickerProps } from './compound/LanguagePicker';
 export { CookieBanner, CookieBannerProps } from './compound/CookieBanner';
 
+export { FacebookChat } from './integrations/FacebookChat';
+
 export { default as extraWidgets } from './basic/NewForm/widgets/extra';
 export { toast } from './basic/Toast';
 export { default as hooks } from './hooks';
