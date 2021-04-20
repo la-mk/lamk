@@ -1,10 +1,9 @@
-import { hooks } from '@la-mk/blocks-ui';
+import { hooks, FacebookChat } from '@la-mk/blocks-ui';
 import { sdk } from '@la-mk/la-sdk';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { StoreIntegrations } from '@la-mk/la-sdk/dist/models/storeIntegrations';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import React, { useEffect, useState } from 'react';
-import { FacebookChat } from './FacebookChat';
 
 export const Integrations = ({ store }: { store: Store }) => {
   const [fetchCaller] = hooks.useCall();
