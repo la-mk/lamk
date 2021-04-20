@@ -1,6 +1,6 @@
 import React from 'react';
 import App from 'next/app';
-import { Provider as ThemeProvider } from '@la-mk/blocks-ui';
+import { FacebookChat, Provider as ThemeProvider } from '@la-mk/blocks-ui';
 import { LandingLayout } from '../src/layout/LandingLayout';
 import { initializeAnalytics } from '../src/common/analytics';
 import { appWithTranslation } from '../src/common/i18n';
@@ -39,9 +39,12 @@ class MyApp extends App<any> {
           },
         }}
       >
-        <LandingLayout>
-          <Component {...pageProps} />
-        </LandingLayout>
+        <>
+          <LandingLayout>
+            <Component {...pageProps} />
+          </LandingLayout>
+          <FacebookChat pageId={'102161548245479'} />
+        </>
       </ThemeProvider>
     );
   }
