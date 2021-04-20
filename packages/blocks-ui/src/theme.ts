@@ -77,7 +77,7 @@ const calculateShades = (color: string): any => {
     };
 
     const extremeVariant = Object.entries(variants)
-      .filter(([key]) => key !== '500')
+      .filter(([key]) => key !== '500' && key !== '50')
       .find(([_key, value]) => isColorExtreme(value));
 
     if (extremeVariant) {
