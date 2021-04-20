@@ -114,8 +114,6 @@ export const Integrations = () => {
     StoreIntegrations | undefined
   >();
 
-  console.log(existingIntegrations);
-
   const supportedIntegrations = React.useMemo(
     () => getSupportedIntegrations(t),
     [t],
@@ -124,11 +122,13 @@ export const Integrations = () => {
   const listOfExistingIntegrations = React.useMemo(
     () =>
       existingIntegrations
-        ? Object.entries(existingIntegrations.services).map(([key, val]) => ({
-            slug: key,
-            value: val,
-            config: supportedIntegrations[key],
-          }))
+        ? Object.entries(existingIntegrations.services)
+            .map(([key, val]) => ({
+              slug: key,
+              value: val,
+              config: supportedIntegrations[key],
+            }))
+            .filter(x => !!x.value)
         : [],
     [supportedIntegrations, existingIntegrations],
   );

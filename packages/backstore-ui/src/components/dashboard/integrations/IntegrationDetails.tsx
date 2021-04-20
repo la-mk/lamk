@@ -26,7 +26,22 @@ export const IntegrationDetails = ({
       header={t('common.details')}
     >
       <Spinner isLoaded={!isPatching}>
+        {integration && (
+          <Flex justify='flex-end'>
+            <Button
+              m={0}
+              size='sm'
+              variant='outline'
+              onClick={() => onUpdate({ [integration.slug]: null })}
+              isDanger
+            >
+              {t('actions.remove')}
+            </Button>
+          </Flex>
+        )}
+
         <List
+          mt={3}
           mb={5}
           variant='ordered'
           items={integration?.config.steps.map(s => ({ content: s }))}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 // @ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-import { Provider as BlocksUiProvider } from '@la-mk/blocks-ui';
+import { Provider as BlocksUiProvider, FacebookChat } from '@la-mk/blocks-ui';
 import { setupSdk } from '@la-mk/la-sdk';
 import { ConnectedRouter } from 'connected-react-router';
 import { Root } from './components/Root';
@@ -100,9 +100,12 @@ export const App = () => {
           }}
           translations={compoundLocale}
         >
-          <ConnectedRouter history={history}>
-            <Root />
-          </ConnectedRouter>
+          <>
+            <ConnectedRouter history={history}>
+              <Root />
+            </ConnectedRouter>
+            <FacebookChat pageId='102161548245479' />
+          </>
         </BlocksUiProvider>
       </PersistGate>
     </Provider>
