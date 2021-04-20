@@ -47,7 +47,7 @@ const calculateShades = (color: string): any => {
     const darknessCoefficient = 100 - tinycolor(base).getBrightness() / 2.55;
     const variants = {
       '50': tinycolor(base)
-        .lighten(0.6 * darknessCoefficient)
+        .lighten(0.75 * darknessCoefficient)
         .toHexString(),
       '100': tinycolor(base)
         .lighten(0.52 * darknessCoefficient)
