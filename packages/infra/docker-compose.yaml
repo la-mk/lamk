@@ -117,7 +117,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: registry.digitalocean.com/lamk/store-ui:1.0.161
+    image: registry.digitalocean.com/lamk/store-ui:1.0.162
     container_name: store-ui
     restart: always
     networks:
@@ -163,7 +163,7 @@ services:
       NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
 
   backstore-ui:
-    image: registry.digitalocean.com/lamk/backstore-ui:1.0.115
+    image: registry.digitalocean.com/lamk/backstore-ui:1.0.116
     container_name: backstore-ui
     restart: always
     networks:

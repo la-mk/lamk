@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "1.0.161",
+  "version": "1.0.162",
   "description": "Store UI",
   "main": "pages/index.ts",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -12,7 +12,8 @@
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
-    "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\"]' 'public/locales'"
+    "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\"]' 'public/locales'",
+    "postinstall": "patch-package"
   },
   "husky": {
     "hooks": {
@@ -44,6 +45,7 @@
     "next-i18next": "^7.0.1",
     "next-redux-wrapper": "^6.0.2",
     "next-seo": "^4.23.0",
+    "patch-package": "^6.4.7",
     "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
