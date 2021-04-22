@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.118",
+  "version": "1.0.119",
   "private": true,
   "scripts": {
     "dev": "react-app-rewired start",

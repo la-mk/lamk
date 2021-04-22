@@ -2,7 +2,8 @@ FROM node:14.13.1-alpine as base
 ARG GPR_TOKEN
 
 WORKDIR /usr/src/app
-COPY package*.json patches ./
+COPY package*.json ./
+COPY patches/* ./patches/
 COPY .npmrc ./
 # Set the token for the private packages, and once the packages are installed, remove it straight away.
 # The token might still leak in the docker history, but it is not a threat for now: https://www.alexandraulsh.com/2018/06/25/docker-npmrc-security/
