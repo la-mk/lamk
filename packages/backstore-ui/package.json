@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.115",
+  "version": "1.0.116",
   "private": true,
   "scripts": {
     "dev": "react-app-rewired start",
@@ -10,7 +10,8 @@
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
     "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
     "aida": "aida run",
-    "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'public/locales'"
+    "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'public/locales'",
+    "postinstall": "patch-package"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -66,6 +67,7 @@
     "less": "^3.12.2",
     "less-loader": "^7.0.1",
     "lodash": "^4.17.21",
+    "patch-package": "^6.4.7",
     "react": "^17.0.2",
     "react-app-rewired": "^2.1.8",
     "react-dom": "^17.0.2",
