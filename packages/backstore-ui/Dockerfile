@@ -6,7 +6,8 @@ COPY package*.json patches ./
 COPY .npmrc ./
 # Set the token for the private packages, and once the packages are installed, remove it straight away.
 # The token might still leak in the docker history, but it is not a threat for now: https://www.alexandraulsh.com/2018/06/25/docker-npmrc-security/
-RUN npm install  && rm -f .npmrc
+# WE need unsafe perm for the patch-package to run, remove when not needed
+RUN npm install --silent --unsafe-perm && rm -f .npmrc
 
 FROM base as dev
 ENV NODE_ENV development
