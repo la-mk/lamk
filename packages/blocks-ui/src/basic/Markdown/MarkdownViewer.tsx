@@ -51,7 +51,7 @@ let getProcessor = (
             return <Video src={props.src} />;
           }
           return (
-            <Flex align="center" justify="center" mt={3} mb={5}>
+            <Flex align="center" justify="center" my={5}>
               <Image {...props} />
             </Flex>
           );
