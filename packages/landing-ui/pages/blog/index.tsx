@@ -25,24 +25,26 @@ export async function getStaticProps() {
   const fs = require('fs');
   const fm = require('front-matter');
 
-  const contents = await fs.promises.readdir(
+  const contents: any[] = await fs.promises.readdir(
     `${process.cwd()}/contents`,
     'utf-8',
   );
 
-  const posts = await Promise.all(
-    contents
-      .filter(fn => fn.endsWith('.md'))
-      .map(async fn => {
-        const path = `${process.cwd()}/contents/${fn}`;
-        const rawContent = await fs.promises.readFile(path, {
-          encoding: 'utf-8',
-        });
-        const { attributes } = fm(rawContent);
+  const posts = (
+    await Promise.all(
+      contents
+        .filter(fn => fn.endsWith('.md'))
+        .map(async fn => {
+          const path = `${process.cwd()}/contents/${fn}`;
+          const rawContent = await fs.promises.readFile(path, {
+            encoding: 'utf-8',
+          });
+          const { attributes } = fm(rawContent);
 
-        return attributes;
-      }),
-  );
+          return attributes as any;
+        }),
+    )
+  ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return {
     props: { posts },

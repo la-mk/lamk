@@ -29,7 +29,7 @@
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@la-mk/analytics": "0.0.13",
-    "@la-mk/blocks-ui": "0.0.295",
+    "@la-mk/blocks-ui": "0.0.298",
     "@la-mk/translations": "0.0.137",
     "date-fns": "^2.21.1",
     "env-var": "^7.0.0",
