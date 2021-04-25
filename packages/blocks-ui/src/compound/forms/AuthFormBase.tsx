@@ -51,8 +51,15 @@ export const AuthFormBase = ({
           {...otherProps}
           onSubmit={({ formData }) => onPrimary(formData)}
           uiSchema={{
+            'ui:order': ['email', 'phoneNumber', 'password'],
             email: {
               'ui:title': localization.email || 'Email address',
+              'ui:options': {
+                emphasized: true,
+              },
+            },
+            phoneNumber: {
+              'ui:title': localization.phoneNumber || 'Phone number',
               'ui:options': {
                 emphasized: true,
               },

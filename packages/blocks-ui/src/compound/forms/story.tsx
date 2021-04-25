@@ -40,7 +40,14 @@ storiesOf('Forms', module)
   .add('Signup form', () => (
     <Provider>
       <SignupForm
-        schema={authSchema}
+        schema={{
+          ...authSchema,
+          required: [...authSchema.required!, 'phoneNumber'],
+          properties: {
+            ...authSchema.properties,
+            phoneNumber: { type: 'string' },
+          },
+        }}
         logoUrl="/"
         signup={console.log}
         onLoginNowClick={() => null}
