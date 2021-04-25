@@ -16,7 +16,7 @@ export const Company = () => {
   const handleSetupCompanyDone = ({
     formData,
   }: {
-    formData: Partial<Store>;
+    formData: Partial<Store> | null;
   }) => {
     if (!formData) {
       return;

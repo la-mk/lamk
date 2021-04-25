@@ -17,6 +17,7 @@ export const Signup = () => {
 
   const authSchema = sdk.utils.schema.pick(sdk.user.schema, [
     'email',
+    'phoneNumber',
     'password',
   ]);
 
@@ -35,7 +36,11 @@ export const Signup = () => {
 
       {env.ENABLE_SIGNUP && (
         <SignupForm
-          schema={authSchema}
+          schema={{
+            ...authSchema,
+            // We want to make sure users provide a phone number so we can get back to them
+            required: [...authSchema.required, 'phoneNumber'],
+          }}
           logoUrl='/logo-horizontal.svg'
           signup={handleSignup}
           onLoginNowClick={() => dispatch(goTo('/login'))}

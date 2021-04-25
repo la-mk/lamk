@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Heading, Text, Box, Button } from '@la-mk/blocks-ui';
+import { Flex, Heading, Text, Box } from '@la-mk/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { CompanyForm } from '../shared/forms/CompanyForm';
@@ -25,13 +25,6 @@ export const SetupCompany = ({ onDone, store }: SetupCompanyProps) => {
       <Flex mb={6} align='center' direction='column'>
         <Heading as='h3' align='center'>
           {t('onboarding.setupCompanyTitle')}
-          <Button
-            mx={3}
-            variant='outline'
-            onClick={() => onDone({ formData: null })}
-          >
-            {t('actions.continue')}
-          </Button>
         </Heading>
         <Text align='center' color='secondary'>
           {t('onboarding.setupCompanySubtitle')}
@@ -47,7 +40,7 @@ export const SetupCompany = ({ onDone, store }: SetupCompanyProps) => {
         mx='auto'
       >
         <Box width='100%'>
-          <CompanyForm store={store} onDone={onDone} />
+          <CompanyForm store={store} onDone={onDone} canSkip />
         </Box>
       </Flex>
     </>

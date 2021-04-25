@@ -7,9 +7,11 @@ import { useTranslation } from 'react-i18next';
 export const CompanyForm = ({
   store,
   onDone,
+  canSkip,
 }: {
   store: Partial<Store>;
-  onDone: ({ formData }: { formData: Partial<Store> }) => void;
+  onDone: ({ formData }: { formData: Partial<Store> | null }) => void;
+  canSkip?: boolean;
 }) => {
   const { t } = useTranslation();
   const [storeFormData, setStoreFormData] = hooks.useFormState<Partial<Store>>(
@@ -71,7 +73,18 @@ export const CompanyForm = ({
         t(`errors.${errorName}`, context)
       }
     >
-      <Button type='submit'>{t('actions.update')}</Button>
+      {canSkip && (
+        <Button
+          mr={2}
+          variant='outline'
+          onClick={() => onDone({ formData: null })}
+        >
+          {t('actions.continue')}
+        </Button>
+      )}
+      <Button ml={2} type='submit'>
+        {t('actions.update')}
+      </Button>
     </NewForm>
   );
 };
