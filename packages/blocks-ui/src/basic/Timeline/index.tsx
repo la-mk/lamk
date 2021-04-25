@@ -117,14 +117,19 @@ const Event = ({
         />
       )}
 
-      <Flex maxWidth="16rem" direction="column">
+      <Flex maxWidth="18rem" direction="column">
         {/* @ts-ignore */}
         <Flex style={{ whitespace: 'nowrap' }} align="center" mr={[3, 3, 4]}>
           <Text noOfLines={1} size="lg">
             {event.title}
           </Text>
 
-          <Text color="mutedText.dark" size="xs" ml={[3, 3, 4]}>
+          <Text
+            whiteSpace="nowrap"
+            color="mutedText.dark"
+            size="xs"
+            ml={[3, 3, 4]}
+          >
             {`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}
           </Text>
         </Flex>

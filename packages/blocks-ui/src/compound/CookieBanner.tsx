@@ -41,7 +41,7 @@ export const CookieBanner = ({
     >
       <Flex
         width="100%"
-        bg="gray.300"
+        bg="gray.50"
         align="center"
         justify="space-between"
         direction={['column', 'row', 'row']}
@@ -53,7 +53,7 @@ export const CookieBanner = ({
               'We use cookies to deliver a better user experience'}
             .
           </Text>
-          <Text mt={3} as="p">
+          <Text mt={2} as="p">
             {localization.readMoreCookies ?? 'Read more in our'}{' '}
             <Button
               variant="link"
