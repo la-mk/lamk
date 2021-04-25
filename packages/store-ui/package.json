@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "1.0.165",
+  "version": "1.0.166",
   "description": "Store UI",
   "main": "pages/index.ts",
   "author": "Stevche Radevski <sradevski@live.com>",
@@ -30,7 +30,7 @@
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@la-mk/analytics": "0.0.13",
-    "@la-mk/blocks-ui": "0.0.297",
+    "@la-mk/blocks-ui": "0.0.300",
     "@la-mk/la-sdk": "0.0.171",
     "@la-mk/nlp": "0.0.4",
     "@la-mk/translations": "0.0.132",
