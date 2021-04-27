@@ -215,7 +215,10 @@ export const OrderDetailsModal = ({
               </Flex>
               <Divider mt={3} mb={4} />
               <DescriptionItem label={t('finance.subtotal')}>
-                <Text as='strong'>{prices.productsTotal} ден</Text>
+                <Text as='strong'>
+                  {prices.productsTotal}{' '}
+                  {t(`currencies.${store.preferences.currency ?? 'mkd'}`)}
+                </Text>
               </DescriptionItem>
 
               {prices.withCampaignsTotal !== prices.productsTotal && (
@@ -224,16 +227,22 @@ export const OrderDetailsModal = ({
                     {(prices.withCampaignsTotal - prices.productsTotal).toFixed(
                       1,
                     )}{' '}
-                    ден
+                    {t(`currencies.${store.preferences.currency ?? 'mkd'}`)}
                   </Text>
                 </DescriptionItem>
               )}
               <DescriptionItem label={t('finance.shippingCost')}>
-                <Text as='strong'>{prices.deliveryTotal} ден</Text>
+                <Text as='strong'>
+                  {prices.deliveryTotal}{' '}
+                  {t(`currencies.${store.preferences.currency ?? 'mkd'}`)}
+                </Text>
               </DescriptionItem>
               <Divider my={4} />
               <DescriptionItem label={t('finance.total')}>
-                <Text as='strong'>{prices.total} ден</Text>
+                <Text as='strong'>
+                  {prices.total}{' '}
+                  {t(`currencies.${store.preferences.currency ?? 'mkd'}`)}
+                </Text>
               </DescriptionItem>
             </Card>
 

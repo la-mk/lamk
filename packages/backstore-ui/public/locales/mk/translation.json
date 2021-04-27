@@ -614,6 +614,11 @@
   "countries": {
     "mk": "Macedonia"
   },
+  "currencies": {
+    "eur": "EUR",
+    "mkd": "ден",
+    "usd": "USD"
+  },
   "delivery": {
     "deliveryMethod": "Метод на достава",
     "freeDelivery": "Бесплатна достава",
@@ -675,6 +680,12 @@
     "integrationUpdateSuccess": "Интеграцијата беше успешно обновена",
     "noIntegrationsFound": "Не можевме да најдеме постоечки интеграции",
     "supportedIntegrations": "Поддржани интеграции"
+  },
+  "languages": {
+    "en": "English",
+    "en-US": "English",
+    "mk": "Македонски",
+    "mk-MK": "Македонски"
   },
   "onboarding": {
     "setupCompanySubtitle": "Истите подесувања можат да се направат и подоцна",

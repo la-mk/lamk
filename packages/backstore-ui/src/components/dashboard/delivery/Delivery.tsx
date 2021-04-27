@@ -57,7 +57,6 @@ export const Delivery = () => {
           label={t('delivery.updatingDeliveryTip')}
         >
           <DeliveryForm
-            storeId={storeId}
             delivery={delivery}
             onSubmit={handleSetupDeliveryDone}
           />

@@ -12,8 +12,16 @@ import { PreferencesRouter } from './preferences/Preferences.router';
 import { AccountRouter } from './account/Account.router';
 import { Summary } from './summary/Summary';
 import { IntegrationsRouter } from './integrations/Integrations.router';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../state/modules/store/store.selector';
+import { FullScreenSpinner } from '../shared/components/FullScreenSpinner';
 
 export const DashboardRouter = () => {
+  const store = useSelector(getStore);
+  if (!store) {
+    return <FullScreenSpinner />;
+  }
+
   return (
     <DashboardLayout>
       <ErrorBoundary>

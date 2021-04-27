@@ -140,7 +140,6 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
             )}
             {step === 2 && (
               <SetupDelivery
-                storeId={storeId}
                 delivery={delivery}
                 onDone={handleSetupDeliveryDone}
               />

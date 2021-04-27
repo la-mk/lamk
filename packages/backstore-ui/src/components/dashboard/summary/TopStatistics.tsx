@@ -3,8 +3,11 @@ import { Stat, Grid } from '@la-mk/blocks-ui';
 import { useTranslation } from 'react-i18next';
 import { StatisticsCard } from './StatisticsCard';
 import { sdk } from '@la-mk/la-sdk';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../../state/modules/store/store.selector';
 
 export const TopStatistics = () => {
+  const store = useSelector(getStore);
   const { t } = useTranslation();
 
   return (
@@ -14,7 +17,9 @@ export const TopStatistics = () => {
           {(val: number) => (
             <Stat
               title={t('analytics.lifetimeRevenue')}
-              value={`${(val ?? 0)?.toLocaleString()} ден`}
+              value={`${(val ?? 0)?.toLocaleString()} ${t(
+                `currencies.${store.preferences.currency ?? 'mkd'}`,
+              )}`}
             />
           )}
         </StatisticsCard>

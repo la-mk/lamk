@@ -91,7 +91,8 @@ export const ProductsList = ({
               {t('finance.total')}:{' '}
               {`${
                 orderItem.quantity * (orderItem.product.calculatedPrice ?? 0)
-              } ден` || t('common.unknown')}
+              } ${t(`currencies.${store.preferences.currency ?? 'mkd'}`)}` ||
+                t('common.unknown')}
             </Text>
           </Flex>
         </Flex>

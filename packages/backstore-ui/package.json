@@ -1,6 +1,6 @@
 {
   "name": "@lamk/backstore-ui",
-  "version": "1.0.121",
+  "version": "1.0.122",
   "private": true,
   "scripts": {
     "dev": "react-app-rewired start",
@@ -44,8 +44,8 @@
     "@emotion/styled": "^11.3.0",
     "@la-mk/analytics": "0.0.13",
     "@la-mk/blocks-ui": "0.0.299",
-    "@la-mk/la-sdk": "0.0.171",
-    "@la-mk/translations": "0.0.137",
+    "@la-mk/la-sdk": "0.0.172",
+    "@la-mk/translations": "0.0.138",
     "@react-pdf/renderer": "^2.0.4",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",

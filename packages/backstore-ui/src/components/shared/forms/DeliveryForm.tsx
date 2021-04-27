@@ -3,26 +3,23 @@ import { Button, hooks, NewForm, Flex, Box } from '@la-mk/blocks-ui';
 import { sdk } from '@la-mk/la-sdk';
 import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 import { useTranslation } from 'react-i18next';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../../state/modules/store/store.selector';
 
 interface DeliveryFormProps {
-  storeId: Store['_id'] | undefined;
   delivery: Delivery | null;
   onSubmit: (formData: { formData: Delivery }) => void;
 }
 
-export const DeliveryForm = ({
-  storeId,
-  delivery,
-  onSubmit,
-}: DeliveryFormProps) => {
+export const DeliveryForm = ({ delivery, onSubmit }: DeliveryFormProps) => {
+  const store = useSelector(getStore);
   const { t } = useTranslation();
   const [deliveryFormData, setDeliveryFormData] = hooks.useFormState<Delivery>(
     delivery,
     {
-      forStore: storeId,
+      forStore: store?._id,
     },
-    [delivery, storeId],
+    [delivery, store?._id],
   );
 
   return (
@@ -61,14 +58,14 @@ export const DeliveryForm = ({
               'ui:title': t('common.price'),
               'ui:description': t('delivery.priceExplanation'),
               'ui:options': {
-                prefix: 'ден',
+                prefix: t(`currencies.${store.preferences.currency ?? 'mkd'}`),
               },
             },
             freeDeliveryOver: {
               'ui:title': t('delivery.freeDelivery'),
               'ui:description': t('delivery.freeDeliveryExplanation'),
               'ui:options': {
-                prefix: 'ден',
+                prefix: t(`currencies.${store.preferences.currency ?? 'mkd'}`),
               },
             },
           }}
