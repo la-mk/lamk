@@ -142,6 +142,11 @@ export const schema: JSONSchemaType<Order> = {
       enum: Object.values(PaymentMethodNames),
       default: PaymentMethodNames.CREDIT_CARD,
     },
+    currency: {
+      type: 'string',
+      minLength: 3,
+      maxLength: 3,
+    },
     buyerNote: {
       // @ts-ignore the typings are wrong
       type: ['string', 'null'],
@@ -183,6 +188,7 @@ export interface Order extends DefaultSchema {
   deliveryEvents: DeliveryEvent[];
   deliverTo: Address;
   paymentMethod: PaymentMethodNames;
+  currency: string;
   buyerNote?: string;
   calculatedTotal: number;
 }
