@@ -53,6 +53,27 @@ export const schema: JSONSchemaType<Store> = {
       minLength: 2,
       maxLength: 511,
     },
+    preferences: {
+      type: 'object',
+      additionalProperties: false,
+      required: [],
+      properties: {
+        // ISO 4217 based
+        currency: {
+          // @ts-ignore the typings are wrong
+          type: ['string', 'null'],
+          minLength: 3,
+          maxLength: 3,
+        },
+        // IETF language tag based
+        language: {
+          // @ts-ignore the typings are wrong
+          type: ['string', 'null'],
+          minLength: 2,
+          maxLength: 15,
+        },
+      },
+    },
     company: {
       // @ts-ignore the typings are wrong
       type: ['object', 'null'],
@@ -123,6 +144,10 @@ export interface Store extends DefaultSchema {
   color: string;
   slogan?: string;
   customDomain?: string;
+  preferences: {
+    currency?: string;
+    language?: string;
+  };
   company?: {
     companyName: string;
     companyAddress: string;
