@@ -76,7 +76,7 @@ export const sendOrderNotification = async (ctx: HookContext) => {
     shippingCost: prices.deliveryTotal,
     total: prices.total,
     deliverTo: order.deliverTo,
-    currency: 'ден',
+    currency: t(`currency.${store?.preferences.currency || 'mkd'}`),
   };
 
   try {

@@ -12,6 +12,7 @@ const defaultFixture: Partial<Store> = {
     mimeType: 'image/png',
     size: 1234,
   },
+  preferences: {},
   company: {
     companyName: 'Test',
     companyAddress: 'Test',

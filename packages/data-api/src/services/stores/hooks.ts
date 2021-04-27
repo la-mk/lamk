@@ -65,6 +65,7 @@ const allowedFields = [
   'name',
   'slug',
   'customDomain',
+  'preferences',
   'logo',
   'color',
   'slogan',
