@@ -596,7 +596,20 @@
   "countries": {
     "mk": "Macedonia"
   },
-  
+
+  "currencies": {
+    "mkd": "ден",
+    "eur": "EUR",
+    "usd": "USD"
+  },
+
+  "languages": {
+    "en": "English",
+    "en-US": "English",
+    "mk": "Македонски",
+    "mk-MK": "Македонски"
+  },
+
   "productSets": {
     "categoryExplanation": "Categories you might like",
     "discounted": "Products on sale",
