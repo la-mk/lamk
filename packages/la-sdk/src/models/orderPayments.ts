@@ -26,6 +26,11 @@ export const paymentTransactionSchema: JSONSchemaType<PaymentTransaction> = {
       type: 'number',
       exclusiveMinimum: 0,
     },
+    currency: {
+      type: 'string',
+      minLength: 3,
+      maxLength: 3,
+    },
     message: {
       // @ts-ignore the typings are wrong
       type: ['string', 'null'],
@@ -80,6 +85,7 @@ export const schema: JSONSchemaType<OrderPayments> = {
 export interface PaymentTransaction {
   status: TransactionStatus;
   amount: number;
+  currency: string;
   message?: string;
   processorId?: string;
   userIp?: string;
