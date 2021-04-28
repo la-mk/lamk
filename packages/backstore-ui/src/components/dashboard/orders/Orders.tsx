@@ -14,11 +14,7 @@ import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { TFunction } from 'i18next';
 import Table, { ColumnProps } from 'antd/lib/table';
 
-const getColumns = (
-  t: TFunction,
-  currency: string = 'mkd',
-  filters: FilterObject,
-) =>
+const getColumns = (t: TFunction, filters: FilterObject) =>
   [
     {
       title: t('common.id'),
@@ -28,10 +24,10 @@ const getColumns = (
     {
       title: t('finance.total'),
       dataIndex: 'calculatedTotal',
-      render: (calculatedTotal: number) => {
+      render: (calculatedTotal: number, order) => {
         return (
           <Text>
-            {calculatedTotal} {t(`currencies.${currency ?? 'mkd'}`)}
+            {calculatedTotal} {t(`currencies.${order.currency}`)}
           </Text>
         );
       },
@@ -98,7 +94,7 @@ export const Orders = () => {
       storageKey: `${store ? store._id : ''}/orderFilters`,
     },
   );
-  const columns = getColumns(t, store.preferences.currency, filters);
+  const columns = getColumns(t, filters);
 
   React.useEffect(() => {
     if (!store) {

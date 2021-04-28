@@ -17,6 +17,7 @@ export const TopStatistics = () => {
           {(val: number) => (
             <Stat
               title={t('analytics.lifetimeRevenue')}
+              // TODO: this value here would be incorrect if the currency changed, convert based on order currency.
               value={`${(val ?? 0)?.toLocaleString()} ${t(
                 `currencies.${store.preferences.currency ?? 'mkd'}`,
               )}`}
