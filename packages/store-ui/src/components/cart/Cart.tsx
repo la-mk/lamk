@@ -157,13 +157,15 @@ export const Cart = () => {
           <Flex direction='column' flex={2} mx={[1, 2, 2]} my={3}>
             <OrderProductsList
               items={cart.items}
-              storeId={store._id}
+              store={store}
+              currency={store.preferences.currency ?? 'mkd'}
               handleRemove={handleRemove}
               handleChangeItemQuantity={handleChangeItemQuantity}
             />
           </Flex>
           <Flex align='center' justify='center' flex={1} mx={[1, 2, 2]} my={3}>
             <Summary
+              currency={store.preferences.currency ?? 'mkd'}
               showContinueShopping
               items={cart.items}
               delivery={delivery}
@@ -178,7 +180,7 @@ export const Cart = () => {
 
       <ManagedSets
         mt={8}
-        storeId={store._id}
+        store={store}
         setTags={[
           {
             title: t(

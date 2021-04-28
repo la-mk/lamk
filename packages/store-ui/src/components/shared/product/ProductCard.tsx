@@ -9,14 +9,19 @@ import { useTheme } from '@chakra-ui/react';
 import { TFunction } from 'next-i18next';
 import { HoverableLink } from '../components/HoverableLink';
 import { ProductTags } from './ProductTags';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 const ProductDescription = ({
+  t,
   product,
+  store,
   detailed,
   horizontal,
   ownTheme,
 }: {
+  t: TFunction;
   product: Product;
+  store: Store;
   detailed?: boolean;
   horizontal?: boolean;
   ownTheme: {
@@ -59,21 +64,21 @@ const ProductDescription = ({
         maxCalculatedPrice={product.maxCalculatedPrice}
         minPrice={product.minPrice}
         maxPrice={product.maxPrice}
-        currency={'ден'}
+        currency={t(`currencies.${store.preferences.currency ?? 'mkd'}`)}
       />
     </Box>
   );
 };
 
 const ProductImage = ({
-  storeId,
+  store,
   product,
   horizontal,
   width,
   height,
   t,
 }: {
-  storeId: string;
+  store: Store;
   product: Product;
   emphasized?: boolean;
   horizontal?: boolean;
@@ -100,7 +105,7 @@ const ProductImage = ({
         style={{ objectFit: 'contain' }}
         height={height}
         getSrc={params =>
-          sdk.artifact.getUrlForImage(product.media[0]?._id, storeId, params)
+          sdk.artifact.getUrlForImage(product.media[0]?._id, store._id, params)
         }
         alt={product.name}
       />
@@ -139,13 +144,13 @@ const ProductImage = ({
 
 export const ProductCard = ({
   product,
-  storeId,
+  store,
   detailed,
   emphasized,
   horizontal,
 }: {
   product: Product;
-  storeId: string;
+  store: Store;
   detailed?: boolean;
   emphasized?: boolean;
   horizontal?: boolean;
@@ -170,7 +175,7 @@ export const ProductCard = ({
       >
         <ProductImage
           t={t}
-          storeId={storeId}
+          store={store}
           product={product}
           horizontal={selector === 'horizontal'}
           height={ownTheme.image.height[selector]}
@@ -178,6 +183,8 @@ export const ProductCard = ({
         />
 
         <ProductDescription
+          t={t}
+          store={store}
           ownTheme={ownTheme}
           product={product}
           detailed={detailed}

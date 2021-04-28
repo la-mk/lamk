@@ -6,14 +6,15 @@ import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';
 import { useTranslation } from '../../common/i18n';
 import { getSetHref } from '../../common/filterUtils';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 interface ProductGridProps {
   set: ProductSetResult;
-  storeId: string;
+  store: Store;
   horizontal?: boolean;
 }
 
-export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
+export const ProductGrid = ({ set, store, horizontal }: ProductGridProps) => {
   const { t } = useTranslation();
   const productCount = hooks.useBreakpoint([6, 6, 8]);
   const productCountHorizontal = hooks.useBreakpoint([3, 4, 6]);
@@ -35,11 +36,7 @@ export const ProductGrid = ({ set, storeId, horizontal }: ProductGridProps) => {
         items={productsToShow}
         renderItem={item => (
           <Box mb={'auto'}>
-            <ProductCard
-              product={item}
-              storeId={storeId}
-              horizontal={horizontal}
-            />
+            <ProductCard product={item} store={store} horizontal={horizontal} />
           </Box>
         )}
       />

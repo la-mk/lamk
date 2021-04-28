@@ -228,7 +228,7 @@ export const Product = ({ product }: ProductProps) => {
 
       <ManagedSets
         mt={[8, 9, 9]}
-        storeId={store._id}
+        store={store}
         setTags={[
           {
             title: t(

@@ -6,13 +6,14 @@ import { ProductCard } from '../shared/product/ProductCard';
 import { SeeAllLink } from './SeeAllLink';
 import { useTranslation } from '../../common/i18n';
 import { getSetHref } from '../../common/filterUtils';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 interface ProductSetProps {
   set: ProductSetResult;
-  storeId: string;
+  store: Store;
 }
 
-export const ProductDuo = ({ set, storeId }: ProductSetProps) => {
+export const ProductDuo = ({ set, store }: ProductSetProps) => {
   const { t } = useTranslation();
   const allHref = getSetHref(set);
   const products = set.data;
@@ -28,12 +29,7 @@ export const ProductDuo = ({ set, storeId }: ProductSetProps) => {
         direction={['column', 'column', 'row']}
       >
         <Box mr={productTwo ? [0, 0, 5] : 0}>
-          <ProductCard
-            emphasized
-            detailed
-            product={productOne}
-            storeId={storeId}
-          />
+          <ProductCard emphasized detailed product={productOne} store={store} />
         </Box>
         {productTwo && (
           <Box ml={[0, 0, 5]}>
@@ -41,7 +37,7 @@ export const ProductDuo = ({ set, storeId }: ProductSetProps) => {
               emphasized
               detailed
               product={productTwo}
-              storeId={storeId}
+              store={store}
             />
           </Box>
         )}

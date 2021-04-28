@@ -183,6 +183,7 @@ export const Checkout = () => {
         ...options,
         // This is just to make the typings happy, as it will be calculated server-side.
         calculatedTotal: 0,
+        currency: store.preferences.currency ?? 'mkd',
       }),
       (order: Order) => {
         setOrder(order);
@@ -251,8 +252,8 @@ export const Checkout = () => {
             my={3}
           >
             <Summary
+              currency={store.preferences.currency ?? 'mkd'}
               showProductsSummary
-              storeId={store._id}
               items={cart.items}
               delivery={delivery}
               campaigns={campaigns ?? []}

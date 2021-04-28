@@ -8,14 +8,15 @@ import { OrderProductsList } from '../../shared/product/OrderProductsList';
 import { formatDistanceToNow } from 'date-fns';
 import { mk, enUS } from 'date-fns/locale';
 import { Order } from '@la-mk/la-sdk/dist/models/order';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 export const OrderDescription = ({
   order,
-  storeId,
+  store,
   hideDetailsButton,
 }: {
   order: Order;
-  storeId: string;
+  store: Store;
   hideDetailsButton?: boolean;
 }) => {
   const { t, i18n } = useTranslation();
@@ -66,7 +67,11 @@ export const OrderDescription = ({
         )}
       </Flex>
 
-      <OrderProductsList items={order.ordered} storeId={storeId} />
+      <OrderProductsList
+        items={order.ordered}
+        currency={order.currency}
+        store={store}
+      />
 
       <Flex mt={2} px={[1, 1, 2]} justify='space-between' align='center'>
         <Text mr={2} size='sm' color='mutedText.dark'>

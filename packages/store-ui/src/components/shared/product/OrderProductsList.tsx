@@ -9,10 +9,12 @@ import { ProductImageWithTitle } from './ProductImageWithTitle';
 import { Quantity } from './Quantity';
 import { OrderItem } from '@la-mk/la-sdk/dist/models/order';
 import { TableColumnProps } from '@la-mk/blocks-ui/dist/basic/Table';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 const getColumns = (
   t: TFunction,
-  storeId: string,
+  store: Store,
+  currency,
   handleChangeItemQuantity,
   handleRemove,
 ) =>
@@ -22,7 +24,11 @@ const getColumns = (
       key: 'product',
       render: (_text, item) => {
         return (
-          <ProductImageWithTitle product={item.product} storeId={storeId} />
+          <ProductImageWithTitle
+            product={item.product}
+            currency={currency}
+            storeId={store._id}
+          />
         );
       },
     },
@@ -37,7 +43,7 @@ const getColumns = (
           maxCalculatedPrice={item.product.calculatedPrice}
           minPrice={item.product.price}
           maxPrice={item.product.price}
-          currency='ден'
+          currency={t(`currencies.${currency}`)}
         />
       ),
     },
@@ -60,7 +66,8 @@ const getColumns = (
       isNumeric: true,
       render: (val, item) => (
         <Text as='strong' color='primary.500'>
-          {item.quantity * item.product.calculatedPrice} ден
+          {item.quantity * item.product.calculatedPrice}{' '}
+          {t(`currencies.${currency}`)}
         </Text>
       ),
     },
@@ -83,13 +90,14 @@ const getColumns = (
 
 const OrderProductListItem = ({
   item,
-  storeId,
+  store,
+  currency,
   handleRemove,
   handleChangeItemQuantity,
   t,
 }: Pick<
   OrderProductsListProps,
-  'storeId' | 'handleChangeItemQuantity' | 'handleRemove'
+  'store' | 'currency' | 'handleChangeItemQuantity' | 'handleRemove'
 > & { item: OrderItem | CartItemWithProduct; t: TFunction }) => {
   return (
     <Flex
@@ -112,7 +120,11 @@ const OrderProductListItem = ({
           />
         )}
       </Box>
-      <ProductImageWithTitle product={item.product} storeId={storeId} />
+      <ProductImageWithTitle
+        product={item.product}
+        currency={currency}
+        storeId={store._id}
+      />
 
       <Flex mt={6} justify='space-between'>
         <Flex justify='center'>
@@ -123,7 +135,7 @@ const OrderProductListItem = ({
             maxCalculatedPrice={item.product.calculatedPrice}
             minPrice={item.product.price}
             maxPrice={item.product.price}
-            currency='ден'
+            currency={t(`currencies.${currency}`)}
           />
         </Flex>
 
@@ -143,7 +155,8 @@ const OrderProductListItem = ({
       <Box mt={3}>
         <Text mr={2}>Total:</Text>
         <Text as='strong' color='primary'>
-          {item.product.calculatedPrice * item.quantity} ден
+          {item.product.calculatedPrice * item.quantity}{' '}
+          {t(`currencies.${currency}`)}
         </Text>
       </Box>
     </Flex>
@@ -152,14 +165,16 @@ const OrderProductListItem = ({
 
 export interface OrderProductsListProps {
   items: Array<OrderItem | CartItemWithProduct>;
-  storeId: string;
+  store: Store;
+  currency: string;
   handleRemove?: (item: OrderItem | CartItemWithProduct) => void;
   handleChangeItemQuantity?: (item: CartItemWithProduct, val: number) => void;
 }
 
 export const OrderProductsList = ({
   items,
-  storeId,
+  currency,
+  store,
   handleRemove,
   handleChangeItemQuantity,
 }: OrderProductsListProps) => {
@@ -177,7 +192,8 @@ export const OrderProductsList = ({
             <>
               <Divider mb={2} />
               <OrderProductListItem
-                storeId={storeId}
+                store={store}
+                currency={currency}
                 handleRemove={handleRemove}
                 handleChangeItemQuantity={handleChangeItemQuantity}
                 item={item}
@@ -196,7 +212,8 @@ export const OrderProductsList = ({
           // @ts-ignore
           columns={getColumns(
             t,
-            storeId,
+            store,
+            currency,
             handleChangeItemQuantity,
             handleRemove,
           )}

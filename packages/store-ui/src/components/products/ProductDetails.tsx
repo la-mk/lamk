@@ -3,6 +3,8 @@ import { Tabs, Text } from '@la-mk/blocks-ui';
 import { useTranslation } from '../../common/i18n';
 import { Product } from '@la-mk/la-sdk/dist/models/product';
 import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../state/modules/store/store.selector';
 
 export const ProductDetails = ({
   product,
@@ -11,6 +13,7 @@ export const ProductDetails = ({
   product: Product;
   delivery: Delivery;
 }) => {
+  const store = useSelector(getStore);
   const { t } = useTranslation();
   const [tab, setTab] = useState(0);
 
@@ -37,12 +40,16 @@ export const ProductDetails = ({
               {!!delivery?.method && (
                 <Text as='p' whiteSpace='pre-wrap'>
                   {t(`deliveryMethods.${delivery.method}`)}:{' '}
-                  {`${deliveryPrice} ден`}
+                  {`${deliveryPrice} ${t(
+                    `currencies.${store.preferences.currency ?? 'mkd'}`,
+                  )}`}
                 </Text>
               )}
               <Text as='p' whiteSpace='pre-wrap'>
                 {t('delivery.productFreeDeliveryExplanation', {
-                  freeDeliveryPrice: `${freeDeliveryPrice} ден`,
+                  freeDeliveryPrice: `${freeDeliveryPrice} ${t(
+                    `currencies.${store.preferences.currency ?? 'mkd'}`,
+                  )}`,
                 })}
               </Text>
             </>

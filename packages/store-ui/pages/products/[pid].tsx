@@ -12,7 +12,11 @@ import { transliterate } from '@la-mk/nlp';
 import { TFunction } from 'next-i18next';
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
-const getProductSummary = (product: ProductType, t: TFunction) => {
+const getProductSummary = (
+  product: ProductType,
+  store: Store,
+  t: TFunction,
+) => {
   const partialDescription = product.description?.slice(0, 130);
   const transliteratedName = transliterate(product.name, 'mk', 'en').replace(
     '\n',
@@ -21,7 +25,9 @@ const getProductSummary = (product: ProductType, t: TFunction) => {
 
   return `${partialDescription ?? ''}, ${t('common.price')}: ${
     product.minCalculatedPrice
-  } ден. ${transliteratedName}`;
+  } ${t(
+    `currencies.${store.preferences.currency ?? 'mkd'}`,
+  )}. ${transliteratedName}`;
 };
 
 const ProductPage = ({
@@ -57,7 +63,7 @@ const ProductPage = ({
         url={`/products/${product._id}`}
         store={store}
         title={product.name}
-        description={getProductSummary(product, t)}
+        description={getProductSummary(product, store, t)}
         images={product.media.map(mediaFile => ({
           url: sdk.artifact.getUrlForImage(mediaFile._id, store._id, {
             h: 300,
@@ -69,7 +75,7 @@ const ProductPage = ({
           productName: product.name,
           description: product.description,
           aggregateOffer: {
-            priceCurrency: 'MKD',
+            priceCurrency: (store.preferences.currency ?? 'mkd').toUpperCase(),
             lowPrice: product.minCalculatedPrice.toFixed(2),
             highPrice: product.maxCalculatedPrice.toFixed(2),
             offerCount: product.variants.length.toString(),

@@ -7,29 +7,30 @@ import {
 import { sdk } from '@la-mk/la-sdk';
 import { hooks, Box, Spinner } from '@la-mk/blocks-ui';
 import { ProductSet } from './ProductSet';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 export const ManagedSets = React.memo(
   ({
-    storeId,
+    store,
     setTags = [],
     ...props
   }: {
-    storeId: string | null;
+    store: Store | null;
     setTags: ProductSetType[];
   } & React.ComponentProps<typeof Box>) => {
     const [caller, showSpinner] = hooks.useCall();
     const [productSets, setProductSets] = useState<ProductSetResult[]>([]);
 
     useEffect(() => {
-      if (!storeId) {
+      if (!store?._id) {
         return;
       }
 
       caller(
-        sdk.product.getProductSetsForStore(storeId, setTags),
+        sdk.product.getProductSetsForStore(store._id, setTags),
         setProductSets,
       );
-    }, [storeId, setTags]);
+    }, [store, setTags]);
 
     if (!setTags.length) {
       return null;
@@ -44,7 +45,7 @@ export const ManagedSets = React.memo(
               <Box my={[8, 9, 9]}>
                 <ProductSet
                   set={set}
-                  storeId={storeId}
+                  store={store}
                   key={set.setTag.type + (set.setTag.value || '')}
                 />
               </Box>

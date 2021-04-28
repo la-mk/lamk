@@ -177,7 +177,9 @@ export const Payment = ({ orderId }: PaymentProps) => {
           {order && (
             <Heading as='h3' size='lg' mb={3}>
               {t('payment.payAmountTip', {
-                amountWithCurrency: `${order.calculatedTotal} ден`,
+                amountWithCurrency: `${order.calculatedTotal} ${t(
+                  `currencies.${order.currency}`,
+                )}`,
               })}
             </Heading>
           )}

@@ -20,12 +20,13 @@ import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 import { CustomCard } from './components/CustomCard';
 import { SummaryProductList } from './SummaryProductList';
 import Link from 'next/link';
+import { getStore } from '../../state/modules/store/store.selector';
 
 interface SummaryProps {
   items: (CartItemWithProduct | OrderItem)[];
   delivery: Delivery;
   campaigns: Campaign[];
-  storeId?: string;
+  currency: string;
   buttonTitle?: string;
   disabled?: boolean;
   showProductsSummary?: boolean;
@@ -39,7 +40,7 @@ export const Summary = ({
   items,
   delivery,
   campaigns,
-  storeId,
+  currency,
   buttonTitle,
   disabled,
   showProductsSummary,
@@ -48,6 +49,7 @@ export const Summary = ({
   hideFreeShipping,
   ...props
 }: SummaryProps & React.ComponentProps<typeof Box>) => {
+  const store = useSelector(getStore);
   const user = useSelector(getUser);
   const [note, setNote] = React.useState('');
   const dispatch = useDispatch();
@@ -79,28 +81,37 @@ export const Summary = ({
     >
       {showProductsSummary && (
         <>
-          <SummaryProductList items={items} storeId={storeId} />
+          <SummaryProductList
+            items={items}
+            currency={currency}
+            storeId={store._id}
+          />
           <Divider my={4} />
         </>
       )}
 
       <Flex justify='space-between'>
         <Text>{t('finance.subtotal')}</Text>
-        <Text as='strong'>{prices.productsTotal} ден</Text>
+        <Text as='strong'>
+          {prices.productsTotal} {t(`currencies.${currency}`)}
+        </Text>
       </Flex>
 
       {prices.withCampaignsTotal !== prices.productsTotal && (
         <Flex mt={4} direction='row' justify='space-between'>
           <Text>{t('finance.campaignDiscount')}</Text>
           <Text as='strong' color='danger'>
-            {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)} ден
+            {(prices.withCampaignsTotal - prices.productsTotal).toFixed(1)}{' '}
+            {t(`currencies.${currency}`)}
           </Text>
         </Flex>
       )}
 
       <Flex mt={4} direction='row' justify='space-between'>
         <Text>{t('finance.shippingCost')}</Text>
-        <Text as='strong'>{prices.deliveryTotal} ден</Text>
+        <Text as='strong'>
+          {prices.deliveryTotal} {t(`currencies.${currency}`)}
+        </Text>
       </Flex>
       {prices.deliveryTotal !== 0 && !hideFreeShipping && (
         <Box mt={2}>
@@ -108,7 +119,7 @@ export const Summary = ({
             {t('delivery.addToGetFreeDelivery', {
               priceUntilFreeDelivery: `${
                 delivery.freeDeliveryOver - prices.withCampaignsTotal
-              } ден`,
+              } ${t(`currencies.${currency}`)}`,
             })}
           </Text>
         </Box>
@@ -118,7 +129,7 @@ export const Summary = ({
       <Flex direction='row' justify='space-between'>
         <Text>{t('finance.total')}</Text>
         <Text as='strong' size='xl'>
-          {prices.total} ден
+          {prices.total} {t(`currencies.${currency}`)}
         </Text>
       </Flex>
 

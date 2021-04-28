@@ -3,18 +3,23 @@ import { Text, Flex } from '@la-mk/blocks-ui';
 import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from '../../../common/i18n';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../../state/modules/store/store.selector';
 
 interface DiscoutCampaignProps {
   campaign: Campaign;
 }
 
 export const DiscountCampaign = ({ campaign }: DiscoutCampaignProps) => {
+  const store = useSelector(getStore);
   const { t } = useTranslation();
 
   const rewardValueText =
     campaign.reward.type === sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT
       ? `${campaign.reward.value}%`
-      : `${campaign.reward.value} ден`;
+      : `${campaign.reward.value} ${t(
+          `currencies.${store.preferences.currency ?? 'mkd'}`,
+        )}`;
 
   return (
     <Flex

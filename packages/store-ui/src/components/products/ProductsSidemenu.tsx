@@ -9,6 +9,7 @@ const MAX_PRICE = 100000;
 const MIN_PRICE = 0;
 
 interface ProductsSidemenuProps {
+  currency: string;
   filters: FilterObject;
   setFilters: (filters: FilterObject) => void;
 }
@@ -16,6 +17,7 @@ interface ProductsSidemenuProps {
 export const ProductsSidemenu = ({
   filters,
   setFilters,
+  currency,
   ...props
 }: ProductsSidemenuProps & React.ComponentProps<typeof Box>) => {
   return (
@@ -28,6 +30,7 @@ export const ProductsSidemenu = ({
         max={MAX_PRICE}
         min={MIN_PRICE}
         onChange={setFilters}
+        currency={currency}
       />
     </Box>
   );

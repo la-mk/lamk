@@ -91,7 +91,7 @@ export const Orders = () => {
         items={orders ? orders.data : []}
         renderItem={order => (
           <CustomCard mx='auto' width='100%' overflow='hidden'>
-            <OrderDescription order={order} storeId={store._id} />
+            <OrderDescription order={order} store={store} />
           </CustomCard>
         )}
       ></DataGrid>

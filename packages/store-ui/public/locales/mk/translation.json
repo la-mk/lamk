@@ -615,6 +615,11 @@
   "countries": {
     "mk": "Macedonia"
   },
+  "currencies": {
+    "eur": "EUR",
+    "mkd": "ден",
+    "usd": "USD"
+  },
   "delivery": {
     "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
     "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава"
@@ -665,6 +670,12 @@
     "shippingCost": "Цена за достава",
     "subtotal": "Цена на производи",
     "total": "Вкупна цена"
+  },
+  "languages": {
+    "en": "English",
+    "en-US": "English",
+    "mk": "Македонски",
+    "mk-MK": "Македонски"
   },
   "legal": {
     "legalExplanation": "Активно работиме со цел да сме во согласност со сите регулативи и закони. Ги преземаме сите безбедносни мерки за заштита на вашите податоци, и собираме минимален број на податоци со цел да ви понудиме подобро корисничко искуство",

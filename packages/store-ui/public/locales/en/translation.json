@@ -615,6 +615,11 @@
   "countries": {
     "mk": "Macedonia"
   },
+  "currencies": {
+    "eur": "EUR",
+    "mkd": "ден",
+    "usd": "USD"
+  },
   "delivery": {
     "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
     "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
@@ -665,6 +670,12 @@
     "shippingCost": "Shipping cost",
     "subtotal": "Subtotal",
     "total": "Total"
+  },
+  "languages": {
+    "en": "English",
+    "en-US": "English",
+    "mk": "Македонски",
+    "mk-MK": "Македонски"
   },
   "legal": {
     "legalExplanation": "We make sure to be compliant with all regulations and laws. We have taken all security measures and limit the amount of data we collect to the bare minimum while still providing a smooth user experience",

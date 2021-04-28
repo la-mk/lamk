@@ -5,8 +5,14 @@ import { Order } from '@la-mk/la-sdk/dist/models/order';
 import { sdk } from '@la-mk/la-sdk';
 import { PaymentMethod } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 
-//ISO 4217 currency code for Denar
-const DENAR_CURRENCY_ID = 807;
+// TODO: Export to sdk
+//ISO 4217 currency codes
+const currencyIds = {
+  mkd: 807,
+  eur: 978,
+  usd: 840,
+};
+
 const TRANSACTION_TYPE = 'Auth';
 
 interface PaymentFormProps {
@@ -42,7 +48,7 @@ export const PaymentForm = ({
         clientId: cardPaymentInfo.clientId,
         orderId: order._id,
         orderTotal: orderTotal.total,
-        currencyCode: DENAR_CURRENCY_ID,
+        currencyCode: currencyIds[order.currency],
         transactionType: TRANSACTION_TYPE,
         language: i18n.language,
         // We have to make the request to a sameorigin URL, otherwise it won't display it in the iframe.

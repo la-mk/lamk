@@ -6,13 +6,14 @@ import { useTranslation } from '../../common/i18n';
 import { SetTitle } from './SetTitle';
 import { SeeAllLink } from './SeeAllLink';
 import { getSetHref } from '../../common/filterUtils';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 interface ProductSetProps {
   set: ProductSetResult;
-  storeId: string;
+  store: Store;
 }
 
-export const ProductSet = ({ set, storeId }: ProductSetProps) => {
+export const ProductSet = ({ set, store }: ProductSetProps) => {
   const { t } = useTranslation();
   const allHref = getSetHref(set);
   const products = set.data;
@@ -28,7 +29,7 @@ export const ProductSet = ({ set, storeId }: ProductSetProps) => {
         itemKey={'_id'}
         items={products}
         renderItem={(product: Product) => (
-          <ProductCard key={product._id} product={product} storeId={storeId} />
+          <ProductCard key={product._id} product={product} store={store} />
         )}
       />
       <SeeAllLink allHref={allHref} t={t} />

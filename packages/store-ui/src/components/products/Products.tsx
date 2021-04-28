@@ -78,6 +78,7 @@ export const Products = ({
           mr={3}
           filters={filters}
           setFilters={setFilters}
+          currency={store.preferences.currency ?? 'mkd'}
         />
         {/* The drawer is always visible, but the button to toggle it is only visible on mobile. The only time this is somewhat of an issue is when opening the modal, and then resizing the window, but even then the experience is pretty good. */}
         <Drawer
@@ -87,7 +88,12 @@ export const Products = ({
           onClose={() => setIsDrawerVisible(false)}
           placement='left'
         >
-          <ProductsSidemenu pt={3} filters={filters} setFilters={setFilters} />
+          <ProductsSidemenu
+            pt={3}
+            currency={store.preferences.currency ?? 'mkd'}
+            filters={filters}
+            setFilters={setFilters}
+          />
         </Drawer>
 
         <Box mb={2} display={['initial', 'initial', 'none']}>
@@ -127,7 +133,7 @@ export const Products = ({
               rowKey='_id'
               items={products.data}
               renderItem={(item: any) => (
-                <ProductCard product={item} storeId={store._id} />
+                <ProductCard product={item} store={store} />
               )}
               pagination={{
                 size: paginationSize,

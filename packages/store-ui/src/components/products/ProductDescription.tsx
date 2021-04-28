@@ -3,6 +3,8 @@ import { Flex, Text, Heading } from '@la-mk/blocks-ui';
 import { Product, Variant } from '@la-mk/la-sdk/dist/models/product';
 import { Price } from '../shared/product/Price';
 import { useTranslation } from '../../common/i18n';
+import { useSelector } from 'react-redux';
+import { getStore } from '../../state/modules/store/store.selector';
 
 export const ProductDescription = ({
   product,
@@ -13,6 +15,7 @@ export const ProductDescription = ({
   selectedVariant: Variant;
   outOfStock?: boolean;
 }) => {
+  const store = useSelector(getStore);
   const { t } = useTranslation();
 
   return (
@@ -40,7 +43,7 @@ export const ProductDescription = ({
           }
           minPrice={selectedVariant ? selectedVariant.price : product.minPrice}
           maxPrice={selectedVariant ? selectedVariant.price : product.maxPrice}
-          currency={'ден'}
+          currency={t(`currencies.${store.preferences.currency ?? 'mkd'}`)}
         />
         <Text color='mutedText.dark'>{t(`units.${product.unit}`)}</Text>
       </Flex>

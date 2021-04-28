@@ -43,33 +43,44 @@ const parsePriceFilter = (
 };
 
 interface PriceFilter {
+  currency: string;
   filters: FilterObject;
   min: number;
   max: number;
   onChange: (filters: FilterObject) => void;
 }
 
-const PredefinedRanges = ({ min, max, start, end, onRangeSelected }) => {
+// TODO: Add value relevant to currency
+const PredefinedRanges = ({
+  currency,
+  min,
+  max,
+  start,
+  end,
+  onRangeSelected,
+  t,
+}) => {
   return (
     <Flex direction='column' align='flex-start'>
       <Button onClick={() => onRangeSelected([min, 100])} variant='ghost'>
         <Text color={start === min && end === 100 ? 'primary' : 'text.dark'}>
-          {'< 100 ден'}
+          {`< 100 ${t(`currencies.${currency}`)}`}
         </Text>
       </Button>
       <Button onClick={() => onRangeSelected([100, 1000])} variant='ghost'>
         <Text color={start === 100 && end === 1000 ? 'primary' : 'text.dark'}>
-          100 ден - 1000 ден
+          100 {t(`currencies.${currency}`)} - 1000 {t(`currencies.${currency}`)}
         </Text>
       </Button>
       <Button onClick={() => onRangeSelected([1000, 5000])} variant='ghost'>
         <Text color={start === 1000 && end === 5000 ? 'primary' : 'text.dark'}>
-          1000 ден - 5000 ден
+          1000 {t(`currencies.${currency}`)} - 5000{' '}
+          {t(`currencies.${currency}`)}
         </Text>
       </Button>
       <Button onClick={() => onRangeSelected([5000, max])} variant='ghost'>
         <Text color={start === 5000 && end === max ? 'primary' : 'text.dark'}>
-          {'> 5000 ден'}
+          {`> 5000 ${t(`currencies.${currency}`)}`}
         </Text>
       </Button>
     </Flex>
@@ -81,6 +92,7 @@ export const PriceFilter = ({
   min,
   max,
   onChange,
+  currency,
   ...props
 }: PriceFilter & React.ComponentProps<typeof CustomCard>) => {
   const { t } = useTranslation();
@@ -119,6 +131,8 @@ export const PriceFilter = ({
         </Button>
       </Flex>
       <PredefinedRanges
+        t={t}
+        currency={currency}
         min={min}
         max={max}
         start={start}

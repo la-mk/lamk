@@ -13,6 +13,7 @@ import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
 import { useTheme } from '@chakra-ui/react';
 import { Headphones } from 'react-feather';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 interface Service {
   icon?: React.ReactElement;
@@ -41,12 +42,16 @@ const variantColors = {
   },
 };
 
-const getServices = (t: TFunction, freeDeliveryPrice: number): Service[] => [
+const getServices = (
+  t: TFunction,
+  store: Store,
+  freeDeliveryPrice: number,
+): Service[] => [
   {
     title: t('services.freeDelivery'),
     subtitle: `${t('services.freeDeliveryExplanation', {
       freeDeliveryPrice,
-    })} ден`,
+    })} ${t(`currencies.${store.preferences.currency ?? 'mkd'}`)}`,
     icon: <DeliveryTruck />,
   },
   {
@@ -88,7 +93,7 @@ export const ServicesSet = () => {
 
   return (
     <Flex py={[1, 2, 3]} align='center' justify='center' wrap='wrap'>
-      {getServices(t, delivery?.freeDeliveryOver)
+      {getServices(t, store, delivery?.freeDeliveryOver)
         .slice(0, ownTheme.count)
         .map((service, idx) => {
           return (

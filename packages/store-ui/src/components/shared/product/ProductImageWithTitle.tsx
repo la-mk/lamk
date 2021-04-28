@@ -9,11 +9,13 @@ import { HoverableLink } from '../components/HoverableLink';
 export const ProductImageWithTitle = ({
   product,
   storeId,
+  currency,
   quantity,
   ...props
 }: {
   product: OrderProduct;
   storeId: string;
+  currency: string;
   quantity?: number;
 } & React.ComponentProps<typeof Flex>) => {
   const { t } = useTranslation();
@@ -42,7 +44,9 @@ export const ProductImageWithTitle = ({
           {!!quantity && (
             <Box>
               <Text>{quantity} x </Text>
-              <Text as='strong'>{product.calculatedPrice} ден</Text>
+              <Text as='strong'>
+                {product.calculatedPrice} {t(`currencies.${currency}`)}
+              </Text>
             </Box>
           )}
         </Flex>

@@ -87,11 +87,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
         >
           <Flex maxWidth={'60rem'} mx={[1, 3, 3]} flex={2} direction='column'>
             <CustomCard my={3}>
-              <OrderDescription
-                hideDetailsButton
-                order={order}
-                storeId={store._id}
-              />
+              <OrderDescription hideDetailsButton order={order} store={store} />
             </CustomCard>
             {order.deliverTo && (
               <CustomCard my={3}>
@@ -123,6 +119,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
               items={order.ordered}
               delivery={order.delivery}
               campaigns={order.campaigns ?? []}
+              currency={order.currency}
               buttonTitle={shouldPay ? t('actions.toPayment') : undefined}
               onCheckout={shouldPay ? handlePayment : undefined}
               title={t('finance.priceBreakdown')}
@@ -132,7 +129,7 @@ export const Order = ({ orderId }: { orderId: string }) => {
 
         <ManagedSets
           mt={8}
-          storeId={store._id}
+          store={store}
           setTags={[
             {
               title: t(

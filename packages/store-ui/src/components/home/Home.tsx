@@ -118,25 +118,25 @@ export const Home = ({}: {}) => {
               <React.Fragment key={set.setTag.type + (set.setTag.value || '')}>
                 <Box px={[2, 4, 5]} mb={8}>
                   {set.data.length <= 2 ? (
-                    <ProductDuo set={set} storeId={store._id} />
+                    <ProductDuo set={set} store={store} />
                   ) : (
                     <>
                       {index % 4 === 0 && (
-                        <ProductSet set={set} storeId={store._id} />
+                        <ProductSet set={set} store={store} />
                       )}
 
                       {index % 4 === 1 && (
-                        <ProductGrid set={set} storeId={store._id} />
+                        <ProductGrid set={set} store={store} />
                       )}
 
                       {index % 4 === 2 &&
                         (set.data.length > 2 ? (
-                          <ProductTrio set={set} storeId={store._id} />
+                          <ProductTrio set={set} store={store} />
                         ) : (
                           <ProductGrid
                             set={set}
                             horizontal={true}
-                            storeId={store._id}
+                            store={store}
                           />
                         ))}
 
@@ -144,7 +144,7 @@ export const Home = ({}: {}) => {
                         <ProductGrid
                           set={set}
                           horizontal={true}
-                          storeId={store._id}
+                          store={store}
                         />
                       )}
                     </>

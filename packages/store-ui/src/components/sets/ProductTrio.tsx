@@ -6,13 +6,14 @@ import { ProductCard } from '../shared/product/ProductCard';
 import { SeeAllLink } from './SeeAllLink';
 import { useTranslation } from '../../common/i18n';
 import { getSetHref } from '../../common/filterUtils';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
 
 interface ProductSetProps {
   set: ProductSetResult;
-  storeId: string;
+  store: Store;
 }
 
-export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
+export const ProductTrio = ({ set, store }: ProductSetProps) => {
   const { t } = useTranslation();
   const areCardsHorizontal = hooks.useBreakpoint([false, false, true]);
   const areAllEmphasized = hooks.useBreakpoint([true, false, false]);
@@ -37,7 +38,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
             emphasized
             detailed
             product={focusProduct}
-            storeId={storeId}
+            store={store}
           />
         </Box>
 
@@ -53,7 +54,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
               detailed
               horizontal={areCardsHorizontal}
               product={productOne}
-              storeId={storeId}
+              store={store}
             />
           </Box>
           <Box mt={[0, 0, 4]} ml={[0, 4, 0]}>
@@ -62,7 +63,7 @@ export const ProductTrio = ({ set, storeId }: ProductSetProps) => {
               detailed
               horizontal={areCardsHorizontal}
               product={productTwo}
-              storeId={storeId}
+              store={store}
             />
           </Box>
         </Flex>
