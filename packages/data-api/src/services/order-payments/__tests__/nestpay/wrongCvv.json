@@ -71,7 +71,8 @@
       {
         "message": "Do not honour",
         "status": "declined",
-        "amount": 2468
+        "amount": 2468,
+        "currency": "mkd"
       }
     ]
   }

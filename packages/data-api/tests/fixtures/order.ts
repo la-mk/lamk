@@ -5,6 +5,7 @@ import { sdk } from '@la-mk/la-sdk';
 const defaultFixture: Partial<Order> = {
   status: sdk.order.OrderStatus.PENDING_SHIPMENT,
   paymentMethod: sdk.storePaymentMethods.PaymentMethodNames.PAY_ON_DELIVERY,
+  currency: 'mkd',
   campaigns: [],
 };
 

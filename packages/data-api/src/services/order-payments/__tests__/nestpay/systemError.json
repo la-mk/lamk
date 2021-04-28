@@ -1,33 +1,15 @@
 {
   "request": {
-    "clientid": [
-      "180000063",
-      "180000063"
-    ],
+    "clientid": ["180000063", "180000063"],
     "oid": [
       "57dd101f-8e7c-470a-83b4-a04b3e424ba6",
       "57dd101f-8e7c-470a-83b4-a04b3e424ba6"
     ],
-    "mdStatus": [
-      "7",
-      "7"
-    ],
-    "mdErrorMsg": [
-      "Грешка во системот",
-      "Грешка во системот"
-    ],
-    "ErrMsg": [
-      "Грешка во системот",
-      "Грешка во системот"
-    ],
-    "Response": [
-      "Error",
-      "Error"
-    ],
-    "ProcReturnCode": [
-      "99",
-      "99"
-    ],
+    "mdStatus": ["7", "7"],
+    "mdErrorMsg": ["Грешка во системот", "Грешка во системот"],
+    "ErrMsg": ["Грешка во системот", "Грешка во системот"],
+    "Response": ["Error", "Error"],
+    "ProcReturnCode": ["99", "99"],
     "encoding": "ISO-8859-9",
     "Ecom_Payment_Card_ExpDate_Month": "01",
     "currency": "807",
@@ -59,7 +41,8 @@
       {
         "message": "Грешка во системот",
         "status": "error",
-        "amount": 2468
+        "amount": 2468,
+        "currency": "mkd"
       }
     ]
   }

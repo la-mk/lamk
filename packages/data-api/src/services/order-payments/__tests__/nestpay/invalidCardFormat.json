@@ -43,7 +43,8 @@
       {
         "message": "The credit card number is not in a valid format.",
         "status": "declined",
-        "amount": 2468
+        "amount": 2468,
+        "currency": "mkd"
       }
     ]
   }

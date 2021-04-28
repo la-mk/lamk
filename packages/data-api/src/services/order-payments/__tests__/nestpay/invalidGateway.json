@@ -1,33 +1,15 @@
 {
   "request": {
-    "clientid": [
-      "180000063",
-      "180000063"
-    ],
+    "clientid": ["180000063", "180000063"],
     "oid": [
       "57dd101f-8e7c-470a-83b4-a04b3e424ba6",
       "57dd101f-8e7c-470a-83b4-a04b3e424ba6"
     ],
-    "mdStatus": [
-      "7",
-      "7"
-    ],
-    "mdErrorMsg": [
-      "Invalid Gate State",
-      "Invalid Gate State"
-    ],
-    "ErrMsg": [
-      "Invalid Gate State",
-      "Invalid Gate State"
-    ],
-    "Response": [
-      "Error",
-      "Error"
-    ],
-    "ProcReturnCode": [
-      "99",
-      "99"
-    ],
+    "mdStatus": ["7", "7"],
+    "mdErrorMsg": ["Invalid Gate State", "Invalid Gate State"],
+    "ErrMsg": ["Invalid Gate State", "Invalid Gate State"],
+    "Response": ["Error", "Error"],
+    "ProcReturnCode": ["99", "99"],
     "encoding": "ISO-8859-9",
     "Ecom_Payment_Card_ExpDate_Month": "01",
     "currency": "807",
@@ -58,7 +40,8 @@
       {
         "message": "Invalid Gate State",
         "status": "error",
-        "amount": 2468
+        "amount": 2468,
+        "currency": "mkd"
       }
     ]
   }

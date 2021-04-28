@@ -97,6 +97,7 @@ export const parseStatusQueryResponse = async (
   const formattedResponse: PaymentTransaction = {
     status: getStatus(parsedResponse),
     amount: 12345,
+    currency: 'mkd',
     message: getField('ErrMsg', parsedResponse),
     processorId: parsedResponse.TransId,
     date: '23456',

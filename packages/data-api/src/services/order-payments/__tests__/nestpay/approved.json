@@ -71,7 +71,8 @@
       {
         "message": null,
         "status": "approved",
-        "amount": 2468
+        "amount": 2468,
+        "currency": "mkd"
       }
     ]
   }

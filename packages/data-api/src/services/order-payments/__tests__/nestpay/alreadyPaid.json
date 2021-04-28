@@ -57,7 +57,8 @@
       {
         "message": "Нарачката е веќе платена",
         "status": "declined",
-        "amount": 2468
+        "amount": 2468,
+        "currency": "mkd"
       }
     ]
   }

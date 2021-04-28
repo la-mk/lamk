@@ -6,7 +6,6 @@ import { NotFound } from '../../../common/errors';
 export const setOrderStatus = async (ctx: HookContext) => {
   checkContext(ctx, 'after', ['create']);
   const { forOrder, isSuccessful } = ctx.result;
-  console.log(forOrder, isSuccessful);
 
   if (!isSuccessful) {
     return;

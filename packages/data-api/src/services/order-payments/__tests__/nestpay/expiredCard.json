@@ -71,7 +71,8 @@
       {
         "message": "Expired card.",
         "status": "declined",
-        "amount": 2468
+        "amount": 2468,
+        "currency": "mkd"
       }
     ]
   }

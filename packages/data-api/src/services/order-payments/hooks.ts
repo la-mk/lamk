@@ -69,6 +69,14 @@ const hashValidators: {
   [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: nestpay.hashValidator,
 };
 
+// TODO: Export to sdk
+//ISO 4217 currency codes
+const currencyIds = {
+  '807': 'mkd',
+  '978': 'eur',
+  '840': 'usd',
+};
+
 const normalizers: {
   [key in PaymentProcessors]: (data: any) => OrderPayments;
 } = {
@@ -76,6 +84,10 @@ const normalizers: {
     const transaction: PaymentTransaction = {
       status: nestpay.getStatus(data),
       amount: parseFloat(nestpay.getField('amount', data)),
+      currency:
+        currencyIds[
+          nestpay.getField('currency', data) as keyof typeof currencyIds
+        ],
       message: nestpay.getField('ErrMsg', data) || null,
       processorId: nestpay.getField('xid', data),
       userIp: nestpay.getField('clientIp', data),
@@ -162,12 +174,17 @@ const validateOrderPrice = async (
   ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
 ) => {
   checkContext(ctx, 'before', 'create');
-  if (
+  const lastTransaction = _.last(ctx.data.transactions) as PaymentTransaction;
+  const isPriceDifferent =
     Math.round(ctx.contextState.order.calculatedTotal) !==
-    (_.last(ctx.data.transactions) as PaymentTransaction).amount
-  ) {
+    lastTransaction?.amount;
+
+  const isCurrencyDifferent =
+    ctx.contextState.order.currency !== lastTransaction?.currency;
+
+  if (isPriceDifferent || isCurrencyDifferent) {
     throw new BadRequest(
-      "The paid amount doesn't match the order price, please contact us",
+      "The paid amount or currency doesn't match the order one, please contact us",
     );
   }
 };
@@ -185,7 +202,12 @@ const sanitizeResponse = async (
     forOrder: ctx.result.forOrder,
     isSuccessful: ctx.result.isSuccessful,
     transactions: [
-      _.pick(_.last(ctx.result.transactions), ['status', 'message', 'amount']),
+      _.pick(_.last(ctx.result.transactions), [
+        'status',
+        'message',
+        'amount',
+        'currency',
+      ]),
     ],
   };
 };

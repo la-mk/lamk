@@ -15,11 +15,21 @@ import { logger } from '../../common/logger';
 import { t } from '../../common/i18n';
 import { getEmailTemplate } from '../email/templateProcessor';
 import { User } from '@la-mk/la-sdk/dist/models/user';
+import { Store } from '@la-mk/la-sdk/dist/models/store';
+import { HookContextWithState } from '../../common/types';
 
 const HORIZONTAL_LOGO_LAMK = 'https://la.mk/logo-horizontal.svg';
 
+const assignStoreToContext = async (ctx: HookContext) => {
+  checkContext(ctx, 'before', ['create']);
+  const store = await ctx.app.services['stores'].get(ctx.data.orderedFrom);
+  (ctx as HookContextWithState<Store>).contextState = store;
+};
+
 // TODO: We don't have to wait when sending an email, but this will do for now.
-export const sendOrderNotification = async (ctx: HookContext) => {
+export const sendOrderNotification = async (
+  ctx: HookContextWithState<Store>,
+) => {
   checkContext(ctx, 'after', ['patch', 'create']);
   const order: Order = Array.isArray(ctx.result) ? ctx.result[0] : ctx.result;
 
@@ -31,7 +41,11 @@ export const sendOrderNotification = async (ctx: HookContext) => {
   const orderedByUser: User = await ctx.app.services['users'].get(
     order.orderedBy,
   );
-  const store = await ctx.app.services['stores'].get(order.orderedFrom);
+
+  let store = ctx.contextState;
+  if (!store) {
+    store = await ctx.app.services['stores'].get(order.orderedFrom);
+  }
 
   if (!store) {
     logger.warn(
@@ -76,7 +90,7 @@ export const sendOrderNotification = async (ctx: HookContext) => {
     shippingCost: prices.deliveryTotal,
     total: prices.total,
     deliverTo: order.deliverTo,
-    currency: t(`currency.${store?.preferences.currency || 'mkd'}`),
+    currency: t(`currencies.${order.currency || 'mkd'}`),
   };
 
   try {
@@ -104,18 +118,19 @@ export const sendOrderNotification = async (ctx: HookContext) => {
 
 // We need to check that the order only contains products from the specified store,
 // and also check that the passed product matches what we have in the DB to ensure the user didn't tamper with the prices for example.
-const validateOrderItems = async (ctx: HookContext) => {
+const validateOrderItems = async (ctx: HookContextWithState<Store>) => {
   checkContext(ctx, 'before', ['create']);
-  const { orderedFrom, ordered } = ctx.data as {
-    ordered: Order['ordered'];
-    orderedFrom: string;
-  };
+  const { orderedFrom, ordered, currency } = ctx.data as Order;
 
   ordered.forEach(orderItem => {
     if (orderItem.product.soldBy !== orderedFrom) {
       throw new BadRequest('Product is not from the specified store');
     }
   });
+
+  if ((ctx.contextState.preferences?.currency ?? 'mkd') !== currency) {
+    throw new BadRequest('Store and order currency do not match');
+  }
 
   const products = ((await ctx.app.services['products'].find({
     query: {
@@ -286,6 +301,7 @@ export const hooks = {
       // TODO: This validation should be part of the model.
       validateOrderDelivery,
       validateOrderCampaigns,
+      assignStoreToContext,
       validateOrderItems,
     ],
 

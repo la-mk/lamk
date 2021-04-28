@@ -181,4 +181,16 @@ describe('"orderPayments" service', () => {
 
     await expect(response).rejects.toThrow(BadRequest);
   });
+
+  it('create throws if order currency and transaction currency do not match', async () => {
+    const [fixture] = await getFixturesContent(FIXTURES_DIR);
+    normalizeNestpayFixture(fixture, testOrders[0]);
+    fixture.request.currency = '645';
+
+    const response = orderPayments.create(fixture.request, {
+      provider: 'rest',
+    });
+
+    await expect(response).rejects.toThrow(BadRequest);
+  });
 });
