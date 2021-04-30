@@ -381,7 +381,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                   'ui:options': {
                     minWidth: ['100%', '50%', '50%'],
                     prefix: t(
-                      `currencies.${store.preferences.currency ?? 'mkd'}`,
+                      `currencies.${store?.preferences?.currency ?? 'mkd'}`,
                     ),
                   },
                   'ui:title': t(`common.price`),
@@ -396,7 +396,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                         id: 'percentage',
                         suffix: '%',
                         previewSuffix: t(
-                          `currencies.${store.preferences.currency ?? 'mkd'}`,
+                          `currencies.${store?.preferences?.currency ?? 'mkd'}`,
                         ),
                         baseConverter: (percentage: number, id: string) => {
                           const variantIndex = getVariantIndex(id);
@@ -425,7 +425,7 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
                       {
                         id: 'value',
                         suffix: t(
-                          `currencies.${store.preferences.currency ?? 'mkd'}`,
+                          `currencies.${store?.preferences?.currency ?? 'mkd'}`,
                         ),
                         previewSuffix: '%',
                         // TODO: Set to price if discount is > 100%

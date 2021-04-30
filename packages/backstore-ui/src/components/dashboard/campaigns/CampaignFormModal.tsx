@@ -213,7 +213,9 @@ export const CampaignFormModal = ({
                     (campaignFormData as any)?.reward?.type ===
                     sdk.campaign.RewardTypes.PERCENTAGE_DISCOUNT
                       ? '%'
-                      : t(`currencies.${store.preferences.currency ?? 'mkd'}`),
+                      : t(
+                          `currencies.${store?.preferences?.currency ?? 'mkd'}`,
+                        ),
                 },
               },
             },
