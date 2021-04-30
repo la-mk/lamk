@@ -58,14 +58,18 @@ export const DeliveryForm = ({ delivery, onSubmit }: DeliveryFormProps) => {
               'ui:title': t('common.price'),
               'ui:description': t('delivery.priceExplanation'),
               'ui:options': {
-                prefix: t(`currencies.${store.preferences.currency ?? 'mkd'}`),
+                prefix: t(
+                  `currencies.${store?.preferences?.currency ?? 'mkd'}`,
+                ),
               },
             },
             freeDeliveryOver: {
               'ui:title': t('delivery.freeDelivery'),
               'ui:description': t('delivery.freeDeliveryExplanation'),
               'ui:options': {
-                prefix: t(`currencies.${store.preferences.currency ?? 'mkd'}`),
+                prefix: t(
+                  `currencies.${store?.preferences?.currency ?? 'mkd'}`,
+                ),
               },
             },
           }}

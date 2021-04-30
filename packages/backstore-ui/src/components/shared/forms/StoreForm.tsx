@@ -16,7 +16,12 @@ export const StoreForm = ({ store, userId, onDone }: StoreFormProps) => {
   const { t } = useTranslation();
   const [storeFormData, setStoreFormData] = hooks.useFormState<Partial<Store>>(
     store,
-    { ownedBy: userId, isPublished: false, color: '#7859d1' },
+    {
+      ownedBy: userId,
+      isPublished: false,
+      color: '#7859d1',
+      preferences: { currency: 'mkd' },
+    },
     [store, userId],
   );
 
