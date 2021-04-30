@@ -308,6 +308,7 @@ export const OrderDetailsModal = ({
             <Divider mt={3} mb={4} />
             {Boolean(order?.ordered) && (
               <ProductsList
+                currency={order?.currency}
                 orderedProducts={order?.ordered}
                 store={store}
                 t={t}

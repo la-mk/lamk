@@ -11,10 +11,12 @@ export const ProductsList = ({
   t,
   store,
   orderedProducts,
+  currency,
 }: {
   t: TFunction;
   store: Store;
   orderedProducts: Order['ordered'];
+  currency: Order['currency'];
 }) => {
   return (
     <DataGrid
@@ -91,8 +93,7 @@ export const ProductsList = ({
               {t('finance.total')}:{' '}
               {`${
                 orderItem.quantity * (orderItem.product.calculatedPrice ?? 0)
-              } ${t(`currencies.${store.preferences.currency ?? 'mkd'}`)}` ||
-                t('common.unknown')}
+              } ${t(`currencies.${currency}`)}` || t('common.unknown')}
             </Text>
           </Flex>
         </Flex>
