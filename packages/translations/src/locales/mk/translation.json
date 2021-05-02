@@ -95,6 +95,7 @@
   },
   "campaign": {
     "active": "Активна",
+    "inactive": "Неактивна",
     "addCampaignSuccess": "Новa кампања успешно додадена",
     "addingCampaignTip": "Кампањата се додава...",
     "campaignDeleted": "Кампањата со шифра {{id}} беше успешно избришана",

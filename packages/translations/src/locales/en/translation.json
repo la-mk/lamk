@@ -94,6 +94,7 @@
   },
   "campaign": {
     "active": "Active",
+    "inactive": "Inactive",
     "addCampaignSuccess": "Successfully added a new campaign",
     "addingCampaignTip": "Adding campaign...",
     "campaignDeleted": "Campaign {{id}} successfully deleted",
