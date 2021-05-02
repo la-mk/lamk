@@ -30,6 +30,7 @@ export interface AdvancedTableColumnProps<T extends object> {
   accessor: keyof T;
   canSort?: boolean;
   disableFilters?: boolean;
+  isNumeric?: boolean;
   Header: ColumnInstance<T>['Header'];
   Cell?: ColumnInstance<T>['Cell'];
   Filter?: ColumnInstance<T>['Filter'];
@@ -39,6 +40,7 @@ export interface AdvancedTableProps<T extends object> extends ChakraTableProps {
   data: T[];
   columns: AdvancedTableColumnProps<T>[];
   totalData: number;
+  onRowClick?: (row: T) => void;
   onFiltersChanged: (filters: FilterObject) => void;
   filtersState?: FilterObject;
   showSearch?: boolean;
@@ -84,6 +86,7 @@ export const AdvancedTable = <T extends object>({
   data,
   totalData,
   columns,
+  onRowClick,
   onFiltersChanged,
   filtersState,
   showSearch,
@@ -179,11 +182,13 @@ export const AdvancedTable = <T extends object>({
           <Thead>
             {headerGroups.map(headerGroup => (
               <Tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column: any) => (
+                {headerGroup.headers.map(column => (
                   <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
                     <Flex
                       align="center"
-                      justify={column.isNumeric ? 'flex-end' : 'flex-start'}
+                      justify={
+                        (column as any).isNumeric ? 'flex-end' : 'flex-start'
+                      }
                     >
                       <Text as="span" whiteSpace="nowrap">
                         {column.render('Header')}
@@ -237,14 +242,23 @@ export const AdvancedTable = <T extends object>({
             ))}
           </Thead>
           <Tbody {...getTableBodyProps()}>
-            {rows.map((row: any) => {
+            {rows.map(row => {
               prepareRow(row);
               return (
-                <Tr {...row.getRowProps()}>
-                  {row.cells.map((cell: any) => (
+                <Tr
+                  {...row.getRowProps()}
+                  sx={{
+                    ':hover': {
+                      background: 'background.light',
+                    },
+                  }}
+                  style={onRowClick ? { cursor: 'pointer' } : undefined}
+                  onClick={() => onRowClick?.(row.original)}
+                >
+                  {row.cells.map(cell => (
                     <Td
                       {...cell.getCellProps()}
-                      isNumeric={cell.column.isNumeric}
+                      isNumeric={(cell.column as any).isNumeric}
                     >
                       {cell.render('Cell')}
                     </Td>

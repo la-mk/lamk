@@ -64,6 +64,7 @@ storiesOf('AdvancedTable', module).add('standard', () => {
           data={data}
           showSearch
           onFiltersChanged={console.log}
+          onRowClick={console.log}
           filtersState={{
             pagination: {
               pageSize: 2,
