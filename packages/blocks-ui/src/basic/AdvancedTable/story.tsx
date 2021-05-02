@@ -30,7 +30,7 @@ storiesOf('AdvancedTable', module).add('standard', () => {
       {
         Header: 'To convert',
         accessor: 'fromUnit',
-        canSort: false,
+        disableSortBy: true,
         disableFilters: true,
       },
       {

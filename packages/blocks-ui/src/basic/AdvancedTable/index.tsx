@@ -28,7 +28,7 @@ import { Popover } from '../Popover';
 
 export interface AdvancedTableColumnProps<T extends object> {
   accessor: keyof T;
-  canSort?: boolean;
+  disableSortBy?: boolean;
   disableFilters?: boolean;
   isNumeric?: boolean;
   Header: ColumnInstance<T>['Header'];
@@ -183,7 +183,12 @@ export const AdvancedTable = <T extends object>({
             {headerGroups.map(headerGroup => (
               <Tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map(column => (
-                  <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  <Th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    fontWeight="bold"
+                    textTransform="none"
+                    letterSpacing="normal"
+                  >
                     <Flex
                       align="center"
                       justify={
