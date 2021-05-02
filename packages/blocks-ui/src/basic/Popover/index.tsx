@@ -21,7 +21,12 @@ export const Popover = ({ title, trigger, children }: PopoverProps) => {
     <ChakraPopover isLazy closeOnBlur closeOnEsc>
       <PopoverTrigger>{trigger}</PopoverTrigger>
       <Portal>
-        <PopoverContent bg="background.light">
+        <PopoverContent
+          onClick={React.useCallback(e => {
+            e.stopPropagation();
+          }, [])}
+          bg="background.light"
+        >
           <PopoverArrow bg="background.light" />
           {title && <PopoverHeader>{title}</PopoverHeader>}
           <PopoverCloseButton />

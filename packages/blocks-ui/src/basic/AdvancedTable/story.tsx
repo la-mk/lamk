@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { AdvancedTable, AdvancedTableColumnProps } from '.';
-import { Provider } from '../..';
+import { Provider, Flex, CheckboxGroup, Checkbox } from '../..';
 
 storiesOf('AdvancedTable', module).add('standard', () => {
   const data = React.useMemo(
@@ -43,12 +43,22 @@ storiesOf('AdvancedTable', module).add('standard', () => {
         accessor: 'factor',
         isNumeric: true,
         Filter: ({ column }) => {
-          console.log(column.filterValue);
-          if (!column.filterValue) {
-            column.setFilter('test');
-          }
-
-          return 'Heyy';
+          return (
+            <CheckboxGroup
+              value={[column.filterValue]}
+              onChange={vals => {
+                return column.setFilter(vals);
+              }}
+            >
+              <Flex direction="column">
+                {['first', 'second', 'third'].map(status => (
+                  <Checkbox key={status} my={1} value={status}>
+                    {status}
+                  </Checkbox>
+                ))}
+              </Flex>
+            </CheckboxGroup>
+          );
         },
       },
     ],
