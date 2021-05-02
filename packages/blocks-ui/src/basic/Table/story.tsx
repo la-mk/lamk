@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import { Table } from './';
-import { Provider } from '../../';
+import { Table } from '.';
+import { Provider } from '../..';
 import { Text } from '../Text';
 import { Button } from '../Button';
 import { Trash2 } from 'react-feather';

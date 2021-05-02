@@ -1,4 +1,9 @@
 export { Accordion, AccordionProps } from './basic/Accordion';
+export {
+  AdvancedTable,
+  AdvancedTableProps,
+  AdvancedTableColumnProps,
+} from './basic/AdvancedTable';
 export { Alert, AlertProps } from './basic/Alert';
 export { Avatar, AvatarProps } from './basic/Avatar';
 export { Badge, BadgeProps } from './basic/Badge';
@@ -71,6 +76,7 @@ export {
 export { Modal, ModalProps } from './basic/Modal';
 export { List, ListProps } from './basic/List';
 export { Pagination, PaginationProps } from './basic/Pagination';
+export { Popover, PopoverProps } from './basic/Popover';
 export { Provider } from './basic/Provider';
 export { Radio, RadioProps } from './basic/Radio';
 export { Select, SelectProps } from './basic/Select';
