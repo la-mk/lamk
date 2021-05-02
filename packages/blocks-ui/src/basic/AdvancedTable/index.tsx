@@ -31,6 +31,7 @@ export interface AdvancedTableColumnProps<T extends object> {
   disableSortBy?: boolean;
   disableFilters?: boolean;
   isNumeric?: boolean;
+  sortType?: ColumnInstance<T>['sortType'];
   Header: ColumnInstance<T>['Header'];
   Cell?: ColumnInstance<T>['Cell'];
   Filter?: ColumnInstance<T>['Filter'];

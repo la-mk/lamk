@@ -1,6 +1,8 @@
 import {
   Checkbox as ChakraCheckbox,
+  CheckboxGroup as ChakraCheckboxGroup,
   CheckboxProps as ChakraCheckboxProps,
+  CheckboxGroupProps as ChakraCheckboxGroupProps,
   SpaceProps,
 } from '@chakra-ui/react';
 import { InputSize } from '../../system';
@@ -21,12 +23,21 @@ export interface CheckboxProps
       | 'onBlur'
       | 'onFocus'
       | 'onChange'
+      | 'value'
     >,
     SpaceProps {
   size?: InputSize;
 }
 
-ChakraCheckbox.defaultProps = {};
+export interface CheckboxGroupProps
+  extends Pick<
+    ChakraCheckboxGroupProps,
+    'value' | 'isDisabled' | 'onChange' | 'size' | 'children'
+  > {}
+
+export const CheckboxGroup = ChakraCheckboxGroup as React.FunctionComponent<
+  CheckboxGroupProps
+>;
 
 export const Checkbox = ChakraCheckbox as React.FunctionComponent<
   CheckboxProps

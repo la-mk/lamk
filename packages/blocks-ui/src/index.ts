@@ -30,7 +30,12 @@ export {
 } from './basic/PickerBoxes';
 
 export { Card, CardProps } from './basic/Card';
-export { Checkbox, CheckboxProps } from './basic/Checkbox';
+export {
+  Checkbox,
+  CheckboxGroup,
+  CheckboxProps,
+  CheckboxGroupProps,
+} from './basic/Checkbox';
 export { ColorPicker, ColorPickerProps } from './basic/ColorPicker';
 export { Divider, DividerProps } from './basic/Divider';
 export { Drawer, DrawerProps } from './basic/Drawer';
