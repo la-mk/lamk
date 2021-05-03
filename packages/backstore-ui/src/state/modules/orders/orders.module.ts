@@ -13,10 +13,13 @@ export default function orders(state = initialState, action: any) {
     }
     case SET_ORDER: {
       return {
-        orders: [
-          ...state.orders.filter(order => order._id !== action.order._id),
-          action.order,
-        ],
+        orders: state.orders.map(order => {
+          if (order._id !== action.order._id) {
+            return order;
+          } else {
+            return action.order;
+          }
+        }),
       };
     }
     case REMOVE_ORDER: {

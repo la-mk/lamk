@@ -1,80 +1,75 @@
 import React, { useState } from 'react';
-import { Flex, Tag, hooks, utils, Text } from '@la-mk/blocks-ui';
-import compareAsc from 'date-fns/compareAsc';
+import {
+  Flex,
+  Tag,
+  hooks,
+  utils,
+  AdvancedTableColumnProps,
+  AdvancedTable,
+  Spinner,
+} from '@la-mk/blocks-ui';
 import format from 'date-fns/format';
 import { useSelector } from 'react-redux';
 import { getOrders } from '../../../state/modules/orders/orders.selector';
 import { sdk } from '@la-mk/la-sdk';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { setOrders } from '../../../state/modules/orders/orders.module';
-import { Order, OrderStatus } from '@la-mk/la-sdk/dist/models/order';
+import { Order } from '@la-mk/la-sdk/dist/models/order';
 import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
-import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { TFunction } from 'i18next';
-import Table, { ColumnProps } from 'antd/lib/table';
+import { getFilter } from '../../shared/utils/table';
 
-const getColumns = (t: TFunction, filters: FilterObject) =>
-  [
-    {
-      title: t('common.id'),
-      dataIndex: '_id',
-      render: id => sdk.utils.getShortId(id),
+const getColumns = (t: TFunction): AdvancedTableColumnProps<Order>[] => [
+  {
+    Header: t('common.id'),
+    accessor: '_id',
+    disableSortBy: true,
+    disableFilters: true,
+    Cell: ({ value }: any) => sdk.utils.getShortId(value),
+  },
+  {
+    Header: t('finance.total'),
+    accessor: 'calculatedTotal',
+    disableFilters: true,
+    Cell: ({ value, row }: any) =>
+      `${value} ${t(`currencies.${row.original.currency}`)}`,
+  },
+  {
+    Header: t('common.status'),
+    accessor: 'status',
+    Cell: ({ value }: any) => {
+      return (
+        <Tag
+          // @ts-ignore
+          style={{ verticalAlign: 'middle' }}
+          size='sm'
+          // @ts-ignore
+          bgColor={sdk.order.orderStatusColor[value]}
+        >
+          {t(`orderStatus.${value}`)}
+        </Tag>
+      );
     },
-    {
-      title: t('finance.total'),
-      dataIndex: 'calculatedTotal',
-      render: (calculatedTotal: number, order) => {
-        return (
-          <Text>
-            {calculatedTotal} {t(`currencies.${order.currency}`)}
-          </Text>
-        );
-      },
-    },
-    {
-      title: t('common.status'),
-      dataIndex: 'status',
-      filteredValue:
-        filters.filtering?.status?.$in ??
-        (filters.filtering?.status ? [filters.filtering?.status] : []),
-      filters: Object.values(sdk.order.OrderStatus).map(status => ({
-        text: t(`orderStatus.${status}`),
-        value: status,
-      })),
-      onFilter: (value, record) => record.status === value,
-      sortOrder:
-        filters.sorting?.field === 'status' ? filters.sorting.order : undefined,
-      sorter: (a, b) =>
-        t(`orderStatus.${a.status}`).localeCompare(
-          t(`orderStatus.${b.status}`),
-        ),
-      render: (status: OrderStatus) => {
-        return (
-          <Tag
-            // @ts-ignore
-            style={{ verticalAlign: 'middle' }}
-            size='sm'
-            // @ts-ignore
-            bgColor={sdk.order.orderStatusColor[status]}
-          >
-            {t(`orderStatus.${status}`)}
-          </Tag>
-        );
-      },
-    },
-    {
-      title: t('order.orderDate'),
-      dataIndex: 'createdAt',
-      render: date => format(new Date(date), 'MM/dd/yyyy'),
-      sortOrder:
-        filters.sorting?.field === 'createdAt'
-          ? filters.sorting.order
-          : undefined,
-      sorter: (a, b) =>
-        compareAsc(new Date(a.createdAt), new Date(b.createdAt)),
-    },
-  ] as ColumnProps<Order>[];
+    Filter: ({ column }: any) =>
+      getFilter(
+        column,
+        'status',
+        Object.values(sdk.order.OrderStatus).map(status => ({
+          title: t(`orderStatus.${status}`),
+          value: status,
+        })),
+      ),
+  },
+  {
+    Header: t('order.orderDate'),
+    accessor: 'createdAt',
+    disableFilters: true,
+    Cell: ({ value }: any) => format(new Date(value), 'MM/dd/yyyy'),
+  },
+];
+
+let prevOrders: any = [];
 
 export const Orders = () => {
   const [orderIdToView, setOrderIdToView] = useState<string>();
@@ -94,7 +89,12 @@ export const Orders = () => {
       storageKey: `${store ? store._id : ''}/orderFilters`,
     },
   );
-  const columns = getColumns(t, filters);
+  const columns = React.useMemo(() => getColumns(t), [t]);
+
+  React.useEffect(() => {
+    console.log(orders === prevOrders);
+    prevOrders = orders;
+  }, [orders]);
 
   React.useEffect(() => {
     if (!store) {
@@ -112,47 +112,18 @@ export const Orders = () => {
 
   return (
     <Flex direction='column' px={[3, 4, 5]} py={5}>
-      <Table<Order>
-        dataSource={orders}
-        columns={columns}
-        loading={showSpinner}
-        pagination={{
-          total: total || 0,
-          showSizeChanger: false,
-          current: filters.pagination ? filters.pagination.currentPage : 1,
-          pageSize: filters.pagination ? filters.pagination.pageSize : 20,
-        }}
-        onChange={(pagination, tableFilters, sorter) => {
-          const singleSorter = Array.isArray(sorter) ? sorter[0] : sorter;
-
-          setFilters({
-            pagination: {
-              pageSize: pagination.pageSize ?? 20,
-              currentPage: pagination.current ?? 1,
-            },
-            sorting:
-              singleSorter?.field && singleSorter?.order
-                ? {
-                    field: singleSorter.field as string,
-                    order: singleSorter.order,
-                  }
-                : undefined,
-            filtering: {
-              ...filters.filtering,
-              ...utils.filter.multipleItemsFilter(
-                'status',
-                tableFilters.status as string[],
-              ),
-            },
-          });
-        }}
-        rowKey='_id'
-        onRow={order => ({
-          onClick: () => {
+      <Spinner isLoaded={!showSpinner}>
+        <AdvancedTable
+          data={orders}
+          columns={columns}
+          totalData={total ?? 0}
+          filtersState={filters}
+          onFiltersChanged={setFilters}
+          onRowClick={order => {
             setOrderIdToView(order._id);
-          },
-        })}
-      />
+          }}
+        />
+      </Spinner>
 
       <OrderDetailsModal
         orderId={orderIdToView}

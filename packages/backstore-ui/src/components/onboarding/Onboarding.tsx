@@ -4,7 +4,7 @@ import { SetupStore } from './SetupStore';
 import { SetupCompany } from './SetupCompany';
 import { SetupDelivery } from './SetupDelivery';
 
-import { Flex, Spinner, hooks, Box } from '@la-mk/blocks-ui';
+import { Flex, Spinner, hooks, Box, Steps } from '@la-mk/blocks-ui';
 // import { Publish } from './Publish';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { Delivery } from '@la-mk/la-sdk/dist/models/delivery';
@@ -14,12 +14,10 @@ import { setStore } from '../../state/modules/store/store.module';
 import { getDelivery } from '../../state/modules/delivery/delivery.selector';
 import { setDelivery } from '../../state/modules/delivery/delivery.module';
 import { Redirect } from 'react-router';
-import { StickySteps } from '../shared/components/StickySteps';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getUser } from '../../state/modules/user/user.selector';
-import { Steps } from 'antd';
 
 interface OnboardingProps {
   step: number;
@@ -28,6 +26,11 @@ interface OnboardingProps {
 
 export const Onboarding = ({ step, setStep }: OnboardingProps) => {
   const { t } = useTranslation();
+  const displaySteps = hooks.useBreakpoint<string>([
+    'none',
+    'initial',
+    'initial',
+  ]);
   const [isFinished, setIsFinished] = useState(false);
   const [caller, showSpinner] = hooks.useCall();
   const user: User | null = useSelector(getUser);
@@ -119,13 +122,43 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     <Spinner isLoaded={!showSpinner}>
       <Flex direction='column' bg='white' minHeight='100vh'>
         {step !== 3 && (
-          <Flex px={[3, 3, 4]} pb={6} direction='column'>
-            <Box py={[2, 3, 4]} mb={5}>
-              <StickySteps current={step} onChange={setStep}>
-                <Steps.Step title={t('commerce.store')} />
-                <Steps.Step title={t('common.company')} />
-                <Steps.Step title={t('commerce.delivery')} />
-              </StickySteps>
+          <Flex px={[3, 3, 4]} pb={6} pt={2} direction='column'>
+            <Box
+              // @ts-ignore
+              style={{
+                display: displaySteps,
+                position: 'sticky',
+                top: 0,
+                zIndex: 10,
+                backgroundColor: 'white',
+                width: '100%',
+              }}
+              py={[2, 2, 3]}
+              mb={4}
+            >
+              <Steps
+                orientation={'horizontal'}
+                steps={[
+                  {
+                    status: 'success',
+                    title: t('commerce.store'),
+                    description: '',
+                    key: 'first',
+                  },
+                  {
+                    status: step > 0 ? 'success' : 'pending',
+                    title: t('common.company'),
+                    description: '',
+                    key: 'second',
+                  },
+                  {
+                    status: step > 1 ? 'success' : 'pending',
+                    title: t('commerce.delivery'),
+                    description: '',
+                    key: 'third',
+                  },
+                ]}
+              />
             </Box>
 
             {step === 0 && (

@@ -10,8 +10,10 @@ import {
   Tag,
   Text,
   Modal,
-  Input,
   Spinner,
+  AdvancedTableColumnProps,
+  AdvancedTable,
+  Checkbox,
 } from '@la-mk/blocks-ui';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
@@ -27,14 +29,12 @@ import {
 } from '../../../state/modules/products/products.module';
 import { useTranslation } from 'react-i18next';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { Category } from '@la-mk/la-sdk/dist/models/category';
-import { getUniqueCategories } from '../../../state/modules/categories/categories.selector';
 import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 import { TFunction } from 'i18next';
 import { ProductForm } from './ProductForm';
-import Table, { ColumnProps } from 'antd/lib/table';
+import { getFilter } from '../../shared/utils/table';
 
 const searchSupportedFields = [
   'name',
@@ -47,8 +47,16 @@ const searchSupportedFields = [
 ];
 
 const normalizeFilters = (filters: FilterObject) => {
+  const updatedFilters = {
+    ...filters.filtering,
+    maxDiscount: filters.filtering?.minCalculatedPrice,
+  };
+  delete updatedFilters.minCalculatedPrice;
+
+  filters.filtering = updatedFilters;
+
   if (filters.searching) {
-    filters.filtering = pick(filters.filtering, searchSupportedFields);
+    filters.filtering = pick(updatedFilters, searchSupportedFields);
     filters.sorting = searchSupportedFields.includes(
       filters.sorting?.field ?? '',
     )
@@ -64,149 +72,154 @@ const normalizeFilters = (filters: FilterObject) => {
 const getColumns = (
   t: TFunction,
   storeId: string,
-  categories: Category[] | null,
   groups: string[],
-  filters: FilterObject,
-) =>
-  [
-    {
-      title: t('common.image_plural'),
-      dataIndex: 'media',
-      width: '180px',
-      align: 'center',
-      render: (_text, product) => {
-        return (
-          <Box minHeight='60px' height='60px'>
-            <Image
-              height={60}
-              alt={product.name}
-              getSrc={params =>
-                sdk.artifact.getUrlForImage(
-                  product.media[0]?._id,
-                  storeId,
-                  params,
-                )
-              }
-            />
-          </Box>
-        );
-      },
+): AdvancedTableColumnProps<Product>[] => [
+  {
+    Header: t('common.image_plural'),
+    accessor: 'media',
+    disableFilters: true,
+    disableSortBy: true,
+    compressed: true,
+    Cell: ({ row }: any) => {
+      return (
+        <Box minHeight='60px' height='60px'>
+          <Image
+            height={60}
+            alt={row.original.name}
+            getSrc={params =>
+              sdk.artifact.getUrlForImage(
+                row.original.media[0]?._id,
+                storeId,
+                params,
+              )
+            }
+          />
+        </Box>
+      );
     },
-    {
-      title: t('common.name'),
-      dataIndex: 'name',
-    },
-    {
-      title: t('product.sku'),
-      dataIndex: 'variants',
-      render: (val: Variant[], record) => {
-        return (
-          <Text maxWidth={'140px'} noOfLines={1}>
-            {val
-              .map(x => x.sku)
-              .filter(x => !!x)
-              .join(', ')}
-          </Text>
-        );
-      },
-    },
-    {
-      title: t('common.price'),
-      dataIndex: 'minCalculatedPrice',
-      filters: [
-        {
-          text: t('product.discount'),
-          value: sdk.product.ProductSetType.DISCOUNTED,
-        },
-      ],
-      filteredValue: filters.filtering.maxDiscount
-        ? [sdk.product.ProductSetType.DISCOUNTED]
-        : undefined,
-      filterMultiple: false,
-      onFilter: (value, record) =>
-        value === sdk.product.ProductSetType.DISCOUNTED
-          ? (record.maxDiscount ?? 0) > 0
-          : true,
-      sortOrder:
-        filters.sorting?.field === 'minCalculatedPrice'
-          ? filters.sorting?.order
-          : undefined,
-      sorter: (a, b) =>
-        (a.minCalculatedPrice ?? 0) - (b.minCalculatedPrice ?? 0),
-      render: (val, record) => (
-        <Text color={record.maxDiscount ? 'danger' : 'text.dark'}>
-          {record.minCalculatedPrice === record.maxCalculatedPrice
-            ? val
-            : `${record.minCalculatedPrice} ~ ${record.maxCalculatedPrice}`}
+  },
+  {
+    Header: t('common.name'),
+    accessor: 'name',
+    disableFilters: true,
+  },
+  {
+    Header: t('product.sku'),
+    accessor: 'variants',
+    disableFilters: true,
+    disableSortBy: true,
+    compressed: true,
+    Cell: ({ value }: { value: Variant[] }) => {
+      return (
+        <Text maxWidth={'140px'} noOfLines={1}>
+          {value
+            .map(x => x.sku)
+            .filter(x => !!x)
+            .join(', ')}
         </Text>
-      ),
+      );
     },
-    {
-      title: t('product.stock'),
-      dataIndex: 'totalStock',
-      filters: [
-        {
-          text: t('product.outOfStock'),
-          value: 0,
-        },
-      ],
-      filteredValue: filters.filtering.totalStock
-        ? [filters.filtering.totalStock]
-        : undefined,
-      filterMultiple: false,
-      onFilter: (value, record) => record.totalStock === value,
-      sortOrder:
-        filters.sorting?.field === 'totalStock'
-          ? filters.sorting?.order
-          : undefined,
-      sorter: (a, b) => (a.totalStock ?? 0) - (b.totalStock ?? 0),
-      render: val => <Text>{val}</Text>,
-    },
-    {
-      title: t('common.category'),
-      dataIndex: 'category',
-      filters: categories
-        ? categories.map(category => ({
-            text: t(`categories.${category}`),
-            value: category,
-          }))
-        : [],
-      filteredValue:
-        filters.filtering?.category?.$in ??
-        (filters.filtering?.category ? [filters.filtering?.category] : []),
-      onFilter: (value, record) => record.category === value,
-      render: category => t(`categories.${category}`),
-    },
-    {
-      title: t('product.groups'),
-      dataIndex: 'groups',
-      filters: groups
-        ? groups.map(group => ({
-            text: group,
-            value: group,
-          }))
-        : [],
-      filteredValue:
-        filters.filtering?.groups?.$in ??
-        (filters.filtering?.groups ? [filters.filtering?.groups] : []),
-      onFilter: (value, record) => record.groups.includes(value as string),
-      render: (groups: Product['groups']) => {
-        if (!groups || !groups.length) {
-          return null;
-        }
+  },
+  {
+    Header: t('common.price'),
+    accessor: 'minCalculatedPrice',
+    compressed: true,
+    Filter: ({ column, setFilter }: any) => {
+      let val = column.filterValue;
+      if (val) {
+        val = val.$gte;
+      }
 
-        return (
-          <Flex wrap={'wrap'}>
-            {groups.map(group => (
-              <Tag size='sm' m={1}>
-                {group}
-              </Tag>
-            ))}
-          </Flex>
-        );
-      },
+      // TODO: We actually want to set maxDiscount, but it's not supported here.
+      const filterVal = utils.filter.rangeFilter(
+        'minCalculatedPrice',
+        1,
+        null,
+        0,
+        Infinity,
+      )['minCalculatedPrice'];
+
+      return (
+        <Checkbox
+          onChange={e =>
+            setFilter('minCalculatedPrice', e.target.checked ? filterVal : null)
+          }
+          isChecked={val === 1}
+          my={1}
+        >
+          {t('product.discount')}
+        </Checkbox>
+      );
     },
-  ] as ColumnProps<Product>[];
+    Cell: ({ value, row }: any) => (
+      <Text color={row.original.maxDiscount ? 'danger' : 'text.dark'}>
+        {row.original.minCalculatedPrice === row.original.maxCalculatedPrice
+          ? value
+          : `${row.original.minCalculatedPrice} ~ ${row.original.maxCalculatedPrice}`}
+      </Text>
+    ),
+  },
+  {
+    Header: t('product.stock'),
+    accessor: 'totalStock',
+    compressed: true,
+    Filter: ({ column }: any) => {
+      const val = column.filterValue;
+
+      return (
+        <Checkbox
+          isChecked={val === '0'}
+          onChange={() => {
+            // TODO: Filters gets removed if it is falsy (0), so we use a string instead, which works fine with our backend
+            // Cause https://github.com/tannerlinsley/react-table/blob/fa662bc33d4356b79390dd24140b5cc56b75e1d6/src/plugin-hooks/useFilters.js#L78
+            column.setFilter(
+              utils.filter.singleItemFilter(
+                'totalStock',
+                val === '0' ? null : '0',
+              )['totalStock'],
+            );
+          }}
+          my={1}
+        >
+          {t('product.outOfStock')}
+        </Checkbox>
+      );
+    },
+  },
+  {
+    Header: t('common.category'),
+    accessor: 'category',
+    disableFilters: true,
+    disableSortBy: true,
+    Cell: ({ value }: any) => t(`categories.${value}`),
+  },
+  {
+    Header: t('product.groups'),
+    accessor: 'groups',
+    disableSortBy: true,
+    Filter: ({ column }: any) =>
+      getFilter(
+        column,
+        'groups',
+        groups.map(group => ({ title: group, value: group })),
+      ),
+    Cell: ({ value }: { value: Product['groups'] }) => {
+      if (!value || !value.length) {
+        return null;
+      }
+
+      return (
+        <Flex wrap={'wrap'}>
+          {value.map(group => (
+            <Tag size='sm' m={1}>
+              {group}
+            </Tag>
+          ))}
+        </Flex>
+      );
+    },
+  },
+];
 
 export const Products = () => {
   const [showModal, setShowModal] = useState(false);
@@ -228,9 +241,8 @@ export const Products = () => {
   const [filters, setFilters] = hooks.useFilter(
     {
       filtering: {
-        category: undefined,
         groups: undefined,
-        maxDiscount: undefined,
+        minCalculatedPrice: undefined,
         totalStock: undefined,
       },
     },
@@ -239,10 +251,9 @@ export const Products = () => {
       storageKey: `${store ? store._id : ''}/productFilters`,
     },
   );
-  const categories = useSelector(getUniqueCategories('level3'));
   const columns = React.useMemo(() => {
-    return getColumns(t, storeId ?? '', categories, groups, filters);
-  }, [storeId, categories, groups, filters, t]);
+    return getColumns(t, storeId ?? '', groups);
+  }, [storeId, groups, t]);
 
   React.useEffect(() => {
     if (!storeId) {
@@ -287,89 +298,27 @@ export const Products = () => {
         </Button>
       </Flex>
 
-      <Box
-        maxWidth='600px'
-        width={['100%', '60%', '40%']}
-        mx='auto'
-        mt={2}
-        mb={3}
-      >
-        <Input
-          type='search'
-          size='lg'
-          placeholder={`${t('actions.search')}: ${t(
-            'common.name',
-          ).toLowerCase()}, ${t('product.sku').toLowerCase()}, ${t(
-            'common.description',
-          ).toLowerCase()}`}
-          onSearch={value => {
-            setFilters(normalizeFilters({ ...filters, searching: value }));
-          }}
-        />
-      </Box>
-
       <Spinner isLoaded={!showSpinner}>
-        <Table<Product>
-          dataSource={products}
+        <AdvancedTable
+          data={products}
           columns={columns}
-          loading={showSpinner}
-          pagination={{
-            total: total || 0,
-            showSizeChanger: false,
-            current: filters.pagination?.currentPage ?? 1,
-            pageSize: filters.pagination?.pageSize ?? 20,
+          totalData={total ?? 0}
+          filtersState={filters}
+          showSearch
+          searchProps={{
+            placeholder: `${t('actions.search')}: ${t(
+              'common.name',
+            ).toLowerCase()}, ${t('product.sku').toLowerCase()}, ${t(
+              'common.description',
+            ).toLowerCase()}`,
           }}
-          onChange={(pagination, tableFilters, sorter) => {
-            const singleSorter = Array.isArray(sorter) ? sorter[0] : sorter;
-
-            setFilters(
-              normalizeFilters({
-                pagination: {
-                  pageSize: pagination.pageSize ?? 20,
-                  currentPage: pagination.current ?? 1,
-                },
-                sorting:
-                  singleSorter?.field && singleSorter?.order
-                    ? {
-                        field: singleSorter.field as string,
-                        order: singleSorter.order,
-                      }
-                    : undefined,
-                filtering: {
-                  ...filters.filtering,
-                  ...utils.filter.singleItemFilter(
-                    'totalStock',
-                    tableFilters.totalStock?.[0] as string,
-                  ),
-                  ...utils.filter.rangeFilter(
-                    'maxDiscount',
-                    tableFilters.minCalculatedPrice?.[0] === sdk.product.ProductSetType.DISCOUNTED
-                      ? 1
-                      : null,
-                    null,
-                    0,
-                    Infinity,
-                  ),
-                  ...utils.filter.multipleItemsFilter(
-                    'category',
-                    tableFilters.category as string[],
-                  ),
-                  ...utils.filter.multipleItemsFilter(
-                    'groups',
-                    tableFilters.groups as string[],
-                  ),
-                },
-                searching: filters.searching,
-              }),
-            );
+          onFiltersChanged={newFilters =>
+            setFilters(normalizeFilters(newFilters))
+          }
+          onRowClick={product => {
+            setEditingProduct(product);
+            setShowModal(true);
           }}
-          rowKey='_id'
-          onRow={product => ({
-            onClick: () => {
-              setEditingProduct(product);
-              setShowModal(true);
-            },
-          })}
         />
       </Spinner>
 

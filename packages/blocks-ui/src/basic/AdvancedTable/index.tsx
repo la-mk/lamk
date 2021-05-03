@@ -32,7 +32,6 @@ export interface AdvancedTableColumnProps<T extends object> {
   disableFilters?: boolean;
   isNumeric?: boolean;
   compressed?: boolean;
-  columnWidth?: string;
   Header: ColumnInstance<T>['Header'];
   Cell?: ColumnInstance<T>['Cell'];
   Filter?: ColumnInstance<T>['Filter'];
@@ -191,11 +190,9 @@ export const AdvancedTable = <T extends object>({
                     textTransform="none"
                     letterSpacing="normal"
                     style={{
-                      width:
-                        (column as any).columnWidth ??
-                        (column as any).compressed
-                          ? '0.0000000001%'
-                          : '1%',
+                      width: (column as any).compressed
+                        ? '0.0000000001%'
+                        : '1%',
                     }}
                   >
                     <Flex
@@ -274,11 +271,9 @@ export const AdvancedTable = <T extends object>({
                       {...cell.getCellProps()}
                       isNumeric={(cell.column as any).isNumeric}
                       style={{
-                        width:
-                          (cell.column as any).columnWidth ??
-                          (cell.column as any).compressed
-                            ? '0.0000000001%'
-                            : '1%',
+                        width: (cell.column as any).compressed
+                          ? '0.0000000001%'
+                          : '1%',
                       }}
                     >
                       {cell.render('Cell')}

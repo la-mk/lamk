@@ -58,6 +58,7 @@
     "addCampaignSuccess": "Successfully added a new campaign",
     "addingCampaignTip": "Adding campaign...",
     "campaignDeleted": "Campaign {{id}} successfully deleted",
+    "inactive": "Inactive",
     "nameExample": "eg. Summer discount",
     "productsTarget": "Products target",
     "promoted": "Promoted",

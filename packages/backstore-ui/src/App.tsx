@@ -10,7 +10,6 @@ import { FullScreenSpinner } from './components/shared/components/FullScreenSpin
 import configureStore, { history } from './state/configureStore';
 import { env } from './common/env';
 import { useTranslation } from 'react-i18next';
-import 'antd/dist/antd.min.css';
 
 const getCompoundLocale = (t: (key: string) => string) => {
   return {

@@ -151,8 +151,8 @@ const DashboardLayoutBase = ({ children, location }: DashboardLayoutProps) => {
         <Box bg='background.light'>
           <Box
             bg='white'
-            minHeight={'calc(100vh - 32px)'}
-            m={'16px'}
+            minHeight={'calc(100vh - 48px)'}
+            m={'24px'}
             // @ts-ignore
             style={{ overflowY: 'auto' }}
           >

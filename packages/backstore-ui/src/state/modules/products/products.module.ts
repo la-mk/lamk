@@ -23,7 +23,7 @@ export default function products(state = initialState, action: any) {
     case ADD_PRODUCT: {
       return {
         ...state,
-        products: [...state.products, action.product],
+        products: [action.product, ...state.products],
       };
     }
     case PATCH_PRODUCT: {

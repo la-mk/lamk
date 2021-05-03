@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Flex, hooks, utils, Button, Badge } from '@la-mk/blocks-ui';
+import {
+  Flex,
+  hooks,
+  utils,
+  Button,
+  Badge,
+  AdvancedTable,
+  AdvancedTableColumnProps,
+  Spinner,
+} from '@la-mk/blocks-ui';
 import { useSelector } from 'react-redux';
 import { getCampaigns } from '../../../state/modules/campaigns/campaigns.selector';
 import { sdk } from '@la-mk/la-sdk';
@@ -9,50 +18,60 @@ import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 import { CampaignFormModal } from './CampaignFormModal';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import Table, { ColumnProps } from 'antd/lib/table';
 
-const getColumns = (t: TFunction) =>
-  [
-    {
-      title: t('common.id'),
-      dataIndex: '_id',
-      render: id => sdk.utils.getShortId(id),
-    },
-    {
-      title: t('common.name'),
-      dataIndex: 'name',
-    },
-    {
-      title: t('campaign.active'),
-      dataIndex: 'isActive',
-      render: val => {
-        if (val) {
-          return (
-            <Badge variant='outline' colorScheme='blue'>
-              {t('campaign.active')}
-            </Badge>
-          );
-        }
+const getColumns = (t: TFunction): AdvancedTableColumnProps<Campaign>[] => [
+  {
+    Header: t('common.id'),
+    accessor: '_id',
+    disableSortBy: true,
+    disableFilters: true,
+    Cell: ({ value }: any) => sdk.utils.getShortId(value),
+  },
+  {
+    Header: t('common.name'),
+    accessor: 'name',
+    disableSortBy: true,
+    disableFilters: true,
+  },
+  {
+    Header: t('campaign.active'),
+    accessor: 'isActive',
+    disableSortBy: true,
+    disableFilters: true,
+    Cell: ({ value }: any) => {
+      if (value) {
+        return (
+          <Badge variant='outline' colorScheme='green'>
+            {t('campaign.active')}
+          </Badge>
+        );
+      }
 
-        return null;
-      },
+      return (
+        <Badge variant='outline' colorScheme='red'>
+          {t('campaign.inactive')}
+        </Badge>
+      );
     },
-    {
-      title: t('campaign.promoted'),
-      dataIndex: 'isPromoted',
-      render: val => {
-        if (val) {
-          return (
-            <Badge variant='outline' colorScheme='blue'>
-              {t('campaign.promoted')}
-            </Badge>
-          );
-        }
+  },
+  {
+    Header: t('campaign.promoted'),
+    accessor: 'isPromoted',
+    disableSortBy: true,
+    disableFilters: true,
+    Cell: ({ value }: any) => {
+      if (value) {
+        return (
+          <Badge variant='outline' colorScheme='blue'>
+            {t('campaign.promoted')}
+          </Badge>
+        );
+      }
 
-        return null;
-      },
+      return null;
     },
-  ] as ColumnProps<Campaign>[];
+  },
+];
 
 export const Campaigns = () => {
   const [showModal, setShowModal] = useState(false);
@@ -69,7 +88,7 @@ export const Campaigns = () => {
     storage: 'session',
     storageKey: `${store ? store._id : ''}/campaignFilters`,
   });
-  const columns = getColumns(t);
+  const columns = React.useMemo(() => getColumns(t), [t]);
 
   React.useEffect(() => {
     if (!store) {
@@ -90,7 +109,7 @@ export const Campaigns = () => {
 
   return (
     <Flex direction='column' px={[3, 4, 5]} py={5}>
-      <Flex my={3} justify='space-between'>
+      <Flex mt={3} mb={5} justify='space-between'>
         <Button
           onClick={() => {
             setEditingCampaign(undefined);
@@ -101,44 +120,19 @@ export const Campaigns = () => {
         </Button>
       </Flex>
 
-      <Table<Campaign>
-        dataSource={campaigns}
-        columns={columns}
-        loading={showSpinner}
-        pagination={{
-          total: total || 0,
-          showSizeChanger: false,
-          current: filters.pagination ? filters.pagination.currentPage : 1,
-          pageSize: filters.pagination ? filters.pagination.pageSize : 20,
-        }}
-        onChange={(pagination, tableFilters, sorter) => {
-          const singleSorter = Array.isArray(sorter) ? sorter[0] : sorter;
-
-          setFilters({
-            pagination: {
-              pageSize: pagination.pageSize || 20,
-              currentPage: pagination.current || 1,
-            },
-            sorting:
-              singleSorter?.field && singleSorter?.order
-                ? {
-                    field: singleSorter.field as string,
-                    order: singleSorter.order,
-                  }
-                : undefined,
-            filtering: {
-              ...filters.filtering,
-            },
-          });
-        }}
-        rowKey='_id'
-        onRow={campaign => ({
-          onClick: () => {
-            setEditingCampaign(campaign);
+      <Spinner isLoaded={!showSpinner}>
+        <AdvancedTable<Campaign>
+          data={campaigns}
+          columns={columns}
+          totalData={total ?? 0}
+          filtersState={filters}
+          onFiltersChanged={setFilters}
+          onRowClick={row => {
+            setEditingCampaign(row);
             setShowModal(true);
-          },
-        })}
-      />
+          }}
+        />
+      </Spinner>
 
       <CampaignFormModal
         campaign={editingCampaign}

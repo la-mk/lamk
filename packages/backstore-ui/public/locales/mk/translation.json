@@ -58,6 +58,7 @@
     "addCampaignSuccess": "Новa кампања успешно додадена",
     "addingCampaignTip": "Кампањата се додава...",
     "campaignDeleted": "Кампањата со шифра {{id}} беше успешно избришана",
+    "inactive": "Неактивна",
     "nameExample": "пр. Летен попуст",
     "productsTarget": "Таргетирани производи",
     "promoted": "Се промовира",
