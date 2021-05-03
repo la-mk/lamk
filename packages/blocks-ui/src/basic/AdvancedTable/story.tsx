@@ -32,11 +32,13 @@ storiesOf('AdvancedTable', module).add('standard', () => {
         accessor: 'fromUnit',
         disableSortBy: true,
         disableFilters: true,
+        compressed: true,
       },
       {
         Header: 'Into',
         accessor: 'toUnit',
         Filter: 'Hey',
+        columnWidth: '150px',
       },
       {
         Header: 'Multiply by',

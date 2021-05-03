@@ -25,9 +25,8 @@ export const Popover = ({ title, trigger, children }: PopoverProps) => {
           onClick={React.useCallback(e => {
             e.stopPropagation();
           }, [])}
-          bg="background.light"
         >
-          <PopoverArrow bg="background.light" />
+          <PopoverArrow />
           {title && <PopoverHeader>{title}</PopoverHeader>}
           <PopoverCloseButton />
           <PopoverBody>{children}</PopoverBody>
