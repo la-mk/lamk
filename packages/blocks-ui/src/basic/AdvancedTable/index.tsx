@@ -178,7 +178,7 @@ export const AdvancedTable = <T extends object>({
       )}
 
       {/* @ts-ignore */}
-      <Box style={{ overflowX: 'auto' }}>
+      <Box style={{ overflowX: 'auto !important' }}>
         <ChakraTable {...getTableProps()}>
           <Thead>
             {headerGroups.map(headerGroup => (
