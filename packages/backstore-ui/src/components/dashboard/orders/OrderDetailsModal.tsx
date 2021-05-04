@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux';
 import { getOrder } from '../../../state/modules/orders/orders.selector';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { InvoiceDownloadLink } from '../pdfs/invoice/InvoiceDownloadLink';
+import { LazyInvoiceDownloadLink } from '../pdfs/invoice/LazyInvoiceDownloadLink';
 import { ProductsList } from './ProductsList';
 import isEqual from 'lodash/isEqual';
 
@@ -193,7 +193,7 @@ export const OrderDetailsModal = ({
                   {t('finance.priceBreakdown')}
                 </Heading>
                 {/* TODO: Improve how this looks like */}
-                <InvoiceDownloadLink
+                <LazyInvoiceDownloadLink
                   order={order}
                   store={store}
                   pricesSummary={sdk.utils.pricing.calculatePrices(
@@ -211,7 +211,7 @@ export const OrderDetailsModal = ({
                   )}
                 >
                   {t('actions.downloadInvoice')}
-                </InvoiceDownloadLink>
+                </LazyInvoiceDownloadLink>
               </Flex>
               <Divider mt={3} mb={4} />
               <DescriptionItem label={t('finance.subtotal')}>

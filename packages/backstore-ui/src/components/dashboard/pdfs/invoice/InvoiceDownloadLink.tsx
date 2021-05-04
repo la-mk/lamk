@@ -2,7 +2,7 @@ import React from 'react';
 import { Invoice, InvoiceProps } from './Invoice';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
-export const InvoiceDownloadLink = ({
+const InvoiceDownloadLink = ({
   children,
   ...props
 }: InvoiceProps & { children: React.ReactNode }) => {
@@ -15,3 +15,5 @@ export const InvoiceDownloadLink = ({
     </PDFDownloadLink>
   );
 };
+
+export default InvoiceDownloadLink;

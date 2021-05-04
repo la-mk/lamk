@@ -8,7 +8,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "depcruise": "dependency-cruise -T dot -x node_modules -v -- src/index.tsx  | dot -T png > code-architecture.png",
-    "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
+    "analyze": "react-scripts build && source-map-explorer 'build/static/js/*.js'",
     "aida": "aida run",
     "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"src/**/*.{ts,tsx}\"]' 'public/locales'",
     "postinstall": "patch-package"
