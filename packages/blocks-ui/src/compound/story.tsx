@@ -16,7 +16,11 @@ storiesOf('Various', module)
     <Provider>
       <div>
         <CookieBanner
-          requests={[{ key: 'test', title: 'Test' }]}
+          requests={[
+            { key: 'test2', title: 'Necessary', isRequired: true },
+            { key: 'test', title: 'Anonymous Analytics' },
+            { key: 'test', title: 'Preferences' },
+          ]}
           consents={null}
           onConsentsChanged={console.log}
           privacyPolicyLink="/test"

@@ -45,7 +45,7 @@ const getTranslations = (t: (key: string) => string) => {
     cookiesExplanation: t('auth.cookiesExplanation'),
     readMoreCookies: t('auth.readMoreCookies'),
     acceptCookies: t('actions.acceptCookies'),
-    decline: t('actions.decline'),
+    decline: t('actions.declineOptional'),
   };
 };
 

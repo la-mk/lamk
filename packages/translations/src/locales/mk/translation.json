@@ -42,7 +42,7 @@
     "toPayment": "Продолжи кон плаќање",
     "update": "Обнови",
     "watchDemo": "Види видео",
-    "decline": "Одбиј",
+    "declineOptional": "Одбиј опционални",
     "acceptCookies": "Прифати колачиња"
   },
   "address": {

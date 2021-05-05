@@ -42,7 +42,7 @@
     "toPayment": "Proceed to payment",
     "update": "Update",
     "watchDemo": "Watch demo",
-    "decline": "Decline",
+    "declineOptional": "Decline optional",
     "acceptCookies": "Accept cookies"
   },
   "address": {

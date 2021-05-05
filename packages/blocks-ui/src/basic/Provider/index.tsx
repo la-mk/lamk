@@ -27,7 +27,7 @@ interface LocalizationContext {
   or?: string;
   authSameAccount?: string;
   update?: string;
-  decline?: string;
+  declineOptional?: string;
   upload?: string;
   uploadHint?: string;
   genericError?: string;
