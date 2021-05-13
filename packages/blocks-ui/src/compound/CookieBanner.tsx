@@ -101,6 +101,21 @@ export const CookieBanner = ({
         <Flex m={3} align="center" justify="center">
           <Button
             mr={3}
+            onClick={() => {
+              onConsentsChanged(
+                requests.reduce((aggr: Consent, request) => {
+                  aggr[request.key] = true;
+                  return aggr;
+                }, {})
+              );
+            }}
+          >
+            {localization.acceptAll ?? 'Accept all'}
+          </Button>
+
+          <Button
+            ml={3}
+            variant="link"
             onClick={() =>
               onConsentsChanged(
                 requests.reduce((aggr: Consent, request) => {
@@ -112,22 +127,7 @@ export const CookieBanner = ({
               )
             }
           >
-            {localization.acceptCookies ?? 'Accept cookies'}
-          </Button>
-
-          <Button
-            ml={3}
-            variant="link"
-            onClick={() => {
-              onConsentsChanged(
-                requests.reduce((aggr: Consent, request) => {
-                  aggr[request.key] = request.isRequired ?? false;
-                  return aggr;
-                }, {})
-              );
-            }}
-          >
-            {localization.declineOptional ?? 'Decline optional'}
+            {localization.acceptSelected ?? 'Accept selected'}
           </Button>
         </Flex>
       </Flex>

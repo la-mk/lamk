@@ -40,7 +40,8 @@ interface LocalizationContext {
   forMoreDetails?: string;
   cookiesExplanation?: string;
   readMoreCookies?: string;
-  acceptCookies?: string;
+  acceptAll?: string;
+  acceptSelected?: string;
 }
 
 export const LocalizationContext = React.createContext<LocalizationContext>({});
