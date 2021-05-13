@@ -21,14 +21,14 @@ export interface CookieBannerProps {
   consents?: Consent | null;
   requests: ConsentRequest[];
   onConsentsChanged: (consents: Consent) => void;
-  privacyPolicyLink: string;
+  cookiesPolicyLink: string;
 }
 
 export const CookieBanner = ({
   consents,
   requests,
   onConsentsChanged,
-  privacyPolicyLink,
+  cookiesPolicyLink,
 }: CookieBannerProps) => {
   const localization = useContext(LocalizationContext);
   const [consentsState, setConsentsState] = useState<
@@ -63,11 +63,11 @@ export const CookieBanner = ({
               {localization.readMoreCookies ?? 'Read more in our'}{' '}
               <Button
                 variant="link"
-                href={privacyPolicyLink}
+                href={cookiesPolicyLink}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {localization.privacyPolicy ?? 'privacy policy'}
+                {localization.cookiesPolicy ?? 'cookies policy'}
               </Button>
               .
             </Text>

@@ -36,6 +36,7 @@ interface LocalizationContext {
   termsOfService?: string;
   collectAccountInfoReviewPolicy?: string;
   privacyPolicy?: string;
+  cookiesPolicy?: string;
   forMoreDetails?: string;
   cookiesExplanation?: string;
   readMoreCookies?: string;
