@@ -43,7 +43,8 @@
     "update": "Update",
     "watchDemo": "Watch demo",
     "declineOptional": "Decline optional",
-    "acceptCookies": "Accept cookies"
+    "acceptAll": "Accept all",
+    "acceptSelected": "Accept selected"
   },
   "address": {
     "addNewAddress": "Add new address",

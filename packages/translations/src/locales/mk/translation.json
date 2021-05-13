@@ -43,7 +43,8 @@
     "update": "Обнови",
     "watchDemo": "Види видео",
     "declineOptional": "Одбиј опционални",
-    "acceptCookies": "Прифати колачиња"
+    "acceptAll": "Прифати сите",
+    "acceptSelected": "Прифати избрани"
   },
   "address": {
     "addNewAddress": "Додадете нова адреса",
