@@ -41,10 +41,12 @@ const getTranslations = (t: (key: string) => string) => {
     termsOfService: t('auth.termsOfService'),
     collectAccountInfoReviewPolicy: t('auth.collectAccountInfoReviewPolicy'),
     privacyPolicy: t('auth.privacyPolicy'),
+    cookiesPolicy: t('pages.cookiesPolicy').toLowerCase(),
+    acceptAll: t('actions.acceptAll'),
+    acceptSelected: t('actions.acceptSelected'),
     forMoreDetails: t('auth.forMoreDetails'),
     cookiesExplanation: t('auth.cookiesExplanation'),
     readMoreCookies: t('auth.readMoreCookies'),
-    acceptCookies: t('actions.acceptCookies'),
     decline: t('actions.declineOptional'),
   };
 };
@@ -76,8 +78,15 @@ export const Main = ({ laStore, children }) => {
                   )
                 }
                 consents={consents}
-                privacyPolicyLink={'/legal/privacy'}
-                requests={[{ key: 'analytics', title: 'Analytics' }]}
+                cookiesPolicyLink={'/legal/cookies-policy'}
+                requests={[
+                  {
+                    key: 'necessary',
+                    title: t('common.necessary'),
+                    isRequired: true,
+                  },
+                  { key: 'analytics', title: t('common.analytics') },
+                ]}
               />
             </>
           </StoreLayout>

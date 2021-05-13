@@ -56,6 +56,10 @@ const getMenus = (t: any): Menu[] => [
         link: '/legal/privacy',
         text: t('pages.privacy'),
       },
+      {
+        link: '/legal/cookies-policy',
+        text: t('pages.cookiesPolicy'),
+      },
     ],
   },
 ];

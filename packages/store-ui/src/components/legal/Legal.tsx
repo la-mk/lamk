@@ -29,6 +29,10 @@ export const Legal = () => {
       link: '/legal/privacy',
       text: t('pages.privacy'),
     },
+    {
+      link: '/legal/cookies-policy',
+      text: t('pages.cookiesPolicy'),
+    },
   ];
 
   return (
