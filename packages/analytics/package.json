@@ -2,7 +2,7 @@
   "name": "@la-mk/analytics",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/la-mk/lamk.git",
+    "url": "git@github.com:la-mk/lamk.git",
     "directory": "packages/analytics"
   },
   "version": "0.0.13",

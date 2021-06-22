@@ -2,7 +2,7 @@
   "name": "@la-mk/translations",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/la-mk/lamk.git",
+    "url": "git@github.com:la-mk/lamk.git",
     "directory": "packages/translations"
   },
   "version": "0.0.143",

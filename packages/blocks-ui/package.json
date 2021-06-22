@@ -2,7 +2,7 @@
   "name": "@la-mk/blocks-ui",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/la-mk/lamk.git",
+    "url": "git@github.com:la-mk/lamk.git",
     "directory": "packages/blocks-ui"
   },
   "version": "0.0.312",

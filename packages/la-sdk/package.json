@@ -2,7 +2,7 @@
   "name": "@la-mk/la-sdk",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/la-mk/lamk.git",
+    "url": "git@github.com:la-mk/lamk.git",
     "directory": "packages/la-sdk"
   },
   "version": "0.0.174",
