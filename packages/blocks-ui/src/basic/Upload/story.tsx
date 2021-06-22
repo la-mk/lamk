@@ -7,6 +7,8 @@ storiesOf('Upload', module).add('standard', () => {
   const [images, setImages] = React.useState<any>([
     { _id: 'https://picsum.photos/200/300' },
   ]);
+
+  console.log(images);
   return (
     <Provider>
       <div>

@@ -11,6 +11,7 @@ import { Trash2, UploadCloud } from 'react-feather';
 import uniqueId from 'lodash/uniqueId';
 import { Button } from '../Button';
 import isEmpty from 'lodash/isEmpty';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 export interface Media {
   _id: string;
@@ -43,59 +44,73 @@ export interface CustomFile {
 }
 
 const Previewer = ({
+  index,
   file,
   onRemove,
 }: {
+  index: number;
   file: CustomFile;
   onRemove: (id: string) => void;
 }) => {
   const [isRemoveVisible, setIsRemoveVisible] = React.useState(false);
   return (
-    <Box>
-      <Spinner isLoaded={file.status !== 'uploading'}>
-        {/* @ts-ignore */}
-        <Box m={2} position="relative">
-          <Flex
-            // @ts-ignore
-            position="absolute"
-            left={0}
-            top={0}
-            right={0}
-            bottom={0}
-            align="center"
-            justify="center"
-            onMouseEnter={() => setIsRemoveVisible(true)}
-            onMouseLeave={() => setIsRemoveVisible(false)}
-            onClick={() => setIsRemoveVisible(x => !x)}
-          >
-            <Box
-              display={isRemoveVisible ? undefined : 'none'}
-              // @ts-ignore
-              position="absolute"
-              left={0}
-              top={0}
-              right={0}
-              bottom={0}
-              bg="gray.200"
-              opacity={0.5}
-            />
-            <Button
-              // @ts-ignore
-              display={isRemoveVisible ? undefined : 'none'}
-              onClick={() => onRemove(file.id!)}
-              size="xs"
-              leftIcon={<Trash2 />}
-            />
-          </Flex>
-          <Box
-            minHeight="100px"
-            height="100px" // @ts-ignore
-          >
-            <BlocksImage height={100} src={file.preview} alt="uploaded image" />
-          </Box>
-        </Box>
-      </Spinner>
-    </Box>
+    <Draggable draggableId={file.id} index={index}>
+      {provided => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <Spinner isLoaded={file.status !== 'uploading'}>
+            {/* @ts-ignore */}
+            <Box m={2} position="relative">
+              <Flex
+                // @ts-ignore
+                position="absolute"
+                left={0}
+                top={0}
+                right={0}
+                bottom={0}
+                align="center"
+                justify="center"
+                onMouseEnter={() => setIsRemoveVisible(true)}
+                onMouseLeave={() => setIsRemoveVisible(false)}
+                onClick={() => setIsRemoveVisible(x => !x)}
+              >
+                <Box
+                  display={isRemoveVisible ? undefined : 'none'}
+                  // @ts-ignore
+                  position="absolute"
+                  left={0}
+                  top={0}
+                  right={0}
+                  bottom={0}
+                  bg="gray.200"
+                  opacity={0.5}
+                />
+                <Button
+                  // @ts-ignore
+                  display={isRemoveVisible ? undefined : 'none'}
+                  onClick={() => onRemove(file.id!)}
+                  size="xs"
+                  leftIcon={<Trash2 />}
+                />
+              </Flex>
+              <Box
+                minHeight="100px"
+                height="100px" // @ts-ignore
+              >
+                <BlocksImage
+                  height={100}
+                  src={file.preview}
+                  alt="uploaded image"
+                />
+              </Box>
+            </Box>
+          </Spinner>
+        </div>
+      )}
+    </Draggable>
   );
 };
 
@@ -309,11 +324,47 @@ export const Upload = ({
           </Text>
         </Flex>
       </Box>
-      <Flex wrap="wrap">
-        {[...existingFiles, ...unprocesssedFiles].map(f => (
-          <Previewer key={f.id} file={f} onRemove={onRemove} />
-        ))}
-      </Flex>
+
+      <DragDropContext
+        onDragEnd={result => {
+          if (!result.destination) {
+            return;
+          }
+
+          if (result.destination.index === result.source.index) {
+            return;
+          }
+
+          if (!multiple) {
+            return;
+          }
+
+          const reordered = [...normalizedUploadedMedia];
+          const [removed] = reordered.splice(result.source.index, 1);
+          reordered.splice(result.destination.index, 0, removed);
+          onChange(reordered);
+        }}
+      >
+        <Droppable droppableId="images-list" direction="horizontal">
+          {provided => {
+            return (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                <Flex wrap="wrap">
+                  {[...existingFiles, ...unprocesssedFiles].map((f, idx) => (
+                    <Previewer
+                      key={f.id}
+                      file={f}
+                      onRemove={onRemove}
+                      index={idx}
+                    />
+                  ))}
+                </Flex>
+                {provided.placeholder}
+              </div>
+            );
+          }}
+        </Droppable>
+      </DragDropContext>
     </section>
   );
 };
