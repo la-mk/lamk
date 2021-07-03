@@ -414,7 +414,8 @@
     "cookiesPolicy": "Политика за колачиња",
     "returnAndRefund": "Замена на производ",
     "generalRules": "Општи одредби",
-    "termsOfUse": "Услови на употреба"
+    "termsOfUse": "Услови на употреба",
+    "usageInstructions": "Упатство за користење"
   },
   "payment": {
     "choosePaymentMethod": "Одберете начин на плаќање",

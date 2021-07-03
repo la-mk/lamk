@@ -413,7 +413,8 @@
     "cookiesPolicy": "Cookies policy",
     "returnAndRefund": "Returns and refunds",
     "generalRules": "General rules",
-    "termsOfUse": "Terms of use"
+    "termsOfUse": "Terms of use",
+    "usageInstructions": "Usage instructions"
   },
   "payment": {
     "choosePaymentMethod": "Choose a payment method",
