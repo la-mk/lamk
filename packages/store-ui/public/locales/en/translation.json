@@ -624,8 +624,7 @@
     "usd": "USD"
   },
   "delivery": {
-    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
-    "productFreeDeliveryExplanation": "All orders over {{freeDeliveryPrice}} are free of charge!"
+    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!"
   },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
@@ -728,7 +727,8 @@
     "privacy": "Privacy",
     "product_plural": "Products",
     "returnAndRefund": "Returns and refunds",
-    "termsOfUse": "Terms of use"
+    "termsOfUse": "Terms of use",
+    "usageInstructions": "Usage instructions"
   },
   "payment": {
     "choosePaymentMethod": "Choose a payment method",

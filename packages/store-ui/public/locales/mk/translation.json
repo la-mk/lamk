@@ -624,8 +624,7 @@
     "usd": "USD"
   },
   "delivery": {
-    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
-    "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава"
+    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!"
   },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",
@@ -728,7 +727,8 @@
     "privacy": "Приватност",
     "product_plural": "Производи",
     "returnAndRefund": "Замена на производ",
-    "termsOfUse": "Услови на употреба"
+    "termsOfUse": "Услови на употреба",
+    "usageInstructions": "Упатство за користење"
   },
   "payment": {
     "choosePaymentMethod": "Одберете начин на плаќање",

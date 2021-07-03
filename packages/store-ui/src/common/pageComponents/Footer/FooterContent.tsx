@@ -34,6 +34,10 @@ const getMenus = (t: any): Menu[] => [
         link: '/account/orders',
         text: t('pages.myOrders'),
       },
+      {
+        link: 'https://la.mk/blog/get-started-using-store',
+        text: t('pages.usageInstructions'),
+      },
     ],
   },
   {
