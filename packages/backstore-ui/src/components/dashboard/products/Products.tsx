@@ -111,7 +111,7 @@ const getColumns = (
     compressed: true,
     Cell: ({ value }: { value: Variant[] }) => {
       return (
-        <Text maxWidth={'140px'} noOfLines={1}>
+        <Text minWidth='120px' maxWidth={'220px'} noOfLines={1}>
           {value
             .map(x => x.sku)
             .filter(x => !!x)
