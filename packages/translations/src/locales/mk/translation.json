@@ -207,9 +207,10 @@
     "overPrice": "Над вредност од",
     "priceExplanation": "Најчесто вредноста претставува просечна цена за достава",
     "updatingDeliveryTip": "Доставата се обновува...",
-    "productFreeDeliveryExplanation": "Сите порачки над {{freeDeliveryPrice}} се со бесплатна достава",
     "trackingId": "Код на пратка",
-    "trackingIdExplanation": "Кодот за следење на пратката доставен од вашиот курир"
+    "trackingIdExplanation": "Кодот за следење на пратката доставен од вашиот курир",
+    "ordersBelowFreeDelivery": "За сите порачки под",
+    "ordersAboveFreeDelivery": "За сите порачки над"
   },
   "filters": {
     "recommended": "Препорачани",
