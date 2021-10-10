@@ -624,7 +624,10 @@
     "usd": "USD"
   },
   "delivery": {
-    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!"
+    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
+    "freeDelivery": "Бесплатна достава",
+    "ordersAboveFreeDelivery": "За сите порачки над",
+    "ordersBelowFreeDelivery": "За сите порачки под"
   },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",

@@ -38,20 +38,25 @@ export const ProductDetails = ({
           content: (
             <>
               {!!delivery?.method && (
-                <Text as='p' whiteSpace='pre-wrap'>
-                  {t(`deliveryMethods.${delivery.method}`)}:{' '}
-                  {`${deliveryPrice} ${t(
-                    `currencies.${store.preferences.currency ?? 'mkd'}`,
-                  )}`}
-                </Text>
+                <>
+                  <Text as='strong' whiteSpace='pre-wrap'>
+                    {t(`deliveryMethods.${delivery.method}`)}
+                  </Text>
+
+                  <Text as='p' whiteSpace='pre-wrap'>
+                    {t('delivery.ordersBelowFreeDelivery')} {freeDeliveryPrice}{' '}
+                    {t(`currencies.${store.preferences.currency ?? 'mkd'}`)}:{' '}
+                    {deliveryPrice}{' '}
+                    {t(`currencies.${store.preferences.currency ?? 'mkd'}`)}
+                  </Text>
+
+                  <Text as='p' whiteSpace='pre-wrap'>
+                    {t('delivery.ordersAboveFreeDelivery')} {freeDeliveryPrice}{' '}
+                    {t(`currencies.${store.preferences.currency ?? 'mkd'}`)}:{' '}
+                    {t('delivery.freeDelivery')}
+                  </Text>
+                </>
               )}
-              <Text as='p' whiteSpace='pre-wrap'>
-                {t('delivery.productFreeDeliveryExplanation', {
-                  freeDeliveryPrice: `${freeDeliveryPrice} ${t(
-                    `currencies.${store.preferences.currency ?? 'mkd'}`,
-                  )}`,
-                })}
-              </Text>
             </>
           ),
         },

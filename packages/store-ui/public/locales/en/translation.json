@@ -624,7 +624,10 @@
     "usd": "USD"
   },
   "delivery": {
-    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!"
+    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
+    "freeDelivery": "Free delivery",
+    "ordersAboveFreeDelivery": "All orders above",
+    "ordersBelowFreeDelivery": "All orders below"
   },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
