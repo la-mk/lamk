@@ -19,6 +19,7 @@ import { Integrations } from "../integrations/Integrations";
 import { injectStoreInContext } from "../hacks/store";
 import { getImageURL } from "../hacks/imageUrl";
 import { AuthProvider } from "../layout/Auth/AuthProvider";
+import { analytics, initializeAnalytics } from "../tooling/analytics";
 
 function MyApp({
   Component,
@@ -35,6 +36,11 @@ function MyApp({
       imagesEndpoint: env.ARTIFACTS_ENDPOINT,
       imagesProxyEndpoint: env.IMAGES_PROXY_ENDPOINT,
     });
+  }
+
+  // We only want to enable analytics in the browser
+  if (!analytics && typeof window !== "undefined") {
+    initializeAnalytics();
   }
 
   return (

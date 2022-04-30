@@ -1,80 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Page } from '../../layout/Page';
-import { useTranslation } from '../../../common/i18n';
-import { useDispatch } from 'react-redux';
-import { PaymentForm } from '../../payments/PaymentForm';
+import React, { useState, useEffect } from "react";
 import {
   Flex,
   Spinner,
-  hooks,
   Alert,
   Heading,
   Button,
   Text,
   Result,
-} from '@la-mk/blocks-ui';
-import { sdk } from '@la-mk/la-sdk';
-import { FrameMessageExchange } from '../../shared/FrameMessageExchange';
-import { Success } from '../../cart/Success';
-import { StorePaymentMethods } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
-import Link from 'next/link';
-import { trackEvent } from '../../../state/modules/analytics/analytics.module';
-import { AnalyticsEvents } from '@la-mk/analytics';
-import { useBreadcrumb } from '../../shared/hooks/useBreadcrumb';
-import { User } from '../../../domain/user';
-import { Store } from '../../../domain/store';
-import { Order } from '../../../domain/order';
+} from "@la-mk/blocks-ui";
+import Link from "next/link";
+import { AnalyticsEvents } from "@la-mk/analytics";
+import { Store } from "../../../domain/store";
+import { Order, OrderStatus } from "../../../domain/order";
+import { useTranslation } from "next-i18next";
+import { useBreadcrumbs } from "../../../hooks/useBreadcrumbs";
+import { useAnalytics } from "../../../hooks/useAnalytics";
+import { PaymentMethodNames, TransactionStatus } from "../../../domain/payment";
+import { useQuery } from "../../../sdk/useQuery";
+import { Success } from "./Success";
+import { Page } from "../../../layout/Page";
+import { FrameMessageExchange } from "./FrameMessageExchange";
+import { PaymentForm } from "./payments/PaymentForm";
 
 interface PaymentProps {
-  user: User;
   store: Store;
   order: Order;
   isLoadingOrder: boolean;
 }
 
-export const Payment = ({
-  user,
-  store,
-  order,
-  isLoadingOrder,
-}: PaymentProps) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [paymentMethodCaller, showPaymentMethodSpinner] = hooks.useCall(true);
+export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
+  const { t } = useTranslation("translation");
+  const { trackEvent } = useAnalytics(store._id);
   const [trackedEvent, setTrackedEvent] = useState(false);
   const [isLoadingPayment, setIsLoadingPayment] = useState(true);
-  const [
-    storePaymentMethods,
-    setStorePaymentMethods,
-  ] = useState<StorePaymentMethods | null>(null);
-  const [paymentResponse, setPaymentResponse] = useState(null);
-  const isBrowser = typeof window !== 'undefined';
+  const [paymentResponse, setPaymentResponse] = useState<{
+    error?: any;
+    data?: any;
+  } | null>(null);
+  const [paymentMethods, isLoadingPaymentMethods] = useQuery(
+    "storePaymentMethods",
+    "findForStore",
+    [store._id]
+  );
 
+  const isBrowser = typeof window !== "undefined";
   const transaction = paymentResponse?.data?.transactions?.[0];
   const transactionStatus = transaction?.status;
 
   const shouldRetry =
     !!paymentResponse?.error ||
-    transactionStatus === sdk.orderPayments.TransactionStatus.DECLINED ||
-    transactionStatus === sdk.orderPayments.TransactionStatus.ERROR;
+    transactionStatus === TransactionStatus.DECLINED ||
+    transactionStatus === TransactionStatus.ERROR;
 
-  const cardPaymentInfo = storePaymentMethods?.methods.find(
-    method =>
-      method.name === sdk.storePaymentMethods.PaymentMethodNames.CREDIT_CARD,
+  const cardPaymentInfo = paymentMethods?.data?.[0]?.methods?.find(
+    (method) => method.name === PaymentMethodNames.CREDIT_CARD
   );
 
-  useBreadcrumb([
-    { url: '/', title: t('pages.home') },
-    { url: '/account/orders', title: t('pages.order_plural') },
+  useBreadcrumbs([
+    { url: "/", title: t("pages.home") },
+    { url: "/account/orders", title: t("pages.order_plural") },
     {
-      urlPattern: '/account/orders/[oid]',
+      urlPattern: "/account/orders/[oid]",
       url: `/account/orders/${order?._id}`,
-      title: t('pages.order'),
+      title: t("pages.order"),
     },
     {
-      urlPattern: '/account/orders/[oid]/pay',
+      urlPattern: "/account/orders/[oid]/pay",
       url: `/account/orders/${order?._id}/pay`,
-      title: t('pages.payment'),
+      title: t("pages.payment"),
     },
   ]);
 
@@ -83,36 +76,23 @@ export const Payment = ({
       return;
     }
 
-    dispatch(
-      trackEvent({
-        eventName: AnalyticsEvents.pay,
-        orderId: order._id,
-        totalPrice: order.calculatedTotal,
-        status: transactionStatus,
-        processor: cardPaymentInfo.processor,
-      }),
-    );
+    trackEvent(AnalyticsEvents.pay, {
+      orderId: order._id,
+      totalPrice: order.calculatedTotal,
+      status: transactionStatus,
+      processor: cardPaymentInfo.processor,
+    });
 
     setTrackedEvent(true);
-  }, [order, transactionStatus, cardPaymentInfo, trackedEvent]);
+  }, [trackEvent, order, transactionStatus, cardPaymentInfo, trackedEvent]);
 
-  useEffect(() => {
-    if (!store) {
-      return;
-    }
-
-    paymentMethodCaller(sdk.storePaymentMethods.findForStore(store._id), res =>
-      setStorePaymentMethods(res.data[0]),
-    );
-  }, [store, paymentMethodCaller]);
-
-  if (!cardPaymentInfo && !showPaymentMethodSpinner) {
+  if (!cardPaymentInfo && !isLoadingPaymentMethods) {
     return (
       <Result
         mt={8}
-        status='warning'
-        title={t('payment.paymentDisabled')}
-        description={t('payment.storeNoCardSupport')}
+        status="warning"
+        title={t("payment.paymentDisabled")}
+        description={t("payment.storeNoCardSupport")}
       />
     );
   }
@@ -121,84 +101,82 @@ export const Payment = ({
     return (
       <Result
         mt={8}
-        status='warning'
-        title={t('order.orderNotFound')}
-        description={t('order.orderNotFoundTip')}
+        status="warning"
+        title={t("order.orderNotFound")}
+        description={t("order.orderNotFoundTip")}
       />
     );
   }
 
-  if (order && order.status !== sdk.order.OrderStatus.PENDING_PAYMENT) {
+  if (order && order.status !== OrderStatus.PENDING_PAYMENT) {
     return (
       <Flex
-        mx='auto'
-        maxWidth={'24rem'}
+        mx="auto"
+        maxWidth={"24rem"}
         mt={8}
-        direction='column'
-        justify='center'
+        direction="column"
+        justify="center"
       >
         <Result
-          status='warning'
-          title={t('payment.paymentDisabled')}
-          description={t('order.orderAlreadyPaid')}
+          status="warning"
+          title={t("payment.paymentDisabled")}
+          description={t("order.orderAlreadyPaid")}
         />
         <Link
           passHref
           replace
-          href='/account/orders/[pid]'
+          href="/account/orders/[pid]"
           as={`/account/orders/${order._id}`}
         >
-          <Button mt={5} as='a' mx={2} key='console'>
-            {t('order.seeOrder')}
+          <Button mt={5} as="a" mx={2} key="console">
+            {t("order.seeOrder")}
           </Button>
         </Link>
       </Flex>
     );
   }
 
-  if (transactionStatus === sdk.orderPayments.TransactionStatus.APPROVED) {
+  if (transactionStatus === TransactionStatus.APPROVED) {
     return <Success mt={[7, 8, 8]} order={order} />;
   }
 
-  const frameName = 'paymentFrame';
+  const frameName = "paymentFrame";
 
   return (
     <Page>
       <Spinner
         isLoaded={
-          !showPaymentMethodSpinner && !isLoadingOrder && !isLoadingPayment
+          !isLoadingPaymentMethods && !isLoadingOrder && !isLoadingPayment
         }
       >
-        <Flex align='center' justify='center' direction='column'>
+        <Flex align="center" justify="center" direction="column">
           {order && (
-            <Heading as='h3' size='lg' mb={3}>
-              {t('payment.payAmountTip', {
+            <Heading as="h3" size="lg" mb={3}>
+              {t("payment.payAmountTip", {
                 amountWithCurrency: `${order.calculatedTotal} ${t(
-                  `currencies.${order.currency}`,
+                  `currencies.${order.currency}`
                 )}`,
               })}
             </Heading>
           )}
           {paymentResponse?.error && (
             <Alert
-              maxWidth={'40rem'}
+              maxWidth={"40rem"}
               mt={5}
-              status='error'
+              status="error"
               message={
-                paymentResponse.error?.message ?? t('results.genericError')
+                paymentResponse.error?.message ?? t("results.genericError")
               }
             />
           )}
 
-          {(transactionStatus ===
-            sdk.orderPayments.TransactionStatus.DECLINED ||
-            transactionStatus ===
-              sdk.orderPayments.TransactionStatus.ERROR) && (
+          {(transactionStatus === TransactionStatus.DECLINED ||
+            transactionStatus === TransactionStatus.ERROR) && (
             <Alert
-              maxWidth={'40rem'}
+              maxWidth={"40rem"}
               mt={5}
-              status='error'
-              message={transaction?.message ?? t('results.genericError')}
+              status="error"
+              message={transaction?.message ?? t("results.genericError")}
             />
           )}
 
@@ -206,26 +184,26 @@ export const Payment = ({
             <>
               <Button
                 mt={6}
-                size='lg'
+                size="lg"
                 onClick={() => {
                   setPaymentResponse(null);
                   setIsLoadingPayment(true);
                 }}
               >
-                {t('actions.retry')}
+                {t("actions.retry")}
               </Button>
-              <Text mt={3} color='mutedText.dark'>
-                {t('order.retryFromOrdersTip')}
+              <Text mt={3} color="mutedText.dark">
+                {t("order.retryFromOrdersTip")}
               </Text>
             </>
           )}
 
-          {isBrowser && order && storePaymentMethods && !paymentResponse && (
+          {isBrowser && order && paymentMethods?.data?.[0] && !paymentResponse && (
             <>
               <PaymentForm
                 target={frameName}
-                storePaymentsId={storePaymentMethods._id}
-                cardPaymentInfo={cardPaymentInfo}
+                storePaymentsId={paymentMethods?.data?.[0]?._id}
+                cardPaymentInfo={cardPaymentInfo!}
                 order={order}
               />
               {/* Can hide a spinner after the iframe is loaded */}

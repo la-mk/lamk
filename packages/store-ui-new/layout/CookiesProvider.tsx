@@ -13,17 +13,19 @@ interface CookiesProviderProps {
   children: React.ReactElement;
 }
 
-export const CookiesContext = React.createContext({} as Consent);
+export const CookiesContext = React.createContext(null as Consent | null);
 
 export const CookiesProvider = ({
   necessaryTitle,
   analyticsTitle,
   children,
 }: CookiesProviderProps) => {
-  const [consent, setConsent] = useLocalStorage<Consent>("cookies-consent");
+  const [consent, setConsent] = useLocalStorage<Consent | null>(
+    "cookies-consent"
+  );
 
   return (
-    <CookiesContext.Provider value={consent ?? {}}>
+    <CookiesContext.Provider value={consent}>
       <CookieBanner
         onConsentsChanged={setConsent}
         consents={consent}

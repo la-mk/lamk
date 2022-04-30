@@ -1,5 +1,6 @@
 import { Media } from "./media";
 import { Contact } from "./contact";
+import { Company } from "./company";
 
 export interface Store {
   _id: string;
@@ -12,5 +13,6 @@ export interface Store {
     currency?: string;
   };
   contact?: Contact;
+  company?: Company;
   logo?: Media | null;
 }

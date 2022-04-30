@@ -2,6 +2,7 @@
   "actions": {
     "acceptAll": "Accept all",
     "acceptSelected": "Accept selected",
+    "addToCart": "Add to Cart",
     "cancel": "Cancel",
     "create": "Create",
     "createStoreNow": "Create store now",
@@ -9,7 +10,9 @@
     "delete": "Delete",
     "goBack": "Go back",
     "goToAccount": "Go to account menu",
+    "goToCart": "Go to Cart",
     "loginInstead": "Log in instead",
+    "reset": "Reset",
     "retry": "Retry",
     "search": "Search",
     "sendPasswordResetLink": "Send password reset link",
@@ -54,6 +57,7 @@
     "registerConfirmTermsOfService": "By registering, I confirm that I have read and accepted the",
     "resetPassword": "Reset password",
     "resetPasswordExplanation": "Set your email and new password in the form below",
+    "resetPasswordSuccess": "Password reset successfully",
     "signup": "Sign up",
     "termsOfService": "terms of service",
     "welcomeToAccount": "Welcome to your account page",
@@ -68,7 +72,11 @@
     "percentage-discount": "Percent"
   },
   "cart": {
-    "leaveNote": "Leave a note to the store"
+    "addedToCart": "Added to cart",
+    "leaveNote": "Leave a note to the store",
+    "orderSuccess": "Your order has been placed",
+    "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
+    "productAlreadyInCart": "Product already in cart"
   },
   "categories": {
     "adhesive": "Adhesives",
@@ -563,6 +571,7 @@
     "yoghurt": "Yoghurt"
   },
   "commerce": {
+    "delivery": "Delivery",
     "product": "Product",
     "quantity": "Quantity"
   },
@@ -576,8 +585,10 @@
     "contactDetails": "Contact details",
     "country": "Country",
     "currentPassword": "Current password",
+    "description": "Description",
     "details": "Details",
     "email": "Email address",
+    "filter_plural": "Filters",
     "firstName": "First name",
     "guest": "Guest",
     "lastName": "Last name",
@@ -604,7 +615,10 @@
     "usd": "USD"
   },
   "delivery": {
-    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!"
+    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
+    "freeDelivery": "Free delivery",
+    "ordersAboveFreeDelivery": "All orders above",
+    "ordersBelowFreeDelivery": "All orders below"
   },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
@@ -641,6 +655,11 @@
     "uniqueOn": "Field should have unique values",
     "uuid": "Field should be a valid id"
   },
+  "filters": {
+    "cheapestFirst": "Cheapest first",
+    "expensiveFirst": "Expensive first",
+    "recommended": "Recommended"
+  },
   "finance": {
     "campaignDiscount": "Promotions",
     "priceBreakdown": "Price breakdown",
@@ -653,6 +672,10 @@
     "en-US": "English",
     "mk": "Македонски",
     "mk-MK": "Македонски"
+  },
+  "legal": {
+    "legalExplanation": "We make sure to be compliant with all regulations and laws. We have taken all security measures and limit the amount of data we collect to the bare minimum while still providing a smooth user experience",
+    "legalNotAvailable": "We are still preparing our legal policies, reach out for more information"
   },
   "order": {
     "note": "Note",
@@ -714,6 +737,12 @@
     "halkbank": "Halkbank"
   },
   "product": {
+    "availability": "Availability",
+    "discounted": "{{percentage}}% Off",
+    "inStock": "In stock",
+    "new": "New",
+    "noMatchingProduct_plural": "There are no products that match your search criteria",
+    "outOfStock": "Sold out",
     "seeOtherProducts": "Continue shopping"
   },
   "productRuleTypes": {
@@ -735,10 +764,14 @@
     "genericError": "Error occured",
     "pageNotFound": "Not found",
     "pageNotFoundExplanation": "Тhe page you were looking for does not exist.",
+    "productNotFound": "Product not found",
     "serverError": "Server error",
     "serverErrorExplanation": "Тhere was an error with the request, try again later. Contact us if the issue persists",
     "storeNotFound": "Store not found",
     "storeNotFoundExplanation": "The store you were looking for doesn't exist"
+  },
+  "seoDescriptions": {
+    "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now"
   },
   "store": {
     "noAboutusInformation": "Couldn't fetch the information about the store, try again later"

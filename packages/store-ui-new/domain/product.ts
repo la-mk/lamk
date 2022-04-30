@@ -74,6 +74,12 @@ export enum ProductSetType {
   GROUP = "group",
 }
 
-export const getVariantForAttributes = sdk.product.getVariantForAttributes;
-export const areAttributesEquivalent = sdk.product.areAttributesEquivalent;
-export const hasVariants = sdk.product.hasVariants;
+export const getVariantForAttributes = (
+  product: Product,
+  attributes?: Attributes
+) => sdk.product.getVariantForAttributes(product, attributes);
+export const areAttributesEquivalent = (a: Attributes, b: Attributes) =>
+  sdk.product.areAttributesEquivalent(a, b);
+
+export const hasVariants = (product: Product) =>
+  sdk.product.hasVariants(product);

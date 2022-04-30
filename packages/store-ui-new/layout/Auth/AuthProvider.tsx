@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { toast } from "@la-mk/blocks-ui";
+import { session } from "@la-mk/analytics";
 import { Store } from "../../domain/store";
 import { sdk } from "../../sdk/sdk";
 import { AuthHandler } from "./AuthHandler";
 import { User } from "../../domain/user";
+import { analytics } from "../../tooling/analytics";
 
 export const AuthContext = React.createContext({
   login: () => {},
@@ -40,6 +42,11 @@ export const AuthProvider = ({
       // TODO: translate
       await sdk.auth.logout();
       setUser(undefined);
+
+      // Initialize a new session after logging out.
+      analytics?.reset?.();
+      session.initializeSession();
+
       toast.success("see you soon!");
     } catch (err) {
       toast.error("failed to log out");

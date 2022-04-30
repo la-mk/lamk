@@ -2,6 +2,7 @@
   "actions": {
     "acceptAll": "Прифати сите",
     "acceptSelected": "Прифати избрани",
+    "addToCart": "Стави во корпа",
     "cancel": "Откажи",
     "create": "Создади",
     "createStoreNow": "Отвори продавница сега",
@@ -9,7 +10,9 @@
     "delete": "Избриши",
     "goBack": "Оди назад",
     "goToAccount": "Оди кон моја сметка",
+    "goToCart": "Прегледај корпа",
     "loginInstead": "Или логирај се",
+    "reset": "Ресетирај",
     "retry": "Обиди се повторно",
     "search": "Пребарај",
     "sendPasswordResetLink": "Испрати линк за ресетирање",
@@ -54,6 +57,7 @@
     "registerConfirmTermsOfService": "Со самото регистрирање, потврдувам дека ги прочитав и прифатив",
     "resetPassword": "Ресетирајте ја вашата лозинка",
     "resetPasswordExplanation": "Поставете ја вашата емаил адреса и вашата нова лозинка во полињата подолу",
+    "resetPasswordSuccess": "Успешно ресетирана лозинка",
     "signup": "Регистрирај се",
     "termsOfService": "условите за употреба",
     "welcomeToAccount": "Добре дојдовте на вашата корисничка сметка",
@@ -68,7 +72,11 @@
     "percentage-discount": "Проценти"
   },
   "cart": {
-    "leaveNote": "Оставете белешка на продавницата"
+    "addedToCart": "Додадено во корпа",
+    "leaveNote": "Оставете белешка на продавницата",
+    "orderSuccess": "Вашата порачка беше успешна",
+    "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\"",
+    "productAlreadyInCart": "Производот е веќе во корпата"
   },
   "categories": {
     "adhesive": "Лепаци",
@@ -563,6 +571,7 @@
     "yoghurt": "Јогурт"
   },
   "commerce": {
+    "delivery": "Достава",
     "product": "Производ",
     "quantity": "Количина"
   },
@@ -576,8 +585,10 @@
     "contactDetails": "Контакт информации",
     "country": "Држава",
     "currentPassword": "Постоечка лозинка",
+    "description": "Опис",
     "details": "Детали",
     "email": "Емаил",
+    "filter_plural": "Филтри",
     "firstName": "Име",
     "guest": "Посетител",
     "lastName": "Презиме",
@@ -604,7 +615,10 @@
     "usd": "USD"
   },
   "delivery": {
-    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!"
+    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
+    "freeDelivery": "Бесплатна достава",
+    "ordersAboveFreeDelivery": "За сите порачки над",
+    "ordersBelowFreeDelivery": "За сите порачки под"
   },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",
@@ -641,6 +655,11 @@
     "uniqueOn": "Полето треба има уникатни вредности",
     "uuid": "Полето треба да е валидна шифра"
   },
+  "filters": {
+    "cheapestFirst": "Најниска цена",
+    "expensiveFirst": "Највисока цена",
+    "recommended": "Препорачани"
+  },
   "finance": {
     "campaignDiscount": "Промоции",
     "priceBreakdown": "Преглед на вкупна цена",
@@ -653,6 +672,10 @@
     "en-US": "English",
     "mk": "Македонски",
     "mk-MK": "Македонски"
+  },
+  "legal": {
+    "legalExplanation": "Активно работиме со цел да сме во согласност со сите регулативи и закони. Ги преземаме сите безбедносни мерки за заштита на вашите податоци, и собираме минимален број на податоци со цел да ви понудиме подобро корисничко искуство",
+    "legalNotAvailable": "Правните документи се сеуште во подготовка, контактирајте не за повеќе детали"
   },
   "order": {
     "note": "Белешка",
@@ -714,6 +737,12 @@
     "halkbank": "Халкбанк"
   },
   "product": {
+    "availability": "Достапност",
+    "discounted": "{{percentage}}% Попуст",
+    "inStock": "Има залиха",
+    "new": "Ново",
+    "noMatchingProduct_plural": "Нема производи за вашето пребарување",
+    "outOfStock": "Распродадено",
     "seeOtherProducts": "Продолжете со купување"
   },
   "productRuleTypes": {
@@ -735,10 +764,14 @@
     "genericError": "Се појави грешка",
     "pageNotFound": "Не е пронајдена",
     "pageNotFoundExplanation": "Страницата што ја баравте не беше пронајдена",
+    "productNotFound": "Производот не е пронајден",
     "serverError": "Серверска грешка",
     "serverErrorExplanation": "Се појави грешка при вашето барање, пробајте повторно. Доколку сеуште имате проблем, контактирајте не",
     "storeNotFound": "Продавницата не беше најдена",
     "storeNotFoundExplanation": "Продавницата која ја баравте не постои"
+  },
+  "seoDescriptions": {
+    "product_plural": "Купувајте онлајн производи од нашиот асортиман. Најбрз и најлесен начин за купување онлајн во Македонија. Нудиме висок квалитет, по најповолни цени. Придружете ни се сега."
   },
   "store": {
     "noAboutusInformation": "Информациите за продавницата не беа пронајдени, обидете се повторно"

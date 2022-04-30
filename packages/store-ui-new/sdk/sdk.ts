@@ -3,6 +3,9 @@ import { sdk as sdkBase, setupSdk as setup } from "@la-mk/la-sdk";
 import { SetupSdkOptions } from "@la-mk/la-sdk/dist/setup";
 import { User } from "../domain/user";
 import isObject from "lodash/isObject";
+import { Attributes, Product } from "../domain/product";
+import { CartItem } from "../domain/cart";
+import { Cart } from "@la-mk/la-sdk/dist/models/cart";
 
 export let sdk: ReturnType<typeof setupSdk>;
 export const setupSdk = (config: SetupSdkOptions) => {
@@ -43,6 +46,61 @@ export const setupSdk = (config: SetupSdkOptions) => {
     order: {
       findForUserFromStore: sdkBase.order.findForUserFromStore,
       get: sdkBase.order.get,
+    },
+
+    orderPayments: {
+      create: sdkBase.orderPayments.create,
+    },
+
+    storePaymentMethods: {
+      findForStore: sdkBase.storePaymentMethods.findForStore,
+      getHashParts: sdkBase.storePaymentMethods.getHashParts,
+    },
+
+    product: {
+      findForStore: sdkBase.product.findForStore,
+      get: sdkBase.product.get,
+    },
+
+    cart: {
+      addItemToCart: (
+        product: Product | null | undefined,
+        attributes: Attributes,
+        quantity: number,
+        storeId: string,
+        userId: string | undefined
+      ) => {
+        if (!product) {
+          return Promise.resolve(undefined);
+        }
+
+        let action: Promise<Cart | void> = Promise.resolve();
+        const orderProduct = sdkBase.product.convertToOrderProduct(
+          product,
+          attributes
+        );
+        if (!orderProduct) {
+          return Promise.resolve(undefined);
+        }
+
+        const cartItem: CartItem = {
+          product: { id: product._id, attributes: attributes },
+          fromStore: storeId,
+          quantity,
+        };
+
+        if (userId) {
+          action = sdkBase.cart.addItemToCart(userId, cartItem);
+        }
+
+        return action.then(() => {
+          return orderProduct;
+        });
+      },
+    },
+
+    delivery: {
+      findForStore: sdkBase.delivery.findForStore,
     },
 
     storeCategory: {

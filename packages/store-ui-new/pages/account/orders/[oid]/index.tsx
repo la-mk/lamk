@@ -9,15 +9,16 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { Result, Spinner } from "@la-mk/blocks-ui";
 import { Head } from "../../../../layout/Head";
 import { useQuery } from "../../../../sdk/useQuery";
-import { useRouter } from "next/router";
 import { Order } from "../../../../pageComponents/account/orders/Order";
+import { useRouter } from "next/router";
 
-const OrderPage = ({ store, orderId }: { store: Store; orderId: string }) => {
+const OrderPage = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
   const router = useRouter();
-  const { oid } = router.query;
+  const orderId = router.query.oid as string;
+
   const { user, isLoadingUser } = useAuth();
-  const [order, isLoadingOrder] = useQuery("order", "get", [oid as string], {
+  const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
     enabled: !!user,
   });
 

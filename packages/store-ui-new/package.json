@@ -12,8 +12,10 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@la-mk/analytics": "^0.0.13",
     "@la-mk/blocks-ui": "^0.0.312",
     "@la-mk/la-sdk": "^0.0.174",
+    "@la-mk/nlp": "^0.0.4",
     "@la-mk/translations": "0.0.145",
     "date-fns": "^2.28.0",
     "env-var": "^7.1.1",
