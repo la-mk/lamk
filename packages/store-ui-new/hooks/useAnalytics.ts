@@ -12,7 +12,6 @@ export const useAnalytics = (storeId: string) => {
   const consent = useContext(CookiesContext);
   const { user } = useAuth();
   const router = useRouter();
-  const [previousPage, setPreviousPage] = useState("");
 
   const trackEvent = useCallback(
     (eventName: string, payload: any) => {
@@ -96,7 +95,6 @@ export const useAnalytics = (storeId: string) => {
       sessionInfo.previousPage = location.href;
       sessionInfo.pageVisits += 1;
       session.setSessionInfo(sessionInfo);
-      setPreviousPage(location.href);
     };
 
     router.events.on("routeChangeStart", handleRouteChange);
@@ -105,5 +103,5 @@ export const useAnalytics = (storeId: string) => {
     };
   }, [router.events]);
 
-  return { trackEvent, previousPage };
+  return { trackEvent, getSessionInfo: session.getSessionInfo };
 };

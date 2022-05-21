@@ -1,6 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 import React from "react";
-import { hooks, Radio, Text } from "@la-mk/blocks-ui";
+import { Flex, hooks, Radio, Text } from "@la-mk/blocks-ui";
 import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { useTranslation } from "next-i18next";
@@ -66,10 +66,10 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
           {
             value: "cheap",
             children: isMobile ? (
-              <Text whiteSpace="nowrap">
+              <Flex direction={"row"}>
                 <ChevronDown style={{ marginRight: 4 }} />
                 {t("common.price")}
-              </Text>
+              </Flex>
             ) : (
               t("filters.cheapestFirst")
             ),
@@ -77,10 +77,10 @@ export const SortFilter = ({ filters, onChange }: SortFilterProps) => {
           {
             value: "expensive",
             children: isMobile ? (
-              <Text whiteSpace="nowrap">
+              <Flex>
                 <ChevronUp style={{ marginRight: 4 }} />
                 {t("common.price")}
-              </Text>
+              </Flex>
             ) : (
               t("filters.expensiveFirst")
             ),

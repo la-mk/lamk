@@ -6,7 +6,7 @@ import { BackButton } from "../BackButton";
 import { User } from "../../../domain/user";
 import { Store } from "../../../domain/store";
 import { Order as OrderType, OrderStatus } from "../../../domain/order";
-import { useTranslation } from "next-i18next";
+import { TFunction, useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../../hooks/useBreadcrumbs";
 import { Page } from "../../../layout/Page";
 import { CustomCard } from "../../../components/CustomCard";
@@ -22,6 +22,26 @@ import {
   ProductSetType,
 } from "../../../domain/set";
 import { ProductSet } from "../../../components/sets/ProductSet";
+
+const getSets = (t: TFunction) => [
+  {
+    title: t(
+      getTitleForSet({
+        type: ProductSetType.DISCOUNTED,
+        value: undefined,
+      })
+    ),
+    subtitle: t(
+      getSubtitleForSet({
+        type: ProductSetType.DISCOUNTED,
+        value: undefined,
+      })
+    ),
+    type: ProductSetType.DISCOUNTED,
+    value: undefined,
+    isPromoted: false,
+  },
+];
 
 export const Order = ({
   store,
@@ -48,25 +68,7 @@ export const Order = ({
 
   const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
     store._id,
-    [
-      {
-        title: t(
-          getTitleForSet({
-            type: ProductSetType.DISCOUNTED,
-            value: undefined,
-          })
-        ),
-        subtitle: t(
-          getSubtitleForSet({
-            type: ProductSetType.DISCOUNTED,
-            value: undefined,
-          })
-        ),
-        type: ProductSetType.DISCOUNTED,
-        value: undefined,
-        isPromoted: false,
-      },
-    ],
+    getSets(t),
   ]);
 
   const handlePayment = () => {

@@ -24,7 +24,7 @@ const getProductSummary = (
   store: Store,
   t: TFunction
 ) => {
-  const partialDescription = product.description?.slice(0, 130);
+  const partialDescription = product.description?.slice(0, 130) ?? product.name;
   const transliteratedName = transliterate(product.name, "mk", "en").replace(
     "\n",
     " "
@@ -50,34 +50,6 @@ const ProductPage = ({ store }: { store: Store }) => {
   const [cart, setCart] = useLocalStorage<CartWithProducts>("cart");
   const [addToCart] = useMutation("cart", "addItemToCart");
 
-  const handleAddToCart = async (attributes: Attributes, quantity: number) => {
-    try {
-      const orderProduct = await addToCart([
-        product,
-        attributes,
-        quantity,
-        store._id,
-        user?._id,
-      ]);
-      toast.info(t("cart.addedToCart"));
-      setCart({
-        ...cart,
-        items: [
-          ...(cart?.items ?? []),
-          {
-            product: orderProduct,
-            quantity,
-            fromStore: store._id,
-          } as CartItemWithProduct,
-        ],
-      });
-
-      return orderProduct;
-    } catch (err) {
-      toast.error("results.genericError");
-    }
-  };
-
   if (isLoadingProduct || isLoadingDelivery) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
   }
@@ -99,6 +71,35 @@ const ProductPage = ({ store }: { store: Store }) => {
       </>
     );
   }
+
+  const handleAddToCart = async (attributes: Attributes, quantity: number) => {
+    try {
+      const orderProduct = await addToCart([
+        product,
+        attributes,
+        quantity,
+        store._id,
+        user?._id,
+      ]);
+
+      setCart({
+        ...cart,
+        items: [
+          ...(cart?.items ?? []),
+          {
+            product: orderProduct,
+            quantity,
+            fromStore: store._id,
+          } as CartItemWithProduct,
+        ],
+      });
+
+      toast.info(t("cart.addedToCart"));
+      return orderProduct;
+    } catch (err) {
+      toast.error("results.genericError");
+    }
+  };
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Flex, Box, Spinner, utils } from "@la-mk/blocks-ui";
-import { session, AnalyticsEvents } from "@la-mk/analytics";
+import { AnalyticsEvents } from "@la-mk/analytics";
 import { Store } from "../../domain/store";
 import { Delivery } from "../../domain/delivery";
 import {
@@ -10,7 +10,7 @@ import {
   OrderedProduct,
   Product as ProductType,
 } from "../../domain/product";
-import { useTranslation } from "next-i18next";
+import { TFunction, useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { Page } from "../../layout/Page";
 import { ProductDescription } from "./ProductDescription";
@@ -19,6 +19,14 @@ import { ProductOptions } from "./ProductOptions";
 import { ProductDetails } from "./ProductDetails";
 import { CartWithProducts } from "../../domain/cart";
 import { useAnalytics } from "../../hooks/useAnalytics";
+import { ProductSet } from "../../components/sets/ProductSet";
+import {
+  getSubtitleForSet,
+  getTitleForSet,
+  ProductSetType,
+} from "../../domain/set";
+import { useQuery } from "../../sdk/useQuery";
+import { ServicesSet } from "../../components/sets/ServicesSet";
 
 interface ProductProps {
   product: ProductType;
@@ -49,6 +57,43 @@ const getProductsHref = (href: string) => {
   return "/products";
 };
 
+const getSets = (product: ProductType, t: TFunction) => [
+  {
+    title: t(
+      getTitleForSet({
+        type: ProductSetType.CATEGORY,
+        value: product.category,
+      })
+    ),
+    subtitle: t(
+      getSubtitleForSet({
+        type: ProductSetType.CATEGORY,
+        value: product.category,
+      })
+    ),
+    type: ProductSetType.CATEGORY,
+    value: product.category,
+    isPromoted: false,
+  },
+  {
+    title: t(
+      getTitleForSet({
+        type: ProductSetType.DISCOUNTED,
+        value: undefined,
+      })
+    ),
+    subtitle: t(
+      getSubtitleForSet({
+        type: ProductSetType.DISCOUNTED,
+        value: undefined,
+      })
+    ),
+    type: ProductSetType.DISCOUNTED,
+    value: undefined,
+    isPromoted: false,
+  },
+];
+
 export const Product = ({
   product,
   store,
@@ -57,7 +102,7 @@ export const Product = ({
   isLoadingProduct,
   addToCart,
 }: ProductProps) => {
-  const { trackEvent, previousPage } = useAnalytics(store._id);
+  const { trackEvent, getSessionInfo } = useAnalytics(store._id);
 
   // If the product has at least one attribute, it means it has variants.
   const hasAttributes = hasVariants(product);
@@ -79,7 +124,7 @@ export const Product = ({
     [
       { url: "/", title: t("pages.home") },
       {
-        url: getProductsHref(previousPage ?? ""),
+        url: getProductsHref(getSessionInfo()?.previousPage ?? ""),
         title: t("pages.product_plural"),
       },
       {
@@ -90,6 +135,11 @@ export const Product = ({
     ],
     [product?._id]
   );
+
+  const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
+    store._id,
+    getSets(product, t),
+  ]);
 
   useEffect(() => {
     if (!product?._id) {
@@ -117,7 +167,7 @@ export const Product = ({
       return;
     }
 
-    const previousPage = session.getSessionInfo()?.previousPage;
+    const previousPage = getSessionInfo()?.previousPage;
     const filters = utils.filter.parseFiltersUrl(previousPage ?? "");
     const searchTerm = filters.searching ?? "";
     const filterings = Object.keys(filters.filtering ?? {});
@@ -134,7 +184,7 @@ export const Product = ({
     });
 
     setTrackedEvent(true);
-  }, [product, trackedEvent, trackEvent]);
+  }, [product, trackedEvent, trackEvent, getSessionInfo]);
 
   const handleAddToCart = async () => {
     try {
@@ -196,52 +246,26 @@ export const Product = ({
           </Flex>
         </Flex>
       </Spinner>
-      {/* TODO: Add sets */}
-      {/* 
-      <ManagedSets
-        mt={[8, 9, 9]}
-        store={store}
-        setTags={[
-          {
-            title: t(
-              getTitleForSet({
-                type: ProductSetType.CATEGORY,
-                value: product.category,
-              })
-            ),
-            subtitle: t(
-              getSubtitleForSet({
-                type: ProductSetType.CATEGORY,
-                value: product.category,
-              })
-            ),
-            type: ProductSetType.CATEGORY,
-            value: product.category,
-            isPromoted: false,
-          },
-          {
-            title: t(
-              getTitleForSet({
-                type: ProductSetType.DISCOUNTED,
-                value: undefined,
-              })
-            ),
-            subtitle: t(
-              getSubtitleForSet({
-                type: ProductSetType.DISCOUNTED,
-                value: undefined,
-              })
-            ),
-            type: ProductSetType.DISCOUNTED,
-            value: undefined,
-            isPromoted: false,
-          },
-        ]}
-      />
+
+      <Spinner isLoaded={!isLoadingSets}>
+        <Box mt={[8, 9, 9]}>
+          {(sets ?? [])
+            .filter((set) => Boolean(set.data))
+            .map((set, i) => (
+              <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
+                <ProductSet
+                  set={set}
+                  store={store}
+                  key={set.setTag.type + (set.setTag.value || "")}
+                />
+              </Box>
+            ))}
+        </Box>
+      </Spinner>
 
       <Box mt={[8, 9, 9]}>
-        <ServicesSet />
-      </Box> */}
+        <ServicesSet store={store} delivery={delivery} />
+      </Box>
     </Page>
   );
 };

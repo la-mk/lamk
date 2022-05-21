@@ -26,7 +26,6 @@ function ProductsPage({
     router: filterRouter,
   });
 
-  console.log(filters);
   const [products, isLoadingProducts] = useQuery(
     "product",
     "findForStore",
@@ -39,12 +38,6 @@ function ProductsPage({
     "findForStore",
     [store._id]
   );
-
-  // useEffect(() => {
-  //   if (initialFilters) {
-  //     setFilters(initialFilters);
-  //   }
-  // }, [initialFilters]);
 
   return (
     <>
@@ -69,10 +62,9 @@ function ProductsPage({
 
 export async function getServerSideProps({
   locale,
-  asPath,
-  req: { store },
+  req: { store, url },
 }: PageContextWithStore) {
-  const parsedFilters = utils.filter.parseFiltersUrl(asPath ?? "");
+  const parsedFilters = utils.filter.parseFiltersUrl(url ?? "");
   const query = utils.filter.filtersAsQuery(parsedFilters);
 
   const queryClient = newClient();
@@ -86,7 +78,7 @@ export async function getServerSideProps({
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
       store,
-      // We want to remove undefined as nextjs complains, this is the easiest (but not the most performant) way.
+      //FUTURE: We want to remove undefined as nextjs complains, this is the easiest (but not the most performant) way.
       initialFilters: JSON.parse(JSON.stringify(parsedFilters)),
     },
   };
