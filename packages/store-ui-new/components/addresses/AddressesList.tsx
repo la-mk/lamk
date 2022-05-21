@@ -3,11 +3,11 @@ import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { Edit3, Trash2 } from "react-feather";
-import { CustomCard } from "../../../components/CustomCard";
-import { NoAddress } from "../../../components/icons/NoAddress";
-import { SelectableCard } from "../../../components/SelectableCard";
-import { ShippingDescription } from "../../../components/ShippingDescription";
-import { Address } from "../../../domain/address";
+import { CustomCard } from "../CustomCard";
+import { NoAddress } from "../icons/NoAddress";
+import { SelectableCard } from "../SelectableCard";
+import { ShippingDescription } from "../ShippingDescription";
+import { Address } from "../../domain/address";
 
 export const AddressesList = ({
   isLoadingAddresses,

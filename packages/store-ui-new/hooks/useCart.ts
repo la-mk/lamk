@@ -29,6 +29,8 @@ type ChangeQuantityFunc = (
   newQuantity: number
 ) => Promise<void>;
 
+type ClearCartFunc = () => Promise<void>;
+
 export const useCart = (
   store: Store,
   user: User | undefined,
@@ -37,12 +39,14 @@ export const useCart = (
   CartWithProducts,
   AddToCartFunc,
   RemoveFromCartFunc,
-  ChangeQuantityFunc
+  ChangeQuantityFunc,
+  ClearCartFunc
 ] => {
   const [localCart, setLocalCart] = useLocalStorage<CartWithProducts>("cart");
   const [addToCart] = useMutation("cart", "addItemToCart");
   const [removeFromCart] = useMutation("cart", "removeItemFromCart");
   const [changeQuantityInCart] = useMutation("cart", "changeQuantityInCart");
+  const [patchCart] = useMutation("cart", "patch");
 
   useQuery("cart", "get", [user?._id ?? "", store._id], {
     enabled: !!user,
@@ -151,11 +155,27 @@ export const useCart = (
     [localCart?._id, user, setLocalCart, changeQuantityInCart]
   );
 
+  const clearCart = React.useCallback(async () => {
+    try {
+      if (!!user && !!localCart?._id) {
+        await patchCart([user._id, { items: [] }]);
+      }
+
+      setLocalCart((cart) => ({
+        ...cart,
+        items: [],
+      }));
+    } catch (err) {
+      toast.error("results.genericError");
+    }
+  }, [localCart?._id, user, setLocalCart, patchCart]);
+
   return [
     localCart ?? ({ items: [] } as CartWithProducts),
     handleAddToCart,
     handleRemoveFromCart,
     handleChangeQuantity,
+    clearCart,
   ];
 };
 

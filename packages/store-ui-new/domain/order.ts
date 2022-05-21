@@ -1,8 +1,8 @@
 import { sdk } from "@la-mk/la-sdk";
-import { PaymentMethodNames } from "@la-mk/la-sdk/dist/models/storePaymentMethods";
 import { Address } from "./address";
 import { Campaign } from "./campaign";
 import { Delivery } from "./delivery";
+import { PaymentMethodNames } from "./payment";
 import { OrderedProduct } from "./product";
 
 export enum OrderStatus {
@@ -60,4 +60,8 @@ export const calculatePrices = (
   campaigns: Campaign[]
 ) => {
   return sdk.utils.pricing.calculatePrices(items, delivery, campaigns);
+};
+
+export const getBestCampaign = (campaigns: Campaign[], item: OrderItem) => {
+  return sdk.utils.pricing.getBestCampaign(campaigns, item) as Campaign;
 };

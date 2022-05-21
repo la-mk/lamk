@@ -1,8 +1,8 @@
 import * as React from "react";
 import { NewForm, Button, Box, Flex, hooks } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
-import { Address } from "../../../domain/address";
-import { sdk } from "../../../sdk/sdk";
+import { Address } from "../../domain/address";
+import { sdk } from "../../sdk/sdk";
 
 interface AddAddressFormProps {
   userId: string;

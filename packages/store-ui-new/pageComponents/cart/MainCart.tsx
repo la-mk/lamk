@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Box, Flex, Result, Spinner } from "@la-mk/blocks-ui";
-import { sdk } from "@la-mk/la-sdk";
 import { AnalyticsEvents } from "@la-mk/analytics";
 import { TFunction, useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
@@ -13,7 +12,11 @@ import { useRouter } from "next/router";
 import { Page } from "../../layout/Page";
 import { OrderProductsList } from "../../components/product/OrderProductsList";
 import { Summary } from "../account/orders/Summary";
-import { getSubtitleForSet, getTitleForSet } from "../../domain/set";
+import {
+  getSubtitleForSet,
+  getTitleForSet,
+  ProductSetType,
+} from "../../domain/set";
 import { ProductSet } from "../../components/sets/ProductSet";
 import { OrderItem } from "../../domain/order";
 
@@ -21,17 +24,17 @@ const getSets = (t: TFunction) => [
   {
     title: t(
       getTitleForSet({
-        type: sdk.product.ProductSetType.LATEST,
+        type: ProductSetType.LATEST,
         value: undefined,
       })
     ),
     subtitle: t(
       getSubtitleForSet({
-        type: sdk.product.ProductSetType.LATEST,
+        type: ProductSetType.LATEST,
         value: undefined,
       })
     ),
-    type: sdk.product.ProductSetType.LATEST,
+    type: ProductSetType.LATEST,
     value: undefined,
     isPromoted: false,
   },

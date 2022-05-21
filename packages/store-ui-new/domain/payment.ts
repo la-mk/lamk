@@ -21,3 +21,8 @@ export interface PaymentMethod {
   clientUsername?: string;
   clientPassword?: string;
 }
+export interface StorePaymentMethods {
+  _id: string;
+  forStore: string;
+  methods: PaymentMethod[];
+}

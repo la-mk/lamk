@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Flex } from "@la-mk/blocks-ui";
-import { Addresses } from "./Addresses";
+import { Addresses } from "../../components/addresses/Addresses";
 import { useTranslation } from "next-i18next";
-import { useBreadcrumbs } from "../../../hooks/useBreadcrumbs";
-import { Page } from "../../../layout/Page";
-import { BackButton } from "../BackButton";
-import { User } from "../../../domain/user";
-import { Store } from "../../../domain/store";
+import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
+import { Page } from "../../layout/Page";
+import { BackButton } from "./BackButton";
+import { User } from "../../domain/user";
+import { Store } from "../../domain/store";
 
 export const MyAddresses = ({ user, store }: { user: User; store: Store }) => {
   const { t } = useTranslation("translation");

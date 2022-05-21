@@ -2,6 +2,7 @@
   "actions": {
     "acceptAll": "Accept all",
     "acceptSelected": "Accept selected",
+    "add": "Add",
     "addToCart": "Add to Cart",
     "cancel": "Cancel",
     "create": "Create",
@@ -12,6 +13,7 @@
     "goToAccount": "Go to account menu",
     "goToCart": "Go to Cart",
     "loginInstead": "Log in instead",
+    "orderNow": "Order now",
     "reset": "Reset",
     "retry": "Retry",
     "search": "Search",
@@ -23,6 +25,7 @@
   "address": {
     "addAddressExplanation": "This is the address where the products will be delivered",
     "addNewAddress": "Add new address",
+    "chooseShippingAddress": "Choose a shipping address",
     "createAddressSuccess": "Address successfully created",
     "noAddress": "You don't have any address saved",
     "noAddressExplanation": "Please add a delivery address",
@@ -707,6 +710,7 @@
     "aboutUs": "About us",
     "cart": "Cart",
     "changePassword": "Change password",
+    "checkout": "Checkout",
     "cookiesPolicy": "Cookies policy",
     "generalRules": "General rules",
     "home": "Home",
@@ -726,6 +730,7 @@
     "usageInstructions": "Usage instructions"
   },
   "payment": {
+    "choosePaymentMethod": "Choose a payment method",
     "payAmountTip": "The order total is {{amountWithCurrency}}",
     "paymentDisabled": "Payment disabled",
     "storeNoCardSupport": "The store does not support credit card payments"

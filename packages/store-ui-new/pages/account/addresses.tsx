@@ -7,7 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Store } from "../../domain/store";
 import { useTranslation } from "next-i18next";
 import { Head } from "../../layout/Head";
-import { MyAddresses } from "../../pageComponents/account/addresses/MyAddresses";
+import { MyAddresses } from "../../pageComponents/account/MyAddresses";
 
 function AddressesPage({ store }: { store: Store }) {
   const { user, isLoadingUser } = useAuth();

@@ -1,15 +1,16 @@
 export enum RewardTypes {
-  PERCENTAGE_DISCOUNT = 'percentage-discount',
-  CONSTANT_DISCOUNT = 'constant-discount',
+  PERCENTAGE_DISCOUNT = "percentage-discount",
+  CONSTANT_DISCOUNT = "constant-discount",
 }
 export enum CampaignTypes {
-  CART_DISCOUNT = 'cart-discount',
+  CART_DISCOUNT = "cart-discount",
 }
 export enum ProductRuleTypes {
-  ALL = 'all',
-  GROUP = 'group',
+  ALL = "all",
+  GROUP = "group",
 }
 export interface Campaign {
+  _id: string;
   forStore: string;
   name: string;
   isActive: boolean;

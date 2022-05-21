@@ -2,6 +2,7 @@
   "actions": {
     "acceptAll": "Прифати сите",
     "acceptSelected": "Прифати избрани",
+    "add": "Додај",
     "addToCart": "Стави во корпа",
     "cancel": "Откажи",
     "create": "Создади",
@@ -12,6 +13,7 @@
     "goToAccount": "Оди кон моја сметка",
     "goToCart": "Прегледај корпа",
     "loginInstead": "Или логирај се",
+    "orderNow": "Порачај сега",
     "reset": "Ресетирај",
     "retry": "Обиди се повторно",
     "search": "Пребарај",
@@ -23,6 +25,7 @@
   "address": {
     "addAddressExplanation": "Адресата се користи за достава на производите",
     "addNewAddress": "Додадете нова адреса",
+    "chooseShippingAddress": "Одберете адреса за достава",
     "createAddressSuccess": "Нова адреса успешно создадена",
     "noAddress": "Немате зачувани адреси",
     "noAddressExplanation": "Додадете адреса за достава",
@@ -707,6 +710,7 @@
     "aboutUs": "За нас",
     "cart": "Корпа",
     "changePassword": "Променете лозинка",
+    "checkout": "Каса",
     "cookiesPolicy": "Политика за колачиња",
     "generalRules": "Општи одредби",
     "home": "Дома",
@@ -726,6 +730,7 @@
     "usageInstructions": "Упатство за користење"
   },
   "payment": {
+    "choosePaymentMethod": "Одберете начин на плаќање",
     "payAmountTip": "Вкупна цена на порачката е {{amountWithCurrency}}",
     "paymentDisabled": "Наплатата е оневозможена",
     "storeNoCardSupport": "Продавницата не поддржува плаќање со платежна картичка"

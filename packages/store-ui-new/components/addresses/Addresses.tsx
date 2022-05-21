@@ -4,13 +4,13 @@ import { useTheme } from "@chakra-ui/react";
 import { toast } from "@la-mk/blocks-ui";
 import { AddressModal } from "./AddressModal";
 import { AddressesList } from "./AddressesList";
-import { User } from "../../../domain/user";
-import { useQuery } from "../../../sdk/useQuery";
+import { User } from "../../domain/user";
+import { useQuery } from "../../sdk/useQuery";
 import { useTranslation } from "next-i18next";
-import { useMutation } from "../../../sdk/useMutation";
-import { Address } from "../../../domain/address";
-import { useQueryClient } from "../../../sdk/useQueryClient";
-import { useAnalytics } from "../../../hooks/useAnalytics";
+import { useMutation } from "../../sdk/useMutation";
+import { Address } from "../../domain/address";
+import { useQueryClient } from "../../sdk/useQueryClient";
+import { useAnalytics } from "../../hooks/useAnalytics";
 import { AnalyticsEvents } from "@la-mk/analytics";
 
 const pickDiff = <T extends any>(oldObj: Partial<T>, newObj: Partial<T>) => {

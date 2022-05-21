@@ -5,6 +5,7 @@ import isObject from "lodash/isObject";
 import { Attributes, Product } from "../domain/product";
 import { CartItem, CartItemWithProduct } from "../domain/cart";
 import { Cart } from "@la-mk/la-sdk/dist/models/cart";
+import { Order } from "../domain/order";
 
 export let sdk: ReturnType<typeof setupSdk>;
 export const setupSdk = (config: SetupSdkOptions) => {
@@ -43,6 +44,7 @@ export const setupSdk = (config: SetupSdkOptions) => {
     },
 
     order: {
+      create: (newOrder: Order) => sdkBase.order.create(newOrder as any),
       findForUserFromStore: sdkBase.order.findForUserFromStore,
       get: sdkBase.order.get,
       statusColor: sdkBase.order.orderStatusColor,

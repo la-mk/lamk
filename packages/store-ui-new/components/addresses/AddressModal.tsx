@@ -2,8 +2,8 @@ import React from "react";
 import { Modal, Flex, Heading, Text } from "@la-mk/blocks-ui";
 import { AddressForm } from "./AddressForm";
 import { useTranslation } from "next-i18next";
-import { Address } from "../../../domain/address";
-import { User } from "../../../domain/user";
+import { Address } from "../../domain/address";
+import { User } from "../../domain/user";
 
 interface AddressesModalProps {
   user: User;
