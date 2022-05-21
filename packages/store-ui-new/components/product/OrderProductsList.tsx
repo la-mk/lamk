@@ -30,6 +30,7 @@ const getColumns = (
             orderItem={item}
             currency={currency}
             storeId={store._id}
+            hideSummary
           />
         );
       },
@@ -131,6 +132,7 @@ const OrderProductListItem = ({
         orderItem={item}
         currency={currency}
         storeId={store._id}
+        hideSummary
       />
 
       <Flex mt={6} justify="space-between">

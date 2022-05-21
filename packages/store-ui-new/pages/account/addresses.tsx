@@ -35,7 +35,7 @@ function AddressesPage({ store }: { store: Store }) {
         description={`${t("pages.myAccount")}, ${nameDescription}`}
       />
 
-      <MyAddresses user={user} />
+      <MyAddresses user={user} store={store} />
     </>
   );
 }

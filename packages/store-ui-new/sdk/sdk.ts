@@ -1,4 +1,3 @@
-import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
 import { sdk as sdkBase, setupSdk as setup } from "@la-mk/la-sdk";
 import { SetupSdkOptions } from "@la-mk/la-sdk/dist/setup";
 import { User } from "../domain/user";
@@ -46,6 +45,7 @@ export const setupSdk = (config: SetupSdkOptions) => {
     order: {
       findForUserFromStore: sdkBase.order.findForUserFromStore,
       get: sdkBase.order.get,
+      statusColor: sdkBase.order.orderStatusColor,
     },
 
     orderPayments: {
@@ -60,6 +60,7 @@ export const setupSdk = (config: SetupSdkOptions) => {
     product: {
       findForStore: sdkBase.product.findForStore,
       get: sdkBase.product.get,
+      getProductSetsForStore: sdkBase.product.getProductSetsForStore,
     },
 
     cart: {

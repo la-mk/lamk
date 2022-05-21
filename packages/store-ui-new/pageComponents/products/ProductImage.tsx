@@ -4,7 +4,7 @@ import { Product } from "../../domain/product";
 import { Store } from "../../domain/store";
 import { useTranslation } from "next-i18next";
 import { getImageURL } from "../../hacks/imageUrl";
-import { ProductTags } from "./ProductTags";
+import { ProductTags } from "../../components/product/ProductTags";
 import { Thumbnails } from "./Thumbnails";
 
 export const ProductImage = ({

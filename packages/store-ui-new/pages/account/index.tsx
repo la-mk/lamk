@@ -34,7 +34,7 @@ function AccountPage({ store }: { store: Store }) {
         title={t("pages.myAccount")}
         description={`${t("pages.myAccount")}, ${nameDescription}`}
       />
-      <Account />
+      <Account user={user} />
     </>
   );
 }

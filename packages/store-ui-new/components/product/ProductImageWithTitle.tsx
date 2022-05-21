@@ -10,11 +10,13 @@ export const ProductImageWithTitle = ({
   orderItem,
   storeId,
   currency,
+  hideSummary,
   ...props
 }: {
   orderItem: OrderItem;
   storeId: string;
   currency: string;
+  hideSummary?: boolean;
 } & React.ComponentProps<typeof Flex>) => {
   const { t } = useTranslation("translation");
   return (
@@ -38,7 +40,7 @@ export const ProductImageWithTitle = ({
             <VariantName t={t} attributes={orderItem.product.attributes} />
           </Heading>
 
-          {!!orderItem.quantity && (
+          {!hideSummary && (
             <Box>
               <Text>{orderItem.quantity} x </Text>
               <Text as="strong">

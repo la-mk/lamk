@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
 import { useTheme } from "@chakra-ui/react";
-// import { AnalyticsEvents } from "@la-mk/analytics";
 import { toast } from "@la-mk/blocks-ui";
 import { AddressModal } from "./AddressModal";
 import { AddressesList } from "./AddressesList";
@@ -11,6 +10,8 @@ import { useTranslation } from "next-i18next";
 import { useMutation } from "../../../sdk/useMutation";
 import { Address } from "../../../domain/address";
 import { useQueryClient } from "../../../sdk/useQueryClient";
+import { useAnalytics } from "../../../hooks/useAnalytics";
+import { AnalyticsEvents } from "@la-mk/analytics";
 
 const pickDiff = <T extends any>(oldObj: Partial<T>, newObj: Partial<T>) => {
   return Object.keys(newObj).reduce((diff: Partial<T>, newKey) => {
@@ -24,6 +25,7 @@ const pickDiff = <T extends any>(oldObj: Partial<T>, newObj: Partial<T>) => {
 
 interface AddressesProps {
   user: User;
+  storeId: string;
   showAddModal: boolean;
   setShowAddModal: (show: boolean) => void;
   onSelected?: (address: Address) => void;
@@ -32,6 +34,7 @@ interface AddressesProps {
 
 export const Addresses = ({
   user,
+  storeId,
   showAddModal,
   setShowAddModal,
   onSelected,
@@ -40,6 +43,7 @@ export const Addresses = ({
   const theme: FinalBlocksTheme = useTheme();
   const { t } = useTranslation("translation");
   const queryClient = useQueryClient();
+  const { trackEvent } = useAnalytics(storeId);
   const [addressToEdit, setAddressToEdit] = useState<Address | undefined>();
   const [addresses, areAddressesLoading] = useQuery("address", "findForUser", [
     user._id,
@@ -50,10 +54,11 @@ export const Addresses = ({
       const existing = queryClient.getQueryData("address", "findForUser", [
         user._id,
       ]);
+      // Can't remove empty results
       if (!existing) {
-        // Can't remove empty results
         return;
       }
+
       queryClient.setQueryData("address", "findForUser", [user._id], {
         ...existing,
         data: existing.data.filter((addr) => addr._id !== removedAddress._id),
@@ -89,18 +94,18 @@ export const Addresses = ({
       ]);
       if (!existing) {
         return;
-      } else {
-        queryClient.setQueryData("address", "findForUser", [user._id], {
-          ...existing,
-          data: existing.data.map((addr) => {
-            if (addr._id === updatedAddress._id) {
-              return updatedAddress;
-            }
-
-            return addr;
-          }),
-        });
       }
+
+      queryClient.setQueryData("address", "findForUser", [user._id], {
+        ...existing,
+        data: existing.data.map((addr) => {
+          if (addr._id === updatedAddress._id) {
+            return updatedAddress;
+          }
+
+          return addr;
+        }),
+      });
     },
   });
 
@@ -109,10 +114,9 @@ export const Addresses = ({
       await createAddress([address]);
       toast.success(t("address.createAddressSuccess"));
       setShowAddModal(false);
-      // trackEvent({
-      //   eventName: AnalyticsEvents.addAddress,
-      //   numberOfAddresses: addresses.length + 1,
-      // })
+      trackEvent(AnalyticsEvents.addAddress, {
+        numberOfAddresses: (addresses?.total ?? 0) + 1,
+      });
     } catch (err) {
       toast.error(t("results.genericError"));
     }

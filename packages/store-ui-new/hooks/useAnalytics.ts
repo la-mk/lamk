@@ -103,7 +103,7 @@ export const useAnalytics = (storeId: string) => {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, []);
+  }, [router.events]);
 
   return { trackEvent, previousPage };
 };

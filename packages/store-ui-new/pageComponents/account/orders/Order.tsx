@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Spinner, Heading, Text } from "@la-mk/blocks-ui";
+import { Flex, Spinner, Heading, Text, Box } from "@la-mk/blocks-ui";
 import { OrderDescription } from "./OrderDescription";
 import { OrderSteps } from "./OrderSteps";
 import { BackButton } from "../BackButton";
@@ -15,6 +15,13 @@ import { sdk } from "../../../sdk/sdk";
 import { PaymentMethodNames } from "../../../domain/payment";
 import { Summary } from "./Summary";
 import { useRouter } from "next/router";
+import { useQuery } from "../../../sdk/useQuery";
+import {
+  getSubtitleForSet,
+  getTitleForSet,
+  ProductSetType,
+} from "../../../domain/set";
+import { ProductSet } from "../../../components/sets/ProductSet";
 
 export const Order = ({
   store,
@@ -37,6 +44,29 @@ export const Order = ({
       url: `/account/orders/${order?._id}`,
       title: `${t("pages.order")} - ${sdk.utils.getShortId(order?._id)}`,
     },
+  ]);
+
+  const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
+    store._id,
+    [
+      {
+        title: t(
+          getTitleForSet({
+            type: ProductSetType.DISCOUNTED,
+            value: undefined,
+          })
+        ),
+        subtitle: t(
+          getSubtitleForSet({
+            type: ProductSetType.DISCOUNTED,
+            value: undefined,
+          })
+        ),
+        type: ProductSetType.DISCOUNTED,
+        value: undefined,
+        isPromoted: false,
+      },
+    ],
   ]);
 
   const handlePayment = () => {
@@ -104,30 +134,21 @@ export const Order = ({
           </Flex>
         </Flex>
 
-        {/* TODO: Add managed set */}
-        {/* <ManagedSets
-          mt={8}
-          store={store}
-          setTags={[
-            {
-              title: t(
-                getTitleForSet({
-                  type: ProductSetType.DISCOUNTED,
-                  value: undefined,
-                })
-              ),
-              subtitle: t(
-                getSubtitleForSet({
-                  type: ProductSetType.DISCOUNTED,
-                  value: undefined,
-                })
-              ),
-              type: ProductSetType.DISCOUNTED,
-              value: undefined,
-              isPromoted: false,
-            },
-          ]}
-        /> */}
+        <Spinner isLoaded={!isLoadingSets}>
+          <Box mt={8}>
+            {(sets ?? [])
+              .filter((set) => Boolean(set.data))
+              .map((set, i) => (
+                <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
+                  <ProductSet
+                    set={set}
+                    store={store}
+                    key={set.setTag.type + (set.setTag.value || "")}
+                  />
+                </Box>
+              ))}
+          </Box>
+        </Spinner>
       </Spinner>
     </Page>
   );

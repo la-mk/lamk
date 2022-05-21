@@ -9,7 +9,6 @@ import {
   hasVariants,
   OrderedProduct,
   Product as ProductType,
-  ProductSetType,
 } from "../../domain/product";
 import { useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";

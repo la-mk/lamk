@@ -1,10 +1,9 @@
 import React from "react";
 import { NestPay } from "./NestPay";
-import { PaymentMethod } from "@la-mk/la-sdk/dist/models/storePaymentMethods";
 import { useTranslation } from "next-i18next";
 import { sdk } from "../../../../sdk/sdk";
 import { calculatePrices, Order } from "../../../../domain/order";
-import { PaymentMethodNames } from "../../../../domain/payment";
+import { PaymentMethod, PaymentMethodNames } from "../../../../domain/payment";
 
 // TODO: Export to sdk
 //ISO 4217 currency codes

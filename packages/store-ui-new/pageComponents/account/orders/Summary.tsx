@@ -114,7 +114,7 @@ export const Summary = ({
         </Text>
       </Flex>
 
-      {onCheckout && !showContinueShopping && (
+      {onCheckout && showContinueShopping && (
         <Textarea
           mt={6}
           rows={4}

@@ -6,8 +6,9 @@ import { useBreadcrumbs } from "../../../hooks/useBreadcrumbs";
 import { Page } from "../../../layout/Page";
 import { BackButton } from "../BackButton";
 import { User } from "../../../domain/user";
+import { Store } from "../../../domain/store";
 
-export const MyAddresses = ({ user }: { user: User }) => {
+export const MyAddresses = ({ user, store }: { user: User; store: Store }) => {
   const { t } = useTranslation("translation");
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
 
@@ -25,6 +26,7 @@ export const MyAddresses = ({ user }: { user: User }) => {
         </Button>
       </Flex>
       <Addresses
+        storeId={store._id}
         user={user}
         showAddModal={showAddAddressModal}
         setShowAddModal={setShowAddAddressModal}

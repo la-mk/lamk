@@ -4,9 +4,9 @@ import { useTheme } from "@chakra-ui/react";
 import { TFunction, useTranslation } from "next-i18next";
 import { Product } from "../../domain/product";
 import { Store } from "../../domain/store";
-import { Price } from "../../components/product/Price";
+import { Price } from "./Price";
 import { getImageURL } from "../../hacks/imageUrl";
-import { HoverableLink } from "../../components/HoverableLink";
+import { HoverableLink } from "../HoverableLink";
 import { ProductTags } from "./ProductTags";
 
 const ProductDescription = ({

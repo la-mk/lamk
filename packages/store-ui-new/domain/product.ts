@@ -67,13 +67,6 @@ export interface Variant {
   // variantImage?: string;
 }
 
-export enum ProductSetType {
-  CATEGORY = "category",
-  DISCOUNTED = "discounted",
-  LATEST = "latest",
-  GROUP = "group",
-}
-
 export const getVariantForAttributes = (
   product: Product,
   attributes?: Attributes

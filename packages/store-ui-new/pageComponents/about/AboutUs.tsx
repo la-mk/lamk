@@ -1,7 +1,6 @@
 import React from "react";
 import { MarkdownViewer, Result } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
-// import { useBreadcrumb } from "../shared/hooks/useBreadcrumb";
 import { Page } from "../../layout/Page";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 

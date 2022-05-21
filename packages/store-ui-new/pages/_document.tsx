@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
       <Html prefix="og: https://ogp.me/ns#">
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=optional"
+            href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap"
             rel="stylesheet"
           />
           <Global

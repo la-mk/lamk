@@ -42,14 +42,9 @@ export const StoreLayout = ({
       }
       leftSider={
         !!user && pathname.startsWith("/account") ? (
-          <>
-            <Box display={["none", "block", "block"]} height="100%">
-              <AccountMenu user={user} />
-            </Box>
-            <Box display={["block", "none", "none"]} width="100%">
-              <AccountMenu user={user} />
-            </Box>
-          </>
+          <Box display={["none", "block", "block"]} height="100%">
+            <AccountMenu user={user} />
+          </Box>
         ) : null
       }
     >

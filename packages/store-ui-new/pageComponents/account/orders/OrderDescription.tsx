@@ -1,6 +1,5 @@
 import React from "react";
 import { Flex, Box, Heading, Text, Button } from "@la-mk/blocks-ui";
-import { sdk } from "@la-mk/la-sdk";
 import Link from "next/link";
 import { Eye } from "react-feather";
 import { formatDistanceToNow } from "date-fns";
@@ -9,6 +8,7 @@ import { Order } from "../../../domain/order";
 import { Store } from "../../../domain/store";
 import { useTranslation } from "next-i18next";
 import { OrderProductsList } from "../../../components/product/OrderProductsList";
+import { sdk } from "../../../sdk/sdk";
 
 export const OrderDescription = ({
   order,
@@ -43,14 +43,10 @@ export const OrderDescription = ({
               cx="3"
               cy="3"
               r="3"
-              fill={sdk.order.orderStatusColor[order.status]}
+              fill={sdk.order.statusColor[order.status]}
             />
           </svg>
-          <Text
-            color={sdk.order.orderStatusColor[order.status]}
-            ml={1}
-            size="sm"
-          >
+          <Text color={sdk.order.statusColor[order.status]} ml={1} size="sm">
             {t(`orderStatus.${order.status}`)}
           </Text>
         </Flex>

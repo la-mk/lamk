@@ -17,7 +17,7 @@ import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
 import { useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { Page } from "../../layout/Page";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../../components/product/ProductCard";
 import { SortFilter } from "../../components/filters/SortFilter";
 import { ProductsSidemenu } from "./ProductsSidemenu";
 

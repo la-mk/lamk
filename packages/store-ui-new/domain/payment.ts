@@ -12,3 +12,12 @@ export enum TransactionStatus {
   DECLINED = "declined",
   ERROR = "error",
 }
+
+export interface PaymentMethod {
+  name: PaymentMethodNames;
+  processor?: PaymentProcessors;
+  clientId?: string;
+  clientKey?: string;
+  clientUsername?: string;
+  clientPassword?: string;
+}
