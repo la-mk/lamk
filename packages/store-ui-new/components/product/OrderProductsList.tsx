@@ -3,7 +3,6 @@ import { Flex, Text, Button, Box, Table, Divider } from "@la-mk/blocks-ui";
 import { TFunction, useTranslation } from "next-i18next";
 import { Trash2 } from "react-feather";
 import { TableColumnProps } from "@la-mk/blocks-ui/dist/basic/Table";
-import { OrderedProduct } from "../../domain/product";
 import { Store } from "../../domain/store";
 import { Quantity } from "./Quantity";
 import { Price } from "./Price";
@@ -14,11 +13,8 @@ const getColumns = (
   t: TFunction,
   store: Store,
   currency: string,
-  handleChangeItemQuantity?: (
-    product: OrderedProduct,
-    quantity: number
-  ) => void,
-  handleRemove?: (product: OrderedProduct) => void
+  handleRemove?: (item: OrderItem) => void,
+  handleChangeItemQuantity?: (item: OrderItem, newQuantity: number) => void
 ) =>
   [
     {
@@ -59,7 +55,7 @@ const getColumns = (
             stock={item.product.stock ?? 999}
             quantity={item.quantity}
             handleChangeItemQuantity={(newQuantity) =>
-              handleChangeItemQuantity(item.product, newQuantity)
+              handleChangeItemQuantity(item, newQuantity)
             }
           />
         ) : (
@@ -83,7 +79,7 @@ const getColumns = (
       ? [
           {
             key: "action",
-            render: (_val: any, item: OrderedProduct) => (
+            render: (_val: any, item: OrderItem) => (
               <Button
                 variant="ghost"
                 leftIcon={<Trash2 size="1.2rem" />}
@@ -123,7 +119,7 @@ const OrderProductListItem = ({
         {handleRemove && (
           <Button
             variant="ghost"
-            onClick={() => handleRemove(item.product)}
+            onClick={() => handleRemove(item)}
             leftIcon={<Trash2 size="1.2rem" />}
           />
         )}
@@ -154,7 +150,7 @@ const OrderProductListItem = ({
               stock={item?.product.stock ?? 0}
               quantity={item.quantity}
               handleChangeItemQuantity={(newQuantity) =>
-                handleChangeItemQuantity(item.product, newQuantity)
+                handleChangeItemQuantity(item, newQuantity)
               }
             />
           ) : (
@@ -183,8 +179,8 @@ export interface OrderProductsListProps {
   items: Array<OrderItem>;
   store: Store;
   currency: string;
-  handleRemove?: (item: OrderedProduct) => void;
-  handleChangeItemQuantity?: (item: OrderedProduct, val: number) => void;
+  handleRemove?: (item: OrderItem) => void;
+  handleChangeItemQuantity?: (item: OrderItem, newQuantity: number) => void;
 }
 
 export const OrderProductsList = ({
@@ -230,8 +226,8 @@ export const OrderProductsList = ({
             t,
             store,
             currency,
-            handleChangeItemQuantity,
-            handleRemove
+            handleRemove,
+            handleChangeItemQuantity
           )}
           rowKey="product._id"
         />

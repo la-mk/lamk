@@ -1,4 +1,4 @@
-import { Attributes, OrderedProduct } from './product';
+import { Attributes, OrderedProduct } from "./product";
 
 export interface CartItem {
   product: {
@@ -9,10 +9,11 @@ export interface CartItem {
   quantity: number;
 }
 
-export interface CartItemWithProduct extends Omit<CartItem, 'product'> {
+export interface CartItemWithProduct extends Omit<CartItem, "product"> {
   product: OrderedProduct;
 }
 
 export interface CartWithProducts {
+  _id?: string;
   items: CartItemWithProduct[];
 }

@@ -5,6 +5,7 @@ import { Category } from "../domain/category";
 
 export const urls = {
   about: "/about",
+  cart: "/cart",
 };
 
 export const getFiltersFromSearch = (search: string) => {

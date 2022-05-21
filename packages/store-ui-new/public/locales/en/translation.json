@@ -16,6 +16,7 @@
     "retry": "Retry",
     "search": "Search",
     "sendPasswordResetLink": "Send password reset link",
+    "toCheckout": "To checkout",
     "toPayment": "Proceed to payment",
     "update": "Update"
   },
@@ -72,7 +73,7 @@
     "percentage-discount": "Percent"
   },
   "cart": {
-    "addedToCart": "Added to cart",
+    "emptyCartDescription": "You have no items in the cart",
     "leaveNote": "Leave a note to the store",
     "orderSuccess": "Your order has been placed",
     "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
@@ -712,6 +713,7 @@
     "legal": "Legal",
     "myAccount": "My account",
     "myAddresses": "My addresses",
+    "myCart": "My cart",
     "myOrders": "My orders",
     "order": "Order",
     "order_plural": "Orders",

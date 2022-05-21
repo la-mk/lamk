@@ -61,7 +61,7 @@ export async function getServerSideProps({
   req: { store },
 }: PageContextWithStore) {
   const queryClient = newClient();
-  await Promise.all([...getDefaultPrefetch(queryClient, store)]);
+  await Promise.all(getDefaultPrefetch(queryClient, store));
 
   return {
     props: {

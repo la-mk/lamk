@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
+import { useGlobalState } from "./useGlobalState";
 
 const serializeData = <T extends any>(data: T) => {
   if (!data) {
@@ -17,7 +18,7 @@ const deserializeData = <T extends any>(data: string | null): T | null => {
 };
 
 export const useLocalStorage = <T extends any>(key: string) => {
-  const [currentValue, setCurrentValue] = useState<T | null>(() => {
+  const [currentValue, setCurrentValue] = useGlobalState<T | null>(key, () => {
     if (typeof window === "undefined") {
       return null;
     }
@@ -40,15 +41,20 @@ export const useLocalStorage = <T extends any>(key: string) => {
     return () => {
       window.removeEventListener("storage", handler);
     };
-  }, [key]);
+  }, [key, setCurrentValue]);
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+  const handleSetCurrentValue = useCallback(
+    (func: ((oldVal: T | null) => T | null) | T | null) => {
+      let newVal = func;
+      if (typeof func === "function") {
+        newVal = (func as Function)(currentValue);
+      }
 
-    localStorage.setItem(key, serializeData(currentValue));
-  }, [key, currentValue]);
+      setCurrentValue(newVal as T | null);
+      localStorage.setItem(key, serializeData(newVal));
+    },
+    [currentValue, setCurrentValue, key]
+  );
 
-  return [currentValue, setCurrentValue] as const;
+  return [currentValue, handleSetCurrentValue] as const;
 };

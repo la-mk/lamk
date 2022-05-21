@@ -1,29 +1,42 @@
-import { NextPageContext } from "next";
+import { Spinner } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
 import { Store } from "../../domain/store";
+import { getImageURL } from "../../hacks/imageUrl";
 import { PageContextWithStore } from "../../hacks/store";
+import { useAuth } from "../../hooks/useAuth";
 import { Head } from "../../layout/Head";
-import { ResetPassword } from "../../pageComponents/auth/ResetPassword";
+import { Cart } from "../../pageComponents/cart/MainCart";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { getProps, newClient } from "../../sdk/queryClient";
+import { urls } from "../../tooling/url";
 
-function ResetPasswordPage({ store }: { store: Store }) {
+function CartPage({ store }: { store: Store }) {
   const { t } = useTranslation("translation");
-  const router = useRouter();
+  const { user, isLoadingUser } = useAuth();
+
+  if (isLoadingUser()) {
+    return <Spinner mx="auto" mt={5} isLoaded={false} />;
+  }
+
   return (
     <>
       <Head
-        url={`/auth/resetPassword`}
+        url={urls.cart}
+        logo={
+          store.logo
+            ? {
+                ...store.logo,
+                defaultUrl: getImageURL(store?.logo?._id, store?._id) ?? "",
+              }
+            : undefined
+        }
         store={store}
-        title={t("auth.resetPassword")}
-        description={`${t("auth.resetPassword")}, ${store?.name}`}
+        title={t("pages.cart")}
+        description={`${t("pages.cart")}, ${store?.name}`}
       />
 
-      <ResetPassword
-        resetToken={router.query.resetToken as string | undefined}
-      />
+      <Cart user={user} store={store} />
     </>
   );
 }
@@ -44,4 +57,4 @@ export async function getServerSideProps({
   };
 }
 
-export default ResetPasswordPage;
+export default CartPage;

@@ -1,14 +1,16 @@
 import { session, AnalyticsEvents } from "@la-mk/analytics";
 import { useRouter } from "next/router";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { CookiesContext } from "../layout/CookiesProvider";
 import { analytics } from "../tooling/analytics";
 import { useAuth } from "./useAuth";
+import { useGlobalState } from "./useGlobalState";
 
 export const useAnalytics = (storeId: string) => {
-  const [eventQueue, setEventQueue] = useState<
+  const [eventQueue, setEventQueue] = useGlobalState<
     { name: string; payload: any }[]
-  >([]);
+  >("analytics-event-queue", []);
+
   const consent = useContext(CookiesContext);
   const { user } = useAuth();
   const router = useRouter();
@@ -23,7 +25,7 @@ export const useAnalytics = (storeId: string) => {
 
       // The user hasn't responded yet, queue the events
       if (consent === null) {
-        setEventQueue((eventQueue) => [
+        setEventQueue((eventQueue: { name: string; payload: any }[]) => [
           ...eventQueue,
           { name: eventName, payload: eventPayload },
         ]);
@@ -41,7 +43,7 @@ export const useAnalytics = (storeId: string) => {
         }
       }
     },
-    [storeId, consent]
+    [storeId, consent, setEventQueue]
   );
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export const useAnalytics = (storeId: string) => {
         console.debug(err);
       }
     })();
-  }, [consent, eventQueue, trackEvent]);
+  }, [consent, eventQueue, setEventQueue, trackEvent]);
 
   useEffect(() => {
     // If the site is loaded from scratch multiple times within a session, don't log anymore.
@@ -103,5 +105,11 @@ export const useAnalytics = (storeId: string) => {
     };
   }, [router.events]);
 
-  return { trackEvent, getSessionInfo: session.getSessionInfo };
+  return {
+    trackEvent,
+    getSessionInfo:
+      typeof window === "undefined"
+        ? ((() => {}) as typeof session.getSessionInfo)
+        : session.getSessionInfo,
+  };
 };

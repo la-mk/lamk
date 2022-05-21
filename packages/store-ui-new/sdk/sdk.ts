@@ -3,7 +3,7 @@ import { SetupSdkOptions } from "@la-mk/la-sdk/dist/setup";
 import { User } from "../domain/user";
 import isObject from "lodash/isObject";
 import { Attributes, Product } from "../domain/product";
-import { CartItem } from "../domain/cart";
+import { CartItem, CartItemWithProduct } from "../domain/cart";
 import { Cart } from "@la-mk/la-sdk/dist/models/cart";
 
 export let sdk: ReturnType<typeof setupSdk>;
@@ -57,6 +57,10 @@ export const setupSdk = (config: SetupSdkOptions) => {
       getHashParts: sdkBase.storePaymentMethods.getHashParts,
     },
 
+    campaign: {
+      findActiveForStore: sdkBase.campaign.findActiveForStore,
+    },
+
     product: {
       findForStore: sdkBase.product.findForStore,
       get: sdkBase.product.get,
@@ -101,6 +105,8 @@ export const setupSdk = (config: SetupSdkOptions) => {
           return orderProduct;
         });
       },
+      removeItemFromCart: sdkBase.cart.removeItemFromCart,
+      changeQuantityInCart: sdkBase.cart.changeQuantityForCartItem,
     },
 
     delivery: {

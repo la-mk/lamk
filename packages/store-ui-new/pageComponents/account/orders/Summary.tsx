@@ -21,6 +21,7 @@ interface SummaryProps {
   showProductsSummary?: boolean;
   onCheckout?: (options?: { buyerNote?: string }) => void;
   showContinueShopping?: boolean;
+  showLeaveNote?: boolean;
   hideFreeShipping?: boolean;
   title?: string;
 }
@@ -36,6 +37,7 @@ export const Summary = ({
   showProductsSummary,
   onCheckout,
   showContinueShopping,
+  showLeaveNote,
   hideFreeShipping,
   ...props
 }: SummaryProps & React.ComponentProps<typeof Box>) => {
@@ -114,7 +116,7 @@ export const Summary = ({
         </Text>
       </Flex>
 
-      {onCheckout && showContinueShopping && (
+      {onCheckout && showLeaveNote && (
         <Textarea
           mt={6}
           rows={4}

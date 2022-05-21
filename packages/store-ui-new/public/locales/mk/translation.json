@@ -16,6 +16,7 @@
     "retry": "Обиди се повторно",
     "search": "Пребарај",
     "sendPasswordResetLink": "Испрати линк за ресетирање",
+    "toCheckout": "На каса",
     "toPayment": "Продолжи кон плаќање",
     "update": "Обнови"
   },
@@ -72,7 +73,7 @@
     "percentage-discount": "Проценти"
   },
   "cart": {
-    "addedToCart": "Додадено во корпа",
+    "emptyCartDescription": "Вашата корпа е празна",
     "leaveNote": "Оставете белешка на продавницата",
     "orderSuccess": "Вашата порачка беше успешна",
     "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\"",
@@ -712,6 +713,7 @@
     "legal": "Правни",
     "myAccount": "Моја сметка",
     "myAddresses": "Мои адреси",
+    "myCart": "Моја корпа",
     "myOrders": "Мои порачки",
     "order": "Порачка",
     "order_plural": "Порачки",
