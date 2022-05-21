@@ -61,9 +61,12 @@ export const setupSdk = (config: SetupSdkOptions) => {
       findForStore: sdkBase.product.findForStore,
       get: sdkBase.product.get,
       getProductSetsForStore: sdkBase.product.getProductSetsForStore,
+      convertToOrderProduct: sdkBase.product.convertToOrderProduct,
     },
 
     cart: {
+      get: sdkBase.cart.getCartWithProductsForUser,
+      patch: sdkBase.cart.patch,
       addItemToCart: (
         product: Product | null | undefined,
         attributes: Attributes,

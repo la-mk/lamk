@@ -9,6 +9,8 @@ import { useQuery } from "../sdk/useQuery";
 import { AccountMenu } from "./Account/AccountMenu";
 import { useAuth } from "../hooks/useAuth";
 import { useRouter } from "next/router";
+import { useCart } from "../hooks/useCart";
+import { useTranslation } from "next-i18next";
 
 export const StoreLayout = ({
   children,
@@ -19,6 +21,8 @@ export const StoreLayout = ({
 }) => {
   const { pathname } = useRouter();
   const { user } = useAuth();
+  const { t } = useTranslation();
+  const [cart] = useCart(store, user, t);
   const [categories] = useQuery("storeCategory", "findForStore", [store._id]);
   const [sets] = useQuery("storeContents", "getLandingContentForStore", [
     store._id,
@@ -28,7 +32,7 @@ export const StoreLayout = ({
     <Layout
       header={
         <Box>
-          <Header cartCount={0} store={store} />
+          <Header cartCount={cart.items.length} store={store} />
           <SubMenu
             categories={categories?.data ?? []}
             sets={sets?.sets ?? []}

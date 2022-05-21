@@ -1,8 +1,8 @@
 import React from "react";
-import { Result, Spinner, toast } from "@la-mk/blocks-ui";
+import { Result, Spinner } from "@la-mk/blocks-ui";
 import { transliterate } from "@la-mk/nlp";
 import { TFunction, useTranslation } from "next-i18next";
-import { Attributes, Product as ProductType } from "../../domain/product";
+import { Product as ProductType } from "../../domain/product";
 import { Store } from "../../domain/store";
 import { useAuth } from "../../hooks/useAuth";
 import { Head } from "../../layout/Head";
@@ -13,10 +13,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useQuery } from "../../sdk/useQuery";
 import { getImageURL } from "../../hacks/imageUrl";
 import { Product } from "../../pageComponents/products/Product";
-import { CartItemWithProduct, CartWithProducts } from "../../domain/cart";
-import { useMutation } from "../../sdk/useMutation";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useRouter } from "next/router";
+import { useCart } from "../../hooks/useCart";
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 const getProductSummary = (
@@ -43,12 +41,11 @@ const ProductPage = ({ store }: { store: Store }) => {
   const productId = router.query.pid as string;
 
   const { user } = useAuth();
+  const [cart, setCart] = useCart(store, user, t);
   const [product, isLoadingProduct] = useQuery("product", "get", [productId]);
   const [delivery, isLoadingDelivery] = useQuery("delivery", "findForStore", [
     store._id,
   ]);
-  const [cart, setCart] = useLocalStorage<CartWithProducts>("cart");
-  const [addToCart] = useMutation("cart", "addItemToCart");
 
   if (isLoadingProduct || isLoadingDelivery) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
@@ -71,35 +68,6 @@ const ProductPage = ({ store }: { store: Store }) => {
       </>
     );
   }
-
-  const handleAddToCart = async (attributes: Attributes, quantity: number) => {
-    try {
-      const orderProduct = await addToCart([
-        product,
-        attributes,
-        quantity,
-        store._id,
-        user?._id,
-      ]);
-
-      setCart({
-        ...cart,
-        items: [
-          ...(cart?.items ?? []),
-          {
-            product: orderProduct,
-            quantity,
-            fromStore: store._id,
-          } as CartItemWithProduct,
-        ],
-      });
-
-      toast.info(t("cart.addedToCart"));
-      return orderProduct;
-    } catch (err) {
-      toast.error("results.genericError");
-    }
-  };
 
   return (
     <>
@@ -133,10 +101,12 @@ const ProductPage = ({ store }: { store: Store }) => {
       <Product
         isLoadingProduct={isLoadingProduct || isLoadingDelivery}
         store={store}
-        cart={cart ?? { items: [] }}
+        cart={cart}
         delivery={delivery?.data?.[0]}
         product={product}
-        addToCart={handleAddToCart}
+        addToCart={(attributes, quantity) =>
+          setCart(product, attributes, quantity)
+        }
       />
     </>
   );

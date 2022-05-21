@@ -71,7 +71,8 @@ export const getVariantForAttributes = (
   product: Product,
   attributes?: Attributes
 ) => sdk.product.getVariantForAttributes(product, attributes);
-export const areAttributesEquivalent = (a: Attributes, b: Attributes) =>
+
+export const areAttributesEquivalent = (a?: Attributes, b?: Attributes) =>
   sdk.product.areAttributesEquivalent(a, b);
 
 export const hasVariants = (product: Product) =>
