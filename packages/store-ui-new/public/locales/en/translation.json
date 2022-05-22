@@ -78,6 +78,7 @@
     "percentage-discount": "Percent"
   },
   "cart": {
+    "addedToCart": "Added to cart",
     "emptyCartDescription": "You have no items in the cart",
     "leaveNote": "Leave a note to the store",
     "orderSuccess": "Your order has been placed",

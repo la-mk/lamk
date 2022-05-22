@@ -14,6 +14,11 @@ export const SubFooter = () => {
   const { pathname, asPath, query, locale } = router;
 
   const changeLanguage = (target: string) => {
+    if (!!document) {
+      const now = new Date();
+      now.setUTCFullYear(now.getFullYear() + 2, now.getMonth(), now.getDate());
+      document.cookie = `NEXT_LOCALE=${target}; expires=${now.toUTCString()}; path=/`;
+    }
     router.push({ pathname, query }, asPath, { locale: target });
   };
 

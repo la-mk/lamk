@@ -78,6 +78,7 @@
     "percentage-discount": "Проценти"
   },
   "cart": {
+    "addedToCart": "Додадено во корпа",
     "emptyCartDescription": "Вашата корпа е празна",
     "leaveNote": "Оставете белешка на продавницата",
     "orderSuccess": "Вашата порачка беше успешна",

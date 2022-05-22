@@ -43,7 +43,7 @@ export const BreadcrumbsProvider = ({
                 return (
                   <BreadcrumbItem
                     isCurrentPage={index === breadcrumbs.length - 1}
-                    key={breadcrumb.url}
+                    key={breadcrumb.url || index}
                   >
                     <BreadcrumbLink
                       href={breadcrumb.urlPattern ?? breadcrumb.url}
