@@ -9,7 +9,7 @@ import { useTranslation } from "next-i18next";
 import { Home } from "../pageComponents/home/Home";
 import { urls } from "../tooling/url";
 
-const HomePage: NextPage = ({ store }: { store: Store }) => {
+const HomePage = ({ store }: { store: Store }) => {
   const { t } = useTranslation();
 
   return (
