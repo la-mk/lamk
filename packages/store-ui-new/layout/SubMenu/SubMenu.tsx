@@ -8,7 +8,7 @@ import { CategoriesGrid } from "./categories/CategoriesGrid";
 import { useTheme } from "@chakra-ui/react";
 import { getCategoryHref } from "../../tooling/url";
 import { Category, getGroupedCategories } from "../../domain/category";
-import { ProductSet } from "../../domain/set";
+import { getQueryForSet, getSetHref, ProductSet } from "../../domain/set";
 
 export const SubMenu = ({
   sets,
@@ -96,11 +96,20 @@ export const SubMenu = ({
       })}
 
       {sets.map((set) => {
+        const setHref = getSetHref({
+          setTag: set,
+          filter: {
+            query: getQueryForSet({
+              type: set.type,
+              value: set.value,
+            }),
+          },
+        });
+
         return (
           // Wrapping it in Box so it overflows as expected on mobile.
           <Box display="inline-block" key={set.title}>
-            {/* <Link key={set.title} href={getSetHref(set.title)} passHref> */}
-            <Link key={set.title} href={set.title ?? "/"} passHref>
+            <Link key={set.title} href={setHref} passHref>
               <Button
                 p={ownTheme.menu.spacing === "large" ? [5, 5, 6] : [4, 4, 4]}
                 py={[5, 5, 5]}

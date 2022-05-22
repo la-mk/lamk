@@ -1,6 +1,7 @@
 import { Product } from "./product";
 import queryString from "qs";
 import { urls } from "../tooling/url";
+import { sdk } from "@la-mk/la-sdk";
 
 export enum ProductSetType {
   CATEGORY = "category",
@@ -66,3 +67,5 @@ export const getSetHref = (set: ProductSetResult) => {
     getFiltersFromSetQuery(set.filter.query)
   )}`;
 };
+
+export const getQueryForSet = sdk.product.getQueryForSet;

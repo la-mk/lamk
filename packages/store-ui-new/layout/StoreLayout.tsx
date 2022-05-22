@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useCart } from "../hooks/useCart";
 import { useTranslation } from "next-i18next";
 import { urls } from "../tooling/url";
+import { getSetHref, getTitleForSet } from "../domain/set";
 
 export const StoreLayout = ({
   children,
@@ -25,9 +26,19 @@ export const StoreLayout = ({
   const { t } = useTranslation("translation");
   const { cart } = useCart(store, user, t);
   const [categories] = useQuery("storeCategory", "findForStore", [store._id]);
-  const [sets] = useQuery("storeContents", "getLandingContentForStore", [
-    store._id,
-  ]);
+  const [landingContent] = useQuery(
+    "storeContents",
+    "getLandingContentForStore",
+    [store._id]
+  );
+
+  const normalizedSets = landingContent?.sets
+    ?.filter((set) => set.isPromoted)
+    .map((set) => ({
+      ...set,
+      title:
+        set.title ?? t(getTitleForSet({ type: set.type, value: undefined })),
+    }));
 
   return (
     <Layout
@@ -36,7 +47,7 @@ export const StoreLayout = ({
           <Header cartCount={cart.items.length} store={store} />
           <SubMenu
             categories={categories?.data ?? []}
-            sets={sets?.sets ?? []}
+            sets={normalizedSets ?? []}
           />
         </Box>
       }
