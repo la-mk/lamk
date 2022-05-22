@@ -18,10 +18,10 @@ export const ProductImage = ({
   const [selectedImage, setSelectedImage] = useState(product.media[0]?._id);
 
   React.useEffect(() => {
-    if (product?.media) {
+    if (product._id && product?.media) {
       setSelectedImage(product.media[0]?._id);
     }
-  }, [product?.media]);
+  }, [product._id, product?.media]);
 
   return (
     <Flex

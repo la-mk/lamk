@@ -155,7 +155,7 @@ export const Checkout = ({ store, user }: { store: Store; user: User }) => {
         },
       ]);
 
-      setOrder(order);
+      setOrder(createdOrder);
       const prices = calculatePrices(
         createdOrder.ordered,
         createdOrder.delivery,
@@ -231,6 +231,7 @@ export const Checkout = ({ store, user }: { store: Store; user: User }) => {
               delivery={delivery!}
               campaigns={campaigns?.data ?? []}
               disabled={!deliverTo}
+              showLeaveNote
               buttonTitle={
                 paymentMethod === PaymentMethodNames.CREDIT_CARD
                   ? t("actions.toPayment")
