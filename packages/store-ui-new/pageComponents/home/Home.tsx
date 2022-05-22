@@ -40,23 +40,25 @@ export const Home = ({ store }: { store: Store }) => {
     store._id,
   ]);
 
-  const categorySetTags = sampleSize(categories, 3).map((category) => ({
-    type: ProductSetType.CATEGORY,
-    value: (category as unknown as Category).level3,
-    title: t(
-      getTitleForSet({
-        type: ProductSetType.CATEGORY,
-        value: (category as unknown as Category).level3,
-      })
-    ),
-    subtitle: t(
-      getSubtitleForSet({
-        type: ProductSetType.CATEGORY,
-        value: (category as unknown as Category).level3,
-      })
-    ),
-    isPromoted: false,
-  }));
+  const categorySetTags = sampleSize(categories?.data ?? [], 3).map(
+    (category) => ({
+      type: ProductSetType.CATEGORY,
+      value: category.level3,
+      title: t(
+        getTitleForSet({
+          type: ProductSetType.CATEGORY,
+          value: category.level3,
+        })
+      ),
+      subtitle: t(
+        getSubtitleForSet({
+          type: ProductSetType.CATEGORY,
+          value: category.level3,
+        })
+      ),
+      isPromoted: false,
+    })
+  );
 
   const [productSets, isLoadingProductSets] = useQuery(
     "product",

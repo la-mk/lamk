@@ -68,4 +68,6 @@ export const getSetHref = (set: ProductSetResult) => {
   )}`;
 };
 
-export const getQueryForSet = sdk.product.getQueryForSet;
+export const getQueryForSet = (
+  productSet: Pick<ProductSet, "type" | "value">
+) => sdk.product.getQueryForSet(productSet);
