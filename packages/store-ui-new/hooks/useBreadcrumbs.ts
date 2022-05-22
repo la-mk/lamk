@@ -9,7 +9,6 @@ export const useBreadcrumbs = (
   deps: any[] = []
 ) => {
   const setBreadcrumbs = useContext(BreadcrumbsContext);
-  setBreadcrumbs(breadcrumbs);
   useEffect(() => {
     setBreadcrumbs(breadcrumbs);
   }, [setBreadcrumbs, breadcrumbs, deps]);

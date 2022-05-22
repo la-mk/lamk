@@ -47,11 +47,7 @@ const getProductsHref = (href: string) => {
   }
 
   const url = new URL(href);
-
-  if (
-    url.pathname.startsWith(urls.products) &&
-    url.pathname.split("/").length <= 2
-  ) {
+  if (url.pathname.includes(urls.products) && !!url.search) {
     return url.pathname + url.search;
   }
 

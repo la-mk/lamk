@@ -57,15 +57,18 @@ export const Order = ({
   const { t } = useTranslation("translation");
   const router = useRouter();
 
-  useBreadcrumbs([
-    { url: urls.home, title: t("pages.home") },
-    { url: urls.accountOrders, title: t("pages.order_plural") },
-    {
-      urlPattern: `${urls.accountOrders}/[oid]`,
-      url: `${urls.accountOrders}/${order?._id}`,
-      title: `${t("pages.order")} - ${sdk.utils.getShortId(order?._id)}`,
-    },
-  ]);
+  useBreadcrumbs(
+    [
+      { url: urls.home, title: t("pages.home") },
+      { url: urls.accountOrders, title: t("pages.order_plural") },
+      {
+        urlPattern: `${urls.accountOrders}/[oid]`,
+        url: `${urls.accountOrders}/${order?._id}`,
+        title: `${t("pages.order")} - ${sdk.utils.getShortId(order?._id)}`,
+      },
+    ],
+    [order._id]
+  );
 
   const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
     store._id,

@@ -57,20 +57,23 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
     (method) => method.name === PaymentMethodNames.CREDIT_CARD
   );
 
-  useBreadcrumbs([
-    { url: urls.home, title: t("pages.home") },
-    { url: urls.accountOrders, title: t("pages.order_plural") },
-    {
-      urlPattern: `${urls.accountOrders}/[oid]`,
-      url: `${urls.accountOrders}/${order?._id}`,
-      title: t("pages.order"),
-    },
-    {
-      urlPattern: `${urls.accountOrders}/[oid]/pay`,
-      url: `${urls.accountOrders}/${order?._id}/pay`,
-      title: t("pages.payment"),
-    },
-  ]);
+  useBreadcrumbs(
+    [
+      { url: urls.home, title: t("pages.home") },
+      { url: urls.accountOrders, title: t("pages.order_plural") },
+      {
+        urlPattern: `${urls.accountOrders}/[oid]`,
+        url: `${urls.accountOrders}/${order?._id}`,
+        title: t("pages.order"),
+      },
+      {
+        urlPattern: `${urls.accountOrders}/[oid]/pay`,
+        url: `${urls.accountOrders}/${order?._id}/pay`,
+        title: t("pages.payment"),
+      },
+    ],
+    [order._id]
+  );
 
   useEffect(() => {
     if (!order || !transactionStatus || !cardPaymentInfo || trackedEvent) {
