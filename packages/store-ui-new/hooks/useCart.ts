@@ -1,6 +1,6 @@
 import { toast } from "@la-mk/blocks-ui";
 import { TFunction } from "next-i18next";
-import React from "react";
+import React, { useEffect } from "react";
 import { CartItemWithProduct, CartWithProducts } from "../domain/cart";
 import {
   areAttributesEquivalent,
@@ -29,41 +29,56 @@ type ChangeQuantityFunc = (
   newQuantity: number
 ) => Promise<void>;
 
-type ClearCartFunc = () => Promise<void>;
+type ClearCartFunc = (onlyLocal: boolean) => Promise<void>;
+
+const defaultCart = { items: [] } as CartWithProducts;
 
 export const useCart = (
   store: Store,
   user: User | undefined,
   t: TFunction
-): [
-  CartWithProducts,
-  AddToCartFunc,
-  RemoveFromCartFunc,
-  ChangeQuantityFunc,
-  ClearCartFunc
-] => {
+): {
+  cart: CartWithProducts;
+  addToCart: AddToCartFunc;
+  removeFromCart: RemoveFromCartFunc;
+  changeQuantityInCart: ChangeQuantityFunc;
+  clearCart: ClearCartFunc;
+} => {
   const [localCart, setLocalCart] = useLocalStorage<CartWithProducts>("cart");
   const [addToCart] = useMutation("cart", "addItemToCart");
   const [removeFromCart] = useMutation("cart", "removeItemFromCart");
   const [changeQuantityInCart] = useMutation("cart", "changeQuantityInCart");
   const [patchCart] = useMutation("cart", "patch");
 
-  useQuery("cart", "get", [user?._id ?? "", store._id], {
-    enabled: !!user,
-    onSuccess: async (res) => {
-      const cartItems = unionWith(
-        localCart?.items ?? [],
-        res?.items ?? [],
-        (a, b) =>
-          a.product._id === b.product._id &&
-          areAttributesEquivalent(a.product.attributes, b.product.attributes)
-      );
+  const [, , , refetchCart] = useQuery(
+    "cart",
+    "get",
+    [user?._id ?? "", store._id],
+    {
+      enabled: false,
+      onSuccess: async (res) => {
+        const cartItems = unionWith(
+          localCart?.items ?? [],
+          res?.items ?? [],
+          (a, b) =>
+            a.product._id === b.product._id &&
+            areAttributesEquivalent(a.product.attributes, b.product.attributes)
+        );
 
-      const updatedCartItems = await updateCartItems(cartItems);
-      await updateServerCart(store._id, res._id, updatedCartItems);
-      setLocalCart({ _id: res._id, items: updatedCartItems });
-    },
-  });
+        const updatedCartItems = await updateCartItems(cartItems);
+        await updateServerCart(store._id, res._id, updatedCartItems);
+        setLocalCart({ _id: res._id, items: updatedCartItems });
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (!user?._id) {
+      return;
+    }
+
+    refetchCart();
+  }, [user?._id, refetchCart]);
 
   const handleAddToCart = React.useCallback(
     async (product: Product, attributes: Attributes, quantity: number) => {
@@ -91,16 +106,17 @@ export const useCart = (
         toast.info(t("cart.addedToCart"));
         return orderProduct;
       } catch (err) {
+        console.error(err);
         toast.error("results.genericError");
       }
     },
-    [user, store, setLocalCart, addToCart, t]
+    [user?._id, store._id, setLocalCart, addToCart, t]
   );
 
   const handleRemoveFromCart = React.useCallback(
     async (item: CartItemWithProduct) => {
       try {
-        if (!!user && !!localCart?._id) {
+        if (!!user?._id && !!localCart?._id) {
           await removeFromCart([localCart?._id, item]);
         }
 
@@ -116,16 +132,17 @@ export const useCart = (
           ),
         }));
       } catch (err) {
+        console.error(err);
         toast.error("results.genericError");
       }
     },
-    [localCart?._id, user, setLocalCart, removeFromCart]
+    [localCart?._id, user?._id, setLocalCart, removeFromCart]
   );
 
   const handleChangeQuantity = React.useCallback(
     async (item: CartItemWithProduct, newQuantity: number) => {
       try {
-        if (!!user && !!localCart?._id) {
+        if (!!user?._id && !!localCart?._id) {
           await changeQuantityInCart([localCart?._id, item, newQuantity]);
         }
 
@@ -149,34 +166,39 @@ export const useCart = (
           }),
         }));
       } catch (err) {
+        console.error(err);
         toast.error("results.genericError");
       }
     },
-    [localCart?._id, user, setLocalCart, changeQuantityInCart]
+    [localCart?._id, user?._id, setLocalCart, changeQuantityInCart]
   );
 
-  const clearCart = React.useCallback(async () => {
-    try {
-      if (!!user && !!localCart?._id) {
-        await patchCart([user._id, { items: [] }]);
+  const handleClearCart = React.useCallback(
+    async (onLogout: boolean) => {
+      try {
+        if (!!user?._id && !!localCart?._id && !onLogout) {
+          await patchCart([user._id, { items: [] }]);
+        }
+
+        setLocalCart((cart) => ({
+          items: [],
+          _id: onLogout ? undefined : cart?._id,
+        }));
+      } catch (err) {
+        console.error(err);
+        toast.error("results.genericError");
       }
+    },
+    [localCart?._id, user?._id, setLocalCart, patchCart]
+  );
 
-      setLocalCart((cart) => ({
-        ...cart,
-        items: [],
-      }));
-    } catch (err) {
-      toast.error("results.genericError");
-    }
-  }, [localCart?._id, user, setLocalCart, patchCart]);
-
-  return [
-    localCart ?? ({ items: [] } as CartWithProducts),
-    handleAddToCart,
-    handleRemoveFromCart,
-    handleChangeQuantity,
-    clearCart,
-  ];
+  return {
+    cart: localCart ?? defaultCart,
+    addToCart: handleAddToCart,
+    removeFromCart: handleRemoveFromCart,
+    changeQuantityInCart: handleChangeQuantity,
+    clearCart: handleClearCart,
+  };
 };
 
 const updateCartItems = async (

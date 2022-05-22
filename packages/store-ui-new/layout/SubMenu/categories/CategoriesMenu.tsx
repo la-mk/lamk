@@ -14,7 +14,7 @@ export const CategoriesMenu = ({
   onSelect,
   categories,
 }: CategoriesMenuProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
 
   const groupedCategories = useMemo(() => {
     return getGroupedCategories(categories, (categoryKey: string) =>

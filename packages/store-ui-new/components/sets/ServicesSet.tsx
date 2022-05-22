@@ -78,7 +78,7 @@ export const ServicesSet = ({
 }) => {
   const theme = useTheme();
   const ownTheme = theme.sections.Services;
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
 
   const colors = variantColors[ownTheme.variant as keyof typeof variantColors];
   const minWidth = Math.round(48 / ownTheme.count);

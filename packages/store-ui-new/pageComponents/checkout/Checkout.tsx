@@ -28,8 +28,8 @@ import { useMutation } from "../../sdk/useMutation";
 import { useRouter } from "next/router";
 
 export const Checkout = ({ store, user }: { store: Store; user: User }) => {
-  const { t } = useTranslation();
-  const [cart, , , , clearCart] = useCart(store, user, t);
+  const { t } = useTranslation("translation");
+  const { cart, clearCart } = useCart(store, user, t);
   const { trackEvent } = useAnalytics(store._id);
   const router = useRouter();
 
@@ -168,11 +168,12 @@ export const Checkout = ({ store, user }: { store: Store; user: User }) => {
         discount: prices.productsTotal - prices.withCampaignsTotal,
       });
 
-      clearCart();
+      clearCart(false);
       if (createdOrder.paymentMethod === PaymentMethodNames.CREDIT_CARD) {
         router.replace(`/account/orders/${createdOrder._id}/pay`);
       }
     } catch (err) {
+      console.error(err);
       toast.error(t("results.genericError"));
     }
   };

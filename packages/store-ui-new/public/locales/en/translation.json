@@ -55,6 +55,7 @@
     "forgotPasswordSuccessExplanation": "If the email you entered is registered in our system, you will get an email with a reset link",
     "login": "Log in",
     "logout": "Log out",
+    "logoutSuccess": "See you again!",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "privacyPolicy": "privacy policy",
     "readMoreCookies": "You can read more about how we use cookies and how we manage your data in our",

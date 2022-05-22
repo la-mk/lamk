@@ -1021,10 +1021,10 @@
     lodash "^4.17.20"
     lodash-es "^4.17.15"
 
-"@la-mk/translations@0.0.145":
-  version "0.0.145"
-  resolved "https://npm.pkg.github.com/download/@la-mk/translations/0.0.145/3a2974be0431af2585e385110f68d50a1b4706182cf7a6dfc383e674ee11f715#1b50a7990d920206a0a4c8779099021d595dc8b5"
-  integrity sha512-9/2Xf9v1xQ5RqpG80sI/XHjaQlhyZSNomLBpVuezApEll6SfiVcH+4En/AyB15t0lurDIs9XA/qvqjWLMrrMGw==
+"@la-mk/translations@^0.0.146":
+  version "0.0.146"
+  resolved "https://npm.pkg.github.com/download/@la-mk/translations/0.0.146/68d78f34e337d01ca16bc772c6b527ca90d94ecea297d1e571d6af17a9aabad2#0a01756b0522cf66ff04b7b8fe9999ab5b5831f2"
+  integrity sha512-YroZnhYf5E0dqglIV1HnHmllIs6P0pcYRwsRMnWqTv5NiuSScusFOxpu/4xsvea/XwG5HZ88Noxo/3np4vtWYA==
   dependencies:
     glob "^7.1.6"
     i18next-scanner "^2.11.0"

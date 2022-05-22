@@ -14,7 +14,7 @@ interface ProductSetProps {
 }
 
 export const ProductDuo = ({ set, store }: ProductSetProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const allHref = getSetHref(set);
   const products = set.data;
 

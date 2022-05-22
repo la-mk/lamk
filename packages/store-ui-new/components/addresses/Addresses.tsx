@@ -118,6 +118,7 @@ export const Addresses = ({
         numberOfAddresses: (addresses?.total ?? 0) + 1,
       });
     } catch (err) {
+      console.error(err);
       toast.error(t("results.genericError"));
     }
   };
@@ -138,6 +139,7 @@ export const Addresses = ({
       setShowAddModal(false);
       setAddressToEdit(undefined);
     } catch (err) {
+      console.error(err);
       toast.error(t("results.genericError"));
     }
   };
@@ -147,6 +149,7 @@ export const Addresses = ({
       await removeAddress([addressId]);
       toast.success(t("address.removeAddressSuccess"));
     } catch (err) {
+      console.error(err);
       toast.error(t("results.genericError"));
     }
   };

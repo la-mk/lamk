@@ -29,7 +29,7 @@ interface HeaderProps {
 
 export const Header = ({ store, cartCount, searchValue }: HeaderProps) => {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const theme = useTheme();
   const { login, logout, user } = useAuth();
 

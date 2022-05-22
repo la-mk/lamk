@@ -41,10 +41,10 @@ const getSets = (t: TFunction) => [
 ];
 
 export const Cart = ({ store, user }: { store: Store; user?: User }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const router = useRouter();
   const { trackEvent } = useAnalytics(store._id);
-  const [cart, _, removeFromCart, changeQuantityInCart] = useCart(
+  const { cart, removeFromCart, changeQuantityInCart } = useCart(
     store,
     user,
     t

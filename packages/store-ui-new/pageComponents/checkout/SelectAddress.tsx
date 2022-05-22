@@ -19,7 +19,7 @@ export const SelectAddress = ({
   deliverTo,
   setDeliverTo,
 }: SelectAddressProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const [addressModalVisible, setAddressModalVisible] = useState(false);
   const addAddressText = hooks.useBreakpoint([
     t("actions.add"),

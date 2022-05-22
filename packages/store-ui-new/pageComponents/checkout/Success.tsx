@@ -16,7 +16,7 @@ export const Success = withTheme(
     React.ComponentProps<typeof Flex>,
     "order"
   >) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation("translation");
 
     return (
       <Flex

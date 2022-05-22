@@ -26,6 +26,7 @@ export const ChangePassword = ({ user }: { user: User }) => {
         updateUser(updatedUser);
         toast.success(t("auth.accountUpdateSuccess"));
       } catch (err) {
+        console.error(err)
         toast.error(t("results.genericError"));
       }
     },

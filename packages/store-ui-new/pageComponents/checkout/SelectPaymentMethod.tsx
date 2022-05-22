@@ -17,7 +17,7 @@ export const SelectPaymentMethod = ({
   paymentMethod,
   setPaymentMethod,
 }: SelectAddressProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const iconsMap: { [key in PaymentMethodNames]: React.ReactNode } = {
     [PaymentMethodNames.PAY_ON_DELIVERY]: <WalletMoney />,
     [PaymentMethodNames.CREDIT_CARD]: <CreditCards />,

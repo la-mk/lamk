@@ -45,16 +45,16 @@ export const AuthHandler = ({
   storeId,
   showModal,
   onClose,
-  onAuthSuccess,
+  onAuthChanged,
   onLoading,
 }: {
   storeId: string;
   showModal: boolean;
   onClose: () => void;
-  onAuthSuccess: (user: User | undefined) => void;
+  onAuthChanged: (user: User | undefined) => void;
   onLoading: (isLoading: boolean) => void;
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const [method, setMethod] = React.useState<
     "login" | "signup" | "forgotPassword"
   >("login");
@@ -72,7 +72,8 @@ export const AuthHandler = ({
       try {
         const accessToken = await sdk.auth.getAccessToken();
         if (accessToken && !isTokenValid(accessToken)) {
-          onAuthSuccess(undefined);
+          sdk.auth.removeAccessToken();
+          onAuthChanged(undefined);
         }
       } catch (err) {
         console.error(err);
@@ -80,7 +81,7 @@ export const AuthHandler = ({
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [onAuthSuccess]);
+  }, [onAuthChanged]);
 
   useEffect(() => {
     (async () => {
@@ -104,25 +105,27 @@ export const AuthHandler = ({
         const authInfo = await sdk.auth.getAuthentication();
         // It is a user whose token expired, we want to clear their session info
         if (!authInfo && wasAuthenticated) {
-          onAuthSuccess(undefined);
+          onAuthChanged(undefined);
         } else if (authInfo) {
-          onAuthSuccess(authInfo.user);
+          onAuthChanged(authInfo.user);
         }
       } catch (err) {
-        toast.error("Failed to retrieve login information");
+        console.error(err);
+        toast.error(t("results.genericError"));
       } finally {
         onLoading(false);
       }
     })();
-  }, [onAuthSuccess, onLoading]);
+    // eslint-disable-next-line
+  }, []);
 
   const handleForgotPasswordSubmitted = async ({ formData }: any) => {
     try {
       await resetPassword([formData.email.toLowerCase(), storeId]);
       setForgotPasswordDone(true);
     } catch (err) {
-      // TODO: Translate
-      toast.error("Something went wrong while resetting password");
+      console.error(err);
+      toast.error(t("results.genericError"));
     }
   };
 
@@ -132,13 +135,14 @@ export const AuthHandler = ({
       await login([{ ...data, email: data.email?.toLowerCase() }, "local"]);
       const authInfo = await sdk.auth.getAuthentication();
       if (!authInfo) {
-        toast.error("failed to get user information");
+        toast.error(t("results.genericError"));
       } else {
-        onAuthSuccess(authInfo?.user);
+        onAuthChanged(authInfo?.user);
       }
 
       onClose();
     } catch (err: any) {
+      console.error(err);
       toast.error(err.message);
     } finally {
       onLoading(false);
@@ -151,14 +155,15 @@ export const AuthHandler = ({
       await signup([{ ...data }, "local"]);
       const authInfo = await sdk.auth.getAuthentication();
       if (!authInfo) {
-        toast.error("failed to get user information");
+        toast.error(t("results.genericError"));
       } else {
-        onAuthSuccess(authInfo?.user);
+        onAuthChanged(authInfo?.user);
       }
 
       onClose();
     } catch (err) {
-      toast.error("Failed to sign up");
+      console.error(err);
+      toast.error(t("results.genericError"));
     } finally {
       onLoading(false);
     }

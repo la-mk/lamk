@@ -82,6 +82,7 @@
     "welcomeToAccountExplanation": "You can view your orders, edit your addresses, and manage your account",
     "login": "Log in",
     "logout": "Log out",
+    "logoutSuccess": "See you again!",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "signup": "Sign up",
     "signupClosedBeta": "We are in closed-beta, so signups are currently disabled",

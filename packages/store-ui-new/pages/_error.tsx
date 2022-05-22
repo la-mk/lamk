@@ -46,7 +46,7 @@ const ErrorPage = ({
   errorCode: number;
   store: Store;
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
 
   switch (errorCode) {
     case 200:

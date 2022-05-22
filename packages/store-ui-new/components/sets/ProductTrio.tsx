@@ -14,7 +14,7 @@ interface ProductSetProps {
 }
 
 export const ProductTrio = ({ set, store }: ProductSetProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const areCardsHorizontal = hooks.useBreakpoint([false, false, true]);
   const areAllEmphasized = hooks.useBreakpoint([true, false, false]);
 

@@ -21,8 +21,8 @@ export const StoreLayout = ({
 }) => {
   const { pathname } = useRouter();
   const { user } = useAuth();
-  const { t } = useTranslation();
-  const [cart] = useCart(store, user, t);
+  const { t } = useTranslation("translation");
+  const { cart } = useCart(store, user, t);
   const [categories] = useQuery("storeCategory", "findForStore", [store._id]);
   const [sets] = useQuery("storeContents", "getLandingContentForStore", [
     store._id,

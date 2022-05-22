@@ -16,7 +16,7 @@
     "@la-mk/blocks-ui": "^0.0.312",
     "@la-mk/la-sdk": "^0.0.174",
     "@la-mk/nlp": "^0.0.4",
-    "@la-mk/translations": "0.0.145",
+    "@la-mk/translations": "^0.0.146",
     "date-fns": "^2.28.0",
     "env-var": "^7.1.1",
     "jwt-decode": "^3.1.2",

@@ -15,7 +15,7 @@ interface ProductGridProps {
 }
 
 export const ProductGrid = ({ set, store, horizontal }: ProductGridProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const productCount = hooks.useBreakpoint([6, 6, 8]);
   const productCountHorizontal = hooks.useBreakpoint([3, 4, 6]);
 

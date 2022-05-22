@@ -21,7 +21,7 @@ export const SubMenu = ({
     string | undefined
   >();
   const isMobile = hooks.useBreakpoint([true, false, false]);
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const theme = useTheme();
   const ownTheme = theme.sections.SubMenu;
 

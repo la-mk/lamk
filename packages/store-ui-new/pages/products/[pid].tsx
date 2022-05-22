@@ -41,7 +41,7 @@ const ProductPage = ({ store }: { store: Store }) => {
   const productId = router.query.pid as string;
 
   const { user } = useAuth();
-  const [cart, setCart] = useCart(store, user, t);
+  const { cart, addToCart } = useCart(store, user, t);
   const [product, isLoadingProduct] = useQuery("product", "get", [productId]);
   const [delivery, isLoadingDelivery] = useQuery("delivery", "findForStore", [
     store._id,
@@ -105,7 +105,7 @@ const ProductPage = ({ store }: { store: Store }) => {
         delivery={delivery?.data?.[0]}
         product={product}
         addToCart={(attributes, quantity) =>
-          setCart(product, attributes, quantity)
+          addToCart(product, attributes, quantity)
         }
       />
     </>

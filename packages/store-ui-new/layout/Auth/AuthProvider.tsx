@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { toast } from "@la-mk/blocks-ui";
 import { session } from "@la-mk/analytics";
 import { Store } from "../../domain/store";
@@ -6,6 +6,8 @@ import { sdk } from "../../sdk/sdk";
 import { AuthHandler } from "./AuthHandler";
 import { User } from "../../domain/user";
 import { analytics } from "../../tooling/analytics";
+import { useTranslation } from "next-i18next";
+import { useCart } from "../../hooks/useCart";
 
 export const AuthContext = React.createContext({
   login: () => {},
@@ -14,13 +16,6 @@ export const AuthContext = React.createContext({
   user: undefined as User | undefined,
   updateUser: (user: User) => {},
 });
-
-// TODO: clear stuff on logout or when onAuthSuccess is undefined
-// export function* clearSessionSaga() {
-//   sessionStorage.clear();
-//   yield put(setUser(null));
-//   yield put(setCartWithProducts(null));
-// }
 
 export const AuthProvider = ({
   store,
@@ -31,7 +26,29 @@ export const AuthProvider = ({
 }) => {
   const [showAuth, setShowAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation("translation");
   const [user, setUser] = useState<User | undefined>();
+  const { clearCart } = useCart(store, user, t);
+
+  const isLoadingUser = useCallback(() => {
+    return isLoading;
+  }, [isLoading]);
+
+  const updateUser = useCallback(
+    (newUser?: User) => {
+      setUser(newUser);
+
+      // It means the user was once authenticated, but the token expired or they logged out.
+      if (!newUser) {
+        analytics?.reset?.();
+        session.initializeSession();
+        clearCart(true);
+      }
+    },
+    [clearCart]
+  );
+
+  const onClose = useCallback(() => setShowAuth(false), []);
 
   const login = useCallback(() => {
     setShowAuth(true);
@@ -39,45 +56,34 @@ export const AuthProvider = ({
 
   const logout = useCallback(async () => {
     try {
-      // TODO: translate
       await sdk.auth.logout();
-      setUser(undefined);
+      updateUser(undefined);
 
-      // Initialize a new session after logging out.
-      analytics?.reset?.();
-      session.initializeSession();
-
-      toast.success("see you soon!");
+      toast.success(t("auth.logoutSuccess"));
     } catch (err) {
-      toast.error("failed to log out");
+      console.error(err);
+      toast.error(t("results.genericError"));
     }
-  }, []);
+  }, [t, updateUser]);
 
-  const isLoadingUser = useCallback(() => {
-    return isLoading;
-  }, [isLoading]);
-
-  const updateUser = useCallback((user: User) => {
-    setUser(user);
-  }, []);
-
-  const onClose = useCallback(() => setShowAuth(false), []);
+  const val = useMemo(
+    () => ({
+      login,
+      logout,
+      isLoadingUser,
+      user,
+      updateUser,
+    }),
+    [login, logout, isLoadingUser, user, updateUser]
+  );
 
   return (
-    <AuthContext.Provider
-      value={{
-        login,
-        logout,
-        isLoadingUser,
-        user,
-        updateUser,
-      }}
-    >
+    <AuthContext.Provider value={val}>
       {children}
       <AuthHandler
         storeId={store._id}
         onClose={onClose}
-        onAuthSuccess={setUser}
+        onAuthChanged={updateUser}
         onLoading={setIsLoading}
         showModal={showAuth}
       />

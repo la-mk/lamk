@@ -27,6 +27,7 @@ export const ResetPassword = ({
       toast.success(t("auth.resetPasswordSuccess"));
       router.replace("/");
     } catch (err) {
+      console.error(err);
       toast.success(t("results.genericError"));
     }
   };
