@@ -18,6 +18,7 @@
     "retry": "Retry",
     "search": "Search",
     "sendPasswordResetLink": "Send password reset link",
+    "shopNow": "Shop now",
     "toCheckout": "To checkout",
     "toPayment": "Proceed to payment",
     "update": "Update"
@@ -606,6 +607,7 @@
     "phoneNumber": "Phone number",
     "price": "Price",
     "seeAll": "See all",
+    "selected": "Selected",
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
@@ -780,7 +782,8 @@
     "storeNotFoundExplanation": "The store you were looking for doesn't exist"
   },
   "seoDescriptions": {
-    "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now"
+    "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",
+    "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
   },
   "services": {
     "freeDelivery": "Free delivery",
@@ -793,6 +796,7 @@
     "supportExplanation": "Always at your service"
   },
   "store": {
+    "emptyStoreExplanation": "We are still preparing our store, visit us again soon.",
     "noAboutusInformation": "Couldn't fetch the information about the store, try again later"
   },
   "units": {
