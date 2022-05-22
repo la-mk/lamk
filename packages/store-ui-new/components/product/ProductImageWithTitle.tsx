@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { HoverableLink } from "../HoverableLink";
 import { getImageURL } from "../../hacks/imageUrl";
 import { OrderItem } from "../../domain/order";
+import { urls } from "../../tooling/url";
 
 export const ProductImageWithTitle = ({
   orderItem,
@@ -21,8 +22,8 @@ export const ProductImageWithTitle = ({
   const { t } = useTranslation("translation");
   return (
     <HoverableLink
-      href="/products/[pid]"
-      as={`/products/${orderItem.product._id}`}
+      href={`${urls.products}/[pid]`}
+      as={`${urls.products}/${orderItem.product._id}`}
     >
       <Flex minWidth={"200px"} align="center" justify="flex-start" {...props}>
         <Flex maxHeight={"90px"} maxWidth={"60px"} minWidth={"60px"}>

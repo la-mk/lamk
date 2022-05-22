@@ -15,6 +15,7 @@ import { getImageURL } from "../../hacks/imageUrl";
 import { Product } from "../../pageComponents/products/Product";
 import { useRouter } from "next/router";
 import { useCart } from "../../hooks/useCart";
+import { urls } from "../../tooling/url";
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 const getProductSummary = (
@@ -55,7 +56,7 @@ const ProductPage = ({ store }: { store: Store }) => {
     return (
       <>
         <Head
-          url={`/products`}
+          url={urls.products}
           store={store}
           title={t("results.pageNotFound")}
           description={t("results.productNotFound")}
@@ -72,7 +73,7 @@ const ProductPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/products/${product._id}`}
+        url={`${urls.products}/${product._id}`}
         store={store}
         title={product.name}
         description={getProductSummary(product, store, t)}

@@ -9,6 +9,7 @@ import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
 import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getReturnAndRefundPolicy = ({ storeName }: { storeName: string }) => {
   return `
@@ -34,7 +35,7 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
     return (
       <>
         <Head
-          url={`/legal/return-and-refund`}
+          url={urls.returnsAndRefunds}
           store={store}
           title={title}
           description={title}
@@ -55,13 +56,13 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/return-and-refund`}
+        url={urls.returnsAndRefunds}
         store={store}
         title={title}
         description={getTextSnippet(returnAndRefundPolicy)}
       />
       <LegalContent
-        url="/legal/return-and-refund"
+        url={urls.returnsAndRefunds}
         title={title}
         body={returnAndRefundPolicy}
       />

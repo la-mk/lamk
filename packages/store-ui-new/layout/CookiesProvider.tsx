@@ -1,6 +1,7 @@
 import React from "react";
 import { CookieBanner } from "@la-mk/blocks-ui";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { urls } from "../tooling/url";
 
 type Consent = {
   necessary?: boolean;
@@ -29,7 +30,7 @@ export const CookiesProvider = ({
       <CookieBanner
         onConsentsChanged={setConsent}
         consents={consent}
-        cookiesPolicyLink={"/legal/cookies-policy"}
+        cookiesPolicyLink={urls.cookiesPolicy}
         requests={[
           {
             key: "necessary",

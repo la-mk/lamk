@@ -3,6 +3,7 @@ import { Button, hooks } from "@la-mk/blocks-ui";
 import Link from "next/link";
 import React from "react";
 import { useTranslation } from "next-i18next";
+import { urls } from "../../tooling/url";
 
 export const BackButton = () => {
   const { t } = useTranslation("translation");
@@ -12,7 +13,7 @@ export const BackButton = () => {
   }
 
   return (
-    <Link href={"/account"} passHref>
+    <Link href={urls.account} passHref>
       <Button
         mt={1}
         mb={5}

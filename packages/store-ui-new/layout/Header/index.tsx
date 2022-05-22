@@ -16,7 +16,7 @@ import { useTranslation } from "next-i18next";
 import { NavButton } from "./NavButton";
 import { AccountMenu } from "./AccountMenu";
 import { Store } from "../../domain/store";
-import { filterRouter, getSearchHref } from "../../tooling/url";
+import { filterRouter, getSearchHref, urls } from "../../tooling/url";
 import { getImageURL } from "../../hacks/imageUrl";
 import { Contact } from "../../components/Contact";
 import { useAuth } from "../../hooks/useAuth";
@@ -73,7 +73,7 @@ export const Header = ({ store, cartCount, searchValue }: HeaderProps) => {
   );
 
   const logo = (
-    <Link href="/" passHref>
+    <Link href={urls.home} passHref>
       <Box as="a" lineHeight={0}>
         <Box
           height={`calc(${desktopHeight} - 0.5rem)`}
@@ -153,7 +153,7 @@ export const Header = ({ store, cartCount, searchValue }: HeaderProps) => {
               />
             )}
 
-            <Link passHref href="/products">
+            <Link passHref href={urls.products}>
               <NavButton
                 title={t("pages.product_plural")}
                 icon={<ShoppingBag size="1.5rem" />}
@@ -161,7 +161,7 @@ export const Header = ({ store, cartCount, searchValue }: HeaderProps) => {
               />
             </Link>
 
-            <Link passHref href="/about">
+            <Link passHref href={urls.about}>
               <NavButton
                 title={t("pages.aboutUs")}
                 icon={<Briefcase size="1.5rem" />}
@@ -169,7 +169,7 @@ export const Header = ({ store, cartCount, searchValue }: HeaderProps) => {
               />
             </Link>
 
-            <Link passHref href="/cart">
+            <Link passHref href={urls.cart}>
               <NavButton
                 title={t("pages.cart")}
                 hideTitle

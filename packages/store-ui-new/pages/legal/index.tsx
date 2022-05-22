@@ -7,13 +7,14 @@ import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { Legal } from "../../pageComponents/legal/Legal";
+import { urls } from "../../tooling/url";
 
 function LegalPage({ store }: { store: Store }) {
   const { t } = useTranslation("translation");
   return (
     <>
       <Head
-        url={`/legal`}
+        url={urls.legal}
         store={store}
         title={t("pages.legal")}
         description={`${t("pages.legal")}, ${store?.name}`}

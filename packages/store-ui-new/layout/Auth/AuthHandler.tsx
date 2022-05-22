@@ -13,6 +13,7 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useMutation } from "../../sdk/useMutation";
 import { User } from "../../domain/user";
 import { sdk } from "../../sdk/sdk";
+import { urls } from "../../tooling/url";
 
 const isTokenValid = (token: string) => {
   if (!token) {
@@ -204,8 +205,8 @@ export const AuthHandler = ({
             <SignupForm
               schema={authSchema}
               logoUrl="/images/lamk-logo/horizontal.svg"
-              privacyPolicyLink="/legal/privacy"
-              termsOfServiceLink="/legal/terms-of-use"
+              privacyPolicyLink={urls.privacyPolicy}
+              termsOfServiceLink={urls.termsOfUse}
               signup={handleSignup}
               onLoginNowClick={() => setMethod("login")}
               getErrorMessage={(errorName, context) =>

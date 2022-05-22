@@ -9,6 +9,7 @@ import { Store } from "../../../domain/store";
 import { useTranslation } from "next-i18next";
 import { OrderProductsList } from "../../../components/product/OrderProductsList";
 import { sdk } from "../../../sdk/sdk";
+import { urls } from "../../../tooling/url";
 
 export const OrderDescription = ({
   order,
@@ -53,8 +54,8 @@ export const OrderDescription = ({
         {!hideDetailsButton && (
           <Link
             passHref
-            href="/account/orders/[pid]"
-            as={`/account/orders/${order._id}`}
+            href={`${urls.accountOrders}/[pid]`}
+            as={`${urls.accountOrders}/${order._id}`}
           >
             <Button as="a" variant="link" leftIcon={<Eye size="1.2rem" />}>
               {t("common.details")}

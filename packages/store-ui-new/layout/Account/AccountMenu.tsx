@@ -14,27 +14,28 @@ import { TFunction, useTranslation } from "next-i18next";
 import { BlocksTheme } from "@la-mk/blocks-ui/dist/theme";
 import { User } from "../../domain/user";
 import { ClickableCard } from "../../components/ClickableCard";
+import { urls } from "../../tooling/url";
 
 const getAccountMenu = (t: TFunction) => [
   {
     title: t("pages.personalDetails"),
     icon: <UserIcon size="1.2rem" />,
-    href: "/account/personal",
+    href: urls.accountPersonal,
   },
   {
     title: t("pages.changePassword"),
     icon: <Lock size="1.2rem" />,
-    href: "/account/change-password",
+    href: urls.accountChangePassword,
   },
   {
     title: t("pages.myAddresses"),
     icon: <Home size="1.2rem" />,
-    href: "/account/addresses",
+    href: urls.accountAddresses,
   },
   {
     title: t("pages.myOrders"),
     icon: <ShoppingBag size="1.2rem" />,
-    href: "/account/orders",
+    href: urls.accountOrders,
   },
 ];
 

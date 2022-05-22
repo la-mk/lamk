@@ -3,6 +3,7 @@ import { MarkdownViewer, Result } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import { Page } from "../../layout/Page";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
+import { urls } from "../../tooling/url";
 
 interface AboutUsProps {
   markdownDescription: string | undefined;
@@ -11,8 +12,8 @@ interface AboutUsProps {
 export const AboutUs = ({ markdownDescription }: AboutUsProps) => {
   const { t } = useTranslation("translation");
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/about", title: t("pages.aboutUs") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.about, title: t("pages.aboutUs") },
   ]);
 
   return (

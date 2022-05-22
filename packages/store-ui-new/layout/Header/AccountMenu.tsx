@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { NavButton } from "./NavButton";
 import { User } from "../../domain/user";
+import { urls } from "../../tooling/url";
 
 export interface AccountMenuProps {
   user?: User;
@@ -62,13 +63,13 @@ export const AccountMenu = ({
       <MenuList>
         {user ? (
           <>
-            <Link href="/account" passHref>
+            <Link href={urls.account} passHref>
               <MenuItem as="a" icon={<UserIcon size="1.2rem" />}>
                 {t("pages.myAccount")}
               </MenuItem>
             </Link>
 
-            <Link href="/account/orders" passHref>
+            <Link href={urls.accountOrders} passHref>
               <MenuItem as="a" icon={<ShoppingBag size="1.2rem" />}>
                 {t("pages.myOrders")}
               </MenuItem>

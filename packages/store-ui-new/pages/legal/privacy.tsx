@@ -9,6 +9,7 @@ import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
 import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getPrivacyPolicy = ({
   companyName,
@@ -131,7 +132,7 @@ const PrivacyPage = ({ store }: { store: Store }) => {
     return (
       <>
         <Head
-          url={`/legal/privacy`}
+          url={urls.privacyPolicy}
           store={store}
           title={title}
           description={title}
@@ -160,12 +161,16 @@ const PrivacyPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/privacy`}
+        url={urls.privacyPolicy}
         store={store}
         title={title}
         description={getTextSnippet(privacyPolicy)}
       />
-      <LegalContent url="/legal/privacy" title={title} body={privacyPolicy} />
+      <LegalContent
+        url={urls.privacyPolicy}
+        title={title}
+        body={privacyPolicy}
+      />
     </>
   );
 };

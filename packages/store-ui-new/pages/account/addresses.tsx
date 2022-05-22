@@ -8,6 +8,7 @@ import { Store } from "../../domain/store";
 import { useTranslation } from "next-i18next";
 import { Head } from "../../layout/Head";
 import { MyAddresses } from "../../pageComponents/account/MyAddresses";
+import { urls } from "../../tooling/url";
 
 function AddressesPage({ store }: { store: Store }) {
   const { user, isLoadingUser } = useAuth();
@@ -29,7 +30,7 @@ function AddressesPage({ store }: { store: Store }) {
   return (
     <>
       <Head
-        url={"/account/addresses"}
+        url={urls.accountAddresses}
         store={store}
         title={t("pages.myAccount")}
         description={`${t("pages.myAccount")}, ${nameDescription}`}

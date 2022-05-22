@@ -7,6 +7,7 @@ import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { Page } from "../../layout/Page";
 import { sdk } from "../../sdk/sdk";
 import { useMutation } from "../../sdk/useMutation";
+import { urls } from "../../tooling/url";
 import { BackButton } from "./BackButton";
 
 export const ChangePassword = ({ user }: { user: User }) => {
@@ -15,8 +16,8 @@ export const ChangePassword = ({ user }: { user: User }) => {
   const [patchUser, isPatching] = useMutation("user", "patch");
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/account/change-password", title: t("pages.changePassword") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.accountChangePassword, title: t("pages.changePassword") },
   ]);
 
   const handlePatchAccount = React.useCallback(
@@ -26,7 +27,7 @@ export const ChangePassword = ({ user }: { user: User }) => {
         updateUser(updatedUser);
         toast.success(t("auth.accountUpdateSuccess"));
       } catch (err) {
-        console.error(err)
+        console.error(err);
         toast.error(t("results.genericError"));
       }
     },

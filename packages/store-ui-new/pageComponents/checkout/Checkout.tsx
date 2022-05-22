@@ -26,6 +26,7 @@ import { useQuery } from "../../sdk/useQuery";
 import { Campaign } from "../../domain/campaign";
 import { useMutation } from "../../sdk/useMutation";
 import { useRouter } from "next/router";
+import { urls } from "../../tooling/url";
 
 export const Checkout = ({ store, user }: { store: Store; user: User }) => {
   const { t } = useTranslation("translation");
@@ -41,8 +42,8 @@ export const Checkout = ({ store, user }: { store: Store; user: User }) => {
   );
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/checkout", title: t("pages.checkout") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.checkout, title: t("pages.checkout") },
   ]);
 
   const [campaigns, isLoadingCampaigns] = useQuery(
@@ -170,7 +171,7 @@ export const Checkout = ({ store, user }: { store: Store; user: User }) => {
 
       clearCart(false);
       if (createdOrder.paymentMethod === PaymentMethodNames.CREDIT_CARD) {
-        router.replace(`/account/orders/${createdOrder._id}/pay`);
+        router.replace(`${urls.accountOrders}/${createdOrder._id}/pay`);
       }
     } catch (err) {
       console.error(err);

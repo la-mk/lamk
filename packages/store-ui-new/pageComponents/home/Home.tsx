@@ -11,7 +11,7 @@ import {
 } from "../../domain/set";
 import { useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
-import { getLevel2CategoryHref } from "../../tooling/url";
+import { getLevel2CategoryHref, urls } from "../../tooling/url";
 import { ProductDuo } from "../../components/sets/ProductDuo";
 import { ProductSet } from "../../components/sets/ProductSet";
 import { ProductGrid } from "../../components/sets/ProductGrid";
@@ -24,7 +24,7 @@ import { DiscountCampaign } from "../../components/campaigns/DiscountCampaign";
 export const Home = ({ store }: { store: Store }) => {
   const { t } = useTranslation();
   const isBrowser = typeof window !== "undefined";
-  useBreadcrumbs([{ url: "/", title: t("pages.home") }]);
+  useBreadcrumbs([{ url: urls.home, title: t("pages.home") }]);
 
   const [landingContent, isLoadingLandingContent] = useQuery(
     "storeContents",

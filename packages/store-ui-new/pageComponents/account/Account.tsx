@@ -6,11 +6,12 @@ import { PersonalInfo } from "../../components/icons/PersonalInfo";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { AccountMenu } from "../../layout/Account/AccountMenu";
 import { User } from "../../domain/user";
+import { urls } from "../../tooling/url";
 
 export const Account = ({ user }: { user: User }) => {
   const theme = useTheme();
   const { t } = useTranslation("translation");
-  useBreadcrumbs([{ url: "/", title: t("pages.home") }]);
+  useBreadcrumbs([{ url: urls.home, title: t("pages.home") }]);
 
   return (
     <>

@@ -27,6 +27,7 @@ import {
 } from "../../domain/set";
 import { useQuery } from "../../sdk/useQuery";
 import { ServicesSet } from "../../components/sets/ServicesSet";
+import { urls } from "../../tooling/url";
 
 interface ProductProps {
   product: ProductType;
@@ -42,19 +43,19 @@ interface ProductProps {
 
 const getProductsHref = (href: string) => {
   if (!href) {
-    return "/products";
+    return urls.products;
   }
 
   const url = new URL(href);
 
   if (
-    url.pathname.startsWith("/products") &&
+    url.pathname.startsWith(urls.products) &&
     url.pathname.split("/").length <= 2
   ) {
     return url.pathname + url.search;
   }
 
-  return "/products";
+  return urls.products;
 };
 
 const getSets = (product: ProductType, t: TFunction) => [
@@ -122,14 +123,14 @@ export const Product = ({
 
   useBreadcrumbs(
     [
-      { url: "/", title: t("pages.home") },
+      { url: urls.home, title: t("pages.home") },
       {
         url: getProductsHref(getSessionInfo()?.previousPage ?? ""),
         title: t("pages.product_plural"),
       },
       {
-        urlPattern: "/products/[pid]",
-        url: `/products/${product._id}`,
+        urlPattern: `${urls.products}/[pid]`,
+        url: `${urls.products}/${product._id}`,
         title: product.name.slice(0, 40),
       },
     ],

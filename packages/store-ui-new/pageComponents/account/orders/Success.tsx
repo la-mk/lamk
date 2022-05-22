@@ -6,6 +6,7 @@ import { withTheme } from "@emotion/react";
 import { Order } from "../../../domain/order";
 import { useTranslation } from "next-i18next";
 import { OrderSuccess } from "../../../components/icons/OrderSuccess";
+import { urls } from "../../../tooling/url";
 
 export const Success = withTheme(
   ({
@@ -42,7 +43,7 @@ export const Success = withTheme(
           description={t("cart.orderSuccessExplanation")}
         />
 
-        <Link passHref replace href="/products">
+        <Link passHref replace href={urls.products}>
           <Button as="a" size="lg" mt={4} isFullWidth>
             {t("product.seeOtherProducts")}
           </Button>
@@ -51,8 +52,8 @@ export const Success = withTheme(
         <Link
           passHref
           replace
-          href="/account/orders/[pid]"
-          as={`/account/orders/${order._id}`}
+          href={`${urls.accountOrders}/[pid]`}
+          as={`${urls.accountOrders}/${order._id}`}
         >
           <Button variant="outline" as="a" size="lg" mt={3} isFullWidth>
             {t("order.seeOrder")}

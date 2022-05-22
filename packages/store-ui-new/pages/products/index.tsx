@@ -9,7 +9,7 @@ import { Head } from "../../layout/Head";
 import { hooks, utils } from "@la-mk/blocks-ui";
 import { useQuery } from "../../sdk/useQuery";
 import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
-import { filterRouter } from "../../tooling/url";
+import { filterRouter, urls } from "../../tooling/url";
 import { Products } from "../../pageComponents/products/Products";
 
 function ProductsPage({
@@ -42,7 +42,7 @@ function ProductsPage({
   return (
     <>
       <Head
-        url={"/products"}
+        url={urls.products}
         store={store}
         title={t("pages.product_plural")}
         description={t("seoDescriptions.product_plural")}

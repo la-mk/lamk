@@ -11,6 +11,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useRouter } from "next/router";
 import { useCart } from "../hooks/useCart";
 import { useTranslation } from "next-i18next";
+import { urls } from "../tooling/url";
 
 export const StoreLayout = ({
   children,
@@ -45,7 +46,7 @@ export const StoreLayout = ({
         </Box>
       }
       leftSider={
-        !!user && pathname.startsWith("/account") ? (
+        !!user && pathname.startsWith(urls.account) ? (
           <Box display={["none", "block", "block"]} height="100%">
             <AccountMenu user={user} />
           </Box>

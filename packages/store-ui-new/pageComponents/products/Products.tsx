@@ -20,6 +20,7 @@ import { Page } from "../../layout/Page";
 import { ProductCard } from "../../components/product/ProductCard";
 import { SortFilter } from "../../components/filters/SortFilter";
 import { ProductsSidemenu } from "./ProductsSidemenu";
+import { urls } from "../../tooling/url";
 
 interface ProductsProps {
   products: Product[];
@@ -45,8 +46,8 @@ export const Products = ({
   const paginationSize = hooks.useBreakpoint<"sm" | "md">(["sm", "md", "md"]);
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/products", title: t("pages.product_plural") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.products, title: t("pages.product_plural") },
   ]);
 
   return (

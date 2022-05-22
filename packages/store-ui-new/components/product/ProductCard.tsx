@@ -8,6 +8,7 @@ import { Price } from "./Price";
 import { getImageURL } from "../../hacks/imageUrl";
 import { HoverableLink } from "../HoverableLink";
 import { ProductTags } from "./ProductTags";
+import { urls } from "../../tooling/url";
 
 const ProductDescription = ({
   t,
@@ -163,7 +164,10 @@ export const ProductCard = ({
   }
 
   return (
-    <HoverableLink href="/products/[pid]" as={`/products/${product._id}`}>
+    <HoverableLink
+      href={`${urls.products}/[pid]`}
+      as={`${urls.products}/${product._id}`}
+    >
       <Flex
         direction={selector === "horizontal" ? "row" : "column"}
         bg={ownTheme.card.background}

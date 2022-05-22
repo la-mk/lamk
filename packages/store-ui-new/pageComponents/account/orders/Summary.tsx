@@ -9,6 +9,7 @@ import { CustomCard } from "../../../components/CustomCard";
 import { useAuth } from "../../../hooks/useAuth";
 import { Store } from "../../../domain/store";
 import { SummaryProductList } from "../../../components/product/SummaryProductList";
+import { urls } from "../../../tooling/url";
 
 interface SummaryProps {
   store: Store;
@@ -139,7 +140,7 @@ export const Summary = ({
         </Button>
       )}
       {showContinueShopping && (
-        <Link href="/products" passHref>
+        <Link href={urls.products} passHref>
           <Button as="a" variant="outline" isFullWidth size="lg" mt={4}>
             {t("product.seeOtherProducts")}
           </Button>

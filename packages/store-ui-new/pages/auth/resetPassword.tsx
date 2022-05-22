@@ -8,6 +8,7 @@ import { Head } from "../../layout/Head";
 import { ResetPassword } from "../../pageComponents/auth/ResetPassword";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { getProps, newClient } from "../../sdk/queryClient";
+import { urls } from "../../tooling/url";
 
 function ResetPasswordPage({ store }: { store: Store }) {
   const { t } = useTranslation("translation");
@@ -15,7 +16,7 @@ function ResetPasswordPage({ store }: { store: Store }) {
   return (
     <>
       <Head
-        url={`/auth/resetPassword`}
+        url={urls.resetPassword}
         store={store}
         title={t("auth.resetPassword")}
         description={`${t("auth.resetPassword")}, ${store?.name}`}

@@ -22,6 +22,7 @@ import {
   ProductSetType,
 } from "../../../domain/set";
 import { ProductSet } from "../../../components/sets/ProductSet";
+import { urls } from "../../../tooling/url";
 
 const getSets = (t: TFunction) => [
   {
@@ -57,11 +58,11 @@ export const Order = ({
   const router = useRouter();
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/account/orders", title: t("pages.order_plural") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.accountOrders, title: t("pages.order_plural") },
     {
-      urlPattern: "/account/orders/[oid]",
-      url: `/account/orders/${order?._id}`,
+      urlPattern: `${urls.accountOrders}/[oid]`,
+      url: `${urls.accountOrders}/${order?._id}`,
       title: `${t("pages.order")} - ${sdk.utils.getShortId(order?._id)}`,
     },
   ]);
@@ -72,7 +73,7 @@ export const Order = ({
   ]);
 
   const handlePayment = () => {
-    router.push(`/account/orders/${order._id}/pay`);
+    router.push(`${urls.accountOrders}/${order._id}/pay`);
   };
 
   const isCardPayment = order.paymentMethod === PaymentMethodNames.CREDIT_CARD;

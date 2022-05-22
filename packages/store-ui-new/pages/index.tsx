@@ -7,6 +7,7 @@ import { Store } from "../domain/store";
 import { Head } from "../layout/Head";
 import { useTranslation } from "next-i18next";
 import { Home } from "../pageComponents/home/Home";
+import { urls } from "../tooling/url";
 
 const HomePage: NextPage = ({ store }: { store: Store }) => {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ const HomePage: NextPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url="/"
+        url={urls.home}
         store={store}
         title={store?.name ?? store?.slug ?? t("pages.home")}
         description={

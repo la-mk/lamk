@@ -10,6 +10,7 @@ import { useBreadcrumbs } from "../../../hooks/useBreadcrumbs";
 import { Page } from "../../../layout/Page";
 import { CustomCard } from "../../../components/CustomCard";
 import { Order } from "../../../domain/order";
+import { urls } from "../../../tooling/url";
 
 export const Orders = ({
   user,
@@ -31,8 +32,8 @@ export const Orders = ({
   const { t } = useTranslation("translation");
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/account/orders", title: t("pages.order_plural") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.accountOrders, title: t("pages.order_plural") },
   ]);
 
   if (orders && totalOrders === 0 && !isOrdersLoading) {

@@ -6,6 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Page } from "../../layout/Page";
 import { sdk } from "../../sdk/sdk";
 import { useMutation } from "../../sdk/useMutation";
+import { urls } from "../../tooling/url";
 
 export const ResetPassword = ({
   resetToken,
@@ -25,7 +26,7 @@ export const ResetPassword = ({
         { query: { email: formData.email.toLowerCase(), resetToken } },
       ]);
       toast.success(t("auth.resetPasswordSuccess"));
-      router.replace("/");
+      router.replace(urls.home);
     } catch (err) {
       console.error(err);
       toast.success(t("results.genericError"));

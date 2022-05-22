@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Attributes, Product, Variant } from "../../domain/product";
 import { useTranslation } from "next-i18next";
 import { CartWithProducts } from "../../domain/cart";
+import { urls } from "../../tooling/url";
 
 export const areObjectsEquivalent = (
   a: object | undefined,
@@ -141,7 +142,7 @@ export const ProductOptions = ({
         {isProductInCart ? (
           <>
             <Text color="mutedText.dark">{t("cart.productAlreadyInCart")}</Text>
-            <Link passHref href="/cart">
+            <Link passHref href={urls.cart}>
               <Button as="a" size="lg" ml={2}>
                 {t("actions.goToCart")}
               </Button>

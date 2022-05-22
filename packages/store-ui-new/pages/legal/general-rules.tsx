@@ -9,6 +9,7 @@ import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
 import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getGeneralRules = ({
   storeName,
@@ -44,7 +45,7 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
     return (
       <>
         <Head
-          url={`/legal/general-rules`}
+          url={urls.generalRules}
           store={store}
           title={title}
           description={title}
@@ -69,16 +70,12 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/general-rules`}
+        url={urls.generalRules}
         store={store}
         title={title}
         description={getTextSnippet(generalRules)}
       />
-      <LegalContent
-        url="/legal/general-rules"
-        title={title}
-        body={generalRules}
-      />
+      <LegalContent url={urls.generalRules} title={title} body={generalRules} />
     </>
   );
 };

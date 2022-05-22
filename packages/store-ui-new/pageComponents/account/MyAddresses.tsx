@@ -7,14 +7,15 @@ import { Page } from "../../layout/Page";
 import { BackButton } from "./BackButton";
 import { User } from "../../domain/user";
 import { Store } from "../../domain/store";
+import { urls } from "../../tooling/url";
 
 export const MyAddresses = ({ user, store }: { user: User; store: Store }) => {
   const { t } = useTranslation("translation");
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/account/addresses", title: t("pages.myAddresses") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.accountAddresses, title: t("pages.myAddresses") },
   ]);
 
   return (

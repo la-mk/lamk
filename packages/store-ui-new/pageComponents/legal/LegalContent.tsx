@@ -3,6 +3,7 @@ import { MarkdownViewer } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { Page } from "../../layout/Page";
+import { urls } from "../../tooling/url";
 
 export const LegalContent = ({
   url,
@@ -16,8 +17,8 @@ export const LegalContent = ({
   const { t } = useTranslation("translation");
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/legal", title: t("pages.legal") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.legal, title: t("pages.legal") },
     { url, title },
   ]);
 

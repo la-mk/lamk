@@ -9,6 +9,7 @@ import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
 import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getTermsOfUse = ({
   storeName,
@@ -118,7 +119,7 @@ const TermsOfUsePage = ({ store }: { store: Store }) => {
     return (
       <>
         <Head
-          url={`/legal/terms-of-use`}
+          url={urls.termsOfUse}
           store={store}
           title={title}
           description={title}
@@ -145,12 +146,12 @@ const TermsOfUsePage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/terms-of-use`}
+        url={urls.termsOfUse}
         store={store}
         title={title}
         description={getTextSnippet(termsOfUse)}
       />
-      <LegalContent url="/legal/terms-of-use" title={title} body={termsOfUse} />
+      <LegalContent url={urls.termsOfUse} title={title} body={termsOfUse} />
     </>
   );
 };

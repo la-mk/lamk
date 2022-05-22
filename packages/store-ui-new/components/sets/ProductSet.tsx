@@ -1,12 +1,12 @@
 import React from "react";
-import { Product, ProductSetResult } from "@la-mk/la-sdk/dist/models/product";
 import { Set } from "@la-mk/blocks-ui";
 import { SetTitle } from "./SetTitle";
 import { Store } from "../../domain/store";
-import { getSetHref } from "../../domain/set";
+import { getSetHref, ProductSetResult } from "../../domain/set";
 import { ProductCard } from "../product/ProductCard";
 import { SeeAllLink } from "./SeeAllLink";
 import { useTranslation } from "next-i18next";
+import { Product } from "../../domain/product";
 
 interface ProductSetProps {
   set: ProductSetResult;

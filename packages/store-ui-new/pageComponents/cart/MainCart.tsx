@@ -19,6 +19,7 @@ import {
 } from "../../domain/set";
 import { ProductSet } from "../../components/sets/ProductSet";
 import { OrderItem } from "../../domain/order";
+import { urls } from "../../tooling/url";
 
 const getSets = (t: TFunction) => [
   {
@@ -58,8 +59,8 @@ export const Cart = ({ store, user }: { store: Store; user?: User }) => {
   ]);
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/cart", title: t("pages.myCart") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.cart, title: t("pages.myCart") },
   ]);
 
   useEffect(() => {
@@ -99,7 +100,7 @@ export const Cart = ({ store, user }: { store: Store; user?: User }) => {
   };
 
   const handleCheckout = () => {
-    router.push("/checkout");
+    router.push(urls.checkout);
   };
 
   return (

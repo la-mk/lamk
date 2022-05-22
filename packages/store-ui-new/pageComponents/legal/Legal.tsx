@@ -4,33 +4,34 @@ import { useTranslation } from "next-i18next";
 import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { ClickableCard } from "../../components/ClickableCard";
 import { Page } from "../../layout/Page";
+import { urls } from "../../tooling/url";
 
 export const Legal = () => {
   const { t } = useTranslation("translation");
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/legal", title: t("pages.legal") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.legal, title: t("pages.legal") },
   ]);
 
   const submenus = [
     {
-      link: "/legal/general-rules",
+      link: urls.generalRules,
       text: t("pages.generalRules"),
     },
     {
-      link: "/legal/terms-of-use",
+      link: urls.termsOfUse,
       text: t("pages.termsOfUse"),
     },
     {
-      link: "/legal/return-and-refund",
+      link: urls.returnsAndRefunds,
       text: t("pages.returnAndRefund"),
     },
     {
-      link: "/legal/privacy",
+      link: urls.privacyPolicy,
       text: t("pages.privacy"),
     },
     {
-      link: "/legal/cookies-policy",
+      link: urls.cookiesPolicy,
       text: t("pages.cookiesPolicy"),
     },
   ];

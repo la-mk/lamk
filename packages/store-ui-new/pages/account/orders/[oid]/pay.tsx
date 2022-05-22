@@ -11,6 +11,7 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { useQuery } from "../../../../sdk/useQuery";
 import { Head } from "../../../../layout/Head";
 import { Payment } from "../../../../pageComponents/account/orders/Payment";
+import { urls } from "../../../../tooling/url";
 
 const OrderPayPage = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
@@ -41,7 +42,7 @@ const OrderPayPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/orders/${orderId}/pay`}
+        url={`${urls.accountOrders}/${orderId}/pay`}
         store={store}
         title={t("pages.payment")}
         description={`${t("pages.payment")}, ${t("pages.order")} ${orderId}`}

@@ -1,9 +1,8 @@
 import React from "react";
 import { DataGrid, Box, hooks } from "@la-mk/blocks-ui";
-import { ProductSetResult } from "@la-mk/la-sdk/dist/models/product";
 import { SetTitle } from "./SetTitle";
 import { Store } from "../../domain/store";
-import { getSetHref } from "../../domain/set";
+import { getSetHref, ProductSetResult } from "../../domain/set";
 import { useTranslation } from "next-i18next";
 import { ProductCard } from "../product/ProductCard";
 import { SeeAllLink } from "./SeeAllLink";

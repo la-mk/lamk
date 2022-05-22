@@ -9,6 +9,7 @@ import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
 import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getCookiesPolicy = ({
   slug,
@@ -71,7 +72,7 @@ const CookiesPolicyPage = ({ store }: { store: Store }) => {
     return (
       <>
         <Head
-          url={`/legal/cookies-policy`}
+          url={urls.cookiesPolicy}
           store={store}
           title={title}
           description={title}
@@ -97,13 +98,13 @@ const CookiesPolicyPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/cookiesPolicy`}
+        url={urls.cookiesPolicy}
         store={store}
         title={title}
         description={getTextSnippet(cookiesPolicy)}
       />
       <LegalContent
-        url="/legal/cookies-policy"
+        url={urls.cookiesPolicy}
         title={title}
         body={cookiesPolicy}
       />

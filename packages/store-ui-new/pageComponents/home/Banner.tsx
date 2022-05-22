@@ -8,6 +8,7 @@ import { DecoratedHeading } from "../../components/DecoratedHeading";
 import { TFunction, useTranslation } from "next-i18next";
 import { getImageURL } from "../../hacks/imageUrl";
 import { ImageBackgroundBox } from "../../components/ImageBackgroundBox";
+import { urls } from "../../tooling/url";
 
 const MinimalThemeContent = ({
   slogan,
@@ -21,7 +22,7 @@ const MinimalThemeContent = ({
       <Heading mb={6} px={[2, 4, 5]} align="center" as="h1" size={"3xl"}>
         {slogan}
       </Heading>
-      <Link href="/products" passHref>
+      <Link href={urls.products} passHref>
         <Button as="a" size="lg">
           {t("actions.shopNow") as string}
         </Button>
@@ -63,7 +64,7 @@ const BoldThemeContent = ({
         {slogan}
       </Heading>
 
-      <Link href="/products" passHref>
+      <Link href={urls.products} passHref>
         <Button as="a" size="lg">
           {t("actions.shopNow") as string}
         </Button>

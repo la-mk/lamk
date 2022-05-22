@@ -4,9 +4,23 @@ import queryString from "qs";
 import { Category } from "../domain/category";
 
 export const urls = {
+  home: "/",
   about: "/about",
   cart: "/cart",
   checkout: "/checkout",
+  products: "/products",
+  legal: "/legal",
+  generalRules: "/legal/general-rules",
+  cookiesPolicy: "/legal/cookies-policy",
+  privacyPolicy: "/legal/privacy",
+  termsOfUse: "/legal/terms-of-use",
+  returnsAndRefunds: "/legal/return-and-refund",
+  account: "/account",
+  accountPersonal: "/account/personal",
+  accountChangePassword: "/account/change-password",
+  accountAddresses: "/account/addresses",
+  accountOrders: "/account/orders",
+  resetPassword: "/auth/resetPassword",
 };
 
 export const getFiltersFromSearch = (search: string) => {
@@ -18,7 +32,7 @@ export const getFiltersFromSearch = (search: string) => {
 };
 
 export const getSearchHref = (search: string) => {
-  const productsUrl = `/products?${queryString.stringify({
+  const productsUrl = `${urls.products}?${queryString.stringify({
     ...getFiltersFromSearch(search),
   })}`;
 
@@ -26,7 +40,7 @@ export const getSearchHref = (search: string) => {
 };
 
 export const getCategoryHref = (category: string) => {
-  return `/products?${getQueryForCategories([category])}`;
+  return `${urls.products}?${getQueryForCategories([category])}`;
 };
 
 export const getLevel2CategoryHref = (
@@ -37,7 +51,7 @@ export const getLevel2CategoryHref = (
     .filter((category) => category.level2 === categoryName)
     .map((category) => category.level3);
 
-  return `/products?${getQueryForCategories(level3Categories)}`;
+  return `${urls.products}?${getQueryForCategories(level3Categories)}`;
 };
 
 export const getQueryForCategories = (categories: string | string[]) => {

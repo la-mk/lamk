@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { Head } from "../layout/Head";
 import { PageContextWithStore } from "../hacks/store";
 import { Store } from "../domain/store";
+import { urls } from "../tooling/url";
 
 const Error = ({
   status,
@@ -30,7 +31,7 @@ const Error = ({
       />
       <Result status={status as any} title={title} description={description} />
 
-      <Link href="/" passHref>
+      <Link href={urls.home} passHref>
         <Button mt={4} as="a" variant="link">
           {t("actions.goBack")}
         </Button>

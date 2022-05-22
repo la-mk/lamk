@@ -17,3 +17,9 @@ export interface CartWithProducts {
   _id?: string;
   items: CartItemWithProduct[];
 }
+
+export interface Cart {
+  _id: string;
+  forUser: string;
+  items: CartItem[];
+}

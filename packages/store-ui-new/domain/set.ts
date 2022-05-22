@@ -1,5 +1,6 @@
 import { Product } from "./product";
 import queryString from "qs";
+import { urls } from "../tooling/url";
 
 export enum ProductSetType {
   CATEGORY = "category",
@@ -61,7 +62,7 @@ export const getSetHref = (set: ProductSetResult) => {
     return "";
   }
 
-  return `/products?${queryString.stringify(
+  return `${urls.products}?${queryString.stringify(
     getFiltersFromSetQuery(set.filter.query)
   )}`;
 };

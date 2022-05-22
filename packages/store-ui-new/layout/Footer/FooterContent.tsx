@@ -11,27 +11,28 @@ import { useTranslation } from "next-i18next";
 import { StoreFooterSection } from "./StoreFooterSection";
 import { SubFooter } from "./SubFooter";
 import { Store } from "../../domain/store";
+import { urls } from "../../tooling/url";
 
 const getMenus = (t: any): Menu[] => [
   {
     text: t("common.ourCompany"),
-    link: "/",
+    link: urls.home,
 
     submenus: [
       {
-        link: "/about",
+        link: urls.about,
         text: t("pages.aboutUs"),
       },
       {
-        link: "/products",
+        link: urls.products,
         text: t("pages.product_plural"),
       },
       {
-        link: "/account/personal",
+        link: urls.accountPersonal,
         text: t("pages.myAccount"),
       },
       {
-        link: "/account/orders",
+        link: urls.accountOrders,
         text: t("pages.myOrders"),
       },
       {
@@ -42,26 +43,26 @@ const getMenus = (t: any): Menu[] => [
   },
   {
     text: t("pages.legal"),
-    link: "/legal",
+    link: urls.legal,
     submenus: [
       {
-        link: "/legal/general-rules",
+        link: urls.generalRules,
         text: t("pages.generalRules"),
       },
       {
-        link: "/legal/terms-of-use",
+        link: urls.termsOfUse,
         text: t("pages.termsOfUse"),
       },
       {
-        link: "/legal/return-and-refund",
+        link: urls.returnsAndRefunds,
         text: t("pages.returnAndRefund"),
       },
       {
-        link: "/legal/privacy",
+        link: urls.privacyPolicy,
         text: t("pages.privacy"),
       },
       {
-        link: "/legal/cookies-policy",
+        link: urls.cookiesPolicy,
         text: t("pages.cookiesPolicy"),
       },
     ],

@@ -8,6 +8,7 @@ import { useTranslation } from "next-i18next";
 import { Head } from "../../layout/Head";
 import { ChangePassword } from "../../pageComponents/account/ChangePassword";
 import { Store } from "../../domain/store";
+import { urls } from "../../tooling/url";
 
 function ChangePasswordPage({ store }: { store: Store }) {
   const { user, isLoadingUser } = useAuth();
@@ -29,7 +30,7 @@ function ChangePasswordPage({ store }: { store: Store }) {
   return (
     <>
       <Head
-        url={"/account/change-password"}
+        url={urls.accountChangePassword}
         store={store}
         title={t("pages.myAccount")}
         description={`${t("pages.myAccount")}, ${nameDescription}`}

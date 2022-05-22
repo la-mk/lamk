@@ -9,13 +9,14 @@ import { useMutation } from "../../sdk/useMutation";
 import { User } from "../../domain/user";
 import { sdk } from "../../sdk/sdk";
 import { useAuth } from "../../hooks/useAuth";
+import { urls } from "../../tooling/url";
 
 export const Personal = ({ user }: { user: User }) => {
   const { t } = useTranslation("translation");
   const { updateUser } = useAuth();
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/account/personal", title: t("pages.personalDetails") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.accountPersonal, title: t("pages.personalDetails") },
   ]);
 
   const [patchUser, isPatching] = useMutation("user", "patch");

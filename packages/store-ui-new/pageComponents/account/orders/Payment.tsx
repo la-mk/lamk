@@ -21,6 +21,7 @@ import { Success } from "./Success";
 import { Page } from "../../../layout/Page";
 import { FrameMessageExchange } from "./FrameMessageExchange";
 import { PaymentForm } from "./payments/PaymentForm";
+import { urls } from "../../../tooling/url";
 
 interface PaymentProps {
   store: Store;
@@ -57,16 +58,16 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
   );
 
   useBreadcrumbs([
-    { url: "/", title: t("pages.home") },
-    { url: "/account/orders", title: t("pages.order_plural") },
+    { url: urls.home, title: t("pages.home") },
+    { url: urls.accountOrders, title: t("pages.order_plural") },
     {
-      urlPattern: "/account/orders/[oid]",
-      url: `/account/orders/${order?._id}`,
+      urlPattern: `${urls.accountOrders}/[oid]`,
+      url: `${urls.accountOrders}/${order?._id}`,
       title: t("pages.order"),
     },
     {
-      urlPattern: "/account/orders/[oid]/pay",
-      url: `/account/orders/${order?._id}/pay`,
+      urlPattern: `${urls.accountOrders}/[oid]/pay`,
+      url: `${urls.accountOrders}/${order?._id}/pay`,
       title: t("pages.payment"),
     },
   ]);
@@ -125,8 +126,8 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
         <Link
           passHref
           replace
-          href="/account/orders/[pid]"
-          as={`/account/orders/${order._id}`}
+          href={`${urls.accountOrders}/[pid]`}
+          as={`${urls.accountOrders}/${order._id}`}
         >
           <Button mt={5} as="a" mx={2} key="console">
             {t("order.seeOrder")}

@@ -10,6 +10,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { Head } from "../../../layout/Head";
 import { useQuery } from "../../../sdk/useQuery";
 import { Orders } from "../../../pageComponents/account/orders/Orders";
+import { urls } from "../../../tooling/url";
 
 function OrdersPage({ store }: { store: Store }) {
   const { t } = useTranslation("translation");
@@ -51,7 +52,7 @@ function OrdersPage({ store }: { store: Store }) {
   return (
     <>
       <Head
-        url={"/account/orders"}
+        url={urls.accountOrders}
         store={store}
         title={t("pages.order_plural")}
         description={`${t("pages.order_plural")}, ${store?.name}`}

@@ -11,6 +11,7 @@ import { Head } from "../../../../layout/Head";
 import { useQuery } from "../../../../sdk/useQuery";
 import { Order } from "../../../../pageComponents/account/orders/Order";
 import { useRouter } from "next/router";
+import { urls } from "../../../../tooling/url";
 
 const OrderPage = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
@@ -41,7 +42,7 @@ const OrderPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/orders/${orderId}`}
+        url={`${urls.accountOrders}/${orderId}`}
         store={store}
         title={t("pages.order")}
         description={`${t("pages.order")}, ${store?.name}`}

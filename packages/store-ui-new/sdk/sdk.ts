@@ -3,8 +3,7 @@ import { SetupSdkOptions } from "@la-mk/la-sdk/dist/setup";
 import { User } from "../domain/user";
 import isObject from "lodash/isObject";
 import { Attributes, Product } from "../domain/product";
-import { CartItem, CartItemWithProduct } from "../domain/cart";
-import { Cart } from "@la-mk/la-sdk/dist/models/cart";
+import { Cart, CartItem } from "../domain/cart";
 import { Order } from "../domain/order";
 
 export let sdk: ReturnType<typeof setupSdk>;
