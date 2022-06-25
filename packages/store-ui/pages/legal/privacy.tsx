@@ -1,14 +1,15 @@
-import React from 'react';
-import { Head } from '../../src/common/pageComponents/Head';
-import { useTranslation } from '../../src/common/i18n';
-import { LegalContent } from '../../src/components/legal/LegalContent';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { NextPageContext } from 'next';
-import { getTextSnippet } from '../../src/common/utils';
-import { Result } from '@la-mk/blocks-ui';
-import { getUser } from '../../src/state/modules/user/user.selector';
-import { User } from '@la-mk/la-sdk/dist/models/user';
+import React from "react";
+import { Result } from "@la-mk/blocks-ui";
+import { PageContextWithStore } from "../../hacks/store";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { Store } from "../../domain/store";
+import { Head } from "../../layout/Head";
+import { getTextSnippet } from "../../tooling/text";
+import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getPrivacyPolicy = ({
   companyName,
@@ -17,16 +18,26 @@ const getPrivacyPolicy = ({
   companyAddress,
   slug,
   customDomain,
-  userEmail,
-  userPhone,
-  userName,
+  privacyOfficerEmail,
+  privacyOfficerPhone,
+  privacyOfficerName,
+}: {
+  companyName: string;
+  registryNumber: string;
+  taxNumber: string;
+  companyAddress: string;
+  slug: string;
+  customDomain?: string;
+  privacyOfficerEmail: string;
+  privacyOfficerPhone: string;
+  privacyOfficerName: string;
 }) => {
   return `
   ## Политика за приватност на личните податоци при посета на интернет страната на ${companyName}
   
-  Оваа Политиката за приватност на личните податоци го уредува начинот на кој **${companyName}** ги собира, користи, одржува и открива податоците собрани од корисниците (понатаму: “корисник") при посета на нејзината интернет страната **${slug}.la.mk**, **${
-    customDomain ?? ''
-  }** и поддомените (понатаму: ”интернет страна").
+  Оваа Политиката за приватност на личните податоци го уредува начинот на кој **${companyName}** ги собира, користи, одржува и открива податоците собрани од корисниците (понатаму: “корисник") при посета на нејзината интернет страната **${slug}.la.mk**${
+    customDomain ? `, **${customDomain}**` : ""
+  } и поддомените (понатаму: ”интернет страна").
 
   **${companyName}** е Друштво за производтво, услуги и трговија на големо и мало со Седиште на Ул. ${companyAddress}, со Е.М.Б.С ${registryNumber} и Е.Д.Б ${taxNumber}, (понатаму: „**${companyName}“**)
 
@@ -92,11 +103,11 @@ const getPrivacyPolicy = ({
 
 За какви било прашања околу политиката за приватност и барања за бришење на вашите лични податоци од нашата страна, можете да се обратите кон офицерот за заштита на лични податоци
 
-Офицер за заштита на лични податоци: **${userName}**
+Офицер за заштита на лични податоци: **${privacyOfficerName}**
 
-Телефонски број: **${userPhone}**
+Телефонски број: **${privacyOfficerPhone}**
 
-Електронска пошта: **${userEmail}**
+Електронска пошта: **${privacyOfficerEmail}**
 
 Согласно чл. 16 од Законот за заштита на личните податоци Контролорот нема да постапи по барањето на субјектот на лични податоци согласно со членот 12 од овој закон, кога е овластен согласно со закон и ако личните податоци се обработуваат исклучиво во научно истражување или ако се собрани исклучиво за утврдени статистички цели и се чуваат за период што не го надминува периодот потребен за единствена цел за создавање на статистички податоци.
 
@@ -114,22 +125,22 @@ const getPrivacyPolicy = ({
 `.trim();
 };
 
-const PrivacyPage = ({ store, user }: { store: Store; user: User }) => {
-  const { t } = useTranslation();
-  const title = t('pages.privacy');
+const PrivacyPage = ({ store }: { store: Store }) => {
+  const { t } = useTranslation("translation");
+  const title = t("pages.privacy");
   if (!store.company) {
     return (
       <>
         <Head
-          url={`/legal/privacy`}
+          url={urls.privacyPolicy}
           store={store}
           title={title}
           description={title}
         />
         <Result
-          status='empty'
+          status="empty"
           mt={8}
-          description={t('legal.legalNotAvailable')}
+          description={t("legal.legalNotAvailable")}
         />
       </>
     );
@@ -142,27 +153,46 @@ const PrivacyPage = ({ store, user }: { store: Store; user: User }) => {
     registryNumber: store.company.registryNumber,
     taxNumber: store.company.taxNumber,
     companyAddress: store.company.companyAddress,
-    userEmail: 'contact@la.mk',
-    userPhone: '075 212 495',
-    userName: 'Стевче Радевски',
+    privacyOfficerEmail: "contact@la.mk",
+    privacyOfficerPhone: "075 212 495",
+    privacyOfficerName: "Стевче Радевски",
   });
 
   return (
     <>
       <Head
-        url={`/legal/privacy`}
+        url={urls.privacyPolicy}
         store={store}
         title={title}
         description={getTextSnippet(privacyPolicy)}
       />
-      <LegalContent url='/legal/privacy' title={title} body={privacyPolicy} />
+      <LegalContent
+        url={urls.privacyPolicy}
+        title={title}
+        body={privacyPolicy}
+      />
     </>
   );
 };
 
-PrivacyPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
-  const store = getStore(ctx.store.getState());
-  return { store };
-};
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
+  }
+
+  const queryClient = newClient();
+  await Promise.all(getDefaultPrefetch(queryClient, store));
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default PrivacyPage;

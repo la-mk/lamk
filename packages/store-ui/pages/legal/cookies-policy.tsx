@@ -1,12 +1,15 @@
-import React from 'react';
-import { Head } from '../../src/common/pageComponents/Head';
-import { useTranslation } from '../../src/common/i18n';
-import { LegalContent } from '../../src/components/legal/LegalContent';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { NextPageContext } from 'next';
-import { getTextSnippet } from '../../src/common/utils';
-import { Result } from '@la-mk/blocks-ui';
+import React from "react";
+import { Result } from "@la-mk/blocks-ui";
+import { PageContextWithStore } from "../../hacks/store";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { Store } from "../../domain/store";
+import { Head } from "../../layout/Head";
+import { getTextSnippet } from "../../tooling/text";
+import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getCookiesPolicy = ({
   slug,
@@ -15,12 +18,19 @@ const getCookiesPolicy = ({
   companyAddress,
   registryNumber,
   taxNumber,
+}: {
+  slug: string;
+  customDomain?: string;
+  companyName: string;
+  companyAddress: string;
+  registryNumber: string;
+  taxNumber: string;
 }) => {
   return `
   ## Политика за колачиња на интернет
 
   Оваа Политиката за колачиња на интернет го уредува начинот на кој **${companyName}** ги користи колачињата на интернет (понатаму: “корисник") при посета на нејзината интернет страната **${slug}.la.mk**, **${
-    customDomain ?? ''
+    customDomain ?? ""
   }** и поддомените (понатаму: ”интернет страна").
 
   **${companyName}** е Друштво за производтво, услуги и трговија на големо и мало со Седиште на Ул. ${companyAddress}, со Е.М.Б.С ${registryNumber} и Е.Д.Б ${taxNumber}, (понатаму: „**${companyName}“**)
@@ -56,21 +66,21 @@ const getCookiesPolicy = ({
 };
 
 const CookiesPolicyPage = ({ store }: { store: Store }) => {
-  const { t } = useTranslation();
-  const title = t('pages.cookiesPolicy');
+  const { t } = useTranslation("translation");
+  const title = t("pages.cookiesPolicy");
   if (!store.company) {
     return (
       <>
         <Head
-          url={`/legal/cookies-policy`}
+          url={urls.cookiesPolicy}
           store={store}
           title={title}
           description={title}
         />
         <Result
-          status='empty'
+          status="empty"
           mt={8}
-          description={t('legal.legalNotAvailable')}
+          description={t("legal.legalNotAvailable")}
         />
       </>
     );
@@ -88,13 +98,13 @@ const CookiesPolicyPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/cookiesPolicy`}
+        url={urls.cookiesPolicy}
         store={store}
         title={title}
         description={getTextSnippet(cookiesPolicy)}
       />
       <LegalContent
-        url='/legal/cookies-policy'
+        url={urls.cookiesPolicy}
         title={title}
         body={cookiesPolicy}
       />
@@ -102,11 +112,24 @@ const CookiesPolicyPage = ({ store }: { store: Store }) => {
   );
 };
 
-CookiesPolicyPage.getInitialProps = async (
-  ctx: NextPageContext & { store: any },
-) => {
-  const store = getStore(ctx.store.getState());
-  return { store };
-};
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
+  }
+
+  const queryClient = newClient();
+  await Promise.all(getDefaultPrefetch(queryClient, store));
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default CookiesPolicyPage;

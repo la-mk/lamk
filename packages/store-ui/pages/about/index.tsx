@@ -1,52 +1,70 @@
-import { Head } from '../../src/common/pageComponents/Head';
-import { useTranslation } from '../../src/common/i18n';
-import { sdk } from '@la-mk/la-sdk';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { NextPageContext } from 'next';
-import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
-import { AboutUs } from '../../src/components/aboutUs/AboutUs';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { getTextSnippet } from '../../src/common/utils';
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { Store } from "../../domain/store";
+import { getImageURL } from "../../hacks/imageUrl";
+import { PageContextWithStore } from "../../hacks/store";
+import { Head } from "../../layout/Head";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { useQuery } from "../../sdk/useQuery";
+import { getTextSnippet } from "../../tooling/text";
+import { urls } from "../../tooling/url";
+import { AboutUs } from "../../pageComponents/about/AboutUs";
 
-function AboutPage({
-  store,
-  aboutUs,
-}: {
-  store: Store | undefined;
-  aboutUs: StoreContents['aboutUs'] | undefined;
-}) {
-  const { t } = useTranslation();
+function About({ store }: { store: Store }) {
+  const { t } = useTranslation("translation");
+  const [aboutUs] = useQuery("storeContents", "getAboutUsForStore", [
+    store._id,
+  ]);
+
   return (
     <>
       <Head
-        url={'/about'}
+        url={urls.about}
+        logo={
+          store.logo
+            ? {
+                ...store.logo,
+                defaultUrl: getImageURL(store?.logo?._id, store?._id) ?? "",
+              }
+            : undefined
+        }
         store={store}
-        title={t('pages.aboutUs')}
+        title={t("pages.aboutUs")}
         description={
           getTextSnippet(aboutUs?.description) ??
-          `${t('pages.aboutUs')}, ${store?.name}`
+          `${t("pages.aboutUs")}, ${store?.name}`
         }
       />
-      <AboutUs aboutUs={aboutUs} />
+
+      <AboutUs markdownDescription={aboutUs?.description} />
     </>
   );
 }
 
-AboutPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
-  try {
-    const state = ctx.store.getState();
-    const store = getStore(state);
-    if (!store) {
-      return {};
-    }
-
-    const aboutUs = await sdk.storeContents.getAboutUsForStore(store._id);
-    return { store, aboutUs };
-  } catch (err) {
-    console.log(err);
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
   }
 
-  return {};
-};
+  const queryClient = newClient();
+  await Promise.all([
+    ...getDefaultPrefetch(queryClient, store),
+    queryClient.prefetchQuery("storeContents", "getAboutUsForStore", [
+      store._id,
+    ]),
+  ]);
 
-export default AboutPage;
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
+
+export default About;

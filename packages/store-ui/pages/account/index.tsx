@@ -1,49 +1,63 @@
-import { Head } from '../../src/common/pageComponents/Head';
-import { useSelector } from 'react-redux';
-import { getUser } from '../../src/state/modules/user/user.selector';
-import { Account } from '../../src/components/account/Account';
-import { Result } from '@la-mk/blocks-ui';
-import { useTranslation } from '../../src/common/i18n';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { NextPageContext } from 'next';
-import { getStore } from '../../src/state/modules/store/store.selector';
+import { Result, Spinner } from "@la-mk/blocks-ui";
+import { PageContextWithStore } from "../../hacks/store";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useAuth } from "../../hooks/useAuth";
+import { Head } from "../../layout/Head";
+import { useTranslation } from "next-i18next";
+import { Account } from "../../pageComponents/account/Account";
+import { Store } from "../../domain/store";
+import { urls } from "../../tooling/url";
 
-function AccountPage({ store }: { store: Store | undefined }) {
-  const user = useSelector(getUser);
-  const { t } = useTranslation();
+function AccountPage({ store }: { store: Store }) {
+  const { user, isLoadingUser } = useAuth();
+  const { t } = useTranslation("translation");
+
+  if (isLoadingUser()) {
+    return <Spinner mx="auto" mt={5} isLoaded={false} />;
+  }
 
   if (!user) {
     return (
-      <Result status='empty' mt={8} description={t('auth.noUserInformation')} />
+      <Result status="empty" mt={8} description={t("auth.noUserInformation")} />
     );
   }
 
-  const fullName = `${user.firstName ?? ''} ${user.lastName ?? ''}`;
+  const fullName = `${user.firstName ?? ""} ${user.lastName ?? ""}`;
   const nameDescription = fullName.length < 3 ? user.email : fullName;
 
   return (
     <>
       <Head
-        url={'/account'}
+        url={urls.account}
         store={store}
-        title={t('pages.myAccount')}
-        description={`${t('pages.myAccount')}, ${nameDescription}`}
+        title={t("pages.myAccount")}
+        description={`${t("pages.myAccount")}, ${nameDescription}`}
       />
-      <Account />
+      <Account user={user} />
     </>
   );
 }
 
-AccountPage.getInitialProps = async (ctx: NextPageContext & { store: any }) => {
-  try {
-    const state = ctx.store.getState();
-    const store = getStore(state);
-    return { store };
-  } catch (err) {
-    console.log(err);
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
   }
 
-  return {};
-};
+  const queryClient = newClient();
+  await Promise.all(getDefaultPrefetch(queryClient, store));
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default AccountPage;

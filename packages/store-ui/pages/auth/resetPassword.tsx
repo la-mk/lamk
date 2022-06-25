@@ -1,45 +1,52 @@
-import { NextPageContext } from 'next';
-import { Head } from '../../src/common/pageComponents/Head';
-import { useTranslation } from '../../src/common/i18n';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { ResetPassword } from '../../src/components/auth/ResetPassword';
+import { NextPageContext } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
+import { Store } from "../../domain/store";
+import { PageContextWithStore } from "../../hacks/store";
+import { Head } from "../../layout/Head";
+import { ResetPassword } from "../../pageComponents/auth/ResetPassword";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { urls } from "../../tooling/url";
 
-function ResetPasswordPage({
-  store,
-  resetToken,
-}: {
-  store: Store | undefined;
-  resetToken: string | undefined;
-}) {
-  const { t } = useTranslation();
+function ResetPasswordPage({ store }: { store: Store }) {
+  const { t } = useTranslation("translation");
+  const router = useRouter();
   return (
     <>
       <Head
-        url={`/auth/resetPassword`}
+        url={urls.resetPassword}
         store={store}
-        title={t('auth.resetPassword')}
-        description={`${t('auth.resetPassword')}, ${store?.name}`}
+        title={t("auth.resetPassword")}
+        description={`${t("auth.resetPassword")}, ${store?.name}`}
       />
-      <ResetPassword resetToken={resetToken} />
+
+      <ResetPassword
+        resetToken={router.query.resetToken as string | undefined}
+      />
     </>
   );
 }
 
-ResetPasswordPage.getInitialProps = async (
-  ctx: NextPageContext & { store: any },
-) => {
-  const resetToken = ctx.query?.resetToken;
-
-  try {
-    const state = ctx.store.getState();
-    const store = getStore(state);
-    return { store, resetToken };
-  } catch (err) {
-    console.log(err);
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
   }
 
-  return { resetToken };
-};
+  const queryClient = newClient();
+  await Promise.all(getDefaultPrefetch(queryClient, store));
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default ResetPasswordPage;

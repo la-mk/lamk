@@ -1,17 +1,27 @@
-import React from 'react';
-import { Head } from '../src/common/pageComponents/Head';
-import { Result, Button, Flex } from '@la-mk/blocks-ui';
-import { useSelector } from 'react-redux';
-import Link from 'next/link';
-import { useTranslation } from '../src/common/i18n';
-import { getStore } from '../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
+import React from "react";
+import { Result, Button, Flex } from "@la-mk/blocks-ui";
+import Link from "next/link";
+import { useTranslation } from "next-i18next";
+import { Head } from "../layout/Head";
+import { PageContextWithStore } from "../hacks/store";
+import { Store } from "../domain/store";
+import { urls } from "../tooling/url";
 
-const Error = ({ status, title, description, t }) => {
-  const store: Store = useSelector(getStore);
-
+const Error = ({
+  status,
+  title,
+  description,
+  t,
+  store,
+}: {
+  title: string;
+  status: string;
+  description: string;
+  t: (key: string) => string;
+  store: Store;
+}) => {
   return (
-    <Flex mt={8} direction='column' justify='center'>
+    <Flex mt={8} direction="column" justify="center">
       <Head
         url={`/${status}`}
         store={store}
@@ -19,45 +29,54 @@ const Error = ({ status, title, description, t }) => {
         titlePrefix={status}
         description={description}
       />
-      <Result status={status} title={title} description={description} />
+      <Result status={status as any} title={title} description={description} />
 
-      <Link href='/' passHref>
-        <Button mt={4} as='a' variant='link'>
-          {t('actions.goBack')}
+      <Link href={urls.home} passHref>
+        <Button mt={4} as="a" variant="link">
+          {t("actions.goBack")}
         </Button>
       </Link>
     </Flex>
   );
 };
 
-const ErrorPage = ({ errorCode }: { errorCode: number }) => {
-  const { t } = useTranslation();
+const ErrorPage = ({
+  errorCode,
+  store,
+}: {
+  errorCode: number;
+  store: Store;
+}) => {
+  const { t } = useTranslation("translation");
 
   switch (errorCode) {
     case 200:
     case 404:
       return (
         <Error
-          title={t('results.pageNotFound')}
-          description={t('results.pageNotFoundExplanation')}
-          status='404'
+          store={store}
+          title={t("results.pageNotFound")}
+          description={t("results.pageNotFoundExplanation")}
+          status="404"
           t={t}
         />
       );
     case 500:
       return (
         <Error
-          title={t('results.serverError')}
-          description={t('results.serverErrorExplanation')}
-          status='500'
+          store={store}
+          title={t("results.serverError")}
+          description={t("results.serverErrorExplanation")}
+          status="500"
           t={t}
         />
       );
     default:
       return (
         <Error
-          title={t('results.genericError')}
-          description={t('results.genericError')}
+          store={store}
+          title={t("results.genericError")}
+          description={t("results.genericError")}
           status={errorCode.toString()}
           t={t}
         />
@@ -65,9 +84,9 @@ const ErrorPage = ({ errorCode }: { errorCode: number }) => {
   }
 };
 
-ErrorPage.getInitialProps = ({ res, xhr }) => {
-  const errorCode = res ? res.statusCode : xhr ? xhr.status : null;
-  return { errorCode };
+ErrorPage.getInitialProps = ({ req, res, err }: PageContextWithStore) => {
+  const errorCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { errorCode, store: req.store };
 };
 
 export default ErrorPage;

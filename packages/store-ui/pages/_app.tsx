@@ -1,161 +1,109 @@
-import React from 'react';
-import App, { AppContext, AppInitialProps } from 'next/app';
-import { default as NextHead } from 'next/head';
-import { withRedux } from '../src/state/configureStore';
-import { setStore } from '../src/state/modules/store/store.module';
-import { sdk, setupSdk } from '@la-mk/la-sdk';
-import env from '../src/common/env';
-import { getStore } from '../src/state/modules/store/store.selector';
-import { appWithTranslation } from '../src/common/i18n';
-import { connect } from 'react-redux';
-import memoize from 'mem';
+import type { AppContext, AppProps } from "next/app";
+import App from "next/app";
 
-import { initializeAnalytics } from '../src/common/analytics';
-import { setLandingContent } from '../src/state/modules/storeContents/storeContents.module';
-import { setCategories } from '../src/state/modules/categories/categories.module';
-import { NextPageContext } from 'next';
-import { Integrations } from '../src/common/pageComponents/Integrations';
-import { Main } from '../src/common/pageComponents/Main';
+import { appWithTranslation } from "next-i18next";
+import { Hydrate, QueryClientProvider } from "react-query";
+import React, { useState } from "react";
+import { useTranslation } from "next-i18next";
+import { sdk, setupSdk } from "../sdk/sdk";
+import { ThemeProvider } from "../layout/ThemeProvider";
+import { CookiesProvider } from "../layout/CookiesProvider";
+import { newClient } from "../sdk/queryClient";
+import { envvars, loadEnv } from "../tooling/env";
+import { StoreNotFound } from "../layout/StoreNotFound";
+import { StoreLayout } from "../layout/StoreLayout";
+import { getStoreFromHost } from "../hacks/dns";
+import { Store } from "../domain/store";
+import Head from "next/head";
+import { Integrations } from "../integrations/Integrations";
+import { injectStoreInContext } from "../hacks/store";
+import { getImageURL } from "../hacks/imageUrl";
+import { AuthProvider } from "../layout/Auth/AuthProvider";
+import { analytics, initializeAnalytics } from "../tooling/analytics";
 
-const getSlugForCustomDomain = async (host: string) => {
-  const laStoreResult = await sdk.store.find({ query: { customDomain: host } });
-  if (laStoreResult.total === 0) {
-    throw new Error('Store not found');
+function MyApp({
+  Component,
+  pageProps,
+  store,
+}: AppProps & { store: Store | null }) {
+  const [queryClient] = useState(() => newClient());
+  const { t } = useTranslation("translation");
+  // The SDK is a singleton, so it's safe to do this check
+  if (!sdk) {
+    loadEnv();
+    setupSdk({
+      transport: "rest",
+      apiEndpoint: envvars.API_ENDPOINT,
+      imagesEndpoint: envvars.ARTIFACTS_ENDPOINT,
+      imagesProxyEndpoint: envvars.IMAGES_PROXY_ENDPOINT,
+    });
   }
 
-  if (laStoreResult.total > 1) {
-    console.error(`Multiple stores with the domain ${host} found`);
-    throw new Error('Found multiple stores with the same domain.');
+  // We only want to enable analytics in the browser
+  if (!analytics && typeof window !== "undefined") {
+    initializeAnalytics();
   }
 
-  return laStoreResult.data[0];
-};
-
-// Cache for 30 min, since custom domains will rarely change.
-const memoizedGetSlugForCustomDomain = memoize(getSlugForCustomDomain, {
-  maxAge: 30 * 60 * 1000,
-});
-
-const stripWww = (host: string) => {
-  if (host.startsWith('www')) {
-    return host.substring(4);
-  }
-
-  return host;
-};
-
-const getStoreFromHost = (host: string) => {
-  const normalizedHost = stripWww(host);
-  const tld = normalizedHost.substr(normalizedHost.indexOf('.') + 1);
-  const serverTld = env.API_ENDPOINT.substr(env.API_ENDPOINT.indexOf('.') + 1);
-
-  if (tld !== serverTld) {
-    return memoizedGetSlugForCustomDomain(host);
-  }
-
-  const slug = normalizedHost.substr(0, normalizedHost.indexOf('.'));
-  if (!slug) {
-    throw new Error('Store not found');
-  }
-
-  return sdk.store.getBySlug(slug).catch(err => {
-    console.log(err);
-    return null;
-  });
-};
-
-const setInitialDataInState = async (ctx: NextPageContext) => {
-  // If it is SSR, fetch the store information, otherwise it should be in redux already.
-  if (ctx.req) {
-    const host: string = ctx.req.headers.host;
-    if (!host) {
-      throw new Error('Store request misconfigured');
-    }
-
-    const laStore = await getStoreFromHost(host);
-    if (!laStore) {
-      return;
-    }
-
-    // These are shown in the navbar, so they are esentially needed on every page.
-    const [landingContent, categoriesResult] = await Promise.all([
-      sdk.storeContents.getLandingContentForStore(laStore._id),
-      sdk.storeCategory.findForStore(laStore._id),
-    ]);
-
-    ctx.store.dispatch(setStore(laStore));
-    ctx.store.dispatch(setLandingContent(landingContent));
-    ctx.store.dispatch(setCategories(categoriesResult.data));
-  }
-};
-
-class MyApp extends App<AppInitialProps> {
-  public static getInitialProps = async ({ Component, ctx }: AppContext) => {
-    await setInitialDataInState(ctx);
-
-    return {
-      pageProps: {
-        // Call page-level getInitialProps
-        ...(Component.getInitialProps
-          ? await Component.getInitialProps(ctx)
-          : {}),
-        // Some custom thing for all pages
-      },
-    };
-  };
-
-  render() {
-    // @ts-ignore
-    const { Component, pageProps, laStore } = this.props;
-
-    // Initialize analytics and only in the browser for now.
-    if (process.browser && laStore?.slug) {
-      initializeAnalytics(laStore.slug);
-    }
-
-    // This makes sure the sdk is available on the client-side as well.
-    if (!sdk) {
-      setupSdk({
-        transport: 'rest',
-        apiEndpoint: env.API_ENDPOINT,
-        imagesEndpoint: env.ARTIFACTS_ENDPOINT,
-        imagesProxyEndpoint: env.IMAGES_PROXY_ENDPOINT,
-      });
-    }
-
-    return (
-      <>
-        {laStore && (
-          <NextHead>
+  return (
+    <ThemeProvider brandColor={store?.color ?? "#EF4351"}>
+      {!!store ? (
+        <>
+          <Head>
             <link
-              rel='shortcut icon'
-              href={sdk.artifact.getUrlForImage(
-                laStore.logo?._id,
-                laStore._id,
-                {
+              rel="shortcut icon"
+              href={
+                getImageURL(store.logo?._id ?? "", store._id, {
                   h: 128,
-                },
-              )}
+                }) ?? ""
+              }
             />
-          </NextHead>
-        )}
+          </Head>
 
-        <Main laStore={laStore}>
-          {laStore ? <Component {...pageProps} /> : null}
-        </Main>
-        <Integrations store={laStore} />
-      </>
-    );
-  }
+          <CookiesProvider
+            necessaryTitle={t("common.necessary")}
+            analyticsTitle={t("common.analytics")}
+          >
+            <QueryClientProvider client={queryClient._qc}>
+              <Hydrate state={pageProps.dehydratedState}>
+                <AuthProvider store={store}>
+                  <>
+                    <StoreLayout store={store}>
+                      <Component {...pageProps} store={store} />
+                    </StoreLayout>
+                    <Integrations store={store} />
+                  </>
+                </AuthProvider>
+              </Hydrate>
+            </QueryClientProvider>
+          </CookiesProvider>
+        </>
+      ) : (
+        <StoreNotFound />
+      )}
+    </ThemeProvider>
+  );
 }
 
-// We initialize the redux store, which will add the `store` prop to the context object.
-export default withRedux(
-  appWithTranslation(
-    connect(state => {
-      return {
-        laStore: getStore(state),
-      };
-    })(MyApp),
-  ),
-);
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  if (appContext.ctx.req) {
+    let host = appContext.ctx.req.headers.host;
+    if (!host) {
+      throw new Error("Store request misconfigured");
+    }
+
+    // If we are running the store UI locally, get it from the enviornment
+    host = envvars.DEV_STORE_URL || host;
+    const store = await getStoreFromHost(
+      host,
+      envvars.API_ENDPOINT,
+      sdk.store.getBySlug,
+      sdk.store.getByDomain
+    );
+
+    injectStoreInContext(store, appContext);
+    const appProps = await App.getInitialProps(appContext);
+    return { ...appProps, store };
+  }
+};
+
+export default appWithTranslation(MyApp);

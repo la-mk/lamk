@@ -6,16 +6,16 @@ npm config set unsafe-perm true
 
 chksum1=""
 while [[ true ]]; do
-    chksum2=$(cat package-lock.json | md5sum | cut -d " " -f 1);
+    chksum2=$(cat yarn.lock | md5sum | cut -d " " -f 1);
     if [[ "$chksum1" != "$chksum2" ]] ; then 
         if [[ ! -z "$chksum1" ]]; 
         then 
           echo "Killing application and installing new dependencies...";
           pkill -f node;
-          npm install --no-package-lock;
+          yarn install --no-lockfile;
         fi
         echo "Starting application...";
-        npm run dev &
+        yarn run dev &
         chksum1=$chksum2
         echo "Waiting for changes ...\n"
     fi

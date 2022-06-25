@@ -1,53 +1,91 @@
-import { sdk } from '@la-mk/la-sdk';
-import { FilterObject } from '@la-mk/blocks-ui/dist/hooks/useFilter';
-import { utils } from '@la-mk/blocks-ui';
-import { Product } from '@la-mk/la-sdk/dist/models/product';
-import { Head } from '../../src/common/pageComponents/Head';
-import { Products } from '../../src/components/products/Products';
-import { NextPageContext } from 'next';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { useTranslation } from '../../src/common/i18n';
-import { FindResult } from '@la-mk/la-sdk/dist/setup';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
+import React from "react";
+import { PageContextWithStore } from "../../hacks/store";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { Store } from "../../domain/store";
+import { Head } from "../../layout/Head";
+import { hooks, utils } from "@la-mk/blocks-ui";
+import { useQuery } from "../../sdk/useQuery";
+import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
+import { filterRouter, urls } from "../../tooling/url";
+import { Products } from "../../pageComponents/products/Products";
 
 function ProductsPage({
-  products,
-  filters,
+  initialFilters,
   store,
 }: {
-  products: FindResult<Product>;
-  filters: FilterObject;
-  store: Store | undefined;
+  initialFilters: FilterObject;
+  store: Store;
 }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
+  // TODO: There is no clear way to reset filters that are not part of the sidemenu as of now, nor filters that don't apply when searching.
+  const [filters, setFilters] = hooks.useFilter(initialFilters, {
+    storage: "url",
+    router: filterRouter,
+  });
+
+  const [products, isLoadingProducts] = useQuery(
+    "product",
+    "findForStore",
+    [store._id, utils.filter.filtersAsQuery(filters)],
+    { keepPreviousData: true }
+  );
+
+  const [categories, isLoadingCategories] = useQuery(
+    "storeCategory",
+    "findForStore",
+    [store._id]
+  );
 
   return (
     <>
       <Head
-        url={'/products'}
+        url={urls.products}
         store={store}
-        title={t('pages.product_plural')}
-        description={t('seoDescriptions.product_plural')}
+        title={t("pages.product_plural")}
+        description={t("seoDescriptions.product_plural")}
       />
-      <Products initialProducts={products} initialFilters={filters} />
+      <Products
+        categories={categories?.data ?? []}
+        store={store}
+        totalProducts={products?.total ?? 0}
+        products={products?.data ?? []}
+        isLoadingProducts={isLoadingProducts || isLoadingCategories}
+        filters={filters}
+        setFilters={setFilters}
+      />
     </>
   );
 }
 
-ProductsPage.getInitialProps = async (
-  ctx: NextPageContext & { store: any },
-) => {
-  const store = getStore(ctx.store.getState());
-  const parsedFilters = utils.filter.parseFiltersUrl(ctx.asPath);
-  const query = utils.filter.filtersAsQuery(parsedFilters);
-  try {
-    const products = await sdk.product.findForStore(store._id, query);
-    return { store, products: products, filters: parsedFilters };
-  } catch (err) {
-    console.log(err);
+export async function getServerSideProps({
+  locale,
+  req: { store, url },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
   }
 
-  return { store, products: { data: [] }, filters: parsedFilters };
-};
+  const parsedFilters = utils.filter.parseFiltersUrl(url ?? "");
+  const query = utils.filter.filtersAsQuery(parsedFilters);
+
+  const queryClient = newClient();
+  await Promise.all([
+    ...getDefaultPrefetch(queryClient, store),
+    queryClient.prefetchQuery("product", "findForStore", [store._id, query]),
+  ]);
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+      //FUTURE: We want to remove undefined as nextjs complains, this is the easiest (but not the most performant) way.
+      initialFilters: JSON.parse(JSON.stringify(parsedFilters)),
+    },
+  };
+}
 
 export default ProductsPage;

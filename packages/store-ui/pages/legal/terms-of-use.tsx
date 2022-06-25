@@ -1,12 +1,15 @@
-import React from 'react';
-import { Head } from '../../src/common/pageComponents/Head';
-import { useTranslation } from '../../src/common/i18n';
-import { LegalContent } from '../../src/components/legal/LegalContent';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { NextPageContext } from 'next';
-import { getTextSnippet } from '../../src/common/utils';
-import { Result } from '@la-mk/blocks-ui';
+import React from "react";
+import { Result } from "@la-mk/blocks-ui";
+import { PageContextWithStore } from "../../hacks/store";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { Store } from "../../domain/store";
+import { Head } from "../../layout/Head";
+import { getTextSnippet } from "../../tooling/text";
+import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getTermsOfUse = ({
   storeName,
@@ -16,13 +19,21 @@ const getTermsOfUse = ({
   companyAddress,
   slug,
   customDomain,
+}: {
+  storeName: string;
+  companyName: string;
+  registryNumber: string;
+  taxNumber: string;
+  companyAddress: string;
+  slug: string;
+  customDomain?: string;
 }) => {
   return `
 # Термини и услови:
 Оваа интернет страна, со домеин ${slug}.la.mk, ${
-    customDomain ?? ''
+    customDomain ?? ""
   } во сопственост на Друштво за производтво, услуги и трговија на големо и мало ${companyName} со седиште: ${companyAddress} и Е.М.Б.С ${registryNumber}, Е.Д.Б ${taxNumber}, е сервис создаден за корисниците со цел да овозможи пребарување, споредба и/или купување на производи и услуги. Како посетител и корисник, Ви даваме до знаење дека употребата на содржините на страната, како и направените трансакции, се предмет на одредени услови и правила, за што Ве замолуваме пред користење на страната ${slug}.la.mk, ${
-    customDomain ?? ''
+    customDomain ?? ""
   } внимателно да ги прочитате. ${companyName} не превзема никаква одговорност доколку корисникот ги нема прочитано условите и правилата за користење и купување.
 
 
@@ -40,7 +51,7 @@ ${storeName} го задржува правото да објавува нази
 
 # Политика на приватност:
 Со Политикатата на приватност, ќе ви појасниме каде и како се чуваат личните податоци на сите регистрирани купувачи на нашата интернет страна. Оваа политика на приватност се однесува само за ${slug}.la.mk, ${
-    customDomain ?? ''
+    customDomain ?? ""
   } и поддомените. Доколку е присутен линк кој ќе Ве поврзе со други страни, ние не превземаме никаква одговорност во однос на заштитата на личните податоци која ја обезбедуваат тие интернет страни.
 
 Секој корисник при регистрација и купување, изјавува дека е запознаен и се согласува со нашата Политика на приватност. Доколку се регистрирате, сите лични податоци кои ќе ги внесете преку формата за регистрација, ќе се користат за потребите за достава на производот, реализација на плаќањето, како и за рекламирање на производи и услуги обезбедени од наша страна, доколку ја имате избрано оваа опција, а се чуваат согласно одредбите од Законот за заштита на лични податоци и не се отстапуваат на трети страни.
@@ -53,15 +64,15 @@ ${storeName} го задржува правото да објавува нази
 Податоците кои ги собираме и се чуваат кај нас, нема да се објавуваат, продаваат или доставуваат на трета страна освен на надлежните органи на начин определен со законските прописи на Република Македонија. ${storeName} го задржува правото да ги користи IP aдресите и другите податоци на корисниците за откривање на нивниот идентитет во случај на спроведување на законот и законските постапки. Во секој момент може да извршите промена, ажурирање или корекција на Вашите неточни лични податоци и информации.
 
 ${companyName} има усвоена политика за сигурност и заштита на податоци, со што ја демонстрира посветеноста на нашата фирма кон заштитата на приватноста на клиентите. Со исклучок на податоците од финансиска природа, сите информации кои ги собираме од веб страната се исклучиво за наша употреба (релација со корисници, следење на нарачка итн.) и истите не се предаваат на други лица за било каков основ. Не собираме никакви информации од финансиска природа, како број на картичка и сл. Податоците околу кредитната картичка и банкарската сметка ќе бидат чувани и користени исклучиво од страна на банката со цел наплата на продуктите/нарачките преку извршување на трансакција. Трансакцијата при наплаќање на производот е пренасочена и се процесира преку порталот за наплата од кредитни картички на банката. Порталот користи современа заштита на податоците и сите процеси се одвиваат преку сигурна конекција со банката. Малолетни лица не смеат да даваат лични податоци без одобрение од нивните родители или старатели и се обврзуваме дека нема намерно да собираме или користиме податоци од малолетни лица. Ги превземаме сите заштитни мерки за заштита на личните податоци на купувачите со цел да се минимизира ризикот од неовластен пристап и злоупотреба на истите. Оваа политика на приватност стапува на сила од Јануари 2020 година. Промените во политиката на приватност ќе бидат јавно објавени на интернет странатa ${slug}.la.mk, ${
-    customDomain ?? ''
+    customDomain ?? ""
   } најмалку 10 дена пред да стапат во сила.
 
 
 # Услови и правила за купување:
 Цените на сите производи на ${slug}.la.mk, ${
-    customDomain ?? ''
+    customDomain ?? ""
   } се изразени во денари со вклучен ДДВ. ${companyName} го задржува правото за промена на цените, во согласност со политиката на компанијата, без известување за корисниците. Корекција на цената нема да биде извршена ако нарачката е прифатена. Купувачот се обврзува да ја плати цената, која е понудена во моментот на извршување на нарачката, независно од фактот што цената може да биде променета во меѓувреме. За купување на производи преку ${slug}.la.mk, ${
-    customDomain ?? ''
+    customDomain ?? ""
   } важат редовните малопродажни цени. Сите попусти, промоции и специјални промотивни пакет производи кои не се изразени на онлајн продавницата, важат искучиво за извршено купување во малопродажните објекти на ${storeName}.
 
 Количините на производите се ограничени. Согласно тоа, одредена нарачка може да биде откажана поради исцрпување на залихите.
@@ -102,21 +113,21 @@ ${companyName} има усвоена политика за сигурност и
 };
 
 const TermsOfUsePage = ({ store }: { store: Store }) => {
-  const { t } = useTranslation();
-  const title = t('pages.termsOfUse');
+  const { t } = useTranslation("translation");
+  const title = t("pages.termsOfUse");
   if (!store.company) {
     return (
       <>
         <Head
-          url={`/legal/terms-of-use`}
+          url={urls.termsOfUse}
           store={store}
           title={title}
           description={title}
         />
         <Result
-          status='empty'
+          status="empty"
           mt={8}
-          description={t('legal.legalNotAvailable')}
+          description={t("legal.legalNotAvailable")}
         />
       </>
     );
@@ -135,21 +146,34 @@ const TermsOfUsePage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/terms-of-use`}
+        url={urls.termsOfUse}
         store={store}
         title={title}
         description={getTextSnippet(termsOfUse)}
       />
-      <LegalContent url='/legal/terms-of-use' title={title} body={termsOfUse} />
+      <LegalContent url={urls.termsOfUse} title={title} body={termsOfUse} />
     </>
   );
 };
 
-TermsOfUsePage.getInitialProps = async (
-  ctx: NextPageContext & { store: any },
-) => {
-  const store = getStore(ctx.store.getState());
-  return { store };
-};
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
+  }
+
+  const queryClient = newClient();
+  await Promise.all(getDefaultPrefetch(queryClient, store));
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default TermsOfUsePage;

@@ -1,57 +1,70 @@
-import React from 'react';
-import { NextPageContext } from 'next';
-import { sdk } from '@la-mk/la-sdk';
-import { Head } from '../../src/common/pageComponents/Head';
-import { Product as ProductType } from '@la-mk/la-sdk/dist/models/product';
-import { Product } from '../../src/components/products/Product';
-import { Result } from '@la-mk/blocks-ui';
-import { useTranslation } from '../../src/common/i18n';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { transliterate } from '@la-mk/nlp';
-import { TFunction } from 'next-i18next';
+import React from "react";
+import { Result, Spinner } from "@la-mk/blocks-ui";
+import { transliterate } from "@la-mk/nlp";
+import { TFunction, useTranslation } from "next-i18next";
+import { Product as ProductType } from "../../domain/product";
+import { Store } from "../../domain/store";
+import { useAuth } from "../../hooks/useAuth";
+import { Head } from "../../layout/Head";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { PageContextWithStore } from "../../hacks/store";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useQuery } from "../../sdk/useQuery";
+import { getImageURL } from "../../hacks/imageUrl";
+import { Product } from "../../pageComponents/products/Product";
+import { useRouter } from "next/router";
+import { useCart } from "../../hooks/useCart";
+import { urls } from "../../tooling/url";
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 const getProductSummary = (
   product: ProductType,
   store: Store,
-  t: TFunction,
+  t: TFunction
 ) => {
-  const partialDescription = product.description?.slice(0, 130);
-  const transliteratedName = transliterate(product.name, 'mk', 'en').replace(
-    '\n',
-    ' ',
+  const partialDescription = product.description?.slice(0, 130) ?? product.name;
+  const transliteratedName = transliterate(product.name, "mk", "en").replace(
+    "\n",
+    " "
   );
 
-  return `${partialDescription ?? ''}, ${t('common.price')}: ${
+  return `${partialDescription ?? ""}, ${t("common.price")}: ${
     product.minCalculatedPrice
   } ${t(
-    `currencies.${store.preferences.currency ?? 'mkd'}`,
+    `currencies.${store.preferences?.currency ?? "mkd"}`
   )}. ${transliteratedName}`;
 };
 
-const ProductPage = ({
-  product,
-  store,
-}: {
-  product: ProductType;
-  store: Store | undefined;
-}) => {
-  const { t } = useTranslation();
+const ProductPage = ({ store }: { store: Store }) => {
+  const { t } = useTranslation("translation");
+  const router = useRouter();
+  const productId = router.query.pid as string;
+
+  const { user } = useAuth();
+  const { cart, addToCart } = useCart(store, user, t);
+  const [product, isLoadingProduct] = useQuery("product", "get", [productId]);
+  const [delivery, isLoadingDelivery] = useQuery("delivery", "findForStore", [
+    store._id,
+  ]);
+
+  if (isLoadingProduct || isLoadingDelivery) {
+    return <Spinner mx="auto" mt={5} isLoaded={false} />;
+  }
 
   if (!product) {
     return (
       <>
         <Head
-          url={`/products`}
+          url={urls.products}
           store={store}
-          title={t('results.pageNotFound')}
-          description={t('results.productNotFound')}
+          title={t("results.pageNotFound")}
+          description={t("results.productNotFound")}
         />
         <Result
-          status='empty'
+          status="empty"
           mt={8}
-          description={t('results.productNotFound')}
+          description={t("results.productNotFound")}
         />
       </>
     );
@@ -60,12 +73,15 @@ const ProductPage = ({
   return (
     <>
       <Head
-        url={`/products/${product._id}`}
+        url={`${urls.products}/${product._id}`}
         store={store}
         title={product.name}
         description={getProductSummary(product, store, t)}
-        images={product.media.map(mediaFile => ({
-          url: sdk.artifact.getUrlForImage(mediaFile._id, store._id, {
+        images={product.media.map((mediaFile) => ({
+          _id: mediaFile._id,
+          size: mediaFile.size,
+          mimeType: mediaFile.mimeType,
+          url: getImageURL(mediaFile._id, store._id, {
             h: 300,
           }),
           height: mediaFile.height,
@@ -75,32 +91,52 @@ const ProductPage = ({
           productName: product.name,
           description: product.description,
           aggregateOffer: {
-            priceCurrency: (store.preferences.currency ?? 'mkd').toUpperCase(),
-            lowPrice: product.minCalculatedPrice.toFixed(2),
-            highPrice: product.maxCalculatedPrice.toFixed(2),
+            priceCurrency: (store.preferences?.currency ?? "mkd").toUpperCase(),
+            lowPrice: (product.minCalculatedPrice ?? 0).toFixed(2),
+            highPrice: (product.maxCalculatedPrice ?? 0).toFixed(2),
             offerCount: product.variants.length.toString(),
           },
         }}
       />
-      <Product product={product} />
+
+      <Product
+        isLoadingProduct={isLoadingProduct || isLoadingDelivery}
+        store={store}
+        cart={cart}
+        delivery={delivery?.data?.[0]}
+        product={product}
+        addToCart={(attributes, quantity) =>
+          addToCart(product, attributes, quantity)
+        }
+      />
     </>
   );
 };
 
-ProductPage.getInitialProps = async function (
-  ctx: NextPageContext & { store: any },
-) {
-  const store = getStore(ctx.store.getState());
-
-  if (ctx.query.pid) {
-    const product = await sdk.product
-      .get(ctx.query.pid as string)
-      .catch(err => console.log(err));
-
-    return { product, store };
+export async function getServerSideProps({
+  locale,
+  query,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
   }
 
-  return { product: null, store };
-};
+  const { pid } = query;
+  const queryClient = newClient();
+  await Promise.all([
+    ...getDefaultPrefetch(queryClient, store),
+    queryClient.prefetchQuery("product", "get", [pid as string]),
+    queryClient.prefetchQuery("delivery", "findForStore", [store._id]),
+  ]);
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default ProductPage;

@@ -117,7 +117,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: registry.digitalocean.com/lamk/store-ui:1.0.170
+    image: registry.digitalocean.com/lamk/store-ui:2.0.0
     container_name: store-ui
     restart: always
     networks:
@@ -155,13 +155,12 @@ services:
       - traefik.http.routers.custom-domain.tls.domains[0].sans=${CUSTOM_DOMAINS}
 
     environment:
-      API_ENDPOINT: https://api.${SYSTEM_TLD}
-      ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
-      IMAGES_PROXY_ENDPOINT: https://${IMAGES_PROXY_ENDPOINT}
-      ANALYTICS_TRACKING_ID: $ANALYTICS_TRACKING_ID
+      NEXT_PUBLIC_API_ENDPOINT: https://api.${SYSTEM_TLD}
+      NEXT_PUBLIC_ARTIFACTS_ENDPOINT: https://artifacts.${SYSTEM_TLD}
+      NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT: https://${IMAGES_PROXY_ENDPOINT}
+      NEXT_PUBLIC_ANALYTICS_TRACKING_ID: $ANALYTICS_TRACKING_ID
+      NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
       PORT: 80
-      NESTPAY_GATEWAY_ENDPOINT: $NESTPAY_GATEWAY_ENDPOINT
-
   backstore-ui:
     image: registry.digitalocean.com/lamk/backstore-ui:1.0.128
     container_name: backstore-ui

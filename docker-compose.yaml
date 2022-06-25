@@ -126,7 +126,7 @@ services:
       HOST: "lamk.dev"
       JWT_SECRET: "1234dev"
       MONGODB_DB_NAME: db
-      MONGODB_CONNECTION_STRING: "mongodb+srv://dev-user:ou1ewM4eGQH1lxLq@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
+      MONGODB_CONNECTION_STRING: "mongodb+srv://dev-user:CWEgl49Y6PbtywQu@dev-6oiee.mongodb.net/test?retryWrites=true&w=majority"
       STORAGE_BUCKET_NAME: dev-bucket
       STORAGE_ENDPOINT: "artifacts.lamk.dev"
       STORAGE_ACCESS_KEY_ID: minio
@@ -169,16 +169,17 @@ services:
       - traefik.http.services.store-ui.loadbalancer.server.port=80
       - traefik.http.routers.store-ui.tls=true
     environment:
-      GPR_TOKEN: $GPR_TOKEN
-      API_ENDPOINT: "https://api.lamk.dev"
-      # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
-      ARTIFACTS_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
-      IMAGES_PROXY_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
-      ANALYTICS_TRACKING_ID: "90f6dff8cd68254f0bcdedcc33ab7a14"
-      PORT: 80
-      NESTPAY_GATEWAY_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate"
       # This is DANGEROUS if used in production, as it disables any certificate checks. Its fine for the devenv though, as node doesn't use the rootCA defined on the machine, so when we make requests to other *.lamk.dev services from within the service it fails.
       NODE_TLS_REJECT_UNAUTHORIZED: 0
+      GPR_TOKEN: $GPR_TOKEN
+      PORT: 80
+      NEXT_PUBLIC_API_ENDPOINT: "https://api.lamk.dev"
+      # The bucket name is required for minio, but the CDN URL in production points to the bucket, not to the storage.
+      NEXT_PUBLIC_ARTIFACTS_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
+      NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT: "https://artifacts.lamk.dev/dev-bucket"
+      NEXT_PUBLIC_ANALYTICS_TRACKING_ID: "90f6dff8cd68254f0bcdedcc33ab7a14"
+      NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate"
+      NEXT_PUBLIC_NODE_ENV: "development"
 
   backstore-ui:
     image: lamk/backstore-ui-dev

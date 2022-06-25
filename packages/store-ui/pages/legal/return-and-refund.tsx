@@ -1,14 +1,17 @@
-import React from 'react';
-import { Head } from '../../src/common/pageComponents/Head';
-import { useTranslation } from '../../src/common/i18n';
-import { LegalContent } from '../../src/components/legal/LegalContent';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { NextPageContext } from 'next';
-import { getTextSnippet } from '../../src/common/utils';
-import { Result } from '@la-mk/blocks-ui';
+import React from "react";
+import { Result } from "@la-mk/blocks-ui";
+import { PageContextWithStore } from "../../hacks/store";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { Store } from "../../domain/store";
+import { Head } from "../../layout/Head";
+import { getTextSnippet } from "../../tooling/text";
+import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
-const getReturnAndRefundPolicy = ({ storeName }) => {
+const getReturnAndRefundPolicy = ({ storeName }: { storeName: string }) => {
   return `
 Потрошувачот има право во ${storeName} да го замени или врати производот што има соодветен квалитет, а што не одговара во однос на формата, големината, моделот, бојата, бројот или од други причини, освен во случај на купен производ изготвен по нарачка од потрошувачот врз основа на писмен договор, што е во согласност со член 50 од Законот за заштита на потрошувачите.
 
@@ -26,21 +29,21 @@ const getReturnAndRefundPolicy = ({ storeName }) => {
 };
 
 const ReturnAndRefundPage = ({ store }: { store: Store }) => {
-  const { t } = useTranslation();
-  const title = t('pages.returnAndRefund');
+  const { t } = useTranslation("translation");
+  const title = t("pages.returnAndRefund");
   if (!store.company) {
     return (
       <>
         <Head
-          url={`/legal/return-and-refund`}
+          url={urls.returnsAndRefunds}
           store={store}
           title={title}
           description={title}
         />
         <Result
-          status='empty'
+          status="empty"
           mt={8}
-          description={t('legal.legalNotAvailable')}
+          description={t("legal.legalNotAvailable")}
         />
       </>
     );
@@ -53,13 +56,13 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/return-and-refund`}
+        url={urls.returnsAndRefunds}
         store={store}
         title={title}
         description={getTextSnippet(returnAndRefundPolicy)}
       />
       <LegalContent
-        url='/legal/return-and-refund'
+        url={urls.returnsAndRefunds}
         title={title}
         body={returnAndRefundPolicy}
       />
@@ -67,11 +70,24 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
   );
 };
 
-ReturnAndRefundPage.getInitialProps = async (
-  ctx: NextPageContext & { store: any },
-) => {
-  const store = getStore(ctx.store.getState());
-  return { store };
-};
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
+  }
+
+  const queryClient = newClient();
+  await Promise.all(getDefaultPrefetch(queryClient, store));
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default ReturnAndRefundPage;

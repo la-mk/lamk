@@ -1,12 +1,15 @@
-import React from 'react';
-import { Head } from '../../src/common/pageComponents/Head';
-import { useTranslation } from '../../src/common/i18n';
-import { LegalContent } from '../../src/components/legal/LegalContent';
-import { getStore } from '../../src/state/modules/store/store.selector';
-import { Store } from '@la-mk/la-sdk/dist/models/store';
-import { NextPageContext } from 'next';
-import { getTextSnippet } from '../../src/common/utils';
-import { Result } from '@la-mk/blocks-ui';
+import React from "react";
+import { Result } from "@la-mk/blocks-ui";
+import { PageContextWithStore } from "../../hacks/store";
+import { getProps, newClient } from "../../sdk/queryClient";
+import { getDefaultPrefetch } from "../../sdk/defaults";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { Store } from "../../domain/store";
+import { Head } from "../../layout/Head";
+import { getTextSnippet } from "../../tooling/text";
+import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { urls } from "../../tooling/url";
 
 const getGeneralRules = ({
   storeName,
@@ -14,6 +17,12 @@ const getGeneralRules = ({
   registryNumber,
   taxNumber,
   companyAddress,
+}: {
+  storeName: string;
+  companyName: string;
+  registryNumber: string;
+  taxNumber: string;
+  companyAddress: string;
 }) => {
   return `
 Како би ги задоволиле Вашите потреби и барања, ${storeName} ќе се залага за достапност на својата интернет страна 24 часа во денот. Во случај на привремена недостапност односно прекин на интернет страната поради технички или надворешни влијанија надвор од контролата на ${storeName}, не превземаме никаква одговорност и не гарантираме постојан пристап.
@@ -30,21 +39,21 @@ const getGeneralRules = ({
 };
 
 const GeneralRulesPage = ({ store }: { store: Store }) => {
-  const { t } = useTranslation();
-  const title = t('pages.generalRules');
+  const { t } = useTranslation("translation");
+  const title = t("pages.generalRules");
   if (!store.company) {
     return (
       <>
         <Head
-          url={`/legal/general-rules`}
+          url={urls.generalRules}
           store={store}
           title={title}
           description={title}
         />
         <Result
-          status='empty'
+          status="empty"
           mt={8}
-          description={t('legal.legalNotAvailable')}
+          description={t("legal.legalNotAvailable")}
         />
       </>
     );
@@ -61,25 +70,34 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
   return (
     <>
       <Head
-        url={`/legal/general-rules`}
+        url={urls.generalRules}
         store={store}
         title={title}
         description={getTextSnippet(generalRules)}
       />
-      <LegalContent
-        url='/legal/general-rules'
-        title={title}
-        body={generalRules}
-      />
+      <LegalContent url={urls.generalRules} title={title} body={generalRules} />
     </>
   );
 };
 
-GeneralRulesPage.getInitialProps = async (
-  ctx: NextPageContext & { store: any },
-) => {
-  const store = getStore(ctx.store.getState());
-  return { store };
-};
+export async function getServerSideProps({
+  locale,
+  req: { store },
+}: PageContextWithStore) {
+  if (!store) {
+    return { props: {} };
+  }
+
+  const queryClient = newClient();
+  await Promise.all(getDefaultPrefetch(queryClient, store));
+
+  return {
+    props: {
+      ...getProps(queryClient),
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
+    },
+  };
+}
 
 export default GeneralRulesPage;
