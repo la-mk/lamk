@@ -1,21 +1,7 @@
 import { css, Global } from "@emotion/react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { sdk, setupSdk } from "../sdk/sdk";
-import { envvars, loadEnv } from "../tooling/env";
-
 export default class MyDocument extends Document {
   render() {
-    // This makes the sdk available on the server
-    if (!sdk) {
-      loadEnv();
-      setupSdk({
-        transport: "rest",
-        apiEndpoint: envvars.API_ENDPOINT,
-        imagesEndpoint: envvars.ARTIFACTS_ENDPOINT,
-        imagesProxyEndpoint: envvars.IMAGES_PROXY_ENDPOINT,
-      });
-    }
-
     return (
       <Html prefix="og: https://ogp.me/ns#">
         <Head>

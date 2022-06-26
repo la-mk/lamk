@@ -91,8 +91,6 @@ export const useAnalytics = (storeId: string) => {
       if (!sessionInfo) {
         return;
       }
-
-      console.log(location.href, sessionInfo.previousPage);
       // Reset the time on every navigation.
       sessionInfo.startTimestamp = Date.now();
       sessionInfo.previousPage = location.href;

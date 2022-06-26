@@ -44,7 +44,6 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
     [store._id]
   );
 
-  const isBrowser = typeof window !== "undefined";
   const transaction = paymentResponse?.data?.transactions?.[0];
   const transactionStatus = transaction?.status;
 
@@ -202,7 +201,7 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
             </>
           )}
 
-          {isBrowser && order && paymentMethods?.data?.[0] && !paymentResponse && (
+          {order && paymentMethods?.data?.[0] && !paymentResponse && (
             <>
               <PaymentForm
                 target={frameName}

@@ -28,20 +28,6 @@ export const AccountMenu = ({
   const { t } = useTranslation("translation");
   const theme = useTheme();
   const ownTheme = theme.sections.Header;
-
-  /* There is a bug in Chakra where the menu is expanded horizontally on initial render, so we hide it on SSR. https://github.com/chakra-ui/chakra-ui/issues/3433 */
-  if (typeof window === "undefined") {
-    return (
-      <NavButton
-        variant={ownTheme.account.variant}
-        title={t("auth.account")}
-        hideTitle
-        icon={<UserIcon size="1.2rem" />}
-        size="sm"
-      />
-    );
-  }
-
   return (
     <Menu>
       <MenuButton

@@ -1,5 +1,5 @@
 import sampleSize from "lodash/sampleSize";
-import React from "react";
+import React, { useMemo } from "react";
 import { Flex, Spinner, Box, Result } from "@la-mk/blocks-ui";
 import { Banner } from "./Banner";
 import { Store } from "../../domain/store";
@@ -22,7 +22,6 @@ import { DiscountCampaign } from "../../components/campaigns/DiscountCampaign";
 
 export const Home = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
-  const isBrowser = typeof window !== "undefined";
   useBreadcrumbs([{ url: urls.home, title: t("pages.home") }]);
 
   const [landingContent, isLoadingLandingContent] = useQuery(
@@ -39,8 +38,12 @@ export const Home = ({ store }: { store: Store }) => {
     store._id,
   ]);
 
-  const categorySetTags = sampleSize(categories?.data ?? [], 3).map(
-    (category) => ({
+  const categorySetTags = useMemo(() => {
+    if (!categories?.data) {
+      return [];
+    }
+
+    return sampleSize(categories?.data ?? [], 3).map((category) => ({
       type: ProductSetType.CATEGORY,
       value: category.level3,
       title: t(
@@ -56,8 +59,8 @@ export const Home = ({ store }: { store: Store }) => {
         })
       ),
       isPromoted: false,
-    })
-  );
+    }));
+  }, [categories?.data, t]);
 
   const [productSets, isLoadingProductSets] = useQuery(
     "product",
@@ -107,15 +110,13 @@ export const Home = ({ store }: { store: Store }) => {
             </Box>
           )}
 
-          {!isLoadingProductSets &&
-            productSetsWithData?.length === 0 &&
-            isBrowser && (
-              <Result
-                status="empty"
-                mt={8}
-                description={t("store.emptyStoreExplanation")}
-              />
-            )}
+          {!isLoadingProductSets && productSetsWithData?.length === 0 && (
+            <Result
+              status="empty"
+              mt={8}
+              description={t("store.emptyStoreExplanation")}
+            />
+          )}
 
           <>
             {(productSetsWithData ?? []).map((set, index) => (

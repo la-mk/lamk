@@ -85,6 +85,17 @@ function MyApp({
 }
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
+  // This makes the sdk available on the server
+  if (!sdk) {
+    loadEnv();
+    setupSdk({
+      transport: "rest",
+      apiEndpoint: envvars.API_ENDPOINT,
+      imagesEndpoint: envvars.ARTIFACTS_ENDPOINT,
+      imagesProxyEndpoint: envvars.IMAGES_PROXY_ENDPOINT,
+    });
+  }
+
   if (appContext.ctx.req) {
     let host = appContext.ctx.req.headers.host;
     if (!host) {

@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Fade } from '@chakra-ui/react';
-import { Box } from '@la-mk/blocks-ui';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { Fade } from "@chakra-ui/react";
+import { Box } from "@la-mk/blocks-ui";
 
 export interface OverlayProps {
   children: React.ReactNode;
@@ -14,15 +14,13 @@ export const CategoriesOverlay = ({
   isOpen,
   setIsOpen,
 }: OverlayProps) => {
-  const container = React.useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return document.createElement('div');
-    }
-    return null;
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  useEffect(() => {
+    setContainer(document.createElement("div"));
   }, []);
 
   React.useEffect(() => {
-    const root = document.getElementById('categories-portal-root');
+    const root = document.getElementById("categories-portal-root");
     if (!root || !container) {
       return;
     }
@@ -40,11 +38,11 @@ export const CategoriesOverlay = ({
             <>
               <Fade
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   left: 0,
                   right: 0,
                   zIndex: 2,
-                  backgroundColor: 'white',
+                  backgroundColor: "white",
                 }}
                 unmountOnExit
                 in={isOpen}
@@ -61,13 +59,13 @@ export const CategoriesOverlay = ({
 
               <Fade
                 style={{
-                  position: 'fixed',
+                  position: "fixed",
                   left: 0,
                   right: 0,
-                  height: '100%',
+                  height: "100%",
                   zIndex: 1,
-                  backgroundColor: 'rgba(0, 0, 0, 0.48)',
-                  backdropFilter: 'blur(1px)',
+                  backgroundColor: "rgba(0, 0, 0, 0.48)",
+                  backdropFilter: "blur(1px)",
                 }}
                 unmountOnExit
                 in={isOpen}
@@ -75,7 +73,7 @@ export const CategoriesOverlay = ({
                 <Box />
               </Fade>
             </>,
-            container,
+            container
           )
         : null}
     </div>

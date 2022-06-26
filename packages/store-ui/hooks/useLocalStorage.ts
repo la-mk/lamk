@@ -19,18 +19,10 @@ const deserializeData = <T extends any>(data: string | null): T | null => {
 
 export const useLocalStorage = <T extends any>(key: string) => {
   const [currentValue, setCurrentValue] = useGlobalState<T | null>(key, () => {
-    if (typeof window === "undefined") {
-      return null;
-    }
-
     return deserializeData<T>(localStorage.getItem(key));
   });
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
     const handler = (e: StorageEvent) => {
       if (e.storageArea === localStorage && e.key === key) {
         setCurrentValue(deserializeData(e.newValue));
