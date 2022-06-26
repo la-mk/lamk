@@ -20,10 +20,14 @@ export interface ButtonProps
   size?: Size;
   variant?: ButtonVariant;
   as?: As;
+  isFullWidth?: boolean;
 }
 
 export const Button = React.forwardRef(
-  ({ isDanger, leftIcon, rightIcon, ...props }: ButtonProps, ref: any) => {
+  (
+    { isDanger, leftIcon, rightIcon, isFullWidth, ...props }: ButtonProps,
+    ref: any
+  ) => {
     if (!props.children && (leftIcon || rightIcon)) {
       return (
         <IconButton
@@ -42,6 +46,7 @@ export const Button = React.forwardRef(
         iconSpacing={1}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
+        width={isFullWidth ? '100%' : undefined}
         {...props}
       />
     );

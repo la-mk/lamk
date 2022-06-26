@@ -1,5 +1,5 @@
 import React from 'react';
-import unified from 'unified';
+import { unified } from 'unified';
 import parse from 'remark-parse';
 import rehype from 'remark-rehype';
 import react from 'rehype-react';

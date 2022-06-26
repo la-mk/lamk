@@ -70,15 +70,18 @@ export const NewForm = <T extends any>({
         omitExtraData
         showErrorList={false}
         noHtml5Validate={true}
-        onSubmit={({ formData, ...rest }) => {
+        onSubmit={({ formData, ...rest }, nativeEvent) => {
           if (!onSubmit) {
             return;
           }
 
-          return onSubmit({
-            formData: recursivelyNormalizeData(formData),
-            ...rest,
-          });
+          return onSubmit(
+            {
+              formData: recursivelyNormalizeData(formData),
+              ...rest,
+            },
+            nativeEvent
+          );
         }}
         {...props}
         {...templates}

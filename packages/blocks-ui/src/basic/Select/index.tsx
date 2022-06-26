@@ -14,7 +14,6 @@ export interface SelectProps
       | 'value'
       | 'autoFocus'
       | 'width'
-      | 'isFullWidth'
       | 'isRequired'
       | 'isReadOnly'
       | 'isDisabled'
@@ -29,12 +28,13 @@ export interface SelectProps
   size?: InputSize;
   variant?: InputVariant;
   as?: As;
+  isFullWidth?: boolean;
   options: Array<{ label: string; value: string | number }>;
 }
 
-export const Select = ({ options, ...props }: SelectProps) => {
+export const Select = ({ options, isFullWidth, ...props }: SelectProps) => {
   return (
-    <ChakraSelect {...props}>
+    <ChakraSelect width={isFullWidth ? '100%' : undefined} {...props}>
       {!!options &&
         options.map(option => {
           return (

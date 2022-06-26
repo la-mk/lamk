@@ -22,7 +22,7 @@ export const Popover = ({ title, trigger, children }: PopoverProps) => {
       <PopoverTrigger>{trigger}</PopoverTrigger>
       <Portal>
         <PopoverContent
-          onClick={React.useCallback(e => {
+          onClick={React.useCallback((e: any) => {
             e.stopPropagation();
           }, [])}
         >

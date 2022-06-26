@@ -5,6 +5,7 @@ import { BreakpointContext, Breakpoint } from './BreakpointContext';
 export interface BreakpointProviderProps {
   breakpoints: number[];
   onBreakpointChange?: (breakpoint: Breakpoint) => void;
+  children: React.ReactNode;
 }
 
 export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({

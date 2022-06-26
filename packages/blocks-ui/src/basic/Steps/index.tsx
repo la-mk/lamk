@@ -89,7 +89,7 @@ const Step = ({
 }) => {
   // const titleRef = React.useRef<HTMLDivElement>();
   const [titleWidth, setTitleWidth] = useState(0);
-  const titleRef = useCallback(node => {
+  const titleRef = useCallback((node: any) => {
     if (node !== null) {
       setTitleWidth(node.getBoundingClientRect().width);
     }

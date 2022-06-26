@@ -55,7 +55,7 @@ export const Table = <T extends any>({
                     isNumeric={column.isNumeric}
                   >
                     {column.render?.(entry[column.key], entry) ??
-                      entry[column.key]}
+                      (entry[column.key] as any)}
                   </Td>
                 );
               })}

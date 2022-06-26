@@ -13,7 +13,6 @@ export interface TextareaProps
       | 'resize'
       | 'placeholder'
       | 'value'
-      | 'isFullWidth'
       | 'isRequired'
       | 'isReadOnly'
       | 'isDisabled'

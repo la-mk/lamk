@@ -27,7 +27,7 @@ const InputWithLenses = ({
   const [selectedModeId, setSelectedModeId] = React.useState(
     inputModes?.[0]?.id
   );
-  const selectedMode = inputModes?.find(mode => mode.id === selectedModeId);
+  const selectedMode = inputModes?.find((mode) => mode.id === selectedModeId);
 
   if (!selectedMode) {
     return null;
@@ -57,9 +57,9 @@ const InputWithLenses = ({
           <Select
             width="70px"
             variant="flushed"
-            onChange={e => setSelectedModeId(e.target.value)}
+            onChange={(e) => setSelectedModeId(e.target.value)}
             value={selectedModeId}
-            options={inputModes.map(mode => ({
+            options={inputModes.map((mode) => ({
               label: mode.suffix,
               value: mode.id,
             }))}
@@ -157,8 +157,8 @@ const TextWidget = ({
       type={type ?? 'text'}
       step={isSchemaOfType(schema, 'integer') ? 1 : undefined}
       onChange={!readonly ? changeHandler : undefined}
-      rightAddon={suffix}
-      leftAddon={prefix}
+      rightAddon={suffix as any}
+      leftAddon={prefix as any}
     />
   );
 };

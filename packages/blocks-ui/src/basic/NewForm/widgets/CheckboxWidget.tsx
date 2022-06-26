@@ -31,7 +31,7 @@ const CheckboxWidget = ({
         !readonly ? ({ target }: any) => onChange(target.checked) : undefined
       }
     >
-      {label}
+      {label as any}
     </Checkbox>
   );
 };

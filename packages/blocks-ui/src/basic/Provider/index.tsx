@@ -81,7 +81,7 @@ export const Provider = ({
     [finalTheme]
   );
 
-  init(finalTheme);
+  const ToastContainer = init(finalTheme);
 
   return (
     // The chakra provider uses emotion's provider in the background, so we can use styled.x and access the theme without problems.
@@ -112,6 +112,7 @@ export const Provider = ({
           {children}
         </LocalizationContext.Provider>
       </BreakpointProvider>
+      <ToastContainer />
     </ChakraProvider>
   );
 };

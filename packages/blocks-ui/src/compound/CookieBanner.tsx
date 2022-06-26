@@ -34,8 +34,7 @@ export const CookieBanner = ({
   const [consentsState, setConsentsState] = useState<
     Consent | null | undefined
   >(consents);
-  // Don't run this on the server-side
-  const shouldShow = !(consents || typeof window === 'undefined');
+  const shouldShow = !consents;
 
   return (
     <Slide

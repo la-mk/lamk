@@ -28,7 +28,6 @@ export interface InputProps
       | 'value'
       | 'autoFocus'
       | 'width'
-      | 'isFullWidth'
       | 'isRequired'
       | 'isReadOnly'
       | 'isDisabled'
@@ -40,6 +39,7 @@ export interface InputProps
     >,
     Pick<NumberInputProps, 'max' | 'min' | 'precision' | 'step'>,
     SpaceProps {
+  isFullWidth?: boolean;
   size?: InputSize;
   variant?: InputVariant;
   leftAddon?: React.ReactNode;
@@ -254,7 +254,14 @@ export const Input = ({
     !leftAddon &&
     !rightAddon
   ) {
-    return <ChakraInput type={type} size={size} {...props} />;
+    return (
+      <ChakraInput
+        type={type}
+        size={size}
+        width={props.isFullWidth ? '100%' : undefined}
+        {...props}
+      />
+    );
   }
 
   const spacing = pick(props, spaceProps);

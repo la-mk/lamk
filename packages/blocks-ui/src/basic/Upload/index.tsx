@@ -199,7 +199,7 @@ export const Upload = ({
         file =>
           ({
             file: file.file,
-            preview: URL.createObjectURL(file),
+            preview: URL.createObjectURL(file.file),
             status: 'failed' as UploadStatus,
             id: uniqueId(),
           } as CustomFile)
@@ -285,7 +285,9 @@ export const Upload = ({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: 'image/png, image/jpeg',
+    accept: {
+      'image/*': ['.png', '.jpeg', '.jpg'],
+    },
     disabled,
     maxFiles: 20,
     // 15MB

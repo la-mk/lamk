@@ -53,7 +53,7 @@ import {
 } from 'react-feather';
 import { Divider } from '../Divider';
 import { Box } from '../Box';
-import unified from 'unified';
+import { unified } from 'unified';
 import markdown from 'remark-parse';
 import remarkToSlate, { serialize } from 'remark-slate';
 import { ErrorBoundary } from '../ErrorBoundary';
@@ -61,29 +61,7 @@ import { ErrorBoundary } from '../ErrorBoundary';
 // import stringify from 'remark-stringify';
 // import { slateToRemark, remarkToSlate } from 'remark-slate-transformer';
 
-const slatePluginsNodeTypes = {
-  paragraph: 'p',
-  block_quote: 'block_quote',
-  link: 'link',
-  ul_list: 'ul',
-  ol_list: 'ol',
-  listItem: 'li',
-  heading: {
-    1: 'h1',
-    2: 'h2',
-    3: 'h3',
-    4: 'h4',
-    5: 'h5',
-    6: 'h6',
-  },
-  emphasis_mark: 'italic',
-  strong_mark: 'bold',
-  delete_mark: 'strikeThrough',
-};
-
-const fromProcessor = unified()
-  .use(markdown)
-  .use(remarkToSlate, { nodeTypes: slatePluginsNodeTypes });
+const fromProcessor = unified().use(markdown).use(remarkToSlate);
 
 // Below transformer is a bit nicer, but we need https://github.com/inokawa/remark-slate-transformer/issues/31 closed
 // https://github.com/inokawa/remark-slate-transformer
@@ -101,9 +79,7 @@ const fromProcessor = unified()
 // };
 
 const toMarkdown = (value: Node[]) => {
-  return value
-    .map((v: any) => serialize(v, { nodeTypes: slatePluginsNodeTypes }) ?? '')
-    .join('');
+  return value.map((v: any) => serialize(v) ?? '').join('');
 };
 
 const fromMarkdown = (value?: string) => {

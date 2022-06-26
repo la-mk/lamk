@@ -102,7 +102,7 @@ export const Cascader = ({
       }}
       options={filteredItems}
       fieldNames={{ label: 'title', value: 'key', children: 'children' }}
-      onChange={(val, x) => {
+      onChange={(val: any, x: any) => {
         console.log(val, x);
         setSearchValue('');
         onChange(val);
