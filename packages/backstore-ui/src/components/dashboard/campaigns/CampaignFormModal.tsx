@@ -24,6 +24,7 @@ import { getGroups } from '../../../state/modules/products/products.selector';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 import { setGroups } from '../../../state/modules/products/products.module';
+import { useCall } from '../../shared/hooks/useCall';
 
 interface ProductFormModalProps {
   campaign: Campaign | undefined;
@@ -37,9 +38,9 @@ export const CampaignFormModal = ({
   visible,
 }: ProductFormModalProps) => {
   const { t } = useTranslation();
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
-  const [groupsCaller] = hooks.useCall();
+  const [groupsCaller] = useCall();
   const groups: string[] | undefined = useSelector(getGroups);
   const storeId = store ? store._id : undefined;
   // TODO: omitExtraData doesn't work correctly with oneOfs

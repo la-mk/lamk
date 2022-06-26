@@ -6,10 +6,11 @@ import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
+import { useCall } from '../../shared/hooks/useCall';
 
 export const AboutUs = () => {
   const { t } = useTranslation();
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
   const [

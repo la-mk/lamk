@@ -7,7 +7,6 @@ import {
   Card,
   Text,
   Divider,
-  hooks,
   Box,
   Heading,
   Input,
@@ -23,6 +22,7 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import { LazyInvoiceDownloadLink } from '../pdfs/invoice/LazyInvoiceDownloadLink';
 import { ProductsList } from './ProductsList';
 import isEqual from 'lodash/isEqual';
+import { useCall } from '../../shared/hooks/useCall';
 
 interface OrderDetailsModalProps {
   orderId?: string;
@@ -61,7 +61,7 @@ export const OrderDetailsModal = ({
   orderId,
   onClose,
 }: OrderDetailsModalProps) => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
   const order = useSelector<any, Order>(getOrder(orderId));
   const [deliveryTracking, setDeliveryTracking] = useState<

@@ -33,6 +33,7 @@ import { useCategories } from '../../shared/hooks/useCategories';
 import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 import { getGroups } from '../../../state/modules/products/products.selector';
 import { VariantName } from '../../shared/components/VariantName';
+import { useCall } from '../../shared/hooks/useCall';
 
 const COLORS = [
   '#FF0000',
@@ -94,9 +95,9 @@ export const ProductForm = ({ product, onClose }: ProductFormProps) => {
   // If the product has at least one attribute, it means it has variants.
   const hasAttributes = sdk.product.hasVariants(product);
   const [showVariants, setShowVariants] = React.useState(hasAttributes);
-  const [caller, productLoading] = hooks.useCall();
-  const [groupsCaller, groupsLoading] = hooks.useCall();
-  const [categoriesCaller, categoriesLoading] = hooks.useCall();
+  const [caller, productLoading] = useCall();
+  const [groupsCaller, groupsLoading] = useCall();
+  const [categoriesCaller, categoriesLoading] = useCall();
   const groups: string[] = useSelector(getGroups);
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;

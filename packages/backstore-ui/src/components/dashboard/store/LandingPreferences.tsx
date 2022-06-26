@@ -8,13 +8,14 @@ import { StoreContents } from '@la-mk/la-sdk/dist/models/storeContents';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { getImageUploader } from '../../shared/utils/artifacts';
 import cloneDeep from 'lodash/cloneDeep';
+import { useCall } from '../../shared/hooks/useCall';
 // import { getGroups } from '../../../state/modules/products/products.selector';
 // import { setGroups } from '../../../state/modules/products/products.module';
 // import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 
 export const LandingPreferences = () => {
   const { t } = useTranslation();
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
   const [storeContents, setStoreContents] = useState<StoreContents>();
   const [
@@ -25,7 +26,7 @@ export const LandingPreferences = () => {
     { forStore: store?._id, landing: { sets: [] } },
     [storeContents, store?._id],
   );
-  // const [groupsCaller] = hooks.useCall();
+  // const [groupsCaller] = useCall();
   // const groups: string[] | undefined = useSelector(getGroups);
 
   // React.useEffect(() => {

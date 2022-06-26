@@ -19,6 +19,7 @@ import { OrderDetailsModal } from './OrderDetailsModal';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { getFilter } from '../../shared/utils/table';
+import { useCall } from '../../shared/hooks/useCall';
 
 const getColumns = (t: TFunction): AdvancedTableColumnProps<Order>[] => [
   {
@@ -78,7 +79,7 @@ export const Orders = () => {
   const orders = useSelector(getOrders);
   const { t } = useTranslation();
 
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const [filters, setFilters] = hooks.useFilter(
     {
       filtering: { status: undefined },

@@ -4,7 +4,6 @@ import {
   Flex,
   Grid,
   Heading,
-  hooks,
   Spinner,
   Text,
   toast,
@@ -19,6 +18,7 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import { IntegrationDetails } from './IntegrationDetails';
 import { IntegrationCard } from './IntegrationCard';
 import { TFunction } from 'i18next';
+import { useCall } from '../../shared/hooks/useCall';
 
 export interface Integration {
   config: IntegrationConfiguration;
@@ -103,8 +103,8 @@ const getSupportedIntegrations = (
 
 export const Integrations = () => {
   const { t } = useTranslation();
-  const [fetchCaller, isLoading] = hooks.useCall();
-  const [patchCaller, isPatching] = hooks.useCall();
+  const [fetchCaller, isLoading] = useCall();
+  const [patchCaller, isPatching] = useCall();
   const store = useSelector(getStore);
   const storeId = store?._id;
   const [selectedIntegration, setSelectedIntegration] = React.useState<

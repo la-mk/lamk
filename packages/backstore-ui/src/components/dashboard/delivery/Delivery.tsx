@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Spinner, Flex, toast, hooks, Box } from '@la-mk/blocks-ui';
+import { Spinner, Flex, toast, Box } from '@la-mk/blocks-ui';
 import { Delivery as DeliveryType } from '@la-mk/la-sdk/dist/models/delivery';
 import { sdk } from '@la-mk/la-sdk';
 import { getDelivery } from '../../../state/modules/delivery/delivery.selector';
@@ -9,9 +9,10 @@ import { getStore } from '../../../state/modules/store/store.selector';
 import { DeliveryForm } from '../../shared/forms/DeliveryForm';
 import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
+import { useCall } from '../../shared/hooks/useCall';
 
 export const Delivery = () => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const delivery = useSelector(getDelivery);
   const store = useSelector(getStore);
   const storeId = store ? store._id : undefined;

@@ -2,14 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getStore } from '../../../state/modules/store/store.selector';
-import { Box, Flex, hooks, toast, Spinner } from '@la-mk/blocks-ui';
+import { Box, Flex, toast, Spinner } from '@la-mk/blocks-ui';
 import { Store } from '@la-mk/la-sdk/dist/models/store';
 import { setStore } from '../../../state/modules/store/store.module';
 import { sdk } from '@la-mk/la-sdk';
 import { CompanyForm } from '../../shared/forms/CompanyForm';
+import { useCall } from '../../shared/hooks/useCall';
 
 export const Company = () => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
   const { t } = useTranslation();
 

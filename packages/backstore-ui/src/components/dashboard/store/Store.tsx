@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner, hooks, toast, Flex, Box } from '@la-mk/blocks-ui';
+import { Spinner, toast, Flex, Box } from '@la-mk/blocks-ui';
 
 import { sdk } from '@la-mk/la-sdk';
 import { Store as StoreType } from '@la-mk/la-sdk/dist/models/store';
@@ -9,9 +9,10 @@ import { setStore } from '../../../state/modules/store/store.module';
 import { StoreForm } from '../../shared/forms/StoreForm';
 import { useTranslation } from 'react-i18next';
 import { getUser } from '../../../state/modules/user/user.selector';
+import { useCall } from '../../shared/hooks/useCall';
 
 export const Store = () => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const store = useSelector(getStore);
   const user = useSelector(getUser);
   const userId = user ? user._id : undefined;

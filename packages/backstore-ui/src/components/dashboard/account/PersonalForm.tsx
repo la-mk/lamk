@@ -12,9 +12,10 @@ import { User } from '@la-mk/la-sdk/dist/models/user';
 import { sdk } from '@la-mk/la-sdk';
 import { patchUser } from '../../../state/modules/user/user.module';
 import { TFunction } from 'i18next';
+import { useCall } from '../../shared/hooks/useCall';
 
 export const PersonalForm = ({ user, t }: { user: User; t: TFunction }) => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const [userFormData, setUserFormData] = hooks.useFormState<Partial<User>>(
     user,
     {},

@@ -1,15 +1,16 @@
-import { ForgotPasswordForm, hooks, Spinner } from '@la-mk/blocks-ui';
+import { ForgotPasswordForm, Spinner } from '@la-mk/blocks-ui';
 import { sdk } from '@la-mk/la-sdk';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { goTo } from '../../state/modules/navigation/navigation.actions';
+import { useCall } from '../shared/hooks/useCall';
 import { AuthBase } from './AuthBase';
 
 export const ForgotPassword = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const [submittedSuccessfully, setSubmitttedSuccessfully] = React.useState(
     false,
   );

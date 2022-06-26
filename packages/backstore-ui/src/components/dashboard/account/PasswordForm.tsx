@@ -1,12 +1,13 @@
 import React from 'react';
-import { Spinner, hooks, toast, ChangePasswordForm } from '@la-mk/blocks-ui';
+import { Spinner, toast, ChangePasswordForm } from '@la-mk/blocks-ui';
 import { User } from '@la-mk/la-sdk/dist/models/user';
 import { sdk } from '@la-mk/la-sdk';
 import { patchUser } from '../../../state/modules/user/user.module';
 import { TFunction } from 'i18next';
+import { useCall } from '../../shared/hooks/useCall';
 
 export const PasswordForm = ({ user, t }: { user: User; t: TFunction }) => {
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
 
   const handlePatchAccount = ({ formData }: { formData: Partial<User> }) => {
     caller(sdk.user.patch(user._id, formData), (user: User) => {

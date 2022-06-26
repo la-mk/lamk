@@ -18,6 +18,7 @@ import { Campaign } from '@la-mk/la-sdk/dist/models/campaign';
 import { CampaignFormModal } from './CampaignFormModal';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { useCall } from '../../shared/hooks/useCall';
 
 const getColumns = (t: TFunction): AdvancedTableColumnProps<Campaign>[] => [
   {
@@ -83,7 +84,7 @@ export const Campaigns = () => {
   const campaigns = useSelector(getCampaigns);
   const { t } = useTranslation();
 
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const [filters, setFilters] = hooks.useFilter(null, {
     storage: 'session',
     storageKey: `${store ? store._id : ''}/campaignFilters`,

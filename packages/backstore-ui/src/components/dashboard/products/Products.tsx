@@ -35,6 +35,7 @@ import { ProductGroup } from '@la-mk/la-sdk/dist/models/productGroup';
 import { TFunction } from 'i18next';
 import { ProductForm } from './ProductForm';
 import { getFilter } from '../../shared/utils/table';
+import { useCall } from '../../shared/hooks/useCall';
 
 const searchSupportedFields = [
   'name',
@@ -234,8 +235,8 @@ export const Products = () => {
   const store: Store | null = useSelector(getStore);
   const storeId = store?._id;
 
-  const [caller, showSpinner] = hooks.useCall();
-  const [groupsCaller] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
+  const [groupsCaller] = useCall();
 
   // We set category as undefined so on the first filter change the pagination won't reset (this is what is returned from multipleItemsFilter)
   const [filters, setFilters] = hooks.useFilter(

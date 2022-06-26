@@ -1,5 +1,5 @@
 import React from 'react';
-import { hooks, Spinner, Card, Text, Flex, Radio } from '@la-mk/blocks-ui';
+import { Spinner, Card, Text, Flex, Radio } from '@la-mk/blocks-ui';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../../state/modules/store/store.selector';
 import {
@@ -8,6 +8,7 @@ import {
 } from '@la-mk/la-sdk/dist/models/storeAnalytics';
 import { sdk } from '@la-mk/la-sdk';
 import { useTranslation } from 'react-i18next';
+import { useCall } from '../../shared/hooks/useCall';
 
 interface StatisticsCardProps {
   title?: string;
@@ -25,7 +26,7 @@ export const StatisticsCard = ({
   children,
 }: StatisticsCardProps) => {
   const { t } = useTranslation();
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const [result, setResult] = React.useState();
   const [frequency, setFrequency] = React.useState<
     AnalyticsFrequency | undefined

@@ -18,6 +18,7 @@ import { FindResult } from '@la-mk/la-sdk/dist/setup';
 import { useTranslation } from 'react-i18next';
 import { User } from '@la-mk/la-sdk/dist/models/user';
 import { getUser } from '../../state/modules/user/user.selector';
+import { useCall } from '../shared/hooks/useCall';
 
 interface OnboardingProps {
   step: number;
@@ -32,7 +33,7 @@ export const Onboarding = ({ step, setStep }: OnboardingProps) => {
     'initial',
   ]);
   const [isFinished, setIsFinished] = useState(false);
-  const [caller, showSpinner] = hooks.useCall();
+  const [caller, showSpinner] = useCall();
   const user: User | null = useSelector(getUser);
   const store: Store | null = useSelector(getStore);
   const delivery: Delivery | null = useSelector(getDelivery);
