@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Provider } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import { BlocksTheme, DeepPartial } from "@la-mk/blocks-ui/dist/theme";
@@ -361,9 +361,11 @@ export const ThemeProvider = ({
   children: React.ReactElement;
 }) => {
   const { t } = useTranslation("translation");
+  const translations = useMemo(() => getTranslations(t), [t]);
+  const theme = useMemo(() => getTheme(brandColor), [brandColor]);
 
   return (
-    <Provider theme={getTheme(brandColor)} translations={getTranslations(t)}>
+    <Provider theme={theme} translations={translations}>
       {children}
     </Provider>
   );

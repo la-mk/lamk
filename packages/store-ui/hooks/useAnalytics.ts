@@ -78,12 +78,12 @@ export const useAnalytics = (storeId: string) => {
   }, [trackEvent]);
 
   useEffect(() => {
-    if (!user || !consent || !analytics) {
+    if (!user?._id || !consent || !analytics) {
       return;
     }
 
     analytics.identify(user._id);
-  }, [consent, user]);
+  }, [consent, user?._id]);
 
   useEffect(() => {
     const handleRouteChange = (_url: string) => {
