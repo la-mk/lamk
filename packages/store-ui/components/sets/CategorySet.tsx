@@ -2,13 +2,13 @@ import React from "react";
 import { Flex, Box, Text, Heading, Image } from "@la-mk/blocks-ui";
 import { SetTitle } from "./SetTitle";
 import { useTheme } from "@chakra-ui/react";
-import sampleSize from "lodash/sampleSize";
 import { TFunction, useTranslation } from "next-i18next";
 import styled from "@emotion/styled";
 import { Category } from "../../domain/category";
 import { getImageURL } from "../../hacks/imageUrl";
 import { ImageBackgroundBox } from "../ImageBackgroundBox";
 import { HoverableLink } from "../HoverableLink";
+import { sampleSize } from "../../tooling/util";
 
 const IllustrationWrapper = styled(Box)`
   & svg {
@@ -184,7 +184,8 @@ export const CategorySet = ({
 
   const categoriesToShow = React.useMemo(() => {
     return sampleSize(
-      Array.from(new Set(categories.map((category) => category.level2))),
+      Array.from(new Set(categories.map((category) => category.level2))).sort(),
+      10,
       ownTheme.count
     );
   }, [categories, ownTheme.count]);

@@ -1,4 +1,3 @@
-import sampleSize from "lodash/sampleSize";
 import React, { useMemo } from "react";
 import { Flex, Spinner, Box, Result } from "@la-mk/blocks-ui";
 import { Banner } from "./Banner";
@@ -19,6 +18,8 @@ import { ServicesSet } from "../../components/sets/ServicesSet";
 import { CategorySet } from "../../components/sets/CategorySet";
 import { useQuery } from "../../sdk/useQuery";
 import { DiscountCampaign } from "../../components/campaigns/DiscountCampaign";
+import { sampleSize } from "../../tooling/util";
+import { sortBy } from "lodash";
 
 export const Home = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
@@ -43,23 +44,25 @@ export const Home = ({ store }: { store: Store }) => {
       return [];
     }
 
-    return sampleSize(categories?.data ?? [], 3).map((category) => ({
-      type: ProductSetType.CATEGORY,
-      value: category.level3,
-      title: t(
-        getTitleForSet({
-          type: ProductSetType.CATEGORY,
-          value: category.level3,
-        })
-      ),
-      subtitle: t(
-        getSubtitleForSet({
-          type: ProductSetType.CATEGORY,
-          value: category.level3,
-        })
-      ),
-      isPromoted: false,
-    }));
+    return sampleSize(sortBy(categories?.data ?? [], "level3"), 10, 3).map(
+      (category) => ({
+        type: ProductSetType.CATEGORY,
+        value: category.level3,
+        title: t(
+          getTitleForSet({
+            type: ProductSetType.CATEGORY,
+            value: category.level3,
+          })
+        ),
+        subtitle: t(
+          getSubtitleForSet({
+            type: ProductSetType.CATEGORY,
+            value: category.level3,
+          })
+        ),
+        isPromoted: false,
+      })
+    );
   }, [categories?.data, t]);
 
   const [productSets, isLoadingProductSets] = useQuery(
@@ -79,6 +82,8 @@ export const Home = ({ store }: { store: Store }) => {
       ],
     ]
   );
+
+  console.log(categorySetTags, productSets);
 
   const productSetsWithData = productSets?.filter(
     (set) => Boolean(set.data) && (set?.data?.length ?? 0) > 0

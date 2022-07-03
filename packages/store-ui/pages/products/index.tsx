@@ -81,7 +81,6 @@ export async function getServerSideProps({
     props: {
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
-      store,
       //FUTURE: We want to remove undefined as nextjs complains, this is the easiest (but not the most performant) way.
       initialFilters: JSON.parse(JSON.stringify(parsedFilters)),
     },

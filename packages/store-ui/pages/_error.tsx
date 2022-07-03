@@ -6,6 +6,7 @@ import { Head } from "../layout/Head";
 import { PageContextWithStore } from "../hacks/store";
 import { Store } from "../domain/store";
 import { urls } from "../tooling/url";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Error = ({
   status,
@@ -84,9 +85,20 @@ const ErrorPage = ({
   }
 };
 
-ErrorPage.getInitialProps = ({ req, res, err }: PageContextWithStore) => {
+export async function getServerSideProps({
+  locale,
+  req,
+  res,
+  err,
+}: PageContextWithStore) {
   const errorCode = res ? res.statusCode : err ? err.statusCode : 404;
-  return { errorCode, store: req.store };
-};
+  return {
+    props: {
+      errorCode,
+      store: req.store,
+      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+    },
+  };
+}
 
 export default ErrorPage;
