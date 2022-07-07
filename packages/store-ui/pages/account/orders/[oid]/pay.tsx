@@ -3,7 +3,7 @@ import { Result, Spinner } from "@la-mk/blocks-ui";
 import { Store } from "../../../../domain/store";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { PageContextWithStore } from "../../../../hacks/store";
+import { getStore, PageContextWithStore } from "../../../../hacks/store";
 import { getProps, newClient } from "../../../../sdk/queryClient";
 import { getDefaultPrefetch } from "../../../../sdk/defaults";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -55,8 +55,9 @@ const OrderPayPage = ({ store }: { store: Store }) => {
 
 export async function getServerSideProps({
   locale,
-  req: { store },
+  req,
 }: PageContextWithStore) {
+  const store = await getStore(req.headers.host);
   if (!store) {
     return { props: {} };
   }
@@ -68,6 +69,7 @@ export async function getServerSideProps({
     props: {
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
     },
   };
 }

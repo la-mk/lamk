@@ -2,7 +2,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Store } from "../../domain/store";
 import { getImageURL } from "../../hacks/imageUrl";
-import { PageContextWithStore } from "../../hacks/store";
+import { getStore, PageContextWithStore } from "../../hacks/store";
 import { Head } from "../../layout/Head";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { getProps, newClient } from "../../sdk/queryClient";
@@ -44,8 +44,9 @@ function About({ store }: { store: Store }) {
 
 export async function getServerSideProps({
   locale,
-  req: { store },
+  req,
 }: PageContextWithStore) {
+  const store = await getStore(req.headers.host);
   if (!store) {
     return { props: {} };
   }
@@ -62,6 +63,7 @@ export async function getServerSideProps({
     props: {
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
     },
   };
 }

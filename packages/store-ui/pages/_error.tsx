@@ -3,7 +3,7 @@ import { Result, Button, Flex } from "@la-mk/blocks-ui";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { Head } from "../layout/Head";
-import { PageContextWithStore } from "../hacks/store";
+import { getStore, PageContextWithStore } from "../hacks/store";
 import { Store } from "../domain/store";
 import { urls } from "../tooling/url";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -91,11 +91,12 @@ export async function getServerSideProps({
   res,
   err,
 }: PageContextWithStore) {
+  const store = await getStore(req.headers.host);
   const errorCode = res ? res.statusCode : err ? err.statusCode : 404;
   return {
     props: {
       errorCode,
-      store: req.store,
+      store,
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
     },
   };

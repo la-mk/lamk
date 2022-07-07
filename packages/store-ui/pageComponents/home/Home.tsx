@@ -83,8 +83,6 @@ export const Home = ({ store }: { store: Store }) => {
     ]
   );
 
-  console.log(categorySetTags, productSets);
-
   const productSetsWithData = productSets?.filter(
     (set) => Boolean(set.data) && (set?.data?.length ?? 0) > 0
   );

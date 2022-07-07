@@ -50,6 +50,7 @@ export const Success = withTheme(
         </Link>
 
         <Link
+          shallow
           passHref
           replace
           href={`${urls.accountOrders}/[pid]`}

@@ -16,5 +16,5 @@ export NEXT_PUBLIC_NODE_ENV='development'
 export NODE_ENV='development'
 export PORT=8080
 
-# yarn run dev
-yarn run build && yarn start
+yarn run dev
+# yarn run build && yarn start

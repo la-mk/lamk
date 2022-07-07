@@ -1,6 +1,4 @@
-import type { AppContext, AppProps } from "next/app";
-import App from "next/app";
-
+import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import { Hydrate, QueryClientProvider } from "react-query";
 import React, { useState } from "react";
@@ -12,19 +10,16 @@ import { newClient } from "../sdk/queryClient";
 import { envvars, loadEnv } from "../tooling/env";
 import { StoreNotFound } from "../layout/StoreNotFound";
 import { StoreLayout } from "../layout/StoreLayout";
-import { getStoreFromHost } from "../hacks/dns";
 import { Store } from "../domain/store";
 import Head from "next/head";
 import { Integrations } from "../integrations/Integrations";
-import { injectStoreInContext } from "../hacks/store";
 import { getImageURL } from "../hacks/imageUrl";
 import { AuthProvider } from "../layout/Auth/AuthProvider";
 import { analytics, initializeAnalytics } from "../tooling/analytics";
 
 function MyApp({
   Component,
-  pageProps,
-  store,
+  pageProps: { dehydratedState, store, ...otherProps },
 }: AppProps & { store: Store | null }) {
   const [queryClient] = useState(() => newClient());
   const { t } = useTranslation("translation");
@@ -64,11 +59,11 @@ function MyApp({
             analyticsTitle={t("common.analytics")}
           >
             <QueryClientProvider client={queryClient._qc}>
-              <Hydrate state={pageProps.dehydratedState}>
+              <Hydrate state={dehydratedState}>
                 <AuthProvider store={store}>
                   <>
                     <StoreLayout store={store}>
-                      <Component {...pageProps} store={store} />
+                      <Component {...otherProps} store={store} />
                     </StoreLayout>
                     <Integrations store={store} />
                   </>
@@ -83,38 +78,5 @@ function MyApp({
     </ThemeProvider>
   );
 }
-
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  // This makes the sdk available on the server
-  if (!sdk) {
-    loadEnv();
-    setupSdk({
-      transport: "rest",
-      apiEndpoint: envvars.API_ENDPOINT,
-      imagesEndpoint: envvars.ARTIFACTS_ENDPOINT,
-      imagesProxyEndpoint: envvars.IMAGES_PROXY_ENDPOINT,
-    });
-  }
-
-  if (appContext.ctx.req) {
-    let host = appContext.ctx.req.headers.host;
-    if (!host) {
-      throw new Error("Store request misconfigured");
-    }
-
-    // If we are running the store UI locally, get it from the enviornment
-    host = envvars.DEV_STORE_URL || host;
-    const store = await getStoreFromHost(
-      host,
-      envvars.API_ENDPOINT,
-      sdk.store.getBySlug,
-      sdk.store.getByDomain
-    );
-
-    injectStoreInContext(store, appContext);
-    const appProps = await App.getInitialProps(appContext);
-    return { ...appProps, store };
-  }
-};
 
 export default appWithTranslation(MyApp);

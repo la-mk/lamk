@@ -8,7 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Head } from "../../layout/Head";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { getProps, newClient } from "../../sdk/queryClient";
-import { PageContextWithStore } from "../../hacks/store";
+import { getStore, PageContextWithStore } from "../../hacks/store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useQuery } from "../../sdk/useQuery";
 import { getImageURL } from "../../hacks/imageUrl";
@@ -116,8 +116,9 @@ const ProductPage = ({ store }: { store: Store }) => {
 export async function getServerSideProps({
   locale,
   query,
-  req: { store },
+  req,
 }: PageContextWithStore) {
+  const store = await getStore(req.headers.host);
   if (!store) {
     return { props: {} };
   }
@@ -134,6 +135,7 @@ export async function getServerSideProps({
     props: {
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
     },
   };
 }

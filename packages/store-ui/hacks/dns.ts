@@ -1,4 +1,3 @@
-import memoize from "mem";
 import { Store } from "../domain/store";
 
 const getSlugForCustomDomain = async (
@@ -12,11 +11,6 @@ const getSlugForCustomDomain = async (
 
   return laStoreResult;
 };
-
-// Cache for 30 min, since custom domains will rarely change.
-const memoizedGetSlugForCustomDomain = memoize(getSlugForCustomDomain, {
-  maxAge: 30 * 60 * 1000,
-});
 
 const stripWww = (host: string) => {
   if (host.startsWith("www")) {
@@ -37,7 +31,7 @@ export const getStoreFromHost = (
   const serverTld = apiEndpoint.substr(apiEndpoint.indexOf(".") + 1);
 
   if (tld !== serverTld) {
-    return memoizedGetSlugForCustomDomain(host, getStoreByDomain);
+    return getSlugForCustomDomain(host, getStoreByDomain);
   }
 
   const slug = normalizedHost.substr(0, normalizedHost.indexOf("."));

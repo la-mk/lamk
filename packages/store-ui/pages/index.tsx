@@ -1,4 +1,4 @@
-import { PageContextWithStore } from "../hacks/store";
+import { getStore, PageContextWithStore } from "../hacks/store";
 import { getProps, newClient } from "../sdk/queryClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getDefaultPrefetch } from "../sdk/defaults";
@@ -29,8 +29,9 @@ const HomePage = ({ store }: { store: Store }) => {
 
 export async function getServerSideProps({
   locale,
-  req: { store },
+  req,
 }: PageContextWithStore) {
+  const store = await getStore(req.headers.host);
   if (!store) {
     return { props: {} };
   }
@@ -47,6 +48,7 @@ export async function getServerSideProps({
     props: {
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
     },
   };
 }

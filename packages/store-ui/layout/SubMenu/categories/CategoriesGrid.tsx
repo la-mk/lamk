@@ -1,7 +1,7 @@
-import { Button, Flex, Heading } from '@la-mk/blocks-ui';
-import { TreeviewEntry } from '@la-mk/blocks-ui/dist/basic/Treeview';
-import Link from 'next/link';
-import React from 'react';
+import { Button, Flex, Heading } from "@la-mk/blocks-ui";
+import { TreeviewEntry } from "@la-mk/blocks-ui/dist/basic/Treeview";
+import Link from "next/link";
+import React from "react";
 
 const CategorySection = ({
   getHref,
@@ -9,23 +9,23 @@ const CategorySection = ({
   onClick,
 }: {
   item: TreeviewEntry;
-  getHref: CategoriesListProps['getHref'];
+  getHref: CategoriesListProps["getHref"];
   onClick: () => void;
 }) => {
   return (
     <Flex
-      direction='column'
-      align='flex-start'
+      direction="column"
+      align="flex-start"
       p={[3, 4, 6]}
-      minWidth={'16rem'}
+      minWidth={"16rem"}
     >
-      <Heading as='h2' size='sm' mb={2}>
+      <Heading as="h2" size="sm" mb={2}>
         {item.title}
       </Heading>
 
-      {item.children?.map(x => (
+      {item.children?.map((x) => (
         <Link key={x.key} href={getHref(x.key)} passHref>
-          <Button my={2} as='a' variant='link' size='sm' onClick={onClick}>
+          <Button my={2} as="a" variant="link" size="sm" onClick={onClick}>
             {x.title}
           </Button>
         </Link>
@@ -46,8 +46,8 @@ export const CategoriesGrid = ({
   onClick,
 }: CategoriesListProps) => {
   return (
-    <Flex direction='row' wrap='wrap'>
-      {items?.map(item => (
+    <Flex direction="row" wrap="wrap">
+      {items?.map((item) => (
         <CategorySection
           key={item.key}
           item={item}

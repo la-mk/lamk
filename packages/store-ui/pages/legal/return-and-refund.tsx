@@ -1,6 +1,6 @@
 import React from "react";
 import { Result } from "@la-mk/blocks-ui";
-import { PageContextWithStore } from "../../hacks/store";
+import { getStore, PageContextWithStore } from "../../hacks/store";
 import { getProps, newClient } from "../../sdk/queryClient";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -72,8 +72,9 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
 
 export async function getServerSideProps({
   locale,
-  req: { store },
+  req,
 }: PageContextWithStore) {
+  const store = await getStore(req.headers.host);
   if (!store) {
     return { props: {} };
   }
@@ -85,6 +86,7 @@ export async function getServerSideProps({
     props: {
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      store,
     },
   };
 }
