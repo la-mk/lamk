@@ -2,7 +2,6 @@ import React from "react";
 import { Result, Spinner } from "@la-mk/blocks-ui";
 import { Store } from "../../../../domain/store";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import { getStore, PageContextWithStore } from "../../../../hacks/store";
 import { getProps, newClient } from "../../../../sdk/queryClient";
 import { getDefaultPrefetch } from "../../../../sdk/defaults";
@@ -13,10 +12,14 @@ import { Head } from "../../../../layout/Head";
 import { Payment } from "../../../../pageComponents/account/orders/Payment";
 import { urls } from "../../../../tooling/url";
 
-const OrderPayPage = ({ store }: { store: Store }) => {
+const OrderPayPage = ({
+  store,
+  orderId,
+}: {
+  store: Store;
+  orderId: string;
+}) => {
   const { t } = useTranslation("translation");
-  const router = useRouter();
-  const orderId = router.query.oid as string;
 
   const { user, isLoadingUser } = useAuth();
   const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
@@ -55,6 +58,7 @@ const OrderPayPage = ({ store }: { store: Store }) => {
 
 export async function getServerSideProps({
   locale,
+  query,
   req,
 }: PageContextWithStore) {
   const store = await getStore(req.headers.host);
@@ -62,6 +66,7 @@ export async function getServerSideProps({
     return { props: {} };
   }
 
+  const { oid } = query;
   const queryClient = newClient();
   await Promise.all(getDefaultPrefetch(queryClient, store));
 
@@ -70,6 +75,7 @@ export async function getServerSideProps({
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
       store,
+      orderId: oid,
     },
   };
 }

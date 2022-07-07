@@ -50,10 +50,9 @@ export const Success = withTheme(
         </Link>
 
         <Link
-          shallow
           passHref
           replace
-          href={`${urls.accountOrders}/[pid]`}
+          href={`${urls.accountOrders}/[oid]`}
           as={`${urls.accountOrders}/${order._id}`}
         >
           <Button variant="outline" as="a" size="lg" mt={3} isFullWidth>

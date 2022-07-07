@@ -13,7 +13,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useQuery } from "../../sdk/useQuery";
 import { getImageURL } from "../../hacks/imageUrl";
 import { Product } from "../../pageComponents/products/Product";
-import { useRouter } from "next/router";
 import { useCart } from "../../hooks/useCart";
 import { urls } from "../../tooling/url";
 
@@ -36,10 +35,14 @@ const getProductSummary = (
   )}. ${transliteratedName}`;
 };
 
-const ProductPage = ({ store }: { store: Store }) => {
+const ProductPage = ({
+  store,
+  productId,
+}: {
+  store: Store;
+  productId: string;
+}) => {
   const { t } = useTranslation("translation");
-  const router = useRouter();
-  const productId = router.query.pid as string;
 
   const { user } = useAuth();
   const { cart, addToCart } = useCart(store._id, user, t);
@@ -136,6 +139,7 @@ export async function getServerSideProps({
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
       store,
+      productId: pid,
     },
   };
 }

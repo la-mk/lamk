@@ -110,7 +110,7 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
         <Link
           passHref
           replace
-          href={`${urls.accountOrders}/[pid]`}
+          href={`${urls.accountOrders}/[oid]`}
           as={`${urls.accountOrders}/${order._id}`}
         >
           <Button mt={5} as="a" mx={2} key="console">

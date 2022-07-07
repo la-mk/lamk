@@ -12,6 +12,7 @@ import { StoreNotFound } from "../layout/StoreNotFound";
 import { StoreLayout } from "../layout/StoreLayout";
 import { Store } from "../domain/store";
 import Head from "next/head";
+import NextNProgress from "nextjs-progressbar";
 import { Integrations } from "../integrations/Integrations";
 import { getImageURL } from "../hacks/imageUrl";
 import { AuthProvider } from "../layout/Auth/AuthProvider";
@@ -43,6 +44,15 @@ function MyApp({
     <ThemeProvider brandColor={store?.color ?? "#EF4351"}>
       {!!store ? (
         <>
+          <NextNProgress
+            color={store?.color ?? "#EF4351"}
+            height={1}
+            showOnShallow={false}
+            options={{
+              showSpinner: false,
+            }}
+          />
+
           <Head>
             <link
               rel="shortcut icon"

@@ -13,7 +13,6 @@ import { urls } from "../../../tooling/url";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 
 export const Orders = ({
-  user,
   store,
   orders,
   totalOrders,
@@ -21,7 +20,6 @@ export const Orders = ({
   filters,
   setFilters,
 }: {
-  user: User;
   store: Store;
   orders: Order[];
   totalOrders: number;

@@ -61,7 +61,6 @@ function OrdersPage({ store }: { store: Store }) {
       <Orders
         filters={filters}
         setFilters={setFilters}
-        user={user}
         store={store}
         isOrdersLoading={isLoadingOrders}
         totalOrders={orders?.total ?? 0}

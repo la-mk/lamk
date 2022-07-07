@@ -53,9 +53,8 @@ export const OrderDescription = ({
         </Flex>
         {!hideDetailsButton && (
           <Link
-            shallow
             passHref
-            href={`${urls.accountOrders}/[pid]`}
+            href={`${urls.accountOrders}/[oid]`}
             as={`${urls.accountOrders}/${order._id}`}
           >
             <Button as="a" variant="link" leftIcon={<Eye size="1.2rem" />}>

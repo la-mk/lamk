@@ -10,14 +10,10 @@ import { Result, Spinner } from "@la-mk/blocks-ui";
 import { Head } from "../../../../layout/Head";
 import { useQuery } from "../../../../sdk/useQuery";
 import { Order } from "../../../../pageComponents/account/orders/Order";
-import { useRouter } from "next/router";
 import { urls } from "../../../../tooling/url";
 
-const OrderPage = ({ store }: { store: Store }) => {
+const OrderPage = ({ store, orderId }: { store: Store; orderId: string }) => {
   const { t } = useTranslation("translation");
-  const router = useRouter();
-  const orderId = router.query.oid as string;
-
   const { user, isLoadingUser } = useAuth();
   const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
     enabled: !!user,
@@ -59,6 +55,7 @@ const OrderPage = ({ store }: { store: Store }) => {
 
 export async function getServerSideProps({
   locale,
+  query,
   req,
 }: PageContextWithStore) {
   const store = await getStore(req.headers.host);
@@ -66,6 +63,7 @@ export async function getServerSideProps({
     return { props: {} };
   }
 
+  const { oid } = query;
   const queryClient = newClient();
   await Promise.all(getDefaultPrefetch(queryClient, store));
 
@@ -74,6 +72,7 @@ export async function getServerSideProps({
       ...getProps(queryClient),
       ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
       store,
+      orderId: oid,
     },
   };
 }
