@@ -79,7 +79,12 @@ export const useAnalytics = (storeId: string) => {
   }, [trackEvent]);
 
   useEffect(() => {
-    if (!user?._id || !analyticsConsent || !analytics) {
+    if (
+      !user?._id ||
+      !analyticsConsent ||
+      !analytics ||
+      !!analytics.user().userId
+    ) {
       return;
     }
 
