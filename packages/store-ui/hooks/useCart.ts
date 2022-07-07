@@ -34,7 +34,7 @@ type ClearCartFunc = (onlyLocal: boolean) => Promise<void>;
 const defaultCart = { items: [] } as CartWithProducts;
 
 export const useCart = (
-  store: Store,
+  storeId: string,
   user: User | undefined,
   t: TFunction
 ): {
@@ -53,7 +53,7 @@ export const useCart = (
   const [, , , refetchCart] = useQuery(
     "cart",
     "get",
-    [user?._id ?? "", store._id],
+    [user?._id ?? "", storeId],
     {
       enabled: false,
       onSuccess: async (res) => {
@@ -66,7 +66,7 @@ export const useCart = (
         );
 
         const updatedCartItems = await updateCartItems(cartItems);
-        await updateServerCart(store._id, res._id, updatedCartItems);
+        await updateServerCart(storeId, res._id, updatedCartItems);
         setLocalCart({ _id: res._id, items: updatedCartItems });
       },
     }
@@ -87,7 +87,7 @@ export const useCart = (
           product,
           attributes,
           quantity,
-          store._id,
+          storeId,
           user?._id,
         ]);
 
@@ -98,7 +98,7 @@ export const useCart = (
             {
               product: orderProduct,
               quantity,
-              fromStore: store._id,
+              fromStore: storeId,
             } as CartItemWithProduct,
           ],
         }));
@@ -110,7 +110,7 @@ export const useCart = (
         toast.error("results.genericError");
       }
     },
-    [user?._id, store._id, setLocalCart, addToCart, t]
+    [user?._id, storeId, setLocalCart, addToCart, t]
   );
 
   const handleRemoveFromCart = React.useCallback(

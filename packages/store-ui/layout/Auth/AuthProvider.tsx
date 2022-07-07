@@ -18,17 +18,17 @@ export const AuthContext = React.createContext({
 });
 
 export const AuthProvider = ({
-  store,
+  storeId,
   children,
 }: {
-  store: Store;
+  storeId: string;
   children: React.ReactElement;
 }) => {
   const [showAuth, setShowAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation("translation");
   const [user, setUser] = useState<User | undefined>();
-  const { clearCart } = useCart(store, user, t);
+  const { clearCart } = useCart(storeId, user, t);
 
   const isLoadingUser = useCallback(() => {
     return isLoading;
@@ -81,7 +81,7 @@ export const AuthProvider = ({
     <AuthContext.Provider value={val}>
       {children}
       <AuthHandler
-        storeId={store._id}
+        storeId={storeId}
         onClose={onClose}
         onAuthChanged={updateUser}
         onLoading={setIsLoading}

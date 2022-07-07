@@ -8,7 +8,6 @@ import {
   ProductSetType,
 } from "../../domain/set";
 import { useTranslation } from "next-i18next";
-import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { getLevel2CategoryHref, urls } from "../../tooling/url";
 import { ProductDuo } from "../../components/sets/ProductDuo";
 import { ProductSet } from "../../components/sets/ProductSet";
@@ -20,10 +19,10 @@ import { useQuery } from "../../sdk/useQuery";
 import { DiscountCampaign } from "../../components/campaigns/DiscountCampaign";
 import { sampleSize } from "../../tooling/util";
 import { sortBy } from "lodash";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 export const Home = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
-  useBreadcrumbs([{ url: urls.home, title: t("pages.home") }]);
 
   const [landingContent, isLoadingLandingContent] = useQuery(
     "storeContents",
@@ -91,6 +90,7 @@ export const Home = ({ store }: { store: Store }) => {
 
   return (
     <>
+      <Breadcrumbs breadcrumbs={[{ url: urls.home, title: t("pages.home") }]} />
       <Banner
         banner={landingContent?.banner}
         // TODO: This is temporarily, manually added field, remove and find a proper strategy for handling the banner.

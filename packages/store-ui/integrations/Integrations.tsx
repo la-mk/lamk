@@ -1,14 +1,13 @@
 import { FacebookChat } from "@la-mk/blocks-ui";
 import React from "react";
-import { Store } from "../domain/store";
 import { useQuery } from "../sdk/useQuery";
 
-export const Integrations = ({ store }: { store: Store }) => {
+export const Integrations = ({ storeId }: { storeId: string }) => {
   const [integrations, isLoading, error] = useQuery(
     "storeIntegrations",
     "findForStore",
-    [store?._id],
-    { enabled: !!store }
+    [storeId],
+    { enabled: !!storeId }
   );
 
   if (isLoading || error) {

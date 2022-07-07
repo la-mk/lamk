@@ -1,17 +1,13 @@
 import React from "react";
 import { Flex, Box, Text } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
-import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { ClickableCard } from "../../components/ClickableCard";
 import { Page } from "../../layout/Page";
 import { urls } from "../../tooling/url";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 export const Legal = () => {
   const { t } = useTranslation("translation");
-  useBreadcrumbs([
-    { url: urls.home, title: t("pages.home") },
-    { url: urls.legal, title: t("pages.legal") },
-  ]);
 
   const submenus = [
     {
@@ -37,20 +33,28 @@ export const Legal = () => {
   ];
 
   return (
-    <Page maxWidth={"86rem"} title={t("pages.legal")}>
-      <Text as="p" align="center">
-        {t("legal.legalExplanation")}
-      </Text>
+    <>
+      <Breadcrumbs
+        breadcrumbs={[
+          { url: urls.home, title: t("pages.home") },
+          { url: urls.legal, title: t("pages.legal") },
+        ]}
+      />
+      <Page maxWidth={"86rem"} title={t("pages.legal")}>
+        <Text as="p" align="center">
+          {t("legal.legalExplanation")}
+        </Text>
 
-      <Flex mt={6} align="center" justify="center" wrap="wrap">
-        {submenus.map((submenu) => {
-          return (
-            <Box key={submenu.link} m={3}>
-              <ClickableCard title={submenu.text} href={submenu.link} />
-            </Box>
-          );
-        })}
-      </Flex>
-    </Page>
+        <Flex mt={6} align="center" justify="center" wrap="wrap">
+          {submenus.map((submenu) => {
+            return (
+              <Box key={submenu.link} m={3}>
+                <ClickableCard title={submenu.text} href={submenu.link} />
+              </Box>
+            );
+          })}
+        </Flex>
+      </Page>
+    </>
   );
 };

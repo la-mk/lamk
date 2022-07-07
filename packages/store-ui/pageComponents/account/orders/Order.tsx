@@ -7,7 +7,6 @@ import { User } from "../../../domain/user";
 import { Store } from "../../../domain/store";
 import { Order as OrderType, OrderStatus } from "../../../domain/order";
 import { TFunction, useTranslation } from "next-i18next";
-import { useBreadcrumbs } from "../../../hooks/useBreadcrumbs";
 import { Page } from "../../../layout/Page";
 import { CustomCard } from "../../../components/CustomCard";
 import { ShippingDescription } from "../../../components/ShippingDescription";
@@ -23,6 +22,7 @@ import {
 } from "../../../domain/set";
 import { ProductSet } from "../../../components/sets/ProductSet";
 import { urls } from "../../../tooling/url";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 
 const getSets = (t: TFunction) => [
   {
@@ -57,19 +57,6 @@ export const Order = ({
   const { t } = useTranslation("translation");
   const router = useRouter();
 
-  useBreadcrumbs(
-    [
-      { url: urls.home, title: t("pages.home") },
-      { url: urls.accountOrders, title: t("pages.order_plural") },
-      {
-        urlPattern: `${urls.accountOrders}/[oid]`,
-        url: `${urls.accountOrders}/${order?._id}`,
-        title: `${t("pages.order")} - ${sdk.utils.getShortId(order?._id)}`,
-      },
-    ],
-    [order._id]
-  );
-
   const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
     store._id,
     getSets(t),
@@ -85,77 +72,98 @@ export const Order = ({
     order.status === OrderStatus.PENDING_PAYMENT && isCardPayment;
 
   return (
-    <Page>
-      <BackButton />
-      <Spinner isLoaded={!isLoadingOrder}>
-        <OrderSteps t={t} status={order.status} isCardPayment={isCardPayment} />
-
-        <Flex
-          mt={6}
-          width="100%"
-          justify="space-between"
-          align={"flex-end"}
-          wrap="wrap-reverse"
-        >
-          <Flex maxWidth={"60rem"} mx={[1, 3, 3]} flex={2} direction="column">
-            <CustomCard my={3}>
-              <OrderDescription hideDetailsButton order={order} store={store} />
-            </CustomCard>
-            {order.deliverTo && (
-              <CustomCard my={3}>
-                <ShippingDescription address={order.deliverTo} />
-              </CustomCard>
-            )}
-
-            {order.buyerNote && (
-              <CustomCard mt={3}>
-                <Heading mb={3} noOfLines={1} as="h4" size="sm">
-                  {t("order.note")}
-                </Heading>
-                <Text color="mutedText.dark">{order.buyerNote}</Text>
-              </CustomCard>
-            )}
-          </Flex>
+    <>
+      <Breadcrumbs
+        breadcrumbs={[
+          { url: urls.home, title: t("pages.home") },
+          { url: urls.accountOrders, title: t("pages.order_plural") },
+          {
+            urlPattern: `${urls.accountOrders}/[oid]`,
+            url: `${urls.accountOrders}/${order?._id}`,
+            title: `${t("pages.order")} - ${sdk.utils.getShortId(order?._id)}`,
+          },
+        ]}
+      />
+      <Page>
+        <BackButton />
+        <Spinner isLoaded={!isLoadingOrder}>
+          <OrderSteps
+            t={t}
+            status={order.status}
+            isCardPayment={isCardPayment}
+          />
 
           <Flex
-            align={"flex-start"}
-            justify="center"
+            mt={6}
             width="100%"
-            flex={1}
-            maxWidth={"60rem"}
-            mx={[1, 3, 3]}
-            my={3}
+            justify="space-between"
+            align={"flex-end"}
+            wrap="wrap-reverse"
           >
-            <Summary
-              store={store}
-              hideFreeShipping
-              items={order.ordered}
-              delivery={order.delivery}
-              campaigns={order.campaigns ?? []}
-              currency={order.currency}
-              buttonTitle={shouldPay ? t("actions.toPayment") : undefined}
-              onCheckout={shouldPay ? handlePayment : undefined}
-              title={t("finance.priceBreakdown")}
-            />
-          </Flex>
-        </Flex>
+            <Flex maxWidth={"60rem"} mx={[1, 3, 3]} flex={2} direction="column">
+              <CustomCard my={3}>
+                <OrderDescription
+                  hideDetailsButton
+                  order={order}
+                  store={store}
+                />
+              </CustomCard>
+              {order.deliverTo && (
+                <CustomCard my={3}>
+                  <ShippingDescription address={order.deliverTo} />
+                </CustomCard>
+              )}
 
-        <Spinner isLoaded={!isLoadingSets}>
-          <Box mt={8}>
-            {(sets ?? [])
-              .filter((set) => Boolean(set.data))
-              .map((set, i) => (
-                <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
-                  <ProductSet
-                    set={set}
-                    store={store}
-                    key={set.setTag.type + (set.setTag.value || "")}
-                  />
-                </Box>
-              ))}
-          </Box>
+              {order.buyerNote && (
+                <CustomCard mt={3}>
+                  <Heading mb={3} noOfLines={1} as="h4" size="sm">
+                    {t("order.note")}
+                  </Heading>
+                  <Text color="mutedText.dark">{order.buyerNote}</Text>
+                </CustomCard>
+              )}
+            </Flex>
+
+            <Flex
+              align={"flex-start"}
+              justify="center"
+              width="100%"
+              flex={1}
+              maxWidth={"60rem"}
+              mx={[1, 3, 3]}
+              my={3}
+            >
+              <Summary
+                store={store}
+                hideFreeShipping
+                items={order.ordered}
+                delivery={order.delivery}
+                campaigns={order.campaigns ?? []}
+                currency={order.currency}
+                buttonTitle={shouldPay ? t("actions.toPayment") : undefined}
+                onCheckout={shouldPay ? handlePayment : undefined}
+                title={t("finance.priceBreakdown")}
+              />
+            </Flex>
+          </Flex>
+
+          <Spinner isLoaded={!isLoadingSets}>
+            <Box mt={8}>
+              {(sets ?? [])
+                .filter((set) => Boolean(set.data))
+                .map((set, i) => (
+                  <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
+                    <ProductSet
+                      set={set}
+                      store={store}
+                      key={set.setTag.type + (set.setTag.value || "")}
+                    />
+                  </Box>
+                ))}
+            </Box>
+          </Spinner>
         </Spinner>
-      </Spinner>
-    </Page>
+      </Page>
+    </>
   );
 };

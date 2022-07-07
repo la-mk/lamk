@@ -60,12 +60,12 @@ function MyApp({
           >
             <QueryClientProvider client={queryClient._qc}>
               <Hydrate state={dehydratedState}>
-                <AuthProvider store={store}>
+                <AuthProvider storeId={store._id}>
                   <>
                     <StoreLayout store={store}>
                       <Component {...otherProps} store={store} />
                     </StoreLayout>
-                    <Integrations store={store} />
+                    <Integrations storeId={store._id} />
                   </>
                 </AuthProvider>
               </Hydrate>

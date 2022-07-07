@@ -3,18 +3,18 @@ import React from "react";
 import { useTheme } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import { PersonalInfo } from "../../components/icons/PersonalInfo";
-import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { AccountMenu } from "../../layout/Account/AccountMenu";
 import { User } from "../../domain/user";
 import { urls } from "../../tooling/url";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 export const Account = ({ user }: { user: User }) => {
   const theme = useTheme();
   const { t } = useTranslation("translation");
-  useBreadcrumbs([{ url: urls.home, title: t("pages.home") }]);
 
   return (
     <>
+      <Breadcrumbs breadcrumbs={[{ url: urls.home, title: t("pages.home") }]} />
       <Box display={["block", "none", "none"]}>
         <AccountMenu user={user} />;
       </Box>

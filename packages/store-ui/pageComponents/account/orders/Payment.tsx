@@ -13,7 +13,6 @@ import { AnalyticsEvents } from "@la-mk/analytics";
 import { Store } from "../../../domain/store";
 import { Order, OrderStatus } from "../../../domain/order";
 import { useTranslation } from "next-i18next";
-import { useBreadcrumbs } from "../../../hooks/useBreadcrumbs";
 import { useAnalytics } from "../../../hooks/useAnalytics";
 import { PaymentMethodNames, TransactionStatus } from "../../../domain/payment";
 import { useQuery } from "../../../sdk/useQuery";
@@ -22,6 +21,7 @@ import { Page } from "../../../layout/Page";
 import { FrameMessageExchange } from "./FrameMessageExchange";
 import { PaymentForm } from "./payments/PaymentForm";
 import { urls } from "../../../tooling/url";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 
 interface PaymentProps {
   store: Store;
@@ -54,24 +54,6 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
 
   const cardPaymentInfo = paymentMethods?.data?.[0]?.methods?.find(
     (method) => method.name === PaymentMethodNames.CREDIT_CARD
-  );
-
-  useBreadcrumbs(
-    [
-      { url: urls.home, title: t("pages.home") },
-      { url: urls.accountOrders, title: t("pages.order_plural") },
-      {
-        urlPattern: `${urls.accountOrders}/[oid]`,
-        url: `${urls.accountOrders}/${order?._id}`,
-        title: t("pages.order"),
-      },
-      {
-        urlPattern: `${urls.accountOrders}/[oid]/pay`,
-        url: `${urls.accountOrders}/${order?._id}/pay`,
-        title: t("pages.payment"),
-      },
-    ],
-    [order._id]
   );
 
   useEffect(() => {
@@ -146,79 +128,97 @@ export const Payment = ({ store, order, isLoadingOrder }: PaymentProps) => {
   const frameName = "paymentFrame";
 
   return (
-    <Page>
-      <Spinner
-        isLoaded={
-          !isLoadingPaymentMethods && !isLoadingOrder && !isLoadingPayment
-        }
-      >
-        <Flex align="center" justify="center" direction="column">
-          {order && (
-            <Heading as="h3" size="lg" mb={3}>
-              {t("payment.payAmountTip", {
-                amountWithCurrency: `${order.calculatedTotal} ${t(
-                  `currencies.${order.currency}`
-                )}`,
-              })}
-            </Heading>
-          )}
-          {paymentResponse?.error && (
-            <Alert
-              maxWidth={"40rem"}
-              mt={5}
-              status="error"
-              message={
-                paymentResponse.error?.message ?? t("results.genericError")
-              }
-            />
-          )}
-
-          {(transactionStatus === TransactionStatus.DECLINED ||
-            transactionStatus === TransactionStatus.ERROR) && (
-            <Alert
-              maxWidth={"40rem"}
-              mt={5}
-              status="error"
-              message={transaction?.message ?? t("results.genericError")}
-            />
-          )}
-
-          {shouldRetry && (
-            <>
-              <Button
-                mt={6}
-                size="lg"
-                onClick={() => {
-                  setPaymentResponse(null);
-                  setIsLoadingPayment(true);
-                }}
-              >
-                {t("actions.retry")}
-              </Button>
-              <Text mt={3} color="mutedText.dark">
-                {t("order.retryFromOrdersTip")}
-              </Text>
-            </>
-          )}
-
-          {order && paymentMethods?.data?.[0] && !paymentResponse && (
-            <>
-              <PaymentForm
-                target={frameName}
-                storePaymentsId={paymentMethods?.data?.[0]?._id}
-                cardPaymentInfo={cardPaymentInfo!}
-                order={order}
+    <>
+      <Breadcrumbs
+        breadcrumbs={[
+          { url: urls.home, title: t("pages.home") },
+          { url: urls.accountOrders, title: t("pages.order_plural") },
+          {
+            urlPattern: `${urls.accountOrders}/[oid]`,
+            url: `${urls.accountOrders}/${order?._id}`,
+            title: t("pages.order"),
+          },
+          {
+            urlPattern: `${urls.accountOrders}/[oid]/pay`,
+            url: `${urls.accountOrders}/${order?._id}/pay`,
+            title: t("pages.payment"),
+          },
+        ]}
+      />
+      <Page>
+        <Spinner
+          isLoaded={
+            !isLoadingPaymentMethods && !isLoadingOrder && !isLoadingPayment
+          }
+        >
+          <Flex align="center" justify="center" direction="column">
+            {order && (
+              <Heading as="h3" size="lg" mb={3}>
+                {t("payment.payAmountTip", {
+                  amountWithCurrency: `${order.calculatedTotal} ${t(
+                    `currencies.${order.currency}`
+                  )}`,
+                })}
+              </Heading>
+            )}
+            {paymentResponse?.error && (
+              <Alert
+                maxWidth={"40rem"}
+                mt={5}
+                status="error"
+                message={
+                  paymentResponse.error?.message ?? t("results.genericError")
+                }
               />
-              {/* Can hide a spinner after the iframe is loaded */}
-              <FrameMessageExchange
-                frameName={frameName}
-                onLoad={() => setIsLoadingPayment(false)}
-                onResponse={setPaymentResponse}
+            )}
+
+            {(transactionStatus === TransactionStatus.DECLINED ||
+              transactionStatus === TransactionStatus.ERROR) && (
+              <Alert
+                maxWidth={"40rem"}
+                mt={5}
+                status="error"
+                message={transaction?.message ?? t("results.genericError")}
               />
-            </>
-          )}
-        </Flex>
-      </Spinner>
-    </Page>
+            )}
+
+            {shouldRetry && (
+              <>
+                <Button
+                  mt={6}
+                  size="lg"
+                  onClick={() => {
+                    setPaymentResponse(null);
+                    setIsLoadingPayment(true);
+                  }}
+                >
+                  {t("actions.retry")}
+                </Button>
+                <Text mt={3} color="mutedText.dark">
+                  {t("order.retryFromOrdersTip")}
+                </Text>
+              </>
+            )}
+
+            {order && paymentMethods?.data?.[0] && !paymentResponse && (
+              <>
+                <PaymentForm
+                  target={frameName}
+                  storePaymentsId={paymentMethods?.data?.[0]?._id}
+                  cardPaymentInfo={cardPaymentInfo!}
+                  order={order}
+                />
+                {/* Can hide a spinner after the iframe is loaded */}
+                <FrameMessageExchange
+                  frameName={frameName}
+                  onLoad={() => setIsLoadingPayment(false)}
+                  onResponse={setPaymentResponse}
+                />
+              </>
+            )}
+          </Flex>
+        </Spinner>
+      </Page>
+    </>
   );
 };

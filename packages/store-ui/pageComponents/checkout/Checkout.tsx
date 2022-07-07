@@ -10,7 +10,6 @@ import { useCart } from "../../hooks/useCart";
 import { Store } from "../../domain/store";
 import { User } from "../../domain/user";
 import { PaymentMethodNames } from "../../domain/payment";
-import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import {
   calculatePrices,
   DeliveryStatus,
@@ -27,10 +26,11 @@ import { Campaign } from "../../domain/campaign";
 import { useMutation } from "../../sdk/useMutation";
 import { useRouter } from "next/router";
 import { urls } from "../../tooling/url";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 export const Checkout = ({ store, user }: { store: Store; user: User }) => {
   const { t } = useTranslation("translation");
-  const { cart, clearCart } = useCart(store, user, t);
+  const { cart, clearCart } = useCart(store._id, user, t);
   const { trackEvent } = useAnalytics(store._id);
   const router = useRouter();
 
@@ -40,11 +40,6 @@ export const Checkout = ({ store, user }: { store: Store; user: User }) => {
   const [paymentMethod, setPaymentMethod] = useState(
     PaymentMethodNames.PAY_ON_DELIVERY
   );
-
-  useBreadcrumbs([
-    { url: urls.home, title: t("pages.home") },
-    { url: urls.checkout, title: t("pages.checkout") },
-  ]);
 
   const [campaigns, isLoadingCampaigns] = useQuery(
     "campaign",
@@ -180,68 +175,76 @@ export const Checkout = ({ store, user }: { store: Store; user: User }) => {
   };
 
   return (
-    <Page>
-      <Spinner
-        isLoaded={
-          !isCreatingOrder &&
-          !isLoadingAddresses &&
-          !isLoadingCampaigns &&
-          !isLoadingDeliveries &&
-          !isLoadingStorePaymentMethods
-        }
-      >
-        <Flex justify="space-between" align="flex-start" wrap="wrap">
-          <Flex
-            px={2}
-            maxWidth={"60rem"}
-            minWidth={["18rem", "24rem", "24rem"]}
-            flex={1}
-            direction="column"
-            mx={[1, 2, 4]}
-            mb={3}
-          >
-            <SelectPaymentMethod
-              storePaymentMethods={storePaymentMethods?.data[0]}
-              paymentMethod={paymentMethod}
-              setPaymentMethod={setPaymentMethod}
-            />
-            <SelectAddress
-              storeId={store._id}
-              deliverTo={deliverTo}
-              setDeliverTo={setDeliverTo}
-              user={user}
-            />
-          </Flex>
+    <>
+      <Breadcrumbs
+        breadcrumbs={[
+          { url: urls.home, title: t("pages.home") },
+          { url: urls.checkout, title: t("pages.checkout") },
+        ]}
+      />
+      <Page>
+        <Spinner
+          isLoaded={
+            !isCreatingOrder &&
+            !isLoadingAddresses &&
+            !isLoadingCampaigns &&
+            !isLoadingDeliveries &&
+            !isLoadingStorePaymentMethods
+          }
+        >
+          <Flex justify="space-between" align="flex-start" wrap="wrap">
+            <Flex
+              px={2}
+              maxWidth={"60rem"}
+              minWidth={["18rem", "24rem", "24rem"]}
+              flex={1}
+              direction="column"
+              mx={[1, 2, 4]}
+              mb={3}
+            >
+              <SelectPaymentMethod
+                storePaymentMethods={storePaymentMethods?.data[0]}
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+              />
+              <SelectAddress
+                storeId={store._id}
+                deliverTo={deliverTo}
+                setDeliverTo={setDeliverTo}
+                user={user}
+              />
+            </Flex>
 
-          <Flex
-            align={"center"}
-            justify="center"
-            minWidth={"18rem"}
-            maxWidth={["48rem", "48rem", "36rem"]}
-            width="100%"
-            flex={1}
-            mx={[1, 2, 4]}
-            my={3}
-          >
-            <Summary
-              store={store}
-              currency={store.preferences?.currency ?? "mkd"}
-              showProductsSummary
-              items={cart.items}
-              delivery={delivery!}
-              campaigns={campaigns?.data ?? []}
-              disabled={!deliverTo}
-              showLeaveNote
-              buttonTitle={
-                paymentMethod === PaymentMethodNames.CREDIT_CARD
-                  ? t("actions.toPayment")
-                  : t("actions.orderNow")
-              }
-              onCheckout={handleOrder}
-            />
+            <Flex
+              align={"center"}
+              justify="center"
+              minWidth={"18rem"}
+              maxWidth={["48rem", "48rem", "36rem"]}
+              width="100%"
+              flex={1}
+              mx={[1, 2, 4]}
+              my={3}
+            >
+              <Summary
+                store={store}
+                currency={store.preferences?.currency ?? "mkd"}
+                showProductsSummary
+                items={cart.items}
+                delivery={delivery!}
+                campaigns={campaigns?.data ?? []}
+                disabled={!deliverTo}
+                showLeaveNote
+                buttonTitle={
+                  paymentMethod === PaymentMethodNames.CREDIT_CARD
+                    ? t("actions.toPayment")
+                    : t("actions.orderNow")
+                }
+                onCheckout={handleOrder}
+              />
+            </Flex>
           </Flex>
-        </Flex>
-      </Spinner>
-    </Page>
+        </Spinner>
+      </Page>
+    </>
   );
 };

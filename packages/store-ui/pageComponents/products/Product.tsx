@@ -11,7 +11,6 @@ import {
   Product as ProductType,
 } from "../../domain/product";
 import { TFunction, useTranslation } from "next-i18next";
-import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { Page } from "../../layout/Page";
 import { ProductDescription } from "./ProductDescription";
 import { ProductImage } from "./ProductImage";
@@ -28,6 +27,7 @@ import {
 import { useQuery } from "../../sdk/useQuery";
 import { ServicesSet } from "../../components/sets/ServicesSet";
 import { urls } from "../../tooling/url";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 interface ProductProps {
   product: ProductType;
@@ -117,22 +117,6 @@ export const Product = ({
   const [quantity, setQuantity] = React.useState(1);
   const selectedVariant = getVariantForAttributes(product, chosenAttributes);
 
-  useBreadcrumbs(
-    [
-      { url: urls.home, title: t("pages.home") },
-      {
-        url: getProductsHref(getSessionInfo()?.previousPage ?? ""),
-        title: t("pages.product_plural"),
-      },
-      {
-        urlPattern: `${urls.products}/[pid]`,
-        url: `${urls.products}/${product._id}`,
-        title: product.name.slice(0, 40),
-      },
-    ],
-    [product?._id]
-  );
-
   const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
     store._id,
     getSets(product, t),
@@ -204,65 +188,81 @@ export const Product = ({
   };
 
   return (
-    <Page>
-      <Spinner isLoaded={!isLoadingProduct}>
-        <Flex direction={["column", "row", "row"]}>
-          <ProductImage product={product} store={store} />
-          <Flex
-            ml={[0, 2, 2]}
-            width={["100%", "50%", "50%"]}
-            align={["center", "flex-start", "flex-start"]}
-            justify="flex-start"
-            direction="column"
-          >
-            <ProductDescription
-              store={store}
-              product={product}
-              selectedVariant={selectedVariant}
-              outOfStock={outOfStock}
-            />
-
-            <ProductOptions
-              product={product}
-              cart={cart}
-              selectedVariant={selectedVariant}
-              outOfStock={outOfStock}
-              chosenAttributes={chosenAttributes}
-              setChosenAttributes={setChosenAttributes}
-              quantity={quantity}
-              setQuantity={setQuantity}
-              handleAddToCart={handleAddToCart}
-            />
-            <Box width="100%" mx={[4, 0, 0]} mt={[6, 7, 7]}>
-              <ProductDetails
+    <>
+      <Breadcrumbs
+        breadcrumbs={[
+          { url: urls.home, title: t("pages.home") },
+          {
+            url: getProductsHref(getSessionInfo()?.previousPage ?? ""),
+            title: t("pages.product_plural"),
+          },
+          {
+            urlPattern: `${urls.products}/[pid]`,
+            url: `${urls.products}/${product._id}`,
+            title: product.name.slice(0, 40),
+          },
+        ]}
+      />
+      <Page>
+        <Spinner isLoaded={!isLoadingProduct}>
+          <Flex direction={["column", "row", "row"]}>
+            <ProductImage product={product} store={store} />
+            <Flex
+              ml={[0, 2, 2]}
+              width={["100%", "50%", "50%"]}
+              align={["center", "flex-start", "flex-start"]}
+              justify="flex-start"
+              direction="column"
+            >
+              <ProductDescription
                 store={store}
                 product={product}
-                delivery={delivery}
+                selectedVariant={selectedVariant}
+                outOfStock={outOfStock}
               />
-            </Box>
-          </Flex>
-        </Flex>
-      </Spinner>
 
-      <Spinner isLoaded={!isLoadingSets}>
-        <Box mt={[8, 9, 9]}>
-          {(sets ?? [])
-            .filter((set) => Boolean(set.data))
-            .map((set, i) => (
-              <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
-                <ProductSet
-                  set={set}
+              <ProductOptions
+                product={product}
+                cart={cart}
+                selectedVariant={selectedVariant}
+                outOfStock={outOfStock}
+                chosenAttributes={chosenAttributes}
+                setChosenAttributes={setChosenAttributes}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                handleAddToCart={handleAddToCart}
+              />
+              <Box width="100%" mx={[4, 0, 0]} mt={[6, 7, 7]}>
+                <ProductDetails
                   store={store}
-                  key={set.setTag.type + (set.setTag.value || "")}
+                  product={product}
+                  delivery={delivery}
                 />
               </Box>
-            ))}
-        </Box>
-      </Spinner>
+            </Flex>
+          </Flex>
+        </Spinner>
 
-      <Box mt={[8, 9, 9]}>
-        <ServicesSet store={store} delivery={delivery} />
-      </Box>
-    </Page>
+        <Spinner isLoaded={!isLoadingSets}>
+          <Box mt={[8, 9, 9]}>
+            {(sets ?? [])
+              .filter((set) => Boolean(set.data))
+              .map((set, i) => (
+                <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
+                  <ProductSet
+                    set={set}
+                    store={store}
+                    key={set.setTag.type + (set.setTag.value || "")}
+                  />
+                </Box>
+              ))}
+          </Box>
+        </Spinner>
+
+        <Box mt={[8, 9, 9]}>
+          <ServicesSet store={store} delivery={delivery} />
+        </Box>
+      </Page>
+    </>
   );
 };

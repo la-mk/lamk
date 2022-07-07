@@ -42,7 +42,7 @@ const ProductPage = ({ store }: { store: Store }) => {
   const productId = router.query.pid as string;
 
   const { user } = useAuth();
-  const { cart, addToCart } = useCart(store, user, t);
+  const { cart, addToCart } = useCart(store._id, user, t);
   const [product, isLoadingProduct] = useQuery("product", "get", [productId]);
   const [delivery, isLoadingDelivery] = useQuery("delivery", "findForStore", [
     store._id,

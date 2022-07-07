@@ -200,8 +200,8 @@ export const OrderProductsList = ({
           justify="center"
           direction="column"
         >
-          {items.map((item) => (
-            <>
+          {items.map((item, i) => (
+            <React.Fragment key={i}>
               <Divider mb={2} />
               <OrderProductListItem
                 store={store}
@@ -211,7 +211,7 @@ export const OrderProductsList = ({
                 item={item}
                 t={t}
               />
-            </>
+            </React.Fragment>
           ))}
         </Flex>
 

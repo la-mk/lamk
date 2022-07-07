@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Box, Flex, Result, Spinner } from "@la-mk/blocks-ui";
 import { AnalyticsEvents } from "@la-mk/analytics";
 import { TFunction, useTranslation } from "next-i18next";
-import { useBreadcrumbs } from "../../hooks/useBreadcrumbs";
 import { Store } from "../../domain/store";
 import { useAnalytics } from "../../hooks/useAnalytics";
 import { useCart } from "../../hooks/useCart";
@@ -20,6 +19,7 @@ import {
 import { ProductSet } from "../../components/sets/ProductSet";
 import { OrderItem } from "../../domain/order";
 import { urls } from "../../tooling/url";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 const getSets = (t: TFunction) => [
   {
@@ -46,7 +46,7 @@ export const Cart = ({ store, user }: { store: Store; user?: User }) => {
   const router = useRouter();
   const { trackEvent } = useAnalytics(store._id);
   const { cart, removeFromCart, changeQuantityInCart } = useCart(
-    store,
+    store._id,
     user,
     t
   );
@@ -56,11 +56,6 @@ export const Cart = ({ store, user }: { store: Store; user?: User }) => {
   const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
     store._id,
     getSets(t),
-  ]);
-
-  useBreadcrumbs([
-    { url: urls.home, title: t("pages.home") },
-    { url: urls.cart, title: t("pages.myCart") },
   ]);
 
   useEffect(() => {
@@ -104,49 +99,63 @@ export const Cart = ({ store, user }: { store: Store; user?: User }) => {
   };
 
   return (
-    <Page>
-      <Spinner isLoaded={true}>
-        <Flex width="100%" align="flex-start" wrap="wrap">
-          <Flex direction="column" flex={2} mx={[1, 2, 2]} my={3}>
-            <OrderProductsList
-              items={cart.items}
-              store={store}
-              currency={store.preferences?.currency ?? "mkd"}
-              handleRemove={handleRemove}
-              handleChangeItemQuantity={handleChangeQuantity}
-            />
+    <>
+      <Breadcrumbs
+        breadcrumbs={[
+          { url: urls.home, title: t("pages.home") },
+          { url: urls.cart, title: t("pages.myCart") },
+        ]}
+      />
+      <Page>
+        <Spinner isLoaded={true}>
+          <Flex width="100%" align="flex-start" wrap="wrap">
+            <Flex direction="column" flex={2} mx={[1, 2, 2]} my={3}>
+              <OrderProductsList
+                items={cart.items}
+                store={store}
+                currency={store.preferences?.currency ?? "mkd"}
+                handleRemove={handleRemove}
+                handleChangeItemQuantity={handleChangeQuantity}
+              />
+            </Flex>
+            <Flex
+              align="center"
+              justify="center"
+              flex={1}
+              mx={[1, 2, 2]}
+              my={3}
+            >
+              <Summary
+                store={store}
+                currency={store.preferences?.currency ?? "mkd"}
+                showContinueShopping
+                items={cart.items}
+                delivery={delivery?.data?.[0]!}
+                campaigns={campaigns?.data ?? []}
+                buttonTitle={t("actions.toCheckout")}
+                disabled={false}
+                onCheckout={handleCheckout}
+              />
+            </Flex>
           </Flex>
-          <Flex align="center" justify="center" flex={1} mx={[1, 2, 2]} my={3}>
-            <Summary
-              store={store}
-              currency={store.preferences?.currency ?? "mkd"}
-              showContinueShopping
-              items={cart.items}
-              delivery={delivery?.data?.[0]!}
-              campaigns={campaigns?.data ?? []}
-              buttonTitle={t("actions.toCheckout")}
-              disabled={false}
-              onCheckout={handleCheckout}
-            />
-          </Flex>
-        </Flex>
-      </Spinner>
+        </Spinner>
 
-      <Spinner isLoaded={!isLoadingSets}>
-        <Box mt={8}>
-          {(sets ?? [])
-            .filter((set) => Boolean(set.data))
-            .map((set, i) => (
-              <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
-                <ProductSet
-                  set={set}
-                  store={store}
-                  key={set.setTag.type + (set.setTag.value || "")}
-                />
-              </Box>
-            ))}
-        </Box>
-      </Spinner>
-    </Page>
+        <Spinner isLoaded={!isLoadingSets}>
+          <Box mt={8}>
+            {(sets ?? [])
+              .filter((set) => Boolean(set.data))
+              .map((set, i) => (
+                <Box key={set.setTag.value ?? i} my={[8, 9, 9]}>
+                  <ProductSet
+                    set={set}
+                    store={store}
+                    key={set.setTag.type + (set.setTag.value || "")}
+                  />
+                </Box>
+              ))}
+          </Box>
+        </Spinner>
+      </Page>
+    </>
   );
 };
