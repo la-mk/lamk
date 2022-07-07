@@ -16,4 +16,14 @@ module.exports = {
     // This prevents shipping JS and all rendering happens on backend, enable later on
     // serverComponents: true
   },
+
+  publicRuntimeConfig: {
+    API_ENDPOINT: process.env.NEXT_PUBLIC_API_ENDPOINT,
+    ARTIFACTS_ENDPOINT: process.env.NEXT_PUBLIC_ARTIFACTS_ENDPOINT,
+    IMAGES_PROXY_ENDPOINT: process.env.NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT,
+    ANALYTICS_TRACKING_ID: process.env.NEXT_PUBLIC_ANALYTICS_TRACKING_ID,
+    NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
+    NESTPAY_GATEWAY_ENDPOINT: process.env.NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT,
+    DEV_STORE_URL: process.env.NEXT_PUBLIC_DEV_STORE_URL,
+  },
 };

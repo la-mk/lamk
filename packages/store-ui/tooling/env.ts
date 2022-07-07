@@ -1,13 +1,25 @@
 import { from } from "env-var";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
 
 const vars = {
-  API_ENDPOINT: process.env.NEXT_PUBLIC_API_ENDPOINT,
-  ARTIFACTS_ENDPOINT: process.env.NEXT_PUBLIC_ARTIFACTS_ENDPOINT,
-  IMAGES_PROXY_ENDPOINT: process.env.NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT,
-  ANALYTICS_TRACKING_ID: process.env.NEXT_PUBLIC_ANALYTICS_TRACKING_ID,
-  NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
-  NESTPAY_GATEWAY_ENDPOINT: process.env.NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT,
-  DEV_STORE_URL: process.env.NEXT_PUBLIC_DEV_STORE_URL,
+  API_ENDPOINT:
+    process.env.NEXT_PUBLIC_API_ENDPOINT || publicRuntimeConfig.API_ENDPOINT,
+  ARTIFACTS_ENDPOINT:
+    process.env.NEXT_PUBLIC_ARTIFACTS_ENDPOINT ||
+    publicRuntimeConfig.ARTIFACTS_ENDPOINT,
+  IMAGES_PROXY_ENDPOINT:
+    process.env.NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT ||
+    publicRuntimeConfig.IMAGES_PROXY_ENDPOINT,
+  ANALYTICS_TRACKING_ID:
+    process.env.NEXT_PUBLIC_ANALYTICS_TRACKING_ID ||
+    publicRuntimeConfig.ANALYTICS_TRACKING_ID,
+  NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV || publicRuntimeConfig.NODE_ENV,
+  NESTPAY_GATEWAY_ENDPOINT:
+    process.env.NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT ||
+    publicRuntimeConfig.NESTPAY_GATEWAY_ENDPOINT,
+  DEV_STORE_URL:
+    process.env.NEXT_PUBLIC_DEV_STORE_URL || publicRuntimeConfig.DEV_STORE_URL,
 };
 
 const envvar = from(vars as any);
