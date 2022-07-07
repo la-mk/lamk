@@ -8,6 +8,9 @@ export interface BreakpointProviderProps {
   children: React.ReactNode;
 }
 
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+
 export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
   breakpoints,
   onBreakpointChange,
@@ -17,7 +20,7 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
     0 as Breakpoint
   );
 
-  React.useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // Returning here doesn't matter since this will only run on the server
     if (typeof window === 'undefined') {
       return;
