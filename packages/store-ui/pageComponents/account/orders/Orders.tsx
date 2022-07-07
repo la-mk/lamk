@@ -28,16 +28,7 @@ export const Orders = ({
   setFilters: (filters: FilterObject) => void;
 }) => {
   const { t } = useTranslation("translation");
-
-  if (orders && totalOrders === 0 && !isOrdersLoading) {
-    return (
-      <Result
-        status="empty"
-        mt={8}
-        description={t("order.orderNotFound_plural")}
-      />
-    );
-  }
+  const hasOrders = !(orders && totalOrders === 0 && !isOrdersLoading);
 
   return (
     <>
@@ -49,33 +40,41 @@ export const Orders = ({
       />
       <Page maxWidth={"86rem"}>
         <BackButton />
-        <DataGrid<Order>
-          mt={5}
-          isFullWidth
-          rowKey={"_id"}
-          spacing={[7, 7, 8]}
-          pagination={{
-            currentPage: filters.pagination
-              ? filters.pagination.currentPage
-              : 1,
-            pageSize: filters.pagination ? filters.pagination.pageSize : 10,
-            totalItems: orders ? totalOrders : 0,
-            onChange: (currentPage, pageSize) => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setFilters({
-                ...filters,
-                pagination: { currentPage, pageSize },
-              });
-            },
-          }}
-          isLoaded={!isOrdersLoading}
-          items={orders ?? []}
-          renderItem={(order) => (
-            <CustomCard mx="auto" width="100%" overflow="hidden">
-              <OrderDescription order={order} store={store} />
-            </CustomCard>
-          )}
-        ></DataGrid>
+        {hasOrders ? (
+          <DataGrid<Order>
+            mt={5}
+            isFullWidth
+            rowKey={"_id"}
+            spacing={[7, 7, 8]}
+            pagination={{
+              currentPage: filters.pagination
+                ? filters.pagination.currentPage
+                : 1,
+              pageSize: filters.pagination ? filters.pagination.pageSize : 10,
+              totalItems: orders ? totalOrders : 0,
+              onChange: (currentPage, pageSize) => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                setFilters({
+                  ...filters,
+                  pagination: { currentPage, pageSize },
+                });
+              },
+            }}
+            isLoaded={!isOrdersLoading}
+            items={orders ?? []}
+            renderItem={(order) => (
+              <CustomCard mx="auto" width="100%" overflow="hidden">
+                <OrderDescription order={order} store={store} />
+              </CustomCard>
+            )}
+          ></DataGrid>
+        ) : (
+          <Result
+            status="empty"
+            mt={8}
+            description={t("order.orderNotFound_plural")}
+          />
+        )}
       </Page>
     </>
   );

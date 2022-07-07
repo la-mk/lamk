@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Layout, Box } from "@la-mk/blocks-ui";
+import { Flex, Box } from "@la-mk/blocks-ui";
 import { FooterContent } from "./Footer/FooterContent";
 import { Store } from "../domain/store";
 import { Header } from "./Header";
@@ -35,35 +35,45 @@ export const StoreLayout = React.memo(
           set.title ?? t(getTitleForSet({ type: set.type, value: undefined })),
       }));
 
+    const isInAccountsPage = !!user && pathname.startsWith(urls.account);
+
     return (
-      <Layout
-        header={
-          <Box>
-            <Header cartCount={cart.items.length} store={store} />
-            <SubMenu
-              categories={categories?.data ?? []}
-              sets={normalizedSets ?? []}
-            />
-          </Box>
-        }
-        footer={
-          <Box bg="background.dark">
-            <FooterContent store={store} />
-          </Box>
-        }
-        leftSider={
-          !!user && pathname.startsWith(urls.account) ? (
-            <Box display={["none", "block", "block"]} height="100%">
+      <>
+        <Box>
+          <Header cartCount={cart.items.length} store={store} />
+          <SubMenu
+            categories={categories?.data ?? []}
+            sets={normalizedSets ?? []}
+          />
+        </Box>
+        {/* @ts-ignore */}
+        <Flex style={{ position: "relative " }} direction="row">
+          {isInAccountsPage ? (
+            <Box
+              // @ts-ignore
+              style={{ position: "absolute" }}
+              display={["none", "block", "block"]}
+              height="100%"
+              width={["100%", "14rem", "14rem"]}
+            >
               <AccountMenu user={user} />
             </Box>
-          ) : null
-        }
-      >
-        <Box mb={7} minHeight="calc(100vh - 200px)">
-          <div id="categories-portal-root" />
-          <Flex direction="column">{children}</Flex>
+          ) : null}
+          <Box
+            ml={isInAccountsPage ? ["none", "14rem", "14rem"] : undefined}
+            flex={1}
+            mb={7}
+            minHeight="calc(100vh - 200px)"
+            maxWidth={"100%"}
+          >
+            <div id="categories-portal-root" />
+            <Flex direction="column">{children}</Flex>
+          </Box>
+        </Flex>
+        <Box bg="background.dark">
+          <FooterContent store={store} />
         </Box>
-      </Layout>
+      </>
     );
   },
   (prev, next) => {

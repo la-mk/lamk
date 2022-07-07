@@ -955,10 +955,10 @@
     amplitude-js "^7.4.4"
     analytics "^0.7.4"
 
-"@la-mk/blocks-ui@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@la-mk/blocks-ui/1.0.0/105285e6df8e0d65eea56e308deb294ebe33bead448a6bc1ec1c9d3c8c84f11b"
-  integrity sha512-wsUQrrlIllFUlje3ALVJbedXKsV+ApJD+FxH3dlt6YeXM+YSBf9aVAfXhWMfLL8z9AE9JJwXX4uPQDz/dwZiGg==
+"@la-mk/blocks-ui@^1.0.1":
+  version "1.0.1"
+  resolved "https://npm.pkg.github.com/download/@la-mk/blocks-ui/1.0.1/a899673b0b8cb0d98b367b7143804839ff3afaa9a897d9b77ae85f6f4858b252#87f677028f759c66c7a2cc6107f8e64a789e2198"
+  integrity sha512-t0NIFWyNI45N/QQWreRe9Qfa/J5i2bgLxiDdHTB9aXmoYxHnV56Cv/ylGfuw1aTQsLXt1yM38s4X993MVbFxRA==
   dependencies:
     "@chakra-ui/react" "^2.2.1"
     "@emotion/react" "^11.9.3"

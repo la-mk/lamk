@@ -94,7 +94,7 @@ export const AccountMenu = ({ user }: { user: User }) => {
         `1px solid ${theme.colors.gray["200"]}`,
       ]}
       height="100%"
-      width={["100%", "14rem", "14rem"]}
+      width={"100%"}
     >
       <Flex align="center" direction="column" p={4}>
         <Text color="mutedText.dark">{t("common.welcomeBack")},</Text>

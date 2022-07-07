@@ -1,4 +1,4 @@
-import { Button, ButtonProps, hooks, Text } from "@la-mk/blocks-ui";
+import { Button, ButtonProps, Text } from "@la-mk/blocks-ui";
 import React from "react";
 
 export interface NavButtonProps extends ButtonProps {
@@ -9,8 +9,6 @@ export interface NavButtonProps extends ButtonProps {
 
 export const NavButton = React.forwardRef(
   ({ title, icon, hideTitle, ...props }: NavButtonProps, ref) => {
-    const showTitle = hooks.useBreakpoint([false, false, true]);
-    const hasTitle = !hideTitle && showTitle;
     return (
       <Button
         ref={ref}
@@ -29,7 +27,9 @@ export const NavButton = React.forwardRef(
         }
         {...props}
       >
-        {hasTitle ? title : null}
+        {!hideTitle && (
+          <Text display={["none", "none", "initial"]}>{title}</Text>
+        )}
       </Button>
     );
   }

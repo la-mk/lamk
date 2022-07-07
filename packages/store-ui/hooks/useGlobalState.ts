@@ -4,6 +4,7 @@ import { createGlobalState } from "react-hooks-global-state";
 const { useGlobalState: useGlobalStateBase } = createGlobalState({
   "cookies-consent": null,
   "analytics-event-queue": [],
+  store: null,
   cart: { items: [] },
 } as { [key: string]: any });
 

@@ -17,6 +17,7 @@ export const BackButton = () => {
       <Button
         mt={1}
         mb={5}
+        mr="auto"
         as="a"
         variant="link"
         leftIcon={<ArrowLeft size={"1.2rem"} />}
