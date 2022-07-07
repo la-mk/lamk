@@ -14,6 +14,7 @@ export const useAnalytics = (storeId: string) => {
   const consent = useContext(CookiesContext);
   const { user } = useAuth();
   const router = useRouter();
+  const analyticsConsent = consent?.analytics;
 
   const trackEvent = useCallback(
     (eventName: string, payload: any) => {
@@ -24,14 +25,14 @@ export const useAnalytics = (storeId: string) => {
       };
 
       // The user hasn't responded yet, queue the events
-      if (consent === null) {
+      if (analyticsConsent == null) {
         setEventQueue((eventQueue: { name: string; payload: any }[]) => [
           ...eventQueue,
           { name: eventName, payload: eventPayload },
         ]);
       }
 
-      if (consent?.analytics) {
+      if (analyticsConsent) {
         if (!analytics) {
           return;
         }
@@ -43,16 +44,16 @@ export const useAnalytics = (storeId: string) => {
         }
       }
     },
-    [storeId, consent, setEventQueue]
+    [storeId, analyticsConsent, setEventQueue]
   );
 
   useEffect(() => {
-    if (consent === null || eventQueue.length === 0 || !analytics) {
+    if (analyticsConsent == null || eventQueue.length === 0 || !analytics) {
       return;
     }
     (async () => {
       try {
-        if (consent.analytics) {
+        if (analyticsConsent) {
           await analytics.optIn();
           eventQueue.forEach((event) => {
             trackEvent(event.name, event.payload);
@@ -64,7 +65,7 @@ export const useAnalytics = (storeId: string) => {
         console.debug(err);
       }
     })();
-  }, [consent, eventQueue, setEventQueue, trackEvent]);
+  }, [analyticsConsent, eventQueue, setEventQueue, trackEvent]);
 
   useEffect(() => {
     // If the site is loaded from scratch multiple times within a session, don't log anymore.
@@ -78,12 +79,12 @@ export const useAnalytics = (storeId: string) => {
   }, [trackEvent]);
 
   useEffect(() => {
-    if (!user?._id || !consent || !analytics) {
+    if (!user?._id || !analyticsConsent || !analytics) {
       return;
     }
 
     analytics.identify(user._id);
-  }, [consent, user?._id]);
+  }, [analyticsConsent, user?._id]);
 
   useEffect(() => {
     const handleRouteChange = (_url: string) => {
