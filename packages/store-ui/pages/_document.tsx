@@ -1,10 +1,13 @@
 import { css, Global } from "@emotion/react";
 import { Html, Head, Main, NextScript } from "next/document";
+import { envvars } from "../tooling/env";
 
 export default function Document() {
   return (
     <Html prefix="og: https://ogp.me/ns#">
       <Head>
+        <link rel="preconnect" href={envvars.API_ENDPOINT} crossOrigin="true" />
+        <link rel="dns-prefetch" href={envvars.API_ENDPOINT} />
         <link
           href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=optional"
           rel="stylesheet"
