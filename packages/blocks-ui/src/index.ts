@@ -85,7 +85,7 @@ export { Popover, PopoverProps } from './basic/Popover';
 export { Provider } from './basic/Provider';
 export { Radio, RadioProps } from './basic/Radio';
 export { Select, SelectProps } from './basic/Select';
-export { Set, SetProps } from './basic/Set/Set';
+export { Carousel, CarouselProps } from './basic/Carousel';
 export { Spinner, SpinnerProps } from './basic/Spinner';
 export { Stat, StatProps } from './basic/Stat';
 export { Steps, StepsProps } from './basic/Steps';
