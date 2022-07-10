@@ -11,13 +11,26 @@ export interface BreakpointProviderProps {
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
+const handleResize = (
+  clientWidth: number,
+  breakpoints: number[]
+): Breakpoint => {
+  if (clientWidth < breakpoints[0]) {
+    return 0;
+  } else if (clientWidth < breakpoints[1]) {
+    return 1;
+  } else {
+    return 2;
+  }
+};
+
 export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
   breakpoints,
   onBreakpointChange,
   children,
 }) => {
   const [currentBreakpoint, setCurrentBreakpoint] = React.useState(
-    0 as Breakpoint
+    handleResize(window?.innerWidth ?? 0, breakpoints)
   );
 
   useIsomorphicLayoutEffect(() => {
@@ -26,21 +39,12 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
       return;
     }
 
-    const handleResize = () => {
-      const clientWidth = window.innerWidth;
-      if (clientWidth < breakpoints[0]) {
-        setCurrentBreakpoint(0);
-      } else if (clientWidth < breakpoints[1]) {
-        setCurrentBreakpoint(1);
-      } else {
-        setCurrentBreakpoint(2);
-      }
-    };
-
-    const debouncedResize = debounce(handleResize, 80);
-
+    const debouncedResize = debounce(
+      () => setCurrentBreakpoint(handleResize(window.innerWidth, breakpoints)),
+      80
+    );
     window.addEventListener('resize', debouncedResize, { passive: true });
-    handleResize();
+    setCurrentBreakpoint(handleResize(window.innerWidth, breakpoints));
 
     return () => {
       window.removeEventListener('resize', debouncedResize);
