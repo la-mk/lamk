@@ -30,7 +30,9 @@ export const BreakpointProvider: React.FC<BreakpointProviderProps> = ({
   children,
 }) => {
   const [currentBreakpoint, setCurrentBreakpoint] = React.useState(
-    handleResize(window?.innerWidth ?? 0, breakpoints)
+    typeof window === 'undefined'
+      ? 0
+      : handleResize(window.innerWidth, breakpoints)
   );
 
   useIsomorphicLayoutEffect(() => {
