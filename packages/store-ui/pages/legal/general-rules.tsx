@@ -8,8 +8,9 @@ import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
-import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { LegalContent } from "../../containers/legal/Details";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
 const getGeneralRules = ({
   storeName,
@@ -38,7 +39,13 @@ const getGeneralRules = ({
 `.trim();
 };
 
-const GeneralRulesPage = ({ store }: { store: Store }) => {
+const GeneralRulesPage = ({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) => {
   const { t } = useTranslation("translation");
   const title = t("pages.generalRules");
   if (!store.company) {
@@ -75,7 +82,12 @@ const GeneralRulesPage = ({ store }: { store: Store }) => {
         title={title}
         description={getTextSnippet(generalRules)}
       />
-      <LegalContent url={urls.generalRules} title={title} body={generalRules} />
+      <LegalContent
+        template={template}
+        url={urls.generalRules}
+        title={title}
+        body={generalRules}
+      />
     </>
   );
 };

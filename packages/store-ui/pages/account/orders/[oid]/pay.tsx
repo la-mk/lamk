@@ -9,15 +9,18 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useAuth } from "../../../../hooks/useAuth";
 import { useQuery } from "../../../../sdk/useQuery";
 import { Head } from "../../../../layout/Head";
-import { Payment } from "../../../../pageComponents/account/orders/Payment";
 import { urls } from "../../../../tooling/url";
+import { Pay } from "../../../../containers/account/orders/Pay";
+import { Templates } from "../../../../containers";
 
 const OrderPayPage = ({
   store,
   orderId,
+  template,
 }: {
   store: Store;
   orderId: string;
+  template: Templates;
 }) => {
   const { t } = useTranslation("translation");
 
@@ -51,7 +54,12 @@ const OrderPayPage = ({
         description={`${t("pages.payment")}, ${t("pages.order")} ${orderId}`}
       />
 
-      <Payment isLoadingOrder={isLoadingOrder} store={store} order={order} />
+      <Pay
+        template={template}
+        isLoadingOrder={isLoadingOrder}
+        store={store}
+        order={order}
+      />
     </>
   );
 };

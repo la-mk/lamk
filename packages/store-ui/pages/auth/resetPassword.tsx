@@ -1,16 +1,22 @@
-import { NextPageContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
+import { Templates } from "../../containers";
+import { ResetPassword } from "../../containers/auth/ResetPassword";
 import { Store } from "../../domain/store";
 import { getStore, PageContextWithStore } from "../../hacks/store";
 import { Head } from "../../layout/Head";
-import { ResetPassword } from "../../pageComponents/auth/ResetPassword";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { getProps, newClient } from "../../sdk/queryClient";
 import { urls } from "../../tooling/url";
 
-function ResetPasswordPage({ store }: { store: Store }) {
+function ResetPasswordPage({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) {
   const { t } = useTranslation("translation");
   const router = useRouter();
   return (
@@ -23,6 +29,7 @@ function ResetPasswordPage({ store }: { store: Store }) {
       />
 
       <ResetPassword
+        template={template}
         resetToken={router.query.resetToken as string | undefined}
       />
     </>

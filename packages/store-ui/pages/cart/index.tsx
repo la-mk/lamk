@@ -6,12 +6,13 @@ import { getImageURL } from "../../hacks/imageUrl";
 import { getStore, PageContextWithStore } from "../../hacks/store";
 import { useAuth } from "../../hooks/useAuth";
 import { Head } from "../../layout/Head";
-import { Cart } from "../../pageComponents/cart/MainCart";
+import { Cart } from "../../containers/cart";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { getProps, newClient } from "../../sdk/queryClient";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
-function CartPage({ store }: { store: Store }) {
+function CartPage({ store, template }: { store: Store; template: Templates }) {
   const { t } = useTranslation("translation");
   const { user, isLoadingUser } = useAuth();
 
@@ -36,7 +37,7 @@ function CartPage({ store }: { store: Store }) {
         description={`${t("pages.cart")}, ${store?.name}`}
       />
 
-      <Cart user={user} store={store} />
+      <Cart template={template} user={user} store={store} />
     </>
   );
 }

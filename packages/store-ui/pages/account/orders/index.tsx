@@ -1,5 +1,4 @@
-import { hooks, Result, Spinner, utils } from "@la-mk/blocks-ui";
-import Router from "next/router";
+import { Result, Spinner } from "@la-mk/blocks-ui";
 import { getStore, PageContextWithStore } from "../../../hacks/store";
 import { getProps, newClient } from "../../../sdk/queryClient";
 import { getDefaultPrefetch } from "../../../sdk/defaults";
@@ -8,36 +7,19 @@ import { Store } from "../../../domain/store";
 import { useTranslation } from "next-i18next";
 import { useAuth } from "../../../hooks/useAuth";
 import { Head } from "../../../layout/Head";
-import { useQuery } from "../../../sdk/useQuery";
-import { Orders } from "../../../pageComponents/account/orders/Orders";
 import { urls } from "../../../tooling/url";
+import { Orders } from "../../../containers/account/orders/List";
+import { Templates } from "../../../containers";
 
-function OrdersPage({ store }: { store: Store }) {
+function OrdersPage({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) {
   const { t } = useTranslation("translation");
   const { user, isLoadingUser } = useAuth();
-  const [filters, setFilters] = hooks.useFilter(
-    {
-      sorting: {
-        field: "createdAt",
-        order: "descend",
-      },
-      pagination: {
-        currentPage: 1,
-        pageSize: 10,
-      },
-    },
-    {
-      storage: "url",
-      router: Router,
-    }
-  );
-
-  const [orders, isLoadingOrders] = useQuery(
-    "order",
-    "findForUserFromStore",
-    [user?._id ?? "", store._id, utils.filter.filtersAsQuery(filters)],
-    { enabled: !!user }
-  );
 
   if (isLoadingUser()) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
@@ -58,14 +40,7 @@ function OrdersPage({ store }: { store: Store }) {
         description={`${t("pages.order_plural")}, ${store?.name}`}
       />
 
-      <Orders
-        filters={filters}
-        setFilters={setFilters}
-        store={store}
-        isOrdersLoading={isLoadingOrders}
-        totalOrders={orders?.total ?? 0}
-        orders={orders?.data ?? []}
-      />
+      <Orders user={user} template={template} store={store} />
     </>
   );
 }

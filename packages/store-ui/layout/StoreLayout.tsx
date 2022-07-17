@@ -3,9 +3,8 @@ import { Flex, Box } from "@la-mk/blocks-ui";
 import { FooterContent } from "./Footer/FooterContent";
 import { Store } from "../domain/store";
 import { Header } from "./Header";
-import { SubMenu } from "./SubMenu/SubMenu";
 import { useQuery } from "../sdk/useQuery";
-import { AccountMenu } from "./Account/AccountMenu";
+import { AccountMenu } from "../templates/Standard/account/AccountMenu";
 import { useAuth } from "../hooks/useAuth";
 import { useRouter } from "next/router";
 import { useCart } from "../hooks/useCart";
@@ -39,13 +38,12 @@ export const StoreLayout = React.memo(
 
     return (
       <>
-        <Box>
-          <Header cartCount={cart.items.length} store={store} />
-          <SubMenu
-            categories={categories?.data ?? []}
-            sets={normalizedSets ?? []}
-          />
-        </Box>
+        <Header
+          cartCount={cart.items.length}
+          store={store}
+          categories={categories?.data ?? []}
+          sets={normalizedSets ?? []}
+        />
         {/* @ts-ignore */}
         <Flex style={{ position: "relative " }} direction="row">
           {isInAccountsPage ? (

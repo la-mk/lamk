@@ -12,9 +12,10 @@ import { getStore, PageContextWithStore } from "../../hacks/store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useQuery } from "../../sdk/useQuery";
 import { getImageURL } from "../../hacks/imageUrl";
-import { Product } from "../../pageComponents/products/Product";
 import { useCart } from "../../hooks/useCart";
 import { urls } from "../../tooling/url";
+import { Product } from "../../containers/products/Details";
+import { Templates } from "../../containers";
 
 //TODO: Un-hardcode transliteration language and either detect it or store it in DB.
 const getProductSummary = (
@@ -38,20 +39,16 @@ const getProductSummary = (
 const ProductPage = ({
   store,
   productId,
+  template,
 }: {
   store: Store;
   productId: string;
+  template: Templates;
 }) => {
   const { t } = useTranslation("translation");
-
-  const { user } = useAuth();
-  const { cart, addToCart } = useCart(store._id, user, t);
   const [product, isLoadingProduct] = useQuery("product", "get", [productId]);
-  const [delivery, isLoadingDelivery] = useQuery("delivery", "findForStore", [
-    store._id,
-  ]);
 
-  if (isLoadingProduct || isLoadingDelivery) {
+  if (isLoadingProduct) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
   }
 
@@ -103,14 +100,10 @@ const ProductPage = ({
       />
 
       <Product
-        isLoadingProduct={isLoadingProduct || isLoadingDelivery}
+        template={template}
+        isLoadingProduct={isLoadingProduct}
         store={store}
-        cart={cart}
-        delivery={delivery?.data?.[0]}
         product={product}
-        addToCart={(attributes, quantity) =>
-          addToCart(product, attributes, quantity)
-        }
       />
     </>
   );

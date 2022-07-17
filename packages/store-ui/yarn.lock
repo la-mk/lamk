@@ -955,10 +955,10 @@
     amplitude-js "^7.4.4"
     analytics "^0.7.4"
 
-"@la-mk/blocks-ui@^1.0.1":
-  version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@la-mk/blocks-ui/1.0.1/a899673b0b8cb0d98b367b7143804839ff3afaa9a897d9b77ae85f6f4858b252#87f677028f759c66c7a2cc6107f8e64a789e2198"
-  integrity sha512-t0NIFWyNI45N/QQWreRe9Qfa/J5i2bgLxiDdHTB9aXmoYxHnV56Cv/ylGfuw1aTQsLXt1yM38s4X993MVbFxRA==
+"@la-mk/blocks-ui@^1.1.0":
+  version "1.1.0"
+  resolved "https://npm.pkg.github.com/download/@la-mk/blocks-ui/1.1.0/693dfa951c40f63bb190b8d51deb18ee5455b22b2ec7b5ecfc37ba04870b5716#2427517aa957e170be1b73da57743203f3997453"
+  integrity sha512-sKTAjMSXkn4dRqFYZAr9y/fj5IzhidwW2zwVzi2XGXPU0QmVRhKm+2Ucm6ox4S4Y8nJkFsHHP44chWGS/aMo5g==
   dependencies:
     "@chakra-ui/react" "^2.2.1"
     "@emotion/react" "^11.9.3"
@@ -968,6 +968,8 @@
     "@types/tinycolor2" "^1.4.3"
     "@udecode/slate-plugins" "^0.72.6"
     core-js "^3.23.3"
+    embla-carousel "^7.0.0-rc04"
+    embla-carousel-react "^7.0.0-rc04"
     framer-motion "^6.3.15"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
@@ -2211,6 +2213,18 @@ editions@^2.2.0:
   dependencies:
     errlop "^2.0.0"
     semver "^6.3.0"
+
+embla-carousel-react@^7.0.0-rc04:
+  version "7.0.0-rc04"
+  resolved "https://registry.yarnpkg.com/embla-carousel-react/-/embla-carousel-react-7.0.0-rc04.tgz#ee3e954d746be509aecb78e81ada2ed094f89cfb"
+  integrity sha512-5Ndn+EeLX9DPZnR1wXH5+y9gnrh+ML5HO0+20l6rcnuhVqpJRMv2E3ZWnAw4jw7HmHAl+5eDKZaA6CGxgWiUdQ==
+  dependencies:
+    embla-carousel "7.0.0-rc04"
+
+embla-carousel@7.0.0-rc04, embla-carousel@^7.0.0-rc04:
+  version "7.0.0-rc04"
+  resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-7.0.0-rc04.tgz#bd9c15da7740660b46232fba720b0c38043b667f"
+  integrity sha512-vhzwCEdEqwS5c6jlfPHy/X1uUkwf9AvMma8KWNbmTgB3NUNN9hoqiyTdrpraMtPU5MzlxpZipln74ZwDK4v63g==
 
 emoji-regex@^9.2.2:
   version "9.2.2"

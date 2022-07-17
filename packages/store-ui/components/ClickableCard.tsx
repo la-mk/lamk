@@ -1,6 +1,6 @@
-import { Card, Flex, Text } from '@la-mk/blocks-ui';
-import React from 'react';
-import { HoverableLink } from './HoverableLink';
+import { Card, Flex, Text } from "@la-mk/blocks-ui";
+import React from "react";
+import { HoverableLink } from "./HoverableLink";
 
 export const ClickableCard = ({
   title,
@@ -15,15 +15,15 @@ export const ClickableCard = ({
     <HoverableLink key={href} href={href}>
       <Card
         p={4}
-        minWidth={'16rem'}
-        textAlign='center'
-        bg='background.light'
+        minWidth={"16rem"}
+        textAlign="center"
+        bg="background.light"
         // @ts-ignore
-        borderColor='background.light'
+        borderColor="background.light"
       >
-        <Flex direction='column' align='center' justify='center'>
+        <Flex direction="column" align="center" justify="center">
           {icon && (
-            <Text size='3xl' color='mutedText.dark'>
+            <Text size="3xl" color="mutedText.dark">
               {icon}
             </Text>
           )}

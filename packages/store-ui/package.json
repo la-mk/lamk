@@ -13,7 +13,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@la-mk/analytics": "^0.0.13",
-    "@la-mk/blocks-ui": "^1.0.1",
+    "@la-mk/blocks-ui": "^1.1.0",
     "@la-mk/la-sdk": "^0.0.174",
     "@la-mk/nlp": "^0.0.4",
     "@la-mk/translations": "^0.0.146",

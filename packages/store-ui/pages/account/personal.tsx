@@ -6,11 +6,18 @@ import { getStore, PageContextWithStore } from "../../hacks/store";
 import { useAuth } from "../../hooks/useAuth";
 import { useTranslation } from "next-i18next";
 import { Head } from "../../layout/Head";
-import { Personal } from "../../pageComponents/account/Personal";
 import { Store } from "../../domain/store";
 import { urls } from "../../tooling/url";
+import { Personal } from "../../containers/account/Personal";
+import { Templates } from "../../containers";
 
-function PersonalPage({ store }: { store: Store }) {
+function PersonalPage({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) {
   const { user, isLoadingUser } = useAuth();
   const { t } = useTranslation("translation");
 
@@ -35,7 +42,7 @@ function PersonalPage({ store }: { store: Store }) {
         title={t("pages.myAccount")}
         description={`${t("pages.myAccount")}, ${nameDescription}`}
       />
-      <Personal user={user} />
+      <Personal template={template} user={user} />
     </>
   );
 }

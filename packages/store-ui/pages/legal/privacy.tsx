@@ -8,8 +8,9 @@ import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
-import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { LegalContent } from "../../containers/legal/Details";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
 const getPrivacyPolicy = ({
   companyName,
@@ -125,7 +126,13 @@ const getPrivacyPolicy = ({
 `.trim();
 };
 
-const PrivacyPage = ({ store }: { store: Store }) => {
+const PrivacyPage = ({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) => {
   const { t } = useTranslation("translation");
   const title = t("pages.privacy");
   if (!store.company) {
@@ -167,6 +174,7 @@ const PrivacyPage = ({ store }: { store: Store }) => {
         description={getTextSnippet(privacyPolicy)}
       />
       <LegalContent
+        template={template}
         url={urls.privacyPolicy}
         title={title}
         body={privacyPolicy}

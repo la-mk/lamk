@@ -8,8 +8,9 @@ import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
-import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { LegalContent } from "../../containers/legal/Details";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
 const getCookiesPolicy = ({
   slug,
@@ -65,7 +66,13 @@ const getCookiesPolicy = ({
 `.trim();
 };
 
-const CookiesPolicyPage = ({ store }: { store: Store }) => {
+const CookiesPolicyPage = ({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) => {
   const { t } = useTranslation("translation");
   const title = t("pages.cookiesPolicy");
   if (!store.company) {
@@ -104,6 +111,7 @@ const CookiesPolicyPage = ({ store }: { store: Store }) => {
         description={getTextSnippet(cookiesPolicy)}
       />
       <LegalContent
+        template={template}
         url={urls.cookiesPolicy}
         title={title}
         body={cookiesPolicy}

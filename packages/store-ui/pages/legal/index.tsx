@@ -6,10 +6,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
-import { Legal } from "../../pageComponents/legal/Legal";
 import { urls } from "../../tooling/url";
+import { Legal } from "../../containers/legal/List";
+import { Templates } from "../../containers";
 
-function LegalPage({ store }: { store: Store }) {
+function LegalPage({ store, template }: { store: Store; template: Templates }) {
   const { t } = useTranslation("translation");
   return (
     <>
@@ -19,7 +20,7 @@ function LegalPage({ store }: { store: Store }) {
         title={t("pages.legal")}
         description={`${t("pages.legal")}, ${store?.name}`}
       />
-      <Legal />
+      <Legal template={template} />
     </>
   );
 }

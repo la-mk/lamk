@@ -6,11 +6,18 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useAuth } from "../../hooks/useAuth";
 import { useTranslation } from "next-i18next";
 import { Head } from "../../layout/Head";
-import { ChangePassword } from "../../pageComponents/account/ChangePassword";
+import { ChangePassword } from "../../containers/account/ChangePassword";
 import { Store } from "../../domain/store";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
-function ChangePasswordPage({ store }: { store: Store }) {
+function ChangePasswordPage({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) {
   const { user, isLoadingUser } = useAuth();
   const { t } = useTranslation("translation");
 
@@ -35,7 +42,7 @@ function ChangePasswordPage({ store }: { store: Store }) {
         title={t("pages.myAccount")}
         description={`${t("pages.myAccount")}, ${nameDescription}`}
       />
-      <ChangePassword user={user} />
+      <ChangePassword template={template} user={user} />
     </>
   );
 }

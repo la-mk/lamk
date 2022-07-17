@@ -5,10 +5,17 @@ import { getDefaultPrefetch } from "../sdk/defaults";
 import { Store } from "../domain/store";
 import { Head } from "../layout/Head";
 import { useTranslation } from "next-i18next";
-import { Home } from "../pageComponents/home/Home";
 import { urls } from "../tooling/url";
+import { Home } from "../containers/home";
+import { Templates } from "../containers";
 
-const HomePage = ({ store }: { store: Store }) => {
+const HomePage = ({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) => {
   const { t } = useTranslation("translation");
 
   return (
@@ -22,7 +29,7 @@ const HomePage = ({ store }: { store: Store }) => {
           `${store?.name} - ${t("seoDescriptions.storeGeneric")}`
         }
       />
-      <Home store={store} />
+      <Home template={template} store={store} />
     </>
   );
 };

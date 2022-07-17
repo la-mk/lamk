@@ -7,10 +7,17 @@ import { useAuth } from "../../hooks/useAuth";
 import { Store } from "../../domain/store";
 import { useTranslation } from "next-i18next";
 import { Head } from "../../layout/Head";
-import { MyAddresses } from "../../pageComponents/account/MyAddresses";
 import { urls } from "../../tooling/url";
+import { Addresses } from "../../containers/account/Addresses";
+import { Templates } from "../../containers";
 
-function AddressesPage({ store }: { store: Store }) {
+function AddressesPage({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) {
   const { user, isLoadingUser } = useAuth();
   const { t } = useTranslation("translation");
 
@@ -36,7 +43,7 @@ function AddressesPage({ store }: { store: Store }) {
         description={`${t("pages.myAccount")}, ${nameDescription}`}
       />
 
-      <MyAddresses user={user} store={store} />
+      <Addresses template={template} user={user} store={store} />
     </>
   );
 }

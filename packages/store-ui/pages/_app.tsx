@@ -73,7 +73,11 @@ function MyApp({
                 <AuthProvider storeId={store._id}>
                   <>
                     <StoreLayout store={store}>
-                      <Component {...otherProps} store={store} />
+                      <Component
+                        {...otherProps}
+                        store={store}
+                        template={"elegant"}
+                      />
                     </StoreLayout>
                     <Integrations storeId={store._id} />
                   </>

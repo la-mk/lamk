@@ -6,13 +6,19 @@ import { getImageURL } from "../../hacks/imageUrl";
 import { getStore, PageContextWithStore } from "../../hacks/store";
 import { useAuth } from "../../hooks/useAuth";
 import { Head } from "../../layout/Head";
-import { Cart } from "../../pageComponents/cart/MainCart";
-import { Checkout } from "../../pageComponents/checkout/Checkout";
+import { Checkout } from "../../containers/checkout";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { getProps, newClient } from "../../sdk/queryClient";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
-function CheckoutPage({ store }: { store: Store }) {
+function CheckoutPage({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) {
   const { t } = useTranslation("translation");
   const { user, isLoadingUser } = useAuth();
 
@@ -43,7 +49,7 @@ function CheckoutPage({ store }: { store: Store }) {
         description={`${t("pages.checkout")}, ${store?.name}`}
       />
 
-      <Checkout user={user} store={store} />
+      <Checkout template={template} user={user} store={store} />
     </>
   );
 }

@@ -8,8 +8,9 @@ import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
-import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { LegalContent } from "../../containers/legal/Details";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
 const getReturnAndRefundPolicy = ({ storeName }: { storeName: string }) => {
   return `
@@ -28,7 +29,13 @@ const getReturnAndRefundPolicy = ({ storeName }: { storeName: string }) => {
 `.trim();
 };
 
-const ReturnAndRefundPage = ({ store }: { store: Store }) => {
+const ReturnAndRefundPage = ({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) => {
   const { t } = useTranslation("translation");
   const title = t("pages.returnAndRefund");
   if (!store.company) {
@@ -62,6 +69,7 @@ const ReturnAndRefundPage = ({ store }: { store: Store }) => {
         description={getTextSnippet(returnAndRefundPolicy)}
       />
       <LegalContent
+        template={template}
         url={urls.returnsAndRefunds}
         title={title}
         body={returnAndRefundPolicy}

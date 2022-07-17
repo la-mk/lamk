@@ -1,10 +1,11 @@
 import { sdk as sdkBase, setupSdk as setup } from "@la-mk/la-sdk";
-import { SetupSdkOptions } from "@la-mk/la-sdk/dist/setup";
+import { FindResult, SetupSdkOptions } from "@la-mk/la-sdk/dist/setup";
 import { User } from "../domain/user";
 import isObject from "lodash/isObject";
 import { Attributes, Product } from "../domain/product";
 import { Cart, CartItem } from "../domain/cart";
 import { Order } from "../domain/order";
+import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
 
 export let sdk: ReturnType<typeof setupSdk>;
 export const setupSdk = (config: SetupSdkOptions) => {
@@ -63,7 +64,11 @@ export const setupSdk = (config: SetupSdkOptions) => {
     },
 
     product: {
-      findForStore: sdkBase.product.findForStore,
+      findForStore: (storeId: string, query: { query: any }) =>
+        sdkBase.product.findForStore(storeId, query) as Promise<
+          FindResult<Product>
+        >,
+
       get: sdkBase.product.get,
       getProductSetsForStore: sdkBase.product.getProductSetsForStore,
       convertToOrderProduct: sdkBase.product.convertToOrderProduct,

@@ -231,18 +231,6 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
       },
     },
     sections: {
-      Header: {
-        height: "92px",
-        logo: {
-          position: "center",
-        },
-        menu: {
-          variant: "minimal",
-        },
-        account: {
-          variant: "link",
-        },
-      },
       SubMenu: {
         menu: {
           position: "center",
@@ -310,9 +298,83 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
   };
 };
 
+const getElegantTheme: DeepPartial<BlocksTheme> & any = (
+  brandColor: string
+) => {
+  const colors = {
+    primary: brandColor,
+    success: "#5CB85C",
+    danger: "#BB0439",
+    ...getOtherColors(brandColor),
+  };
+
+  return {
+    colors,
+    radii: {
+      none: 0,
+      sm: 0,
+      base: 0,
+      md: 0,
+      lg: 0,
+      xl: 0,
+      "2xl": 0,
+      "3xl": 0,
+      full: 0,
+    },
+
+    components: {
+      Button: {
+        baseStyle: {
+          fontWeight: "normal",
+        },
+        variants: {
+          link: {
+            textDecoration: "underline",
+          },
+        },
+      },
+      Menu: {
+        baseStyle: {
+          list: {
+            zIndex: 5,
+          },
+        },
+      },
+      Heading: {
+        sizes: {
+          "4xl": {
+            fontSize: ["6xl", null, "7xl"],
+            lineHeight: 1,
+          },
+          "3xl": {
+            fontSize: ["5xl", null, "6xl"],
+            lineHeight: 1,
+          },
+          "2xl": {
+            fontSize: ["4xl", null, "5xl"],
+            lineHeight: [1.2, null, 1],
+          },
+          xl: {
+            fontSize: ["3xl", null, "4xl"],
+            lineHeight: [1.33, null, 1.2],
+          },
+          lg: {
+            fontSize: ["2xl", null, "3xl"],
+            lineHeight: [1.33, null, 1.2],
+          },
+          md: { fontSize: "2xl", lineHeight: 1.2 },
+          sm: { fontSize: "lg", lineHeight: 1.2 },
+          xs: { fontSize: "md", lineHeight: 1.2 },
+        },
+      },
+    },
+  };
+};
+
 const getTheme = (brandColor = "#EF4351"): DeepPartial<BlocksTheme> => {
-  return getGenericTheme(brandColor);
+  // return getGenericTheme(brandColor);
   // return getFashionTheme(brandColor);
+  return getElegantTheme(brandColor);
 };
 
 const getTranslations = (t: (key: string) => string) => {

@@ -9,9 +9,10 @@ import { getProps, newClient } from "../../sdk/queryClient";
 import { useQuery } from "../../sdk/useQuery";
 import { getTextSnippet } from "../../tooling/text";
 import { urls } from "../../tooling/url";
-import { AboutUs } from "../../pageComponents/about/AboutUs";
+import { AboutUs } from "../../containers/about";
+import { Templates } from "../../containers";
 
-function About({ store }: { store: Store }) {
+function About({ store, template }: { store: Store; template: Templates }) {
   const { t } = useTranslation("translation");
   const [aboutUs] = useQuery("storeContents", "getAboutUsForStore", [
     store._id,
@@ -37,7 +38,7 @@ function About({ store }: { store: Store }) {
         }
       />
 
-      <AboutUs markdownDescription={aboutUs?.description} />
+      <AboutUs template={template} markdownDescription={aboutUs?.description} />
     </>
   );
 }

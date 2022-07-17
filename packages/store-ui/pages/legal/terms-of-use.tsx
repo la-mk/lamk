@@ -8,8 +8,9 @@ import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
 import { getTextSnippet } from "../../tooling/text";
-import { LegalContent } from "../../pageComponents/legal/LegalContent";
+import { LegalContent } from "../../containers/legal/Details";
 import { urls } from "../../tooling/url";
+import { Templates } from "../../containers";
 
 const getTermsOfUse = ({
   storeName,
@@ -112,7 +113,13 @@ ${companyName} има усвоена политика за сигурност и
 `.trim();
 };
 
-const TermsOfUsePage = ({ store }: { store: Store }) => {
+const TermsOfUsePage = ({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) => {
   const { t } = useTranslation("translation");
   const title = t("pages.termsOfUse");
   if (!store.company) {
@@ -151,7 +158,12 @@ const TermsOfUsePage = ({ store }: { store: Store }) => {
         title={title}
         description={getTextSnippet(termsOfUse)}
       />
-      <LegalContent url={urls.termsOfUse} title={title} body={termsOfUse} />
+      <LegalContent
+        template={template}
+        url={urls.termsOfUse}
+        title={title}
+        body={termsOfUse}
+      />
     </>
   );
 };

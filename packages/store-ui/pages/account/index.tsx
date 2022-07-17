@@ -6,11 +6,18 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useAuth } from "../../hooks/useAuth";
 import { Head } from "../../layout/Head";
 import { useTranslation } from "next-i18next";
-import { Account } from "../../pageComponents/account/Account";
 import { Store } from "../../domain/store";
 import { urls } from "../../tooling/url";
+import { Account } from "../../containers/account";
+import { Templates } from "../../containers";
 
-function AccountPage({ store }: { store: Store }) {
+function AccountPage({
+  store,
+  template,
+}: {
+  store: Store;
+  template: Templates;
+}) {
   const { user, isLoadingUser } = useAuth();
   const { t } = useTranslation("translation");
 
@@ -35,7 +42,7 @@ function AccountPage({ store }: { store: Store }) {
         title={t("pages.myAccount")}
         description={`${t("pages.myAccount")}, ${nameDescription}`}
       />
-      <Account user={user} />
+      <Account template={template} user={user} />
     </>
   );
 }

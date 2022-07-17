@@ -6,39 +6,22 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
-import { hooks, utils } from "@la-mk/blocks-ui";
-import { useQuery } from "../../sdk/useQuery";
 import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
-import { filterRouter, urls } from "../../tooling/url";
-import { Products } from "../../pageComponents/products/Products";
+import { urls } from "../../tooling/url";
+import { Products } from "../../containers/products/List";
+import { utils } from "@la-mk/blocks-ui";
+import { Templates } from "../../containers";
 
 function ProductsPage({
   initialFilters,
   store,
+  template,
 }: {
   initialFilters: FilterObject;
   store: Store;
+  template: Templates;
 }) {
   const { t } = useTranslation("translation");
-  // TODO: There is no clear way to reset filters that are not part of the sidemenu as of now, nor filters that don't apply when searching.
-  const [filters, setFilters] = hooks.useFilter(initialFilters, {
-    storage: "url",
-    router: filterRouter,
-  });
-
-  const [products, isLoadingProducts] = useQuery(
-    "product",
-    "findForStore",
-    [store._id, utils.filter.filtersAsQuery(filters)],
-    { keepPreviousData: true }
-  );
-
-  const [categories, isLoadingCategories] = useQuery(
-    "storeCategory",
-    "findForStore",
-    [store._id]
-  );
-
   return (
     <>
       <Head
@@ -48,13 +31,9 @@ function ProductsPage({
         description={t("seoDescriptions.product_plural")}
       />
       <Products
-        categories={categories?.data ?? []}
+        template={template}
         store={store}
-        totalProducts={products?.total ?? 0}
-        products={products?.data ?? []}
-        isLoadingProducts={isLoadingProducts || isLoadingCategories}
-        filters={filters}
-        setFilters={setFilters}
+        initialFilters={initialFilters}
       />
     </>
   );

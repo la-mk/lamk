@@ -9,10 +9,19 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { Result, Spinner } from "@la-mk/blocks-ui";
 import { Head } from "../../../../layout/Head";
 import { useQuery } from "../../../../sdk/useQuery";
-import { Order } from "../../../../pageComponents/account/orders/Order";
 import { urls } from "../../../../tooling/url";
+import { Order } from "../../../../containers/account/orders/Details";
+import { Templates } from "../../../../containers";
 
-const OrderPage = ({ store, orderId }: { store: Store; orderId: string }) => {
+const OrderPage = ({
+  store,
+  orderId,
+  template,
+}: {
+  store: Store;
+  orderId: string;
+  template: Templates;
+}) => {
   const { t } = useTranslation("translation");
   const { user, isLoadingUser } = useAuth();
   const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
@@ -44,9 +53,10 @@ const OrderPage = ({ store, orderId }: { store: Store; orderId: string }) => {
         description={`${t("pages.order")}, ${store?.name}`}
       />
       <Order
+        user={user}
+        template={template}
         isLoadingOrder={isLoadingOrder}
         order={order}
-        user={user}
         store={store}
       />
     </>
