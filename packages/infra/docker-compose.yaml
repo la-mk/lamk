@@ -163,7 +163,7 @@ services:
       NEXT_PUBLIC_NODE_ENV: "production"
       PORT: 80
   backstore-ui:
-    image: registry.digitalocean.com/lamk/backstore-ui:1.0.128
+    image: registry.digitalocean.com/lamk/backstore-ui:1.0.129
     container_name: backstore-ui
     restart: always
     networks:

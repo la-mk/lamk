@@ -31,7 +31,7 @@ export const OrderSummary = ({
         {(productsTotal - withCampaignsTotal).toFixed(2)}
       </Text>
       <Text>
-        {translations.total}: {(total - total * (18 / 100)).toFixed(2)}
+        {translations.total}: {(total / 1.18).toFixed(2)}
       </Text>
       <Text style={{ marginTop: 8, fontWeight: 'bold' }}>
         {translations.totalWithTax}: {total.toFixed(2)}

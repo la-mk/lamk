@@ -28,8 +28,8 @@ export const OrderItemsTable = ({
           { text: translations.product },
           { text: translations.quantity },
           { text: translations.price },
-          { text: translations.discount },
           { text: translations.tax },
+          { text: translations.discount },
           { text: translations.amountWithTax },
         ],
         ...orderedItems.map((item, index) => {
@@ -39,11 +39,9 @@ export const OrderItemsTable = ({
             { text: item.product.name },
             { text: item.quantity.toFixed(2) },
             {
-              text: (
-                (item.product.calculatedPrice ?? 0) -
-                (item.product.calculatedPrice ?? 0) * 0.18
-              ).toFixed(2),
+              text: ((item.product.calculatedPrice ?? 0) / 1.18).toFixed(2),
             },
+            { text: '18%' },
             {
               text: item.product.discount
                 ? `${(item.product.discount
@@ -52,7 +50,6 @@ export const OrderItemsTable = ({
                   ).toFixed(2)}%`
                 : '',
             },
-            { text: '18%' },
             {
               text: (
                 item.quantity * (item.product.calculatedPrice ?? 0)
