@@ -76,7 +76,7 @@ const MenuButton = ({
   );
 };
 
-export const AccountMenu = ({ user }: { user: User }) => {
+export const AccountMenu = ({ user }: { user: User | undefined }) => {
   const { t } = useTranslation("translation");
   const { pathname } = useRouter();
   // TODO: Remove gray when blocks-ui is updated to contain the typings for it

@@ -3,6 +3,7 @@ import { Provider } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import { BlocksTheme, DeepPartial } from "@la-mk/blocks-ui/dist/theme";
 import tinycolor from "tinycolor2";
+import { Templates } from "../containers";
 
 const getOtherColors = (brandColor: string) => {
   const brand = tinycolor(brandColor).toHsl();
@@ -371,10 +372,17 @@ const getElegantTheme: DeepPartial<BlocksTheme> & any = (
   };
 };
 
-const getTheme = (brandColor = "#EF4351"): DeepPartial<BlocksTheme> => {
-  // return getGenericTheme(brandColor);
+const getTheme = (
+  brandColor = "#EF4351",
+  template: Templates = "standard"
+): DeepPartial<BlocksTheme> => {
+  switch (template) {
+    case "standard":
+      return getGenericTheme(brandColor);
+    case "elegant":
+      return getElegantTheme(brandColor);
+  }
   // return getFashionTheme(brandColor);
-  return getElegantTheme(brandColor);
 };
 
 const getTranslations = (t: (key: string) => string) => {
@@ -418,13 +426,18 @@ const getTranslations = (t: (key: string) => string) => {
 export const ThemeProvider = ({
   children,
   brandColor,
+  template,
 }: {
   brandColor: string;
+  template: Templates;
   children: React.ReactElement;
 }) => {
   const { t } = useTranslation("translation");
   const translations = useMemo(() => getTranslations(t), [t]);
-  const theme = useMemo(() => getTheme(brandColor), [brandColor]);
+  const theme = useMemo(
+    () => getTheme(brandColor, template),
+    [brandColor, template]
+  );
 
   return (
     <Provider theme={theme} translations={translations}>

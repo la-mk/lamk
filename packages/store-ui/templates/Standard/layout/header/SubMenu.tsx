@@ -4,12 +4,12 @@ import { ChevronDown } from "react-feather";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { useTheme } from "@chakra-ui/react";
-import { getCategoryHref } from "../../../tooling/url";
-import { getGroupedCategories } from "../../../domain/category";
-import { getQueryForSet, getSetHref } from "../../../domain/set";
-import { HeaderProps } from "..";
-import { CategoriesOverlay } from "../../../templates/Standard/components/categories/CategoriesOverlay";
-import { CategoriesGrid } from "../../../templates/Standard/components/categories/CategoriesGrid";
+import { getCategoryHref } from "../../../../tooling/url";
+import { getGroupedCategories } from "../../../../domain/category";
+import { getQueryForSet, getSetHref } from "../../../../domain/set";
+import { CategoriesOverlay } from "../../components/categories/CategoriesOverlay";
+import { CategoriesGrid } from "../../components/categories/CategoriesGrid";
+import { HeaderProps } from "../../../../containers/layout/Header";
 
 export const SubMenu = ({
   sets,

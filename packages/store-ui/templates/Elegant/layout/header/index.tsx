@@ -2,12 +2,12 @@ import { Badge, Box, Flex, hooks, Image, Positioner } from "@la-mk/blocks-ui";
 import Link from "next/link";
 import { ShoppingCart, User } from "react-feather";
 import React from "react";
-import { HeaderProps } from "..";
-import { getImageURL } from "../../../hacks/imageUrl";
-import { urls } from "../../../tooling/url";
+import { getImageURL } from "../../../../hacks/imageUrl";
+import { urls } from "../../../../tooling/url";
 import { useTranslation } from "next-i18next";
 import { NavButton } from "./NavButton";
 import { MobileMenu } from "./MobileMenu";
+import { HeaderProps } from "../../../../containers/layout/Header";
 
 const Logo = ({
   getLogoUrl,
@@ -48,7 +48,8 @@ const menus = [
 ];
 
 const headerHeight = ["50px", "64px", "74px"];
-export const Header = ({ store, cartCount, searchValue }: HeaderProps) => {
+
+export const Header = ({ store, cartCount }: HeaderProps) => {
   const { t } = useTranslation("translation");
   const imageHeight = hooks.useBreakpoint(headerHeight);
 

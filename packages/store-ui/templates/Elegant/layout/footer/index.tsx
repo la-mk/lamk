@@ -10,8 +10,8 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { StoreFooterSection } from "./StoreFooterSection";
 import { SubFooter } from "./SubFooter";
-import { Store } from "../../domain/store";
-import { urls } from "../../tooling/url";
+import { Store } from "../../../../domain/store";
+import { urls } from "../../../../tooling/url";
 
 const getMenus = (t: any): Menu[] => [
   {
@@ -69,7 +69,7 @@ const getMenus = (t: any): Menu[] => [
   },
 ];
 
-export const FooterContent = ({
+export const Footer = ({
   store,
 }: {
   store: Pick<Store, "logo" | "contact" | "_id">;
@@ -77,26 +77,28 @@ export const FooterContent = ({
   const { t } = useTranslation("translation");
 
   return (
-    <Box py={2}>
-      <Flex
-        maxWidth={"68rem"}
-        px={[3, 4, 6]}
-        pt={[4, 5, 6]}
-        mx="auto"
-        direction={["column", "column", "row"]}
-        align={["center", "center", "flex-start"]}
-        justify={"space-between"}
-        color="text.light"
-      >
-        <Box mr={[0, 0, 5]}>
-          <StoreFooterSection store={store} />
-        </Box>
-        <BaseFooterContent menus={getMenus(t)} Link={Link} />
-      </Flex>
+    <Box bg="background.dark">
+      <Box py={2}>
+        <Flex
+          maxWidth={"68rem"}
+          px={[3, 4, 6]}
+          pt={[4, 5, 6]}
+          mx="auto"
+          direction={["column", "column", "row"]}
+          align={["center", "center", "flex-start"]}
+          justify={"space-between"}
+          color="text.light"
+        >
+          <Box mr={[0, 0, 5]}>
+            <StoreFooterSection store={store} />
+          </Box>
+          <BaseFooterContent menus={getMenus(t)} Link={Link} />
+        </Flex>
 
-      <Divider display={["none", "none", "block"]} mb={4} mt={6} />
+        <Divider display={["none", "none", "block"]} mb={4} mt={6} />
 
-      <SubFooter />
+        <SubFooter />
+      </Box>
     </Box>
   );
 };

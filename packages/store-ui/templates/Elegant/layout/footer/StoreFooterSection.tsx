@@ -2,9 +2,9 @@ import React from "react";
 import { Flex, Box, Heading, Image } from "@la-mk/blocks-ui";
 
 import { useTranslation } from "next-i18next";
-import { getImageURL } from "../../hacks/imageUrl";
-import { Store } from "../../domain/store";
-import { Contact } from "../Contact";
+import { getImageURL } from "../../../../hacks/imageUrl";
+import { Store } from "../../../../domain/store";
+import { Contact } from "./Contact";
 
 export const StoreFooterSection = ({
   store,

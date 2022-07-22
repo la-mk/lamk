@@ -15,17 +15,16 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { NavButton } from "./NavButton";
 import { AccountMenu } from "./AccountMenu";
-import { HeaderProps } from "..";
-import { filterRouter, getSearchHref, urls } from "../../../tooling/url";
-import { getImageURL } from "../../../hacks/imageUrl";
-import { useAuth } from "../../../hooks/useAuth";
-import { Contact } from "../../Contact";
+import { filterRouter, getSearchHref, urls } from "../../../../tooling/url";
+import { getImageURL } from "../../../../hacks/imageUrl";
+import { useAuth } from "../../../../hooks/useAuth";
+import { Contact } from "../footer/Contact";
+import { HeaderProps } from "../../../../containers/layout/Header";
 
 export const Header = ({
   store,
   cartCount,
-  searchValue,
-}: Pick<HeaderProps, "store" | "cartCount" | "searchValue">) => {
+}: Pick<HeaderProps, "store" | "cartCount">) => {
   const router = useRouter();
   const { t } = useTranslation("translation");
   const theme = useTheme();
@@ -44,10 +43,6 @@ export const Header = ({
     }
   );
   const [searchVal, setSearchVal] = React.useState(filters.searching);
-  React.useEffect(() => {
-    setSearchVal(searchValue ?? "");
-  }, [searchValue]);
-
   const presetSearch = (
     <Flex
       height={`calc(${desktopHeight} - 0.5rem)`}
@@ -102,26 +97,6 @@ export const Header = ({
     >
       <Box width="100%">
         <Flex justify="space-between" align="center">
-          {ownTheme.logo.position === "center" && (
-            <>
-              <Flex
-                direction="column"
-                display={["none", "flex", "flex"]}
-                flex={1}
-              >
-                <Contact hideAlternate contact={store.contact} />
-              </Flex>
-              <Flex
-                lineHeight={0}
-                flex={1}
-                align="center"
-                justify={["flex-start", "center", "center"]}
-              >
-                {logo}
-              </Flex>
-            </>
-          )}
-
           {ownTheme.logo.position === "left" && (
             <Box flex={1} lineHeight={0}>
               {logo}

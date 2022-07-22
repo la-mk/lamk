@@ -1,7 +1,7 @@
 import React from "react";
 import { Phone, Mail } from "react-feather";
 import { Flex, Text } from "@la-mk/blocks-ui";
-import { Contact as ContactType } from "../domain/contact";
+import { Contact as ContactType } from "../../../../domain/contact";
 
 const ContactEntry = ({
   icon,

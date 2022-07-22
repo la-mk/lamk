@@ -9,7 +9,6 @@ import { CookiesProvider } from "../layout/CookiesProvider";
 import { newClient } from "../sdk/queryClient";
 import { envvars, loadEnv } from "../tooling/env";
 import { StoreNotFound } from "../layout/StoreNotFound";
-import { StoreLayout } from "../layout/StoreLayout";
 import { Store } from "../domain/store";
 import Head from "next/head";
 import NextNProgress from "nextjs-progressbar";
@@ -17,6 +16,9 @@ import { Integrations } from "../integrations/Integrations";
 import { getImageURL } from "../hacks/imageUrl";
 import { AuthProvider } from "../layout/Auth/AuthProvider";
 import { analytics, initializeAnalytics } from "../tooling/analytics";
+import { Header } from "../containers/layout/Header";
+import { Shell } from "../containers/layout/Shell";
+import { Footer } from "../containers/layout/Footer";
 
 function MyApp({
   Component,
@@ -24,6 +26,7 @@ function MyApp({
 }: AppProps & { store: Store | null }) {
   const [queryClient] = useState(() => newClient());
   const { t } = useTranslation("translation");
+  const template = "elegant";
   // The SDK is a singleton, so it's safe to do this check
   if (!sdk) {
     loadEnv();
@@ -41,7 +44,7 @@ function MyApp({
   }
 
   return (
-    <ThemeProvider brandColor={store?.color ?? "#EF4351"}>
+    <ThemeProvider template={template} brandColor={store?.color ?? "#EF4351"}>
       {!!store ? (
         <>
           <NextNProgress
@@ -72,13 +75,15 @@ function MyApp({
               <Hydrate state={dehydratedState}>
                 <AuthProvider storeId={store._id}>
                   <>
-                    <StoreLayout store={store}>
+                    <Header template={template} store={store} />
+                    <Shell template={template} store={store}>
                       <Component
                         {...otherProps}
                         store={store}
                         template={"elegant"}
                       />
-                    </StoreLayout>
+                    </Shell>
+                    <Footer template={template} store={store} />
                     <Integrations storeId={store._id} />
                   </>
                 </AuthProvider>

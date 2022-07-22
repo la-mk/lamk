@@ -11,8 +11,8 @@ import { useTheme } from "@chakra-ui/react";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { NavButton } from "./NavButton";
-import { User } from "../../../domain/user";
-import { urls } from "../../../tooling/url";
+import { User } from "../../../../domain/user";
+import { urls } from "../../../../tooling/url";
 
 export interface AccountMenuProps {
   user?: User;
