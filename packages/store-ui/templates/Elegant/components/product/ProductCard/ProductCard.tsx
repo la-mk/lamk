@@ -92,13 +92,13 @@ export const ProductCard = ({ product, store }: ProductCardProps) => {
       href={`${urls.products}/[pid]`}
       as={`${urls.products}/${product._id}`}
     >
-      <Flex direction={"column"} p={[1, 3, 3]} my={2} width={[210, 296, 376]}>
+      <Flex direction={"column"} p={[1, 3, 3]} my={2} width={[300, 300, 420]}>
         <ProductImage
           t={t}
           store={store}
           product={product}
-          height={[200, 260, 340]}
-          width={[210, 296, 376]}
+          height={[300, 300, 420]}
+          width={[300, 300, 420]}
         />
 
         <ProductDescription t={t} store={store} product={product} />

@@ -32,18 +32,23 @@ const Logo = ({
 const menus = [
   {
     title: "Shop all",
+    href: urls.products,
   },
   {
     title: "Discounted",
+    href: urls.products,
   },
   {
     title: "Serial",
+    href: urls.products,
   },
   {
     title: "Elegance",
+    href: urls.products,
   },
   {
     title: "Gifts",
+    href: urls.products,
   },
 ];
 
@@ -60,6 +65,8 @@ export const Header = ({ store, cartCount }: HeaderProps) => {
       justify="space-between"
       align="center"
       px={[4, 6, 7]}
+      // @ts-ignore
+      border="1px solid #e8e8e8"
     >
       <Flex display={["flex", "none", "none"]}>
         <MobileMenu menus={menus} />
@@ -83,7 +90,7 @@ export const Header = ({ store, cartCount }: HeaderProps) => {
               justify="center"
               mx={[4, 4, 5]}
             >
-              <NavButton title={x.title} />
+              <NavButton href={x.href} title={x.title} />
             </Flex>
           ))}
         </Flex>

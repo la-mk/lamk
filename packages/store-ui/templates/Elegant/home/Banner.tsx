@@ -55,8 +55,9 @@ export const Banner = ({
     <div>
       <ImageBackgroundBox
         mx="auto"
-        url={getImageURL(banner?._id ?? "", storeId, { h: 600 }) ?? ""}
-        height={["28rem", "34rem", "42rem"]}
+        // url={getImageURL(banner?._id ?? "", storeId, { h: 600 }) ?? ""}
+        url={"/images/test.webp"}
+        height={["32rem", "40rem", "48rem"]}
         width="100%"
         // @ts-ignore
         style={{ position: "relative" }}

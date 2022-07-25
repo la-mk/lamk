@@ -310,6 +310,11 @@ const getElegantTheme: DeepPartial<BlocksTheme> & any = (
   };
 
   return {
+    global: {
+      fontFamily:
+        "'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    },
+
     colors,
     radii: {
       none: 0,

@@ -7,8 +7,8 @@ import styled from "@emotion/styled";
 import { Category } from "../../../../domain/category";
 import { getImageURL } from "../../../../hacks/imageUrl";
 import { ImageBackgroundBox } from "../../../../components/ImageBackgroundBox";
-import { HoverableLink } from "../../../../components/HoverableLink";
 import { sampleSize } from "../../../../tooling/util";
+import { HoverableLink } from "../../../../components/HoverableLink";
 
 const IllustrationWrapper = styled(Box)`
   & svg {

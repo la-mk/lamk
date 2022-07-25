@@ -6,9 +6,9 @@ import { Product } from "../../../../../domain/product";
 import { Store } from "../../../../../domain/store";
 import { Price } from "./Price";
 import { getImageURL } from "../../../../../hacks/imageUrl";
-import { HoverableLink } from "../../../../../components/HoverableLink";
 import { ProductTags } from "../ProductTags";
 import { urls } from "../../../../../tooling/url";
+import { HoverableLink } from "../../../../../components/HoverableLink";
 
 export interface ProductCardProps {
   product: Product;

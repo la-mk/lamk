@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Text } from "@la-mk/blocks-ui";
+import Link, { LinkProps } from "next/link";
 import React from "react";
 
 const AnimatedBorderLink = styled.a`
@@ -21,14 +22,16 @@ const AnimatedBorderLink = styled.a`
 `;
 
 export const NavButton = React.forwardRef(
-  ({ title, ...props }: { title: string }, ref) => {
+  ({ title, ...props }: { title: string } & LinkProps, ref) => {
     return (
-      // @ts-ignore
-      <AnimatedBorderLink aria-label={title} {...props}>
-        <Text px={1} whiteSpace="nowrap" color="black" size="md">
-          {title}
-        </Text>
-      </AnimatedBorderLink>
+      <Link {...props}>
+        {/* @ts-ignore */}
+        <AnimatedBorderLink ref={ref} aria-label={title}>
+          <Text px={1} whiteSpace="nowrap" color="black" size="md">
+            {title}
+          </Text>
+        </AnimatedBorderLink>
+      </Link>
     );
   }
 );

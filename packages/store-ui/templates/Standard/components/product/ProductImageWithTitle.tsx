@@ -2,10 +2,10 @@ import React from "react";
 import { Flex, Heading, Text, Box, Image } from "@la-mk/blocks-ui";
 import { VariantName } from "./VariantName";
 import { useTranslation } from "next-i18next";
-import { HoverableLink } from "../../../../components/HoverableLink";
 import { getImageURL } from "../../../../hacks/imageUrl";
 import { OrderItem } from "../../../../domain/order";
 import { urls } from "../../../../tooling/url";
+import { HoverableLink } from "../../../../components/HoverableLink";
 
 export const ProductImageWithTitle = ({
   orderItem,
