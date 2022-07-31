@@ -14,8 +14,6 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
       justify="flex-start"
       width="100%"
       maxWidth={maxWidth ?? 1920}
-      px={[2, 5, 7]}
-      mt={title ? 0 : [5, 6, 7]}
       mb={7}
       mx="auto"
       overflow="hidden"

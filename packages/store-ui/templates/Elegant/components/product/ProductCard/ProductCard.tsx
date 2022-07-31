@@ -7,6 +7,7 @@ import { Price } from "./Price";
 import { getImageURL } from "../../../../../hacks/imageUrl";
 import { urls } from "../../../../../tooling/url";
 import { HoverableLink } from "../../../../../components/HoverableLink";
+import { ProductTags } from "./ProductTags";
 
 export interface ProductCardProps {
   product: Product;
@@ -23,13 +24,6 @@ const ProductDescription = ({
   store: Store;
 }) => {
   const headingLines = 2;
-  /* Make sure the heading always occupies the same height */
-  // const headingHeight =`${
-  //   headingLines +
-  //   (theme.components.Heading.sizes.sm.lineHeight * headingLines -
-  //     headingLines)
-  // }em`
-
   return (
     <Box py={0}>
       <Heading mb={1} as="h3" size="sm" noOfLines={headingLines}>
@@ -48,15 +42,13 @@ const ProductDescription = ({
 };
 
 const ProductImage = ({
-  store,
-  product,
-  width,
+  productName,
+  getImageUrl,
   height,
   t,
 }: {
-  store: Store;
-  product: Product;
-  width: number[];
+  productName: string;
+  getImageUrl: (params: any) => string;
   height: number[];
   t: TFunction;
 }) => {
@@ -75,10 +67,8 @@ const ProductImage = ({
       <Image
         style={{ objectFit: "contain" }}
         height={height}
-        getSrc={(params) =>
-          getImageURL(product.media[0]?._id, store._id, params)
-        }
-        alt={product.name}
+        getSrc={getImageUrl}
+        alt={productName}
       />
     </Flex>
   );
@@ -92,14 +82,23 @@ export const ProductCard = ({ product, store }: ProductCardProps) => {
       href={`${urls.products}/[pid]`}
       as={`${urls.products}/${product._id}`}
     >
-      <Flex direction={"column"} p={[1, 3, 3]} my={2} width={[300, 300, 420]}>
+      <Flex
+        // @ts-ignore
+        style={{ position: "relative" }}
+        direction={"column"}
+        p={[1, 3, 3]}
+        my={2}
+        width={[300, 300, 380]}
+      >
         <ProductImage
           t={t}
-          store={store}
-          product={product}
-          height={[300, 300, 420]}
-          width={[300, 300, 420]}
+          productName={product.name}
+          getImageUrl={(params) =>
+            getImageURL(product.media[0]?._id, store._id, params) ?? ""
+          }
+          height={[300, 300, 380]}
         />
+        <ProductTags t={t} product={product} />
 
         <ProductDescription t={t} store={store} product={product} />
       </Flex>

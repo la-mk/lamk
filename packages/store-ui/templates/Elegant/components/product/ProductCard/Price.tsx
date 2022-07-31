@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, Flex } from "@la-mk/blocks-ui";
+import { useTranslation } from "next-i18next";
 
 interface PriceProps {
   minCalculatedPrice: number;
@@ -20,6 +21,7 @@ export const Price = ({
   size,
   vertical,
 }: PriceProps) => {
+  const { t } = useTranslation("translation");
   const discounted =
     minPrice !== minCalculatedPrice || maxPrice !== maxCalculatedPrice;
 
@@ -27,7 +29,7 @@ export const Price = ({
   const pricePart = (
     <Text size={fontSize} color={discounted ? "danger" : "mutedText.dark"}>
       {minCalculatedPrice !== maxCalculatedPrice
-        ? `From ${minCalculatedPrice}`
+        ? `${t("common.from")} ${minCalculatedPrice}`
         : minCalculatedPrice}{" "}
       {currency}
     </Text>
@@ -35,7 +37,7 @@ export const Price = ({
 
   const discountedPart = discounted ? (
     <Text ml={3} as="s" color={"mutedText.light"} size={fontSize}>
-      {minPrice !== maxPrice ? `${minPrice} ~ ${maxPrice}` : minPrice}{" "}
+      {minPrice !== maxPrice ? `${t("common.from")} ${minPrice}` : minPrice}{" "}
       {currency}
     </Text>
   ) : null;

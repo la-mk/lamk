@@ -194,7 +194,8 @@
     "unknown": "Unknown",
     "welcomeBack": "Welcome back",
     "guest": "Guest",
-    "zipcode": "Zipcode"
+    "zipcode": "Zipcode",
+    "from": "From"
   },
   "company": {
     "subTagline": "The easiest way to build an online shop"

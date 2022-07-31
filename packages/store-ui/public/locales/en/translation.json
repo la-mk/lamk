@@ -613,7 +613,8 @@
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
     "welcomeBack": "Welcome back",
-    "zipcode": "Zipcode"
+    "zipcode": "Zipcode",
+    "from": "From"
   },
   "countries": {
     "mk": "Macedonia"

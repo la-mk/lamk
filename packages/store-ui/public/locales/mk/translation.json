@@ -613,7 +613,8 @@
     "streetExample": "пр. Солунска 25",
     "summary": "Преглед",
     "welcomeBack": "Дојбре дојдовте",
-    "zipcode": "Поштенски код"
+    "zipcode": "Поштенски код",
+    "from": "Од"
   },
   "countries": {
     "mk": "Macedonia"
