@@ -23,19 +23,23 @@ const Logo = ({
 }: {
   getLogoUrl: (params: any) => string | null;
   height: string;
-}) => (
-  <Link href={urls.home} passHref>
-    <Box as="a" lineHeight={0}>
-      <Box
-        height={`calc(${height} - 16px)`}
-        minWidth={`calc(${height} - 16px)`}
-        m={1}
-      >
-        <Image getSrc={getLogoUrl} height={parseInt(height)} alt="logo" />
+}) => {
+  const size = [
+    `calc(${height} - 16px)`,
+    `calc(${height} - 16px)`,
+    `calc(${height} - 32px)`,
+  ];
+
+  return (
+    <Link href={urls.home} passHref>
+      <Box as="a" lineHeight={0}>
+        <Box height={size} minWidth={size} m={1}>
+          <Image getSrc={getLogoUrl} height={parseInt(height)} alt="logo" />
+        </Box>
       </Box>
-    </Box>
-  </Link>
-);
+    </Link>
+  );
+};
 
 const menus = [
   {

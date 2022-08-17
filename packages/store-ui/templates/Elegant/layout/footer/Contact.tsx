@@ -3,36 +3,6 @@ import { Phone, Mail } from "react-feather";
 import { Flex, Text } from "@la-mk/blocks-ui";
 import { Contact as ContactType } from "../../../../domain/contact";
 
-const ContactEntry = ({
-  icon,
-  value,
-  darkMode,
-}: {
-  icon: React.ReactNode;
-  value?: string | number;
-  darkMode?: boolean;
-}) => {
-  if (!value) {
-    return null;
-  }
-
-  return (
-    <Flex my={1} align="center">
-      <Text color={darkMode ? "mutedText.light" : "mutedText.dark"}>
-        {icon}
-      </Text>
-
-      <Text
-        size="sm"
-        color={darkMode ? "mutedText.light" : "mutedText.dark"}
-        ml={4}
-      >
-        {value}
-      </Text>
-    </Flex>
-  );
-};
-
 export const Contact = ({
   contact,
   darkMode,
@@ -47,25 +17,19 @@ export const Contact = ({
   return (
     <>
       {phoneNumber && (
-        <ContactEntry
-          darkMode={darkMode}
-          icon={<Phone size="1rem" />}
-          value={phoneNumber}
-        />
+        <Text as="strong" mt={1} size="xl" color={"text.light"}>
+          {phoneNumber}
+        </Text>
       )}
       {!hideAlternate && alternatePhoneNumber && (
-        <ContactEntry
-          darkMode={darkMode}
-          icon={<Phone size="1rem" />}
-          value={alternatePhoneNumber}
-        />
+        <Text as="strong" mt={1} size="xl" color={"text.light"}>
+          {alternatePhoneNumber}
+        </Text>
       )}
       {email && (
-        <ContactEntry
-          darkMode={darkMode}
-          icon={<Mail size="1rem" />}
-          value={email}
-        />
+        <Text as="strong" mt={1} size="xl" color={"text.light"}>
+          {email}
+        </Text>
       )}
     </>
   );

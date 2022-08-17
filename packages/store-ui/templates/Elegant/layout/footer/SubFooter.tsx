@@ -6,10 +6,16 @@ import {
   PoweredBy,
   Image,
   LanguagePicker,
+  Button,
 } from "@la-mk/blocks-ui";
 import { useRouter } from "next/router";
+import { Store } from "../../../../domain/store";
+import Link from "next/link";
+import { urls } from "../../../../tooling/url";
+import { useTranslation } from "next-i18next";
 
-export const SubFooter = () => {
+export const SubFooter = ({ store }: { store: Store }) => {
+  const { t } = useTranslation("translation");
   const router = useRouter();
   const { pathname, asPath, query, locale } = router;
 
@@ -26,19 +32,36 @@ export const SubFooter = () => {
     <Flex
       justify={["center", "space-between", "space-between"]}
       align="center"
-      px={[4, 5, 6]}
       my={2}
       direction={["column", "row", "row"]}
     >
-      <Text color="text.light" size="sm" mr={[0, 3, 3]} mb={[3, 0, 0]}>
-        © 2021 All rights reserved
-      </Text>
+      <Box display={"inline"}>
+        <Text color="mutedText.light" size="sm" mr={1}>
+          {store.company?.companyName} |
+        </Text>
+
+        <Link href={urls.privacyPolicy} passHref>
+          <Button as="a" my={3} variant="link" mr={1}>
+            <Text size="sm" color="mutedText.light">
+              {t("pages.privacy")} |
+            </Text>
+          </Button>
+        </Link>
+
+        <Link href={urls.legal} passHref>
+          <Button as="a" my={3} variant="link">
+            <Text size="sm" color="mutedText.light">
+              {t("pages.legal")}
+            </Text>
+          </Button>
+        </Link>
+      </Box>
 
       <PoweredBy logoUrl={"/images/lamk-logo/horizontal-inverse.svg"} inverse />
 
       <Flex mt={[4, 0, 0]} ml={[0, 4, 4]} justify="center" align="center">
         <Flex mr={5} align="center" justify="center">
-          <Text color="text.light">
+          <Text color="mutedText.light">
             <LanguagePicker
               darkMode
               languageCode={locale ?? "mk"}
@@ -47,17 +70,23 @@ export const SubFooter = () => {
           </Text>
         </Flex>
         <Box mr={2} p={2} bg="background.light">
-          <Box height={"22px"}>
+          <Box height={"16px"}>
             <Image
-              height={22}
+              style={{ filter: "grayscale(100%)" }}
+              height={16}
               src={"/images/mastercard.svg"}
               alt="mastercard logo"
             />
           </Box>
         </Box>
         <Box ml={2} p={2} bg="background.light">
-          <Box height={"22px"}>
-            <Image height={22} src={"/images/visa.svg"} alt="visa logo" />
+          <Box height={"16px"}>
+            <Image
+              style={{ filter: "grayscale(100%)" }}
+              height={16}
+              src={"/images/visa.svg"}
+              alt="visa logo"
+            />
           </Box>
         </Box>
       </Flex>

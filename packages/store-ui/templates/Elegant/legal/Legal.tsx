@@ -1,11 +1,9 @@
 import React from "react";
 import { Flex, Box, Text } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
-// import { Page } from "../../layout/Page";
 import { urls } from "../../../tooling/url";
 import { ClickableCard } from "../../../components/ClickableCard";
 import { Page } from "../Page";
-// import { Breadcrumbs } from "../../components/Breadcrumbs";
 
 export const Legal = () => {
   const { t } = useTranslation("translation");
@@ -35,12 +33,6 @@ export const Legal = () => {
 
   return (
     <>
-      {/* <Breadcrumbs
-        breadcrumbs={[
-          { url: urls.home, title: t("pages.home") },
-          { url: urls.legal, title: t("pages.legal") },
-        ]}
-      /> */}
       <Page maxWidth={"86rem"} title={t("pages.legal")}>
         <Text as="p" align="center">
           {t("legal.legalExplanation")}

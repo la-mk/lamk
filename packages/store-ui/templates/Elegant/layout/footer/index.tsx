@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Flex,
-  Box,
-  Divider,
-  FooterContent as BaseFooterContent,
-} from "@la-mk/blocks-ui";
+import { Flex, Box, Button, Text, Heading } from "@la-mk/blocks-ui";
 import { Menu } from "@la-mk/blocks-ui/dist/compound/FooterContent";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
@@ -41,47 +36,53 @@ const getMenus = (t: any): Menu[] => [
       },
     ],
   },
-  {
-    text: t("pages.legal"),
-    link: urls.legal,
-    submenus: [
-      {
-        link: urls.generalRules,
-        text: t("pages.generalRules"),
-      },
-      {
-        link: urls.termsOfUse,
-        text: t("pages.termsOfUse"),
-      },
-      {
-        link: urls.returnsAndRefunds,
-        text: t("pages.returnAndRefund"),
-      },
-      {
-        link: urls.privacyPolicy,
-        text: t("pages.privacy"),
-      },
-      {
-        link: urls.cookiesPolicy,
-        text: t("pages.cookiesPolicy"),
-      },
-    ],
-  },
 ];
 
-export const Footer = ({
-  store,
-}: {
-  store: Pick<Store, "logo" | "contact" | "_id">;
-}) => {
+const Submenu = ({ submenus }: { submenus: Menu["submenus"] }) => {
+  return (
+    <Flex width="100%" direction="column" align="flex-start">
+      {submenus.map((submenu) => {
+        return (
+          <Link key={submenu.link} href={submenu.link} passHref>
+            <Button as="a" my={2} variant="link">
+              <Text size="sm" color="mutedText.light">
+                {submenu.text}
+              </Text>
+            </Button>
+          </Link>
+        );
+      })}
+    </Flex>
+  );
+};
+
+const SubmenuTitle = ({ menu, Link }: { menu: Menu; Link: any }) => {
+  const title = (
+    <Heading mb={4} size="sm" color="mutedText.dark" as="h4">
+      {menu.text.toUpperCase()}
+    </Heading>
+  );
+
+  return (
+    <>
+      {menu.link && (
+        <Link key={menu.link} href={menu.link}>
+          <a style={{ textDecoration: "none" }}>{title}</a>
+        </Link>
+      )}
+      {!menu.link && title}
+    </>
+  );
+};
+
+export const Footer = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
 
   return (
-    <Box bg="background.dark">
+    <Box pt={8} px={[4, 7, 8]} bg="background.dark">
       <Box py={2}>
         <Flex
-          maxWidth={"68rem"}
-          px={[3, 4, 6]}
+          mb={9}
           pt={[4, 5, 6]}
           mx="auto"
           direction={["column", "column", "row"]}
@@ -89,15 +90,40 @@ export const Footer = ({
           justify={"space-between"}
           color="text.light"
         >
-          <Box mr={[0, 0, 5]}>
+          <Box flex={1} mr={[0, 0, 5]}>
             <StoreFooterSection store={store} />
           </Box>
-          <BaseFooterContent menus={getMenus(t)} Link={Link} />
+
+          <Flex flex={1}>
+            {getMenus(t).map((menu) => {
+              return (
+                <Flex direction="column" align="center" key={menu.text} mx={4}>
+                  <SubmenuTitle Link={Link} menu={menu} />
+                  <Submenu submenus={menu.submenus} />
+                </Flex>
+              );
+            })}
+          </Flex>
+          <Box flex={1}>
+            <Heading
+              textTransform={"uppercase"}
+              mb={4}
+              size="sm"
+              color="mutedText.dark"
+              as="h4"
+            >
+              Are you a business?
+            </Heading>
+            <Text color="mutedText.light">
+              If you are a business that wants to provide branded products to
+              your employees, we are here to help! We offer discounts and
+              customized products for bulk orders. Reach out to us for
+              quotations and more details.
+            </Text>
+          </Box>
         </Flex>
 
-        <Divider display={["none", "none", "block"]} mb={4} mt={6} />
-
-        <SubFooter />
+        <SubFooter store={store} />
       </Box>
     </Box>
   );

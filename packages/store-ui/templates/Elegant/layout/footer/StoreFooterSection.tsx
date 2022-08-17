@@ -1,38 +1,79 @@
 import React from "react";
-import { Flex, Box, Heading, Image } from "@la-mk/blocks-ui";
+import { Flex, Box, Heading } from "@la-mk/blocks-ui";
+import { Facebook, Twitter, Instagram, Youtube } from "react-feather";
 
+import { useTheme } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
-import { getImageURL } from "../../../../hacks/imageUrl";
 import { Store } from "../../../../domain/store";
 import { Contact } from "./Contact";
+import { HoverableLink } from "../../../../components/HoverableLink";
 
-export const StoreFooterSection = ({
-  store,
-}: {
-  store: Pick<Store, "logo" | "contact" | "_id">;
-}) => {
+const SocialButton = ({ link, icon }: { link: string; icon: any }) => {
+  return (
+    <Box mr={5}>
+      <HoverableLink href={link}>{icon}</HoverableLink>
+    </Box>
+  );
+};
+
+export const StoreFooterSection = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
+  const theme = useTheme();
   if (!store) {
     return null;
   }
 
   return (
     <Flex direction="column" align={"flex-start"}>
-      <Box height={"6rem"} mb={5} bg="background.light">
-        <Image
-          getSrc={(params) =>
-            getImageURL(store.logo?._id ?? "", store._id, params)
-          }
-          height={84}
-          alt="logo"
-        />
-      </Box>
-
-      <Heading mb={3} color="heading.light" as="h4" size={"xs"}>
-        {t("common.contactDetails").toUpperCase()}
+      <Heading
+        textTransform={"uppercase"}
+        mb={4}
+        size="sm"
+        color="mutedText.dark"
+        as="h4"
+      >
+        Stay connected
       </Heading>
 
       <Contact darkMode contact={store.contact} />
+
+      <Heading
+        textTransform={"uppercase"}
+        mt={7}
+        mb={4}
+        size="sm"
+        color="mutedText.dark"
+        as="h4"
+      >
+        Follow us!
+      </Heading>
+
+      <Flex direction={"row"}>
+        <SocialButton
+          link="something"
+          icon={
+            <Facebook color={theme?.colors?.mutedText?.dark} size="1.6rem" />
+          }
+        />
+        <SocialButton
+          link="something"
+          icon={
+            <Instagram color={theme?.colors?.mutedText?.dark} size="1.6rem" />
+          }
+        />
+        <SocialButton
+          link="something"
+          icon={
+            <Youtube color={theme?.colors?.mutedText?.dark} size="1.6rem" />
+          }
+        />
+        <SocialButton
+          link="something"
+          icon={
+            <Twitter color={theme?.colors?.mutedText?.dark} size="1.6rem" />
+          }
+        />
+      </Flex>
     </Flex>
   );
 };
