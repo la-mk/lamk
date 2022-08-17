@@ -6,9 +6,9 @@ import { CheckoutProps } from "../../../containers/checkout";
 import { PaymentMethodNames } from "../../../domain/payment";
 import { urls } from "../../../tooling/url";
 import { Summary } from "../components/cart/Summary";
-import { Page } from "../Page";
 import { SelectAddress } from "./SelectAddress";
 import { SelectPaymentMethod } from "./SelectPaymentMethod";
+import { Success } from "./Success";
 
 export const Checkout = ({
   store,
@@ -26,9 +26,9 @@ export const Checkout = ({
   setSelectedDeliverTo,
 }: CheckoutProps) => {
   const { t } = useTranslation("translation");
-  // if (order && order.paymentMethod === PaymentMethodNames.PAY_ON_DELIVERY) {
-  //   return <Success mt={[7, 8, 8]} order={order} />;
-  // }
+  if (order && order.paymentMethod === PaymentMethodNames.PAY_ON_DELIVERY) {
+    return <Success mt={[7, 8, 8]} order={order} />;
+  }
 
   if (cart.items.length === 0) {
     return (
@@ -93,6 +93,7 @@ export const Checkout = ({
           campaigns={campaigns}
           disabled={!selectedDeliverTo}
           showLeaveNote
+          isLoading={isLoading}
           buttonTitle={
             selectedPaymentMethod === PaymentMethodNames.CREDIT_CARD
               ? t("actions.toPayment")

@@ -15,7 +15,7 @@ const StyledCard = styled(Card)<{ isChecked: boolean }>`
   border: 1px solid
     ${(props: { isChecked: boolean; theme: BlocksTheme }) =>
       props.isChecked
-        ? props.theme.colors?.primary?.["400"]
+        ? props.theme.colors?.primary?.["500"]
         : props.theme.colors?.gray?.["100"]};
   transition: border 0.4s ease-out;
   box-sizing: border-box;

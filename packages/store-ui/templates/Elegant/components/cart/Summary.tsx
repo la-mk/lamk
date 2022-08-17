@@ -25,6 +25,7 @@ interface SummaryProps {
   showLeaveNote?: boolean;
   hideFreeShipping?: boolean;
   title?: string;
+  isLoading?: boolean;
 }
 
 export const Summary = ({
@@ -40,6 +41,7 @@ export const Summary = ({
   showContinueShopping,
   showLeaveNote,
   hideFreeShipping,
+  isLoading,
   ...props
 }: SummaryProps & React.ComponentProps<typeof Box>) => {
   const { user, login } = useAuth();
@@ -132,6 +134,7 @@ export const Summary = ({
       <Box maxWidth={"30rem"} mt={5} mx="auto">
         {onCheckout && (
           <Button
+            isLoading={isLoading}
             isDisabled={disabled}
             onClick={handleCheckout}
             isFullWidth

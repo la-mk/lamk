@@ -19,13 +19,6 @@ export const SelectPaymentMethod = ({
   setPaymentMethod,
 }: SelectAddressProps) => {
   const { t } = useTranslation("translation");
-  const iconsMap: { [key in PaymentMethodNames]: React.ReactNode } = {
-    // [PaymentMethodNames.PAY_ON_DELIVERY]: <WalletMoney />,
-    // [PaymentMethodNames.CREDIT_CARD]: <CreditCards />,
-    [PaymentMethodNames.PAY_ON_DELIVERY]: null,
-    [PaymentMethodNames.CREDIT_CARD]: null,
-  };
-
   return (
     <>
       <Heading mb={4} as="h3" size="md">
@@ -54,8 +47,6 @@ export const SelectPaymentMethod = ({
                     align="center"
                     justify="center"
                   >
-                    <Text color={"heading.dark"}>{iconsMap[method.name]}</Text>
-
                     <Flex
                       ml={[4, 5, 5]}
                       direction="column"
@@ -72,7 +63,7 @@ export const SelectPaymentMethod = ({
                       >
                         {t(`paymentMethodNames.${method.name}`)}
                       </Heading>
-                      <Text align="center" size="sm" color={"heading.dark"}>
+                      <Text align="center" size="sm" color={"mutedText.dark"}>
                         {t(`paymentMethodNames.${method.name}Explanation`)}
                       </Text>
                     </Flex>
