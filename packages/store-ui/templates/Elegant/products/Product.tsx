@@ -6,9 +6,7 @@ import { ProductImage } from "./ProductImage";
 import { ProductOptions } from "./ProductOptions";
 import { ProductDetails } from "./ProductDetails";
 import { ProductSet } from "../components/sets/ProductSet";
-import { urls } from "../../../tooling/url";
 import { ProductProps } from "../../../containers/products/Details";
-import { useTranslation } from "next-i18next";
 import { getImageURL } from "../../../hacks/imageUrl";
 import { ImageBackgroundBox } from "../../../components/ImageBackgroundBox";
 
@@ -45,7 +43,7 @@ export const Product = ({
               mt={[4, 6, 0]}
               ml={[0, 0, 2]}
               px={[4, 6, 7]}
-              width={["100%", "100%", "35%"]}
+              width={["100%", "100%", "40%"]}
               maxWidth="36rem"
               align={["center", "center", "flex-start"]}
               justify="flex-start"
@@ -80,10 +78,10 @@ export const Product = ({
           </Flex>
 
           {!!product.media[1] && (
-            <Box mt={8}>
+            <Box mt={8} height={["32rem", "44rem", "56rem"]}>
               <ImageBackgroundBox
                 url={getImageURL(product.media[1]?._id, store._id, {}) ?? ""}
-                height="36rem"
+                height="100%"
               />
             </Box>
           )}

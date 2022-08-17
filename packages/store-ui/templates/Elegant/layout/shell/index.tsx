@@ -6,7 +6,9 @@ export const Shell = ({ children }: ShellProps) => {
   return (
     <Box flex={1} minHeight="calc(100vh - 200px)" maxWidth={"100%"}>
       <div id="categories-portal-root" />
-      <Flex direction="column">{children}</Flex>
+      <Flex minHeight={"inherit"} direction="column">
+        {children}
+      </Flex>
     </Box>
   );
 };

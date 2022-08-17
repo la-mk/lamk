@@ -41,7 +41,7 @@ export const ProductImage = ({
           renderItem={(item: Media) => (
             <ImageBackgroundBox
               url={getImageURL(item._id, store._id, {}) ?? ""}
-              height={["22rem", "36rem", "32rem"]}
+              height={["24rem", "36rem", "32rem"]}
               width="100%"
             />
           )}
@@ -49,7 +49,7 @@ export const ProductImage = ({
       </Box>
       <Flex
         display={["none", "none", "initial"]}
-        width={"65%"}
+        width={"60%"}
         align="center"
         justify="flex-start"
         direction="column"
@@ -77,7 +77,7 @@ export const ProductImage = ({
             </ImageMagnifier>
           </MagnifierWrapper>
         </Box>
-        <Box mt={4} maxWidth={"80%"}>
+        <Box mt={4} maxWidth={"100%"}>
           <Thumbnails
             media={product.media}
             imageBucket={store._id}

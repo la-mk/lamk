@@ -3,7 +3,7 @@ import { Box, Flex, Result, Spinner } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import { Page } from "../Page";
 import { OrderProductsList } from "../components/product/OrderProductsList";
-import { Summary } from "../account/orders/Summary";
+import { Summary } from "../components/cart/Summary";
 import { ProductSet } from "../components/sets/ProductSet";
 import { urls } from "../../../tooling/url";
 import { Breadcrumbs } from "../components/Breadcrumbs";

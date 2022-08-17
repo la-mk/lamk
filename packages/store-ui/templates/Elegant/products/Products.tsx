@@ -18,6 +18,7 @@ export const Products = ({
     <Page>
       {(totalProducts > 0 || isLoadingProducts) && (
         <DataGrid
+          my={4}
           spacing={[4, 4, 4]}
           isLoaded={!isLoadingProducts}
           rowKey="_id"

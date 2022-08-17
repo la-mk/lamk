@@ -62,7 +62,6 @@ const ProductImage = ({
       style={{ position: "relative" }}
       mb={4}
       mr={0}
-      p={5}
     >
       <Image
         style={{ objectFit: "contain" }}
@@ -86,7 +85,7 @@ export const ProductCard = ({ product, store }: ProductCardProps) => {
         // @ts-ignore
         style={{ position: "relative" }}
         direction={"column"}
-        p={[1, 3, 3]}
+        pb={[1, 3, 3]}
         my={2}
         width={[300, 300, 380]}
       >

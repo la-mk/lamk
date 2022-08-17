@@ -27,8 +27,8 @@ const Logo = ({
   <Link href={urls.home} passHref>
     <Box as="a" lineHeight={0}>
       <Box
-        height={`calc(${height} - 12px)`}
-        minWidth={`calc(${height} - 12px)`}
+        height={`calc(${height} - 16px)`}
+        minWidth={`calc(${height} - 16px)`}
         m={1}
       >
         <Image getSrc={getLogoUrl} height={parseInt(height)} alt="logo" />
@@ -60,7 +60,7 @@ const menus = [
   },
 ];
 
-const headerHeight = ["50px", "64px", "90px"];
+const headerHeight = ["50px", "64px", "82px"];
 
 export const Header = ({ store, cartCount }: HeaderProps) => {
   const { t } = useTranslation("translation");

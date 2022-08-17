@@ -10,7 +10,7 @@ import { CustomCard } from "../../components/CustomCard";
 import { ShippingDescription } from "../../components/ShippingDescription";
 import { sdk } from "../../../../sdk/sdk";
 import { PaymentMethodNames } from "../../../../domain/payment";
-import { Summary } from "./Summary";
+import { Summary } from "../../components/cart/Summary";
 import { ProductSet } from "../../components/sets/ProductSet";
 import { urls } from "../../../../tooling/url";
 import { Breadcrumbs } from "../../components/Breadcrumbs";

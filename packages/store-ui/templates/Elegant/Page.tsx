@@ -19,7 +19,7 @@ export const Page = ({ title, maxWidth, children }: PageProps) => {
       overflow="hidden"
     >
       {title && (
-        <Heading mx="auto" my={7} size={"2xl"} as="h1">
+        <Heading mx="auto" my={7} size={"xl"} as="h1">
           {title}
         </Heading>
       )}

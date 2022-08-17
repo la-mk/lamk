@@ -6,7 +6,7 @@ import { SelectPaymentMethod } from "./SelectPaymentMethod";
 import { useTranslation } from "next-i18next";
 import { PaymentMethodNames } from "../../../domain/payment";
 import { Page } from "../Page";
-import { Summary } from "../account/orders/Summary";
+import { Summary } from "../components/cart/Summary";
 import { urls } from "../../../tooling/url";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { CheckoutProps } from "../../../containers/checkout";

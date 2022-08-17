@@ -10,7 +10,7 @@ export NEXT_PUBLIC_API_ENDPOINT='https://api.la.mk'
 export NEXT_PUBLIC_ARTIFACTS_ENDPOINT='https://artifacts.la.mk'
 export NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT='https://artifacts.la.mk'
 export NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT='https://epay.halkbank.mk/fim/est3Dgate'
-export NEXT_PUBLIC_DEV_STORE_URL='www.demo.la.mk'
+export NEXT_PUBLIC_DEV_STORE_URL='www.mokudo.la.mk'
 export NEXT_PUBLIC_NODE_ENV='development'
 
 export NODE_ENV='development'

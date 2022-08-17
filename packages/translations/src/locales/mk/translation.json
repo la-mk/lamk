@@ -205,7 +205,7 @@
     "deliveryMethod": "Метод на достава",
     "freeDelivery": "Бесплатна достава",
     "freeDeliveryExplanation": "Над која вредност доставата е бесплатна?",
-    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
+    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте бесплатна достава!",
     "overPrice": "Над вредност од",
     "priceExplanation": "Најчесто вредноста претставува просечна цена за достава",
     "updatingDeliveryTip": "Доставата се обновува...",

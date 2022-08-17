@@ -80,7 +80,7 @@ function MyApp({
                       <Component
                         {...otherProps}
                         store={store}
-                        template={"elegant"}
+                        template={template}
                       />
                     </Shell>
                     <Footer template={template} store={store} />

@@ -27,7 +27,11 @@ export const Price = ({
 
   const fontSize = size === "small" ? "sm" : size === "large" ? "xl" : "md";
   const pricePart = (
-    <Text size={fontSize} color={discounted ? "danger" : "mutedText.dark"}>
+    <Text
+      whiteSpace="nowrap"
+      size={fontSize}
+      color={discounted ? "danger" : "mutedText.dark"}
+    >
       {minCalculatedPrice !== maxCalculatedPrice
         ? `${t("common.from")} ${minCalculatedPrice}`
         : minCalculatedPrice}{" "}
@@ -36,14 +40,20 @@ export const Price = ({
   );
 
   const discountedPart = discounted ? (
-    <Text ml={3} as="s" color={"mutedText.light"} size={fontSize}>
+    <Text
+      whiteSpace="nowrap"
+      ml={3}
+      as="s"
+      color={"mutedText.light"}
+      size={fontSize}
+    >
       {minPrice !== maxPrice ? `${t("common.from")} ${minPrice}` : minPrice}{" "}
       {currency}
     </Text>
   ) : null;
 
   return (
-    <Flex direction={vertical ? "column" : "row"} wrap="wrap">
+    <Flex direction={vertical ? "column" : "row"} wrap="nowrap">
       {pricePart}
       {discountedPart}
     </Flex>

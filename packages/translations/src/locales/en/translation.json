@@ -204,7 +204,7 @@
     "deliveryMethod": "Delivery method",
     "freeDelivery": "Free delivery",
     "freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
-    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
+    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get free shipping!",
     "overPrice": "Over price",
     "priceExplanation": "This can be the average delivery cost.",
     "updatingDeliveryTip": "Updating delivery...",

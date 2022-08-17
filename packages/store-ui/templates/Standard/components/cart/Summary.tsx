@@ -5,10 +5,10 @@ import { Delivery } from "../../../../domain/delivery";
 import { Campaign } from "../../../../domain/campaign";
 import { useTranslation } from "next-i18next";
 import { calculatePrices, OrderItem } from "../../../../domain/order";
-import { CustomCard } from "../../components/CustomCard";
+import { CustomCard } from "../CustomCard";
 import { useAuth } from "../../../../hooks/useAuth";
 import { Store } from "../../../../domain/store";
-import { SummaryProductList } from "../../components/product/SummaryProductList";
+import { SummaryProductList } from "../product/SummaryProductList";
 import { urls } from "../../../../tooling/url";
 
 interface SummaryProps {
