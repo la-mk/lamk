@@ -10,29 +10,22 @@ import { Store } from "../../domain/store";
 import { urls } from "../../tooling/url";
 import { Account } from "../../containers/account";
 import { Templates } from "../../containers";
+import { NextPageWithLayout } from "../_app";
+import React, { ReactElement } from "react";
+import { Layout as AccountLayout } from "../../containers/account/Layout";
 
-function AccountPage({
+const AccountPage = ({
   store,
   template,
-}: {
+}: NextPageWithLayout & {
   store: Store;
   template: Templates;
-}) {
-  const { user, isLoadingUser } = useAuth();
+}) => {
+  const { user } = useAuth();
   const { t } = useTranslation("translation");
 
-  if (isLoadingUser()) {
-    return <Spinner mx="auto" mt={5} isLoaded={false} />;
-  }
-
-  if (!user) {
-    return (
-      <Result status="empty" mt={8} description={t("auth.noUserInformation")} />
-    );
-  }
-
-  const fullName = `${user.firstName ?? ""} ${user.lastName ?? ""}`;
-  const nameDescription = fullName.length < 3 ? user.email : fullName;
+  const fullName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`;
+  const nameDescription = fullName.length < 3 ? user?.email : fullName;
 
   return (
     <>
@@ -45,7 +38,11 @@ function AccountPage({
       <Account template={template} user={user} />
     </>
   );
-}
+};
+
+AccountPage.getLayout = (page: ReactElement, template: Templates) => {
+  return <AccountLayout template={template}>{page}</AccountLayout>;
+};
 
 export async function getServerSideProps({
   locale,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { getStore, PageContextWithStore } from "../../../../hacks/store";
 import { getProps, newClient } from "../../../../sdk/queryClient";
 import { getDefaultPrefetch } from "../../../../sdk/defaults";
@@ -12,30 +12,26 @@ import { useQuery } from "../../../../sdk/useQuery";
 import { urls } from "../../../../tooling/url";
 import { Order } from "../../../../containers/account/orders/Details";
 import { Templates } from "../../../../containers";
+import { Layout as AccountLayout } from "../../../../containers/account/Layout";
+import { NextPageWithLayout } from "../../../_app";
 
 const OrderPage = ({
   store,
   orderId,
   template,
-}: {
+}: NextPageWithLayout & {
   store: Store;
   orderId: string;
   template: Templates;
 }) => {
   const { t } = useTranslation("translation");
-  const { user, isLoadingUser } = useAuth();
+  const { user } = useAuth();
   const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
     enabled: !!user,
   });
 
-  if (isLoadingUser() || isLoadingOrder) {
+  if (isLoadingOrder) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
-  }
-
-  if (!user) {
-    return (
-      <Result status="empty" mt={8} description={t("auth.noUserInformation")} />
-    );
   }
 
   if (!order) {
@@ -61,6 +57,10 @@ const OrderPage = ({
       />
     </>
   );
+};
+
+OrderPage.getLayout = (page: ReactElement, template: Templates) => {
+  return <AccountLayout template={template}>{page}</AccountLayout>;
 };
 
 export async function getServerSideProps({

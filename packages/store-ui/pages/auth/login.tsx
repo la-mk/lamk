@@ -1,4 +1,4 @@
-import { Result, Spinner } from "@la-mk/blocks-ui";
+import { Spinner } from "@la-mk/blocks-ui";
 import { getProps, newClient } from "../../sdk/queryClient";
 import { getDefaultPrefetch } from "../../sdk/defaults";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -8,41 +8,29 @@ import { useTranslation } from "next-i18next";
 import { Head } from "../../layout/Head";
 import { Store } from "../../domain/store";
 import { urls } from "../../tooling/url";
-import { Personal } from "../../containers/account/Personal";
 import { Templates } from "../../containers";
-import { Layout as AccountLayout } from "../../containers/account/Layout";
-import { ReactElement } from "react";
-import { NextPageWithLayout } from "../_app";
+import { Login } from "../../containers/auth/Login";
 
-function PersonalPage({
-  store,
-  template,
-}: NextPageWithLayout & {
-  store: Store;
-  template: Templates;
-}) {
-  const { user } = useAuth();
+function LoginPage({ store, template }: { store: Store; template: Templates }) {
+  const { isLoadingUser } = useAuth();
   const { t } = useTranslation("translation");
 
-  const fullName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`;
-  const nameDescription = fullName.length < 3 ? user?.email : fullName;
+  if (isLoadingUser()) {
+    return <Spinner mx="auto" mt={5} isLoaded={false} />;
+  }
 
   return (
     <>
       <Head
-        url={urls.accountPersonal}
+        url={urls.login}
         store={store}
         title={t("pages.myAccount")}
-        description={`${t("pages.myAccount")}, ${nameDescription}`}
+        description={`${t("pages.myAccount")}`}
       />
-      <Personal template={template} user={user} />
+      <Login template={template} />
     </>
   );
 }
-
-PersonalPage.getLayout = (page: ReactElement, template: Templates) => {
-  return <AccountLayout template={template}>{page}</AccountLayout>;
-};
 
 export async function getServerSideProps({
   locale,
@@ -65,4 +53,4 @@ export async function getServerSideProps({
   };
 }
 
-export default PersonalPage;
+export default LoginPage;

@@ -3,9 +3,10 @@ import { Addresses as ElegantAddresses } from "../../templates/Elegant/account/A
 import { Templates } from "..";
 import { User } from "../../domain/user";
 import { Store } from "../../domain/store";
+import { useProtectedRoute } from "../../hooks/useProtectedRoute";
 
 export interface AddressesProps {
-  user: User;
+  user?: User;
   store: Store;
 }
 
@@ -15,9 +16,11 @@ export const Addresses = ({
   store,
 }: {
   template: Templates;
-  user: User;
+  user?: User;
   store: Store;
 }) => {
+  useProtectedRoute();
+
   switch (template) {
     case "standard":
       return <StandardAddresses user={user} store={store} />;

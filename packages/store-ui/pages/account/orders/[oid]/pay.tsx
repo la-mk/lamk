@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Result, Spinner } from "@la-mk/blocks-ui";
 import { Store } from "../../../../domain/store";
 import { useTranslation } from "next-i18next";
@@ -12,31 +12,27 @@ import { Head } from "../../../../layout/Head";
 import { urls } from "../../../../tooling/url";
 import { Pay } from "../../../../containers/account/orders/Pay";
 import { Templates } from "../../../../containers";
+import { Layout as AccountLayout } from "../../../../containers/account/Layout";
+import { NextPageWithLayout } from "../../../_app";
 
 const OrderPayPage = ({
   store,
   orderId,
   template,
-}: {
+}: NextPageWithLayout & {
   store: Store;
   orderId: string;
   template: Templates;
 }) => {
   const { t } = useTranslation("translation");
 
-  const { user, isLoadingUser } = useAuth();
+  const { user } = useAuth();
   const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
     enabled: !!user,
   });
 
-  if (isLoadingUser() || isLoadingOrder) {
+  if (isLoadingOrder) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
-  }
-
-  if (!user) {
-    return (
-      <Result status="empty" mt={8} description={t("auth.noUserInformation")} />
-    );
   }
 
   if (!order) {
@@ -62,6 +58,10 @@ const OrderPayPage = ({
       />
     </>
   );
+};
+
+OrderPayPage.getLayout = (page: ReactElement, template: Templates) => {
+  return <AccountLayout template={template}>{page}</AccountLayout>;
 };
 
 export async function getServerSideProps({

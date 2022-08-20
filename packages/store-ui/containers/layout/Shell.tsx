@@ -12,7 +12,6 @@ export interface ShellProps {
   store: Store;
   user: User | undefined;
   children: React.ReactNode;
-  isInAccountsPage: boolean;
 }
 
 export const Shell = ({
@@ -24,15 +23,12 @@ export const Shell = ({
   template: Templates;
   children: React.ReactNode;
 }) => {
-  const { pathname } = useRouter();
   const { user } = useAuth();
-  const isInAccountsPage = !!user && pathname.startsWith(urls.account);
 
   const props = {
     store,
     user,
     children,
-    isInAccountsPage,
   };
 
   switch (template) {

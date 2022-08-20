@@ -13,7 +13,7 @@ interface AddressesProps {
   showAddModal: boolean;
   setShowAddModal: (show: boolean) => void;
   selectedAddress: Address | undefined;
-  onSelected: (address: Address) => void;
+  onSelected?: (address: Address) => void;
 }
 
 export const Addresses = ({

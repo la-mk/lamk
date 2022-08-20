@@ -15,6 +15,7 @@ export const AuthContext = React.createContext({
   isLoadingUser: (): boolean => false,
   user: undefined as User | undefined,
   updateUser: (user: User) => {},
+  isAuthShown: false,
 });
 
 export const AuthProvider = ({
@@ -71,10 +72,11 @@ export const AuthProvider = ({
       login,
       logout,
       isLoadingUser,
+      isAuthShown: showAuth,
       user,
       updateUser,
     }),
-    [login, logout, isLoadingUser, user, updateUser]
+    [login, logout, isLoadingUser, user, updateUser, showAuth]
   );
 
   return (

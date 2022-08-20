@@ -13,6 +13,7 @@ import {
   TransactionStatus,
 } from "../../../domain/payment";
 import { AnalyticsEvents } from "@la-mk/analytics";
+import { useProtectedRoute } from "../../../hooks/useProtectedRoute";
 
 export interface PayProps {
   order: Order;
@@ -48,6 +49,7 @@ export const Pay = ({
   order: Order;
   isLoadingOrder: boolean;
 }) => {
+  useProtectedRoute();
   const { trackEvent } = useAnalytics(store._id);
   const [trackedEvent, setTrackedEvent] = useState(false);
   const [isLoadingPayment, setIsLoadingPayment] = useState(true);

@@ -8,6 +8,7 @@ import { FilterObject } from "@la-mk/blocks-ui/dist/hooks/useFilter";
 import { hooks, utils } from "@la-mk/blocks-ui";
 import { filterRouter } from "../../../tooling/url";
 import { useQuery } from "../../../sdk/useQuery";
+import { useProtectedRoute } from "../../../hooks/useProtectedRoute";
 
 export interface OrdersProps {
   store: Store;
@@ -24,9 +25,11 @@ export const Orders = ({
   store,
 }: {
   template: Templates;
-  user: User;
+  user?: User;
   store: Store;
 }) => {
+  useProtectedRoute();
+
   const [filters, setFilters] = hooks.useFilter(
     {
       sorting: {

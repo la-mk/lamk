@@ -1,4 +1,3 @@
-import { Result, Spinner } from "@la-mk/blocks-ui";
 import { getStore, PageContextWithStore } from "../../../hacks/store";
 import { getProps, newClient } from "../../../sdk/queryClient";
 import { getDefaultPrefetch } from "../../../sdk/defaults";
@@ -10,26 +9,19 @@ import { Head } from "../../../layout/Head";
 import { urls } from "../../../tooling/url";
 import { Orders } from "../../../containers/account/orders/List";
 import { Templates } from "../../../containers";
+import { Layout as AccountLayout } from "../../../containers/account/Layout";
+import { ReactElement } from "react";
+import { NextPageWithLayout } from "../../_app";
 
 function OrdersPage({
   store,
   template,
-}: {
+}: NextPageWithLayout & {
   store: Store;
   template: Templates;
 }) {
   const { t } = useTranslation("translation");
-  const { user, isLoadingUser } = useAuth();
-
-  if (isLoadingUser()) {
-    return <Spinner mx="auto" mt={5} isLoaded={false} />;
-  }
-
-  if (!user) {
-    return (
-      <Result status="empty" mt={8} description={t("auth.noUserInformation")} />
-    );
-  }
+  const { user } = useAuth();
 
   return (
     <>
@@ -44,6 +36,10 @@ function OrdersPage({
     </>
   );
 }
+
+OrdersPage.getLayout = (page: ReactElement, template: Templates) => {
+  return <AccountLayout template={template}>{page}</AccountLayout>;
+};
 
 export async function getServerSideProps({
   locale,

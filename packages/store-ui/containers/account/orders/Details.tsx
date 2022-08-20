@@ -14,9 +14,9 @@ import {
   ProductSetType,
 } from "../../../domain/set";
 import { User } from "../../../domain/user";
+import { useProtectedRoute } from "../../../hooks/useProtectedRoute";
 
 export interface OrderProps {
-  user: User;
   order: OrderType;
   store: Store;
   isLoadingOrder: boolean;
@@ -55,23 +55,25 @@ export const Order = ({
   template: Templates;
   order: OrderType;
   store: Store;
-  user: User;
+  user?: User;
   isLoadingOrder: boolean;
 }) => {
   const { t } = useTranslation("translation");
+  useProtectedRoute();
   const router = useRouter();
 
-  const [sets, isLoadingSets] = useQuery("product", "getProductSetsForStore", [
-    store._id,
-    getSets(t),
-  ]);
+  const [sets, isLoadingSets] = useQuery(
+    "product",
+    "getProductSetsForStore",
+    [store._id, getSets(t)],
+    { enabled: !!user }
+  );
 
   const handlePayment = () => {
     router.push(`${urls.accountOrders}/${order._id}/pay`);
   };
 
   const props = {
-    user,
     store,
     order,
     isLoadingOrder,

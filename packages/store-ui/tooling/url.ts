@@ -20,6 +20,7 @@ export const urls = {
   accountChangePassword: "/account/change-password",
   accountAddresses: "/account/addresses",
   accountOrders: "/account/orders",
+  login: "/auth/login",
   resetPassword: "/auth/resetPassword",
 };
 

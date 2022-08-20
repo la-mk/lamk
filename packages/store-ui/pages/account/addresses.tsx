@@ -10,29 +10,22 @@ import { Head } from "../../layout/Head";
 import { urls } from "../../tooling/url";
 import { Addresses } from "../../containers/account/Addresses";
 import { Templates } from "../../containers";
+import { Layout as AccountLayout } from "../../containers/account/Layout";
+import { ReactElement } from "react";
+import { NextPageWithLayout } from "../_app";
 
 function AddressesPage({
   store,
   template,
-}: {
+}: NextPageWithLayout & {
   store: Store;
   template: Templates;
 }) {
-  const { user, isLoadingUser } = useAuth();
+  const { user } = useAuth();
   const { t } = useTranslation("translation");
 
-  if (isLoadingUser()) {
-    return <Spinner mx="auto" mt={5} isLoaded={false} />;
-  }
-
-  if (!user) {
-    return (
-      <Result status="empty" mt={8} description={t("auth.noUserInformation")} />
-    );
-  }
-
-  const fullName = `${user.firstName ?? ""} ${user.lastName ?? ""}`;
-  const nameDescription = fullName.length < 3 ? user.email : fullName;
+  const fullName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`;
+  const nameDescription = fullName.length < 3 ? user?.email : fullName;
 
   return (
     <>
@@ -47,6 +40,10 @@ function AddressesPage({
     </>
   );
 }
+
+AddressesPage.getLayout = (page: ReactElement, template: Templates) => {
+  return <AccountLayout template={template}>{page}</AccountLayout>;
+};
 
 export async function getServerSideProps({
   locale,

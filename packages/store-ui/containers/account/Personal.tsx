@@ -9,6 +9,7 @@ import { useCallback } from "react";
 import { useTranslation } from "next-i18next";
 import { DeepPartial } from "@la-mk/blocks-ui/dist/theme";
 import { pick } from "lodash";
+import { useProtectedRoute } from "../../hooks/useProtectedRoute";
 
 export interface PersonalProps {
   isLoading: boolean;
@@ -22,9 +23,11 @@ export const Personal = ({
   user,
 }: {
   template: Templates;
-  user: User;
+  user?: User;
 }) => {
   const { t } = useTranslation("translation");
+  useProtectedRoute();
+
   const { updateUser } = useAuth();
   const [patchUser, isPatching] = useMutation("user", "patch");
   const [userFormData, setUserFormData] = hooks.useFormState<Partial<User>>(
@@ -35,6 +38,10 @@ export const Personal = ({
 
   const handlePatchAccount = useCallback(
     async ({ formData }: { formData: Partial<User> }) => {
+      if (!user?._id) {
+        return;
+      }
+
       try {
         const updatedUser = await patchUser([user._id, formData]);
         updateUser(updatedUser);
@@ -44,7 +51,7 @@ export const Personal = ({
         toast.error(t("results.genericError"));
       }
     },
-    [patchUser, updateUser, t, user._id]
+    [patchUser, updateUser, t, user?._id]
   );
 
   switch (template) {

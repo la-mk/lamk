@@ -7,6 +7,7 @@ import { useMutation } from "../../sdk/useMutation";
 import { useCallback } from "react";
 import { toast } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
+import { useProtectedRoute } from "../../hooks/useProtectedRoute";
 
 export interface ChangePasswordProps {
   isLoading: boolean;
@@ -18,15 +19,20 @@ export const ChangePassword = ({
   user,
 }: {
   template: Templates;
-  user: User;
+  user?: User;
 }) => {
   const { t } = useTranslation("translation");
+  useProtectedRoute();
+
   const { updateUser } = useAuth();
   const [patchUser, isPatching] = useMutation("user", "patch");
 
   const handlePatchAccount = useCallback(
     async ({ formData }: { formData: Partial<User> }) => {
       try {
+        if (!user?._id) {
+          return;
+        }
         const updatedUser = await patchUser([user._id, formData]);
         updateUser(updatedUser);
         toast.success(t("auth.accountUpdateSuccess"));
@@ -35,7 +41,7 @@ export const ChangePassword = ({
         toast.error(t("results.genericError"));
       }
     },
-    [patchUser, updateUser, t, user._id]
+    [patchUser, updateUser, t, user?._id]
   );
 
   switch (template) {

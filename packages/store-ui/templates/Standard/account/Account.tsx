@@ -1,4 +1,4 @@
-import { Box, Flex, Result } from "@la-mk/blocks-ui";
+import { Box, Flex, Result, Spinner } from "@la-mk/blocks-ui";
 import React from "react";
 import { useTheme } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
@@ -11,6 +11,10 @@ import { AccountMenu } from "./AccountMenu";
 export const Account = ({ user }: AccountProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation");
+
+  if (!user) {
+    return <Spinner mx="auto" mt={5} isLoaded={false} />;
+  }
 
   return (
     <>

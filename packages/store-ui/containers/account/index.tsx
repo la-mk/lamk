@@ -2,9 +2,10 @@ import { Account as StandardAccount } from "../../templates/Standard/account/Acc
 import { Account as ElegantAccount } from "../../templates/Elegant/account/Account";
 import { Templates } from "..";
 import { User } from "../../domain/user";
+import { useProtectedRoute } from "../../hooks/useProtectedRoute";
 
 export interface AccountProps {
-  user: User;
+  user?: User;
 }
 
 export const Account = ({
@@ -12,8 +13,10 @@ export const Account = ({
   user,
 }: {
   template: Templates;
-  user: User;
+  user?: User;
 }) => {
+  useProtectedRoute();
+
   switch (template) {
     case "standard":
       return <StandardAccount user={user} />;

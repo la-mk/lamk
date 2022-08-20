@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import { Hydrate, QueryClientProvider } from "react-query";
-import React, { useState } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { sdk, setupSdk } from "../sdk/sdk";
 import { ThemeProvider } from "../layout/ThemeProvider";
@@ -19,11 +19,22 @@ import { analytics, initializeAnalytics } from "../tooling/analytics";
 import { Header } from "../containers/layout/Header";
 import { Shell } from "../containers/layout/Shell";
 import { Footer } from "../containers/layout/Footer";
+import { NextPage } from "next";
+import { Templates } from "../containers";
+
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement, template: Templates) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+  store: Store | null;
+};
 
 function MyApp({
   Component,
   pageProps: { dehydratedState, store, ...otherProps },
-}: AppProps & { store: Store | null }) {
+}: AppPropsWithLayout) {
   const [queryClient] = useState(() => newClient());
   const { t } = useTranslation("translation");
   const template = "elegant";
@@ -42,6 +53,9 @@ function MyApp({
   if (!analytics && typeof window !== "undefined") {
     initializeAnalytics();
   }
+
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <ThemeProvider template={template} brandColor={store?.color ?? "#EF4351"}>
@@ -77,11 +91,14 @@ function MyApp({
                   <>
                     <Header template={template} store={store} />
                     <Shell template={template} store={store}>
-                      <Component
-                        {...otherProps}
-                        store={store}
-                        template={template}
-                      />
+                      {getLayout(
+                        <Component
+                          {...otherProps}
+                          store={store}
+                          template={template}
+                        />,
+                        template
+                      )}
                     </Shell>
                     <Footer template={template} store={store} />
                     <Integrations storeId={store._id} />
@@ -98,4 +115,5 @@ function MyApp({
   );
 }
 
+// @ts-ignore
 export default appWithTranslation(MyApp);

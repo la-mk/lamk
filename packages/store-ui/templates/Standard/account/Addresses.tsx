@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { Button, Flex } from "@la-mk/blocks-ui";
+import { Button, Flex, Spinner } from "@la-mk/blocks-ui";
 import { Addresses as AddressesList } from "../components/addresses/Addresses";
 import { useTranslation } from "next-i18next";
 import { Page } from "../Page";
 import { BackButton } from "./BackButton";
-import { User } from "../../../domain/user";
-import { Store } from "../../../domain/store";
 import { urls } from "../../../tooling/url";
 import { Breadcrumbs } from "../components/Breadcrumbs";
+import { AddressesProps } from "../../../containers/account/Addresses";
 
-export const Addresses = ({ user, store }: { user: User; store: Store }) => {
+export const Addresses = ({ user, store }: AddressesProps) => {
   const { t } = useTranslation("translation");
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
+
+  if (!user) {
+    return <Spinner mx="auto" mt={5} isLoaded={false} />;
+  }
 
   return (
     <>
@@ -33,6 +36,8 @@ export const Addresses = ({ user, store }: { user: User; store: Store }) => {
           user={user}
           showAddModal={showAddAddressModal}
           setShowAddModal={setShowAddAddressModal}
+          selectedAddress={undefined}
+          onSelected={undefined}
         />
       </Page>
     </>
