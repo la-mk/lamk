@@ -1,6 +1,4 @@
 import React from "react";
-import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
-import { useTheme } from "@chakra-ui/react";
 import { AddressModal } from "./AddressModal";
 import { AddressesList } from "./AddressesList";
 import { useAddresses } from "../../../../hooks/useAddresses";
@@ -41,7 +39,6 @@ export const Addresses = ({
     onSelected,
   });
 
-  const theme: FinalBlocksTheme = useTheme();
   return (
     <>
       <AddressesList
@@ -50,7 +47,6 @@ export const Addresses = ({
         isLoadingAddresses={areAddressesLoading}
         selectedAddress={selectedAddress}
         setSelectedAddress={onSelected}
-        theme={theme}
         setAddressToEdit={setAddressToEdit}
         setShowAddModal={setShowAddModal}
       />

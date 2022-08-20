@@ -1,5 +1,4 @@
 import { Button, Flex, Grid, Result, Spinner } from "@la-mk/blocks-ui";
-import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { Edit3, Trash2 } from "react-feather";
@@ -15,7 +14,6 @@ export const AddressesList = ({
   setAddressToEdit,
   handleRemoveAddress,
   setShowAddModal,
-  theme,
 }: {
   isLoadingAddresses: boolean;
   addresses: Address[];
@@ -24,7 +22,6 @@ export const AddressesList = ({
   setAddressToEdit: (address: Address) => void;
   handleRemoveAddress: (addressId: string) => void;
   setShowAddModal: (shouldShow: boolean) => void;
-  theme: FinalBlocksTheme;
 }) => {
   const { t } = useTranslation("translation");
 
