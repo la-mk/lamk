@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 import { ChangePasswordProps } from "../../../containers/account/ChangePassword";
 import { sdk } from "../../../sdk/sdk";
-import { Box, ChangePasswordForm, Spinner } from "@la-mk/blocks-ui";
+import { ChangePasswordForm, Spinner } from "@la-mk/blocks-ui";
 
 export const ChangePassword = ({
   isLoading,

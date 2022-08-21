@@ -19,7 +19,7 @@ export const Products = ({
       {(totalProducts > 0 || isLoadingProducts) && (
         <DataGrid
           my={4}
-          spacing={[4, 4, 4]}
+          spacing={[4, 4, 5]}
           isLoaded={!isLoadingProducts}
           rowKey="_id"
           items={products}

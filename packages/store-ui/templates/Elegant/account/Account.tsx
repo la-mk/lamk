@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useTranslation } from "next-i18next";
 import { AccountProps } from "../../../containers/account";
 import { useAuth } from "../../../hooks/useAuth";
@@ -12,7 +12,7 @@ export const Account = ({ user }: AccountProps) => {
   const { logout } = useAuth();
 
   if (!user) {
-    return <Spinner mx="auto" mt={5} isLoaded={false} />;
+    return <Spinner mx="auto" isLoaded={false} />;
   }
 
   return (

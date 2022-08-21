@@ -22,15 +22,18 @@ const TabsWrapper = styled.div`
 export const Layout = ({ children }: AccountLayoutProps) => {
   const { pathname, push } = useRouter();
   const { t } = useTranslation("translation");
-  const currentIndex = tabs.findIndex((x) => x === pathname) ?? 0;
+  const currentIndex = tabs.findIndex((x) => pathname.startsWith(x)) ?? 0;
   const content = <Box mt={5}>{children}</Box>;
 
   return (
     <TabsWrapper>
       <Tabs
         // @ts-ignore
+        isLazy
+        // @ts-ignore
         isFitted
         mt={6}
+        mb={6}
         onChange={(idx) => {
           push(tabs[idx]);
         }}

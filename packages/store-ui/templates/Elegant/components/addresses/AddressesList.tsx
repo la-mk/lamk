@@ -3,8 +3,10 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 import { Edit3, Trash2 } from "react-feather";
 import { Address } from "../../../../domain/address";
+import { NoAddress } from "../icons/NoAddress";
 import { SelectableCard } from "../SelectableCard";
 import { ShippingDescription } from "./ShippingDescription";
+import { useTheme } from "@chakra-ui/react";
 
 export const AddressesList = ({
   isLoadingAddresses,
@@ -24,6 +26,7 @@ export const AddressesList = ({
   setShowAddModal: (shouldShow: boolean) => void;
 }) => {
   const { t } = useTranslation("translation");
+  const theme = useTheme();
 
   return (
     <Spinner isLoaded={!isLoadingAddresses}>
@@ -39,7 +42,6 @@ export const AddressesList = ({
                 isChecked={!!isChecked}
                 onClick={() => setSelectedAddress?.(address)}
                 width="100%"
-                maxWidth={["26rem", "30rem", "28rem"]}
               >
                 <ShippingDescription
                   address={address}
@@ -76,12 +78,12 @@ export const AddressesList = ({
           <Flex align="center" justify="center" direction="column" p={3}>
             <Result
               status="empty"
-              // icon={
-              //   <NoAddress
-              //     primary={theme.colors.primary["500"]}
-              //     background={theme.colors.background.dark}
-              //   />
-              // }
+              icon={
+                <NoAddress
+                  primary={theme.colors.primary["500"]}
+                  background={theme.colors.background.dark}
+                />
+              }
               title={t("address.noAddress")}
               description={t("address.noAddressExplanation")}
             />

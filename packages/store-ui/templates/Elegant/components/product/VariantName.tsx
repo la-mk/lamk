@@ -37,5 +37,9 @@ export const VariantName = ({
     return null;
   }
 
-  return <Flex align="center">{values}</Flex>;
+  return (
+    <Flex mt={3} align="center">
+      {values}
+    </Flex>
+  );
 };

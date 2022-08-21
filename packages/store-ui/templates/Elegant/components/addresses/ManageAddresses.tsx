@@ -5,23 +5,23 @@ import { useAddresses } from "../../../../hooks/useAddresses";
 import { User } from "../../../../domain/user";
 import { Address } from "../../../../domain/address";
 
-interface AddressesProps {
+interface ManageAddressesProps {
   storeId: string;
   user: User;
   showAddModal: boolean;
   setShowAddModal: (show: boolean) => void;
   selectedAddress: Address | undefined;
-  onSelected: (address: Address) => void;
+  onSelected: ((address: Address) => void) | undefined;
 }
 
-export const Addresses = ({
+export const ManageAddresses = ({
   storeId,
   user,
   showAddModal,
   setShowAddModal,
   selectedAddress,
   onSelected,
-}: AddressesProps) => {
+}: ManageAddressesProps) => {
   const {
     handleAddAddress,
     handlePatchAddress,

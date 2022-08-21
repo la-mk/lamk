@@ -4,7 +4,7 @@ import { Plus } from "react-feather";
 import { useTranslation } from "next-i18next";
 import { User } from "../../../domain/user";
 import { Address } from "../../../domain/address";
-import { Addresses } from "../components/addresses/Addresses";
+import { ManageAddresses } from "../components/addresses/ManageAddresses";
 
 interface SelectAddressProps {
   storeId: string;
@@ -43,7 +43,7 @@ export const SelectAddress = ({
       </Flex>
 
       <Flex mt={3} mb={7} direction="column">
-        <Addresses
+        <ManageAddresses
           storeId={storeId}
           user={user}
           showAddModal={addressModalVisible}
