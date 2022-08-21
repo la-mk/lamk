@@ -3,6 +3,7 @@ import { Payment as ElegantPay } from "../../../templates/Elegant/account/orders
 import { Store } from "../../../domain/store";
 import { Templates } from "../..";
 import { Order } from "../../../domain/order";
+import { PaymentResponse } from "../../../domain/payment";
 import { useAnalytics } from "../../../hooks/useAnalytics";
 import { useEffect, useState } from "react";
 import { useQuery } from "../../../sdk/useQuery";
@@ -32,11 +33,6 @@ export interface PayProps {
   shouldRetry: boolean;
   paymentMethod: StorePaymentMethods | undefined;
 }
-
-type PaymentResponse = {
-  error?: any;
-  data?: any;
-} | null;
 
 export const Pay = ({
   template,
@@ -94,7 +90,7 @@ export const Pay = ({
     setIsLoadingPayment,
     isLoadingPaymentMethods,
     transactionStatus,
-    transactionMessage: transaction.message,
+    transactionMessage: transaction?.message,
     cardPaymentInfo,
     paymentResponse,
     setPaymentResponse,

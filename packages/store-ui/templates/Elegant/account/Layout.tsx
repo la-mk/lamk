@@ -1,95 +1,100 @@
 import styled from "@emotion/styled";
-import { Box, Flex, Tabs } from "@la-mk/blocks-ui";
+import { Box, Button, Flex } from "@la-mk/blocks-ui";
 import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
-import { useTranslation } from "next-i18next";
+import { TFunction, useTranslation } from "next-i18next";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { useTheme } from "@chakra-ui/react";
 import React from "react";
 import { AccountLayoutProps } from "../../../containers/account/Layout";
 import { useAuth } from "../../../hooks/useAuth";
 import { urls } from "../../../tooling/url";
 
-const tabs = [
-  urls.accountPersonal,
-  urls.accountChangePassword,
-  urls.accountAddresses,
-  urls.accountOrders,
-  urls.home,
+const getTabs = (t: TFunction) => [
+  { href: urls.accountPersonal, title: t("pages.personalDetails") },
+  { href: urls.accountChangePassword, title: t("pages.changePassword") },
+  { href: urls.accountAddresses, title: t("pages.myAddresses") },
+  { href: urls.accountOrders, title: t("pages.myOrders") },
+  { href: urls.home, title: t("auth.logout") },
 ];
 
-const TabsWrapper = styled.div`
-  .chakra-tabs__tablist {
+const TabsWrapper = styled(Flex)<{
+  currentIndex: number;
+  theme: FinalBlocksTheme;
+}>`
+  & {
     overflow-y: auto;
-    border: none;
-    background: ${(props: { theme: FinalBlocksTheme }) =>
-      props.theme.colors.gray["200"]};
 
-    button {
+    a {
       white-space: nowrap;
       padding: 12px;
-    }
-
-    button[aria-selected="true"] {
-      background: ${(props: { theme: FinalBlocksTheme }) =>
-        props.theme.colors.gray["600"]};
-      color: white;
+      color: black;
+      background: ${(props) => props.theme.colors.gray["200"]};
+      :focus,
+      :hover {
+        background: ${(props) => props.theme.colors.gray["600"]};
+        color: white;
+      }
     }
   }
 `;
 
 export const Layout = ({ children }: AccountLayoutProps) => {
-  const { pathname, push, replace } = useRouter();
+  const { pathname, replace } = useRouter();
   const { logout } = useAuth();
   const { t } = useTranslation("translation");
-  const currentIndex = tabs.findIndex((x) => pathname.startsWith(x));
-  const content = <Box mt={5}>{children}</Box>;
+  const theme = useTheme();
+  const tabs = getTabs(t);
+  const currentIndex = tabs.findIndex(
+    (x) => pathname.startsWith(x.href) && !pathname.includes("pay")
+  );
 
-  return currentIndex >= 0 ? (
-    <TabsWrapper theme={undefined!}>
-      <Tabs
-        // @ts-ignore
-        isLazy
-        // @ts-ignore
-        isFitted
-        // Needed so onChange doesnt fire twice.
-        // @ts-ignore
-        isManual
-        mb={6}
-        onChange={async (idx) => {
-          if (tabs[idx] === urls.home) {
-            try {
-              await replace(tabs[idx]);
-              logout();
-            } catch (err) {}
-          } else {
-            push(tabs[idx]);
-          }
-        }}
-        index={currentIndex}
-        items={[
-          {
-            title: t("pages.personalDetails"),
-            content,
-          },
-          {
-            title: t("pages.changePassword"),
-            content,
-          },
-          {
-            title: t("pages.myAddresses"),
-            content,
-          },
-          {
-            title: t("pages.myOrders"),
-            content,
-          },
-          {
-            title: t("auth.logout"),
-            content,
-          },
-        ]}
-      />
-    </TabsWrapper>
-  ) : (
-    content
+  const handleOnClick = async (href: string) => {
+    if (href === urls.home) {
+      try {
+        await replace(urls.home);
+        logout();
+      } catch (err) {}
+    }
+  };
+
+  return (
+    <>
+      {currentIndex >= 0 && (
+        <TabsWrapper
+          theme={undefined!}
+          currentIndex={currentIndex}
+          direction="row"
+        >
+          {tabs.map((tab, idx) => {
+            const isCurrent = currentIndex === idx;
+            return (
+              <Box key={tab.href} flex={1}>
+                <Link passHref replace href={tab.href}>
+                  <Button
+                    // @ts-ignore
+                    style={
+                      isCurrent
+                        ? {
+                            background: theme.colors.gray["600"],
+                            color: "white",
+                          }
+                        : undefined
+                    }
+                    onClick={() => handleOnClick(tab.href)}
+                    isFullWidth
+                    as="a"
+                    size="lg"
+                  >
+                    {tab.title}
+                  </Button>
+                </Link>
+              </Box>
+            );
+          })}
+        </TabsWrapper>
+      )}
+      <Box mt={7}>{children}</Box>
+    </>
   );
 };

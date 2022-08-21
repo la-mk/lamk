@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { envvars } from "../../../../../tooling/env";
+import { envvars } from "../../tooling/env";
 
 interface NestPayData {
   clientId: string;

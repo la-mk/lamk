@@ -1,3 +1,8 @@
+export type PaymentResponse = {
+  error?: any;
+  data?: any;
+} | null;
+
 export enum PaymentMethodNames {
   CREDIT_CARD = "creditCard",
   PAY_ON_DELIVERY = "payOnDelivery",

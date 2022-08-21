@@ -45,7 +45,7 @@ export const Orders = ({
               <OrderDescription order={order} store={store} />
             </Card>
           )}
-        ></DataGrid>
+        />
       ) : (
         <Result
           status="empty"

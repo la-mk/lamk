@@ -14,11 +14,10 @@ import { useTranslation } from "next-i18next";
 import { TransactionStatus } from "../../../../domain/payment";
 import { Success } from "./Success";
 import { Page } from "../../Page";
-import { FrameMessageExchange } from "../../../../components/FrameMessageExchange";
-import { PaymentForm } from "./payments/PaymentForm";
 import { urls } from "../../../../tooling/url";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { PayProps } from "../../../../containers/account/orders/Pay";
+import { ManagePayment } from "../../../../components/payments/ManagePayment";
 
 export const Payment = ({
   order,
@@ -38,7 +37,6 @@ export const Payment = ({
   paymentMethod,
 }: PayProps) => {
   const { t } = useTranslation("translation");
-  const frameName = "paymentFrame";
 
   if (!cardPaymentInfo && !isLoadingPaymentMethods) {
     return (
@@ -165,22 +163,14 @@ export const Payment = ({
               </>
             )}
 
-            {order && paymentMethod && !paymentResponse && (
-              <>
-                <PaymentForm
-                  target={frameName}
-                  storePaymentsId={paymentMethod?._id}
-                  cardPaymentInfo={cardPaymentInfo!}
-                  order={order}
-                />
-                {/* Can hide a spinner after the iframe is loaded */}
-                <FrameMessageExchange
-                  frameName={frameName}
-                  onLoad={() => setIsLoadingPayment(false)}
-                  onResponse={setPaymentResponse}
-                />
-              </>
-            )}
+            <ManagePayment
+              paymentMethodId={paymentMethod?._id}
+              cardPaymentInfo={cardPaymentInfo}
+              paymentResponse={paymentResponse}
+              setPaymentResponse={setPaymentResponse}
+              setIsLoadingPayment={setIsLoadingPayment}
+              order={order}
+            />
           </Flex>
         </Spinner>
       </Page>
