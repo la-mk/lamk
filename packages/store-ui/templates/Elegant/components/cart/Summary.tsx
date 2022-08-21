@@ -1,5 +1,13 @@
 import React from "react";
-import { Flex, Text, Divider, Button, Box, Textarea } from "@la-mk/blocks-ui";
+import {
+  Flex,
+  Text,
+  Divider,
+  Button,
+  Box,
+  Textarea,
+  Card,
+} from "@la-mk/blocks-ui";
 import Link from "next/link";
 import { Delivery } from "../../../../domain/delivery";
 import { Campaign } from "../../../../domain/campaign";
@@ -8,7 +16,6 @@ import { calculatePrices, OrderItem } from "../../../../domain/order";
 import { useAuth } from "../../../../hooks/useAuth";
 import { Store } from "../../../../domain/store";
 import { urls } from "../../../../tooling/url";
-import { CustomCard } from "../../../Standard/components/CustomCard";
 import { SummaryProductList } from "../product/SummaryProductList";
 
 interface SummaryProps {
@@ -58,10 +65,9 @@ export const Summary = ({
   };
 
   return (
-    <CustomCard
+    <Card
       height="100%"
-      pt={4}
-      pb={8}
+      py={6}
       width="100%"
       title={t("common.summary")}
       {...props}
@@ -131,27 +137,29 @@ export const Summary = ({
         />
       )}
 
-      <Box maxWidth={"30rem"} mt={5} mx="auto">
-        {onCheckout && (
-          <Button
-            isLoading={isLoading}
-            isDisabled={disabled}
-            onClick={handleCheckout}
-            isFullWidth
-            size="lg"
-            mt={4}
-          >
-            {buttonTitle}
-          </Button>
-        )}
-        {showContinueShopping && (
-          <Link href={urls.products} passHref>
-            <Button as="a" variant="outline" isFullWidth size="lg" mt={4}>
-              {t("product.seeOtherProducts")}
+      {(onCheckout || showContinueShopping) && (
+        <Box maxWidth={"30rem"} mt={5} mx="auto">
+          {onCheckout && (
+            <Button
+              isLoading={isLoading}
+              isDisabled={disabled}
+              onClick={handleCheckout}
+              isFullWidth
+              size="lg"
+              mt={4}
+            >
+              {buttonTitle}
             </Button>
-          </Link>
-        )}
-      </Box>
-    </CustomCard>
+          )}
+          {showContinueShopping && (
+            <Link href={urls.products} passHref>
+              <Button as="a" variant="outline" isFullWidth size="lg" mt={4}>
+                {t("product.seeOtherProducts")}
+              </Button>
+            </Link>
+          )}
+        </Box>
+      )}
+    </Card>
   );
 };

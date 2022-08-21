@@ -79,10 +79,10 @@ export const Footer = ({ store }: { store: Store }) => {
   const { t } = useTranslation("translation");
 
   return (
-    <Box pt={8} px={[4, 7, 8]} bg="background.dark">
+    <Box pt={[7, 8, 8]} px={[4, 7, 8]} bg="background.dark">
       <Box py={2}>
         <Flex
-          mb={9}
+          mb={[6, 8, 9]}
           pt={[4, 5, 6]}
           mx="auto"
           direction={["column", "column", "row"]}
@@ -94,7 +94,7 @@ export const Footer = ({ store }: { store: Store }) => {
             <StoreFooterSection store={store} />
           </Box>
 
-          <Flex flex={1}>
+          <Flex mt={[7, 7, 0]} flex={1}>
             {getMenus(t).map((menu) => {
               return (
                 <Flex direction="column" align="center" key={menu.text} mx={4}>
@@ -104,7 +104,7 @@ export const Footer = ({ store }: { store: Store }) => {
               );
             })}
           </Flex>
-          <Box flex={1}>
+          <Box mt={[7, 7, 0]} flex={1} textAlign="center">
             <Heading
               textTransform={"uppercase"}
               mb={4}

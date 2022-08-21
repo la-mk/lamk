@@ -9,7 +9,11 @@ export const Addresses = ({ user, store }: AddressesProps) => {
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
 
   if (!user) {
-    return <Spinner mx="auto" isLoaded={false} />;
+    return (
+      <Flex align={"center"} justify="center">
+        <Spinner isLoaded={false} />
+      </Flex>
+    );
   }
 
   return (

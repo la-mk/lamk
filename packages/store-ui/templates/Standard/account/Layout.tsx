@@ -20,7 +20,7 @@ export const Layout = ({ children, user }: AccountLayoutProps) => {
       >
         <AccountMenu user={user} />
       </Box>
-      <Box mb={7} ml={["none", "14rem", "14rem"]} flex={1}>
+      <Box mb={7} pl={["none", "14rem", "14rem"]} flex={1}>
         {children}
       </Box>
     </Flex>

@@ -25,8 +25,8 @@ const Logo = ({
   height: string;
 }) => {
   const size = [
-    `calc(${height} - 16px)`,
-    `calc(${height} - 16px)`,
+    `calc(${height} - 48px)`,
+    `calc(${height} - 42px)`,
     `calc(${height} - 32px)`,
   ];
 
@@ -64,12 +64,10 @@ const menus = [
   },
 ];
 
-const headerHeight = ["50px", "64px", "82px"];
+const headerHeight = ["64px", "72px", "82px"];
 
 export const Header = ({ store, cartCount }: HeaderProps) => {
   const { t } = useTranslation("translation");
-  const imageHeight = hooks.useBreakpoint(headerHeight);
-
   return (
     <>
       <Flex bg="black" py={3} px={6} align="center" justify="center">
@@ -95,7 +93,7 @@ export const Header = ({ store, cartCount }: HeaderProps) => {
             getLogoUrl={(params) =>
               getImageURL(store.logo?._id ?? "", store._id, params)
             }
-            height={imageHeight}
+            height={"82px"}
           />
         </Flex>
 

@@ -1,30 +1,23 @@
-import React from "react";
-import { useTranslation } from "next-i18next";
+import React, { useEffect } from "react";
 import { AccountProps } from "../../../containers/account";
-import { useAuth } from "../../../hooks/useAuth";
-import { Button, Flex, Spinner } from "@la-mk/blocks-ui";
+import { Box, Flex, Spinner } from "@la-mk/blocks-ui";
 import { useRouter } from "next/router";
 import { urls } from "../../../tooling/url";
 
-export const Account = ({ user }: AccountProps) => {
-  const { t } = useTranslation("translation");
+export const Account = ({}: AccountProps) => {
   const router = useRouter();
-  const { logout } = useAuth();
 
-  if (!user) {
-    return <Spinner mx="auto" isLoaded={false} />;
-  }
+  useEffect(() => {
+    router.push(urls.accountPersonal);
+  }, [router]);
 
+  // onClick={() => {
+  //   logout();
+  //   router.replace(urls.home);
+  // }}
   return (
-    <Flex>
-      <Button
-        onClick={() => {
-          logout();
-          router.replace(urls.home);
-        }}
-      >
-        Logout
-      </Button>
+    <Flex align={"center"} justify="center">
+      <Spinner isLoaded={false} />
     </Flex>
   );
 };

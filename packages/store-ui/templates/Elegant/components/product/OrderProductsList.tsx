@@ -33,6 +33,7 @@ const OrderProductListItem = ({
         currency={currency}
         storeId={store._id}
         hideSummary
+        showQuantity={!handleChangeItemQuantity}
       />
 
       <Box width={["100%", "unset", "unset"]} mt={[3, 0, 0]}>
@@ -61,11 +62,7 @@ const OrderProductListItem = ({
             </Button>
           </Flex>
         ) : (
-          <Text>
-            <>
-              {t("commerce.quantity")}: {item.quantity}
-            </>
-          </Text>
+          <Box></Box>
         )}
       </Box>
 

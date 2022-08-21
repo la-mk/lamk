@@ -5,11 +5,11 @@ import { useAuth } from "./useAuth";
 
 export const useProtectedRoute = () => {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isLoadingUser } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoadingUser()) {
       router.push(urls.login);
     }
-  }, [user, router]);
+  }, [user, router, isLoadingUser]);
 };

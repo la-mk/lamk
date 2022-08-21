@@ -44,9 +44,9 @@ export const ProductImageWithTitle = ({
             <VariantName t={t} attributes={orderItem.product.attributes} />
           </Heading>
 
-          <Flex direction="row">
+          <Flex direction="row" wrap="nowrap">
             {showQuantity && (
-              <Text mr={1} color="mutedText.dark">
+              <Text whiteSpace="nowrap" mr={1} color="mutedText.dark">
                 {orderItem.quantity} x
               </Text>
             )}

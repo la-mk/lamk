@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Box, Tabs } from "@la-mk/blocks-ui";
+import { Box, Flex, Tabs } from "@la-mk/blocks-ui";
+import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React from "react";
@@ -15,24 +16,37 @@ const tabs = [
 
 const TabsWrapper = styled.div`
   .chakra-tabs__tablist {
-    -overflow-y: auto;
+    overflow-y: auto;
+    border: none;
+    background: ${(props: { theme: FinalBlocksTheme }) =>
+      props.theme.colors.gray["200"]};
+
+    button {
+      white-space: nowrap;
+      padding: 12px;
+    }
+
+    button[aria-selected="true"] {
+      background: ${(props: { theme: FinalBlocksTheme }) =>
+        props.theme.colors.gray["600"]};
+      color: white;
+    }
   }
 `;
 
 export const Layout = ({ children }: AccountLayoutProps) => {
   const { pathname, push } = useRouter();
   const { t } = useTranslation("translation");
-  const currentIndex = tabs.findIndex((x) => pathname.startsWith(x)) ?? 0;
+  const currentIndex = tabs.findIndex((x) => pathname.startsWith(x));
   const content = <Box mt={5}>{children}</Box>;
 
-  return (
-    <TabsWrapper>
+  return currentIndex >= 0 ? (
+    <TabsWrapper theme={undefined!}>
       <Tabs
         // @ts-ignore
         isLazy
         // @ts-ignore
         isFitted
-        mt={6}
         mb={6}
         onChange={(idx) => {
           push(tabs[idx]);
@@ -58,5 +72,7 @@ export const Layout = ({ children }: AccountLayoutProps) => {
         ]}
       />
     </TabsWrapper>
+  ) : (
+    content
   );
 };
