@@ -26,7 +26,7 @@ export const Login = ({ template }: { template: Templates }) => {
   }, [isAuthShown, hasShownLogin, router]);
 
   return (
-    <Flex align={"center"} justify="center">
+    <Flex mt={6} align={"center"} justify="center">
       <Spinner isLoaded={false} />
     </Flex>
   );

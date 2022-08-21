@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React from "react";
 import { AccountLayoutProps } from "../../../containers/account/Layout";
+import { useAuth } from "../../../hooks/useAuth";
 import { urls } from "../../../tooling/url";
 
 const tabs = [
@@ -12,6 +13,7 @@ const tabs = [
   urls.accountChangePassword,
   urls.accountAddresses,
   urls.accountOrders,
+  urls.home,
 ];
 
 const TabsWrapper = styled.div`
@@ -35,7 +37,8 @@ const TabsWrapper = styled.div`
 `;
 
 export const Layout = ({ children }: AccountLayoutProps) => {
-  const { pathname, push } = useRouter();
+  const { pathname, push, replace } = useRouter();
+  const { logout } = useAuth();
   const { t } = useTranslation("translation");
   const currentIndex = tabs.findIndex((x) => pathname.startsWith(x));
   const content = <Box mt={5}>{children}</Box>;
@@ -47,9 +50,19 @@ export const Layout = ({ children }: AccountLayoutProps) => {
         isLazy
         // @ts-ignore
         isFitted
+        // Needed so onChange doesnt fire twice.
+        // @ts-ignore
+        isManual
         mb={6}
-        onChange={(idx) => {
-          push(tabs[idx]);
+        onChange={async (idx) => {
+          if (tabs[idx] === urls.home) {
+            try {
+              await replace(tabs[idx]);
+              logout();
+            } catch (err) {}
+          } else {
+            push(tabs[idx]);
+          }
         }}
         index={currentIndex}
         items={[
@@ -67,6 +80,10 @@ export const Layout = ({ children }: AccountLayoutProps) => {
           },
           {
             title: t("pages.myOrders"),
+            content,
+          },
+          {
+            title: t("auth.logout"),
             content,
           },
         ]}

@@ -111,7 +111,7 @@ export const Header = ({ store, cartCount }: HeaderProps) => {
             ))}
           </Flex>
 
-          <Link passHref href={urls.account}>
+          <Link passHref href={urls.accountPersonal}>
             <Box mx={[4, 4, 5]}>
               <User style={{ cursor: "pointer" }} size="1.5rem" />
             </Box>
