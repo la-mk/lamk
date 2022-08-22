@@ -19,6 +19,17 @@ export interface OrdersProps {
   setFilters: (filters: FilterObject) => void;
 }
 
+const initFilters = {
+  sorting: {
+    field: "createdAt",
+    order: "descend" as "descend" | "ascend",
+  },
+  pagination: {
+    currentPage: 1,
+    pageSize: 10,
+  },
+};
+
 export const Orders = ({
   template,
   user,
@@ -29,23 +40,18 @@ export const Orders = ({
   store: Store;
 }) => {
   useProtectedRoute();
+  const [filters, setFilters] = hooks.useFilter(initFilters, {
+    storage: "url",
+    router: filterRouter,
+  });
 
-  const [filters, setFilters] = hooks.useFilter(
-    {
-      sorting: {
-        field: "createdAt",
-        order: "descend",
-      },
-      pagination: {
-        currentPage: 1,
-        pageSize: 10,
-      },
-    },
-    {
-      storage: "url",
-      router: filterRouter,
-    }
-  );
+  // TODO: After multiple redirects the initial filters are not preserved
+  if (!filters.sorting) {
+    filters.sorting = initFilters.sorting;
+  }
+  if (!filters.pagination) {
+    filters.pagination = initFilters.pagination;
+  }
 
   const [orders, isLoadingOrders] = useQuery(
     "order",
@@ -60,7 +66,9 @@ export const Orders = ({
     isLoadingOrders,
     totalOrders: orders?.total ?? 0,
     filters,
-    setFilters,
+    setFilters: (f: any) => {
+      setFilters(f);
+    },
   };
 
   switch (template) {

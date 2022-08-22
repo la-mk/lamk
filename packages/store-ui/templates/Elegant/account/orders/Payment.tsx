@@ -98,7 +98,7 @@ export const Payment = ({
     >
       <Flex align="center" justify="center" direction="column">
         {order && (
-          <Heading as="h3" size="lg" mb={3}>
+          <Heading color={"mutedText.dark"} as="h3" size="md" mb={3}>
             {t("payment.payAmountTip", {
               amountWithCurrency: `${order.calculatedTotal} ${t(
                 `currencies.${order.currency}`
@@ -106,6 +106,7 @@ export const Payment = ({
             })}
           </Heading>
         )}
+
         {!!paymentError && (
           <Alert
             maxWidth={"40rem"}

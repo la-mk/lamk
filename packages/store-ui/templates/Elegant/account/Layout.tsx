@@ -11,10 +11,10 @@ import { useAuth } from "../../../hooks/useAuth";
 import { urls } from "../../../tooling/url";
 
 const getTabs = (t: TFunction) => [
+  { href: urls.accountOrders, title: t("pages.myOrders") },
+  { href: urls.accountAddresses, title: t("pages.myAddresses") },
   { href: urls.accountPersonal, title: t("pages.personalDetails") },
   { href: urls.accountChangePassword, title: t("pages.changePassword") },
-  { href: urls.accountAddresses, title: t("pages.myAddresses") },
-  { href: urls.accountOrders, title: t("pages.myOrders") },
   { href: urls.home, title: t("auth.logout") },
 ];
 
@@ -94,7 +94,9 @@ export const Layout = ({ children }: AccountLayoutProps) => {
           })}
         </TabsWrapper>
       )}
-      <Box mt={7}>{children}</Box>
+      <Box mb={6} mt={7}>
+        {children}
+      </Box>
     </>
   );
 };
