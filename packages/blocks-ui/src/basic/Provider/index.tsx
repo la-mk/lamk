@@ -92,14 +92,6 @@ export const Provider = ({
             height: 100%;
             margin: 0;
             padding: 0;
-          }
-
-          html body {
-            height: 100%;
-            font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-              'Helvetica Neue', Helvetica, Arial, sans-serif,
-              'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-            margin: 0;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
           }
