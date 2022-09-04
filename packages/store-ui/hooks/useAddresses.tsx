@@ -2,14 +2,12 @@ import { AnalyticsEvents } from "@la-mk/analytics";
 import { toast } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
-import { Templates } from "../containers";
 import { Address } from "../domain/address";
 import { User } from "../domain/user";
 import { useAnalytics } from "./useAnalytics";
 import { useMutation } from "../sdk/useMutation";
 import { useQuery } from "../sdk/useQuery";
 import { useQueryClient } from "../sdk/useQueryClient";
-import { Addresses as StandardAddresses } from "../templates/Standard/components/addresses/Addresses";
 
 const pickDiff = <T extends any>(oldObj: Partial<T>, newObj: Partial<T>) => {
   return Object.keys(newObj).reduce((diff: Partial<T>, newKey) => {

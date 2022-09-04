@@ -27,7 +27,7 @@ const dimensions = {
   style: {
     position: "absolute",
   },
-  bottom: ["50%", "60%", "10%"],
+  bottom: ["55%", "65%", "10%"],
   left: ["10%", "25%", "2%"],
   width: ["80%", "50%", "30%"],
   justify: ["center", "center", "flex-start"],
@@ -55,8 +55,7 @@ export const Banner = ({
     <div>
       <ImageBackgroundBox
         mx="auto"
-        // url={getImageURL(banner?._id ?? "", storeId, { h: 600 }) ?? ""}
-        url={"/images/test.webp"}
+        url={getImageURL(banner?._id ?? "", storeId, { h: 800 }) ?? ""}
         height={["32rem", "40rem", "48rem"]}
         width="100%"
         // @ts-ignore
@@ -73,7 +72,7 @@ export const Banner = ({
             </Heading>
             <Link href={urls.products} passHref>
               {/* @ts-ignore */}
-              <Button maxWidth="12rem" as="a" size="lg">
+              <Button maxWidth="14rem" as="a" size="lg">
                 {t("actions.shopNow") as string}
               </Button>
             </Link>

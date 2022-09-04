@@ -14,6 +14,7 @@ export interface HeaderProps {
   store: Store;
   categories: Category[];
   sets: ProductSet[];
+  freeDeliveryOver?: number;
 }
 
 export const Header = ({
@@ -26,6 +27,7 @@ export const Header = ({
   const { t } = useTranslation("translation");
   const { user } = useAuth();
   const { cart } = useCart(store._id, user, t);
+  const [delivery] = useQuery("delivery", "findForStore", [store._id]);
   const [categories] = useQuery("storeCategory", "findForStore", [store._id]);
   const [landingContent] = useQuery(
     "storeContents",
@@ -46,6 +48,7 @@ export const Header = ({
     store,
     categories: categories?.data ?? [],
     sets: normalizedSets ?? [],
+    freeDeliveryOver: delivery?.data?.[0].freeDeliveryOver,
   };
 
   switch (template) {

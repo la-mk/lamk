@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Box,
-  Flex,
-  hooks,
-  Image,
-  Positioner,
-  Text,
-} from "@la-mk/blocks-ui";
+import { Badge, Box, Flex, Image, Positioner, Text } from "@la-mk/blocks-ui";
 import Link from "next/link";
 import { ShoppingCart, User } from "react-feather";
 import React from "react";
@@ -27,7 +19,7 @@ const Logo = ({
   const size = [
     `calc(${height} - 48px)`,
     `calc(${height} - 42px)`,
-    `calc(${height} - 32px)`,
+    `calc(${height} - 36px)`,
   ];
 
   return (
@@ -66,15 +58,29 @@ const menus = [
 
 const headerHeight = ["64px", "72px", "82px"];
 
-export const Header = ({ store, cartCount }: HeaderProps) => {
+export const Header = ({ store, cartCount, freeDeliveryOver }: HeaderProps) => {
   const { t } = useTranslation("translation");
   return (
     <>
-      <Flex bg="black" py={3} px={6} align="center" justify="center">
-        <Text size="sm" align={"center"} as="strong" color="white">
-          Order now and get free shipping on all orders over 3000 ден.
-        </Text>
-      </Flex>
+      {freeDeliveryOver != undefined && (
+        <Flex
+          bg="background.dark"
+          py={3}
+          px={6}
+          align="center"
+          justify="center"
+        >
+          <Text size="sm" align={"center"} as="strong" color="white">
+            {t("services.freeDeliveryExplanation", {
+              freeDeliveryPrice:
+                freeDeliveryOver +
+                " " +
+                t(`currencies.${store.preferences?.currency ?? "mkd"}`),
+            })}
+          </Text>
+        </Flex>
+      )}
+
       <Flex
         height={headerHeight}
         direction="row"

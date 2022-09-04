@@ -37,7 +37,6 @@ function MyApp({
 }: AppPropsWithLayout) {
   const [queryClient] = useState(() => newClient());
   const { t } = useTranslation("translation");
-  const template = "elegant";
   // The SDK is a singleton, so it's safe to do this check
   if (!sdk) {
     loadEnv();
@@ -53,6 +52,9 @@ function MyApp({
   if (!analytics && typeof window !== "undefined") {
     initializeAnalytics();
   }
+
+  // This can also come from the store data, but it's set as envvar for now.
+  const template = (envvars.UI_TEMPLATE as Templates) || "standard";
 
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);

@@ -41,7 +41,18 @@ const getGenericTheme: DeepPartial<BlocksTheme> & any = (
     ...getOtherColors(brandColor),
   };
 
+  const fonts =
+    "'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
+
   return {
+    global: {
+      fontFamily: fonts,
+    },
+    fonts: {
+      heading: fonts,
+      body: fonts,
+    },
+
     colors,
     components: {
       Button: {
@@ -302,17 +313,26 @@ const getFashionTheme: DeepPartial<BlocksTheme> & any = (
 const getElegantTheme: DeepPartial<BlocksTheme> & any = (
   brandColor: string
 ) => {
+  const otherColors = getOtherColors(brandColor);
+  otherColors.background.dark = "#2D2E2E";
+
   const colors = {
     primary: brandColor,
     success: "#5CB85C",
     danger: "#BB0439",
-    ...getOtherColors(brandColor),
+    ...otherColors,
   };
+
+  const fonts =
+    "'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
 
   return {
     global: {
-      fontFamily:
-        "'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      fontFamily: fonts,
+    },
+    fonts: {
+      heading: fonts,
+      body: fonts,
     },
 
     colors,

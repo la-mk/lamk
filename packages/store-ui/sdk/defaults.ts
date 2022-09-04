@@ -8,5 +8,6 @@ export const getDefaultPrefetch = (
   return [
     qc.prefetchQuery("storeContents", "getLandingContentForStore", [store._id]),
     qc.prefetchQuery("storeCategory", "findForStore", [store._id]),
+    qc.prefetchQuery("delivery", "findForStore", [store._id]),
   ];
 };

@@ -29,7 +29,7 @@ export const getStoreBase = async (
   }
 
   // If we are running the store UI locally, get it from the enviornment
-  host = envvars.DEV_STORE_URL || host;
+  host = envvars.STATIC_STORE_URL || host;
   const store = await getStoreFromHost(
     host,
     envvars.API_ENDPOINT,

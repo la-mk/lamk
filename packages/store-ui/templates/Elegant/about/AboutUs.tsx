@@ -9,7 +9,7 @@ export const AboutUs = ({ markdownDescription }: AboutUsProps) => {
 
   return (
     <>
-      <Page maxWidth={"70rem"} title={t("pages.aboutUs")}>
+      <Page maxWidth={"70rem"}>
         {markdownDescription ? (
           <MarkdownViewer titleLevelOffset={1}>
             {markdownDescription}

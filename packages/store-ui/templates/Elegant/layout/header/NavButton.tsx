@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Text } from "@la-mk/blocks-ui";
+import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
 import Link, { LinkProps } from "next/link";
 import React from "react";
 
@@ -10,7 +11,8 @@ const AnimatedBorderLink = styled.a`
   &:after {
     content: "";
     display: block;
-    border-bottom: solid 2px black;
+    border-bottom: solid 2px ${(props: { theme: FinalBlocksTheme }) =>
+      props.theme.colors.primary["500"]};
     transform: scaleX(0);  
     transform-origin: 0% 50%;
     transition: transform 350ms ease-in-out;

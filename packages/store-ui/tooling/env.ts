@@ -18,8 +18,11 @@ const vars = {
   NESTPAY_GATEWAY_ENDPOINT:
     process.env.NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT ||
     publicRuntimeConfig.NESTPAY_GATEWAY_ENDPOINT,
-  DEV_STORE_URL:
-    process.env.NEXT_PUBLIC_DEV_STORE_URL || publicRuntimeConfig.DEV_STORE_URL,
+  STATIC_STORE_URL:
+    process.env.NEXT_PUBLIC_STATIC_STORE_URL ||
+    publicRuntimeConfig.STATIC_STORE_URL,
+  UI_TEMPLATE:
+    process.env.NEXT_PUBLIC_UI_TEMPLATE || publicRuntimeConfig.UI_TEMPLATE,
 };
 
 const envvar = from(vars as any);
@@ -42,7 +45,8 @@ export const loadEnv = () => {
       .get("NESTPAY_GATEWAY_ENDPOINT")
       .required()
       .asString(),
-    DEV_STORE_URL: envvar.get("DEV_STORE_URL").asString(),
+    STATIC_STORE_URL: envvar.get("STATIC_STORE_URL").asString(),
+    UI_TEMPLATE: envvar.get("UI_TEMPLATE").asString(),
   };
   envvars = tmpEnv;
   return tmpEnv;
