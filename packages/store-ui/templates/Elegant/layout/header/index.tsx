@@ -60,6 +60,7 @@ const headerHeight = ["64px", "72px", "82px"];
 
 export const Header = ({ store, cartCount, freeDeliveryOver }: HeaderProps) => {
   const { t } = useTranslation("translation");
+  const currency = store.preferences?.currency ?? "mkd";
   return (
     <>
       {freeDeliveryOver != undefined && (
@@ -72,10 +73,9 @@ export const Header = ({ store, cartCount, freeDeliveryOver }: HeaderProps) => {
         >
           <Text size="sm" align={"center"} as="strong" color="white">
             {t("services.freeDeliveryExplanation", {
-              freeDeliveryPrice:
-                freeDeliveryOver +
-                " " +
-                t(`currencies.${store.preferences?.currency ?? "mkd"}`),
+              freeDeliveryPrice: `${freeDeliveryOver} ${t(
+                `currencies.${currency}`
+              )}`,
             })}
           </Text>
         </Flex>

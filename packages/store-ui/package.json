@@ -1,13 +1,13 @@
 {
   "name": "@lamk/store-ui",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "private": true,
   "scripts": {
     "dev": "next dev --port $PORT",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"components/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\", \"pageComponents/**/*.{ts,tsx}\", \"hooks/**/*.{ts,tsx}\", \"layout/**/*.{ts,tsx}\"]' 'public/locales'"
+    "i18n": "node ./node_modules/@la-mk/translations/dist/index.js '[\"components/**/*.{ts,tsx}\", \"containers/**/*.{ts,tsx}\", \"pages/**/*.{ts,tsx}\", \"templates/**/*.{ts,tsx}\", \"hooks/**/*.{ts,tsx}\", \"layout/**/*.{ts,tsx}\"]' 'public/locales'"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
