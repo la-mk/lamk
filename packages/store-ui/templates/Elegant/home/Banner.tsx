@@ -9,7 +9,7 @@ import { getImageURL } from "../../../hacks/imageUrl";
 import { urls } from "../../../tooling/url";
 
 const AnimatedBannerAction = styled(Flex)`
-  @keyframes showUp {
+  @keyframes bannerShowUp {
     0% {
       transform: translateY(15%);
       opacity: 0;
@@ -20,7 +20,7 @@ const AnimatedBannerAction = styled(Flex)`
     }
   }
 
-  animation: 2s ease-out 0s 1 showUp;
+  animation: 2s ease-out 0s 1 bannerShowUp;
 `;
 
 const dimensions = {

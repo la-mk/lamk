@@ -3,9 +3,10 @@ import { Box, Button, Drawer, Text } from "@la-mk/blocks-ui";
 import { Menu } from "react-feather";
 import React, { useState } from "react";
 import { BlocksTheme } from "@la-mk/blocks-ui/dist/theme";
+import Link from "next/link";
 
 const AnimatedDrawerContent = styled.div`
-  @keyframes showUp {
+  @keyframes drawerShowUp {
     0% {
       transform: translateX(-10%);
       opacity: 0;
@@ -16,7 +17,7 @@ const AnimatedDrawerContent = styled.div`
     }
   }
 
-  animation: 0.8s ease-out 0s 1 showUp;
+  animation: 0.8s ease-out 0s 1 drawerShowUp;
 `;
 
 const AnimatedBorderLink = styled.a`
@@ -30,7 +31,11 @@ const BorderedLinkBox = styled.div`
     `1px solid ${props.theme.colors?.gray?.["200"]}`};
 `;
 
-export const MobileMenu = ({ menus }: { menus: { title: string }[] }) => {
+export const MobileMenu = ({
+  menus,
+}: {
+  menus: { title: string; href: string }[];
+}) => {
   const [showSider, setShowSider] = useState(false);
 
   return (
@@ -50,11 +55,16 @@ export const MobileMenu = ({ menus }: { menus: { title: string }[] }) => {
             {menus.map((x) => (
               // @ts-ignore
               <BorderedLinkBox key={x.title}>
-                <AnimatedBorderLink title={x.title}>
-                  <Text width="100%" display={"inline-block"} py={5}>
-                    {x.title}
-                  </Text>
-                </AnimatedBorderLink>
+                <Link href={x.href} passHref>
+                  <AnimatedBorderLink
+                    title={x.title}
+                    onClick={() => setShowSider(false)}
+                  >
+                    <Text width="100%" display={"inline-block"} py={5}>
+                      {x.title}
+                    </Text>
+                  </AnimatedBorderLink>
+                </Link>
               </BorderedLinkBox>
             ))}
           </Box>

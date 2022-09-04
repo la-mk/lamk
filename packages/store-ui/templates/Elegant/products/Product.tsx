@@ -14,7 +14,7 @@ import styled from "@emotion/styled";
 const DetailsWrapper = styled(Flex)`
   @keyframes detailsAppear {
     0% {
-      transform: translateY(10%);
+      transform: translateY(7%);
       opacity: 0;
     }
     100% {
@@ -24,7 +24,7 @@ const DetailsWrapper = styled(Flex)`
   }
 
   & {
-    animation: 0.8s ease-out 0s 1 detailsAppear;
+    animation: 0.9s ease-out 0s 1 detailsAppear;
   }
 `;
 
