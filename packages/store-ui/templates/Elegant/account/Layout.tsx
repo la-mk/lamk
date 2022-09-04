@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box, Button, Flex } from "@la-mk/blocks-ui";
+import { Box, Button, Flex, Text } from "@la-mk/blocks-ui";
 import { FinalBlocksTheme } from "@la-mk/blocks-ui/dist/theme";
 import { TFunction, useTranslation } from "next-i18next";
 import Link from "next/link";
@@ -32,7 +32,7 @@ const TabsWrapper = styled(Flex)<{
       background: ${(props) => props.theme.colors.gray["200"]};
       :focus,
       :hover {
-        background: ${(props) => props.theme.colors.gray["600"]};
+        background: ${(props) => props.theme.colors.background.dark};
         color: white;
       }
     }
@@ -72,21 +72,26 @@ export const Layout = ({ children }: AccountLayoutProps) => {
               <Box key={tab.href} flex={1}>
                 <Link passHref replace href={tab.href}>
                   <Button
-                    // @ts-ignore
-                    style={
-                      isCurrent
-                        ? {
-                            background: theme.colors.gray["600"],
-                            color: "white",
-                          }
-                        : undefined
-                    }
                     onClick={() => handleOnClick(tab.href)}
                     isFullWidth
                     as="a"
                     size="lg"
+                    // @ts-ignore
+                    style={
+                      isCurrent
+                        ? {
+                            background: theme.colors.background.dark,
+                          }
+                        : undefined
+                    }
                   >
-                    {tab.title}
+                    <Text
+                      px={3}
+                      color={isCurrent ? "white" : undefined}
+                      size="md"
+                    >
+                      {tab.title}
+                    </Text>
                   </Button>
                 </Link>
               </Box>
@@ -94,7 +99,7 @@ export const Layout = ({ children }: AccountLayoutProps) => {
           })}
         </TabsWrapper>
       )}
-      <Box mb={6} mt={7}>
+      <Box mb={6} px={[3, 5, 5]} mt={[6, 7, 8]}>
         {children}
       </Box>
     </>

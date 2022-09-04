@@ -2,34 +2,15 @@
   "actions": {
     "acceptAll": "Accept all",
     "acceptSelected": "Accept selected",
-    "add": "Add",
-    "addToCart": "Add to Cart",
-    "cancel": "Cancel",
-    "create": "Create",
     "createStoreNow": "Create store now",
     "declineOptional": "Decline optional",
-    "delete": "Delete",
     "goBack": "Go back",
-    "goToAccount": "Go to account menu",
-    "goToCart": "Go to Cart",
     "loginInstead": "Log in instead",
-    "orderNow": "Order now",
-    "reset": "Reset",
-    "retry": "Retry",
-    "search": "Search",
     "sendPasswordResetLink": "Send password reset link",
-    "shopNow": "Shop now",
-    "toCheckout": "To checkout",
-    "toPayment": "Proceed to payment",
     "update": "Update"
   },
   "address": {
-    "addAddressExplanation": "This is the address where the products will be delivered",
-    "addNewAddress": "Add new address",
-    "chooseShippingAddress": "Choose a shipping address",
     "createAddressSuccess": "Address successfully created",
-    "noAddress": "You don't have any address saved",
-    "noAddressExplanation": "Please add a delivery address",
     "removeAddressSuccess": "Address successfully removed",
     "updateAddressSuccess": "Address successfully updated"
   },
@@ -44,8 +25,6 @@
     "size": "Size"
   },
   "auth": {
-    "account": "Account",
-    "accountUpdateSuccess": "Account successfully updated",
     "authSameAccount": "You can use the same account on every store that is",
     "collectAccountInfoReviewPolicy": "In order to be able to deliver and operate this service, we collect certain account information. Please review our",
     "cookiesExplanation": "Our site uses cookies to deliver the best possible shopping experience, directly to you. We respect your privacy, and we only collect essential, anonymous data for statistical analysis purposes",
@@ -55,7 +34,6 @@
     "forgotPasswordSuccess": "Reset link sent",
     "forgotPasswordSuccessExplanation": "If the email you entered is registered in our system, you will get an email with a reset link",
     "login": "Log in",
-    "logout": "Log out",
     "logoutSuccess": "See you again!",
     "noUserInformation": "Could not load user information. Check if you are logged in.",
     "privacyPolicy": "privacy policy",
@@ -63,11 +41,8 @@
     "registerConfirmTermsOfService": "By registering, I confirm that I have read and accepted the",
     "resetPassword": "Reset password",
     "resetPasswordExplanation": "Set your email and new password in the form below",
-    "resetPasswordSuccess": "Password reset successfully",
     "signup": "Sign up",
-    "termsOfService": "terms of service",
-    "welcomeToAccount": "Welcome to your account page",
-    "welcomeToAccountExplanation": "You can view your orders, edit your addresses, and manage your account"
+    "termsOfService": "terms of service"
   },
   "campaignBanners": {
     "setDiscountSubtitle": "All discounts are calculated on checkout",
@@ -76,14 +51,6 @@
   "campaignRewardTypes": {
     "constant-discount": "Fixed amount",
     "percentage-discount": "Percent"
-  },
-  "cart": {
-    "addedToCart": "Added to cart",
-    "emptyCartDescription": "You have no items in the cart",
-    "leaveNote": "Leave a note to the store",
-    "orderSuccess": "Your order has been placed",
-    "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
-    "productAlreadyInCart": "Product already in cart"
   },
   "categories": {
     "adhesive": "Adhesives",
@@ -577,44 +544,18 @@
     "worksuit": "Worksuits",
     "yoghurt": "Yoghurt"
   },
-  "commerce": {
-    "delivery": "Delivery",
-    "product": "Product",
-    "quantity": "Quantity"
-  },
   "common": {
-    "addressExample": "eg. Home Address",
-    "address_plural": "Addresses",
-    "addressee": "Addressee",
     "analytics": "Analytics",
-    "category_plural": "Categories",
-    "city": "City",
-    "contactDetails": "Contact details",
-    "country": "Country",
     "currentPassword": "Current password",
-    "description": "Description",
-    "details": "Details",
     "email": "Email address",
-    "filter_plural": "Filters",
     "firstName": "First name",
-    "guest": "Guest",
     "lastName": "Last name",
-    "name": "Name",
     "necessary": "Necessary",
     "newPassword": "New password",
     "or": "or",
-    "ourCompany": "Our company",
     "password": "Password",
     "phoneNumber": "Phone number",
-    "price": "Price",
-    "seeAll": "See all",
-    "selected": "Selected",
-    "street": "Street",
-    "streetExample": "eg. 10 Downing Street",
-    "summary": "Summary",
-    "welcomeBack": "Welcome back",
-    "zipcode": "Zipcode",
-    "from": "From"
+    "price": "Price"
   },
   "countries": {
     "mk": "Macedonia"
@@ -623,12 +564,6 @@
     "eur": "EUR",
     "mkd": "ден",
     "usd": "USD"
-  },
-  "delivery": {
-    "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get FREE SHIPPING!",
-    "freeDelivery": "Free delivery",
-    "ordersAboveFreeDelivery": "All orders above",
-    "ordersBelowFreeDelivery": "All orders below"
   },
   "deliveryMethods": {
     "cargo-pickup": "Pickup from Cargo",
@@ -665,18 +600,6 @@
     "uniqueOn": "Field should have unique values",
     "uuid": "Field should be a valid id"
   },
-  "filters": {
-    "cheapestFirst": "Cheapest first",
-    "expensiveFirst": "Expensive first",
-    "recommended": "Recommended"
-  },
-  "finance": {
-    "campaignDiscount": "Promotions",
-    "priceBreakdown": "Price breakdown",
-    "shippingCost": "Shipping cost",
-    "subtotal": "Subtotal",
-    "total": "Total"
-  },
   "languages": {
     "en": "English",
     "en-US": "English",
@@ -684,18 +607,10 @@
     "mk-MK": "Македонски"
   },
   "legal": {
-    "legalExplanation": "We make sure to be compliant with all regulations and laws. We have taken all security measures and limit the amount of data we collect to the bare minimum while still providing a smooth user experience",
     "legalNotAvailable": "We are still preparing our legal policies, reach out for more information"
   },
   "order": {
-    "note": "Note",
-    "orderAlreadyPaid": "It seems the order is either already paid, or the payment will happen on delivery",
-    "orderNotFound": "Order not found",
-    "orderNotFoundTip": "We cannot find the order you are looking for, make sure you are logged in and try again.",
-    "orderNotFound_plural": "Orders not found",
-    "ordered": "Ordered",
-    "retryFromOrdersTip": "You can also retry later from the \"Orders\" page",
-    "seeOrder": "View order"
+    "orderNotFound": "Order not found"
   },
   "orderStatus": {
     "cancelled": "Cancelled",
@@ -714,31 +629,19 @@
   "pages": {
     "aboutUs": "About us",
     "cart": "Cart",
-    "changePassword": "Change password",
     "checkout": "Checkout",
     "cookiesPolicy": "Cookies policy",
     "generalRules": "General rules",
     "home": "Home",
     "legal": "Legal",
     "myAccount": "My account",
-    "myAddresses": "My addresses",
-    "myCart": "My cart",
-    "myOrders": "My orders",
     "order": "Order",
     "order_plural": "Orders",
     "payment": "Payment",
-    "personalDetails": "Personal details",
     "privacy": "Privacy",
     "product_plural": "Products",
     "returnAndRefund": "Returns and refunds",
-    "termsOfUse": "Terms of use",
-    "usageInstructions": "Usage instructions"
-  },
-  "payment": {
-    "choosePaymentMethod": "Choose a payment method",
-    "payAmountTip": "The order total is {{amountWithCurrency}}",
-    "paymentDisabled": "Payment disabled",
-    "storeNoCardSupport": "The store does not support credit card payments"
+    "termsOfUse": "Terms of use"
   },
   "paymentMethodNames": {
     "creditCard": "Credit card",
@@ -748,15 +651,6 @@
   },
   "paymentProcessors": {
     "halkbank": "Halkbank"
-  },
-  "product": {
-    "availability": "Availability",
-    "discounted": "{{percentage}}% Off",
-    "inStock": "In stock",
-    "new": "New",
-    "noMatchingProduct_plural": "There are no products that match your search criteria",
-    "outOfStock": "Sold out",
-    "seeOtherProducts": "Continue shopping"
   },
   "productRuleTypes": {
     "all": "All",
@@ -786,20 +680,6 @@
   "seoDescriptions": {
     "product_plural": "Shop online thousands of products in one place. Quickest way to buy online in Macedonia. We offer high-quality products at affordable prices. Join us now",
     "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
-  },
-  "services": {
-    "freeDelivery": "Free delivery",
-    "freeDeliveryExplanation": "Free delivery over {{freeDeliveryPrice}}",
-    "returnPolicy": "Return policy",
-    "returnPolicyExplanation": "Return what you don't like, risk-free",
-    "securePayments": "Secure payments",
-    "securePaymentsExplanation": "Fast and easy ways to pay",
-    "support": "Constant support",
-    "supportExplanation": "Always at your service"
-  },
-  "store": {
-    "emptyStoreExplanation": "We are still preparing our store, visit us again soon.",
-    "noAboutusInformation": "Couldn't fetch the information about the store, try again later"
   },
   "units": {
     "cm": "centimeter",

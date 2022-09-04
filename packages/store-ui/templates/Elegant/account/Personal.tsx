@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { PersonalProps } from "../../../containers/account/Personal";
-import { BasicUserForm, Box, Spinner } from "@la-mk/blocks-ui";
+import { BasicUserForm, Spinner } from "@la-mk/blocks-ui";
 import { sdk } from "../../../sdk/sdk";
 
 export const Personal = ({

@@ -21,6 +21,7 @@ import {
   ProductSetResult,
   ProductSetType,
 } from "../../domain/set";
+import { useAuth } from "../../hooks/useAuth";
 
 const getSets = (t: TFunction) => [
   {
@@ -66,6 +67,7 @@ export const Cart = ({
 }) => {
   const { t } = useTranslation("translation");
   const router = useRouter();
+  const { login } = useAuth();
   const { trackEvent } = useAnalytics(store._id);
   const { cart, removeFromCart, changeQuantityInCart } = useCart(
     store._id,
@@ -113,7 +115,11 @@ export const Cart = ({
   };
 
   const handleCheckout = () => {
-    router.push(urls.checkout);
+    if (!user) {
+      login();
+    } else {
+      router.push(urls.checkout);
+    }
   };
 
   const props = {

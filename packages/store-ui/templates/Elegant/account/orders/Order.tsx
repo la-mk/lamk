@@ -24,7 +24,7 @@ export const Order = ({
     order.status === OrderStatus.PENDING_PAYMENT && isCardPayment;
 
   return (
-    <Box mx={[3, 4, 5]}>
+    <Box>
       <Spinner isLoaded={!isLoadingOrder}>
         <OrderSteps t={t} status={order.status} isCardPayment={isCardPayment} />
 

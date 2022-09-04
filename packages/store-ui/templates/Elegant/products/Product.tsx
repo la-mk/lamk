@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Box, Spinner, Image } from "@la-mk/blocks-ui";
+import { Flex, Box, Spinner } from "@la-mk/blocks-ui";
 import { Page } from "../Page";
 import { ProductDescription } from "./ProductDescription";
 import { ProductImage } from "./ProductImage";
@@ -9,6 +9,24 @@ import { ProductSet } from "../components/sets/ProductSet";
 import { ProductProps } from "../../../containers/products/Details";
 import { getImageURL } from "../../../hacks/imageUrl";
 import { ImageBackgroundBox } from "../../../components/ImageBackgroundBox";
+import styled from "@emotion/styled";
+
+const DetailsWrapper = styled(Flex)`
+  @keyframes detailsAppear {
+    0% {
+      transform: translateY(10%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  & {
+    animation: 0.8s ease-out 0s 1 detailsAppear;
+  }
+`;
 
 export const Product = ({
   product,
@@ -39,7 +57,7 @@ export const Product = ({
             justify="center"
           >
             <ProductImage product={product} store={store} />
-            <Flex
+            <DetailsWrapper
               mt={[4, 6, 0]}
               ml={[0, 0, 2]}
               px={[4, 6, 7]}
@@ -74,7 +92,7 @@ export const Product = ({
                   delivery={delivery}
                 />
               </Box>
-            </Flex>
+            </DetailsWrapper>
           </Flex>
 
           {!!product.media[1] && (

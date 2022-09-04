@@ -1018,10 +1018,10 @@
     "lodash" "^4.17.20"
     "lodash-es" "^4.17.15"
 
-"@la-mk/translations@^0.0.146":
-  "integrity" "sha512-YroZnhYf5E0dqglIV1HnHmllIs6P0pcYRwsRMnWqTv5NiuSScusFOxpu/4xsvea/XwG5HZ88Noxo/3np4vtWYA=="
-  "resolved" "https://npm.pkg.github.com/download/@la-mk/translations/0.0.146/68d78f34e337d01ca16bc772c6b527ca90d94ecea297d1e571d6af17a9aabad2"
-  "version" "0.0.146"
+"@la-mk/translations@^0.0.147":
+  "integrity" "sha512-j5TEp7KXFM03ZVK6w5KaRVxUj3jqRMsv3MINY5WDhek3eBeR5/P7IgQmF5qrNgTCMTbahmLvHfMGJbE936m/Nw=="
+  "resolved" "https://npm.pkg.github.com/download/@la-mk/translations/0.0.147/36317c50d37252e24066b5827deeb46ab9e2d81e"
+  "version" "0.0.147"
   dependencies:
     "glob" "^7.1.6"
     "i18next-scanner" "^2.11.0"
@@ -5047,12 +5047,7 @@
   "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-0.20.2.tgz"
   "version" "0.20.2"
 
-"typescript@^4.0.3":
-  "integrity" "sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw=="
-  "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.6.3.tgz"
-  "version" "4.6.3"
-
-"typescript@^4.7.4", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=3.3.1":
+"typescript@^4.0.3", "typescript@^4.7.4", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=3.3.1":
   "integrity" "sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.7.4.tgz"
   "version" "4.7.4"

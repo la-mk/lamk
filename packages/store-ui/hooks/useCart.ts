@@ -8,7 +8,6 @@ import {
   OrderedProduct,
   Product,
 } from "../domain/product";
-import { Store } from "../domain/store";
 import { User } from "../domain/user";
 import { sdk } from "../sdk/sdk";
 import { useMutation } from "../sdk/useMutation";
@@ -103,11 +102,10 @@ export const useCart = (
           ],
         }));
 
-        toast.info(t("cart.addedToCart"));
         return orderProduct;
       } catch (err) {
         console.error(err);
-        toast.error("results.genericError");
+        toast.error(t("results.genericError"));
       }
     },
     [user?._id, storeId, setLocalCart, addToCart, t]

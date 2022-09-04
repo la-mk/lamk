@@ -2,34 +2,15 @@
   "actions": {
     "acceptAll": "Прифати сите",
     "acceptSelected": "Прифати избрани",
-    "add": "Додај",
-    "addToCart": "Стави во корпа",
-    "cancel": "Откажи",
-    "create": "Создади",
     "createStoreNow": "Отвори продавница сега",
     "declineOptional": "Одбиј опционални",
-    "delete": "Избриши",
     "goBack": "Оди назад",
-    "goToAccount": "Оди кон моја сметка",
-    "goToCart": "Прегледај корпа",
     "loginInstead": "Или логирај се",
-    "orderNow": "Порачај сега",
-    "reset": "Ресетирај",
-    "retry": "Обиди се повторно",
-    "search": "Пребарај",
     "sendPasswordResetLink": "Испрати линк за ресетирање",
-    "shopNow": "Почни со купување",
-    "toCheckout": "На каса",
-    "toPayment": "Продолжи кон плаќање",
     "update": "Обнови"
   },
   "address": {
-    "addAddressExplanation": "Адресата се користи за достава на производите",
-    "addNewAddress": "Додадете нова адреса",
-    "chooseShippingAddress": "Одберете адреса за достава",
     "createAddressSuccess": "Нова адреса успешно создадена",
-    "noAddress": "Немате зачувани адреси",
-    "noAddressExplanation": "Додадете адреса за достава",
     "removeAddressSuccess": "Адресата беше успешно отстранета",
     "updateAddressSuccess": "Адресата беше успешно обновена"
   },
@@ -44,8 +25,6 @@
     "size": "Големина"
   },
   "auth": {
-    "account": "Сметка",
-    "accountUpdateSuccess": "Сметката беше успешно обновена",
     "authSameAccount": "Можете да ја користите истата сметка на која било продавница која е",
     "collectAccountInfoReviewPolicy": "Со цел да управуваме и да ви доставиме подобро искуство, собираме одредени приватни информации. Ве молиме прочитајте ја нашата",
     "cookiesExplanation": "Нашиот сајт користи колачиња со цел да ви обезбеди најдобро искуство за купување онлајн. Ние ја почитуваме вашата приватност, и со таа цел собираме само основни и анонимни информации за статистички анализи",
@@ -55,7 +34,6 @@
     "forgotPasswordSuccess": "Линкот за ресетирање беше испратен",
     "forgotPasswordSuccessExplanation": "Доколку емаил адресата е регистрирана во нашиот систем ќе добиете емаил со линк за да ја ресетирате вашата лозинка.",
     "login": "Логирај се",
-    "logout": "Одлогирај се",
     "logoutSuccess": "Се гледаме повторно!",
     "noUserInformation": "Информациите за корисникот не се најдени. Проверете дали сте логирани.",
     "privacyPolicy": "политика за приватност",
@@ -63,11 +41,8 @@
     "registerConfirmTermsOfService": "Со самото регистрирање, потврдувам дека ги прочитав и прифатив",
     "resetPassword": "Ресетирајте ја вашата лозинка",
     "resetPasswordExplanation": "Поставете ја вашата емаил адреса и вашата нова лозинка во полињата подолу",
-    "resetPasswordSuccess": "Успешно ресетирана лозинка",
     "signup": "Регистрирај се",
-    "termsOfService": "условите за употреба",
-    "welcomeToAccount": "Добре дојдовте на вашата корисничка сметка",
-    "welcomeToAccountExplanation": "Можете да ги прегледате вашите порачки, додадете нови адреси, и да го подесите вашите информации"
+    "termsOfService": "условите за употреба"
   },
   "campaignBanners": {
     "setDiscountSubtitle": "Сите попусти се пресметуваат на каса",
@@ -76,14 +51,6 @@
   "campaignRewardTypes": {
     "constant-discount": "Фиксна вредност",
     "percentage-discount": "Проценти"
-  },
-  "cart": {
-    "addedToCart": "Додадено во корпа",
-    "emptyCartDescription": "Вашата корпа е празна",
-    "leaveNote": "Оставете белешка на продавницата",
-    "orderSuccess": "Вашата порачка беше успешна",
-    "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\"",
-    "productAlreadyInCart": "Производот е веќе во корпата"
   },
   "categories": {
     "adhesive": "Лепаци",
@@ -577,44 +544,18 @@
     "worksuit": "Комбилизони",
     "yoghurt": "Јогурт"
   },
-  "commerce": {
-    "delivery": "Достава",
-    "product": "Производ",
-    "quantity": "Количина"
-  },
   "common": {
-    "addressExample": "пр. Домашна адреса",
-    "address_plural": "Адреси",
-    "addressee": "Примател",
     "analytics": "Аналитики",
-    "category_plural": "Категории",
-    "city": "Град",
-    "contactDetails": "Контакт информации",
-    "country": "Држава",
     "currentPassword": "Постоечка лозинка",
-    "description": "Опис",
-    "details": "Детали",
     "email": "Емаил",
-    "filter_plural": "Филтри",
     "firstName": "Име",
-    "guest": "Посетител",
     "lastName": "Презиме",
-    "name": "Име",
     "necessary": "Неопходни",
     "newPassword": "Нова лозинка",
     "or": "или",
-    "ourCompany": "Нашата компанија",
     "password": "Лозинка",
     "phoneNumber": "Телефонски број",
-    "price": "Цена",
-    "seeAll": "Види ги сите",
-    "selected": "Одбрани",
-    "street": "Улица",
-    "streetExample": "пр. Солунска 25",
-    "summary": "Преглед",
-    "welcomeBack": "Дојбре дојдовте",
-    "zipcode": "Поштенски код",
-    "from": "Од"
+    "price": "Цена"
   },
   "countries": {
     "mk": "Macedonia"
@@ -623,12 +564,6 @@
     "eur": "EUR",
     "mkd": "ден",
     "usd": "USD"
-  },
-  "delivery": {
-    "addToGetFreeDelivery": "Додадете уште {{priceUntilFreeDelivery}} и добијте БЕСПЛАТНА ДОСТАВА!",
-    "freeDelivery": "Бесплатна достава",
-    "ordersAboveFreeDelivery": "За сите порачки над",
-    "ordersBelowFreeDelivery": "За сите порачки под"
   },
   "deliveryMethods": {
     "cargo-pickup": "Да се подигне од карго",
@@ -665,18 +600,6 @@
     "uniqueOn": "Полето треба има уникатни вредности",
     "uuid": "Полето треба да е валидна шифра"
   },
-  "filters": {
-    "cheapestFirst": "Најниска цена",
-    "expensiveFirst": "Највисока цена",
-    "recommended": "Препорачани"
-  },
-  "finance": {
-    "campaignDiscount": "Промоции",
-    "priceBreakdown": "Преглед на вкупна цена",
-    "shippingCost": "Цена за достава",
-    "subtotal": "Цена на производи",
-    "total": "Вкупна цена"
-  },
   "languages": {
     "en": "English",
     "en-US": "English",
@@ -684,18 +607,10 @@
     "mk-MK": "Македонски"
   },
   "legal": {
-    "legalExplanation": "Активно работиме со цел да сме во согласност со сите регулативи и закони. Ги преземаме сите безбедносни мерки за заштита на вашите податоци, и собираме минимален број на податоци со цел да ви понудиме подобро корисничко искуство",
     "legalNotAvailable": "Правните документи се сеуште во подготовка, контактирајте не за повеќе детали"
   },
   "order": {
-    "note": "Белешка",
-    "orderAlreadyPaid": "Порачката или е веќе платена, или плаќањето ќе се изврши на достава",
-    "orderNotFound": "Порачката не беше пронајдена",
-    "orderNotFoundTip": "Не можевме да ја пронајдиме порачката, проверете дали сте логирани и пробајте повторно",
-    "orderNotFound_plural": "Порачките не беа пронајдени",
-    "ordered": "Порачано",
-    "retryFromOrdersTip": "Можете да се обидете повторно од страната за вашите порачки",
-    "seeOrder": "Видете ја порачката"
+    "orderNotFound": "Порачката не беше пронајдена"
   },
   "orderStatus": {
     "cancelled": "Откажана",
@@ -714,31 +629,19 @@
   "pages": {
     "aboutUs": "За нас",
     "cart": "Корпа",
-    "changePassword": "Променете лозинка",
     "checkout": "Каса",
     "cookiesPolicy": "Политика за колачиња",
     "generalRules": "Општи одредби",
     "home": "Дома",
     "legal": "Правни",
     "myAccount": "Моја сметка",
-    "myAddresses": "Мои адреси",
-    "myCart": "Моја корпа",
-    "myOrders": "Мои порачки",
     "order": "Порачка",
     "order_plural": "Порачки",
     "payment": "Наплата",
-    "personalDetails": "Лични податоци",
     "privacy": "Приватност",
     "product_plural": "Производи",
     "returnAndRefund": "Замена на производ",
-    "termsOfUse": "Услови на употреба",
-    "usageInstructions": "Упатство за користење"
-  },
-  "payment": {
-    "choosePaymentMethod": "Одберете начин на плаќање",
-    "payAmountTip": "Вкупна цена на порачката е {{amountWithCurrency}}",
-    "paymentDisabled": "Наплатата е оневозможена",
-    "storeNoCardSupport": "Продавницата не поддржува плаќање со платежна картичка"
+    "termsOfUse": "Услови на употреба"
   },
   "paymentMethodNames": {
     "creditCard": "Кредитна картичка",
@@ -748,15 +651,6 @@
   },
   "paymentProcessors": {
     "halkbank": "Халкбанк"
-  },
-  "product": {
-    "availability": "Достапност",
-    "discounted": "{{percentage}}% Попуст",
-    "inStock": "Има залиха",
-    "new": "Ново",
-    "noMatchingProduct_plural": "Нема производи за вашето пребарување",
-    "outOfStock": "Распродадено",
-    "seeOtherProducts": "Продолжете со купување"
   },
   "productRuleTypes": {
     "all": "Сите",
@@ -786,20 +680,6 @@
   "seoDescriptions": {
     "product_plural": "Купувајте онлајн производи од нашиот асортиман. Најбрз и најлесен начин за купување онлајн во Македонија. Нудиме висок квалитет, по најповолни цени. Придружете ни се сега.",
     "storeGeneric": "Најлесен начин да купувате онлајн во Македонија, од удобноста на вашиот дом. Онлајн шопингот никогаш не бил полесен. Купете сега."
-  },
-  "services": {
-    "freeDelivery": "Бесплатна достава",
-    "freeDeliveryExplanation": "Бесплатна достава над {{freeDeliveryPrice}}",
-    "returnPolicy": "Замена на производ",
-    "returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни",
-    "securePayments": "Безбедно плаќање",
-    "securePaymentsExplanation": "Брзи и лесни начини на плаќање",
-    "support": "Константна поддршка",
-    "supportExplanation": "Секогаш достапни за да ви помогнеме"
-  },
-  "store": {
-    "emptyStoreExplanation": "Сеуште ја подготвуваме продавницата, посетете нѐ повторно наскоро",
-    "noAboutusInformation": "Информациите за продавницата не беа пронајдени, обидете се повторно"
   },
   "units": {
     "cm": "центиметар",

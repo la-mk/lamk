@@ -1,4 +1,4 @@
-import { Button, Flex, Result, Spinner } from "@la-mk/blocks-ui";
+import { Button, Flex, Result } from "@la-mk/blocks-ui";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React from "react";

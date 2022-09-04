@@ -45,6 +45,10 @@ export const Cart = ({
     : {};
 
   const currency = store.preferences?.currency ?? "mkd";
+  const priceUntilFreeDelivery =
+    prices.withCampaignsTotal != undefined
+      ? (delivery?.freeDeliveryOver ?? 0) - (prices.withCampaignsTotal ?? 0)
+      : undefined;
 
   return (
     <>
@@ -56,14 +60,15 @@ export const Cart = ({
             align="center"
             justify="center"
           >
-            <Text mb={7} mx="auto" size="md" color="mutedText.dark">
-              {t("delivery.addToGetFreeDelivery", {
-                priceUntilFreeDelivery: `${
-                  (delivery?.freeDeliveryOver ?? 0) -
-                  (prices.withCampaignsTotal ?? 0)
-                } ${t(`currencies.${currency}`)}`,
-              })}
-            </Text>
+            {priceUntilFreeDelivery && priceUntilFreeDelivery > 0 && (
+              <Text mb={7} mx="auto" size="md" color="mutedText.dark">
+                {t("delivery.addToGetFreeDelivery", {
+                  priceUntilFreeDelivery: `${priceUntilFreeDelivery} ${t(
+                    `currencies.${currency}`
+                  )}`,
+                })}
+              </Text>
+            )}
 
             <Flex
               maxWidth={"60rem"}

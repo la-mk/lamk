@@ -138,7 +138,7 @@ export const ProductOptions = ({
             />
           </>
         )}
-        <Box width={"100%"} mt={4}>
+        <Box width={"100%"} mt={6}>
           {isProductInCart ? (
             <>
               <Text color="mutedText.dark">
