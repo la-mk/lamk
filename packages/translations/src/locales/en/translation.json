@@ -119,7 +119,7 @@
     "orderSuccessExplanation": "You can track the status of your order from the \"my orders\" page",
     "orderSuccess": "Your order has been placed",
     "productAlreadyInCart": "Product already in cart",
-    "leaveNote": "Leave a note to the store"
+    "leaveNote": "Leave a note"
   },
   "commerce": {
     "buyer": "Buyer",
@@ -202,7 +202,7 @@
   },
   "delivery": {
     "deliveryMethod": "Delivery method",
-    "freeDelivery": "Free delivery",
+    "freeDelivery": "Free shipping",
     "freeDeliveryExplanation": "Over what price do you want to offer free shipping?",
     "addToGetFreeDelivery": "Add {{priceUntilFreeDelivery}} more and get free shipping!",
     "overPrice": "Over price",
@@ -485,8 +485,8 @@
     "storeGeneric": "The easiest way to shop in Macedonia, from the comfort of your home. Online shopping could never be easier. Start shopping."
   },
   "services": {
-    "freeDelivery": "Free delivery",
-    "freeDeliveryExplanation": "Free delivery over {{freeDeliveryPrice}}",
+    "freeDelivery": "Free shipping",
+    "freeDeliveryExplanation": "Get free shipping on all orders over {{freeDeliveryPrice}}",
     "securePayments": "Secure payments",
     "securePaymentsExplanation": "Fast and easy ways to pay",
     "returnPolicy": "Return policy",

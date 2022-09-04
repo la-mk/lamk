@@ -120,7 +120,7 @@
     "orderSuccessExplanation": "Можете да го следите статусот на вашата порачка од страната \"мои порачки\"",
     "orderSuccess": "Вашата порачка беше успешна",
     "productAlreadyInCart": "Производот е веќе во корпата",
-    "leaveNote": "Оставете белешка на продавницата"
+    "leaveNote": "Оставете белешка"
   },
   "commerce": {
     "buyer": "Купувач",
@@ -487,7 +487,7 @@
   },
   "services": {
     "freeDelivery": "Бесплатна достава",
-    "freeDeliveryExplanation": "Бесплатна достава над {{freeDeliveryPrice}}",
+    "freeDeliveryExplanation": "Добијте бесплатна достава на сите порачки над {{freeDeliveryPrice}}",
     "securePayments": "Безбедно плаќање",
     "securePaymentsExplanation": "Брзи и лесни начини на плаќање",
     "returnPolicy": "Замена на производ",
