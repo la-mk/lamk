@@ -30,8 +30,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const createRes = await sdk.orderPayments.create(req.body);
+    console.log(createRes);
     res.end(getPage({ data: createRes }));
   } catch (err) {
+    console.error(err);
     res.end(getPage({ error: err }));
   }
 };

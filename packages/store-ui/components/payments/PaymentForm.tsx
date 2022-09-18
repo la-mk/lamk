@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { NestPay } from "./NestPay";
 import { useTranslation } from "next-i18next";
 import { sdk } from "../../sdk/sdk";
@@ -29,6 +29,21 @@ export const PaymentForm = ({
   cardPaymentInfo,
 }: PaymentFormProps) => {
   const { i18n } = useTranslation("translation");
+  const getHashParts = useCallback(
+    (hashContent: string) => {
+      return sdk.storePaymentMethods.getHashParts(
+        storePaymentsId,
+        hashContent,
+        PaymentMethodNames.CREDIT_CARD
+      );
+    },
+    [storePaymentsId]
+  );
+
+  if (!cardPaymentInfo.clientId || !storePaymentsId || !order) {
+    return null;
+  }
+
   const orderTotal = calculatePrices(
     order.ordered,
     order.delivery,
@@ -43,13 +58,7 @@ export const PaymentForm = ({
   return (
     <NestPay
       target={target}
-      getHashParts={(hashContent) => {
-        return sdk.storePaymentMethods.getHashParts(
-          storePaymentsId,
-          hashContent,
-          PaymentMethodNames.CREDIT_CARD
-        );
-      }}
+      getHashParts={getHashParts}
       data={{
         clientId: cardPaymentInfo.clientId ?? "",
         orderId: order._id,
