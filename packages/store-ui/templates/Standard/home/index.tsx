@@ -22,6 +22,7 @@ export const Home = ({
   store,
   promotedCampaign,
   banner,
+  hideSlogan,
 }: HomeProps) => {
   const { t } = useTranslation("translation");
 
@@ -29,7 +30,7 @@ export const Home = ({
     <>
       <Breadcrumbs breadcrumbs={[{ url: urls.home, title: t("pages.home") }]} />
 
-      <Banner banner={banner} store={store} />
+      <Banner banner={banner} store={store} hideSlogan={hideSlogan} />
 
       <Spinner isLoaded={!isLoadingCategories}>
         <Flex mt={7} direction="column">

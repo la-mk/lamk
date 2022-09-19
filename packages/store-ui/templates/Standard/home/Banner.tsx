@@ -73,7 +73,15 @@ const BoldThemeContent = ({
   );
 };
 
-export const Banner = ({ banner, store }: { store: Store; banner?: Media }) => {
+export const Banner = ({
+  banner,
+  store,
+  hideSlogan,
+}: {
+  store: Store;
+  banner?: Media;
+  hideSlogan?: boolean;
+}) => {
   const { t } = useTranslation("translation");
   const theme = useTheme();
   const ownTheme = theme.sections.Home.banner;
@@ -104,7 +112,7 @@ export const Banner = ({ banner, store }: { store: Store; banner?: Media }) => {
         // @ts-ignore
         style={{ position: "relative" }}
       >
-        {store.slogan && (
+        {store.slogan && !hideSlogan && (
           <>
             <Flex
               // @ts-ignore

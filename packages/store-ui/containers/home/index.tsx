@@ -26,6 +26,7 @@ export interface HomeProps {
   productSets: ProductSetResult[] | undefined;
   promotedCampaign: Campaign | undefined;
   banner: Media | undefined;
+  hideSlogan?: boolean;
 }
 
 export const Home = ({
@@ -113,7 +114,13 @@ export const Home = ({
 
   switch (template) {
     case "standard":
-      return <StandardHome {...props} />;
+      return (
+        <StandardHome
+          {...props}
+          // TODO: This is temporarily, manually added field, remove and find a proper strategy for handling the banner.
+          hideSlogan={(landingContent as any)?.hideSlogan}
+        />
+      );
     case "elegant":
       return <ElegantHome {...props} />;
   }
