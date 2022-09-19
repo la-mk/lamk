@@ -141,7 +141,7 @@ export const Payment = ({
                 maxWidth={"40rem"}
                 mt={5}
                 status="error"
-                message={transactionMessage ?? t("results.genericError")}
+                message={transactionMessage || t("results.genericError")}
               />
             )}
 

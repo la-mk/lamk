@@ -1,5 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { sdk } from "../../sdk/sdk";
+import { sdk, setupSdk } from "../../sdk/sdk";
+import { envvars, loadEnv } from "../../tooling/env";
+
+const prepareSdk = () => {
+  // The SDK is a singleton, so it's safe to do this check
+  if (!sdk) {
+    loadEnv();
+    setupSdk({
+      transport: "rest",
+      apiEndpoint: envvars.API_ENDPOINT,
+      imagesEndpoint: envvars.ARTIFACTS_ENDPOINT,
+      imagesProxyEndpoint: envvars.IMAGES_PROXY_ENDPOINT,
+    });
+  }
+};
 
 const getPage = (data: any) => {
   // Since the `origin` field can only be set to one domain, we need to perform a handshake procedure to ensure the source of the data.
@@ -27,10 +41,10 @@ const getPage = (data: any) => {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.statusCode = 200;
+  prepareSdk();
 
   try {
     const createRes = await sdk.orderPayments.create(req.body);
-    console.log(createRes);
     res.end(getPage({ data: createRes }));
   } catch (err) {
     console.error(err);

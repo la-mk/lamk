@@ -117,7 +117,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: registry.digitalocean.com/lamk/store-ui:2.1.3
+    image: registry.digitalocean.com/lamk/store-ui:2.1.9
     container_name: store-ui
     restart: always
     networks:
