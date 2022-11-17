@@ -501,7 +501,16 @@
     "indoor-plant-other": "Останато",
     "outdoor-plant-other": "Останато",
     "garden-accessories-other": "Останато",
-    "seed-bulb-other": "Останато"
+    "seed-bulb-other": "Останато",
+    "office": "Канцеларија",
+    "office-accessories": "Канцелариски додатоци",
+    "desk-stand": "Држачи и постоља",
+    "desk-organization": "Организација на биро",
+    "sleeve-case": "Футроли и торби",
+    "office-accessories-other": "Останато",
+    "decor": "Декор",
+    "paintings": "Слики",
+    "home-decor-other": "Останато"
   },
 
   "campaignBanners": {

@@ -5,7 +5,7 @@
     "url": "git@github.com:la-mk/lamk.git",
     "directory": "packages/translations"
   },
-  "version": "0.0.147",
+  "version": "0.0.148",
   "license": "ISC",
   "author": "Stevche Radevski",
   "main": "dist/index.js",

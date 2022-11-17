@@ -501,7 +501,16 @@
     "indoor-plant-other": "Others",
     "outdoor-plant-other": "Others",
     "garden-accessories-other": "Others",
-    "seed-bulb-other": "Others"
+    "seed-bulb-other": "Others",
+    "office": "Office",
+    "office-accessories": "Office accessories",
+    "desk-stand": "Stands",
+    "desk-organization": "Desk organization",
+    "sleeve-case": "Sleeves and Cases",
+    "office-accessories-other": "Others",
+    "decor": "Decor",
+    "paintings": "Paintings",
+    "home-decor-other": "Others"
   },
 
   "campaignBanners": {
