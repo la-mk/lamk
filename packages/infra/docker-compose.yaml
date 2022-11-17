@@ -117,7 +117,7 @@ services:
       ENABLE_SIGNUP: "true"
 
   store-ui:
-    image: registry.digitalocean.com/lamk/store-ui:2.1.10
+    image: registry.digitalocean.com/lamk/store-ui:2.1.11
     container_name: store-ui
     restart: always
     networks:
@@ -163,7 +163,7 @@ services:
       NEXT_PUBLIC_NODE_ENV: "production"
       PORT: 80
   backstore-ui:
-    image: registry.digitalocean.com/lamk/backstore-ui:1.0.129
+    image: registry.digitalocean.com/lamk/backstore-ui:1.0.130
     container_name: backstore-ui
     restart: always
     networks:
