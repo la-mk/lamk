@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "private": true,
   "scripts": {
     "dev": "next dev --port $PORT",
@@ -16,7 +16,7 @@
     "@la-mk/blocks-ui": "^1.1.1",
     "@la-mk/la-sdk": "^0.0.174",
     "@la-mk/nlp": "^0.0.4",
-    "@la-mk/translations": "^0.0.147",
+    "@la-mk/translations": "^0.0.148",
     "date-fns": "^2.28.0",
     "env-var": "^7.1.1",
     "jwt-decode": "^3.1.2",
