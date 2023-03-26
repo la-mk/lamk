@@ -195,7 +195,8 @@
     "welcomeBack": "Welcome back",
     "guest": "Guest",
     "zipcode": "Zipcode",
-    "from": "From"
+    "from": "From",
+    "shopAll": "Shop all"
   },
   "company": {
     "subTagline": "The easiest way to build an online shop"
@@ -532,5 +533,13 @@
   },
   "uploads": {
     "hint": "Support for single or bulk upload"
+  },
+  "social": {
+    "stayConnected": "Stay connected",
+    "followUs": "Follow us!"
+  },
+  "b2b": {
+    "areYouBusiness": "Are you a business?",
+    "areYouBusinessDescription": "If you are a business that wants to provide branded products to your customers or employees, we are here to help! We offer free logo customization on all products for bulk orders. Reach out to us for quotations and more details."
   }
 }
