@@ -112,13 +112,10 @@ export const Footer = ({ store }: { store: Store }) => {
               color="mutedText.dark"
               as="h4"
             >
-              Are you a business?
+              {t("b2b.areYouBusiness")}
             </Heading>
             <Text color="mutedText.light">
-              If you are a business that wants to provide branded products to
-              your employees, we are here to help! We offer discounts and
-              customized products for bulk orders. Reach out to us for
-              quotations and more details.
+              {t("b2b.areYouBusinessDescription")}
             </Text>
           </Box>
         </Flex>

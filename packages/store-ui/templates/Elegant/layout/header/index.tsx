@@ -8,6 +8,7 @@ import { useTranslation } from "next-i18next";
 import { NavButton } from "./NavButton";
 import { MobileMenu } from "./MobileMenu";
 import { HeaderProps } from "../../../../containers/layout/Header";
+import { TFunction } from "react-i18next";
 
 const Logo = ({
   getLogoUrl,
@@ -33,26 +34,15 @@ const Logo = ({
   );
 };
 
-const menus = [
+// TODO: Use admin menus
+const getMenus = (t: TFunction) => [
   {
-    title: "Shop all",
+    title: t("common.shopAll"),
     href: urls.products,
   },
   {
-    title: "Discounted",
-    href: urls.products,
-  },
-  {
-    title: "Serial",
-    href: urls.products,
-  },
-  {
-    title: "Elegance",
-    href: urls.products,
-  },
-  {
-    title: "Gifts",
-    href: urls.products,
+    title: t("sets.sets"),
+    href: `${urls.products}?q=set`,
   },
 ];
 
@@ -61,6 +51,8 @@ const headerHeight = ["64px", "72px", "82px"];
 export const Header = ({ store, cartCount, freeDeliveryOver }: HeaderProps) => {
   const { t } = useTranslation("translation");
   const currency = store.preferences?.currency ?? "mkd";
+  const menus = getMenus(t);
+
   return (
     <>
       {freeDeliveryOver != undefined && (

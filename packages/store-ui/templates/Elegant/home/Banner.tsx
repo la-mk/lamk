@@ -68,7 +68,7 @@ export const Banner = ({
             align={["center", "center", "flex-start"]}
           >
             <Heading align={textAlign} mb={5} as="h1" size={"xl"}>
-              {slogan ?? "Time to shop"}
+              {slogan ?? "The place to shop"}
             </Heading>
             <Link href={urls.products} passHref>
               {/* @ts-ignore */}

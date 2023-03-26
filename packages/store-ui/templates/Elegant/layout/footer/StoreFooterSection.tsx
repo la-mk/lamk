@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Box, Heading } from "@la-mk/blocks-ui";
-import { Facebook, Twitter, Instagram, Youtube } from "react-feather";
+import { Facebook, Instagram } from "react-feather";
 
 import { useTheme } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
@@ -32,7 +32,7 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
         color="mutedText.dark"
         as="h4"
       >
-        Stay connected
+        {t("social.stayConnected")}
       </Heading>
 
       <Contact darkMode contact={store.contact} />
@@ -45,32 +45,20 @@ export const StoreFooterSection = ({ store }: { store: Store }) => {
         color="mutedText.dark"
         as="h4"
       >
-        Follow us!
+        {t("social.followUs")}
       </Heading>
 
       <Flex direction={"row"}>
         <SocialButton
-          link="something"
+          link="https://www.facebook.com/mokudo.co"
           icon={
             <Facebook color={theme?.colors?.mutedText?.dark} size="1.6rem" />
           }
         />
         <SocialButton
-          link="something"
+          link="https://www.instagram.com/mokudo.co"
           icon={
             <Instagram color={theme?.colors?.mutedText?.dark} size="1.6rem" />
-          }
-        />
-        <SocialButton
-          link="something"
-          icon={
-            <Youtube color={theme?.colors?.mutedText?.dark} size="1.6rem" />
-          }
-        />
-        <SocialButton
-          link="something"
-          icon={
-            <Twitter color={theme?.colors?.mutedText?.dark} size="1.6rem" />
           }
         />
       </Flex>

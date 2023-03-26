@@ -69,6 +69,10 @@
     "welcomeToAccount": "Welcome to your account page",
     "welcomeToAccountExplanation": "You can view your orders, edit your addresses, and manage your account"
   },
+  "b2b": {
+    "areYouBusiness": "Are you a business?",
+    "areYouBusinessDescription": "If you are a business that wants to provide branded products to your customers or employees, we are here to help! We offer free logo customization on all products for bulk orders. Reach out to us for quotations and more details."
+  },
   "campaignBanners": {
     "setDiscountSubtitle": "All discounts are calculated on checkout",
     "setDiscountTitle": "{{rewardValue}} off on {{productsTarget}} products"
@@ -618,6 +622,7 @@
     "price": "Price",
     "seeAll": "See all",
     "selected": "Selected",
+    "shopAll": "Shop all",
     "street": "Street",
     "streetExample": "eg. 10 Downing Street",
     "summary": "Summary",
@@ -804,6 +809,13 @@
     "securePaymentsExplanation": "Fast and easy ways to pay",
     "support": "Constant support",
     "supportExplanation": "Always at your service"
+  },
+  "sets": {
+    "sets": "Sets"
+  },
+  "social": {
+    "followUs": "Follow us!",
+    "stayConnected": "Stay connected"
   },
   "store": {
     "emptyStoreExplanation": "We are still preparing our store, visit us again soon.",
