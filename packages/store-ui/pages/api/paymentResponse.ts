@@ -43,6 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.statusCode = 200;
   prepareSdk();
 
+  console.log(req.body);
   try {
     const createRes = await sdk.orderPayments.create(req.body);
     res.end(getPage({ data: createRes }));

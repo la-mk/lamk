@@ -180,6 +180,7 @@ services:
       NEXT_PUBLIC_ANALYTICS_TRACKING_ID: "90f6dff8cd68254f0bcdedcc33ab7a14"
       NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT: "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate"
       NEXT_PUBLIC_NODE_ENV: "development"
+      NEXT_PUBLIC_UI_TEMPLATE: "elegant"
 
   backstore-ui:
     image: lamk/backstore-ui-dev
