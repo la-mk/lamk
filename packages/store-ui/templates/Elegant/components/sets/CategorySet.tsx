@@ -1,17 +1,18 @@
 import { Box, Button, Carousel, Flex, Heading, Text } from "@la-mk/blocks-ui";
 import { TFunction, useTranslation } from "next-i18next";
 import { ImageBackgroundBox } from "../../../../components/ImageBackgroundBox";
+import { useMemo } from "react";
 
-const categories = [
+const getCategories = (tCustom: TFunction) => [
   {
-    title: "Wooden accessories",
-    subtitle: "Bestseller",
-    link: "/images/test.webp",
+    title: tCustom("home.woodenAccessories"),
+    subtitle: tCustom("home.woodenAccessoriesSubheading"),
+    link: "https://artifacts.la.mk/custom/mokudo/woodenAccessories.jpg",
   },
   {
-    title: "Metal accessories",
-    subtitle: "Recently released",
-    link: "/images/test.webp",
+    title: tCustom("home.metalAccessories"),
+    subtitle: tCustom("home.metalAccessoriesSubheading"),
+    link: "https://artifacts.la.mk/custom/mokudo/metalAccessories.jpg",
   },
 ];
 
@@ -44,6 +45,9 @@ const CategoryItem = ({
 
 export const CategorySet = () => {
   const { t } = useTranslation("translation");
+  const { t: tCustom } = useTranslation("custom");
+  const categories = useMemo(() => getCategories(tCustom), [tCustom]);
+
   return (
     <>
       <Box display={["block", "none", "none"]}>

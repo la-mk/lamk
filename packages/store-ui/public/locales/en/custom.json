@@ -3,5 +3,16 @@
     "type": "Type of wood",
     "walnut": "Walnut",
     "cherry": "Cherry"
+  },
+  "home": {
+    "businessMessageTitle": "A tribute to quality everyday objects",
+    "businessMessageDescription": "We have gathered inspired products from emerging and iconic designers, artisans and makers. Fusing form and function, each object was designed to bring quality and style to your everyday rituals.",
+    "woodenAccessories": "Wooden accessories",
+    "woodenAccessoriesSubheading": "Bestseller",
+    "metalAccessories": "Metal accessories",
+    "metalAccessoriesSubheading": "Recently released",
+    "featuredTitle": "Momo headphone stand",
+    "featuredSubheading": "Bestseller",
+    "featuredDescription": "Our headphone stand is a functional part of every desk. Built and designed for most headphone brands and shapes, it ensures that your desk is clutter-free. Manufactured from high-quality steel, finished by an electrostatic coating that ensures durability."
   }
 }

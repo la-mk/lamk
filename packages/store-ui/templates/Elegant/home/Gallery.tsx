@@ -2,7 +2,11 @@ import { Box, Carousel, Flex } from "@la-mk/blocks-ui";
 import React from "react";
 import { ImageBackgroundBox } from "../../../components/ImageBackgroundBox";
 
-const images = ["/images/test.webp", "/images/test.webp", "/images/test.webp"];
+const images = [
+  "https://artifacts.la.mk/custom/mokudo/misc1.jpg",
+  "https://artifacts.la.mk/custom/mokudo/misc2.jpg",
+  "https://artifacts.la.mk/custom/mokudo/misc3.jpg",
+];
 
 export const Gallery = () => {
   return (
