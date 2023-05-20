@@ -76,9 +76,12 @@ function MyApp({
             <link
               rel="shortcut icon"
               href={
-                getImageURL(store.logo?._id ?? "", store._id, {
-                  h: 128,
-                }) ?? ""
+                // TODO: Hack for mokudo
+                template === "elegant"
+                  ? "https://artifacts.la.mk/custom/mokudo/mokudo-favicon.png"
+                  : getImageURL(store.logo?._id ?? "", store._id, {
+                      h: 128,
+                    }) ?? ""
               }
             />
           </Head>
