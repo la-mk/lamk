@@ -57,7 +57,10 @@ export async function getServerSideProps({
   return {
     props: {
       ...getProps(queryClient),
-      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      ...(await serverSideTranslations(locale ?? "mk", [
+        "translation",
+        "custom",
+      ])),
       store,
     },
   };

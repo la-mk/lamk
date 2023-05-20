@@ -97,7 +97,10 @@ export async function getServerSideProps({
     props: {
       errorCode,
       store,
-      ...(await serverSideTranslations(locale ?? "mk", ["translation"])),
+      ...(await serverSideTranslations(locale ?? "mk", [
+        "translation",
+        "custom",
+      ])),
     },
   };
 }

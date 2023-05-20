@@ -23,6 +23,8 @@ export const ProductImageWithTitle = ({
   showQuantity?: boolean;
 } & React.ComponentProps<typeof Flex>) => {
   const { t } = useTranslation("translation");
+  const { t: tCustom } = useTranslation("custom");
+
   return (
     <HoverableLink
       href={`${urls.products}/[pid]`}
@@ -41,7 +43,10 @@ export const ProductImageWithTitle = ({
         <Flex ml={4} direction="column">
           <Heading mx={0} my={0} mb={3} as="h2" size="sm" noOfLines={2}>
             {orderItem.product.name}
-            <VariantName t={t} attributes={orderItem.product.attributes} />
+            <VariantName
+              tCustom={tCustom}
+              attributes={orderItem.product.attributes}
+            />
           </Heading>
 
           <Flex direction="row" wrap="nowrap">

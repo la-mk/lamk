@@ -1,0 +1,7 @@
+{
+  "wood": {
+    "type": "Type of wood",
+    "walnut": "Walnut",
+    "cherry": "Cherry"
+  }
+}

@@ -5,7 +5,7 @@ import React from "react";
 import { Flex, Text, Button, Input, PickerBoxes, Box } from "@la-mk/blocks-ui";
 import Link from "next/link";
 import { Attributes, Product, Variant } from "../../../domain/product";
-import { useTranslation } from "next-i18next";
+import { TFunction, useTranslation } from "next-i18next";
 import { CartWithProducts } from "../../../domain/cart";
 import { urls } from "../../../tooling/url";
 
@@ -14,6 +14,25 @@ export const areObjectsEquivalent = (
   b: object | undefined
 ) => {
   return isEqual(omitBy(a, isNil), omitBy(b, isNil));
+};
+
+const getColorNames = (color: string | undefined, t: TFunction): string => {
+  color = color?.toUpperCase();
+  if (color === "#800000") {
+    return t("wood.walnut");
+  } else if (color === "#FFD700") {
+    return t("wood.cherry");
+  }
+  return "";
+};
+
+const getColorCodes = (colorName: string | undefined, t: TFunction): string => {
+  if (colorName === t("wood.walnut")) {
+    return "#800000";
+  } else if (colorName === t("wood.cherry")) {
+    return "#FFD700";
+  }
+  return "";
 };
 
 export const ProductOptions = ({
@@ -38,6 +57,7 @@ export const ProductOptions = ({
   handleAddToCart: () => void;
 }) => {
   const { t } = useTranslation("translation");
+  const { t: tCustom } = useTranslation("custom");
 
   const isProductInCart =
     cart &&
@@ -92,17 +112,20 @@ export const ProductOptions = ({
 
   return (
     <>
+      {/* TODO: This is a hack for mokudo where the colors indicate material, otherwise we should use color variant of the picker */}
       {allColors.length > 0 && (
         <Flex align="center" justify="center" mt={3}>
-          <Text mr={2}>{t("attributes.color")}:</Text>
+          <Text mr={2}>{tCustom("wood.type")}:</Text>
           <PickerBoxes
             size="sm"
-            variant="color"
             disabled={disabledColorChoices}
-            values={allColors}
-            selected={chosenAttributes?.color}
+            values={allColors.map((color) => getColorNames(color, tCustom))}
+            selected={getColorNames(chosenAttributes?.color, tCustom)}
             onSelect={(color: string | undefined) =>
-              setChosenAttributes({ ...(chosenAttributes ?? {}), color })
+              setChosenAttributes({
+                ...(chosenAttributes ?? {}),
+                color: getColorCodes(color, tCustom),
+              })
             }
           />
         </Flex>
