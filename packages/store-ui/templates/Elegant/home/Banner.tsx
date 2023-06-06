@@ -27,12 +27,13 @@ const dimensions = {
   style: {
     position: "absolute",
   },
-  bottom: ["55%", "65%", "10%"],
-  left: ["10%", "25%", "2%"],
-  width: ["80%", "50%", "30%"],
-  justify: ["center", "center", "flex-start"],
-  align: ["center", "center", "flex-start"],
-  p: 3,
+  background: "rgba(45,46,46,0.15)",
+  bottom: [0, 0, 0],
+  left: [0, 0, 0],
+  width: ["100%", "100%", "100%"],
+  justify: "center",
+  align: "center",
+  p: [4, 5, 7],
 };
 
 export const Banner = ({
@@ -64,8 +65,8 @@ export const Banner = ({
         <Box {...dimensions}>
           <AnimatedBannerAction
             direction="column"
-            justify={["center", "center", "flex-start"]}
-            align={["center", "center", "flex-start"]}
+            justify={"center"}
+            align={"center"}
           >
             <Heading align={textAlign} mb={5} as="h1" size={"xl"}>
               {slogan ?? "The place to shop"}

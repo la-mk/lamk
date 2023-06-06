@@ -15,7 +15,7 @@ const DetailsWrapper = styled(Flex)`
   @keyframes detailsAppear {
     0% {
       transform: translateY(7%);
-      opacity: 0;
+      opacity: 0.2;
     }
     100% {
       transform: translateY(0);
@@ -24,7 +24,7 @@ const DetailsWrapper = styled(Flex)`
   }
 
   & {
-    animation: 0.9s ease-out 0s 1 detailsAppear;
+    animation: 1.3s ease-out 0s 1 detailsAppear;
   }
 `;
 
@@ -96,7 +96,7 @@ export const Product = ({
           </Flex>
 
           {!!product.media[1] && (
-            <Box mt={8} height={["32rem", "44rem", "56rem"]}>
+            <Box mt={8} height={["32rem", "44rem", "52rem"]}>
               <ImageBackgroundBox
                 url={getImageURL(product.media[1]?._id, store._id, {}) ?? ""}
                 height="100%"

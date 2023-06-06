@@ -37,7 +37,7 @@ const Logo = ({
 // TODO: Use admin menus
 const getMenus = (t: TFunction) => [
   {
-    title: t("common.shopAll"),
+    title: t("pages.product_plural"),
     href: urls.products,
   },
   {

@@ -802,7 +802,7 @@
   },
   "services": {
     "freeDelivery": "Free shipping",
-    "freeDeliveryExplanation": "Get free shipping on all orders over {{freeDeliveryPrice}}",
+    "freeDeliveryExplanation": "Free shipping on all orders over {{freeDeliveryPrice}}",
     "returnPolicy": "Return policy",
     "returnPolicyExplanation": "Return what you don't like, risk-free",
     "securePayments": "Secure payments",

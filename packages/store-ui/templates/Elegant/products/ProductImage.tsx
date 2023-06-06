@@ -24,6 +24,10 @@ export const ProductImage = ({
   store: Store;
 }) => {
   const [selectedImage, setSelectedImage] = useState(product.media[0]?._id);
+  const imagesToShow =
+    product?.media.length > 2
+      ? product.media.filter((_, i) => i !== 1)
+      : product.media;
 
   React.useEffect(() => {
     if (product._id && product?.media) {
@@ -37,7 +41,7 @@ export const ProductImage = ({
         <Carousel
           navigation="dots"
           fullscreen
-          items={product.media}
+          items={imagesToShow}
           renderItem={(item: Media) => (
             <ImageBackgroundBox
               url={getImageURL(item._id, store._id, {}) ?? ""}
@@ -79,7 +83,7 @@ export const ProductImage = ({
         </Box>
         <Box mt={4} maxWidth={"100%"}>
           <Thumbnails
-            media={product.media}
+            media={imagesToShow}
             imageBucket={store._id}
             selectedImage={selectedImage}
             onImageClick={setSelectedImage}

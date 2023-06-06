@@ -1018,10 +1018,10 @@
     "lodash" "^4.17.20"
     "lodash-es" "^4.17.15"
 
-"@la-mk/translations@^0.0.149":
-  "integrity" "sha512-TNiGkl/c1E+ZV70hLloLNe3V+Qz0kUfOb0WORcri4UJf9dFoILWS8Lyybxs1nEvFko1RHg3AuYj72WsqJxQINw=="
-  "resolved" "https://npm.pkg.github.com/download/@la-mk/translations/0.0.149/6c18d98e54b1546df55ae355b5a0a8ab00f59d36"
-  "version" "0.0.149"
+"@la-mk/translations@^0.0.150":
+  "integrity" "sha512-eF6XHMTXwrtY5l5X4Fw+riO+w/PdYj3VU/tk2x9IjHnLrAjwsIPLtaNVrr/PpXZzn8u7brezwtDOJ8Y7nLGzUA=="
+  "resolved" "https://npm.pkg.github.com/download/@la-mk/translations/0.0.150/523345a6465aeb1494688961c167b2e6072d0d98"
+  "version" "0.0.150"
   dependencies:
     "glob" "^7.1.6"
     "i18next-scanner" "^2.11.0"
