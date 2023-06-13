@@ -802,7 +802,7 @@
   },
   "services": {
     "freeDelivery": "Бесплатна достава",
-    "freeDeliveryExplanation": "Над која вредност доставата е бесплатна?",
+    "freeDeliveryExplanation": "Бесплатна достава над {{freeDeliveryPrice}}",
     "returnPolicy": "Замена на производ",
     "returnPolicyExplanation": "Бесплатна замена доколку не сте задоволни",
     "securePayments": "Безбедно плаќање",
