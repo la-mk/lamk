@@ -42,7 +42,7 @@ const getMenus = (t: TFunction) => [
   },
   {
     title: t("sets.sets"),
-    href: `${urls.products}?q=set`,
+    href: `${urls.products}?f[groups]=set`,
   },
 ];
 
