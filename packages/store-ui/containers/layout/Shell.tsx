@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
 import { urls } from "../../tooling/url";
 import { User } from "../../domain/user";
+import { useAnalytics } from "../../hooks/useAnalytics";
 
 export interface ShellProps {
   store: Store;
@@ -24,6 +25,7 @@ export const Shell = ({
   children: React.ReactNode;
 }) => {
   const { user } = useAuth();
+  useAnalytics(store._id);
 
   const props = {
     store,

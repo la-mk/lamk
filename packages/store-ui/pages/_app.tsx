@@ -50,7 +50,7 @@ function MyApp({
 
   // We only want to enable analytics in the browser
   if (!analytics && typeof window !== "undefined") {
-    initializeAnalytics();
+    initializeAnalytics(store.slug);
   }
 
   // This can also come from the store data, but it's set as envvar for now.
