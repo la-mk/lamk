@@ -1,6 +1,6 @@
 {
   "name": "@lamk/store-ui",
-  "version": "2.1.18",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev --port $PORT",

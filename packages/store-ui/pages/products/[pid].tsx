@@ -4,15 +4,11 @@ import { transliterate } from "@la-mk/nlp";
 import { TFunction, useTranslation } from "next-i18next";
 import { Product as ProductType } from "../../domain/product";
 import { Store } from "../../domain/store";
-import { useAuth } from "../../hooks/useAuth";
 import { Head } from "../../layout/Head";
-import { getDefaultPrefetch } from "../../sdk/defaults";
-import { getProps, newClient } from "../../sdk/queryClient";
-import { getStore, PageContextWithStore } from "../../hacks/store";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import {  getServerSideResponse } from "../../sdk/defaults";
+import { PageContextWithStore } from "../../hacks/store";
 import { useQuery } from "../../sdk/useQuery";
 import { getImageURL } from "../../hacks/imageUrl";
-import { useCart } from "../../hooks/useCart";
 import { urls } from "../../tooling/url";
 import { Product } from "../../containers/products/Details";
 import { Templates } from "../../containers";
@@ -114,30 +110,14 @@ export async function getServerSideProps({
   query,
   req,
 }: PageContextWithStore) {
-  const store = await getStore(req.headers.host);
-  if (!store) {
-    return { props: {} };
-  }
-
   const { pid } = query;
-  const queryClient = newClient();
-  await Promise.all([
-    ...getDefaultPrefetch(queryClient, store),
-    queryClient.prefetchQuery("product", "get", [pid as string]),
-    queryClient.prefetchQuery("delivery", "findForStore", [store._id]),
-  ]);
 
-  return {
-    props: {
-      ...getProps(queryClient),
-      ...(await serverSideTranslations(locale ?? "mk", [
-        "translation",
-        "custom",
-      ])),
-      store,
-      productId: pid,
-    },
-  };
+  return getServerSideResponse(req, locale, (qc, store) => {
+    return [
+      qc.prefetchQuery("product", "get", [pid as string]),
+    qc.prefetchQuery("delivery", "findForStore", [store._id]),
+    ]
+  }, {productId: pid})
 }
 
 export default ProductPage;

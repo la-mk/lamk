@@ -1,11 +1,9 @@
 import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Store } from "../../domain/store";
 import { getImageURL } from "../../hacks/imageUrl";
-import { getStore, PageContextWithStore } from "../../hacks/store";
+import {  PageContextWithStore } from "../../hacks/store";
 import { Head } from "../../layout/Head";
-import { getDefaultPrefetch } from "../../sdk/defaults";
-import { getProps, newClient } from "../../sdk/queryClient";
+import { getServerSideResponse } from "../../sdk/defaults";
 import { useQuery } from "../../sdk/useQuery";
 import { getTextSnippet } from "../../tooling/text";
 import { urls } from "../../tooling/url";
@@ -47,29 +45,11 @@ export async function getServerSideProps({
   locale,
   req,
 }: PageContextWithStore) {
-  const store = await getStore(req.headers.host);
-  if (!store) {
-    return { props: {} };
-  }
-
-  const queryClient = newClient();
-  await Promise.all([
-    ...getDefaultPrefetch(queryClient, store),
-    queryClient.prefetchQuery("storeContents", "getAboutUsForStore", [
+  return getServerSideResponse(req, locale, (qc, store) => [
+    qc.prefetchQuery("storeContents", "getAboutUsForStore", [
       store._id,
     ]),
-  ]);
-
-  return {
-    props: {
-      ...getProps(queryClient),
-      ...(await serverSideTranslations(locale ?? "mk", [
-        "translation",
-        "custom",
-      ])),
-      store,
-    },
-  };
+  ])
 }
 
 export default About;

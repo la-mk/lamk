@@ -84,6 +84,8 @@ function MyApp({
                     }) ?? ""
               }
             />
+            {/* If we want to not follow some pages, we can just add this (eg. any .la.mk page). Currently we just redirect to the custom domain if it exists */}
+            {/* <meta name="robots" content="noindex,nofollow" /> */}
           </Head>
 
           <CookiesProvider

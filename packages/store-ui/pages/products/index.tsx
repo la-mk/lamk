@@ -1,8 +1,6 @@
 import React from "react";
-import { getStore, PageContextWithStore } from "../../hacks/store";
-import { getProps, newClient } from "../../sdk/queryClient";
-import { getDefaultPrefetch } from "../../sdk/defaults";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { PageContextWithStore } from "../../hacks/store";
+import { getServerSideResponse } from "../../sdk/defaults";
 import { useTranslation } from "next-i18next";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
@@ -43,32 +41,15 @@ export async function getServerSideProps({
   locale,
   req,
 }: PageContextWithStore) {
-  const store = await getStore(req.headers.host);
-  if (!store) {
-    return { props: {} };
-  }
-
   const parsedFilters = utils.filter.parseFiltersUrl(req.url ?? "");
   const query = utils.filter.filtersAsQuery(parsedFilters);
 
-  const queryClient = newClient();
-  await Promise.all([
-    ...getDefaultPrefetch(queryClient, store),
-    queryClient.prefetchQuery("product", "findForStore", [store._id, query]),
-  ]);
-
-  return {
-    props: {
-      ...getProps(queryClient),
-      ...(await serverSideTranslations(locale ?? "mk", [
-        "translation",
-        "custom",
-      ])),
-      // //FUTURE: We want to remove undefined as nextjs complains, this is the easiest (but not the most performant) way.
-      initialFilters: JSON.parse(JSON.stringify(parsedFilters)),
-      store,
-    },
-  };
+  return getServerSideResponse(req, locale, (qc, store) => {
+    return [
+      qc.prefetchQuery("product", "findForStore", [store._id, query]),
+    ]
+    //FUTURE: We want to remove undefined as nextjs complains, this is the easiest (but not the most performant) way.
+  }, {initialFilters: JSON.parse(JSON.stringify(parsedFilters))})
 }
 
 export default ProductsPage;

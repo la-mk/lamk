@@ -2,7 +2,7 @@
 set -e
 
 # When we run `npm install` or `npm run dev` the user is switched to `nobody`, and it can't read package.json or package-lock.json as a consequence. For development we can just run with unsafe-perm;
-npm config set unsafe-perm true
+# npm config set unsafe-perm true
 
 # This is the dev tracking ID
 export NEXT_PUBLIC_ANALYTICS_TRACKING_ID='90f6dff8cd68254f0bcdedcc33ab7a14'
