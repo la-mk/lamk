@@ -78,7 +78,7 @@ function MyApp({
               href={
                 // TODO: Hack for mokudo
                 template === "elegant"
-                  ? "https://artifacts.la.mk/custom/mokudo/mokudo-favicon.png"
+                  ? `${envvars.ARTIFACTS_ENDPOINT}/custom/mokudo/mokudo-favicon.png`
                   : getImageURL(store.logo?._id ?? "", store._id, {
                       h: 128,
                     }) ?? ""

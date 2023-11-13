@@ -7,8 +7,8 @@ set -e
 # This is the dev tracking ID
 export NEXT_PUBLIC_ANALYTICS_TRACKING_ID='90f6dff8cd68254f0bcdedcc33ab7a14'
 export NEXT_PUBLIC_API_ENDPOINT='https://api.la.mk'
-export NEXT_PUBLIC_ARTIFACTS_ENDPOINT='https://artifacts.la.mk'
-export NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT='https://artifacts.la.mk'
+export NEXT_PUBLIC_ARTIFACTS_ENDPOINT='https://lamk-artifacts.fra1.digitaloceanspaces.com'
+export NEXT_PUBLIC_IMAGES_PROXY_ENDPOINT='https://lamk-artifacts.fra1.digitaloceanspaces.com'
 export NEXT_PUBLIC_NESTPAY_GATEWAY_ENDPOINT='https://epay.halkbank.mk/fim/est3Dgate'
 export NEXT_PUBLIC_STATIC_STORE_URL='www.mokudo.la.mk'
 export NEXT_PUBLIC_UI_TEMPLATE='elegant'

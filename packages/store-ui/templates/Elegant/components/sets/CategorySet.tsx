@@ -2,17 +2,18 @@ import { Box, Button, Carousel, Flex, Heading, Text } from "@la-mk/blocks-ui";
 import { TFunction, useTranslation } from "next-i18next";
 import { ImageBackgroundBox } from "../../../../components/ImageBackgroundBox";
 import { useMemo } from "react";
+import { envvars } from "../../../../tooling/env";
 
 const getCategories = (tCustom: TFunction) => [
   {
     title: tCustom("home.woodenAccessories"),
     subtitle: tCustom("home.woodenAccessoriesSubheading"),
-    link: "https://artifacts.la.mk/custom/mokudo/woodenAccessories.jpg",
+    link: `${envvars.ARTIFACTS_ENDPOINT}/custom/mokudo/woodenAccessories.jpg`,
   },
   {
     title: tCustom("home.metalAccessories"),
     subtitle: tCustom("home.metalAccessoriesSubheading"),
-    link: "https://artifacts.la.mk/custom/mokudo/metalAccessories.jpg",
+    link: `${envvars.ARTIFACTS_ENDPOINT}/custom/mokudo/metalAccessories.jpg`,
   },
 ];
 

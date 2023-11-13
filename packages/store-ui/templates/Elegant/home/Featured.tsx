@@ -3,6 +3,7 @@ import React from "react";
 import { ImageBackgroundBox } from "../../../components/ImageBackgroundBox";
 import { HeadingLine } from "./HeadingLine";
 import { useTranslation } from "next-i18next";
+import { envvars } from "../../../tooling/env";
 
 export const Featured = () => {
   const { t: tCustom } = useTranslation("custom");
@@ -23,7 +24,7 @@ export const Featured = () => {
         <ImageBackgroundBox
           mx="auto"
           // url={getImageURL(banner?._id ?? "", storeId, { h: 600 }) ?? ""}
-          url={"https://artifacts.la.mk/custom/mokudo/featured.jpg"}
+          url={`${envvars.ARTIFACTS_ENDPOINT}/custom/mokudo/featured.jpg`}
           height={["24rem", "36rem", "44rem"]}
           width="100%"
           // @ts-ignore
