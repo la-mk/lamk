@@ -6,5 +6,9 @@ export const getImageURL = (
   storeId: string,
   params?: ImageParameters
 ) => {
+  if (artifactId.startsWith("http")) {
+    return artifactId;
+  }
+
   return sdk.artifact.getUrlForImage(artifactId, storeId, params);
 };

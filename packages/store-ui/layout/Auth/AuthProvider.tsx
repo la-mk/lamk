@@ -57,7 +57,7 @@ export const AuthProvider = ({
 
   const logout = useCallback(async () => {
     try {
-      await sdk.auth.logout();
+      await sdk.auth.logout(storeId);
       updateUser(undefined);
 
       toast.success(t("auth.logoutSuccess"));
@@ -65,7 +65,7 @@ export const AuthProvider = ({
       console.error(err);
       toast.error(t("results.genericError"));
     }
-  }, [t, updateUser]);
+  }, [t, storeId, updateUser]);
 
   const val = useMemo(
     () => ({
@@ -88,6 +88,7 @@ export const AuthProvider = ({
         onAuthChanged={updateUser}
         onLoading={setIsLoading}
         showModal={showAuth}
+        user={user}
       />
     </AuthContext.Provider>
   );

@@ -34,7 +34,11 @@ export const OrderDescription = ({
         <Flex align="center" justify="center">
           <Box display={["none", "none", "initial"]}>
             <Heading m={0} mr={4} as="h2" size="md">
-              {`${t("pages.order")} - ${sdk.utils.getShortId(order._id)}`}
+              {`${t("pages.order")} - ${
+                order.orderNumber
+                  ? `#${order.orderNumber}`
+                  : sdk.utils.getShortId(order._id)
+              }`}
             </Heading>
           </Box>
           {/* TODO: Standardize this and add to blocks-ui */}

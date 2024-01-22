@@ -19,6 +19,7 @@ export enum ProductUnit {
 
 export interface Product {
   _id: string;
+  old_id?: string;
   soldBy: string;
   modifiedAt: string;
   createdAt: string;
@@ -41,6 +42,8 @@ export interface Product {
 
 export interface OrderedProduct {
   _id: string;
+  item_id?: string;
+  variant_id?: string;
   createdAt: string;
   modifiedAt: string;
   soldBy: string;
@@ -58,6 +61,7 @@ export interface OrderedProduct {
 }
 
 export interface Variant {
+  _id: string;
   price: number;
   calculatedPrice?: number;
   attributes?: Attributes;

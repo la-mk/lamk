@@ -25,9 +25,14 @@ const OrderPayPage = ({
   const { t } = useTranslation("translation");
 
   const { user } = useAuth();
-  const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
-    enabled: !!user,
-  });
+  const [order, isLoadingOrder] = useQuery(
+    "order",
+    "get",
+    [orderId, store._id],
+    {
+      enabled: !!user,
+    }
+  );
 
   if (isLoadingOrder) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
@@ -68,6 +73,6 @@ export async function getServerSideProps({
   req,
 }: PageContextWithStore) {
   const { oid } = query;
-  return getServerSideResponse(req, locale, () => [], {orderId: oid})
+  return getServerSideResponse(req, locale, () => [], { orderId: oid });
 }
 export default OrderPayPage;

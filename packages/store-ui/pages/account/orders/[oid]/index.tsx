@@ -24,7 +24,7 @@ const OrderPage = ({
 }) => {
   const { t } = useTranslation("translation");
   const { user } = useAuth();
-  const [order, isLoadingOrder] = useQuery("order", "get", [orderId], {
+  const [order, isLoadingOrder] = useQuery("order", "get", [orderId, store._id], {
     enabled: !!user,
   });
 

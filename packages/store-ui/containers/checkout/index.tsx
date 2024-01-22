@@ -158,6 +158,7 @@ export const Checkout = ({
           _id: "",
           currency: store.preferences?.currency ?? "mkd",
         },
+        cart._id,
       ]);
 
       setOrder(createdOrder);

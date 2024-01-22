@@ -5,7 +5,7 @@ import { TFunction, useTranslation } from "next-i18next";
 import { Product as ProductType } from "../../domain/product";
 import { Store } from "../../domain/store";
 import { Head } from "../../layout/Head";
-import {  getServerSideResponse } from "../../sdk/defaults";
+import { getServerSideResponse } from "../../sdk/defaults";
 import { PageContextWithStore } from "../../hacks/store";
 import { useQuery } from "../../sdk/useQuery";
 import { getImageURL } from "../../hacks/imageUrl";
@@ -42,7 +42,10 @@ const ProductPage = ({
   template: Templates;
 }) => {
   const { t } = useTranslation("translation");
-  const [product, isLoadingProduct] = useQuery("product", "get", [productId]);
+  const [product, isLoadingProduct] = useQuery("product", "get", [
+    store._id,
+    productId,
+  ]);
 
   if (isLoadingProduct) {
     return <Spinner mx="auto" mt={5} isLoaded={false} />;
@@ -112,12 +115,17 @@ export async function getServerSideProps({
 }: PageContextWithStore) {
   const { pid } = query;
 
-  return getServerSideResponse(req, locale, (qc, store) => {
-    return [
-      qc.prefetchQuery("product", "get", [pid as string]),
-    qc.prefetchQuery("delivery", "findForStore", [store._id]),
-    ]
-  }, {productId: pid})
+  return getServerSideResponse(
+    req,
+    locale,
+    (qc, store) => {
+      return [
+        qc.prefetchQuery("product", "get", [store._id, pid as string]),
+        qc.prefetchQuery("delivery", "findForStore", [store._id]),
+      ];
+    },
+    { productId: pid }
+  );
 }
 
 export default ProductPage;

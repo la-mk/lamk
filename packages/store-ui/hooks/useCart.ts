@@ -49,35 +49,27 @@ export const useCart = (
   const [changeQuantityInCart] = useMutation("cart", "changeQuantityInCart");
   const [patchCart] = useMutation("cart", "patch");
 
-  const [, , , refetchCart] = useQuery(
-    "cart",
-    "get",
-    [user?._id ?? "", storeId],
-    {
-      enabled: false,
-      onSuccess: async (res) => {
-        const cartItems = unionWith(
-          localCart?.items ?? [],
-          res?.items ?? [],
-          (a, b) =>
-            a.product._id === b.product._id &&
-            areAttributesEquivalent(a.product.attributes, b.product.attributes)
-        );
+  useQuery("cart", "get", [user?._id, storeId, localCart?._id], {
+    enabled: !!user?._id && !!storeId,
+    onSuccess: async (res) => {
+      const cartItems = unionWith(
+        localCart?.items ?? [],
+        res?.items ?? [],
+        (a, b) =>
+          a.product._id === b.product._id &&
+          areAttributesEquivalent(a.product.attributes, b.product.attributes)
+      );
 
-        const updatedCartItems = await updateCartItems(cartItems);
-        await updateServerCart(storeId, res._id, updatedCartItems);
-        setLocalCart({ _id: res._id, items: updatedCartItems });
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (!user?._id) {
-      return;
-    }
-
-    refetchCart();
-  }, [user?._id, refetchCart]);
+      const updatedCartItems = await updateCartItems(cartItems);
+      await updateServerCart(
+        storeId,
+        res._id as any,
+        updatedCartItems,
+        res.items
+      );
+      setLocalCart({ _id: res._id, items: updatedCartItems });
+    },
+  });
 
   const handleAddToCart = React.useCallback(
     async (product: Product, attributes: Attributes, quantity: number) => {
@@ -88,6 +80,7 @@ export const useCart = (
           quantity,
           storeId,
           user?._id,
+          localCart?._id,
         ]);
 
         setLocalCart((cart) => ({
@@ -108,7 +101,7 @@ export const useCart = (
         toast.error(t("results.genericError"));
       }
     },
-    [user?._id, storeId, setLocalCart, addToCart, t]
+    [user?._id, storeId, localCart?._id, setLocalCart, addToCart, t]
   );
 
   const handleRemoveFromCart = React.useCallback(
@@ -175,13 +168,20 @@ export const useCart = (
     async (onLogout: boolean) => {
       try {
         if (!!user?._id && !!localCart?._id && !onLogout) {
-          await patchCart([user._id, { items: [] }]);
+          await patchCart([localCart._id, { items: [] }, { items: [] }]);
         }
 
-        setLocalCart((cart) => ({
-          items: [],
-          _id: onLogout ? undefined : cart?._id,
-        }));
+        if (localCart?._id?.startsWith("cart")) {
+          setLocalCart((cart) => ({
+            items: [],
+            _id: onLogout ? cart?._id : undefined,
+          }));
+        } else {
+          setLocalCart((cart) => ({
+            items: [],
+            _id: onLogout ? undefined : localCart?._id,
+          }));
+        }
       } catch (err) {
         console.error(err);
         toast.error("results.genericError");
@@ -208,15 +208,19 @@ const updateCartItems = async (
 
   try {
     const updatedItemsPromise = items.map(async (item) => {
-      const product = await sdk.product.get(item.product._id);
+      const product = await sdk.product.get(item.fromStore, item.product._id);
       if (!product) {
         return null;
       }
 
-      const orderProduct = sdk.product.convertToOrderProduct(
-        product,
-        item.product.attributes
-      );
+      const orderProduct = {
+        ...sdk.product.convertToOrderProduct(
+          product as any,
+          item.product.attributes
+        ),
+        item_id: item.product.item_id,
+        variant_id: item.product.variant_id,
+      };
 
       if (!orderProduct) {
         return null;
@@ -239,17 +243,14 @@ const updateCartItems = async (
 const updateServerCart = (
   storeId: string,
   serverCartId: string,
-  items: CartItemWithProduct[]
+  items: CartItemWithProduct[],
+  serverItems: CartItemWithProduct[]
 ) => {
-  sdk.cart.patch(serverCartId, {
-    items: items
-      .filter((item) => item.fromStore === storeId)
-      .map((item: CartItemWithProduct) => ({
-        ...item,
-        product: {
-          id: item.product._id,
-          attributes: item.product.attributes,
-        },
-      })),
-  });
+  sdk.cart.patch(
+    serverCartId,
+    {
+      items: items.filter((item) => item.fromStore === storeId),
+    },
+    { items: serverItems }
+  );
 };

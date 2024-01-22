@@ -29,7 +29,16 @@ export const AddressForm = ({
   return (
     <Box width="100%">
       <NewForm<Address>
-        schema={sdk.address.schema as any}
+        schema={sdk.utils.schema.pick(sdk.address.schema, [
+          "name",
+          "country",
+          "region",
+          "city",
+          "zip",
+          "street",
+          "person",
+          "phoneNumber",
+        ])}
         uiSchema={{
           _id: {
             "ui:widget": "hidden",
@@ -98,9 +107,15 @@ export const AddressForm = ({
         }}
         formData={formData as Address}
         onChange={({ formData }) => setFormData(formData)}
-        onSubmit={({ formData }) =>
-          address ? onPatchAddress(formData) : onAddAddress(formData)
-        }
+        onSubmit={({ formData }) => {
+          return address
+            ? onPatchAddress({
+                ...formData,
+                addressFor: userId,
+                _id: address._id,
+              })
+            : onAddAddress({ ...formData, addressFor: userId });
+        }}
         getErrorMessage={(errorName, context) =>
           t(`errors.${errorName}`, context)
         }

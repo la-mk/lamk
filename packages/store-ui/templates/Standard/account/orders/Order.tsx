@@ -38,7 +38,11 @@ export const Order = ({
           {
             urlPattern: `${urls.accountOrders}/[oid]`,
             url: `${urls.accountOrders}/${order?._id}`,
-            title: `${t("pages.order")} - ${sdk.utils.getShortId(order?._id)}`,
+            title: `${t("pages.order")} - ${
+              order.orderNumber
+                ? `#${order.orderNumber}`
+                : sdk.utils.getShortId(order._id)
+            }`,
           },
         ]}
       />

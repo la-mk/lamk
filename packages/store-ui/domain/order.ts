@@ -33,6 +33,7 @@ export interface DeliveryEvent {
 
 export interface Order {
   _id: string;
+  orderNumber: number;
   createdAt: string;
   orderedFrom: string;
   orderedBy: string;
