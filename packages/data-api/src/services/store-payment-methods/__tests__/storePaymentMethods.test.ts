@@ -143,8 +143,6 @@ describe('"storePaymentMethods" service', () => {
 
     // @ts-ignore
     expect(hashParts.hash).toBeTruthy();
-    // @ts-ignore
-    expect(hashParts.randomString).toBeTruthy();
   });
 
   it('getting a hash returns a different hash even if if hashParamsVal and  methodName are the same', async () => {
@@ -173,8 +171,6 @@ describe('"storePaymentMethods" service', () => {
 
     // @ts-ignore
     expect(hashParts1.hash).not.toBe(hashParts2.hash);
-    // @ts-ignore
-    expect(hashParts1.randomString).not.toBe(hashParts2.randomString);
   });
 
   it('getting a hash fails if the hashparamsval is less than 30 characters long', async () => {

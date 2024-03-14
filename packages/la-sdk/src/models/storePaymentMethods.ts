@@ -109,7 +109,6 @@ export interface StorePaymentMethods extends DefaultSchema {
 
 export interface HashParts {
   hash: string;
-  randomString: string;
 }
 
 export const getStorePaymentMethodsSdk = (client: Application) => {

@@ -53,7 +53,7 @@ const setProcessingDetails = async (
   ctx: HookContextWithState<{ processorInfo: PaymentMethod; order: Order }>,
 ) => {
   checkContext(ctx, 'before', ['create']);
-  const orderId = nestpay.getField('oid', ctx.data);
+  const orderId = nestpay.getField('oid', ctx.data).value;
   const processingDetails = await getProcessingDetails(
     orderId,
     ctx.app.services['orders'],
@@ -83,20 +83,20 @@ const normalizers: {
   [sdk.storePaymentMethods.PaymentProcessors.HALKBANK]: data => {
     const transaction: PaymentTransaction = {
       status: nestpay.getStatus(data),
-      amount: parseFloat(nestpay.getField('amount', data)),
+      amount: parseFloat(nestpay.getField('amount', data).value),
       currency:
         currencyIds[
-          nestpay.getField('currency', data) as keyof typeof currencyIds
+          nestpay.getField('currency', data).value as keyof typeof currencyIds
         ],
-      message: nestpay.getField('ErrMsg', data) || null,
-      processorId: nestpay.getField('xid', data),
-      userIp: nestpay.getField('clientIp', data),
+      message: nestpay.getField('ErrMsg', data).value || null,
+      processorId: nestpay.getField('xid', data).value,
+      userIp: nestpay.getField('clientIp', data).value,
       date: new Date(Date.now()).toISOString(),
     };
 
     return {
       _id: data._id,
-      forOrder: nestpay.getField('oid', data),
+      forOrder: nestpay.getField('oid', data).value,
       isSuccessful:
         transaction.status === sdk.orderPayments.TransactionStatus.APPROVED,
       transactions: [transaction],

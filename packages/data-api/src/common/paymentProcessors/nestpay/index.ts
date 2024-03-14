@@ -14,12 +14,15 @@ export const PROCESSOR_URL = env().NESTPAY_API_ENDPOINT;
 // For whatever reason fields in error responses are an array of the duplicated element, so we need a getter to abstract that.
 export const getField = (fieldName: string, data: any) => {
   const val = data[fieldName];
-  return Array.isArray(val) ? val[0] : val;
+  return {
+    fieldName: fieldName.toLowerCase(),
+    value: Array.isArray(val) ? val[0] : val,
+  };
 };
 
 export const calculateHash = (clientKey: string, paramsVal: string) => {
-  const hashData = paramsVal + clientKey;
-  const hash = crypto.createHash('sha1').update(hashData).digest('base64');
+  const hashData = paramsVal + '|' + clientKey;
+  const hash = crypto.createHash('sha512').update(hashData).digest('base64');
 
   return hash;
 };
@@ -31,8 +34,12 @@ export const getHashFromResponse = (clientKey: string, data: any) => {
   }
 
   // We need to also check that hashParamsVal is valid according to the documentation.
-  const params: string[] = hashParams.split(':');
-  const paramsVal = params.map(param => getField(param, data)).join('');
+  const params: string[] = hashParams.split('|');
+  const paramsVal = params
+    .map(param => getField(param, data))
+    .sort((a, b) => a.fieldName.localeCompare(b.fieldName))
+    .map(param => param.value)
+    .join('|');
 
   // The hash that comes from the caller has the secret client key appended, which is the only thing that guarantees the source of the transaction.
   const hash = calculateHash(clientKey, paramsVal);
@@ -40,6 +47,7 @@ export const getHashFromResponse = (clientKey: string, data: any) => {
 };
 
 export const hashValidator = (clientKey: string, data: any) => {
+  console.log(JSON.stringify(data, null, 2));
   const { HASHPARAMSVAL: hashParamsVal, HASH: hash } = data;
   const localHash = getHashFromResponse(clientKey, data);
 
@@ -57,7 +65,7 @@ export const hashValidator = (clientKey: string, data: any) => {
 export const getStatus = (data: {
   Response: 'Approved' | 'Declined' | 'Error';
 }) => {
-  const resp = getField('Response', data);
+  const resp = getField('Response', data).value;
   switch (resp) {
     case 'Approved':
       return sdk.orderPayments.TransactionStatus.APPROVED;
@@ -98,7 +106,7 @@ export const parseStatusQueryResponse = async (
     status: getStatus(parsedResponse),
     amount: 12345,
     currency: 'mkd',
-    message: getField('ErrMsg', parsedResponse),
+    message: getField('ErrMsg', parsedResponse).value,
     processorId: parsedResponse.TransId,
     date: '23456',
   };

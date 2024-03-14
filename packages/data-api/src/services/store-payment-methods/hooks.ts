@@ -17,7 +17,6 @@ import {
   StorePaymentMethods,
 } from '@la-mk/la-sdk/dist/models/storePaymentMethods';
 import { BadRequest } from '../../common/errors';
-import { v4 as uuid } from 'uuid';
 import * as nestpay from '../../common/paymentProcessors/nestpay';
 
 // TODO: Rate-limit this so store keys cannot leak.
@@ -50,13 +49,8 @@ const returnHashIfRequested = async (ctx: HookContext) => {
     throw new BadRequest('The store does not support credit card payments');
   }
 
-  const randomString = uuid();
-  const hash = nestpay.calculateHash(
-    processorInfo.clientKey,
-    hashParamsVal + randomString,
-  );
-
-  ctx.result = { hash, randomString };
+  const hash = nestpay.calculateHash(processorInfo.clientKey, hashParamsVal);
+  ctx.result = { hash };
 };
 
 const clearMethodFields = (ctx: HookContext) => {
