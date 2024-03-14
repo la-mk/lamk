@@ -28,18 +28,37 @@ export const calculateHash = (clientKey: string, paramsVal: string) => {
 };
 
 export const getHashFromResponse = (clientKey: string, data: any) => {
-  const { HASHPARAMS: hashParams } = data;
-  if (!hashParams) {
-    return null;
-  }
+  const {
+    amount,
+    clientid,
+    currency,
+    failUrl,
+    hashAlgorithm,
+    lang,
+    oid,
+    okUrl,
+    refreshtime,
+    rnd,
+    storetype,
+    TranType,
+  } = data;
 
-  // We need to also check that hashParamsVal is valid according to the documentation.
-  const params: string[] = hashParams.split('|');
-  const paramsVal = params
-    .map(param => getField(param, data))
-    .sort((a, b) => a.fieldName.localeCompare(b.fieldName))
-    .map(param => param.value)
-    .join('|');
+  // The ordering matters here, it should be alphabetical based on what we sent.
+  const params: string[] = [
+    amount,
+    clientid,
+    currency,
+    failUrl,
+    hashAlgorithm,
+    lang,
+    oid,
+    okUrl,
+    refreshtime,
+    rnd,
+    storetype,
+    TranType,
+  ];
+  const paramsVal = params.join('|');
 
   // The hash that comes from the caller has the secret client key appended, which is the only thing that guarantees the source of the transaction.
   const hash = calculateHash(clientKey, paramsVal);
@@ -47,19 +66,14 @@ export const getHashFromResponse = (clientKey: string, data: any) => {
 };
 
 export const hashValidator = (clientKey: string, data: any) => {
-  console.log(JSON.stringify(data, null, 2));
-  const { HASHPARAMSVAL: hashParamsVal, HASH: hash } = data;
+  const serverHash = data.HASH;
   const localHash = getHashFromResponse(clientKey, data);
 
-  if (!localHash?.hash || !localHash?.paramsVal || !hashParamsVal || !hash) {
+  if (!localHash?.hash || !serverHash) {
     return false;
   }
 
-  if (localHash.paramsVal !== hashParamsVal) {
-    return false;
-  }
-
-  return hash === localHash.hash;
+  return serverHash === localHash.hash;
 };
 
 export const getStatus = (data: {
