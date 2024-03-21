@@ -27,42 +27,18 @@ export const calculateHash = (clientKey: string, paramsVal: string) => {
   return hash;
 };
 
-export const getHashFromResponse = (clientKey: string, data: any) => {
-  const {
-    amount,
-    clientid,
-    currency,
-    failUrl,
-    hashAlgorithm,
-    lang,
-    oid,
-    okUrl,
-    refreshtime,
-    rnd,
-    storetype,
-    TranType,
-  } = data;
+const omitted = ['encoding', 'HASH', 'countdown', 'createdAt', '_id'];
 
-  // The ordering matters here, it should be alphabetical based on what we sent.
-  const params: string[] = [
-    amount,
-    clientid,
-    currency,
-    failUrl,
-    hashAlgorithm,
-    lang,
-    oid,
-    okUrl,
-    refreshtime,
-    rnd,
-    storetype,
-    TranType,
-  ];
-  const paramsVal = params.join('|');
+export const getHashFromResponse = (clientKey: string, data: any) => {
+  const params = Object.entries(data)
+    .filter(([key]) => !omitted.includes(key))
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([_, val]) => val)
+    .join('|');
 
   // The hash that comes from the caller has the secret client key appended, which is the only thing that guarantees the source of the transaction.
-  const hash = calculateHash(clientKey, paramsVal);
-  return { hash, paramsVal };
+  const hash = calculateHash(clientKey, params);
+  return { hash, paramsVal: params };
 };
 
 export const hashValidator = (clientKey: string, data: any) => {
