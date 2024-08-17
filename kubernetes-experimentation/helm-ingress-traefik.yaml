@@ -1,9 +1,0 @@
-apiVersion: helm.cattle.io/v1
-kind: HelmChart
-metadata:
-  name: ingress-controller-traefik
-  namespace: kube-system
-spec:
-  repo: https://helm.traefik.io/traefik
-  chart: traefik
-  targetNamespace: kube-system

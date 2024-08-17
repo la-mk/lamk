@@ -1,3 +1,7 @@
+# Intro
+
+la.mk was an e-commerce platform for Macedonia through which you could create an online store in less than 5 minutes, requiring no technical knowledge. After running the project for a while, I decided to close it down and open-source it, so here's all the code that was used to run it. At this point it's meant to be used as a reference.
+
 # Development
 
 ## Setup
@@ -42,6 +46,16 @@ You need several environment variables set locally, namely:
 - SPACES_SECRET_ACCESS_KEY
 
 You also need to add a `secrets.tfvars` file that is gitignored in both staging and production. This holds any secrets that are environment-specific.
+The `secrets.tfvars` file should have these variables set:
+
+```
+mongodb-connection-string = "<>"
+jwt-secret = "<>"
+analytics-tracking-id = "<>"
+analytics-secret-key = "<>"
+mail-service-api-key = "<>"
+search-service-api-key="<>"
+```
 
 If there is an existing deployment already, first you need to taint the services server using `terraform taint digitalocean_droplet.services-1`, update the `docker-compose.yaml` to the appropriate services versions, and then run the command below.
 
@@ -51,7 +65,7 @@ Once those are set, cd to `infra` and run `terraform apply --var-file=./stg/vars
 
 Finally, you need to whitelist the ip address of the new server that was created in MongoDB Atlas.
 
-## Adding custom domain (currently only Agnesa's)
+## Adding custom domain
 
 Go to the DB, in the store model add `customDomain`.
 In the `vars.tfvars` change the domain.
